@@ -132,21 +132,10 @@ Public Class frmSStateList
         Call mdlSStateList.SStateList_ExportTxt(".\SStateList.csv", ";", SStateList, SStateList_Pos, SStateList_Len)
     End Sub
 
-    Private Sub tsSStateListLoad_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsSStateListLoad.ButtonClick
-        SStateList_Len = mdlSStateList.SStateList_Load2(mdlMain.PCSX2_UserPath & mdlMain.PCSX2_SStateDir, _
+    Private Sub tsSStateListLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsSStateListLoad.Click
+        SStateList_Len = mdlSStateList.SStateList_Load2(My.Settings.PCSX2_UserPath & My.Settings.PCSX2_SStateDir, _
                                               mdlSStateList.SStateList, mdlSStateList.SStateList_Pos)
         ShowStatus()
     End Sub
 
-    Private Sub LoadV1ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadV1ToolStripMenuItem.Click
-        SStateList_Len = mdlSStateList.SStateList_Load1(mdlFileList.FileList, mdlFileList.FileList_Pos, mdlFileList.FileList_Len, _
-                                                       mdlSStateList.SStateList, mdlSStateList.SStateList_Pos)
-        ShowStatus()
-    End Sub
-
-    Private Sub LoadV2ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadV2ToolStripMenuItem.Click
-        SStateList_Len = mdlSStateList.SStateList_Load2(mdlMain.PCSX2_UserPath & mdlMain.PCSX2_SStateDir, _
-                                               mdlSStateList.SStateList, mdlSStateList.SStateList_Pos)
-        ShowStatus()
-    End Sub
 End Class

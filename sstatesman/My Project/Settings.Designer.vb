@@ -53,6 +53,57 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PCSX2_BinPath() As String
+            Get
+                Return CType(Me("PCSX2_BinPath"),String)
+            End Get
+            Set
+                Me("PCSX2_BinPath") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PCSX2_UserPath() As String
+            Get
+                Return CType(Me("PCSX2_UserPath"),String)
+            End Get
+            Set
+                Me("PCSX2_UserPath") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("SStates\")>  _
+        Public ReadOnly Property PCSX2_SStateDir() As String
+            Get
+                Return CType(Me("PCSX2_SStateDir"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute(".p2s")>  _
+        Public ReadOnly Property SState_Ext() As String
+            Get
+                Return CType(Me("SState_Ext"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute(".backup")>  _
+        Public ReadOnly Property SState_ExtBackup() As String
+            Get
+                Return CType(Me("SState_ExtBackup"),String)
+            End Get
+        End Property
     End Class
 End Namespace
 

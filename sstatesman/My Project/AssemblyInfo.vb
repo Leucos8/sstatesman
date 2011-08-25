@@ -29,7 +29,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyCopyright("Copyright (C) 2011 - Leucos")> 
 <Assembly: AssemblyTrademark("")> 
 
-<Assembly: ComVisible(False)>
+<Assembly: ComVisible(False)> 
 
 'Se il progetto viene esposto a COM, il GUID seguente verrà utilizzato come ID della libreria dei tipi
 <Assembly: Guid("a52fd635-4530-479a-9a47-b63bddd04ac3")> 
@@ -45,5 +45,5 @@ Imports System.Runtime.InteropServices
 ' utilizzando l'asterisco (*) come descritto di seguito:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("0.1.3.1389")> 
-<Assembly: AssemblyFileVersion("0.1.3.1389")> 
+<Assembly: AssemblyVersion("0.1.3.1395")> 
+<Assembly: AssemblyFileVersion("0.1.3.1395")> 

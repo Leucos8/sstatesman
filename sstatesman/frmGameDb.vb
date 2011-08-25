@@ -70,17 +70,17 @@ Public Class frmGameDb
     End Sub
 
     Private Sub tsGameDbLoad_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsGameDbLoad.ButtonClick
-        GameDb_Len = mdlGameDb.GameDb_Load3(mdlMain.PCSX2_BinPath & mdlMain.FileGameDb, GameDb, GameDb_Pos)
+        GameDb_Len = mdlGameDb.GameDb_Load3(My.Settings.PCSX2_BinPath & mdlMain.FileGameDb, GameDb, GameDb_Pos)
         ShowStatus()
     End Sub
 
     Private Sub LoadV1ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadV1ToolStripMenuItem.Click
-        GameDb_Len = mdlGameDb.GameDb_Load1(mdlMain.PCSX2_BinPath & mdlMain.FileGameDb, GameDb, GameDb_Pos)
+        GameDb_Len = mdlGameDb.GameDb_Load1(My.Settings.PCSX2_BinPath & mdlMain.FileGameDb, GameDb, GameDb_Pos)
         ShowStatus()
     End Sub
 
     Private Sub LoadV2ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadV2ToolStripMenuItem.Click
-        GameDb_Len = mdlGameDb.GameDb_Load2(mdlMain.PCSX2_BinPath & mdlMain.FileGameDb, GameDb, GameDb_Pos)
+        GameDb_Len = mdlGameDb.GameDb_Load2(My.Settings.PCSX2_BinPath & mdlMain.FileGameDb, GameDb, GameDb_Pos)
         ShowStatus()
     End Sub
 
@@ -168,7 +168,7 @@ Public Class frmGameDb
     End Sub
 
     Private Sub LoadV3ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadV3ToolStripMenuItem.Click
-        GameDb_Len = mdlGameDb.GameDb_Load3(mdlMain.PCSX2_BinPath & mdlMain.FileGameDb, GameDb, GameDb_Pos)
+        GameDb_Len = mdlGameDb.GameDb_Load3(My.Settings.PCSX2_BinPath & mdlMain.FileGameDb, GameDb, GameDb_Pos)
         ShowStatus()
     End Sub
 

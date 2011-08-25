@@ -89,6 +89,13 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property BgBW() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("BgBW", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property GradientBlueDarkH() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("GradientBlueDarkH", resourceCulture)

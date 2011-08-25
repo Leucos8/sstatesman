@@ -44,9 +44,6 @@ Partial Class frmSStateList
         Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.LblSearchResults = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.tsSStateListLoad = New System.Windows.Forms.ToolStripSplitButton()
-        Me.LoadV1ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LoadV2ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsSStateListUnload = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsListShow = New System.Windows.Forms.ToolStripButton()
@@ -60,6 +57,7 @@ Partial Class frmSStateList
         Me.tsRecordPrevious = New System.Windows.Forms.ToolStripButton()
         Me.tsRecordFirst = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.tsSStateListLoad = New System.Windows.Forms.ToolStripButton()
         Me.StatusStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -120,29 +118,6 @@ Partial Class frmSStateList
         Me.ToolStrip1.Size = New System.Drawing.Size(746, 25)
         Me.ToolStrip1.TabIndex = 17
         Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'tsSStateListLoad
-        '
-        Me.tsSStateListLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.tsSStateListLoad.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadV1ToolStripMenuItem, Me.LoadV2ToolStripMenuItem})
-        Me.tsSStateListLoad.Image = CType(resources.GetObject("tsSStateListLoad.Image"), System.Drawing.Image)
-        Me.tsSStateListLoad.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsSStateListLoad.Name = "tsSStateListLoad"
-        Me.tsSStateListLoad.Size = New System.Drawing.Size(102, 22)
-        Me.tsSStateListLoad.Text = "Load SStateList"
-        '
-        'LoadV1ToolStripMenuItem
-        '
-        Me.LoadV1ToolStripMenuItem.Name = "LoadV1ToolStripMenuItem"
-        Me.LoadV1ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.LoadV1ToolStripMenuItem.Text = "Load v1"
-        '
-        'LoadV2ToolStripMenuItem
-        '
-        Me.LoadV2ToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.LoadV2ToolStripMenuItem.Name = "LoadV2ToolStripMenuItem"
-        Me.LoadV2ToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.LoadV2ToolStripMenuItem.Text = "Load v2"
         '
         'tsSStateListUnload
         '
@@ -255,6 +230,15 @@ Partial Class frmSStateList
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
         Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 6)
         '
+        'tsSStateListLoad
+        '
+        Me.tsSStateListLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.tsSStateListLoad.Image = CType(resources.GetObject("tsSStateListLoad.Image"), System.Drawing.Image)
+        Me.tsSStateListLoad.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsSStateListLoad.Name = "tsSStateListLoad"
+        Me.tsSStateListLoad.Size = New System.Drawing.Size(90, 22)
+        Me.tsSStateListLoad.Text = "Load SStateList"
+        '
         'frmSStateList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -295,7 +279,5 @@ Partial Class frmSStateList
     Friend WithEvents tsRecordPrevious As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsRecordFirst As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsExportCSVTxt As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsSStateListLoad As System.Windows.Forms.ToolStripSplitButton
-    Friend WithEvents LoadV1ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents LoadV2ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsSStateListLoad As System.Windows.Forms.ToolStripButton
 End Class

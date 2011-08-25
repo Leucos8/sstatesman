@@ -13,19 +13,25 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Option Explicit On
-Public Class frmDebug
+Public Class frmMain
+
+    Protected Overrides ReadOnly Property CreateParams() As System.Windows.Forms.CreateParams
+        Get
+            Dim param As CreateParams = MyBase.CreateParams
+            param.ClassStyle += CS_DROPSHADOW
+            Return param
+        End Get
+    End Property
+
     Dim MouseBck As System.Drawing.Point
 
     Private Sub CmdGameDbUtil_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdGameDbUtil.Click
         frmGameDb.Show(Me)
     End Sub
 
-    Private Sub CmdFindFileUtil_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFileListUtil.Click
-        frmFileList.Show(Me)
-    End Sub
-
     Private Sub FrmDebug_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         mdlGameDb.GameDb_Len = -1
+        Me.lblWindowVersion.Text = System.String.Format("version {0}", My.Application.Info.Version.ToString)
     End Sub
 
     Private Sub cmdWindowClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdWindowClose.Click
@@ -64,23 +70,22 @@ Public Class frmDebug
     End Sub
 
     Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
-        If mdlMain.PCSX2_BinPath = "" Then
-            mdlMain.PCSX2_BinPath = InputBox("PCSX2 BinPath:")
-        End If
-        If mdlMain.PCSX2_UserPath = "" Then
-            mdlMain.PCSX2_UserPath = InputBox("PCSX2 UserPath:")
-        End If
+        mdlGameDb.GameDb_Len = mdlGameDb.GameDb_Load3(My.Settings.PCSX2_BinPath & mdlMain.FileGameDb, _
+                                                      mdlGameDb.GameDb, _
+                                                      mdlGameDb.GameDb_Pos)
 
-        GameDb_Len = mdlGameDb.GameDb_Load3(mdlMain.PCSX2_BinPath & mdlMain.FileGameDb, GameDb, GameDb_Pos)
-        'FileList_Len = mdlFileList.FileList_Load(mdlMain.PCSX2_UserPath & mdlMain.PCSX2_SStateDir, FileList, FileList_Pos)
-        'mdlSStateList.SStateList_Len = mdlSStateList.SStateList_Load(mdlFileList.FileList, mdlFileList.FileList_Pos, mdlFileList.FileList_Len, _
-        '                                               mdlSStateList.SStateList, mdlSStateList.SStateList_Pos)
-        mdlSStateList.SStateList_Len = mdlSStateList.SStateList_Load2(mdlMain.PCSX2_UserPath & mdlMain.PCSX2_SStateDir, _
-                                                       mdlSStateList.SStateList, mdlSStateList.SStateList_Pos)
+        mdlSStateList.SStateList_Len = mdlSStateList.SStateList_Load2(My.Settings.PCSX2_UserPath & My.Settings.PCSX2_SStateDir, _
+                                                                      mdlSStateList.SStateList, _
+                                                                      mdlSStateList.SStateList_Pos)
 
-        mdlSStateList.SStateGameIndex_Len = mdlSStateList.SStateGameIndex_Load(mdlSStateList.SStateList, mdlSStateList.SStateList_Pos, mdlSStateList.SStateList_Len, _
-                                                   GameDb, GameDb_Pos, GameDb_Len, _
-                                                   mdlSStateList.SStateGameIndex, mdlSStateList.SStateGameIndex_Pos)
+        mdlSStateList.SStateGameIndex_Len = mdlSStateList.SStateGameIndex_Load(mdlSStateList.SStateList, _
+                                                                               mdlSStateList.SStateList_Pos, _
+                                                                               mdlSStateList.SStateList_Len, _
+                                                                               mdlGameDb.GameDb, _
+                                                                               mdlGameDb.GameDb_Pos, _
+                                                                               mdlGameDb.GameDb_Len, _
+                                                                               mdlSStateList.SStateGameIndex, _
+                                                                               mdlSStateList.SStateGameIndex_Pos)
         Me.lvwGameList.Items.Clear()
         Dim iTmp As System.Int32
         For mdlSStateList.SStateGameIndex_Pos = 0 To mdlSStateList.SStateGameIndex_Len
@@ -112,8 +117,15 @@ Public Class frmDebug
                 .Add(Trim(SStateListExtract(SStateListExtract_Pos).SStateSerial))
             End With
 
-            'List2.AddItem aSStateList_Extract(laSStateList_ExtractPos).SStateSlot & vbTab & aSStateList_Extract(laSStateList_ExtractPos).SStateBackup & vbTab & Trim(aSStateList_Extract(laSStateList_ExtractPos).FileName) & vbTab & Format((aSStateList_Extract(laSStateList_ExtractPos).FileSize / 1024 / 1024), "0.00 MiB") & vbTab & aSStateList_Extract(laSStateList_ExtractPos).FileDateCreation
         Next mdlSStateList.SStateListExtract_Pos
         mdlSStateList.SStateListExtract_Pos = 0
+    End Sub
+
+    Private Sub Button2_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAbout.Click
+        frmAbout.ShowDialog(Me)
+    End Sub
+
+    Private Sub cmdSettings_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSettings.Click
+        frmSettings.ShowDialog(Me)
     End Sub
 End Class

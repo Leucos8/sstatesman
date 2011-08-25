@@ -13,7 +13,7 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmDebug
+Partial Class frmMain
     Inherits System.Windows.Forms.Form
 
     'Form esegue l'override del metodo Dispose per pulire l'elenco dei componenti.
@@ -36,19 +36,19 @@ Partial Class frmDebug
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmDebug))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.cmdGameDbUtil = New System.Windows.Forms.Button()
-        Me.cmdFileListUtil = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
+        Me.lblWindowTitle = New System.Windows.Forms.Label()
+        Me.blWindowDescription = New System.Windows.Forms.Label()
+        Me.lblWindowVersion = New System.Windows.Forms.Label()
         Me.panelWindowTitle = New System.Windows.Forms.Panel()
+        Me.cmdSettings = New System.Windows.Forms.Button()
+        Me.cmdAbout = New System.Windows.Forms.Button()
         Me.cmdWindowMinimize = New System.Windows.Forms.Button()
         Me.cmdWindowMaximize = New System.Windows.Forms.Button()
         Me.cmdWindowClose = New System.Windows.Forms.Button()
         Me.imgWindowGradientLeft = New System.Windows.Forms.PictureBox()
-        Me.imgWindowGradientTop = New System.Windows.Forms.PictureBox()
+        Me.imgWindowGradientIcon = New System.Windows.Forms.PictureBox()
         Me.cmdSStateListUtil = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.lvwGameList = New System.Windows.Forms.ListView()
@@ -65,7 +65,7 @@ Partial Class frmDebug
         Me.Button1 = New System.Windows.Forms.Button()
         Me.panelWindowTitle.SuspendLayout()
         CType(Me.imgWindowGradientLeft, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.imgWindowGradientTop, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -81,94 +81,104 @@ Partial Class frmDebug
         Me.cmdGameDbUtil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdGameDbUtil.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdGameDbUtil.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdGameDbUtil.Location = New System.Drawing.Point(310, 76)
+        Me.cmdGameDbUtil.Location = New System.Drawing.Point(422, 76)
         Me.cmdGameDbUtil.Name = "cmdGameDbUtil"
         Me.cmdGameDbUtil.Size = New System.Drawing.Size(100, 23)
         Me.cmdGameDbUtil.TabIndex = 0
         Me.cmdGameDbUtil.Text = "GAMEDB UTIL"
         Me.cmdGameDbUtil.UseVisualStyleBackColor = False
         '
-        'cmdFileListUtil
+        'lblWindowTitle
         '
-        Me.cmdFileListUtil.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdFileListUtil.BackColor = System.Drawing.Color.Transparent
-        Me.cmdFileListUtil.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdFileListUtil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdFileListUtil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdFileListUtil.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdFileListUtil.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdFileListUtil.Location = New System.Drawing.Point(416, 76)
-        Me.cmdFileListUtil.Name = "cmdFileListUtil"
-        Me.cmdFileListUtil.Size = New System.Drawing.Size(100, 23)
-        Me.cmdFileListUtil.TabIndex = 1
-        Me.cmdFileListUtil.Text = "FILELIST UTIL"
-        Me.cmdFileListUtil.UseVisualStyleBackColor = False
+        Me.lblWindowTitle.AutoSize = True
+        Me.lblWindowTitle.BackColor = System.Drawing.Color.Transparent
+        Me.lblWindowTitle.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblWindowTitle.Location = New System.Drawing.Point(28, 20)
+        Me.lblWindowTitle.Name = "lblWindowTitle"
+        Me.lblWindowTitle.Size = New System.Drawing.Size(122, 30)
+        Me.lblWindowTitle.TabIndex = 4
+        Me.lblWindowTitle.Text = "SStatesMan"
         '
-        'Label1
+        'blWindowDescription
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.BackColor = System.Drawing.Color.Transparent
-        Me.Label1.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(30, 12)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(122, 30)
-        Me.Label1.TabIndex = 4
-        Me.Label1.Text = "SStatesMan"
+        Me.blWindowDescription.AutoSize = True
+        Me.blWindowDescription.BackColor = System.Drawing.Color.Transparent
+        Me.blWindowDescription.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.blWindowDescription.ForeColor = System.Drawing.Color.Gray
+        Me.blWindowDescription.Location = New System.Drawing.Point(30, 50)
+        Me.blWindowDescription.Name = "blWindowDescription"
+        Me.blWindowDescription.Size = New System.Drawing.Size(194, 13)
+        Me.blWindowDescription.TabIndex = 5
+        Me.blWindowDescription.Text = "a savestate managing tool for PCSX2"
         '
-        'Label2
+        'lblWindowVersion
         '
-        Me.Label2.AutoSize = True
-        Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(30, 47)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(194, 13)
-        Me.Label2.TabIndex = 5
-        Me.Label2.Text = "a savestate managing tool for PCSX2"
-        '
-        'Label3
-        '
-        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label3.AutoSize = True
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label3.Location = New System.Drawing.Point(429, 4)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(114, 12)
-        Me.Label3.TabIndex = 7
-        Me.Label3.Text = "CONFIGURATION  |  HELP"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
-        'Label4
-        '
-        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label4.AutoSize = True
-        Me.Label4.BackColor = System.Drawing.Color.Transparent
-        Me.Label4.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label4.Location = New System.Drawing.Point(465, 20)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(78, 12)
-        Me.Label4.TabIndex = 8
-        Me.Label4.Text = "version 0.1.3 alpha"
-        Me.Label4.TextAlign = System.Drawing.ContentAlignment.TopRight
+        Me.lblWindowVersion.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblWindowVersion.AutoSize = True
+        Me.lblWindowVersion.BackColor = System.Drawing.Color.Transparent
+        Me.lblWindowVersion.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblWindowVersion.Location = New System.Drawing.Point(471, 20)
+        Me.lblWindowVersion.Name = "lblWindowVersion"
+        Me.lblWindowVersion.Size = New System.Drawing.Size(78, 12)
+        Me.lblWindowVersion.TabIndex = 8
+        Me.lblWindowVersion.Text = "version 0.1.2 alpha"
+        Me.lblWindowVersion.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'panelWindowTitle
         '
         Me.panelWindowTitle.BackColor = System.Drawing.Color.Transparent
+        Me.panelWindowTitle.BackgroundImage = Global.sstatesman.My.Resources.Resources.Bg2
+        Me.panelWindowTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.panelWindowTitle.Controls.Add(Me.cmdSettings)
+        Me.panelWindowTitle.Controls.Add(Me.cmdAbout)
         Me.panelWindowTitle.Controls.Add(Me.cmdWindowMinimize)
         Me.panelWindowTitle.Controls.Add(Me.cmdWindowMaximize)
         Me.panelWindowTitle.Controls.Add(Me.cmdWindowClose)
         Me.panelWindowTitle.Controls.Add(Me.imgWindowGradientLeft)
-        Me.panelWindowTitle.Controls.Add(Me.Label1)
-        Me.panelWindowTitle.Controls.Add(Me.Label2)
-        Me.panelWindowTitle.Controls.Add(Me.imgWindowGradientTop)
-        Me.panelWindowTitle.Controls.Add(Me.Label4)
-        Me.panelWindowTitle.Controls.Add(Me.Label3)
+        Me.panelWindowTitle.Controls.Add(Me.lblWindowTitle)
+        Me.panelWindowTitle.Controls.Add(Me.blWindowDescription)
+        Me.panelWindowTitle.Controls.Add(Me.imgWindowGradientIcon)
+        Me.panelWindowTitle.Controls.Add(Me.lblWindowVersion)
         Me.panelWindowTitle.Dock = System.Windows.Forms.DockStyle.Top
         Me.panelWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.panelWindowTitle.Location = New System.Drawing.Point(0, 0)
         Me.panelWindowTitle.Name = "panelWindowTitle"
-        Me.panelWindowTitle.Size = New System.Drawing.Size(634, 70)
+        Me.panelWindowTitle.Size = New System.Drawing.Size(640, 70)
         Me.panelWindowTitle.TabIndex = 12
+        '
+        'cmdSettings
+        '
+        Me.cmdSettings.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdSettings.BackColor = System.Drawing.Color.Transparent
+        Me.cmdSettings.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdSettings.FlatAppearance.BorderSize = 0
+        Me.cmdSettings.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdSettings.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdSettings.Location = New System.Drawing.Point(424, 0)
+        Me.cmdSettings.Name = "cmdSettings"
+        Me.cmdSettings.Size = New System.Drawing.Size(65, 20)
+        Me.cmdSettings.TabIndex = 16
+        Me.cmdSettings.Text = "SETTINGS"
+        Me.cmdSettings.UseVisualStyleBackColor = False
+        '
+        'cmdAbout
+        '
+        Me.cmdAbout.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdAbout.BackColor = System.Drawing.Color.Transparent
+        Me.cmdAbout.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdAbout.FlatAppearance.BorderSize = 0
+        Me.cmdAbout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdAbout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdAbout.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdAbout.Location = New System.Drawing.Point(491, 0)
+        Me.cmdAbout.Name = "cmdAbout"
+        Me.cmdAbout.Size = New System.Drawing.Size(58, 20)
+        Me.cmdAbout.TabIndex = 15
+        Me.cmdAbout.Text = "ABOUT"
+        Me.cmdAbout.UseVisualStyleBackColor = False
         '
         'cmdWindowMinimize
         '
@@ -180,7 +190,7 @@ Partial Class frmDebug
         Me.cmdWindowMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdWindowMinimize.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdWindowMinimize.Image = CType(resources.GetObject("cmdWindowMinimize.Image"), System.Drawing.Image)
-        Me.cmdWindowMinimize.Location = New System.Drawing.Point(587, 4)
+        Me.cmdWindowMinimize.Location = New System.Drawing.Point(593, 4)
         Me.cmdWindowMinimize.Name = "cmdWindowMinimize"
         Me.cmdWindowMinimize.Size = New System.Drawing.Size(15, 15)
         Me.cmdWindowMinimize.TabIndex = 15
@@ -196,7 +206,7 @@ Partial Class frmDebug
         Me.cmdWindowMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdWindowMaximize.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdWindowMaximize.Image = CType(resources.GetObject("cmdWindowMaximize.Image"), System.Drawing.Image)
-        Me.cmdWindowMaximize.Location = New System.Drawing.Point(601, 4)
+        Me.cmdWindowMaximize.Location = New System.Drawing.Point(607, 4)
         Me.cmdWindowMaximize.Name = "cmdWindowMaximize"
         Me.cmdWindowMaximize.Size = New System.Drawing.Size(15, 15)
         Me.cmdWindowMaximize.TabIndex = 14
@@ -212,7 +222,7 @@ Partial Class frmDebug
         Me.cmdWindowClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdWindowClose.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdWindowClose.Image = CType(resources.GetObject("cmdWindowClose.Image"), System.Drawing.Image)
-        Me.cmdWindowClose.Location = New System.Drawing.Point(615, 4)
+        Me.cmdWindowClose.Location = New System.Drawing.Point(621, 4)
         Me.cmdWindowClose.Name = "cmdWindowClose"
         Me.cmdWindowClose.Size = New System.Drawing.Size(15, 15)
         Me.cmdWindowClose.TabIndex = 13
@@ -222,23 +232,23 @@ Partial Class frmDebug
         '
         Me.imgWindowGradientLeft.BackgroundImage = Global.sstatesman.My.Resources.Resources.GradientBlueDarkH
         Me.imgWindowGradientLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.imgWindowGradientLeft.Location = New System.Drawing.Point(0, 12)
+        Me.imgWindowGradientLeft.Location = New System.Drawing.Point(0, 24)
         Me.imgWindowGradientLeft.Name = "imgWindowGradientLeft"
-        Me.imgWindowGradientLeft.Size = New System.Drawing.Size(24, 48)
+        Me.imgWindowGradientLeft.Size = New System.Drawing.Size(24, 40)
         Me.imgWindowGradientLeft.TabIndex = 3
         Me.imgWindowGradientLeft.TabStop = False
         '
-        'imgWindowGradientTop
+        'imgWindowGradientIcon
         '
-        Me.imgWindowGradientTop.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.imgWindowGradientTop.BackgroundImage = Global.sstatesman.My.Resources.Resources.GradientBlueDarkH
-        Me.imgWindowGradientTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.imgWindowGradientTop.Image = Global.sstatesman.My.Resources.Resources.Ico32tmp
-        Me.imgWindowGradientTop.Location = New System.Drawing.Point(549, 0)
-        Me.imgWindowGradientTop.Name = "imgWindowGradientTop"
-        Me.imgWindowGradientTop.Size = New System.Drawing.Size(32, 32)
-        Me.imgWindowGradientTop.TabIndex = 6
-        Me.imgWindowGradientTop.TabStop = False
+        Me.imgWindowGradientIcon.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.imgWindowGradientIcon.BackgroundImage = Global.sstatesman.My.Resources.Resources.GradientBlueDarkH
+        Me.imgWindowGradientIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.imgWindowGradientIcon.Image = Global.sstatesman.My.Resources.Resources.Ico32tmp
+        Me.imgWindowGradientIcon.Location = New System.Drawing.Point(555, 0)
+        Me.imgWindowGradientIcon.Name = "imgWindowGradientIcon"
+        Me.imgWindowGradientIcon.Size = New System.Drawing.Size(32, 32)
+        Me.imgWindowGradientIcon.TabIndex = 6
+        Me.imgWindowGradientIcon.TabStop = False
         '
         'cmdSStateListUtil
         '
@@ -249,7 +259,7 @@ Partial Class frmDebug
         Me.cmdSStateListUtil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStateListUtil.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStateListUtil.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSStateListUtil.Location = New System.Drawing.Point(522, 76)
+        Me.cmdSStateListUtil.Location = New System.Drawing.Point(528, 76)
         Me.cmdSStateListUtil.Name = "cmdSStateListUtil"
         Me.cmdSStateListUtil.Size = New System.Drawing.Size(100, 23)
         Me.cmdSStateListUtil.TabIndex = 13
@@ -272,8 +282,8 @@ Partial Class frmDebug
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.lvwSStatesList)
-        Me.SplitContainer1.Size = New System.Drawing.Size(610, 215)
-        Me.SplitContainer1.SplitterDistance = 115
+        Me.SplitContainer1.Size = New System.Drawing.Size(616, 283)
+        Me.SplitContainer1.SplitterDistance = 120
         Me.SplitContainer1.TabIndex = 14
         '
         'lvwGameList
@@ -290,7 +300,7 @@ Partial Class frmDebug
         Me.lvwGameList.Location = New System.Drawing.Point(0, 0)
         Me.lvwGameList.MultiSelect = False
         Me.lvwGameList.Name = "lvwGameList"
-        Me.lvwGameList.Size = New System.Drawing.Size(610, 115)
+        Me.lvwGameList.Size = New System.Drawing.Size(616, 120)
         Me.lvwGameList.TabIndex = 0
         Me.lvwGameList.UseCompatibleStateImageBehavior = False
         Me.lvwGameList.View = System.Windows.Forms.View.Details
@@ -313,6 +323,7 @@ Partial Class frmDebug
         'ColumnHeader9
         '
         Me.ColumnHeader9.Text = "Total Size (bck)"
+        Me.ColumnHeader9.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.ColumnHeader9.Width = 160
         '
         'lvwSStatesList
@@ -328,7 +339,7 @@ Partial Class frmDebug
         Me.lvwSStatesList.Location = New System.Drawing.Point(0, 0)
         Me.lvwSStatesList.MultiSelect = False
         Me.lvwSStatesList.Name = "lvwSStatesList"
-        Me.lvwSStatesList.Size = New System.Drawing.Size(610, 96)
+        Me.lvwSStatesList.Size = New System.Drawing.Size(616, 159)
         Me.lvwSStatesList.TabIndex = 1
         Me.lvwSStatesList.UseCompatibleStateImageBehavior = False
         Me.lvwSStatesList.View = System.Windows.Forms.View.Details
@@ -373,29 +384,29 @@ Partial Class frmDebug
         Me.Button1.Text = "LOAD"
         Me.Button1.UseVisualStyleBackColor = False
         '
-        'frmDebug
+        'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), System.Drawing.Image)
-        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.ClientSize = New System.Drawing.Size(634, 332)
+        Me.BackgroundImage = Global.sstatesman.My.Resources.Resources.BgBW
+        Me.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ClientSize = New System.Drawing.Size(640, 400)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.cmdSStateListUtil)
         Me.Controls.Add(Me.panelWindowTitle)
-        Me.Controls.Add(Me.cmdFileListUtil)
         Me.Controls.Add(Me.cmdGameDbUtil)
         Me.DoubleBuffered = True
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.DimGray
-        Me.Name = "frmDebug"
-        Me.Text = "frmDebug"
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Name = "frmMain"
+        Me.Text = "SStatesMan"
         Me.panelWindowTitle.ResumeLayout(False)
         Me.panelWindowTitle.PerformLayout()
         CType(Me.imgWindowGradientLeft, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.imgWindowGradientTop, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -404,13 +415,11 @@ Partial Class frmDebug
 
     End Sub
     Friend WithEvents cmdGameDbUtil As System.Windows.Forms.Button
-    Friend WithEvents cmdFileListUtil As System.Windows.Forms.Button
     Friend WithEvents imgWindowGradientLeft As System.Windows.Forms.PictureBox
-    Friend WithEvents Label1 As System.Windows.Forms.Label
-    Friend WithEvents Label2 As System.Windows.Forms.Label
-    Friend WithEvents imgWindowGradientTop As System.Windows.Forms.PictureBox
-    Friend WithEvents Label3 As System.Windows.Forms.Label
-    Friend WithEvents Label4 As System.Windows.Forms.Label
+    Friend WithEvents lblWindowTitle As System.Windows.Forms.Label
+    Friend WithEvents blWindowDescription As System.Windows.Forms.Label
+    Friend WithEvents imgWindowGradientIcon As System.Windows.Forms.PictureBox
+    Friend WithEvents lblWindowVersion As System.Windows.Forms.Label
     Friend WithEvents panelWindowTitle As System.Windows.Forms.Panel
     Friend WithEvents cmdWindowMaximize As System.Windows.Forms.Button
     Friend WithEvents cmdWindowClose As System.Windows.Forms.Button
@@ -429,4 +438,6 @@ Partial Class frmDebug
     Friend WithEvents ColumnHeader7 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader8 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader9 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents cmdAbout As System.Windows.Forms.Button
+    Friend WithEvents cmdSettings As System.Windows.Forms.Button
 End Class

@@ -12,13 +12,13 @@
 '
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
-Option Explicit On
-Module mdlMain
-    Public CS_DROPSHADOW As Int32 = &H20000
+Public Class frmSettings
+    Protected Overrides ReadOnly Property CreateParams() As System.Windows.Forms.CreateParams
+        Get
+            Dim param As CreateParams = MyBase.CreateParams
+            param.ClassStyle += CS_DROPSHADOW
+            Return param
+        End Get
+    End Property
 
-    Public Const FileGameDb As System.String = "GameIndex.dbf"
-
-    'Public Const PCSX2_SStateDir As System.String = "SStates\"
-    'Public Const SState_Ext As System.String = ".p2s"
-    'Public Const SState_ExtBackup As System.String = ".backup"
-End Module
+End Class

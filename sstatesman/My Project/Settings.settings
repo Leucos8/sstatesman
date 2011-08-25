@@ -1,5 +1,21 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" UseMySettingsClassName="true">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
   <Profiles />
-  <Settings />
+  <Settings>
+    <Setting Name="PCSX2_BinPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PCSX2_UserPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="PCSX2_SStateDir" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SStates\</Value>
+    </Setting>
+    <Setting Name="SState_Ext" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.p2s</Value>
+    </Setting>
+    <Setting Name="SState_ExtBackup" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">.backup</Value>
+    </Setting>
+  </Settings>
 </SettingsFile>

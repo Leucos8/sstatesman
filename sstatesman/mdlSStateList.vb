@@ -15,8 +15,6 @@
 Option Explicit On
 Module mdlSStateList
 
-    Public Const cSStateListFileTab = "\SStateListTmp.txt"  'Converted GameIndex (with DOS/Win endline) location e filename (tab separated value)
-
     Public Structure rSStateList
         Friend FileInfo As System.IO.FileInfo
         Friend SStateSlot As System.Byte
@@ -60,8 +58,8 @@ Module mdlSStateList
         pSStateList_Pos = -1
 
         For pFileList_Pos = 0 To pFileList_Len
-            If (pFileList(pFileList_Pos).Extension = mdlMain.SState_Ext) Or _
-               (pFileList(pFileList_Pos).Extension = mdlMain.SState_ExtBackup) Then
+            If (pFileList(pFileList_Pos).Extension = My.Settings.SState_Ext) Or _
+               (pFileList(pFileList_Pos).Extension = My.Settings.SState_ExtBackup) Then
 
                 pSStateList_Pos = pSStateList_Pos + 1
 
@@ -69,7 +67,7 @@ Module mdlSStateList
                                                                    InStr(pFileList(pFileList_Pos).Name, ".") + 1, 2))   'Stores the slot value
                 If Err.Number = 13 Or (Not (pSStateList(pSStateList_Pos).SStateSlot >= 0) _
                                        And (pSStateList(pSStateList_Pos).SStateSlot <= 9)) Then     'Invalid parameter
-                    MsgBox("A " & mdlMain.SState_Ext & " file is being skipped, unable to determine the saveslot number: " _
+                    MsgBox("A " & My.Settings.SState_Ext & " file is being skipped, unable to determine the saveslot number: " _
                            & pFileList(pFileList_Pos).Name & vbCrLf & Err.Number & " " & Err.Description, vbCritical, "Errore")
                     Err.Clear()
                     pSStateList_Pos = pSStateList_Pos - 1
@@ -82,9 +80,9 @@ Module mdlSStateList
                 pSStateList(pSStateList_Pos).FDeleted = False                   'The underlying file is not deleted
                 pSStateList(pSStateList_Pos).arrayPosition = pSStateList_Pos    'Array position, for reference after the extraction
                 Select Case pSStateList(pSStateList_Pos).FileInfo.Extension
-                    Case mdlMain.SState_Ext
+                    Case My.Settings.SState_Ext
                         pSStateList(pSStateList_Pos).SStateBackup = False
-                    Case mdlMain.SState_ExtBackup
+                    Case My.Settings.SState_ExtBackup
                         pSStateList(pSStateList_Pos).SStateBackup = True
                 End Select
 
@@ -113,7 +111,7 @@ Purge:
 
         For Each FileFound As System.String In My.Computer.FileSystem.GetFiles(pPath)
             FileTmp = My.Computer.FileSystem.GetFileInfo(FileFound)
-            If FileTmp.Extension = mdlMain.SState_Ext Or FileTmp.Extension = mdlMain.SState_ExtBackup Then
+            If FileTmp.Extension = My.Settings.SState_Ext Or FileTmp.Extension = My.Settings.SState_ExtBackup Then
                 If (pSStateList.GetUpperBound(0) - pSStateList_Pos) <= 2 Then            'Resize of the array. But not too often
                     ReDim Preserve pSStateList(0 To pSStateList.GetUpperBound(0) + 4)
                 End If
@@ -126,7 +124,7 @@ Purge:
                                                                    InStr(pSStateList(pSStateList_Pos).FileInfo.Name, ".") + 1, 2))   'Stores the slot value
                 If Err.Number = 13 Or (Not (pSStateList(pSStateList_Pos).SStateSlot >= 0) _
                                        And (pSStateList(pSStateList_Pos).SStateSlot <= 9)) Then     'Invalid parameter
-                    MsgBox("A " & mdlMain.SState_Ext & " file is being skipped, unable to determine the saveslot number: " _
+                    MsgBox("A " & My.Settings.SState_Ext & " file is being skipped, unable to determine the saveslot number: " _
                            & pSStateList(pSStateList_Pos).FileInfo.Name & vbCrLf & Err.Number & " " & Err.Description, vbCritical, "Errore")
                     Err.Clear()
                     pSStateList_Pos = pSStateList_Pos - 1
@@ -138,9 +136,9 @@ Purge:
                 pSStateList(pSStateList_Pos).FDeleted = False                   'The underlying file is not deleted
                 pSStateList(pSStateList_Pos).arrayPosition = pSStateList_Pos    'Array position, for reference after the extraction
                 Select Case pSStateList(pSStateList_Pos).FileInfo.Extension
-                    Case mdlMain.SState_Ext
+                    Case My.Settings.SState_Ext
                         pSStateList(pSStateList_Pos).SStateBackup = False
-                    Case mdlMain.SState_ExtBackup
+                    Case My.Settings.SState_ExtBackup
                         pSStateList(pSStateList_Pos).SStateBackup = True
                 End Select
 
