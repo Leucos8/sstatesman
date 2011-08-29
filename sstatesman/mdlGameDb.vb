@@ -43,9 +43,9 @@ Module mdlGameDb
     Const rGameDb_RStatus6 As System.Byte = 6   '   6   (110)           name    region
     Const rGameDb_RStatus7 As System.Byte = 7   '   7   (111)   serial  name    region
 
-    Public GameDb() As MdlGameDb.rGameDb    'The array that store the game infos read from the file. Size is variable to conserve memory, use "Redim" to set the start size and then "Redim Preserve" to resize
-    Public GameDb_Pos As System.Int64       'Currently there are around 9000 games in the file, it should be safe to use an integer here, but is better to use a Long (since UBound and other functions give longs as results)
-    Public GameDb_Len As System.Int64       'Occupied record in the array
+    Public GameDb(3) As mdlGameDb.rGameDb    'The array that store the game infos read from the file. Size is variable to conserve memory, use "Redim" to set the start size and then "Redim Preserve" to resize
+    Public GameDb_Pos As System.Int32 = 0   'Currently there are around 9000 games in the file, it should be safe to use an integer here, but is better to use a Long (since UBound and other functions give longs as results)
+    Public GameDb_Len As System.Int32 = 0   'Occupied record in the array
 
     Public Function FileGameDb_Convert(ByVal pFileGameDb_Loc As System.String, _
                                        ByVal pFileGameDb_Win_Loc As System.String _
@@ -64,9 +64,9 @@ Module mdlGameDb
     End Function
 
     Public Function GameDb_Load1(ByVal pFileGameDb_Loc As System.String, _
-                                 ByRef pGameDb() As MdlGameDb.rGameDb, _
-                                 ByRef pGameDb_Pos As System.Int64 _
-                                 ) As System.Int64
+                                 ByRef pGameDb() As mdlGameDb.rGameDb, _
+                                 ByRef pGameDb_Pos As System.Int32 _
+                                 ) As System.Int32
         'Creates the array from the converted GameDB. Return Value: array status/lenght
         '   ByVal   pFileGameDb_Loc             Path and file name of input database (converted),
         '   ByRef   pGameDb                     The dinamic array of the GameDB
@@ -76,12 +76,12 @@ Module mdlGameDb
 
         Dim sTmp1 As System.String                  'Temp string #1
 
-        Dim rGameDbTmp As MdlGameDb.rGameDb         'Record reconstructed from the file
+        Dim rGameDbTmp As mdlGameDb.rGameDb         'Record reconstructed from the file
         Dim FileGameDb_Line_SepPos As System.Int32  'Position of the record separator, "=".
         Dim FileGameDb_Line_ComPos As System.Int32  'Start position of comments.
 
         'Variables initialization
-        MdlGameDb.GameDb_Unload(pGameDb, pGameDb_Pos)   'The array is cleared/initialized
+        mdlGameDb.GameDb_Unload(pGameDb, pGameDb_Pos)   'The array is cleared/initialized
         With rGameDbTmp                                 'Temp record initialization
             .Serial = ""
             .Name = ""
@@ -159,9 +159,9 @@ Module mdlGameDb
     End Function
 
     Public Function GameDb_Load2(ByVal pFileGameDb_Loc As System.String, _
-                                 ByRef pGameDb() As MdlGameDb.rGameDb, _
-                                 ByRef pGameDb_Pos As System.Int64 _
-                                 ) As System.Int64
+                                 ByRef pGameDb() As mdlGameDb.rGameDb, _
+                                 ByRef pGameDb_Pos As System.Int32 _
+                                 ) As System.Int32
         'Creates the array from the converted GameDB, lite version. Return Value: array status/lenght
         '   ByVal   pFileGameDb_Loc             Path and file name of input database
         '   ByRef   pGameDb                     The dinamic array of the GameDB
@@ -169,10 +169,10 @@ Module mdlGameDb
 
         Dim sFileGameDbLine As System.String    'Line read from FileGameDatabaseTmp
         Dim sTmp1 As System.String              'Temp string #1
-        Dim rGameDbTmp As MdlGameDb.rGameDb     'Record reconstructed from the file
+        Dim rGameDbTmp As mdlGameDb.rGameDb     'Record reconstructed from the file
 
         'Variables initialization
-        MdlGameDb.GameDb_Unload(pGameDb, pGameDb_Pos)   'The array is cleared/initialized
+        mdlGameDb.GameDb_Unload(pGameDb, pGameDb_Pos)   'The array is cleared/initialized
         With rGameDbTmp                                 'Temp record initialization
             .Serial = ""
             .Name = ""
@@ -223,22 +223,22 @@ Module mdlGameDb
     End Function
 
     Public Function GameDb_Load3(ByVal pFileGameDb_Loc As System.String, _
-                                 ByRef pGameDb() As MdlGameDb.rGameDb, _
-                                 ByRef pGameDb_Pos As System.Int64 _
-                                 ) As System.Int64
+                                 ByRef pGameDb() As mdlGameDb.rGameDb, _
+                                 ByRef pGameDb_Pos As System.Int32 _
+                                 ) As System.Int32
         'Creates the array from the converted GameDB. Return Value: array status/lenght
         '   ByVal   pFileGameDb_Loc             Path and file name of input database (converted),
         '   ByRef   pGameDb                     The dinamic array of the GameDB
         '   ByRef   pGamedb_Pos                 Position index of the array
 
         Dim sTmp1 As System.String()                    'Temp string #1
-        MdlGameDb.GameDb_Unload(pGameDb, pGameDb_Pos)   'The array is cleared/initialized
-
-        Using FileGameDb_Reader = My.Computer.FileSystem.OpenTextFieldParser(pFileGameDb_Loc)
-            FileGameDb_Reader.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited
-            FileGameDb_Reader.Delimiters = {FileGameDb_FieldSep, FileGameDb_CommentStyle1, FileGameDb_CommentStyle2, FileGameDb_CommentStyle3}
-            While Not FileGameDb_Reader.EndOfData
-                Try
+        If My.Computer.FileSystem.FileExists(pFileGameDb_Loc) Then
+            mdlGameDb.GameDb_Unload(pGameDb, pGameDb_Pos)   'The array is cleared/initialized
+            Using FileGameDb_Reader = My.Computer.FileSystem.OpenTextFieldParser(pFileGameDb_Loc)
+                FileGameDb_Reader.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited
+                FileGameDb_Reader.Delimiters = {FileGameDb_FieldSep}
+                While Not FileGameDb_Reader.EndOfData
+                    'Try
                     sTmp1 = FileGameDb_Reader.ReadFields()
                     Select Case sTmp1(0)
                         Case FileGameDb_FieldName1
@@ -263,33 +263,38 @@ Module mdlGameDb
                         Case FileGameDb_FieldName4
                             pGameDb(pGameDb_Pos - 1).Compat = CByte(sTmp1(1))
                     End Select
-                Catch ex As Exception
+                    'Catch ex As Exception
                     'MsgBox("Ehi, riga corrotta!")
-                End Try
-            End While
-        End Using
+                    'End Try
+                End While
+            End Using
+        Else
+            MsgBox("Some kinda failure during GameDB loading. File not found or inaccessible in the configured path.", MsgBoxStyle.Critical, "Error")
+            GameDb_Pos = -1
+        End If
         pGameDb_Pos = pGameDb_Pos - 1
         GameDb_Load3 = pGameDb_Pos
         pGameDb_Pos = 0
     End Function
 
-    Public Function GameDb_Unload(ByRef pGameDb() As MdlGameDb.rGameDb, _
-                                  ByRef pGameDb_Pos As System.Int64 _
-                                  ) As System.Int64
+    Public Function GameDb_Unload(ByRef pGameDb() As mdlGameDb.rGameDb, _
+                                  ByRef pGameDb_Pos As System.Int32 _
+                                  ) As System.Int32
         'Return Value: array status/lenght
         '   ByRef   pGameDb()               The dinamic array of the GameDB
         '   ByRef   pGamedb_Pos             Position index of the array
 
-        ReDim pGameDb(0 To 4)   'Array start size of pagamedb set to 4
+        Erase pGameDb
+        ReDim pGameDb(0 To 3)   'Array start size of pagamedb set to 4
         pGameDb_Pos = 0         'Array position index starts to 0
         GameDb_Unload = -1
     End Function
 
     Public Function GameDb_SearchSerial(ByVal pSerial As System.String, _
-                                        ByVal pGameDb() As MdlGameDb.rGameDb, _
-                                        ByRef pGameDb_Pos As System.Int64, _
-                                        ByVal pGameDb_Len As System.Int64 _
-                                        ) As MdlGameDb.rGameDb
+                                        ByVal pGameDb() As mdlGameDb.rGameDb, _
+                                        ByRef pGameDb_Pos As System.Int32, _
+                                        ByVal pGameDb_Len As System.Int32 _
+                                        ) As mdlGameDb.rGameDb
         'Search the array for a serial only, return the first value (a serial should be unique). Return Value: the record o the result
         '   ByVal   pSerial                     Serial to search
         '   Byval   paGameDb                    The dinamic array of the GameDB to search in
@@ -297,11 +302,11 @@ Module mdlGameDb
         '   ByVal   pGamedb_Len                 Lenght of the array
 
         GameDb_SearchSerial.Serial = pSerial
-        GameDb_SearchSerial.Region = "(unk)"
+        GameDb_SearchSerial.Region = "unknown"
         GameDb_SearchSerial.RStatus = 1
 
         If pGameDb_Len >= 0 Then
-            GameDb_SearchSerial.Name = "(unknown - not in GameDB)"
+            GameDb_SearchSerial.Name = "unknown"
             pSerial = UCase(Trim(pSerial))
             For pGameDb_Pos = pGameDb_Len To 1 Step -1
                 If Trim(pGameDb(pGameDb_Pos).Serial) Like pSerial Then
@@ -310,15 +315,15 @@ Module mdlGameDb
                 End If
             Next pGameDb_Pos
         Else
-            GameDb_SearchSerial.Name = "(unknown - GameDB is not loaded)"
+            GameDb_SearchSerial.Name = "! GameDB is not loaded !"
         End If
     End Function
 
     Public Function GameDb_Export_TsvTxt1(ByVal pFileGameDb_Tab_Loc As System.String, _
-                                         ByVal pGameDb() As MdlGameDb.rGameDb, _
-                                         ByRef pGameDb_Pos As System.Int64, _
-                                         ByVal pGameDb_Len As System.Int64 _
-                                         ) As System.Int64
+                                         ByVal pGameDb() As mdlGameDb.rGameDb, _
+                                         ByRef pGameDb_Pos As System.Int32, _
+                                         ByVal pGameDb_Len As System.Int32 _
+                                         ) As System.Int32
         'Export the array to a tab separated Values text file (you could import in Excel and Access)
         '   ByVal   pFileGameDb_Tab_Loc         Path and file name of the saved file
         '   ByRef   pGameDb                     The dinamic array of the GameDB to search in
@@ -348,9 +353,9 @@ Module mdlGameDb
     Public Function GameDb_ExportTxt2(ByVal pGameDbExport_Loc As System.String, _
                                       ByVal pSepStyle As System.String, _
                                       ByVal pGameDb() As mdlGameDb.rGameDb, _
-                                      ByRef pGameDb_Pos As System.Int64, _
-                                      ByVal pGameDb_Len As System.Int64 _
-                                      ) As System.Int64
+                                      ByRef pGameDb_Pos As System.Int32, _
+                                      ByVal pGameDb_Len As System.Int32 _
+                                      ) As System.Int32
         'Export the array to a text file (you could import in Excel and Access)
         '   ByVal   pFileGameDb_Tab_Loc         Path and file name of the saved file
         '   ByVal   pSepStyle                   Separator character to be use in the export

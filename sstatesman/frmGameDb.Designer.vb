@@ -71,8 +71,8 @@ Partial Class frmGameDb
         'ListBox1
         '
         Me.ListBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListBox1.FormattingEnabled = True
         Me.ListBox1.Location = New System.Drawing.Point(12, 90)
         Me.ListBox1.Name = "ListBox1"
@@ -109,7 +109,7 @@ Partial Class frmGameDb
         'LblSearchResults
         '
         Me.LblSearchResults.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LblSearchResults.Font = New System.Drawing.Font("Lucida Console", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.LblSearchResults.Location = New System.Drawing.Point(12, 25)
         Me.LblSearchResults.Name = "LblSearchResults"
@@ -286,7 +286,8 @@ Partial Class frmGameDb
         'ToolStripStatusLabel4
         '
         Me.ToolStripStatusLabel4.Name = "ToolStripStatusLabel4"
-        Me.ToolStripStatusLabel4.Size = New System.Drawing.Size(0, 17)
+        Me.ToolStripStatusLabel4.Size = New System.Drawing.Size(13, 17)
+        Me.ToolStripStatusLabel4.Text = "  "
         '
         'frmGameDb
         '
@@ -298,7 +299,7 @@ Partial Class frmGameDb
         Me.Controls.Add(Me.ListBox1)
         Me.Controls.Add(Me.LblSearchResults)
         Me.Name = "frmGameDb"
-        Me.Text = "GameDb"
+        Me.Text = "GameDb Util - For developer only"
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)

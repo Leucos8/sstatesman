@@ -146,8 +146,8 @@
   <data name="GradientBlueDarkH" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GradientBlueDarkH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Ico32tmp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Ico32tmp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Metro_Reduce" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Metro-Reduce.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Metro_WindowButtonClose" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Metro-WindowButtonClose.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,5 +160,77 @@
   </data>
   <data name="Metro_WindowButtonRestore" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Metro-WindowButtonRestore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ShadowUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ShadowUp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SStatesMan_Badge3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SStatesMan-Badge3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_0Null_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_0Null_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_China_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_China_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Europe_Union_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_Europe_Union_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_France_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_France_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Germany_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_Germany_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Greece_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_Greece_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Italy_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_Italy_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Japan_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_Japan_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Netherlands_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_Netherlands_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Poland_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_Poland_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Russia_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_Russia_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_South_Korea_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_South_Korea_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Spain_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_Spain_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Switzerland_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_Switzerland_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_UK_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_UK_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_US_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_US_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Canada_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_Canada_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Australia_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_Australia_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Austria_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\flags\Flag_Austria_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Metro_Expand" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Metro-Expand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Metro_Folder_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Metro-Folder_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Metro_Button_Exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Metro-Button-Exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

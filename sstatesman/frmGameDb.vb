@@ -14,13 +14,11 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Public Class frmGameDb
     Private Sub ShowStatus()
-        Me.StatusStrip1.Items.Item(2).Text = "Position: " & MdlGameDb.GameDb_Pos
-        Me.StatusStrip1.Items.Item(1).Text = "Records: " & MdlGameDb.GameDb_Len
-        On Error Resume Next
-        Me.StatusStrip1.Items.Item(0).Text = "Array lenght: " & UBound(MdlGameDb.GameDb)
-        If (Err.Number = 9) Or (MdlGameDb.GameDb_Len < 0) Then
+        Me.StatusStrip1.Items.Item(2).Text = System.String.Format("Position: {0:#,##0}", (mdlGameDb.GameDb_Pos + 1).ToString)
+        Me.StatusStrip1.Items.Item(1).Text = System.String.Format("Records: {0:#,##0}", (mdlGameDb.GameDb_Len + 1).ToString)
+        Me.StatusStrip1.Items.Item(0).Text = System.String.Format("Array lenght: {0:#,##0}", (mdlGameDb.GameDb.GetUpperBound(0) + 1).ToString)
+        If mdlGameDb.GameDb_Len < 0 Then
             Me.StatusStrip1.Items.Item(0).Text = "Not loaded!"
-            Err.Clear()
         End If
 
         If MdlGameDb.GameDb_Len >= 0 Then
@@ -70,25 +68,32 @@ Public Class frmGameDb
     End Sub
 
     Private Sub tsGameDbLoad_ButtonClick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsGameDbLoad.ButtonClick
-        GameDb_Len = mdlGameDb.GameDb_Load3(My.Settings.PCSX2_BinPath & mdlMain.FileGameDb, GameDb, GameDb_Pos)
+        Dim tmp As System.DateTime = Now
+        GameDb_Len = mdlGameDb.GameDb_Load3(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename), GameDb, GameDb_Pos)
+        Me.ToolStripStatusLabel4.Text = System.String.Format("Load time: {0} ms", Now.Subtract(tmp).ToString)
         ShowStatus()
     End Sub
 
     Private Sub LoadV1ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadV1ToolStripMenuItem.Click
-        GameDb_Len = mdlGameDb.GameDb_Load1(My.Settings.PCSX2_BinPath & mdlMain.FileGameDb, GameDb, GameDb_Pos)
+        Dim tmp As System.DateTime = Now
+        GameDb_Len = mdlGameDb.GameDb_Load1(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename), GameDb, GameDb_Pos)
+        Me.ToolStripStatusLabel4.Text = System.String.Format("Load time: {0} ms", Now.Subtract(tmp).ToString)
         ShowStatus()
     End Sub
 
     Private Sub LoadV2ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadV2ToolStripMenuItem.Click
-        GameDb_Len = mdlGameDb.GameDb_Load2(My.Settings.PCSX2_BinPath & mdlMain.FileGameDb, GameDb, GameDb_Pos)
+        Dim tmp As System.DateTime = Now
+        GameDb_Len = mdlGameDb.GameDb_Load2(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename), GameDb, GameDb_Pos)
+        Me.ToolStripStatusLabel4.Text = System.String.Format("Load time: {0} ms", Now.Subtract(tmp).ToString)
         ShowStatus()
     End Sub
 
     Private Sub tsGameDbUnload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsGameDbUnload.Click
         Me.ListBox1.Items.Clear()
 
-        GameDb_Len = MdlGameDb.GameDb_Unload(GameDb, GameDb_Pos)
-
+        If MsgBox("Warning, unloading the GameDB could lead to crashes." & vbCrLf & "Be sure to load it again before closing GameDB util." & vbCrLf & "Do you wish to continue?", MsgBoxStyle.YesNo, "Confirmation") = MsgBoxResult.Yes Then
+            GameDb_Len = mdlGameDb.GameDb_Unload(GameDb, GameDb_Pos)
+        End If
         ShowStatus()
     End Sub
 
@@ -113,7 +118,12 @@ Public Class frmGameDb
     End Sub
 
     Private Sub tsExportTSVTxt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsExportTSVTxt.Click
-        Call MdlGameDb.GameDb_ExportTxt2(".\GameIndex.txt", vbTab, GameDb, GameDb_Pos, GameDb_Len)
+        Call mdlGameDb.GameDb_ExportTxt2(My.Computer.FileSystem.CombinePath(My.Computer.FileSystem.SpecialDirectories.Desktop, "GameIndex.txt"), _
+                                         vbTab, _
+                                         GameDb, _
+                                         GameDb_Pos, _
+                                         GameDb_Len)
+        MsgBox("A dump of the array has been saved to the Desktop", MsgBoxStyle.Information, "Notice")
     End Sub
 
     Private Sub tsTxtSearchSerial_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles tsTxtSearchSerial.GotFocus
@@ -168,12 +178,18 @@ Public Class frmGameDb
     End Sub
 
     Private Sub LoadV3ToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles LoadV3ToolStripMenuItem.Click
-        GameDb_Len = mdlGameDb.GameDb_Load3(My.Settings.PCSX2_BinPath & mdlMain.FileGameDb, GameDb, GameDb_Pos)
+        Dim tmp As System.DateTime = Now
+        GameDb_Len = mdlGameDb.GameDb_Load3(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename), GameDb, GameDb_Pos)
         ShowStatus()
+        Me.ToolStripStatusLabel4.Text = System.String.Format("Load time: {0} ms", Now.Subtract(tmp).ToString)
     End Sub
 
     Private Sub tsExportCSVTxt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsExportCSVTxt.Click
-        Call MdlGameDb.GameDb_ExportTxt2(".\GameIndex.csv", ";", GameDb, GameDb_Pos, GameDb_Len)
+        Call mdlGameDb.GameDb_ExportTxt2(My.Computer.FileSystem.CombinePath(My.Computer.FileSystem.SpecialDirectories.Desktop, "GameIndex.csv"), _
+                                         ";", _
+                                         GameDb, GameDb_Pos, _
+                                         GameDb_Len)
+        MsgBox("A dump of the array has been saved to the Desktop", MsgBoxStyle.Information, "Notice")
     End Sub
 
 End Class

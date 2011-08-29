@@ -14,17 +14,17 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Public Class frmSStateList
     Private Sub ShowStatus()
-        Me.StatusStrip1.Items.Item(2).Text = "Position: " & SStateList_Pos
-        Me.StatusStrip1.Items.Item(1).Text = "Records: " & SStateList_Len
+        Me.StatusStrip1.Items.Item(2).Text = System.String.Format("Position: {0:#,##0}", (mdlSStateList.SStateList_Pos + 1).ToString)
+        Me.StatusStrip1.Items.Item(1).Text = System.String.Format("Records: {0:#,##0}", (mdlSStateList.SStateList_Len + 1).ToString)
         On Error Resume Next
-        Me.StatusStrip1.Items.Item(0).Text = "Array lenght: " & UBound(SStateList)
-        If (Err.Number = 9) Or (SStateList_Len < 0) Then
+        Me.StatusStrip1.Items.Item(0).Text = System.String.Format("Array lenght: {0:#,##0}", (mdlSStateList.SStateList.GetUpperBound(0) + 1).ToString)
+        If SStateList_Len < 0 Then
             Me.StatusStrip1.Items.Item(0).Text = "Not loaded!"
-            Err.Clear()
+
         End If
 
-        If MdlSStateList.SStateList_Len >= 0 Then
-            Me.LblSearchResults.Text = "Serial   = " & SStateList(SStateList_Pos).SStateSerial & _
+        If mdlSStateList.SStateList_Len >= 0 Then
+            Me.LblSearchResults.Text = "Serial   = " & SStateList(SStateList_Pos).SStateSerial & vbCrLf & _
                                        "Slot     = " & SStateList(SStateList_Pos).SStateSlot & vbCrLf & _
                                        "Filename = " & SStateList(SStateList_Pos).FileInfo.Name & vbCrLf & _
                                        "Size     = " & Format((SStateList(SStateList_Pos).FileInfo.Length / 1024 / 1024), "0.00 MiB") & vbCrLf & _
@@ -68,9 +68,9 @@ Public Class frmSStateList
 
     Private Sub tsSStateListUnload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsSStateListUnload.Click
         Me.ListBox1.Items.Clear()
-
-        SStateList_Len = MdlSStateList.SStateList_Unload(SStateList, SStateList_Pos)
-
+        If MsgBox("Warning, unloading the SStateList *will* lead to crashes." & vbCrLf & "Reloading it won't fix this mistake." & vbCrLf & "Do you wish to continue?", MsgBoxStyle.YesNo, "Confirmation") = MsgBoxResult.Yes Then
+            SStateList_Len = mdlSStateList.SStateList_Unload(SStateList, SStateList_Pos)
+        End If
         ShowStatus()
     End Sub
 
@@ -97,7 +97,8 @@ Public Class frmSStateList
     End Sub
 
     Private Sub tsExportTSVTxt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsExportTSVTxt.Click
-        Call mdlSStateList.SStateList_ExportTxt(".\SStateList.txt", vbTab, SStateList, SStateList_Pos, SStateList_Len)
+        Call mdlSStateList.SStateList_ExportTxt(My.Computer.FileSystem.SpecialDirectories.Desktop & "\SStateList.txt", vbTab, SStateList, SStateList_Pos, SStateList_Len)
+        MsgBox("A dump of the array has been saved to the Desktop", MsgBoxStyle.Information, "Notice")
     End Sub
 
     Private Sub tsRecordFirst_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsRecordFirst.Click
@@ -129,12 +130,14 @@ Public Class frmSStateList
     End Sub
 
     Private Sub tsExportCSVTxt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsExportCSVTxt.Click
-        Call mdlSStateList.SStateList_ExportTxt(".\SStateList.csv", ";", SStateList, SStateList_Pos, SStateList_Len)
+        Call mdlSStateList.SStateList_ExportTxt(My.Computer.FileSystem.SpecialDirectories.Desktop & "\SStateList.csv", ";", SStateList, SStateList_Pos, SStateList_Len)
+        MsgBox("A dump of the array has been saved to the Desktop", MsgBoxStyle.Information, "Notice")
     End Sub
 
     Private Sub tsSStateListLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsSStateListLoad.Click
-        SStateList_Len = mdlSStateList.SStateList_Load2(My.Settings.PCSX2_UserPath & My.Settings.PCSX2_SStateDir, _
-                                              mdlSStateList.SStateList, mdlSStateList.SStateList_Pos)
+        SStateList_Len = mdlSStateList.SStateList_Load(My.Settings.PCSX2_PathSState, _
+                                                       mdlSStateList.SStateList, _
+                                                       mdlSStateList.SStateList_Pos)
         ShowStatus()
     End Sub
 

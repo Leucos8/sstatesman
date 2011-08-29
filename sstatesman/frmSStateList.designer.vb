@@ -44,6 +44,7 @@ Partial Class frmSStateList
         Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.LblSearchResults = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.tsSStateListLoad = New System.Windows.Forms.ToolStripButton()
         Me.tsSStateListUnload = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsListShow = New System.Windows.Forms.ToolStripButton()
@@ -57,7 +58,6 @@ Partial Class frmSStateList
         Me.tsRecordPrevious = New System.Windows.Forms.ToolStripButton()
         Me.tsRecordFirst = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.tsSStateListLoad = New System.Windows.Forms.ToolStripButton()
         Me.StatusStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -65,8 +65,8 @@ Partial Class frmSStateList
         'ListBox1
         '
         Me.ListBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-                    Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ListBox1.FormattingEnabled = True
         Me.ListBox1.Location = New System.Drawing.Point(14, 106)
         Me.ListBox1.Name = "ListBox1"
@@ -103,9 +103,9 @@ Partial Class frmSStateList
         'LblSearchResults
         '
         Me.LblSearchResults.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-                    Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.LblSearchResults.Font = New System.Drawing.Font("Lucida Console", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblSearchResults.Location = New System.Drawing.Point(12, 25)
+        Me.LblSearchResults.Location = New System.Drawing.Point(12, 35)
         Me.LblSearchResults.Name = "LblSearchResults"
         Me.LblSearchResults.Size = New System.Drawing.Size(722, 62)
         Me.LblSearchResults.TabIndex = 12
@@ -118,6 +118,15 @@ Partial Class frmSStateList
         Me.ToolStrip1.Size = New System.Drawing.Size(746, 25)
         Me.ToolStrip1.TabIndex = 17
         Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'tsSStateListLoad
+        '
+        Me.tsSStateListLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.tsSStateListLoad.Image = CType(resources.GetObject("tsSStateListLoad.Image"), System.Drawing.Image)
+        Me.tsSStateListLoad.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsSStateListLoad.Name = "tsSStateListLoad"
+        Me.tsSStateListLoad.Size = New System.Drawing.Size(90, 22)
+        Me.tsSStateListLoad.Text = "Load SStateList"
         '
         'tsSStateListUnload
         '
@@ -230,27 +239,17 @@ Partial Class frmSStateList
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
         Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 6)
         '
-        'tsSStateListLoad
-        '
-        Me.tsSStateListLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.tsSStateListLoad.Image = CType(resources.GetObject("tsSStateListLoad.Image"), System.Drawing.Image)
-        Me.tsSStateListLoad.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsSStateListLoad.Name = "tsSStateListLoad"
-        Me.tsSStateListLoad.Size = New System.Drawing.Size(90, 22)
-        Me.tsSStateListLoad.Text = "Load SStateList"
-        '
         'frmSStateList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(746, 473)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.ListBox1)
         Me.Controls.Add(Me.LblSearchResults)
         Me.Name = "frmSStateList"
-        Me.Text = "SStateList"
+        Me.Text = "SStateList Util - For developer only"
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)

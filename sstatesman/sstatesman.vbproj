@@ -88,6 +88,12 @@
     <Compile Include="frmAbout.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmDeleteForm.Designer.vb">
+      <DependentUpon>frmDeleteForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmDeleteForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmMain.Designer.vb">
       <DependentUpon>frmMain.vb</DependentUpon>
     </Compile>
@@ -135,6 +141,9 @@
     <EmbeddedResource Include="frmAbout.resx">
       <DependentUpon>frmAbout.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmDeleteForm.resx">
+      <DependentUpon>frmDeleteForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
     </EmbeddedResource>
@@ -172,10 +181,35 @@
     <None Include="Resources\Metro-WindowButtonMaximize.png" />
     <None Include="Resources\Metro-WindowButtonMinimize.png" />
     <None Include="Resources\Metro-WindowButtonRestore.png" />
-    <None Include="Resources\Ico32tmp.png" />
     <None Include="Resources\Bg1.png" />
     <None Include="Resources\Bg2.png" />
     <None Include="Resources\BgBW.png" />
+    <None Include="Resources\ShadowUp.png" />
+    <None Include="Resources\flags\Flag_US_30x20.png" />
+    <None Include="Resources\flags\Flag_UK_30x20.png" />
+    <None Include="Resources\flags\Flag_Switzerland_30x20.png" />
+    <None Include="Resources\flags\Flag_Spain_30x20.png" />
+    <None Include="Resources\flags\Flag_South_Korea_30x20.png" />
+    <None Include="Resources\flags\Flag_Russia_30x20.png" />
+    <None Include="Resources\flags\Flag_Poland_30x20.png" />
+    <None Include="Resources\flags\Flag_Netherlands_30x20.png" />
+    <None Include="Resources\flags\Flag_Japan_30x20.png" />
+    <None Include="Resources\flags\Flag_Italy_30x20.png" />
+    <None Include="Resources\flags\Flag_Greece_30x20.png" />
+    <None Include="Resources\flags\Flag_Germany_30x20.png" />
+    <None Include="Resources\flags\Flag_France_30x20.png" />
+    <None Include="Resources\flags\Flag_Europe_Union_30x20.png" />
+    <None Include="Resources\flags\Flag_China_30x20.png" />
+    <None Include="Resources\flags\Flag_Canada_30x20.png" />
+    <None Include="Resources\flags\Flag_Australia_30x20.png" />
+    <None Include="Resources\flags\Flag_Austria_30x20.png" />
+    <None Include="Resources\flags\Flag_0Null_30x20.png" />
+    <None Include="Resources\SStatesMan-Badge3.png" />
+    <None Include="Resources\SStatesMan-Logo2.png" />
+    <None Include="Resources\Metro-Reduce.png" />
+    <None Include="Resources\Metro-Expand.png" />
+    <None Include="Resources\Metro-Folder_16x16.png" />
+    <None Include="Resources\Metro-Button-Exclamation.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

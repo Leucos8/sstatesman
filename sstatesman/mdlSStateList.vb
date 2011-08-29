@@ -15,160 +15,103 @@
 Option Explicit On
 Module mdlSStateList
 
-    Public Structure rSStateList
-        Friend FileInfo As System.IO.FileInfo
-        Friend SStateSlot As System.Byte
-        Friend SStateBackup As System.Boolean
-        Friend SStateSerial As System.String
-        Friend FDeleted As System.Boolean
-        Friend arrayPosition As System.Int64
+    Public Structure rSStateList                    'Record declaration
+        Friend FileInfo As System.IO.FileInfo       'Information about the file: size, date, extension, etc.
+        Friend SStateSlot As System.Byte            'Savestate slot number
+        Friend SStateBackup As System.Boolean       'True if the savestate is a backup (it has the My.Settings.SState_ExtBackup extension)
+        Friend SStateSerial As System.String        'The game serial extracted from the savestate name (left(FileInfo.Name), InStr(FileInfo.Name, " "))
+        Friend isDeleted As System.Boolean          'True if the file is deleted (it will be skipped when the data is presented)
+        Friend GameIndexRef As Int32                'Reference to the game index array
     End Structure
-    Public SStateList() As rSStateList
-    Public SStateList_Pos As System.Int64
-    Public SStateList_Len As System.Int64
+    Public SStateList(3) As rSStateList             'Array with the savestate information
+    Public SStateList_Pos As System.Int32 = 0       'Position index of the array
+    Public SStateList_Len As System.Int32 = 0       'Occupied records of the array
 
-    Public SStateListExtract() As rSStateList
-    Public SStateListExtract_Pos As System.Int64
-    Public SStateListExtract_Len As System.Int64
-
-    Public Structure rSStateGameIndex
-        Friend GameInfo As rGameDb
-        Friend SStatesTotalSize As System.Int64
-        Friend SStatesBackupTotalSize As System.Int64
+    Public Structure rSStateGameIndex               'Record declaration
+        Friend GameInfo As rGameDb                  'Game information from the GameDb array
+        Friend SStates_SizeTotal As System.Int64    'Total size in bytes of the savestate files
+        Friend SStatesBackup_SizeTotal As System.Int64  'Total size in bytes of the savestate backup files
+        Friend SStateList_Start As System.Int32     'Start position in SStateList() of the records of this game
+        Friend SStateList_End As System.Int32       'End position in SStateList() of the record of this game
     End Structure
-    Public SStateGameIndex() As rSStateGameIndex
-    Public SStateGameIndex_Pos As System.Int64
-    Public SStateGameIndex_Len As System.Int64
+    Public SStateGameIndex(3) As rSStateGameIndex   'Array with the games with found savestates
+    Public SStateGameIndex_Pos As System.Int32 = 0  'Position index of the array
+    Public SStateGameIndex_Len As System.Int32 = 0  'Occupied records of the array
 
-    Public Function SStateList_Load1(ByRef pFileList() As System.IO.FileInfo, _
-                                    ByVal pFileList_Pos As System.Int64, _
-                                    ByVal pFileList_Len As System.Int64, _
-                                    ByRef pSStateList() As rSStateList, _
-                                    ByRef pSStateList_Pos As System.Int64 _
-                                    ) As System.Int64
-        'Creates the array from the array of found files (aFileList)
-        '   ByVal   pFileList()                The array that contains the list of files found in the SStates folder (input array)
-        '   ByVal   pFileList_Pos              Index of the input array
-        '   ByVal   pFileList_Len              Occupied records of the input array
-        '   ByRef   pSStateList()                The dinamic array, list of the file found (output array)
-        '   ByRef   pSStateList_Pos              Index used in the output array
-        'Return Value: array status/lenght
-
-        pSStateList_Pos = mdlSStateList.SStateList_Unload(pSStateList, pSStateList_Pos)
-        pSStateList_Pos = -1
-
-        For pFileList_Pos = 0 To pFileList_Len
-            If (pFileList(pFileList_Pos).Extension = My.Settings.SState_Ext) Or _
-               (pFileList(pFileList_Pos).Extension = My.Settings.SState_ExtBackup) Then
-
-                pSStateList_Pos = pSStateList_Pos + 1
-
-                pSStateList(pSStateList_Pos).SStateSlot = CInt(Mid(pFileList(pFileList_Pos).Name, _
-                                                                   InStr(pFileList(pFileList_Pos).Name, ".") + 1, 2))   'Stores the slot value
-                If Err.Number = 13 Or (Not (pSStateList(pSStateList_Pos).SStateSlot >= 0) _
-                                       And (pSStateList(pSStateList_Pos).SStateSlot <= 9)) Then     'Invalid parameter
-                    MsgBox("A " & My.Settings.SState_Ext & " file is being skipped, unable to determine the saveslot number: " _
-                           & pFileList(pFileList_Pos).Name & vbCrLf & Err.Number & " " & Err.Description, vbCritical, "Errore")
-                    Err.Clear()
-                    pSStateList_Pos = pSStateList_Pos - 1
-                    GoTo Purge
-                End If
-                pSStateList(pSStateList_Pos).FileInfo = pFileList(pFileList_Pos)    'Stores the fileinfo
-                pSStateList(pSStateList_Pos).SStateSerial = Left(pSStateList(pSStateList_Pos).FileInfo.Name, _
-                                                                 InStr(pSStateList(pSStateList_Pos).FileInfo.Name, " ") - 1)    'Stores the serial
-
-                pSStateList(pSStateList_Pos).FDeleted = False                   'The underlying file is not deleted
-                pSStateList(pSStateList_Pos).arrayPosition = pSStateList_Pos    'Array position, for reference after the extraction
-                Select Case pSStateList(pSStateList_Pos).FileInfo.Extension
-                    Case My.Settings.SState_Ext
-                        pSStateList(pSStateList_Pos).SStateBackup = False
-                    Case My.Settings.SState_ExtBackup
-                        pSStateList(pSStateList_Pos).SStateBackup = True
-                End Select
-
-                If (UBound(pSStateList) - pSStateList_Pos) <= 2 Then            'Resize the array when needed
-                    ReDim Preserve pSStateList(0 To UBound(pSStateList) + 4)
-                End If
-            End If
-Purge:
-        Next pFileList_Pos
-        SStateList_Load1 = pSStateList_Pos
-
-    End Function
-
-    Public Function SStateList_Load2(ByVal pPath As System.String, _
+    Public Function SStateList_Load(ByVal pPath As System.String, _
                                   ByRef pSStateList() As rSStateList, _
-                                  ByRef pSStateList_Pos As System.Int64 _
-                                  ) As System.Int64
+                                  ByRef pSStateList_Pos As System.Int32 _
+                                  ) As System.Int32
         'Creates the array from the scanned folder
         '   ByVal   pPath                       Path to search in
         '   ByRef   pFindFile()                 The dinamic array of the files
         '   ByVal   pFindFileDbPos              Index used in the array
-
         'Return Value: array status/lenght
-        Dim FileTmp As System.IO.FileInfo
-        pSStateList_Pos = SStateList_Unload(pSStateList, pSStateList_Pos)
 
-        For Each FileFound As System.String In My.Computer.FileSystem.GetFiles(pPath)
-            FileTmp = My.Computer.FileSystem.GetFileInfo(FileFound)
-            If FileTmp.Extension = My.Settings.SState_Ext Or FileTmp.Extension = My.Settings.SState_ExtBackup Then
-                If (pSStateList.GetUpperBound(0) - pSStateList_Pos) <= 2 Then            'Resize of the array. But not too often
-                    ReDim Preserve pSStateList(0 To pSStateList.GetUpperBound(0) + 4)
+        pSStateList_Pos = SStateList_Unload(pSStateList, pSStateList_Pos)   'The array is cleared
+        Try
+            For Each FileFound As System.String In My.Computer.FileSystem.GetFiles(pPath)   'FileFound the complete address (path and filename) obtained from GetFiles(path), wich returns an array of strings
+                Dim FileTmp As System.IO.FileInfo       'The temp record where the file info are stored
+                FileTmp = My.Computer.FileSystem.GetFileInfo(FileFound)
+                If FileTmp.Extension = My.Settings.PCSX2_SStateExt Or FileTmp.Extension = My.Settings.PCSX2_SStateExtBackup Then
+                    If (pSStateList.GetUpperBound(0) - pSStateList_Pos) <= 2 Then            'Resize of the array. But not too often
+                        ReDim Preserve pSStateList(0 To pSStateList.GetUpperBound(0) + 4)
+                    End If
+
+                    pSStateList(pSStateList_Pos).FileInfo = My.Computer.FileSystem.GetFileInfo(FileFound)
+
+                    pSStateList(pSStateList_Pos).SStateSerial = Left(pSStateList(pSStateList_Pos).FileInfo.Name, _
+                                                                     InStr(pSStateList(pSStateList_Pos).FileInfo.Name, " ") - 1)    'Stores the serial
+                    pSStateList(pSStateList_Pos).isDeleted = False                   'The underlying file is not deleted
+                    Select Case pSStateList(pSStateList_Pos).FileInfo.Extension
+                        Case My.Settings.PCSX2_SStateExt
+                            pSStateList(pSStateList_Pos).SStateBackup = False
+                        Case My.Settings.PCSX2_SStateExtBackup
+                            pSStateList(pSStateList_Pos).SStateBackup = True
+                    End Select
+                    pSStateList(pSStateList_Pos).GameIndexRef = 0
+                    Try
+                        pSStateList(pSStateList_Pos).SStateSlot = CInt(Mid(pSStateList(pSStateList_Pos).FileInfo.Name, _
+                                                                           InStr(pSStateList(pSStateList_Pos).FileInfo.Name, ".") + 1, 2))   'Stores the slot value
+
+                        pSStateList_Pos = pSStateList_Pos + 1
+                    Catch Slot_Ex As Exception
+                        MsgBox(System.String.Format("A '{0}' file is being skipped, unable to determine the saveslot number: {1}", _
+                                                    My.Settings.PCSX2_SStateExt, _
+                                                    pSStateList(pSStateList_Pos).FileInfo.Name), _
+                                vbCritical, "Error")
+                        'pSStateList_Pos = pSStateList_Pos - 1
+                    End Try
                 End If
-
-                pSStateList_Pos = pSStateList_Pos + 1
-                pSStateList(pSStateList_Pos).FileInfo = My.Computer.FileSystem.GetFileInfo(FileFound)
-
-
-                pSStateList(pSStateList_Pos).SStateSlot = CInt(Mid(pSStateList(pSStateList_Pos).FileInfo.Name, _
-                                                                   InStr(pSStateList(pSStateList_Pos).FileInfo.Name, ".") + 1, 2))   'Stores the slot value
-                If Err.Number = 13 Or (Not (pSStateList(pSStateList_Pos).SStateSlot >= 0) _
-                                       And (pSStateList(pSStateList_Pos).SStateSlot <= 9)) Then     'Invalid parameter
-                    MsgBox("A " & My.Settings.SState_Ext & " file is being skipped, unable to determine the saveslot number: " _
-                           & pSStateList(pSStateList_Pos).FileInfo.Name & vbCrLf & Err.Number & " " & Err.Description, vbCritical, "Errore")
-                    Err.Clear()
-                    pSStateList_Pos = pSStateList_Pos - 1
-                    GoTo Purge
-                End If
-                pSStateList(pSStateList_Pos).SStateSerial = Left(pSStateList(pSStateList_Pos).FileInfo.Name, _
-                                                                 InStr(pSStateList(pSStateList_Pos).FileInfo.Name, " ") - 1)    'Stores the serial
-
-                pSStateList(pSStateList_Pos).FDeleted = False                   'The underlying file is not deleted
-                pSStateList(pSStateList_Pos).arrayPosition = pSStateList_Pos    'Array position, for reference after the extraction
-                Select Case pSStateList(pSStateList_Pos).FileInfo.Extension
-                    Case My.Settings.SState_Ext
-                        pSStateList(pSStateList_Pos).SStateBackup = False
-                    Case My.Settings.SState_ExtBackup
-                        pSStateList(pSStateList_Pos).SStateBackup = True
-                End Select
-
-            End If
-Purge:
-        Next
-        SStateList_Load2 = pSStateList_Pos
+            Next
+        Catch Path_ex As Exception
+            MsgBox(System.String.Format("Some kinda failure while scanning Savestate folder." & vbCrLf & vbCrLf & "{0}", Path_ex.Message), MsgBoxStyle.Critical, "Error")
+        End Try
+        SStateList_Load = pSStateList_Pos - 1
         pSStateList_Pos = 0
     End Function
 
 
     Public Function SStateList_Unload(ByRef pSStateList() As mdlSStateList.rSStateList, _
-                                      ByRef pSStateList_Pos As System.Int64 _
-                                      ) As System.Int64
+                                      ByRef pSStateList_Pos As System.Int32 _
+                                      ) As System.Int32
         'Clears the array
         '   ByRef   pSStateList()                The dinamic array of the SStateList
         '   ByRef   pSStateList_Pos              Index used in the array
         'Return Value: array status/lenght
 
-        ReDim pSStateList(0 To 4)               'Array start size of pSStateList set to 4
-        pSStateList_Pos = -1                    'Array position index starts to 0
+        Erase pSStateList
+        ReDim pSStateList(0 To 3)               'Array start size of pSStateList set to 4
+        pSStateList_Pos = 0                    'Array position index starts to 0
         SStateList_Unload = pSStateList_Pos
     End Function
 
     Public Function SStateList_ExportTxt(ByVal pSStateListExport_Loc As System.String, _
                                        ByVal pSepStyle As System.String, _
                                        ByRef pSStateList() As mdlSStateList.rSStateList, _
-                                       ByVal pSStateList_Pos As System.Int64, _
-                                       ByVal pSStateList_Len As System.Int64 _
-                                       ) As System.Int64
+                                       ByVal pSStateList_Pos As System.Int32, _
+                                       ByVal pSStateList_Len As System.Int32 _
+                                       ) As System.Int32
         'Export the array to a text file (you could import in Excel and Access)
         '   ByVal   pSStateListExport_Loc       Path and file name of the saved file
         '   ByVal   pSepStyle                   Separator character to be use in the export
@@ -197,11 +140,11 @@ Purge:
 
     Public Function SStateList_ExtractBySerial(ByRef pSerial As System.String, _
                                                ByRef pSStateList() As mdlSStateList.rSStateList, _
-                                               ByRef pSStateList_Pos As System.Int64, _
-                                               ByVal pSStateList_Len As System.Int64, _
+                                               ByRef pSStateList_Pos As System.Int32, _
+                                               ByVal pSStateList_Len As System.Int32, _
                                                ByRef pSStateListExtract() As mdlSStateList.rSStateList, _
-                                               ByRef pSStateListExtract_Pos As System.Int64 _
-                                               ) As System.Int64
+                                               ByRef pSStateListExtract_Pos As System.Int32 _
+                                               ) As System.Int32
         'Extract from the input array an array with the savestates that matches the serial
         '   ByRef   pSerial                     Serial to search
         '   ByRef   pSStateList()               The dinamic array of the SStateList to search in (input)
@@ -230,40 +173,47 @@ Purge:
     End Function
 
     Public Function SStateGameIndex_Load(ByRef pSStateList() As mdlSStateList.rSStateList, _
-                                           ByVal pSStateList_Pos As System.Int64, _
-                                           ByVal pSStateList_Len As System.Int64, _
+                                           ByVal pSStateList_Pos As System.Int32, _
+                                           ByVal pSStateList_Len As System.Int32, _
                                            ByRef pGameDb() As mdlGameDb.rGameDb, _
-                                           ByRef pGameDb_Pos As System.Int64, _
-                                           ByVal pGameDb_Len As System.Int64, _
+                                           ByRef pGameDb_Pos As System.Int32, _
+                                           ByVal pGameDb_Len As System.Int32, _
                                            ByRef pSStateGameIndex() As mdlSStateList.rSStateGameIndex, _
-                                           ByRef pSStateGameIndex_Pos As System.Int64 _
-                                           ) As System.Int64
+                                           ByRef pSStateGameIndex_Pos As System.Int32 _
+                                           ) As System.Int32
         If pSStateList_Len > 0 Then
             pSStateGameIndex_Pos = mdlSStateList.SStateGameIndex_Unload(pSStateGameIndex, pSStateGameIndex_Pos) 'Clears the array
             pSStateGameIndex_Pos = 0        'Position 0
-            pSStateGameIndex(pSStateGameIndex_Pos).GameInfo.Serial = "*"
-            pSStateGameIndex(pSStateGameIndex_Pos).GameInfo.Name = "(all games)"
-            pSStateGameIndex(pSStateGameIndex_Pos).GameInfo.Region = "*"
-            pSStateGameIndex(pSStateGameIndex_Pos).GameInfo.RStatus = "0"
+            pSStateGameIndex(0).GameInfo.Serial = "*"
+            pSStateGameIndex(0).GameInfo.Name = "(all games)"
+            pSStateGameIndex(0).GameInfo.Region = "*"
+            pSStateGameIndex(0).GameInfo.RStatus = "0"
+            pSStateGameIndex(0).SStateList_Start = "0"
+            pSStateGameIndex(0).SStateList_End = pSStateList_Len
 
             For pSStateList_Pos = 0 To pSStateList_Len
                 If Not (pSStateGameIndex(pSStateGameIndex_Pos).GameInfo.Serial Like pSStateList(pSStateList_Pos).SStateSerial) Then
                     If (UBound(pSStateGameIndex) - pSStateGameIndex_Pos) <= 2 Then            'Resize the array when needed
                         ReDim Preserve pSStateGameIndex(0 To UBound(pSStateGameIndex) + 4)
                     End If
+                    pSStateGameIndex(pSStateGameIndex_Pos).SStateList_End = pSStateList_Pos - 1
                     pSStateGameIndex_Pos = pSStateGameIndex_Pos + 1
+                    pSStateGameIndex(pSStateGameIndex_Pos).SStateList_Start = pSStateList_Pos
                     pSStateGameIndex(pSStateGameIndex_Pos).GameInfo = mdlGameDb.GameDb_SearchSerial(pSStateList(pSStateList_Pos).SStateSerial, _
                                                                                        pGameDb, pGameDb_Pos, pGameDb_Len)
 
                 End If
+                pSStateList(pSStateList_Pos).GameIndexRef = pSStateGameIndex_Pos
                 If pSStateList(pSStateList_Pos).SStateBackup = False Then
-                    pSStateGameIndex(pSStateGameIndex_Pos).SStatesTotalSize = pSStateGameIndex(pSStateGameIndex_Pos).SStatesTotalSize + pSStateList(pSStateList_Pos).FileInfo.Length
-                    pSStateGameIndex(0).SStatesTotalSize = pSStateGameIndex(0).SStatesTotalSize + pSStateList(pSStateList_Pos).FileInfo.Length
+                    pSStateGameIndex(pSStateGameIndex_Pos).SStates_SizeTotal = pSStateGameIndex(pSStateGameIndex_Pos).SStates_SizeTotal + pSStateList(pSStateList_Pos).FileInfo.Length
+                    pSStateGameIndex(0).SStates_SizeTotal = pSStateGameIndex(0).SStates_SizeTotal + pSStateList(pSStateList_Pos).FileInfo.Length
                 Else
-                    pSStateGameIndex(pSStateGameIndex_Pos).SStatesBackupTotalSize = pSStateGameIndex(pSStateGameIndex_Pos).SStatesBackupTotalSize + pSStateList(pSStateList_Pos).FileInfo.Length
-                    pSStateGameIndex(0).SStatesBackupTotalSize = pSStateGameIndex(0).SStatesBackupTotalSize + pSStateList(pSStateList_Pos).FileInfo.Length
+                    pSStateGameIndex(pSStateGameIndex_Pos).SStatesBackup_SizeTotal = pSStateGameIndex(pSStateGameIndex_Pos).SStatesBackup_SizeTotal + pSStateList(pSStateList_Pos).FileInfo.Length
+                    pSStateGameIndex(0).SStatesBackup_SizeTotal = pSStateGameIndex(0).SStatesBackup_SizeTotal + pSStateList(pSStateList_Pos).FileInfo.Length
                 End If
             Next pSStateList_Pos
+            pSStateGameIndex(0).SStateList_End = pSStateList_Len
+            pSStateGameIndex(pSStateGameIndex_Pos).SStateList_End = pSStateList_Len
             SStateGameIndex_Load = pSStateGameIndex_Pos
         Else
             SStateGameIndex_Load = 0
@@ -272,14 +222,15 @@ Purge:
     End Function
 
     Public Function SStateGameIndex_Unload(ByRef pSStateGameIndex() As mdlSStateList.rSStateGameIndex, _
-                                               ByRef SStateGameIndex_Pos As System.Int64 _
-                                      ) As System.Int64
+                                               ByRef SStateGameIndex_Pos As System.Int32 _
+                                      ) As System.Int32
         'Clears the array
         '   ByRef   pSStateList()                The dinamic array of the SStateList
         '   ByRef   pSStateList_Pos              Index used in the array
         'Return Value: array status/lenght
 
-        ReDim pSStateGameIndex(0 To 4)               'Array start size of pSStateList set to 4
+        Erase pSStateGameIndex
+        ReDim pSStateGameIndex(0 To 3)               'Array start size of pSStateList set to 4
         SStateGameIndex_Pos = -1                    'Array position index starts to 0
         SStateGameIndex_Unload = SStateGameIndex_Pos
     End Function
