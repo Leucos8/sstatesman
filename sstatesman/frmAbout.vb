@@ -1,4 +1,4 @@
-﻿'   SStatesMan - Savestate Manager for PCSX2 0.9.8
+﻿'   SStatesMan - a savestate managing tool for PCSX2
 '   Copyright (C) 2011 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
@@ -15,6 +15,7 @@
 Public NotInheritable Class frmAbout
 
     Private Sub frmAbout_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
+        Me.Icon = My.Resources.SSM1
         ' Imposta il titolo del form.
         Dim ApplicationTitle As String
         If My.Application.Info.Title <> "" Then
@@ -29,7 +30,7 @@ Public NotInheritable Class frmAbout
         'Me.LabelProductName.Text = My.Application.Info.ProductName
         Me.LabelVersion.Text = String.Format("Version {0} {1}", My.Application.Info.Version.ToString, My.Settings.SStateMan_Channel)
         Me.LabelCopyright.Text = My.Application.Info.Copyright
-        Me.LabelCompanyName.Text = My.Application.Info.CompanyName
+        Me.LabelCompanyName.Text = String.Concat("Created by ", My.Application.Info.CompanyName)
         'Me.TextBoxDescription.Text = My.Application.Info.Description
     End Sub
 
@@ -50,10 +51,10 @@ Public NotInheritable Class frmAbout
             'e.Graphics.FillRectangle(linGrBrush5, 0, Me.SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance, Me.ClientSize.Width, 12)
 
         End If
-        'e.Graphics.DrawLine(Pens.DarkGray, 0, 0, 0, Me.ClientSize.Height)
-        'e.Graphics.DrawLine(Pens.DarkGray, 0, 0, Me.ClientSize.Width, 0)
-        'e.Graphics.DrawLine(Pens.DarkGray, Me.ClientSize.Width - 1, 0, Me.ClientSize.Width - 1, Me.ClientSize.Height)
-        'e.Graphics.DrawLine(Pens.DarkGray, 0, Me.ClientSize.Height - 1, Me.ClientSize.Width, Me.ClientSize.Height - 1)
+        e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.ClientSize.Height)
+        e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.ClientSize.Width, 0)
+        e.Graphics.DrawLine(Pens.DimGray, Me.ClientSize.Width - 1, 0, Me.ClientSize.Width - 1, Me.ClientSize.Height)
+        e.Graphics.DrawLine(Pens.DimGray, 0, Me.ClientSize.Height - 1, Me.ClientSize.Width, Me.ClientSize.Height - 1)
     End Sub
 
     Private Sub OKButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -62,6 +63,8 @@ Public NotInheritable Class frmAbout
 
     Private Sub optStettingTab1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optStettingTab1.CheckedChanged
         If optStettingTab1.Checked = True Then
+            Me.optStettingTab1.FlatAppearance.MouseOverBackColor = Color.Gainsboro
+            Me.optStettingTab2.FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
             Me.TextBoxDescription.Visible = False
             Me.TableLayoutPanel.Visible = True
         End If
@@ -69,8 +72,22 @@ Public NotInheritable Class frmAbout
 
     Private Sub optStettingTab2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optStettingTab2.CheckedChanged
         If optStettingTab2.Checked = True Then
+            Me.optStettingTab2.FlatAppearance.MouseOverBackColor = Color.Gainsboro
+            Me.optStettingTab1.FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
             Me.TableLayoutPanel.Visible = False
             Me.TextBoxDescription.Visible = True
         End If
+    End Sub
+
+    Private Sub optStettingTab1_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles optStettingTab1.MouseDown
+        optStettingTab1.FlatAppearance.MouseOverBackColor = Color.Gainsboro
+    End Sub
+
+    Private Sub optStettingTab2_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles optStettingTab2.MouseDown
+        optStettingTab2.FlatAppearance.MouseOverBackColor = Color.Gainsboro
+    End Sub
+
+    Private Sub LinkLabel1_LinkClicked(sender As System.Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
+        System.Diagnostics.Process.Start("http://forums.pcsx2.net/Thread-SStatesMan-a-savestates-managing-tool-for-PCSX2")
     End Sub
 End Class

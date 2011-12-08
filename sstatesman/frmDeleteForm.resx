@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
-    SStatesMan - Savestate Manager for PCSX2 0.9.8
+    SStatesMan - a savestate managing tool for PCSX2
     Copyright (C) 2011 - Leucos
 
     SStatesMan is free software: you can redistribute it and/or modify it under
@@ -134,19 +134,41 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="cmdCancel.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAUCAMAAADbT899AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAACQUExURaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrS0tLW1tba2tre3t7i4uLm5ubq6uru7
+        u7y8vL29vb6+vr+/v8DAwNDQ0NHR0dLS0tPT0+Hh4eLi4uPj4+Tk5Obm5ujo6Onp6evr6+zs7O7u7u/v
+        7/Hx8fPz8/T09Pb29vf39/n5+fr6+vv7+/z8/P7+/v///yVI2JMAAAAJcEhZcwAACxAAAAsQAa0jvXUA
+        AAABYktHRACIBR1IAAAAB3RJTUUH2woKDjgXD/KqvwAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3
+        aXRoIEdJTVBkLmUHAAAAPElEQVQoU4XBiRGAIADAsM7hoYJ8Kofsv50jNGEJPsEUDMEreAS3oAuaoAqK
+        IAsuQRJEwSk4BLsgCDbxA0SjW4HL0NqrAAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="cmdDeleteSStateSelected.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAUCAMAAADbT899AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAACQUExURaqqqqurq6ysrK2tra6urq+vr7CwsLGxsbKysrS0tLW1tba2tre3t7i4uLm5ubq6uru7
+        u7y8vL29vb6+vr+/v8DAwNDQ0NHR0dLS0tPT0+Hh4eLi4uPj4+Tk5Obm5ujo6Onp6evr6+zs7O7u7u/v
+        7/Hx8fPz8/T09Pb29vf39/n5+fr6+vv7+/z8/P7+/v///yVI2JMAAAAJcEhZcwAACxAAAAsQAa0jvXUA
+        AAABYktHRACIBR1IAAAAB3RJTUUH2woKDjgXD/KqvwAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3
+        aXRoIEdJTVBkLmUHAAAAPElEQVQoU4XBiRGAIADAsM7hoYJ8Kofsv50jNGEJPsEUDMEreAS3oAuaoAqK
+        IAsuQRJEwSk4BLsgCDbxA0SjW4HL0NqrAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="cmdWindowMaximize.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALCAAA
-        CwgBwL2l2gAAADNJREFUKFNjYChKZCAJk6QYZDhIQ0NDw39CGG4w2RrwOQ1kO4YNw0EDScFKUuSRpBgY
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAAK/wAA
+        Cv8BNGKaggAAADNJREFUKFNjYChKZCAJk6QYZDhIQ0NDw39CGG4w2RrwOQ1kO4YNw0EDScFKUuSRpBgY
         yQBk7rSNpTlT8gAAAABJRU5ErkJggg==
 </value>
   </data>
   <data name="cmdWindowClose.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAALCAAA
-        CwgBwL2l2gAAAERJREFUKFNjYIhlYCAaE60QZChIcUNDw38QRteIIQ5TgC6B1QBk02AKcNmE4TmcCmFu
+        YQUAAAAgY0hSTQAAeiYAAICEAAD6AAAAgOgAAHUwAADqYAAAOpgAABdwnLpRPAAAAAlwSFlzAAAK/wAA
+        Cv8BNGKaggAAAERJREFUKFNjYIhlYCAaE60QZChIcUNDw38QRteIIQ5TgC6B1QBk02AKcNmE4TmcCmFu
         RncKQZOJdjPJoUFUeBOlCBrLAJBjY2oXJGCqAAAAAElFTkSuQmCC
 </value>
   </data>

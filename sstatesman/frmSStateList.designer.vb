@@ -1,4 +1,4 @@
-﻿'   SStatesMan - Savestate Manager for PCSX2 0.9.8
+﻿'   SStatesMan - a savestate managing tool for PCSX2
 '   Copyright (C) 2011 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
@@ -36,12 +36,10 @@ Partial Class frmSStateList
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmSStateList))
         Me.ListBox1 = New System.Windows.Forms.ListBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.LblSearchResults = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
         Me.tsSStateListLoad = New System.Windows.Forms.ToolStripButton()
@@ -67,15 +65,17 @@ Partial Class frmSStateList
         Me.ListBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ListBox1.Font = New System.Drawing.Font("Lucida Console", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ListBox1.FormattingEnabled = True
+        Me.ListBox1.ItemHeight = 11
         Me.ListBox1.Location = New System.Drawing.Point(14, 106)
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(720, 329)
+        Me.ListBox1.Size = New System.Drawing.Size(720, 323)
         Me.ListBox1.TabIndex = 6
         '
         'StatusStrip1
         '
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel3})
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 451)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Size = New System.Drawing.Size(746, 22)
@@ -93,12 +93,6 @@ Partial Class frmSStateList
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
         Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(121, 17)
         Me.ToolStripStatusLabel2.Text = "ToolStripStatusLabel2"
-        '
-        'ToolStripStatusLabel3
-        '
-        Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
-        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(121, 17)
-        Me.ToolStripStatusLabel3.Text = "ToolStripStatusLabel3"
         '
         'LblSearchResults
         '
@@ -122,7 +116,6 @@ Partial Class frmSStateList
         'tsSStateListLoad
         '
         Me.tsSStateListLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.tsSStateListLoad.Image = CType(resources.GetObject("tsSStateListLoad.Image"), System.Drawing.Image)
         Me.tsSStateListLoad.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsSStateListLoad.Name = "tsSStateListLoad"
         Me.tsSStateListLoad.Size = New System.Drawing.Size(90, 22)
@@ -146,7 +139,6 @@ Partial Class frmSStateList
         '
         Me.tsListShow.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.tsListShow.Enabled = False
-        Me.tsListShow.Image = CType(resources.GetObject("tsListShow.Image"), System.Drawing.Image)
         Me.tsListShow.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsListShow.Name = "tsListShow"
         Me.tsListShow.Size = New System.Drawing.Size(29, 22)
@@ -156,7 +148,6 @@ Partial Class frmSStateList
         '
         Me.tsListClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.tsListClear.Enabled = False
-        Me.tsListClear.Image = CType(resources.GetObject("tsListClear.Image"), System.Drawing.Image)
         Me.tsListClear.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsListClear.Name = "tsListClear"
         Me.tsListClear.Size = New System.Drawing.Size(38, 22)
@@ -172,7 +163,6 @@ Partial Class frmSStateList
         Me.tsExport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.tsExport.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsExportTSVTxt, Me.tsExportCSVTxt})
         Me.tsExport.Enabled = False
-        Me.tsExport.Image = CType(resources.GetObject("tsExport.Image"), System.Drawing.Image)
         Me.tsExport.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsExport.Name = "tsExport"
         Me.tsExport.Size = New System.Drawing.Size(53, 22)
@@ -195,7 +185,6 @@ Partial Class frmSStateList
         Me.tsRecordLast.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.tsRecordLast.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.tsRecordLast.Enabled = False
-        Me.tsRecordLast.Image = CType(resources.GetObject("tsRecordLast.Image"), System.Drawing.Image)
         Me.tsRecordLast.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsRecordLast.Name = "tsRecordLast"
         Me.tsRecordLast.Size = New System.Drawing.Size(23, 22)
@@ -206,7 +195,6 @@ Partial Class frmSStateList
         Me.tsRecordNext.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.tsRecordNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.tsRecordNext.Enabled = False
-        Me.tsRecordNext.Image = CType(resources.GetObject("tsRecordNext.Image"), System.Drawing.Image)
         Me.tsRecordNext.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsRecordNext.Name = "tsRecordNext"
         Me.tsRecordNext.Size = New System.Drawing.Size(23, 22)
@@ -217,7 +205,6 @@ Partial Class frmSStateList
         Me.tsRecordPrevious.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.tsRecordPrevious.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.tsRecordPrevious.Enabled = False
-        Me.tsRecordPrevious.Image = CType(resources.GetObject("tsRecordPrevious.Image"), System.Drawing.Image)
         Me.tsRecordPrevious.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsRecordPrevious.Name = "tsRecordPrevious"
         Me.tsRecordPrevious.Size = New System.Drawing.Size(23, 22)
@@ -228,7 +215,6 @@ Partial Class frmSStateList
         Me.tsRecordFirst.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.tsRecordFirst.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.tsRecordFirst.Enabled = False
-        Me.tsRecordFirst.Image = CType(resources.GetObject("tsRecordFirst.Image"), System.Drawing.Image)
         Me.tsRecordFirst.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsRecordFirst.Name = "tsRecordFirst"
         Me.tsRecordFirst.Size = New System.Drawing.Size(23, 22)
@@ -262,7 +248,6 @@ Partial Class frmSStateList
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents ToolStripStatusLabel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents ToolStripStatusLabel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents LblSearchResults As System.Windows.Forms.Label
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator

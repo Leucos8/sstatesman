@@ -1,4 +1,4 @@
-﻿'   SStatesMan - Savestate Manager for PCSX2 0.9.8
+﻿'   SStatesMan - a savestate managing tool for PCSX2
 '   Copyright (C) 2011 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
@@ -39,6 +39,7 @@ Partial Class frmAbout
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAbout))
         Me.TableLayoutPanel = New System.Windows.Forms.TableLayoutPanel()
+        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.LabelCompanyName = New System.Windows.Forms.Label()
         Me.LabelCopyright = New System.Windows.Forms.Label()
         Me.LabelVersion = New System.Windows.Forms.Label()
@@ -65,26 +66,40 @@ Partial Class frmAbout
         Me.TableLayoutPanel.BackColor = System.Drawing.Color.Transparent
         Me.TableLayoutPanel.ColumnCount = 1
         Me.TableLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel.Controls.Add(Me.LinkLabel1, 0, 3)
         Me.TableLayoutPanel.Controls.Add(Me.LabelCompanyName, 0, 2)
         Me.TableLayoutPanel.Controls.Add(Me.LabelCopyright, 0, 1)
         Me.TableLayoutPanel.Controls.Add(Me.LabelVersion, 0, 0)
-        Me.TableLayoutPanel.Location = New System.Drawing.Point(11, 76)
+        Me.TableLayoutPanel.Location = New System.Drawing.Point(12, 76)
         Me.TableLayoutPanel.Name = "TableLayoutPanel"
-        Me.TableLayoutPanel.RowCount = 1
-        Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel.Size = New System.Drawing.Size(425, 105)
+        Me.TableLayoutPanel.RowCount = 4
+        Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
+        Me.TableLayoutPanel.Size = New System.Drawing.Size(416, 115)
         Me.TableLayoutPanel.TabIndex = 0
+        '
+        'LinkLabel1
+        '
+        Me.LinkLabel1.AutoSize = True
+        Me.LinkLabel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LinkLabel1.LinkColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
+        Me.LinkLabel1.Location = New System.Drawing.Point(3, 84)
+        Me.LinkLabel1.Name = "LinkLabel1"
+        Me.LinkLabel1.Size = New System.Drawing.Size(410, 31)
+        Me.LinkLabel1.TabIndex = 18
+        Me.LinkLabel1.TabStop = True
+        Me.LinkLabel1.Text = "Official Thread on PCSX2 Forums"
         '
         'LabelCompanyName
         '
         Me.LabelCompanyName.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LabelCompanyName.Location = New System.Drawing.Point(6, 34)
+        Me.LabelCompanyName.Location = New System.Drawing.Point(6, 56)
         Me.LabelCompanyName.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
         Me.LabelCompanyName.MaximumSize = New System.Drawing.Size(0, 17)
         Me.LabelCompanyName.Name = "LabelCompanyName"
-        Me.LabelCompanyName.Size = New System.Drawing.Size(416, 17)
+        Me.LabelCompanyName.Size = New System.Drawing.Size(407, 17)
         Me.LabelCompanyName.TabIndex = 0
         Me.LabelCompanyName.Text = "Nome società"
         Me.LabelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -92,11 +107,11 @@ Partial Class frmAbout
         'LabelCopyright
         '
         Me.LabelCopyright.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LabelCopyright.Location = New System.Drawing.Point(6, 17)
+        Me.LabelCopyright.Location = New System.Drawing.Point(6, 28)
         Me.LabelCopyright.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
         Me.LabelCopyright.MaximumSize = New System.Drawing.Size(0, 17)
         Me.LabelCopyright.Name = "LabelCopyright"
-        Me.LabelCopyright.Size = New System.Drawing.Size(416, 17)
+        Me.LabelCopyright.Size = New System.Drawing.Size(407, 17)
         Me.LabelCopyright.TabIndex = 0
         Me.LabelCopyright.Text = "Copyright"
         Me.LabelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -108,7 +123,7 @@ Partial Class frmAbout
         Me.LabelVersion.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
         Me.LabelVersion.MaximumSize = New System.Drawing.Size(0, 17)
         Me.LabelVersion.Name = "LabelVersion"
-        Me.LabelVersion.Size = New System.Drawing.Size(416, 17)
+        Me.LabelVersion.Size = New System.Drawing.Size(407, 17)
         Me.LabelVersion.TabIndex = 0
         Me.LabelVersion.Text = "Versione"
         Me.LabelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -118,13 +133,13 @@ Partial Class frmAbout
         Me.TextBoxDescription.BackColor = System.Drawing.Color.WhiteSmoke
         Me.TextBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBoxDescription.ForeColor = System.Drawing.Color.Black
-        Me.TextBoxDescription.Location = New System.Drawing.Point(11, 76)
+        Me.TextBoxDescription.Location = New System.Drawing.Point(12, 76)
         Me.TextBoxDescription.Margin = New System.Windows.Forms.Padding(6, 3, 3, 3)
         Me.TextBoxDescription.Multiline = True
         Me.TextBoxDescription.Name = "TextBoxDescription"
         Me.TextBoxDescription.ReadOnly = True
         Me.TextBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBoxDescription.Size = New System.Drawing.Size(425, 147)
+        Me.TextBoxDescription.Size = New System.Drawing.Size(424, 147)
         Me.TextBoxDescription.TabIndex = 1
         Me.TextBoxDescription.TabStop = False
         Me.TextBoxDescription.Text = resources.GetString("TextBoxDescription.Text")
@@ -134,15 +149,16 @@ Partial Class frmAbout
         '
         Me.OKButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.OKButton.BackColor = System.Drawing.Color.White
+        Me.OKButton.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
         Me.OKButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.OKButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray
         Me.OKButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.OKButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.OKButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.OKButton.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.OKButton.Location = New System.Drawing.Point(336, 235)
+        Me.OKButton.Location = New System.Drawing.Point(328, 246)
         Me.OKButton.Name = "OKButton"
-        Me.OKButton.Size = New System.Drawing.Size(100, 23)
+        Me.OKButton.Size = New System.Drawing.Size(100, 22)
         Me.OKButton.TabIndex = 16
         Me.OKButton.Text = "&OK"
         Me.OKButton.UseVisualStyleBackColor = False
@@ -150,7 +166,7 @@ Partial Class frmAbout
         'panelWindowTitle
         '
         Me.panelWindowTitle.BackColor = System.Drawing.Color.Transparent
-        Me.panelWindowTitle.BackgroundImage = Global.sstatesman.My.Resources.Resources.Bg2
+        Me.panelWindowTitle.BackgroundImage = Global.sstatesman.My.Resources.Resources.Bg3_1
         Me.panelWindowTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.panelWindowTitle.Controls.Add(Me.optStettingTab2)
         Me.panelWindowTitle.Controls.Add(Me.PictureBox1)
@@ -162,7 +178,7 @@ Partial Class frmAbout
         Me.panelWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.panelWindowTitle.Location = New System.Drawing.Point(0, 0)
         Me.panelWindowTitle.Name = "panelWindowTitle"
-        Me.panelWindowTitle.Size = New System.Drawing.Size(448, 70)
+        Me.panelWindowTitle.Size = New System.Drawing.Size(440, 70)
         Me.panelWindowTitle.TabIndex = 15
         '
         'optStettingTab2
@@ -173,7 +189,7 @@ Partial Class frmAbout
         Me.optStettingTab2.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.optStettingTab2.FlatAppearance.BorderSize = 0
         Me.optStettingTab2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Gainsboro
-        Me.optStettingTab2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optStettingTab2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gainsboro
         Me.optStettingTab2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optStettingTab2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optStettingTab2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -204,8 +220,8 @@ Partial Class frmAbout
         Me.optStettingTab1.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.optStettingTab1.FlatAppearance.BorderSize = 0
         Me.optStettingTab1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Gainsboro
-        Me.optStettingTab1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optStettingTab1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optStettingTab1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gainsboro
+        Me.optStettingTab1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro
         Me.optStettingTab1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optStettingTab1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.optStettingTab1.Location = New System.Drawing.Point(34, 47)
@@ -253,14 +269,14 @@ Partial Class frmAbout
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(448, 270)
+        Me.ClientSize = New System.Drawing.Size(440, 280)
         Me.Controls.Add(Me.OKButton)
         Me.Controls.Add(Me.panelWindowTitle)
         Me.Controls.Add(Me.TableLayoutPanel)
         Me.Controls.Add(Me.TextBoxDescription)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.DimGray
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmAbout"
@@ -268,6 +284,7 @@ Partial Class frmAbout
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "About"
         Me.TableLayoutPanel.ResumeLayout(False)
+        Me.TableLayoutPanel.PerformLayout()
         Me.panelWindowTitle.ResumeLayout(False)
         Me.panelWindowTitle.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -289,5 +306,6 @@ Partial Class frmAbout
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents optStettingTab2 As System.Windows.Forms.RadioButton
     Friend WithEvents optStettingTab1 As System.Windows.Forms.RadioButton
+    Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
 
 End Class

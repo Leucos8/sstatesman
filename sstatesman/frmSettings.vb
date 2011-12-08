@@ -1,4 +1,4 @@
-﻿'   SStatesMan - Savestate Manager for PCSX2 0.9.8
+﻿'   SStatesMan - a savestate managing tool for PCSX2
 '   Copyright (C) 2011 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
@@ -24,6 +24,7 @@ Public Class frmSettings
     Dim TmpSettingsFailTab2 As Boolean = False
 
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Me.Icon = My.Resources.SSM1
         Me.Size = Me.MinimumSize
         Me.panelTab2.Location = Me.panelTab1.Location
 
@@ -55,10 +56,10 @@ Public Class frmSettings
             'e.Graphics.FillRectangle(linGrBrush5, 0, Me.SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance, Me.ClientSize.Width, 12)
 
         End If
-        'e.Graphics.DrawLine(Pens.DarkGray, 0, 0, 0, Me.ClientSize.Height)
-        'e.Graphics.DrawLine(Pens.DarkGray, 0, 0, Me.ClientSize.Width, 0)
-        'e.Graphics.DrawLine(Pens.DarkGray, Me.ClientSize.Width - 1, 0, Me.ClientSize.Width - 1, Me.ClientSize.Height)
-        'e.Graphics.DrawLine(Pens.DarkGray, 0, Me.ClientSize.Height - 1, Me.ClientSize.Width, Me.ClientSize.Height - 1)
+        e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.ClientSize.Height)
+        e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.ClientSize.Width, 0)
+        e.Graphics.DrawLine(Pens.DimGray, Me.ClientSize.Width - 1, 0, Me.ClientSize.Width - 1, Me.ClientSize.Height)
+        e.Graphics.DrawLine(Pens.DimGray, 0, Me.ClientSize.Height - 1, Me.ClientSize.Width, Me.ClientSize.Height - 1)
     End Sub
 
     Private Sub cmdOk_Click(sender As System.Object, e As System.EventArgs) Handles cmdOk.Click
@@ -81,6 +82,7 @@ Public Class frmSettings
     Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click
         Me.Close()
         If My.Settings.SStateMan_SettingFail = True Then
+            My.Settings.SStateMan_FirstRun2 = True
             End
         End If
     End Sub
@@ -102,97 +104,140 @@ Public Class frmSettings
     End Sub
 
     Private Sub SettingsCheck()
-        Dim badChars() As System.Char = {" ", "\", "/", "|", ":"}
+        Dim badChars() As System.Char = {" ", "\", "/", ":"}
+        Dim invalidChars() As System.Char = {"""", "*", "?", "|", "<", ">"}
 
         Me.cmdOk.Enabled = True
         Me.TmpSettingsFailTab2 = False
 
-        Me.txtPCSX2AppPath.Text = Me.txtPCSX2AppPath.Text.TrimEnd(badChars)
+        Me.txtPCSX2AppPath.Text = Me.txtPCSX2AppPath.Text.Trim(badChars)
+        For i As System.Int32 = 0 To invalidChars.Length - 1
+            Me.txtPCSX2AppPath.Text = Me.txtPCSX2AppPath.Text.Replace(invalidChars(i), "_")
+        Next i
         If Not (My.Computer.FileSystem.DirectoryExists(Me.txtPCSX2AppPath.Text)) Then
-            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("FFFFFF Path not found or inaccessible.", vbCrLf, _
-                                                                 "FFFFFF Please enter a valid path or press """, Me.cmdCancel.Text, """.")
+            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("Path not found or inaccessible.", vbCrLf, _
+                                                                 "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
             Me.lblPCSX2AppPathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
+            Me.lblPCSX2AppPathStatus.Left = Me.imgPCSX2AppPathStatus.Left + Me.imgPCSX2AppPathStatus.Width
+            Me.lblPCSX2AppPathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2AppPathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2AppPathDetect.Left) + 6)
+
+            Me.imgPCSX2AppPathStatus.BackColor = Color.FromArgb(255, 255, 192, 192) 'Red
+            Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Error
+            Me.imgPCSX2AppPathStatus.Visible = True
+
             Me.cmdOk.Enabled = False
             Me.TmpSettingsFailTab2 = True
-
-            Me.imgPCSX2AppPathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
-            Me.imgPCSX2AppPathStatus.Visible = True
             'My.Settings.SStateMan_SettingFail = True
         ElseIf Not (My.Computer.FileSystem.FileExists(My.Computer.FileSystem.CombinePath(Me.txtPCSX2AppPath.Text, My.Settings.PCSX2_GameDbFilename))) Then
-            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("FFFFFF Unable to find """, My.Settings.PCSX2_GameDbFilename, """ in the specified path.", vbCrLf, _
-                                                                 "FFFFFF Game info will not be shown in SStatesMan windows.")
+            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("Unable to find """, My.Settings.PCSX2_GameDbFilename, """ in the specified path.", vbCrLf, _
+                                                                 "Game info will not be shown in SStatesMan windows.")
             Me.lblPCSX2AppPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
+            Me.lblPCSX2AppPathStatus.Left = Me.imgPCSX2AppPathStatus.Left + Me.imgPCSX2AppPathStatus.Width
+            Me.lblPCSX2AppPathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2AppPathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2AppPathDetect.Left) + 6)
 
-            Me.imgPCSX2AppPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
+            Me.imgPCSX2AppPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192) 'yellow
+            Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Exclamation
             Me.imgPCSX2AppPathStatus.Visible = True
         Else
             Me.lblPCSX2AppPathStatus.Text = System.String.Concat("Where SStatesMan will look for """, My.Settings.PCSX2_GameDbFilename, """, usually the folder where PCSX2 is installed.")
             Me.lblPCSX2AppPathStatus.BackColor = Color.Transparent
+            Me.lblPCSX2AppPathStatus.Left = Me.imgPCSX2AppPathStatus.Left
+            Me.lblPCSX2AppPathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2AppPathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2AppPathDetect.Left) + 6)
 
             Me.imgPCSX2AppPathStatus.Visible = False
         End If
 
 
-        Me.txtPCSX2IniPath.Text = Me.txtPCSX2IniPath.Text.TrimEnd(badChars)
+        Me.txtPCSX2IniPath.Text = Me.txtPCSX2IniPath.Text.Trim(badChars)
+        For i As System.Int32 = 0 To invalidChars.Length - 1
+            Me.txtPCSX2IniPath.Text = Me.txtPCSX2IniPath.Text.Replace(invalidChars(i), "_")
+        Next i
         If Not (My.Computer.FileSystem.DirectoryExists(Me.txtPCSX2IniPath.Text)) Then
-            Me.lblPCSX2IniPathStatus.Text = System.String.Concat("FFFFFF Path not found or inaccessible.", vbCrLf, _
-                                                                 "FFFFFF Please enter a valid path or press """, Me.cmdCancel.Text, """.")
+            Me.lblPCSX2IniPathStatus.Text = System.String.Concat("Path not found or inaccessible.", vbCrLf, _
+                                                                 "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
             Me.lblPCSX2IniPathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
-            Me.cmdOk.Enabled = False
-            Me.TmpSettingsFailTab2 = True
+            Me.lblPCSX2IniPathStatus.Left = Me.imgPCSX2IniPathStatus.Left + Me.imgPCSX2IniPathStatus.Width
+            Me.lblPCSX2IniPathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2IniPathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2IniPathDetect.Left) + 6)
 
             Me.imgPCSX2IniPathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
+            Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Error
             Me.imgPCSX2IniPathStatus.Visible = True
-            'My.Settings.SStateMan_SettingFail = True
-        ElseIf Not (My.Computer.FileSystem.FileExists(My.Computer.FileSystem.CombinePath(Me.txtPCSX2IniPath.Text, "PCSX2_ui.ini"))) Then
-            Me.lblPCSX2IniPathStatus.Text = System.String.Concat("FFFFFF Unable to find ""PCSX2_ui.ini"" in the specified path.", vbCrLf, _
-                                                                 "FFFFFF It may not be the correct PCSX2 ""inis"" folder.")
+
+            Me.cmdOk.Enabled = False
+            Me.TmpSettingsFailTab2 = True
+        ElseIf Not (My.Computer.FileSystem.FileExists(My.Computer.FileSystem.CombinePath(Me.txtPCSX2IniPath.Text, My.Settings.PCSX2_PCSX2_uiFilename))) Then
+            Me.lblPCSX2IniPathStatus.Text = System.String.Concat("Unable to find """, My.Settings.PCSX2_PCSX2_uiFilename, """ in the specified path.", vbCrLf, _
+                                                                 "It may not be the correct PCSX2 ""inis"" folder.")
             Me.lblPCSX2IniPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
+            Me.lblPCSX2IniPathStatus.Left = Me.imgPCSX2IniPathStatus.Left + Me.imgPCSX2IniPathStatus.Width
+            Me.lblPCSX2IniPathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2IniPathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2IniPathDetect.Left) + 6)
 
             Me.imgPCSX2IniPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
+            Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Exclamation
             Me.imgPCSX2IniPathStatus.Visible = True
         Else
             Me.lblPCSX2IniPathStatus.Text = "Where SStatesMan will look PCSX2 inis, usually the ""inis"" folder inside PCSX2 user folder."
             Me.lblPCSX2IniPathStatus.BackColor = Color.Transparent
+            Me.lblPCSX2IniPathStatus.Left = Me.imgPCSX2IniPathStatus.Left
+            Me.lblPCSX2IniPathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2IniPathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2IniPathDetect.Left) + 6)
 
             Me.imgPCSX2IniPathStatus.Visible = False
         End If
 
 
-        Me.txtPCSX2SStatePath.Text = Me.txtPCSX2SStatePath.Text.TrimEnd(badChars)
+        Me.txtPCSX2SStatePath.Text = Me.txtPCSX2SStatePath.Text.Trim(badChars)
+        For i As System.Int32 = 0 To invalidChars.Length - 1
+            Me.txtPCSX2SStatePath.Text = Me.txtPCSX2SStatePath.Text.Replace(invalidChars(i), "_")
+        Next i
         If Not (My.Computer.FileSystem.DirectoryExists(Me.txtPCSX2SStatePath.Text)) Then
-            Me.lblPCSX2SStatePathStatus.Text = System.String.Concat("FFFFFF Path not found or inaccessible.", vbCrLf, _
-                                                                    "FFFFFF Please enter a valid path or press """, Me.cmdCancel.Text, """.")
+            Me.lblPCSX2SStatePathStatus.Text = System.String.Concat("Path not found or inaccessible.", vbCrLf, _
+                                                                    "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
             Me.lblPCSX2SStatePathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
-            Me.cmdOk.Enabled = False
-            Me.TmpSettingsFailTab2 = True
+            Me.lblPCSX2SStatePathStatus.Left = Me.imgPCSX2SStatePathStatus.Left + Me.imgPCSX2SStatePathStatus.Width
+            Me.lblPCSX2SStatePathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2SStatePathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2SStatePathDetect.Left) + 6)
 
             Me.imgPCSX2SStatePathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
+            Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Error
             Me.imgPCSX2SStatePathStatus.Visible = True
-            'My.Settings.SStateMan_SettingFail = True
+
+            Me.cmdOk.Enabled = False
+            Me.TmpSettingsFailTab2 = True
         Else
             Me.lblPCSX2SStatePathStatus.Text = System.String.Format("Where SStatesMan will look for the savestates, usually the ""{0}"" folder inside PCSX2 user folder.", My.Settings.PCSX2_SStateFolder)
             Me.lblPCSX2SStatePathStatus.BackColor = Color.Transparent
+            Me.lblPCSX2SStatePathStatus.Left = Me.imgPCSX2SStatePathStatus.Left
+            Me.lblPCSX2SStatePathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2SStatePathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2SStatePathDetect.Left) + 6)
+
 
             Me.imgPCSX2SStatePathStatus.Visible = False
         End If
 
 
-        Me.txtSStateManPicsPath.Text = Me.txtSStateManPicsPath.Text.TrimEnd(badChars)
+        Me.txtSStateManPicsPath.Text = Me.txtSStateManPicsPath.Text.Trim(badChars)
+        For i As System.Int32 = 0 To invalidChars.Length - 1
+            Me.txtSStateManPicsPath.Text = Me.txtSStateManPicsPath.Text.Replace(invalidChars(i), "_")
+        Next i
         If Not (My.Computer.FileSystem.DirectoryExists(Me.txtSStateManPicsPath.Text)) Then
-            Me.lblSStateManPicsPathStatus.Text = System.String.Concat("FFFFFF Path not found or inaccessible.", vbCrLf, _
-                                                                      "FFFFFF Please enter a valid path.")
+            Me.txtSStateManPicsPath.Text = "Not set"
+            'Me.lblSStateManPicsPathStatus.Text = System.String.Concat("Path not found or inaccessible.", vbCrLf, _
+            '                                                          "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
+            Me.lblSStateManPicsPathStatus.Text = System.String.Concat("Path not found or inaccessible.", vbCrLf, _
+                                                                      "Please enter a valid path.")
             Me.lblSStateManPicsPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
+            Me.lblSStateManPicsPathStatus.Left = Me.imgSStateManPicsPathStatus.Left + Me.imgSStateManPicsPathStatus.Width
+            Me.lblSStateManPicsPathStatus.Width = Me.panelTab1.Width - (Me.lblSStateManPicsPathStatus.Left + (Me.panelTab1.Width - Me.cmdSStateManPicsPathBrowse.Left) + 6)
 
             Me.imgSStateManPicsPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
+            Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Exclamation
             Me.imgSStateManPicsPathStatus.Visible = True
 
             'Me.cmdOk.Enabled = False
-            'My.Settings.SStateMan_SettingFail = True
         Else
             Me.lblSStateManPicsPathStatus.Text = System.String.Concat("Where SStatesMan will look for the game cover images.", vbCrLf, _
-                                                                      "The cover image MUST be named <executable code>.jpg to work.")
+                                                                      "The cover image file MUST be named <executable code>.jpg to work.")
             Me.lblSStateManPicsPathStatus.BackColor = Color.Transparent
+            Me.lblSStateManPicsPathStatus.Left = Me.imgSStateManPicsPathStatus.Left
+            Me.lblSStateManPicsPathStatus.Width = Me.panelTab1.Width - (Me.lblSStateManPicsPathStatus.Left + (Me.panelTab1.Width - Me.cmdSStateManPicsPathBrowse.Left) + 6)
 
             Me.imgSStateManPicsPathStatus.Visible = False
         End If
@@ -209,35 +254,81 @@ Public Class frmSettings
     End Sub
 
     Private Sub cmdPCSX2AppPathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2AppPathBrowse.Click
-        If Me.FolderBrowserDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
-            Me.txtPCSX2AppPath.Text = Me.FolderBrowserDialog1.SelectedPath
+        Dim FolderPicker As New Windows.Forms.FolderBrowserDialog
+        With FolderPicker
+            .ShowNewFolderButton = False
+            .Description = "Select your PCSX2 executable folder."
+            If My.Computer.FileSystem.DirectoryExists(Me.txtPCSX2AppPath.Text) Then
+                .SelectedPath = Me.txtPCSX2AppPath.Text
+            Else : .SelectedPath = My.Computer.FileSystem.SpecialDirectories.ProgramFiles
+            End If
+        End With
+
+        If FolderPicker.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+            Me.txtPCSX2AppPath.Text = FolderPicker.SelectedPath
         End If
+        FolderPicker.Dispose()
         Me.SettingsCheck()
     End Sub
 
     Private Sub cmdPCSX2SStatePathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SStatePathBrowse.Click
-        If Me.FolderBrowserDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
-            Me.txtPCSX2SStatePath.Text = Me.FolderBrowserDialog1.SelectedPath
+        Dim FolderPicker As New Windows.Forms.FolderBrowserDialog
+        With FolderPicker
+            .ShowNewFolderButton = False
+            .Description = "Select your PCSX2 savestates folder."
+            If My.Computer.FileSystem.DirectoryExists(Me.txtPCSX2SStatePath.Text) Then
+                .SelectedPath = Me.txtPCSX2SStatePath.Text
+            Else : .SelectedPath = My.Computer.FileSystem.SpecialDirectories.MyDocuments
+            End If
+        End With
+
+        If FolderPicker.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+            Me.txtPCSX2SStatePath.Text = FolderPicker.SelectedPath
         End If
+        FolderPicker.Dispose()
         Me.SettingsCheck()
     End Sub
 
     Private Sub cmdPCSX2IniPathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2IniPathBrowse.Click
-        If Me.FolderBrowserDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
-            Me.txtPCSX2IniPath.Text = Me.FolderBrowserDialog1.SelectedPath
+        Dim FolderPicker As New Windows.Forms.FolderBrowserDialog
+        With FolderPicker
+            .ShowNewFolderButton = False
+            .Description = "Select your PCSX2 ""inis"" folder."
+            If My.Computer.FileSystem.DirectoryExists(Me.txtPCSX2IniPath.Text) Then
+                .SelectedPath = Me.txtPCSX2IniPath.Text
+            Else : .SelectedPath = My.Computer.FileSystem.SpecialDirectories.MyDocuments
+            End If
+        End With
+
+        If FolderPicker.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+            Me.txtPCSX2IniPath.Text = FolderPicker.SelectedPath
         End If
+        FolderPicker.Dispose()
         Me.SettingsCheck()
     End Sub
 
     Private Sub cmdSStateManPicsPathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStateManPicsPathBrowse.Click
-        If Me.FolderBrowserDialog1.ShowDialog = Windows.Forms.DialogResult.OK Then
-            Me.txtSStateManPicsPath.Text = Me.FolderBrowserDialog1.SelectedPath
+        Dim FolderPicker As New Windows.Forms.FolderBrowserDialog
+        With FolderPicker
+            '.ShowNewFolderButton = False
+            .Description = "Select your game cover images folder."
+            If My.Computer.FileSystem.DirectoryExists(Me.txtSStateManPicsPath.Text) Then
+                .SelectedPath = Me.txtSStateManPicsPath.Text
+            Else : .SelectedPath = My.Computer.FileSystem.SpecialDirectories.MyPictures
+            End If
+        End With
+
+        If FolderPicker.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+            Me.txtSStateManPicsPath.Text = FolderPicker.SelectedPath
         End If
+        FolderPicker.Dispose()
         Me.SettingsCheck()
     End Sub
 
     Private Sub optStettingTab1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optStettingTab1.CheckedChanged
         If Me.optStettingTab1.Checked = True Then
+            Me.optStettingTab1.FlatAppearance.MouseOverBackColor = Color.Gainsboro
+            Me.optStettingTab2.FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
             Me.panelTab2.Visible = False
             Me.panelTab1.Visible = True
         End If
@@ -245,9 +336,33 @@ Public Class frmSettings
 
     Private Sub optStettingTab2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optStettingTab2.CheckedChanged
         If Me.optStettingTab2.Checked = True Then
+            Me.optStettingTab2.FlatAppearance.MouseOverBackColor = Color.Gainsboro
+            Me.optStettingTab1.FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
             Me.panelTab1.Visible = False
             Me.panelTab2.Visible = True
         End If
     End Sub
 
+    Private Sub optStettingTab1_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles optStettingTab1.MouseDown
+        optStettingTab1.FlatAppearance.MouseOverBackColor = Color.Gainsboro
+    End Sub
+
+    Private Sub optStettingTab2_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles optStettingTab2.MouseDown
+        optStettingTab2.FlatAppearance.MouseOverBackColor = Color.Gainsboro
+    End Sub
+
+    Private Sub cmdPCSX2AppPathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2AppPathDetect.Click
+        mdlMain.PCSX2_PathBin_Detect(Me.txtPCSX2AppPath.Text)
+        Me.SettingsCheck()
+    End Sub
+
+    Private Sub cmdPCSX2IniPathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2IniPathDetect.Click
+        mdlMain.PCSX2_PathInis_Detect(Me.txtPCSX2IniPath.Text)
+        Me.SettingsCheck()
+    End Sub
+
+    Private Sub cmdPCSX2SStatePathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SStatePathDetect.Click
+        mdlMain.PCSX2_PathSStates_Detect(Me.txtPCSX2SStatePath.Text)
+        Me.SettingsCheck()
+    End Sub
 End Class

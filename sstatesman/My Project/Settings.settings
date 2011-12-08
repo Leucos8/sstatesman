@@ -1,15 +1,31 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
+<!--
+    SStatesMan - a savestate managing tool for PCSX2
+    Copyright (C) 2011 - Leucos
+
+    SStatesMan is free software: you can redistribute it and/or modify it under
+    the terms of the GNU Lesser General Public License as published by the Free
+    Software Foundation, either version 3 of the License, or (at your option) any
+    later version.
+ 
+    SStatesMan is distributed in the hope that it will be useful, but WITHOUT ANY
+    WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+    PARTICULAR PURPOSE. See the GNU General Public License for more details.
+ 
+    You should have received a copy of the GNU General Public License along with 
+    SStatesMan. If not, see <http://www.gnu.org/licenses/>.
+-->
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
   <Profiles />
   <Settings>
     <Setting Name="PCSX2_PathBin" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Insert the path to the PCSX2 binaries folder here</Value>
+      <Value Profile="(Default)">Not detected</Value>
     </Setting>
     <Setting Name="PCSX2_PathInis" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Insert the path to the PCSX2 inis folder here</Value>
+      <Value Profile="(Default)">Not detected</Value>
     </Setting>
     <Setting Name="PCSX2_PathSState" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Insert the path to the PCSX2 savestates folder here</Value>
+      <Value Profile="(Default)">Not detected</Value>
     </Setting>
     <Setting Name="PCSX2_SStateExt" Type="System.String" Scope="Application">
       <Value Profile="(Default)">.p2s</Value>
@@ -27,7 +43,7 @@
       <Value Profile="(Default)">alpha</Value>
     </Setting>
     <Setting Name="PCSX2_PathRegKey" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">\Software\PCSX2</Value>
+      <Value Profile="(Default)">Software\PCSX2</Value>
     </Setting>
     <Setting Name="PCSX2_PathBinReg" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Install_Dir</Value>
@@ -45,13 +61,25 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="SStateMan_PathPics" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Insert the path to your cover images folder here</Value>
+      <Value Profile="(Default)">Not set</Value>
     </Setting>
     <Setting Name="SStateMan_PicsFolder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">coverpics</Value>
     </Setting>
     <Setting Name="SStateMan_BGEnable" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="PCSX2_PathBinSet" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PCSX2_PathInisSet" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PCSX2_PathSStatesSet" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="PCSX2_PCSX2_uiFilename" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">PCSX2_ui.ini</Value>
     </Setting>
   </Settings>
 </SettingsFile>

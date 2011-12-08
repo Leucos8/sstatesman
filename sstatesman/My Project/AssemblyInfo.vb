@@ -1,4 +1,4 @@
-﻿'   SStatesMan - Savestate Manager for PCSX2 0.9.8
+﻿'   SStatesMan - a savestate managing tool for PCSX2
 '   Copyright (C) 2011 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
@@ -23,7 +23,7 @@ Imports System.Runtime.InteropServices
 ' Controllare i valori degli attributi dell'assembly
 
 <Assembly: AssemblyTitle("SStatesMan")> 
-<Assembly: AssemblyDescription("Savestate Manager for PCSX2 0.9.8")> 
+<Assembly: AssemblyDescription("a savestate managing tool for PCSX2")> 
 <Assembly: AssemblyCompany("Leucos")> 
 <Assembly: AssemblyProduct("SStatesMan")> 
 <Assembly: AssemblyCopyright("Copyright (C) 2011 - Leucos")> 
@@ -45,5 +45,5 @@ Imports System.Runtime.InteropServices
 ' utilizzando l'asterisco (*) come descritto di seguito:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("0.1.4.1433")> 
-<Assembly: AssemblyFileVersion("0.1.4.1433")> 
+<Assembly: AssemblyVersion("0.1.4.1484")> 
+<Assembly: AssemblyFileVersion("0.1.4.1484")> 

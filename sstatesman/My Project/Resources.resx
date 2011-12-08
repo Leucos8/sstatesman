@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
-    SStatesMan - Savestate Manager for PCSX2 0.9.8
+    SStatesMan - a savestate managing tool for PCSX2
     Copyright (C) 2011 - Leucos
 
     SStatesMan is free software: you can redistribute it and/or modify it under
@@ -134,20 +134,11 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Bg1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Bg1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Bg2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Bg2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BgBW" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BgBW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="GradientBlueDarkH" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\GradientBlueDarkH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metro_Reduce" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-Reduce.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Metro_ExpandLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Metro-ExpandLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Metro_WindowButtonClose" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Metro-WindowButtonClose.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -160,9 +151,6 @@
   </data>
   <data name="Metro_WindowButtonRestore" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Metro-WindowButtonRestore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ShadowUp" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ShadowUp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SStatesMan_Badge3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SStatesMan-Badge3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -206,9 +194,6 @@
   <data name="Flag_Spain_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flags\Flag_Spain_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Flag_Switzerland_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flags\Flag_Switzerland_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="Flag_UK_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flags\Flag_UK_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -224,13 +209,34 @@
   <data name="Flag_Austria_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flags\Flag_Austria_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metro_Expand" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-Expand.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Metro_Folder_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-Folder_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Metro_ExpandRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Metro-ExpandRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Metro_Button_Exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Metro-Button-Exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Metro_ChecboxChecked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Metro-ChecboxChecked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Metro_ChecboxUnchecked" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Metro-ChecboxUnchecked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Metro_ExpandBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Metro-ExpandBottom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Metro_ExpandTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Metro-ExpandTop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="SSM1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\SSM1.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Metro_ButtonNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Metro-ButtonNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Bg3_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Bg3.1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Metro_Button_Error" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Metro-Button-Error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
