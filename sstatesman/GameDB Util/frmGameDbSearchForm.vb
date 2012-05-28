@@ -13,7 +13,7 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Public Class frmGameDbSearchForm
-    Dim searchCkbStatus As System.Byte = 0
+    Dim searchCkbStatus As System.Int32 = 0
     Dim ConvertedGameCompat As System.String = ""
 
     Private Sub UICheck()
@@ -34,8 +34,8 @@ Public Class frmGameDbSearchForm
             Me.ckbGameRegion.Checked = False
         End If
         If searchCkbStatus > 0 Then
-            frmGameDb.SearchResultRef_Len = mdlGameDb.GameDb_Search(mdlGameDb.GameDb, mdlGameDb.GameDb_Pos, mdlGameDb.GameDb_Len, _
-                                                                 frmGameDb.SearchResultRef, frmGameDb.SearchResultRef_Pos, _
+            frmGameDb.SearchResultRef_ArrayStatus = mdlGameDb.GameDb_Search(mdlGameDb.GameDb, _
+                                                                 frmGameDb.SearchResultRef, _
                                                                  Me.txtSerial.Text, Me.ckbSerial.Checked, _
                                                                  Me.txtGameTitle.Text, Me.ckbGameTitle.Checked, _
                                                                  Me.txtGameRegion.Text, Me.ckbGameRegion.Checked, _
@@ -104,7 +104,7 @@ Public Class frmGameDbSearchForm
             Case "3: menus" : ConvertedGameCompat = "3"
             Case "4: in-game" : ConvertedGameCompat = "4"
             Case "5: playable" : ConvertedGameCompat = "5"
-            Case "6: perfect" : ConvertedGameCompat = 6
+            Case "6: perfect" : ConvertedGameCompat = "6"
             Case "missing" : ConvertedGameCompat = ""
             Case Else : ConvertedGameCompat = "0"
                 Me.cbGameCompat.Text = "0: Unknown"

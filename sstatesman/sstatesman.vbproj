@@ -38,7 +38,7 @@
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\x86\Debug\</OutputPath>
     <DocumentationFile>sstatesman.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -48,7 +48,7 @@
     <Optimize>true</Optimize>
     <OutputPath>bin\x86\Release\</OutputPath>
     <DocumentationFile>sstatesman.xml</DocumentationFile>
-    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
     <OptionExplicit>On</OptionExplicit>
@@ -67,6 +67,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -190,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\GradientBlueDarkH.png" />
+    <None Include="Resources\GradientBlueDarkV.png" />
     <None Include="Resources\SSM1ico24.png" />
     <None Include="Resources\SStatesMan-Badge3.png" />
     <None Include="Resources\SSM1.ico" />

@@ -80,7 +80,6 @@ Partial Class frmSettings
         Me.optStettingTab1 = New System.Windows.Forms.RadioButton()
         Me.lblWindowProgramName = New System.Windows.Forms.Label()
         Me.imgWindowGradientLeft = New System.Windows.Forms.PictureBox()
-        Me.lblWindowTitle = New System.Windows.Forms.Label()
         Me.panelTab2.SuspendLayout()
         CType(Me.imgPCSX2SStatePathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgPCSX2IniPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -112,7 +111,6 @@ Partial Class frmSettings
         '
         'ckbSStatesManMoveToTrash
         '
-        Me.ckbSStatesManMoveToTrash.AutoSize = True
         Me.ckbSStatesManMoveToTrash.BackColor = System.Drawing.Color.Transparent
         Me.ckbSStatesManMoveToTrash.Checked = True
         Me.ckbSStatesManMoveToTrash.CheckState = System.Windows.Forms.CheckState.Checked
@@ -120,7 +118,7 @@ Partial Class frmSettings
         Me.ckbSStatesManMoveToTrash.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ckbSStatesManMoveToTrash.Location = New System.Drawing.Point(11, 138)
         Me.ckbSStatesManMoveToTrash.Name = "ckbSStatesManMoveToTrash"
-        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(462, 17)
+        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(510, 18)
         Me.ckbSStatesManMoveToTrash.TabIndex = 18
         Me.ckbSStatesManMoveToTrash.Text = "Move the deleted savestates to the Recycle Bin instead of deleting them permanent" & _
     "ly."
@@ -128,12 +126,11 @@ Partial Class frmSettings
         '
         'lblSStatesManPicsPath
         '
-        Me.lblSStatesManPicsPath.AutoSize = True
         Me.lblSStatesManPicsPath.BackColor = System.Drawing.Color.Transparent
-        Me.lblSStatesManPicsPath.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSStatesManPicsPath.Location = New System.Drawing.Point(3, 158)
+        Me.lblSStatesManPicsPath.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.lblSStatesManPicsPath.Location = New System.Drawing.Point(3, 159)
         Me.lblSStatesManPicsPath.Name = "lblSStatesManPicsPath"
-        Me.lblSStatesManPicsPath.Size = New System.Drawing.Size(207, 21)
+        Me.lblSStatesManPicsPath.Size = New System.Drawing.Size(518, 21)
         Me.lblSStatesManPicsPath.TabIndex = 14
         Me.lblSStatesManPicsPath.Text = "Game cover image files path"
         '
@@ -146,9 +143,9 @@ Partial Class frmSettings
         Me.txtSStatesManPicsPath.BackColor = System.Drawing.Color.White
         Me.txtSStatesManPicsPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtSStatesManPicsPath.ForeColor = System.Drawing.Color.DimGray
-        Me.txtSStatesManPicsPath.Location = New System.Drawing.Point(11, 182)
+        Me.txtSStatesManPicsPath.Location = New System.Drawing.Point(11, 183)
         Me.txtSStatesManPicsPath.Name = "txtSStatesManPicsPath"
-        Me.txtSStatesManPicsPath.Size = New System.Drawing.Size(504, 22)
+        Me.txtSStatesManPicsPath.Size = New System.Drawing.Size(501, 22)
         Me.txtSStatesManPicsPath.TabIndex = 15
         '
         'cmdCancel
@@ -179,7 +176,7 @@ Partial Class frmSettings
         Me.cmdSStatesManPicsPathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStatesManPicsPathBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStatesManPicsPathBrowse.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSStatesManPicsPathBrowse.Location = New System.Drawing.Point(460, 210)
+        Me.cmdSStatesManPicsPathBrowse.Location = New System.Drawing.Point(457, 211)
         Me.cmdSStatesManPicsPathBrowse.Name = "cmdSStatesManPicsPathBrowse"
         Me.cmdSStatesManPicsPathBrowse.Size = New System.Drawing.Size(55, 22)
         Me.cmdSStatesManPicsPathBrowse.TabIndex = 16
@@ -188,7 +185,6 @@ Partial Class frmSettings
         '
         'ckbSStatesManBGEnabled
         '
-        Me.ckbSStatesManBGEnabled.AutoSize = True
         Me.ckbSStatesManBGEnabled.BackColor = System.Drawing.Color.Transparent
         Me.ckbSStatesManBGEnabled.Checked = True
         Me.ckbSStatesManBGEnabled.CheckState = System.Windows.Forms.CheckState.Checked
@@ -196,7 +192,7 @@ Partial Class frmSettings
         Me.ckbSStatesManBGEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ckbSStatesManBGEnabled.Location = New System.Drawing.Point(11, 94)
         Me.ckbSStatesManBGEnabled.Name = "ckbSStatesManBGEnabled"
-        Me.ckbSStatesManBGEnabled.Size = New System.Drawing.Size(350, 17)
+        Me.ckbSStatesManBGEnabled.Size = New System.Drawing.Size(510, 18)
         Me.ckbSStatesManBGEnabled.TabIndex = 19
         Me.ckbSStatesManBGEnabled.Text = "Disable windows gradient backgrounds (improve performance)."
         Me.ckbSStatesManBGEnabled.UseVisualStyleBackColor = False
@@ -207,9 +203,9 @@ Partial Class frmSettings
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblSStatesManPicsPathStatus.BackColor = System.Drawing.Color.Transparent
         Me.lblSStatesManPicsPathStatus.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSStatesManPicsPathStatus.Location = New System.Drawing.Point(11, 207)
+        Me.lblSStatesManPicsPathStatus.Location = New System.Drawing.Point(11, 208)
         Me.lblSStatesManPicsPathStatus.Name = "lblSStatesManPicsPathStatus"
-        Me.lblSStatesManPicsPathStatus.Size = New System.Drawing.Size(382, 29)
+        Me.lblSStatesManPicsPathStatus.Size = New System.Drawing.Size(379, 29)
         Me.lblSStatesManPicsPathStatus.TabIndex = 23
         '
         'panelTab2
@@ -238,10 +234,10 @@ Partial Class frmSettings
         Me.panelTab2.Controls.Add(Me.lblPCSX2AppPath)
         Me.panelTab2.Controls.Add(Me.txtPCSX2IniPath)
         Me.panelTab2.Controls.Add(Me.txtPCSX2AppPath)
-        Me.panelTab2.Location = New System.Drawing.Point(15, 356)
+        Me.panelTab2.Location = New System.Drawing.Point(15, 314)
         Me.panelTab2.Margin = New System.Windows.Forms.Padding(6)
         Me.panelTab2.Name = "panelTab2"
-        Me.panelTab2.Size = New System.Drawing.Size(527, 250)
+        Me.panelTab2.Size = New System.Drawing.Size(524, 250)
         Me.panelTab2.TabIndex = 24
         Me.panelTab2.Visible = False
         '
@@ -255,7 +251,7 @@ Partial Class frmSettings
         Me.cmdPCSX2SStatePathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2SStatePathOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdPCSX2SStatePathOpen.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2SStatePathOpen.Location = New System.Drawing.Point(399, 211)
+        Me.cmdPCSX2SStatePathOpen.Location = New System.Drawing.Point(396, 214)
         Me.cmdPCSX2SStatePathOpen.Name = "cmdPCSX2SStatePathOpen"
         Me.cmdPCSX2SStatePathOpen.Size = New System.Drawing.Size(55, 22)
         Me.cmdPCSX2SStatePathOpen.TabIndex = 43
@@ -272,7 +268,7 @@ Partial Class frmSettings
         Me.cmdPCSX2IniPathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2IniPathOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdPCSX2IniPathOpen.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2IniPathOpen.Location = New System.Drawing.Point(399, 133)
+        Me.cmdPCSX2IniPathOpen.Location = New System.Drawing.Point(396, 134)
         Me.cmdPCSX2IniPathOpen.Name = "cmdPCSX2IniPathOpen"
         Me.cmdPCSX2IniPathOpen.Size = New System.Drawing.Size(55, 22)
         Me.cmdPCSX2IniPathOpen.TabIndex = 42
@@ -289,7 +285,7 @@ Partial Class frmSettings
         Me.cmdPCSX2AppPathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2AppPathOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdPCSX2AppPathOpen.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2AppPathOpen.Location = New System.Drawing.Point(399, 55)
+        Me.cmdPCSX2AppPathOpen.Location = New System.Drawing.Point(396, 54)
         Me.cmdPCSX2AppPathOpen.Name = "cmdPCSX2AppPathOpen"
         Me.cmdPCSX2AppPathOpen.Size = New System.Drawing.Size(55, 22)
         Me.cmdPCSX2AppPathOpen.TabIndex = 41
@@ -306,7 +302,7 @@ Partial Class frmSettings
         Me.cmdPCSX2SStatePathDetect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2SStatePathDetect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdPCSX2SStatePathDetect.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2SStatePathDetect.Location = New System.Drawing.Point(338, 211)
+        Me.cmdPCSX2SStatePathDetect.Location = New System.Drawing.Point(335, 214)
         Me.cmdPCSX2SStatePathDetect.Name = "cmdPCSX2SStatePathDetect"
         Me.cmdPCSX2SStatePathDetect.Size = New System.Drawing.Size(55, 22)
         Me.cmdPCSX2SStatePathDetect.TabIndex = 39
@@ -323,7 +319,7 @@ Partial Class frmSettings
         Me.cmdPCSX2IniPathDetect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2IniPathDetect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdPCSX2IniPathDetect.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2IniPathDetect.Location = New System.Drawing.Point(338, 133)
+        Me.cmdPCSX2IniPathDetect.Location = New System.Drawing.Point(335, 134)
         Me.cmdPCSX2IniPathDetect.Name = "cmdPCSX2IniPathDetect"
         Me.cmdPCSX2IniPathDetect.Size = New System.Drawing.Size(55, 22)
         Me.cmdPCSX2IniPathDetect.TabIndex = 38
@@ -340,7 +336,7 @@ Partial Class frmSettings
         Me.cmdPCSX2AppPathDetect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2AppPathDetect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdPCSX2AppPathDetect.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2AppPathDetect.Location = New System.Drawing.Point(338, 55)
+        Me.cmdPCSX2AppPathDetect.Location = New System.Drawing.Point(335, 54)
         Me.cmdPCSX2AppPathDetect.Name = "cmdPCSX2AppPathDetect"
         Me.cmdPCSX2AppPathDetect.Size = New System.Drawing.Size(55, 22)
         Me.cmdPCSX2AppPathDetect.TabIndex = 37
@@ -350,7 +346,7 @@ Partial Class frmSettings
         'imgPCSX2SStatePathStatus
         '
         Me.imgPCSX2SStatePathStatus.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Exclamation
-        Me.imgPCSX2SStatePathStatus.Location = New System.Drawing.Point(11, 208)
+        Me.imgPCSX2SStatePathStatus.Location = New System.Drawing.Point(11, 211)
         Me.imgPCSX2SStatePathStatus.Name = "imgPCSX2SStatePathStatus"
         Me.imgPCSX2SStatePathStatus.Size = New System.Drawing.Size(28, 29)
         Me.imgPCSX2SStatePathStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
@@ -360,7 +356,7 @@ Partial Class frmSettings
         'imgPCSX2IniPathStatus
         '
         Me.imgPCSX2IniPathStatus.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Exclamation
-        Me.imgPCSX2IniPathStatus.Location = New System.Drawing.Point(11, 130)
+        Me.imgPCSX2IniPathStatus.Location = New System.Drawing.Point(11, 131)
         Me.imgPCSX2IniPathStatus.Name = "imgPCSX2IniPathStatus"
         Me.imgPCSX2IniPathStatus.Size = New System.Drawing.Size(28, 29)
         Me.imgPCSX2IniPathStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
@@ -370,7 +366,7 @@ Partial Class frmSettings
         'imgPCSX2AppPathStatus
         '
         Me.imgPCSX2AppPathStatus.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Exclamation
-        Me.imgPCSX2AppPathStatus.Location = New System.Drawing.Point(11, 52)
+        Me.imgPCSX2AppPathStatus.Location = New System.Drawing.Point(11, 51)
         Me.imgPCSX2AppPathStatus.Name = "imgPCSX2AppPathStatus"
         Me.imgPCSX2AppPathStatus.Size = New System.Drawing.Size(28, 29)
         Me.imgPCSX2AppPathStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
@@ -383,9 +379,9 @@ Partial Class frmSettings
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblPCSX2SStatePathStatus.BackColor = System.Drawing.Color.Transparent
         Me.lblPCSX2SStatePathStatus.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPCSX2SStatePathStatus.Location = New System.Drawing.Point(12, 208)
+        Me.lblPCSX2SStatePathStatus.Location = New System.Drawing.Point(12, 211)
         Me.lblPCSX2SStatePathStatus.Name = "lblPCSX2SStatePathStatus"
-        Me.lblPCSX2SStatePathStatus.Size = New System.Drawing.Size(320, 29)
+        Me.lblPCSX2SStatePathStatus.Size = New System.Drawing.Size(317, 29)
         Me.lblPCSX2SStatePathStatus.TabIndex = 34
         '
         'lblPCSX2IniPathStatus
@@ -394,9 +390,9 @@ Partial Class frmSettings
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblPCSX2IniPathStatus.BackColor = System.Drawing.Color.Transparent
         Me.lblPCSX2IniPathStatus.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPCSX2IniPathStatus.Location = New System.Drawing.Point(12, 130)
+        Me.lblPCSX2IniPathStatus.Location = New System.Drawing.Point(12, 131)
         Me.lblPCSX2IniPathStatus.Name = "lblPCSX2IniPathStatus"
-        Me.lblPCSX2IniPathStatus.Size = New System.Drawing.Size(320, 29)
+        Me.lblPCSX2IniPathStatus.Size = New System.Drawing.Size(317, 29)
         Me.lblPCSX2IniPathStatus.TabIndex = 33
         '
         'lblPCSX2AppPathStatus
@@ -405,9 +401,9 @@ Partial Class frmSettings
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblPCSX2AppPathStatus.BackColor = System.Drawing.Color.Transparent
         Me.lblPCSX2AppPathStatus.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPCSX2AppPathStatus.Location = New System.Drawing.Point(12, 52)
+        Me.lblPCSX2AppPathStatus.Location = New System.Drawing.Point(12, 51)
         Me.lblPCSX2AppPathStatus.Name = "lblPCSX2AppPathStatus"
-        Me.lblPCSX2AppPathStatus.Size = New System.Drawing.Size(320, 29)
+        Me.lblPCSX2AppPathStatus.Size = New System.Drawing.Size(317, 29)
         Me.lblPCSX2AppPathStatus.TabIndex = 32
         '
         'cmdPCSX2SStatePathBrowse
@@ -420,7 +416,7 @@ Partial Class frmSettings
         Me.cmdPCSX2SStatePathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2SStatePathBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdPCSX2SStatePathBrowse.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2SStatePathBrowse.Location = New System.Drawing.Point(460, 211)
+        Me.cmdPCSX2SStatePathBrowse.Location = New System.Drawing.Point(457, 214)
         Me.cmdPCSX2SStatePathBrowse.Name = "cmdPCSX2SStatePathBrowse"
         Me.cmdPCSX2SStatePathBrowse.Size = New System.Drawing.Size(55, 22)
         Me.cmdPCSX2SStatePathBrowse.TabIndex = 31
@@ -437,7 +433,7 @@ Partial Class frmSettings
         Me.cmdPCSX2IniPathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2IniPathBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdPCSX2IniPathBrowse.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2IniPathBrowse.Location = New System.Drawing.Point(460, 133)
+        Me.cmdPCSX2IniPathBrowse.Location = New System.Drawing.Point(457, 134)
         Me.cmdPCSX2IniPathBrowse.Name = "cmdPCSX2IniPathBrowse"
         Me.cmdPCSX2IniPathBrowse.Size = New System.Drawing.Size(55, 22)
         Me.cmdPCSX2IniPathBrowse.TabIndex = 28
@@ -454,7 +450,7 @@ Partial Class frmSettings
         Me.cmdPCSX2AppPathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2AppPathBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdPCSX2AppPathBrowse.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2AppPathBrowse.Location = New System.Drawing.Point(460, 55)
+        Me.cmdPCSX2AppPathBrowse.Location = New System.Drawing.Point(457, 54)
         Me.cmdPCSX2AppPathBrowse.Name = "cmdPCSX2AppPathBrowse"
         Me.cmdPCSX2AppPathBrowse.Size = New System.Drawing.Size(55, 22)
         Me.cmdPCSX2AppPathBrowse.TabIndex = 25
@@ -463,12 +459,11 @@ Partial Class frmSettings
         '
         'lblPCSX2SStatePath
         '
-        Me.lblPCSX2SStatePath.AutoSize = True
         Me.lblPCSX2SStatePath.BackColor = System.Drawing.Color.Transparent
-        Me.lblPCSX2SStatePath.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPCSX2SStatePath.Location = New System.Drawing.Point(3, 159)
+        Me.lblPCSX2SStatePath.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.lblPCSX2SStatePath.Location = New System.Drawing.Point(3, 163)
         Me.lblPCSX2SStatePath.Name = "lblPCSX2SStatePath"
-        Me.lblPCSX2SStatePath.Size = New System.Drawing.Size(166, 21)
+        Me.lblPCSX2SStatePath.Size = New System.Drawing.Size(506, 20)
         Me.lblPCSX2SStatePath.TabIndex = 29
         Me.lblPCSX2SStatePath.Text = "PCSX2 savestates path"
         '
@@ -481,28 +476,28 @@ Partial Class frmSettings
         Me.txtPCSX2SStatePath.BackColor = System.Drawing.Color.White
         Me.txtPCSX2SStatePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtPCSX2SStatePath.ForeColor = System.Drawing.Color.DimGray
-        Me.txtPCSX2SStatePath.Location = New System.Drawing.Point(11, 183)
+        Me.txtPCSX2SStatePath.Location = New System.Drawing.Point(11, 186)
         Me.txtPCSX2SStatePath.Name = "txtPCSX2SStatePath"
-        Me.txtPCSX2SStatePath.Size = New System.Drawing.Size(504, 22)
+        Me.txtPCSX2SStatePath.Size = New System.Drawing.Size(501, 22)
         Me.txtPCSX2SStatePath.TabIndex = 30
         '
         'lblPCSX2IniPath
         '
         Me.lblPCSX2IniPath.BackColor = System.Drawing.Color.Transparent
-        Me.lblPCSX2IniPath.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblPCSX2IniPath.Location = New System.Drawing.Point(3, 81)
+        Me.lblPCSX2IniPath.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.lblPCSX2IniPath.Location = New System.Drawing.Point(3, 83)
         Me.lblPCSX2IniPath.Name = "lblPCSX2IniPath"
-        Me.lblPCSX2IniPath.Size = New System.Drawing.Size(119, 21)
+        Me.lblPCSX2IniPath.Size = New System.Drawing.Size(518, 20)
         Me.lblPCSX2IniPath.TabIndex = 26
         Me.lblPCSX2IniPath.Text = "PCSX2 inis path"
         '
         'lblPCSX2AppPath
         '
         Me.lblPCSX2AppPath.BackColor = System.Drawing.Color.Transparent
-        Me.lblPCSX2AppPath.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblPCSX2AppPath.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.lblPCSX2AppPath.Location = New System.Drawing.Point(3, 3)
         Me.lblPCSX2AppPath.Name = "lblPCSX2AppPath"
-        Me.lblPCSX2AppPath.Size = New System.Drawing.Size(150, 21)
+        Me.lblPCSX2AppPath.Size = New System.Drawing.Size(518, 20)
         Me.lblPCSX2AppPath.TabIndex = 23
         Me.lblPCSX2AppPath.Text = "PCSX2 binaries path"
         '
@@ -515,9 +510,9 @@ Partial Class frmSettings
         Me.txtPCSX2IniPath.BackColor = System.Drawing.Color.White
         Me.txtPCSX2IniPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtPCSX2IniPath.ForeColor = System.Drawing.Color.DimGray
-        Me.txtPCSX2IniPath.Location = New System.Drawing.Point(11, 105)
+        Me.txtPCSX2IniPath.Location = New System.Drawing.Point(11, 106)
         Me.txtPCSX2IniPath.Name = "txtPCSX2IniPath"
-        Me.txtPCSX2IniPath.Size = New System.Drawing.Size(504, 22)
+        Me.txtPCSX2IniPath.Size = New System.Drawing.Size(501, 22)
         Me.txtPCSX2IniPath.TabIndex = 27
         '
         'txtPCSX2AppPath
@@ -529,9 +524,9 @@ Partial Class frmSettings
         Me.txtPCSX2AppPath.BackColor = System.Drawing.Color.White
         Me.txtPCSX2AppPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtPCSX2AppPath.ForeColor = System.Drawing.Color.DimGray
-        Me.txtPCSX2AppPath.Location = New System.Drawing.Point(12, 27)
+        Me.txtPCSX2AppPath.Location = New System.Drawing.Point(11, 26)
         Me.txtPCSX2AppPath.Name = "txtPCSX2AppPath"
-        Me.txtPCSX2AppPath.Size = New System.Drawing.Size(503, 22)
+        Me.txtPCSX2AppPath.Size = New System.Drawing.Size(500, 22)
         Me.txtPCSX2AppPath.TabIndex = 24
         '
         'panelBottom
@@ -540,7 +535,7 @@ Partial Class frmSettings
         Me.panelBottom.Controls.Add(Me.cmdCancel)
         Me.panelBottom.Controls.Add(Me.cmdOk)
         Me.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.panelBottom.Location = New System.Drawing.Point(0, 628)
+        Me.panelBottom.Location = New System.Drawing.Point(0, 568)
         Me.panelBottom.Margin = New System.Windows.Forms.Padding(6)
         Me.panelBottom.Name = "panelBottom"
         Me.panelBottom.Size = New System.Drawing.Size(554, 46)
@@ -564,9 +559,9 @@ Partial Class frmSettings
         Me.panelTab1.Controls.Add(Me.lblSStatesManPicsPathStatus)
         Me.panelTab1.Controls.Add(Me.cmdSStatesManPicsPathBrowse)
         Me.panelTab1.Controls.Add(Me.ckbSStatesManBGEnabled)
-        Me.panelTab1.Location = New System.Drawing.Point(15, 76)
+        Me.panelTab1.Location = New System.Drawing.Point(15, 62)
         Me.panelTab1.Name = "panelTab1"
-        Me.panelTab1.Size = New System.Drawing.Size(527, 243)
+        Me.panelTab1.Size = New System.Drawing.Size(524, 243)
         Me.panelTab1.TabIndex = 26
         '
         'ckb_SStatesListAutoRefresh
@@ -577,7 +572,7 @@ Partial Class frmSettings
         Me.ckb_SStatesListAutoRefresh.ForeColor = System.Drawing.Color.DimGray
         Me.ckb_SStatesListAutoRefresh.Location = New System.Drawing.Point(11, 50)
         Me.ckb_SStatesListAutoRefresh.Name = "ckb_SStatesListAutoRefresh"
-        Me.ckb_SStatesListAutoRefresh.Size = New System.Drawing.Size(340, 17)
+        Me.ckb_SStatesListAutoRefresh.Size = New System.Drawing.Size(510, 18)
         Me.ckb_SStatesListAutoRefresh.TabIndex = 41
         Me.ckb_SStatesListAutoRefresh.Text = "Automatically refresh the savestates list."
         Me.ckb_SStatesListAutoRefresh.UseVisualStyleBackColor = False
@@ -592,7 +587,7 @@ Partial Class frmSettings
         Me.cmdSStatesManPicsPathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStatesManPicsPathOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStatesManPicsPathOpen.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSStatesManPicsPathOpen.Location = New System.Drawing.Point(399, 210)
+        Me.cmdSStatesManPicsPathOpen.Location = New System.Drawing.Point(396, 211)
         Me.cmdSStatesManPicsPathOpen.Name = "cmdSStatesManPicsPathOpen"
         Me.cmdSStatesManPicsPathOpen.Size = New System.Drawing.Size(55, 22)
         Me.cmdSStatesManPicsPathOpen.TabIndex = 40
@@ -602,12 +597,12 @@ Partial Class frmSettings
         'Label3
         '
         Me.Label3.BackColor = System.Drawing.Color.Transparent
-        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.Label3.Location = New System.Drawing.Point(3, 3)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(145, 21)
+        Me.Label3.Size = New System.Drawing.Size(518, 20)
         Me.Label3.TabIndex = 39
-        Me.Label3.Text = "SStatesMan Settings"
+        Me.Label3.Text = "General settings"
         '
         'ckbFirstRun
         '
@@ -615,9 +610,9 @@ Partial Class frmSettings
         Me.ckbFirstRun.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.ckbFirstRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ckbFirstRun.ForeColor = System.Drawing.Color.DimGray
-        Me.ckbFirstRun.Location = New System.Drawing.Point(11, 27)
+        Me.ckbFirstRun.Location = New System.Drawing.Point(11, 26)
         Me.ckbFirstRun.Name = "ckbFirstRun"
-        Me.ckbFirstRun.Size = New System.Drawing.Size(340, 17)
+        Me.ckbFirstRun.Size = New System.Drawing.Size(510, 18)
         Me.ckbFirstRun.TabIndex = 38
         Me.ckbFirstRun.Text = "Restore SStatesMan settings to their defaults on next startup."
         Me.ckbFirstRun.UseVisualStyleBackColor = False
@@ -625,7 +620,7 @@ Partial Class frmSettings
         'imgSStatesManPicsPathStatus
         '
         Me.imgSStatesManPicsPathStatus.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Exclamation
-        Me.imgSStatesManPicsPathStatus.Location = New System.Drawing.Point(11, 207)
+        Me.imgSStatesManPicsPathStatus.Location = New System.Drawing.Point(11, 208)
         Me.imgSStatesManPicsPathStatus.Name = "imgSStatesManPicsPathStatus"
         Me.imgSStatesManPicsPathStatus.Size = New System.Drawing.Size(28, 29)
         Me.imgSStatesManPicsPathStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
@@ -635,10 +630,10 @@ Partial Class frmSettings
         'Label2
         '
         Me.Label2.BackColor = System.Drawing.Color.Transparent
-        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(3, 70)
+        Me.Label2.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.Label2.Location = New System.Drawing.Point(3, 71)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(113, 21)
+        Me.Label2.Size = New System.Drawing.Size(518, 20)
         Me.Label2.TabIndex = 25
         Me.Label2.Text = "Theme options"
         '
@@ -646,9 +641,9 @@ Partial Class frmSettings
         '
         Me.Label1.BackColor = System.Drawing.Color.Transparent
         Me.Label1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(3, 114)
+        Me.Label1.Location = New System.Drawing.Point(3, 115)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(199, 21)
+        Me.Label1.Size = New System.Drawing.Size(518, 20)
         Me.Label1.TabIndex = 24
         Me.Label1.Text = "Savestates deletion options"
         '
@@ -661,12 +656,11 @@ Partial Class frmSettings
         Me.panelWindowTitle.Controls.Add(Me.optStettingTab1)
         Me.panelWindowTitle.Controls.Add(Me.lblWindowProgramName)
         Me.panelWindowTitle.Controls.Add(Me.imgWindowGradientLeft)
-        Me.panelWindowTitle.Controls.Add(Me.lblWindowTitle)
         Me.panelWindowTitle.Dock = System.Windows.Forms.DockStyle.Top
         Me.panelWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.panelWindowTitle.Location = New System.Drawing.Point(0, 0)
         Me.panelWindowTitle.Name = "panelWindowTitle"
-        Me.panelWindowTitle.Size = New System.Drawing.Size(554, 70)
+        Me.panelWindowTitle.Size = New System.Drawing.Size(554, 56)
         Me.panelWindowTitle.TabIndex = 14
         '
         'optStettingTab2
@@ -679,12 +673,13 @@ Partial Class frmSettings
         Me.optStettingTab2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gainsboro
         Me.optStettingTab2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optStettingTab2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optStettingTab2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.optStettingTab2.Location = New System.Drawing.Point(119, 47)
+        Me.optStettingTab2.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.optStettingTab2.Location = New System.Drawing.Point(108, 24)
         Me.optStettingTab2.Name = "optStettingTab2"
-        Me.optStettingTab2.Size = New System.Drawing.Size(88, 23)
+        Me.optStettingTab2.Size = New System.Drawing.Size(108, 32)
         Me.optStettingTab2.TabIndex = 27
-        Me.optStettingTab2.Text = "PCSX2 PATHS"
+        Me.optStettingTab2.Text = "PCSX2 paths"
+        Me.optStettingTab2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.optStettingTab2.UseVisualStyleBackColor = False
         '
         'optStettingTab1
@@ -698,13 +693,14 @@ Partial Class frmSettings
         Me.optStettingTab1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gainsboro
         Me.optStettingTab1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro
         Me.optStettingTab1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optStettingTab1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.optStettingTab1.Location = New System.Drawing.Point(30, 47)
+        Me.optStettingTab1.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.optStettingTab1.Location = New System.Drawing.Point(8, 24)
         Me.optStettingTab1.Name = "optStettingTab1"
-        Me.optStettingTab1.Size = New System.Drawing.Size(89, 23)
+        Me.optStettingTab1.Size = New System.Drawing.Size(100, 32)
         Me.optStettingTab1.TabIndex = 26
         Me.optStettingTab1.TabStop = True
-        Me.optStettingTab1.Text = "SSTATESMAN"
+        Me.optStettingTab1.Text = "SStatesMan"
+        Me.optStettingTab1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.optStettingTab1.UseVisualStyleBackColor = False
         '
         'lblWindowProgramName
@@ -712,36 +708,26 @@ Partial Class frmSettings
         Me.lblWindowProgramName.AutoSize = True
         Me.lblWindowProgramName.BackColor = System.Drawing.Color.Transparent
         Me.lblWindowProgramName.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWindowProgramName.Location = New System.Drawing.Point(8, 4)
+        Me.lblWindowProgramName.Location = New System.Drawing.Point(24, 8)
         Me.lblWindowProgramName.Name = "lblWindowProgramName"
-        Me.lblWindowProgramName.Size = New System.Drawing.Size(79, 13)
+        Me.lblWindowProgramName.Size = New System.Drawing.Size(57, 13)
         Me.lblWindowProgramName.TabIndex = 2
-        Me.lblWindowProgramName.Text = "SSTATESMAN"
+        Me.lblWindowProgramName.Text = "SETTINGS"
         '
         'imgWindowGradientLeft
         '
-        Me.imgWindowGradientLeft.BackgroundImage = Global.sstatesman.My.Resources.Resources.GradientBlueDarkH
+        Me.imgWindowGradientLeft.BackgroundImage = Global.sstatesman.My.Resources.Resources.GradientBlueDarkV
         Me.imgWindowGradientLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.imgWindowGradientLeft.Location = New System.Drawing.Point(0, 24)
+        Me.imgWindowGradientLeft.Location = New System.Drawing.Point(24, 0)
         Me.imgWindowGradientLeft.Name = "imgWindowGradientLeft"
-        Me.imgWindowGradientLeft.Size = New System.Drawing.Size(24, 40)
+        Me.imgWindowGradientLeft.Size = New System.Drawing.Size(128, 8)
         Me.imgWindowGradientLeft.TabIndex = 3
         Me.imgWindowGradientLeft.TabStop = False
-        '
-        'lblWindowTitle
-        '
-        Me.lblWindowTitle.BackColor = System.Drawing.Color.Transparent
-        Me.lblWindowTitle.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWindowTitle.Location = New System.Drawing.Point(30, 24)
-        Me.lblWindowTitle.Name = "lblWindowTitle"
-        Me.lblWindowTitle.Size = New System.Drawing.Size(66, 21)
-        Me.lblWindowTitle.TabIndex = 3
-        Me.lblWindowTitle.Text = "Settings"
         '
         'frmSettings
         '
         Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ClientSize = New System.Drawing.Size(554, 674)
+        Me.ClientSize = New System.Drawing.Size(554, 614)
         Me.ControlBox = False
         Me.Controls.Add(Me.panelTab1)
         Me.Controls.Add(Me.panelBottom)
@@ -776,7 +762,6 @@ Partial Class frmSettings
     Private WithEvents txtSStatesManPicsPath As System.Windows.Forms.TextBox
     Private WithEvents txtPCSX2SStatePath As System.Windows.Forms.TextBox
     Private WithEvents txtPCSX2AppPath As System.Windows.Forms.TextBox
-    Private WithEvents lblWindowTitle As System.Windows.Forms.Label
     Private WithEvents panelWindowTitle As System.Windows.Forms.Panel
     Private WithEvents imgWindowGradientLeft As System.Windows.Forms.PictureBox
     Private WithEvents lblWindowProgramName As System.Windows.Forms.Label

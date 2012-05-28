@@ -45,9 +45,6 @@ Partial Class frmSStateList
         Me.tsSStateListLoad = New System.Windows.Forms.ToolStripButton()
         Me.tsSStateListUnload = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.tsListShow = New System.Windows.Forms.ToolStripButton()
-        Me.tsListClear = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsExport = New System.Windows.Forms.ToolStripDropDownButton()
         Me.tsExportTSVTxt = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsExportCSVTxt = New System.Windows.Forms.ToolStripMenuItem()
@@ -106,7 +103,7 @@ Partial Class frmSStateList
         '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsSStateListLoad, Me.tsSStateListUnload, Me.ToolStripSeparator1, Me.tsListShow, Me.tsListClear, Me.ToolStripSeparator2, Me.tsExport, Me.tsRecordLast, Me.tsRecordNext, Me.tsRecordPrevious, Me.tsRecordFirst})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsSStateListLoad, Me.tsSStateListUnload, Me.ToolStripSeparator1, Me.tsExport, Me.tsRecordLast, Me.tsRecordNext, Me.tsRecordPrevious, Me.tsRecordFirst})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(746, 25)
@@ -134,29 +131,6 @@ Partial Class frmSStateList
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
-        '
-        'tsListShow
-        '
-        Me.tsListShow.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.tsListShow.Enabled = False
-        Me.tsListShow.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsListShow.Name = "tsListShow"
-        Me.tsListShow.Size = New System.Drawing.Size(29, 22)
-        Me.tsListShow.Text = "List"
-        '
-        'tsListClear
-        '
-        Me.tsListClear.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.tsListClear.Enabled = False
-        Me.tsListClear.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsListClear.Name = "tsListClear"
-        Me.tsListClear.Size = New System.Drawing.Size(38, 22)
-        Me.tsListClear.Text = "Clear"
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
         '
         'tsExport
         '
@@ -251,9 +225,6 @@ Partial Class frmSStateList
     Friend WithEvents LblSearchResults As System.Windows.Forms.Label
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents tsListShow As System.Windows.Forms.ToolStripButton
-    Friend WithEvents tsListClear As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents tsExport As System.Windows.Forms.ToolStripDropDownButton
     Friend WithEvents tsExportTSVTxt As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsSStateListUnload As System.Windows.Forms.ToolStripButton

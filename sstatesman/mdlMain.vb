@@ -14,14 +14,20 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Option Explicit On
 Module mdlMain
-    Public CS_DROPSHADOW As Int32 = &H20000
+    Public Enum ArrayStatus As System.Byte
+        ArrayEmpty
+        ArrayLoadedOK
+        ArrayNotLoaded
+        ErrorOccurred
+    End Enum
+
     Public colorswitch As System.Boolean = True
 
     Public Sub FirstRun()
         'Show the warning message
         'If My.Settings.SStatesMan_Channel.ToLower = "alpha" Then
-        '    System.Windows.Forms.MessageBox.Show(System.String.Format("{0} version {1} {2}" & vbCrLf & _
-        '                                         "This is an {3} version, for tests only. Do not redistribute." & vbCrLf & _
+        '    System.Windows.Forms.MessageBox.Show(System.String.Format("{0} version {1} {2}" & System.Environment.NewLine & _
+        '                                         "This is an {3} version, for tests only. Do not redistribute." & System.Environment.NewLine & _
         '                                         "The warnings have been issued, now enjoy the application :)", _
         '                                         My.Application.Info.ProductName.ToString, _
         '                                         My.Application.Info.Version.ToString, _
@@ -61,7 +67,7 @@ Module mdlMain
             End Using
         Catch ex As Exception
             System.Windows.Forms.MessageBox.Show("Something went wrong while detecting PCSX2 settings, make sure you have the right permissions in the registry or in the directories/files." _
-                                                 & vbCrLf & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                                 & System.Environment.NewLine & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
         If System.IO.Directory.Exists(pResult) Then
@@ -77,9 +83,9 @@ Module mdlMain
         Try
             If My.Settings.PCSX2_PathBinSet And System.IO.Directory.Exists(My.Settings.PCSX2_PathBin) Then
                 'Check if it is the case of a user who installed PCSX2 in usermode and then switched to portable mode
-                If System.IO.File.Exists(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathBin, "portable.ini")) Then
+                If System.IO.File.Exists(System.IO.Path.Combine(My.Settings.PCSX2_PathBin, "portable.ini")) Then
                     'If so the inis are in the "inis" folder of the PCSX2 binaries directory
-                    pResult = My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathBin, "inis")
+                    pResult = System.IO.Path.Combine(My.Settings.PCSX2_PathBin, "inis")
                 Else
                     'Else the registry value is checked                                 SettingsFolder
                     Using PCSX2_Registry As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(My.Settings.PCSX2_PathRegKey)
@@ -95,7 +101,7 @@ Module mdlMain
 
         Catch ex As Exception
             System.Windows.Forms.MessageBox.Show("Something went wrong while detecting PCSX2 settings, make sure you have the right permissions in the registry or in the directories/files." _
-                                                 & vbCrLf & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                                                 & System.Environment.NewLine & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
         If System.IO.Directory.Exists(pResult) Then
@@ -111,17 +117,17 @@ Module mdlMain
 
         If My.Settings.PCSX2_PathInisSet And System.IO.Directory.Exists(My.Settings.PCSX2_PathInis) Then
             'If PCSX2_UI.ini is present in the set inis directory
-            If System.IO.File.Exists(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename)) Then
+            If System.IO.File.Exists(System.IO.Path.Combine(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename)) Then
                 'PCSX2_UI.ini is read and checked for the savestates folder
-                Using PCSX2UI_reader As New System.IO.StreamReader(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename))
+                Using PCSX2UI_reader As New System.IO.StreamReader(System.IO.Path.Combine(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename))
                     While Not PCSX2UI_reader.EndOfStream
                         Dim sTmp1 As System.String = PCSX2UI_reader.ReadLine.Trim
 
                         If sTmp1 = "UseDefaultSavestates=enabled" Then
-                            pResult = My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathInis.Remove(My.Settings.PCSX2_PathInis.Length - 5), My.Settings.PCSX2_SStateFolder)
+                            pResult = System.IO.Path.Combine(My.Settings.PCSX2_PathInis.Remove(My.Settings.PCSX2_PathInis.Length - 5), My.Settings.PCSX2_SStateFolder)
                             Exit While
                         ElseIf sTmp1.StartsWith(My.Settings.PCSX2_SStateFolder) Then
-                            Dim sTmp2 As System.String() = sTmp1.Split("=", 2, StringSplitOptions.RemoveEmptyEntries)
+                            Dim sTmp2 As System.String() = sTmp1.Split({CChar("=")}, 2, StringSplitOptions.RemoveEmptyEntries)
                             If sTmp2.GetLength(0) >= 2 Then
                                 pResult = sTmp2(1).Replace("\\", "\")
                             End If
@@ -259,5 +265,8 @@ Module mdlMain
         End Select
     End Function
 
+    Public Sub WriteToConsole(ByVal pClass As System.String, ByVal pMethod As System.String, ByVal pText As System.String)
+        Console.WriteLine(System.String.Format("[{0:HH.mm.ss}] {1}.{2} {3}", Now, pClass, pMethod, pText))
+    End Sub
 
 End Module

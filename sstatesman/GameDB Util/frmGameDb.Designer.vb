@@ -42,6 +42,7 @@ Partial Class frmGameDb
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.tsGameDbLoad = New System.Windows.Forms.ToolStripButton()
         Me.tsGameDbUnload = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsListShow = New System.Windows.Forms.ToolStripButton()
@@ -73,7 +74,6 @@ Partial Class frmGameDb
         Me.ArrayRecordStatus = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ArrayPosition = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.imgFlag = New System.Windows.Forms.PictureBox()
-        Me.tsGameDbLoad = New System.Windows.Forms.ToolStripButton()
         Me.StatusStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.imgFlag, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -92,7 +92,7 @@ Partial Class frmGameDb
         '
         Me.ToolStripStatusLabel1.AutoSize = False
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(120, 17)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(160, 17)
         Me.ToolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ToolStripStatusLabel2
@@ -106,7 +106,7 @@ Partial Class frmGameDb
         '
         Me.ToolStripStatusLabel3.AutoSize = False
         Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
-        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(120, 17)
+        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(160, 17)
         Me.ToolStripStatusLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ToolStrip1
@@ -117,6 +117,16 @@ Partial Class frmGameDb
         Me.ToolStrip1.Size = New System.Drawing.Size(746, 25)
         Me.ToolStrip1.TabIndex = 16
         Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'tsGameDbLoad
+        '
+        Me.tsGameDbLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.tsGameDbLoad.Image = CType(resources.GetObject("tsGameDbLoad.Image"), System.Drawing.Image)
+        Me.tsGameDbLoad.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsGameDbLoad.Name = "tsGameDbLoad"
+        Me.tsGameDbLoad.Size = New System.Drawing.Size(86, 22)
+        Me.tsGameDbLoad.Text = "Load &GameDB"
+        Me.tsGameDbLoad.ToolTipText = "Load the PCSX2 Game Database into an array."
         '
         'tsGameDbUnload
         '
@@ -365,7 +375,7 @@ Partial Class frmGameDb
         '
         Me.ArrayRecordStatus.DisplayIndex = 5
         Me.ArrayRecordStatus.Text = "Record status"
-        Me.ArrayRecordStatus.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.ArrayRecordStatus.Width = 80
         '
         'ArrayPosition
         '
@@ -382,16 +392,6 @@ Partial Class frmGameDb
         Me.imgFlag.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.imgFlag.TabIndex = 32
         Me.imgFlag.TabStop = False
-        '
-        'tsGameDbLoad
-        '
-        Me.tsGameDbLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.tsGameDbLoad.Image = CType(resources.GetObject("tsGameDbLoad.Image"), System.Drawing.Image)
-        Me.tsGameDbLoad.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsGameDbLoad.Name = "tsGameDbLoad"
-        Me.tsGameDbLoad.Size = New System.Drawing.Size(86, 22)
-        Me.tsGameDbLoad.Text = "Load &GameDB"
-        Me.tsGameDbLoad.ToolTipText = "Load the PCSX2 Game Database into an array."
         '
         'frmGameDb
         '

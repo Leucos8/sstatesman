@@ -59,13 +59,14 @@ Public Class frmDeleteForm
             For Each ListItemTmp As System.Windows.Forms.ListViewItem In SStateList_Group.Items
                 If ListItemTmp.Checked = True Then
                     Dim SStateList_ItemTmp As New System.Windows.Forms.ListViewItem
-                    SStatesList_Pos = CInt(ListItemTmp.SubItems(frmMain.frmMainSStatesLvwColumn_ArrayRef).Text)
+                    Dim SStatesList_Pos As System.Int32 = 0
+                    System.Int32.TryParse(ListItemTmp.SubItems(frmMain.frmMainSStatesLvwColumn_ArrayRef).Text, SStatesList_Pos)
                     SStateList_ItemTmp.Text = mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.Name
                     SStateList_ItemTmp.SubItems.Add(SStatesList(SStatesList_Pos).Slot.ToString)
                     SStateList_ItemTmp.SubItems.Add(SStatesList(SStatesList_Pos).isBackup.ToString)
                     SStateList_ItemTmp.SubItems.Add((SStatesList(SStatesList_Pos).FileInfo.Length / 1024 ^ 2).ToString("#,##0.00 MB"))
                     SStateList_ItemTmp.SubItems.Add(SStatesList(SStatesList_Pos).SStateSerial)
-                    SStateList_ItemTmp.SubItems.Add(mdlSStatesList.SStatesList_Pos.ToString)
+                    SStateList_ItemTmp.SubItems.Add(SStatesList_Pos.ToString)
 
                     If SStatesList(SStatesList_Pos).isBackup = False Then
                         SStateList_TotalSize = SStateList_TotalSize + SStatesList(SStatesList_Pos).FileInfo.Length
@@ -119,27 +120,29 @@ Public Class frmDeleteForm
     Private Sub cmdDeleteSStateSelected_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDeleteSStateSelected.Click
         Me.UIEnabled(False)
         For Each tmp As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
-            mdlSStatesList.SStatesList_Pos = CInt(tmp.SubItems(frmDelSStatesLvwColumn_ArrayRef).Text)
-            mdlGamesIndexSS.GamesIndexSS_Pos = mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).GameIndexRef
+            Dim SStatesList_Pos As System.Int32 = 0
+            Dim GamesIndexSS_Pos As System.Int32 = 0
+            System.Int32.TryParse(tmp.SubItems(frmDelSStatesLvwColumn_ArrayRef).Text, SStatesList_Pos)
+            GamesIndexSS_Pos = mdlSStatesList.SStatesList(SStatesList_Pos).GameIndexRef
             Try
                 If My.Settings.SStatesMan_SStateTrash = True Then
-                    My.Computer.FileSystem.DeleteFile(mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.FullName, _
+                    My.Computer.FileSystem.DeleteFile(mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.FullName, _
                                                       FileIO.UIOption.OnlyErrorDialogs, _
                                                       FileIO.RecycleOption.SendToRecycleBin)
                 Else
                     'My.Computer.FileSystem.DeleteFile(mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.FullName, _
                     '                                  FileIO.UIOption.OnlyErrorDialogs, _
                     '                                  FileIO.RecycleOption.DeletePermanently)
-                    mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.Delete()
+                    mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.Delete()
                 End If
-                If mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).isBackup Then
-                    mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Bck_SizeTot = mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Bck_SizeTot - mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.Length
-                    mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Bck_Count = mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Bck_Count - 1
+                If mdlSStatesList.SStatesList(SStatesList_Pos).isBackup Then
+                    mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_SizeTot = mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_SizeTot - mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.Length
+                    mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_Count = mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_Count - 1
                 Else
-                    mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_SizeTot = mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_SizeTot - mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.Length
-                    mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Count = mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Count - 1
+                    mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_SizeTot = mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_SizeTot - mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.Length
+                    mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Count = mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Count - 1
                 End If
-                mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).isDeleted = True
+                mdlSStatesList.SStatesList(SStatesList_Pos).isDeleted = True
                 Me.lvwSStatesListToDelete.Items(tmp.Index).SubItems(frmDelSStatesLvwColumn_Status).Text = "File deleted successfully."
                 Me.lvwSStatesListToDelete.Items(tmp.Index).BackColor = Color.FromArgb(255, 192, 255, 192)
             Catch ex As Exception
@@ -238,7 +241,7 @@ Public Class frmDeleteForm
     Private Sub cmdSStateSelectBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectBackup.Click
         Me.UIEnabled(False)
         For lvwItemIndex = 0 To Me.lvwSStatesListToDelete.Items.Count - 1
-            If Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn_Backup).Text = True And _
+            If Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn_Backup).Text = "True" And _
                Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn_Status).Text = "" Then
                 Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = True
             Else
@@ -253,7 +256,7 @@ Public Class frmDeleteForm
         If WindowSkipListRefresh = False Then
             If e.Item.SubItems(frmDelSStatesLvwColumn_Status).Text <> "" Then
                 e.Item.Checked = False
-                MsgBox("The file is already gone or you can't access it, quit trying.", MsgBoxStyle.Exclamation, "Stop trolling!")
+                System.Windows.Forms.MessageBox.Show("The file is already gone or you can't access it, quit trying.", "Stop trolling!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
             SStatesLvw_SelectionChanged()
         End If
@@ -265,7 +268,8 @@ Public Class frmDeleteForm
         Me.SStateList_TotalSizeBackupSelected = 0
         If Me.lvwSStatesListToDelete.Items.Count > 0 Then
             For Each SStateList_ItemChecked As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
-                mdlSStatesList.SStatesList_Pos = CInt(SStateList_ItemChecked.SubItems(frmDelSStatesLvwColumn_ArrayRef).Text)
+                Dim SStatesList_Pos As System.Int32 = 0
+                System.Int32.TryParse(SStateList_ItemChecked.SubItems(frmDelSStatesLvwColumn_ArrayRef).Text, SStatesList_Pos)
                 If SStatesList(SStatesList_Pos).isBackup = False Then
                     SStateList_TotalSizeSelected = SStateList_TotalSizeSelected + SStatesList(SStatesList_Pos).FileInfo.Length
                 Else

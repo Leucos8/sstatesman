@@ -111,8 +111,8 @@ Public Class frmSettings
     End Sub
 
     Private Sub SettingsCheck()
-        Dim badChars() As System.Char = {" ", "\", "/", ":"}
-        Dim invalidChars() As System.Char = {"""", "*", "?", "|", "<", ">"}
+        Dim badChars() As System.Char = {System.Char.Parse(" "), System.Char.Parse("\"), System.Char.Parse("/"), System.Char.Parse(":")}
+        Dim invalidChars() As System.Char = {System.Char.Parse(""""), System.Char.Parse("*"), System.Char.Parse("?"), System.Char.Parse("|"), System.Char.Parse("<"), System.Char.Parse(">")}
 
         Me.cmdOk.Enabled = True
         Me.TmpSettingsFailTab2 = False
@@ -122,7 +122,7 @@ Public Class frmSettings
             Me.txtPCSX2AppPath.Text = Me.txtPCSX2AppPath.Text.Replace(invalidChars(i), "_")
         Next i
         If Not (System.IO.Directory.Exists(Me.txtPCSX2AppPath.Text)) Then
-            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("The specified path is not found or inaccessible.", vbCrLf, _
+            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("The specified path is not found or inaccessible.", System.Environment.NewLine, _
                                                                  "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
             Me.lblPCSX2AppPathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
             Me.lblPCSX2AppPathStatus.Left = Me.imgPCSX2AppPathStatus.Left + Me.imgPCSX2AppPathStatus.Width
@@ -136,8 +136,8 @@ Public Class frmSettings
             Me.cmdOk.Enabled = False
             Me.TmpSettingsFailTab2 = True
             'My.Settings.SStatesMan_SettingFail = True
-        ElseIf Not (System.IO.File.Exists(My.Computer.FileSystem.CombinePath(Me.txtPCSX2AppPath.Text, My.Settings.PCSX2_GameDbFilename))) Then
-            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("Unable to find """, My.Settings.PCSX2_GameDbFilename, """ in the specified path.", vbCrLf, _
+        ElseIf Not (System.IO.File.Exists(System.IO.Path.Combine(Me.txtPCSX2AppPath.Text, My.Settings.PCSX2_GameDbFilename))) Then
+            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("Unable to find """, My.Settings.PCSX2_GameDbFilename, """ in the specified path.", System.Environment.NewLine, _
                                                                  "Information about games won't be shown in SStatesMan.")
             Me.lblPCSX2AppPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
             Me.lblPCSX2AppPathStatus.Left = Me.imgPCSX2AppPathStatus.Left + Me.imgPCSX2AppPathStatus.Width
@@ -163,7 +163,7 @@ Public Class frmSettings
             Me.txtPCSX2IniPath.Text = Me.txtPCSX2IniPath.Text.Replace(invalidChars(i), "_")
         Next i
         If Not (System.IO.Directory.Exists(Me.txtPCSX2IniPath.Text)) Then
-            Me.lblPCSX2IniPathStatus.Text = System.String.Concat("The specified path is not found or inaccessible.", vbCrLf, _
+            Me.lblPCSX2IniPathStatus.Text = System.String.Concat("The specified path is not found or inaccessible.", System.Environment.NewLine, _
                                                                  "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
             Me.lblPCSX2IniPathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
             Me.lblPCSX2IniPathStatus.Left = Me.imgPCSX2IniPathStatus.Left + Me.imgPCSX2IniPathStatus.Width
@@ -176,8 +176,8 @@ Public Class frmSettings
 
             Me.cmdOk.Enabled = False
             Me.TmpSettingsFailTab2 = True
-        ElseIf Not (System.IO.File.Exists(My.Computer.FileSystem.CombinePath(Me.txtPCSX2IniPath.Text, My.Settings.PCSX2_PCSX2_uiFilename))) Then
-            Me.lblPCSX2IniPathStatus.Text = System.String.Concat("Unable to find """, My.Settings.PCSX2_PCSX2_uiFilename, """ in the specified path.", vbCrLf, _
+        ElseIf Not (System.IO.File.Exists(System.IO.Path.Combine(Me.txtPCSX2IniPath.Text, My.Settings.PCSX2_PCSX2_uiFilename))) Then
+            Me.lblPCSX2IniPathStatus.Text = System.String.Concat("Unable to find """, My.Settings.PCSX2_PCSX2_uiFilename, """ in the specified path.", System.Environment.NewLine, _
                                                                  "It may not be the correct PCSX2 ""inis"" folder.")
             Me.lblPCSX2IniPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
             Me.lblPCSX2IniPathStatus.Left = Me.imgPCSX2IniPathStatus.Left + Me.imgPCSX2IniPathStatus.Width
@@ -203,7 +203,7 @@ Public Class frmSettings
             Me.txtPCSX2SStatePath.Text = Me.txtPCSX2SStatePath.Text.Replace(invalidChars(i), "_")
         Next i
         If Not (System.IO.Directory.Exists(Me.txtPCSX2SStatePath.Text)) Then
-            Me.lblPCSX2SStatePathStatus.Text = System.String.Concat("The specified path is not found or inaccessible.", vbCrLf, _
+            Me.lblPCSX2SStatePathStatus.Text = System.String.Concat("The specified path is not found or inaccessible.", System.Environment.NewLine, _
                                                                     "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
             Me.lblPCSX2SStatePathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
             Me.lblPCSX2SStatePathStatus.Left = Me.imgPCSX2SStatePathStatus.Left + Me.imgPCSX2SStatePathStatus.Width
@@ -234,9 +234,9 @@ Public Class frmSettings
         Next i
         If Not (System.IO.Directory.Exists(Me.txtSStatesManPicsPath.Text)) Then
             'Me.txtSStatesManPicsPath.Text = "Not set"
-            'Me.lblSStatesManPicsPathStatus.Text = System.String.Concat("Path not found or inaccessible.", vbCrLf, _
+            'Me.lblSStatesManPicsPathStatus.Text = System.String.Concat("Path not found or inaccessible.", System.Environment.NewLine, _
             '                                                          "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
-            Me.lblSStatesManPicsPathStatus.Text = System.String.Concat("The specified path not found or inaccessible.", vbCrLf, _
+            Me.lblSStatesManPicsPathStatus.Text = System.String.Concat("The specified path not found or inaccessible.", System.Environment.NewLine, _
                                                                       "Please enter a valid path.")
             Me.lblSStatesManPicsPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
             Me.lblSStatesManPicsPathStatus.Left = Me.imgSStatesManPicsPathStatus.Left + Me.imgSStatesManPicsPathStatus.Width
@@ -249,7 +249,7 @@ Public Class frmSettings
 
             'Me.cmdOk.Enabled = False
         Else
-            Me.lblSStatesManPicsPathStatus.Text = System.String.Concat("The folder where SStatesMan will look for the game covers.", vbCrLf, _
+            Me.lblSStatesManPicsPathStatus.Text = System.String.Concat("The folder where SStatesMan will look for the game covers.", System.Environment.NewLine, _
                                                                       "The image file MUST be named <executable code>.jpg to work.")
             Me.lblSStatesManPicsPathStatus.BackColor = Color.Transparent
             Me.lblSStatesManPicsPathStatus.Left = Me.imgSStatesManPicsPathStatus.Left
