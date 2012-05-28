@@ -36,7 +36,6 @@ Partial Class frmDeleteForm
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmDeleteForm))
         Me.cmdCancel = New System.Windows.Forms.Button()
         Me.cmdDeleteSStateSelected = New System.Windows.Forms.Button()
         Me.lvwSStatesListToDelete = New System.Windows.Forms.ListView()
@@ -74,13 +73,13 @@ Partial Class frmDeleteForm
         '
         Me.cmdCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdCancel.BackColor = System.Drawing.Color.White
-        Me.cmdCancel.BackgroundImage = CType(resources.GetObject("cmdCancel.BackgroundImage"), System.Drawing.Image)
+        Me.cmdCancel.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
         Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Silver
         Me.cmdCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdCancel.Location = New System.Drawing.Point(520, 299)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.Size = New System.Drawing.Size(100, 22)
@@ -92,12 +91,12 @@ Partial Class frmDeleteForm
         '
         Me.cmdDeleteSStateSelected.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdDeleteSStateSelected.BackColor = System.Drawing.Color.White
-        Me.cmdDeleteSStateSelected.BackgroundImage = CType(resources.GetObject("cmdDeleteSStateSelected.BackgroundImage"), System.Drawing.Image)
+        Me.cmdDeleteSStateSelected.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
         Me.cmdDeleteSStateSelected.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray
         Me.cmdDeleteSStateSelected.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdDeleteSStateSelected.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdDeleteSStateSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdDeleteSStateSelected.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdDeleteSStateSelected.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdDeleteSStateSelected.Location = New System.Drawing.Point(414, 299)
         Me.cmdDeleteSStateSelected.Name = "cmdDeleteSStateSelected"
         Me.cmdDeleteSStateSelected.Size = New System.Drawing.Size(100, 22)
@@ -114,7 +113,7 @@ Partial Class frmDeleteForm
         Me.lvwSStatesListToDelete.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lvwSStatesListToDelete.CheckBoxes = True
         Me.lvwSStatesListToDelete.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.SStateLvw_FileName, Me.SStatesLvw_Slot, Me.SStatesLvw_Backup, Me.SStatesLvw_Size, Me.SStatesLvw_SerialRef, Me.SStatesLvw_ArrayRef, Me.SStatesLvw_Status})
-        Me.lvwSStatesListToDelete.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lvwSStatesListToDelete.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lvwSStatesListToDelete.ForeColor = System.Drawing.Color.DimGray
         Me.lvwSStatesListToDelete.FullRowSelect = True
         Me.lvwSStatesListToDelete.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
@@ -172,7 +171,7 @@ Partial Class frmDeleteForm
         Me.cmdSStateSelectInvert.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSStateSelectInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStateSelectInvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateSelectInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdSStateSelectInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdSStateSelectInvert.Location = New System.Drawing.Point(555, 73)
         Me.cmdSStateSelectInvert.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectInvert.Name = "cmdSStateSelectInvert"
@@ -190,7 +189,7 @@ Partial Class frmDeleteForm
         Me.cmdSStateSelectBackup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSStateSelectBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStateSelectBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateSelectBackup.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdSStateSelectBackup.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdSStateSelectBackup.Location = New System.Drawing.Point(420, 73)
         Me.cmdSStateSelectBackup.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectBackup.Name = "cmdSStateSelectBackup"
@@ -208,7 +207,7 @@ Partial Class frmDeleteForm
         Me.cmdSStateSelectAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSStateSelectAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStateSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateSelectAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdSStateSelectAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdSStateSelectAll.Location = New System.Drawing.Point(475, 73)
         Me.cmdSStateSelectAll.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectAll.Name = "cmdSStateSelectAll"
@@ -226,7 +225,7 @@ Partial Class frmDeleteForm
         Me.cmdSStateSelectNone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSStateSelectNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStateSelectNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateSelectNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdSStateSelectNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdSStateSelectNone.Location = New System.Drawing.Point(515, 73)
         Me.cmdSStateSelectNone.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectNone.Name = "cmdSStateSelectNone"
@@ -331,7 +330,7 @@ Partial Class frmDeleteForm
         Me.panelWindowTitle.Controls.Add(Me.imgWindowGradientLeft)
         Me.panelWindowTitle.Controls.Add(Me.lblWindowTitle)
         Me.panelWindowTitle.Dock = System.Windows.Forms.DockStyle.Top
-        Me.panelWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.panelWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.panelWindowTitle.Location = New System.Drawing.Point(0, 0)
         Me.panelWindowTitle.Name = "panelWindowTitle"
         Me.panelWindowTitle.Size = New System.Drawing.Size(632, 70)
@@ -352,7 +351,7 @@ Partial Class frmDeleteForm
         '
         Me.lblWindowProgramName.AutoSize = True
         Me.lblWindowProgramName.BackColor = System.Drawing.Color.Transparent
-        Me.lblWindowProgramName.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblWindowProgramName.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold)
         Me.lblWindowProgramName.Location = New System.Drawing.Point(9, 6)
         Me.lblWindowProgramName.Name = "lblWindowProgramName"
         Me.lblWindowProgramName.Size = New System.Drawing.Size(79, 13)
@@ -367,8 +366,8 @@ Partial Class frmDeleteForm
         Me.cmdWindowMaximize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdWindowMaximize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdWindowMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdWindowMaximize.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdWindowMaximize.Image = CType(resources.GetObject("cmdWindowMaximize.Image"), System.Drawing.Image)
+        Me.cmdWindowMaximize.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+        Me.cmdWindowMaximize.Image = Global.sstatesman.My.Resources.Resources.Metro_WindowButtonMaximize
         Me.cmdWindowMaximize.Location = New System.Drawing.Point(599, 4)
         Me.cmdWindowMaximize.Name = "cmdWindowMaximize"
         Me.cmdWindowMaximize.Size = New System.Drawing.Size(15, 15)
@@ -383,8 +382,8 @@ Partial Class frmDeleteForm
         Me.cmdWindowClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdWindowClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdWindowClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdWindowClose.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdWindowClose.Image = CType(resources.GetObject("cmdWindowClose.Image"), System.Drawing.Image)
+        Me.cmdWindowClose.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+        Me.cmdWindowClose.Image = Global.sstatesman.My.Resources.Resources.Metro_WindowButtonClose
         Me.cmdWindowClose.Location = New System.Drawing.Point(613, 4)
         Me.cmdWindowClose.Name = "cmdWindowClose"
         Me.cmdWindowClose.Size = New System.Drawing.Size(15, 15)
@@ -405,7 +404,7 @@ Partial Class frmDeleteForm
         '
         Me.lblWindowTitle.AutoSize = True
         Me.lblWindowTitle.BackColor = System.Drawing.Color.Transparent
-        Me.lblWindowTitle.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblWindowTitle.Font = New System.Drawing.Font("Segoe UI", 12.0!)
         Me.lblWindowTitle.Location = New System.Drawing.Point(30, 24)
         Me.lblWindowTitle.Name = "lblWindowTitle"
         Me.lblWindowTitle.Size = New System.Drawing.Size(147, 21)
@@ -417,7 +416,7 @@ Partial Class frmDeleteForm
         Me.AcceptButton = Me.cmdDeleteSStateSelected
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
+        Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.CancelButton = Me.cmdCancel
         Me.ClientSize = New System.Drawing.Size(632, 333)
         Me.Controls.Add(Me.lblGameListCheck)
@@ -435,8 +434,9 @@ Partial Class frmDeleteForm
         Me.Controls.Add(Me.lvwSStatesListToDelete)
         Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.cmdDeleteSStateSelected)
-        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.ForeColor = System.Drawing.Color.DimGray
+        Me.Icon = Global.sstatesman.My.Resources.SSM1
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(640, 320)
         Me.Name = "frmDeleteForm"

@@ -48,12 +48,8 @@ Module mdlGameDb
     Const rGameDb_RStatus11 As System.Byte = 11 '  11   (1011)  compat          name    serial
     Const rGameDb_RStatus12 As System.Byte = 12 '  12   (1100)  compat  region
     Const rGameDb_RStatus13 As System.Byte = 13 '  13   (1101)  compat  region          serial
-    Const rGameDb_RStatus14 As System.Byte = 14 '  12   (1110)  compat  region  name
+    Const rGameDb_RStatus14 As System.Byte = 14 '  14   (1110)  compat  region  name
     Const rGameDb_RStatus15 As System.Byte = 15 '  15   (1111)  compat  region  name    serial
-
-
-
-
 
     Public GameDb() As mdlGameDb.rGameDb    'The array that store the game infos read from the file. Size is variable to conserve memory, use "Redim" to set the start size and then "Redim Preserve" to resize
     Public GameDb_Pos As System.Int32 = 0   'Currently there are around 9000 games in the file, it should be safe to use an integer here, but is better to use a Long (since UBound and other functions give longs as results)
@@ -75,7 +71,7 @@ Module mdlGameDb
 
         Dim rGameDbTmp As mdlGameDb.rGameDb         'Record reconstructed from the file
         Dim FileGameDb_Line_SepPos As System.Int32  'Position of the record separator, "=".
-        Dim FileGameDb_Line_ComPos As System.Int32  'Start position of comments.
+        'Dim FileGameDb_Line_ComPos As System.Int32  'Start position of comments.
 
         'Variables initialization
         mdlGameDb.GameDb_Unload(pGameDb, pGameDb_Pos, True)   'The array is cleared/initialized
@@ -87,22 +83,19 @@ Module mdlGameDb
             .RStatus = 0
         End With
 
-        'Gotta need a better error handler here...
         If My.Computer.FileSystem.FileExists(pFileGameDb_Loc) Then
             Microsoft.VisualBasic.FileSystem.FileOpen(1, pFileGameDb_Loc, OpenMode.Input, OpenAccess.Read, OpenShare.LockRead)    'Opens the converted GameIndex (GameIndexTmp.dbf)
             Do Until Microsoft.VisualBasic.FileSystem.EOF(1)
                 FileGameDb_Line = Microsoft.VisualBasic.FileSystem.LineInput(1)
 
-                FileGameDb_Line = Microsoft.VisualBasic.Strings.Trim(FileGameDb_Line)
                 FileGameDb_Line_SepPos = Microsoft.VisualBasic.Strings.InStr(1, FileGameDb_Line, FileGameDb_FieldSep) 'Position of the value separator "="
-                FileGameDb_Line_ComPos = mdlGameDb.CheckComments(FileGameDb_Line)                 'Start position of the first comment identifier found "--" or "//"
 
-                If (FileGameDb_Line_SepPos > 0) And Not (FileGameDb_Line_ComPos = 0) Then
+                If (FileGameDb_Line_SepPos > 0) Then
                     sTmp1 = Microsoft.VisualBasic.Strings.Left(FileGameDb_Line, FileGameDb_Line_SepPos - 1)
                     Select Case Microsoft.VisualBasic.Strings.Trim(sTmp1)
                         Case FileGameDb_FieldName1                                      'First check: the serial because it's the DB index
                             sTmp1 = Microsoft.VisualBasic.Strings.Trim(Microsoft.VisualBasic.Strings.Mid(FileGameDb_Line, FileGameDb_Line_SepPos + 1, _
-                                                                                                         FileGameDb_Line_ComPos - FileGameDb_Line_SepPos))
+                                                                                                         FileGameDb_Line.Length - FileGameDb_Line_SepPos))
 
                             If (rGameDbTmp.RStatus >= rGameDb_RStatus1) And (Not (Trim(rGameDbTmp.Serial) = sTmp1)) Then     'Is there a serial in the record? If yes, it is stored in the DB array (a new serial means a new record) and then the temporary record is updated with the new value
 
@@ -116,7 +109,6 @@ Module mdlGameDb
                                     .Serial = ""
                                     .Name = ""
                                     .Region = ""
-                                    .RStatus = 0
                                     .Compat = ""
                                 End With
                             End If
@@ -124,17 +116,17 @@ Module mdlGameDb
                             rGameDbTmp.RStatus = rGameDb_RStatus1   'Status 1 is set because a new serial has been found
                         Case FileGameDb_FieldName2                  'Second check: the name
                             rGameDbTmp.Name = Microsoft.VisualBasic.Strings.Trim(Microsoft.VisualBasic.Strings.Mid(FileGameDb_Line, FileGameDb_Line_SepPos + 1, _
-                                                                                                                   FileGameDb_Line_ComPos - FileGameDb_Line_SepPos))   'The trimmed part after the "=" and before a comment
+                                                                                                                   FileGameDb_Line.Length - FileGameDb_Line_SepPos))   'The trimmed part after the "=" and before a comment
                             rGameDbTmp.RStatus = rGameDbTmp.RStatus + rGameDb_RStatus2
 
                         Case FileGameDb_FieldName3                  'Third check: the region
                             rGameDbTmp.Region = Microsoft.VisualBasic.Strings.Trim(Microsoft.VisualBasic.Strings.Mid(FileGameDb_Line, FileGameDb_Line_SepPos + 1, _
-                                                                                                                     FileGameDb_Line_ComPos - FileGameDb_Line_SepPos)) 'The trimmed part after the "=" and before a comment
+                                                                                                                     FileGameDb_Line.Length - FileGameDb_Line_SepPos)) 'The trimmed part after the "=" and before a comment
                             rGameDbTmp.RStatus = rGameDbTmp.RStatus + rGameDb_RStatus4
 
                         Case FileGameDb_FieldName4                  'Fourth check: the compatibility
                             rGameDbTmp.Compat = Microsoft.VisualBasic.Strings.Trim(Microsoft.VisualBasic.Strings.Mid(FileGameDb_Line, FileGameDb_Line_SepPos + 1, _
-                                                                                                                     FileGameDb_Line_ComPos - FileGameDb_Line_SepPos))  'The trimmed part after the "=" and before a comment
+                                                                                                                     FileGameDb_Line.Length - FileGameDb_Line_SepPos))  'The trimmed part after the "=" and before a comment
                             rGameDbTmp.RStatus = rGameDbTmp.RStatus + rGameDb_RStatus8
                     End Select
                 End If
@@ -143,15 +135,15 @@ Module mdlGameDb
         Else
             System.Windows.Forms.MessageBox.Show("Some kinda failure during GameDB loading. File not found or inaccessible in the configured path.", _
                                                  "Error", System.Windows.Forms.MessageBoxButtons.OK, System.Windows.Forms.MessageBoxIcon.Error)
-            pGameDb_Pos = -1
+            GameDb_Load1 = -1
         End If
 
-        If Not (pGameDb_Pos = 0) Then          'If the GameIndex.dbf file is not empty (no record info)
-            pGameDb(pGameDb_Pos) = rGameDbTmp   'Store The Last Record (why the heck Square Enix didn't do a game with this name? :P)
+        If Not (pGameDb_Pos = 0) Then           'If the GameIndex.dbf file is not empty (no record info)
+            pGameDb(pGameDb_Pos) = rGameDbTmp   'Store The Last Record
             ReDim Preserve pGameDb(0 To pGameDb_Pos)
             GameDb_Load1 = pGameDb_Pos          'GameDb lenght = GameDb position (result)
         Else
-            GameDb_Load1 = 0                    'GameDb empty (result)
+            GameDb_Load1 = -1                   'GameDb empty (result)
         End If
     End Function
 
@@ -171,34 +163,40 @@ Module mdlGameDb
                 FileGameDb_Reader.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited
                 FileGameDb_Reader.Delimiters = {FileGameDb_FieldSep}
                 While Not FileGameDb_Reader.EndOfData
-                    'Try
-                    sTmp1 = FileGameDb_Reader.ReadFields()
-                    Select Case sTmp1(0)
-                        Case FileGameDb_FieldName1
-                            If Not (pGameDb(pGameDb_Pos).Serial = sTmp1(1) Or pGameDb(pGameDb_Pos).Serial = "") Then
-                                pGameDb_Pos = pGameDb_Pos + 1
-                                If (pGameDb.GetUpperBound(0) - pGameDb_Pos) <= GameDb_ReDimFactor Then            'Resize of the array. But not too often
-                                    ReDim Preserve pGameDb(pGameDb.GetUpperBound(0) + GameDb_ReDimFactor)
-                                End If
+                    Try
+                        sTmp1 = FileGameDb_Reader.ReadFields()
+                        If sTmp1.Length > 1 Then
+                            sTmp1(0) = sTmp1(0).Trim
+                            sTmp1(1) = sTmp1(1).Trim
+                            If sTmp1.Length > 0 Then
+                                Select Case sTmp1(0)
+                                    Case FileGameDb_FieldName1
+                                        If Not (pGameDb(pGameDb_Pos).Serial = sTmp1(1) Or pGameDb(pGameDb_Pos).Serial = "") Then
+                                            pGameDb_Pos = pGameDb_Pos + 1
+                                            If (pGameDb.Length - pGameDb_Pos) <= 2 Then   'Resize of the array. But not too often
+                                                ReDim Preserve pGameDb(pGameDb.Length + GameDb_ReDimFactor)
+                                            End If
+                                        End If
+                                        pGameDb(pGameDb_Pos).Serial = sTmp1(1)
+                                        pGameDb(pGameDb_Pos).RStatus = rGameDb_RStatus1
+                                        pGameDb(pGameDb_Pos).Name = ""
+                                        pGameDb(pGameDb_Pos).Region = ""
+                                        pGameDb(pGameDb_Pos).Compat = ""
+                                    Case FileGameDb_FieldName2
+                                        pGameDb(pGameDb_Pos).Name = sTmp1(1)
+                                        pGameDb(pGameDb_Pos).RStatus = pGameDb(pGameDb_Pos).RStatus + rGameDb_RStatus2
+                                    Case FileGameDb_FieldName3
+                                        pGameDb(pGameDb_Pos).Region = sTmp1(1)
+                                        pGameDb(pGameDb_Pos).RStatus = pGameDb(pGameDb_Pos).RStatus + rGameDb_RStatus4
+                                    Case FileGameDb_FieldName4
+                                        pGameDb(pGameDb_Pos).Compat = sTmp1(1).Substring(0, 1)
+                                        pGameDb(pGameDb_Pos).RStatus = pGameDb(pGameDb_Pos).RStatus + rGameDb_RStatus8
+                                End Select
                             End If
-                            pGameDb(pGameDb_Pos).Serial = sTmp1(1)
-                            pGameDb(pGameDb_Pos).RStatus = rGameDb_RStatus1
-                            pGameDb(pGameDb_Pos).Name = ""
-                            pGameDb(pGameDb_Pos).Region = ""
-                            pGameDb(pGameDb_Pos).Compat = ""
-                        Case FileGameDb_FieldName2
-                            pGameDb(pGameDb_Pos).Name = sTmp1(1)
-                            pGameDb(pGameDb_Pos).RStatus = pGameDb(pGameDb_Pos).RStatus + rGameDb_RStatus2
-                        Case FileGameDb_FieldName3
-                            pGameDb(pGameDb_Pos).Region = sTmp1(1)
-                            pGameDb(pGameDb_Pos).RStatus = pGameDb(pGameDb_Pos).RStatus + rGameDb_RStatus4
-                        Case FileGameDb_FieldName4
-                            pGameDb(pGameDb_Pos).Compat = sTmp1(1)
-                            pGameDb(pGameDb_Pos).RStatus = pGameDb(pGameDb_Pos).RStatus + rGameDb_RStatus8
-                    End Select
-                    'Catch ex As Exception
-                    'MsgBox("Ehi, riga corrotta!")
-                    'End Try
+                        End If
+                    Catch ex As Exception
+                        'System.Windows.Forms.MessageBox.Show("Ehi, riga corrotta!" & vbCrLf & ex.Message)
+                    End Try
                 End While
                 FileGameDb_Reader.Close()
             End Using
@@ -227,38 +225,40 @@ Module mdlGameDb
                     'If Not (sTmp1.StartsWith(FileGameDb_CommentStyle1) Or _
                     '        sTmp1.StartsWith(FileGameDb_CommentStyle2) Or _
                     '        sTmp1.StartsWith(FileGameDb_CommentStyle3) Or _
+                    '        sTmp1.StartsWith(vbtab) Or _
                     '        sTmp1.Length = 0) Then
                     If Not (sTmp1.StartsWith(FileGameDb_CommentStyle1) Or _
                             sTmp1.Length = 0) Then
-                        Dim sTmp2 As System.String() = sTmp1.Split({FileGameDb_FieldSep, FileGameDb_CommentStyle2}, StringSplitOptions.None)
-                        'Dim sTmp2 As System.String() = sTmp1.Split({FileGameDb_FieldSep(0)})
+                        'Dim sTmp2 As System.String() = sTmp1.Split({FileGameDb_FieldSep, FileGameDb_CommentStyle2}, StringSplitOptions.None)
+                        Dim sTmp2 As System.String() = sTmp1.Split({FileGameDb_FieldSep(0)})
                         If sTmp2.Length > 1 Then
                             sTmp2(0) = sTmp2(0).Trim
                             sTmp2(1) = sTmp2(1).Trim
-
-                            Select Case sTmp2(0)
-                                Case FileGameDb_FieldName1
-                                    If Not (pGameDb(pGameDb_Pos).Serial = sTmp2(1) Or pGameDb(pGameDb_Pos).Serial = "") Then
-                                        pGameDb_Pos = pGameDb_Pos + 1
-                                        If (pGameDb.Length - pGameDb_Pos) <= 2 Then   'Resize of the array. But not too often
-                                            ReDim Preserve pGameDb(pGameDb.Length + GameDb_ReDimFactor)
+                            If sTmp2.Length > 0 Then
+                                Select Case sTmp2(0)
+                                    Case FileGameDb_FieldName1
+                                        If Not (pGameDb(pGameDb_Pos).Serial = sTmp2(1) Or pGameDb(pGameDb_Pos).Serial = "") Then
+                                            pGameDb_Pos = pGameDb_Pos + 1
+                                            If (pGameDb.Length - pGameDb_Pos) <= 2 Then   'Resize of the array. But not too often
+                                                ReDim Preserve pGameDb(pGameDb.Length + GameDb_ReDimFactor)
+                                            End If
                                         End If
-                                    End If
-                                    pGameDb(pGameDb_Pos).Serial = sTmp2(1)
-                                    pGameDb(pGameDb_Pos).RStatus = rGameDb_RStatus1
-                                    pGameDb(pGameDb_Pos).Name = ""
-                                    pGameDb(pGameDb_Pos).Region = ""
-                                    pGameDb(pGameDb_Pos).Compat = ""
-                                Case FileGameDb_FieldName2
-                                    pGameDb(pGameDb_Pos).Name = sTmp2(1)
-                                    pGameDb(pGameDb_Pos).RStatus = pGameDb(pGameDb_Pos).RStatus + rGameDb_RStatus2
-                                Case FileGameDb_FieldName3
-                                    pGameDb(pGameDb_Pos).Region = sTmp2(1)
-                                    pGameDb(pGameDb_Pos).RStatus = pGameDb(pGameDb_Pos).RStatus + rGameDb_RStatus4
-                                Case FileGameDb_FieldName4
-                                    pGameDb(pGameDb_Pos).Compat = sTmp2(1)
-                                    pGameDb(pGameDb_Pos).RStatus = pGameDb(pGameDb_Pos).RStatus + rGameDb_RStatus8
-                            End Select
+                                        pGameDb(pGameDb_Pos).Serial = sTmp2(1)
+                                        pGameDb(pGameDb_Pos).RStatus = rGameDb_RStatus1
+                                        pGameDb(pGameDb_Pos).Name = ""
+                                        pGameDb(pGameDb_Pos).Region = ""
+                                        pGameDb(pGameDb_Pos).Compat = ""
+                                    Case FileGameDb_FieldName2
+                                        pGameDb(pGameDb_Pos).Name = sTmp2(1)
+                                        pGameDb(pGameDb_Pos).RStatus = pGameDb(pGameDb_Pos).RStatus + rGameDb_RStatus2
+                                    Case FileGameDb_FieldName3
+                                        pGameDb(pGameDb_Pos).Region = sTmp2(1)
+                                        pGameDb(pGameDb_Pos).RStatus = pGameDb(pGameDb_Pos).RStatus + rGameDb_RStatus4
+                                    Case FileGameDb_FieldName4
+                                        pGameDb(pGameDb_Pos).Compat = sTmp2(1).Substring(0, 1)
+                                        pGameDb(pGameDb_Pos).RStatus = pGameDb(pGameDb_Pos).RStatus + rGameDb_RStatus8
+                                End Select
+                            End If
                         End If
                     End If
 
@@ -326,7 +326,7 @@ Module mdlGameDb
         End If
     End Function
 
-    Public Function GameDb_ExportTxt2(ByVal pGameDbExport_Loc As System.String, _
+    Public Function GameDb_ExportTxt(ByVal pGameDbExport_Loc As System.String, _
                                       ByVal pSepStyle As System.String, _
                                       ByVal pGameDb() As mdlGameDb.rGameDb, _
                                       ByRef pGameDb_Pos As System.Int32, _
@@ -352,28 +352,8 @@ Module mdlGameDb
                 FileGameDb_Tab_Writer.Close()
             End Using
         End If
-        GameDb_ExportTxt2 = 0
+        GameDb_ExportTxt = 0
 
-    End Function
-
-    Private Function CheckComments(ByVal str As System.String) As System.Int32
-        Dim position1 As System.Int32
-        Dim position2 As System.Int32
-        position1 = Microsoft.VisualBasic.Strings.InStr(1, str, FileGameDb_CommentStyle1)
-        position2 = Microsoft.VisualBasic.Strings.InStr(1, str, FileGameDb_CommentStyle2)
-        If (position1 + position2) = 0 Then
-            CheckComments = Len(Trim(str))
-        ElseIf position1 = 0 Then
-            CheckComments = position2 - 1
-        ElseIf position2 = 0 Then
-            CheckComments = position1 - 1
-        Else
-            If position1 <= position2 Then
-                CheckComments = position1 - 1
-            Else
-                CheckComments = position2 - 1
-            End If
-        End If
     End Function
 
 End Module

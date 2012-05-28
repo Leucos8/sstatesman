@@ -77,7 +77,7 @@ Partial Class frmAbout
         Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
         Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel.Size = New System.Drawing.Size(416, 115)
+        Me.TableLayoutPanel.Size = New System.Drawing.Size(416, 135)
         Me.TableLayoutPanel.TabIndex = 0
         '
         'LinkLabel1
@@ -85,9 +85,9 @@ Partial Class frmAbout
         Me.LinkLabel1.AutoSize = True
         Me.LinkLabel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.LinkLabel1.LinkColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.LinkLabel1.Location = New System.Drawing.Point(3, 84)
+        Me.LinkLabel1.Location = New System.Drawing.Point(3, 99)
         Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(410, 31)
+        Me.LinkLabel1.Size = New System.Drawing.Size(410, 36)
         Me.LinkLabel1.TabIndex = 18
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "Official Thread on PCSX2 Forums"
@@ -95,7 +95,7 @@ Partial Class frmAbout
         'LabelCompanyName
         '
         Me.LabelCompanyName.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LabelCompanyName.Location = New System.Drawing.Point(6, 56)
+        Me.LabelCompanyName.Location = New System.Drawing.Point(6, 66)
         Me.LabelCompanyName.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
         Me.LabelCompanyName.MaximumSize = New System.Drawing.Size(0, 17)
         Me.LabelCompanyName.Name = "LabelCompanyName"
@@ -107,7 +107,7 @@ Partial Class frmAbout
         'LabelCopyright
         '
         Me.LabelCopyright.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LabelCopyright.Location = New System.Drawing.Point(6, 28)
+        Me.LabelCopyright.Location = New System.Drawing.Point(6, 33)
         Me.LabelCopyright.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
         Me.LabelCopyright.MaximumSize = New System.Drawing.Size(0, 17)
         Me.LabelCopyright.Name = "LabelCopyright"
@@ -131,7 +131,7 @@ Partial Class frmAbout
         'TextBoxDescription
         '
         Me.TextBoxDescription.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.TextBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBoxDescription.ForeColor = System.Drawing.Color.Black
         Me.TextBoxDescription.Location = New System.Drawing.Point(12, 76)
         Me.TextBoxDescription.Margin = New System.Windows.Forms.Padding(6, 3, 3, 3)
@@ -139,7 +139,7 @@ Partial Class frmAbout
         Me.TextBoxDescription.Name = "TextBoxDescription"
         Me.TextBoxDescription.ReadOnly = True
         Me.TextBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBoxDescription.Size = New System.Drawing.Size(424, 147)
+        Me.TextBoxDescription.Size = New System.Drawing.Size(416, 174)
         Me.TextBoxDescription.TabIndex = 1
         Me.TextBoxDescription.TabStop = False
         Me.TextBoxDescription.Text = resources.GetString("TextBoxDescription.Text")
@@ -156,7 +156,7 @@ Partial Class frmAbout
         Me.OKButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.OKButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.OKButton.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.OKButton.Location = New System.Drawing.Point(328, 246)
+        Me.OKButton.Location = New System.Drawing.Point(328, 266)
         Me.OKButton.Name = "OKButton"
         Me.OKButton.Size = New System.Drawing.Size(100, 22)
         Me.OKButton.TabIndex = 16
@@ -268,8 +268,8 @@ Partial Class frmAbout
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(440, 280)
+        Me.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ClientSize = New System.Drawing.Size(440, 300)
         Me.Controls.Add(Me.OKButton)
         Me.Controls.Add(Me.panelWindowTitle)
         Me.Controls.Add(Me.TableLayoutPanel)
@@ -277,6 +277,7 @@ Partial Class frmAbout
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.DimGray
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
+        Me.Icon = Global.sstatesman.My.Resources.SSM1
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmAbout"

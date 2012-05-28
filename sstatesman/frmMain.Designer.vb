@@ -36,7 +36,6 @@ Partial Class frmMain
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmMain))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.cmdSStatesLvwExpand = New System.Windows.Forms.Button()
         Me.imgCover = New System.Windows.Forms.PictureBox()
@@ -169,7 +168,7 @@ Partial Class frmMain
         Me.cmdSStatesLvwExpand.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSStatesLvwExpand.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStatesLvwExpand.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStatesLvwExpand.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdSStatesLvwExpand.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.cmdSStatesLvwExpand.Image = Global.sstatesman.My.Resources.Resources.Metro_ExpandTop
         Me.cmdSStatesLvwExpand.Location = New System.Drawing.Point(614, 182)
         Me.cmdSStatesLvwExpand.Name = "cmdSStatesLvwExpand"
@@ -214,7 +213,7 @@ Partial Class frmMain
         Me.cmdCoverExpand.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdCoverExpand.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdCoverExpand.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdCoverExpand.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdCoverExpand.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.cmdCoverExpand.Image = Global.sstatesman.My.Resources.Resources.Metro_ExpandRight
         Me.cmdCoverExpand.Location = New System.Drawing.Point(12, 181)
         Me.cmdCoverExpand.Name = "cmdCoverExpand"
@@ -248,7 +247,7 @@ Partial Class frmMain
         'lblGameList_Compat
         '
         Me.lblGameList_Compat.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblGameList_Compat.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGameList_Compat.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lblGameList_Compat.Location = New System.Drawing.Point(423, 178)
         Me.lblGameList_Compat.Name = "lblGameList_Compat"
         Me.lblGameList_Compat.Size = New System.Drawing.Size(72, 13)
@@ -265,7 +264,7 @@ Partial Class frmMain
         Me.cmdGameSelectInvert.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdGameSelectInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdGameSelectInvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdGameSelectInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdGameSelectInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdGameSelectInvert.Location = New System.Drawing.Point(551, 3)
         Me.cmdGameSelectInvert.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdGameSelectInvert.Name = "cmdGameSelectInvert"
@@ -282,7 +281,7 @@ Partial Class frmMain
         Me.cmdRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdRefresh.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdRefresh.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdRefresh.Location = New System.Drawing.Point(24, 3)
         Me.cmdRefresh.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdRefresh.Name = "cmdRefresh"
@@ -300,7 +299,7 @@ Partial Class frmMain
         Me.cmdGameSelectAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdGameSelectAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdGameSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdGameSelectAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdGameSelectAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdGameSelectAll.Location = New System.Drawing.Point(468, 3)
         Me.cmdGameSelectAll.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdGameSelectAll.Name = "cmdGameSelectAll"
@@ -318,7 +317,7 @@ Partial Class frmMain
         Me.cmdGameSelectNone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdGameSelectNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdGameSelectNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdGameSelectNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdGameSelectNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdGameSelectNone.Location = New System.Drawing.Point(508, 3)
         Me.cmdGameSelectNone.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdGameSelectNone.Name = "cmdGameSelectNone"
@@ -367,7 +366,7 @@ Partial Class frmMain
         'lblGameList_Serial
         '
         Me.lblGameList_Serial.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblGameList_Serial.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGameList_Serial.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lblGameList_Serial.Location = New System.Drawing.Point(243, 178)
         Me.lblGameList_Serial.Name = "lblGameList_Serial"
         Me.lblGameList_Serial.Size = New System.Drawing.Size(72, 13)
@@ -378,7 +377,7 @@ Partial Class frmMain
         'lblGameList_Region
         '
         Me.lblGameList_Region.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblGameList_Region.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGameList_Region.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lblGameList_Region.Location = New System.Drawing.Point(63, 178)
         Me.lblGameList_Region.Name = "lblGameList_Region"
         Me.lblGameList_Region.Size = New System.Drawing.Size(72, 13)
@@ -389,7 +388,7 @@ Partial Class frmMain
         'lblGameList_Title
         '
         Me.lblGameList_Title.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblGameList_Title.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblGameList_Title.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lblGameList_Title.Location = New System.Drawing.Point(63, 150)
         Me.lblGameList_Title.Name = "lblGameList_Title"
         Me.lblGameList_Title.Size = New System.Drawing.Size(72, 13)
@@ -407,7 +406,7 @@ Partial Class frmMain
         Me.lvwGamesList.CheckBoxes = True
         Me.lvwGamesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.GamesLvw_GameTitle, Me.GameLvw_GameSerial, Me.GameLvw_GameRegion, Me.GameLvw_SStatesInfo, Me.GameLvw_BackupInfo, Me.GameLvw_ArrayRef})
         Me.lvwGamesList.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lvwGamesList.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lvwGamesList.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lvwGamesList.ForeColor = System.Drawing.Color.DimGray
         Me.lvwGamesList.FullRowSelect = True
         Me.lvwGamesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
@@ -424,27 +423,27 @@ Partial Class frmMain
         '
         'GamesLvw_GameTitle
         '
-        Me.GamesLvw_GameTitle.Text = "Game title"
+        Me.GamesLvw_GameTitle.Text = "GAME TITLE"
         Me.GamesLvw_GameTitle.Width = 220
         '
         'GameLvw_GameSerial
         '
-        Me.GameLvw_GameSerial.Text = "Serial code"
+        Me.GameLvw_GameSerial.Text = "SERIAL CODE"
         Me.GameLvw_GameSerial.Width = 80
         '
         'GameLvw_GameRegion
         '
-        Me.GameLvw_GameRegion.Text = "Region"
+        Me.GameLvw_GameRegion.Text = "REGION"
         '
         'GameLvw_SStatesInfo
         '
-        Me.GameLvw_SStatesInfo.Text = "Savestates"
+        Me.GameLvw_SStatesInfo.Text = "SAVESTATES"
         Me.GameLvw_SStatesInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.GameLvw_SStatesInfo.Width = 110
         '
         'GameLvw_BackupInfo
         '
-        Me.GameLvw_BackupInfo.Text = "Backups"
+        Me.GameLvw_BackupInfo.Text = "BACKUPS"
         Me.GameLvw_BackupInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.GameLvw_BackupInfo.Width = 110
         '
@@ -463,7 +462,7 @@ Partial Class frmMain
         Me.cmdGamesLvwExpand.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdGamesLvwExpand.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdGamesLvwExpand.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdGamesLvwExpand.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdGamesLvwExpand.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.cmdGamesLvwExpand.Image = Global.sstatesman.My.Resources.Resources.Metro_ExpandBottom
         Me.cmdGamesLvwExpand.Location = New System.Drawing.Point(614, 3)
         Me.cmdGamesLvwExpand.Name = "cmdGamesLvwExpand"
@@ -475,7 +474,7 @@ Partial Class frmMain
         '
         Me.lblSStateListCheck.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblSStateListCheck.AutoSize = True
-        Me.lblSStateListCheck.Location = New System.Drawing.Point(316, 5)
+        Me.lblSStateListCheck.Location = New System.Drawing.Point(316, 3)
         Me.lblSStateListCheck.Name = "lblSStateListCheck"
         Me.lblSStateListCheck.Size = New System.Drawing.Size(94, 13)
         Me.lblSStateListCheck.TabIndex = 28
@@ -497,7 +496,7 @@ Partial Class frmMain
         'lblSizeBackup
         '
         Me.lblSizeBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblSizeBackup.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSizeBackup.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lblSizeBackup.Location = New System.Drawing.Point(414, 161)
         Me.lblSizeBackup.Name = "lblSizeBackup"
         Me.lblSizeBackup.Size = New System.Drawing.Size(72, 13)
@@ -508,7 +507,7 @@ Partial Class frmMain
         'lblSStateListSelection
         '
         Me.lblSStateListSelection.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.lblSStateListSelection.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSStateListSelection.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lblSStateListSelection.Location = New System.Drawing.Point(12, 161)
         Me.lblSStateListSelection.Name = "lblSStateListSelection"
         Me.lblSStateListSelection.Size = New System.Drawing.Size(72, 13)
@@ -519,7 +518,7 @@ Partial Class frmMain
         'lblSize
         '
         Me.lblSize.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.lblSize.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSize.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lblSize.Location = New System.Drawing.Point(202, 161)
         Me.lblSize.Name = "lblSize"
         Me.lblSize.Size = New System.Drawing.Size(72, 13)
@@ -562,8 +561,8 @@ Partial Class frmMain
         Me.cmdSStateSelectInvert.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSStateSelectInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStateSelectInvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateSelectInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSStateSelectInvert.Location = New System.Drawing.Point(551, 2)
+        Me.cmdSStateSelectInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdSStateSelectInvert.Location = New System.Drawing.Point(551, 0)
         Me.cmdSStateSelectInvert.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectInvert.Name = "cmdSStateSelectInvert"
         Me.cmdSStateSelectInvert.Size = New System.Drawing.Size(45, 20)
@@ -579,8 +578,8 @@ Partial Class frmMain
         Me.cmdSStateDelete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSStateDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStateDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateDelete.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSStateDelete.Location = New System.Drawing.Point(24, 2)
+        Me.cmdSStateDelete.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdSStateDelete.Location = New System.Drawing.Point(24, 0)
         Me.cmdSStateDelete.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateDelete.Name = "cmdSStateDelete"
         Me.cmdSStateDelete.Size = New System.Drawing.Size(90, 20)
@@ -597,7 +596,7 @@ Partial Class frmMain
         Me.lvwSStatesList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lvwSStatesList.CheckBoxes = True
         Me.lvwSStatesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.SStatesLvw_FileName, Me.SStatesLvw_Slot, Me.SStatesLvw_Backup, Me.SStatesLvw_DateCreation, Me.SStatesLvw_Size, Me.SStatesLvw_SerialRef, Me.SStatesLvw_ArrayRef})
-        Me.lvwSStatesList.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lvwSStatesList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lvwSStatesList.ForeColor = System.Drawing.Color.DimGray
         Me.lvwSStatesList.FullRowSelect = True
         Me.lvwSStatesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
@@ -655,8 +654,8 @@ Partial Class frmMain
         Me.cmdSStateSelectBackup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSStateSelectBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStateSelectBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateSelectBackup.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSStateSelectBackup.Location = New System.Drawing.Point(413, 2)
+        Me.cmdSStateSelectBackup.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdSStateSelectBackup.Location = New System.Drawing.Point(413, 0)
         Me.cmdSStateSelectBackup.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectBackup.Name = "cmdSStateSelectBackup"
         Me.cmdSStateSelectBackup.Size = New System.Drawing.Size(55, 20)
@@ -673,8 +672,8 @@ Partial Class frmMain
         Me.cmdSStateSelectAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSStateSelectAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStateSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateSelectAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSStateSelectAll.Location = New System.Drawing.Point(468, 2)
+        Me.cmdSStateSelectAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdSStateSelectAll.Location = New System.Drawing.Point(468, 0)
         Me.cmdSStateSelectAll.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectAll.Name = "cmdSStateSelectAll"
         Me.cmdSStateSelectAll.Size = New System.Drawing.Size(40, 20)
@@ -691,8 +690,8 @@ Partial Class frmMain
         Me.cmdSStateSelectNone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSStateSelectNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStateSelectNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateSelectNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSStateSelectNone.Location = New System.Drawing.Point(508, 2)
+        Me.cmdSStateSelectNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdSStateSelectNone.Location = New System.Drawing.Point(508, 0)
         Me.cmdSStateSelectNone.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectNone.Name = "cmdSStateSelectNone"
         Me.cmdSStateSelectNone.Size = New System.Drawing.Size(40, 20)
@@ -719,7 +718,7 @@ Partial Class frmMain
         Me.panelWindowTitle.Controls.Add(Me.imgWindowGradientIcon)
         Me.panelWindowTitle.Controls.Add(Me.lblWindowVersion)
         Me.panelWindowTitle.Dock = System.Windows.Forms.DockStyle.Top
-        Me.panelWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.panelWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.panelWindowTitle.Location = New System.Drawing.Point(0, 0)
         Me.panelWindowTitle.Name = "panelWindowTitle"
         Me.panelWindowTitle.Size = New System.Drawing.Size(632, 70)
@@ -745,7 +744,7 @@ Partial Class frmMain
         Me.cmdSettings.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSettings.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdSettings.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdSettings.Location = New System.Drawing.Point(444, -1)
         Me.cmdSettings.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSettings.Name = "cmdSettings"
@@ -763,7 +762,7 @@ Partial Class frmMain
         Me.cmdAbout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdAbout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdAbout.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdAbout.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdAbout.Location = New System.Drawing.Point(499, -1)
         Me.cmdAbout.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdAbout.Name = "cmdAbout"
@@ -780,8 +779,8 @@ Partial Class frmMain
         Me.cmdWindowMinimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdWindowMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdWindowMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdWindowMinimize.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdWindowMinimize.Image = CType(resources.GetObject("cmdWindowMinimize.Image"), System.Drawing.Image)
+        Me.cmdWindowMinimize.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+        Me.cmdWindowMinimize.Image = Global.sstatesman.My.Resources.Resources.Metro_WindowButtonMinimize
         Me.cmdWindowMinimize.Location = New System.Drawing.Point(585, 4)
         Me.cmdWindowMinimize.Name = "cmdWindowMinimize"
         Me.cmdWindowMinimize.Size = New System.Drawing.Size(15, 15)
@@ -796,8 +795,8 @@ Partial Class frmMain
         Me.cmdWindowMaximize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdWindowMaximize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdWindowMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdWindowMaximize.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdWindowMaximize.Image = CType(resources.GetObject("cmdWindowMaximize.Image"), System.Drawing.Image)
+        Me.cmdWindowMaximize.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+        Me.cmdWindowMaximize.Image = Global.sstatesman.My.Resources.Resources.Metro_WindowButtonMaximize
         Me.cmdWindowMaximize.Location = New System.Drawing.Point(599, 4)
         Me.cmdWindowMaximize.Name = "cmdWindowMaximize"
         Me.cmdWindowMaximize.Size = New System.Drawing.Size(15, 15)
@@ -812,8 +811,8 @@ Partial Class frmMain
         Me.cmdWindowClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdWindowClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdWindowClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdWindowClose.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdWindowClose.Image = CType(resources.GetObject("cmdWindowClose.Image"), System.Drawing.Image)
+        Me.cmdWindowClose.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+        Me.cmdWindowClose.Image = Global.sstatesman.My.Resources.Resources.Metro_WindowButtonClose
         Me.cmdWindowClose.Location = New System.Drawing.Point(613, 4)
         Me.cmdWindowClose.Name = "cmdWindowClose"
         Me.cmdWindowClose.Size = New System.Drawing.Size(15, 15)
@@ -839,7 +838,7 @@ Partial Class frmMain
         Me.cmdSStateListUtil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSStateListUtil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStateListUtil.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateListUtil.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdSStateListUtil.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdSStateListUtil.Location = New System.Drawing.Point(526, 47)
         Me.cmdSStateListUtil.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateListUtil.Name = "cmdSStateListUtil"
@@ -857,7 +856,7 @@ Partial Class frmMain
         Me.cmdGameDbUtil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdGameDbUtil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdGameDbUtil.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdGameDbUtil.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdGameDbUtil.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdGameDbUtil.Location = New System.Drawing.Point(471, 47)
         Me.cmdGameDbUtil.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdGameDbUtil.Name = "cmdGameDbUtil"
@@ -870,7 +869,7 @@ Partial Class frmMain
         '
         Me.lblWindowTitle.AutoSize = True
         Me.lblWindowTitle.BackColor = System.Drawing.Color.Transparent
-        Me.lblWindowTitle.Font = New System.Drawing.Font("Segoe UI", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblWindowTitle.Font = New System.Drawing.Font("Segoe UI", 15.75!)
         Me.lblWindowTitle.Location = New System.Drawing.Point(30, 24)
         Me.lblWindowTitle.Name = "lblWindowTitle"
         Me.lblWindowTitle.Size = New System.Drawing.Size(122, 30)
@@ -881,7 +880,7 @@ Partial Class frmMain
         '
         Me.blWindowDescription.AutoSize = True
         Me.blWindowDescription.BackColor = System.Drawing.Color.Transparent
-        Me.blWindowDescription.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.blWindowDescription.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.blWindowDescription.ForeColor = System.Drawing.Color.Gray
         Me.blWindowDescription.Location = New System.Drawing.Point(30, 50)
         Me.blWindowDescription.Name = "blWindowDescription"
@@ -904,7 +903,7 @@ Partial Class frmMain
         '
         Me.lblWindowVersion.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblWindowVersion.BackColor = System.Drawing.Color.Transparent
-        Me.lblWindowVersion.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblWindowVersion.Font = New System.Drawing.Font("Segoe UI", 6.75!)
         Me.lblWindowVersion.Location = New System.Drawing.Point(426, 20)
         Me.lblWindowVersion.Name = "lblWindowVersion"
         Me.lblWindowVersion.Size = New System.Drawing.Size(115, 12)
@@ -916,12 +915,13 @@ Partial Class frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.White
+        Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(632, 453)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.panelWindowTitle)
-        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.ForeColor = System.Drawing.Color.DimGray
+        Me.Icon = Global.sstatesman.My.Resources.SSM1
         Me.MinimumSize = New System.Drawing.Size(640, 480)
         Me.Name = "frmMain"
         Me.Text = "SStatesMan"

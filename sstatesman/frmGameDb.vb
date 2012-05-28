@@ -266,7 +266,7 @@ Public Class frmGameDb
                 .Title = "Save search records to..."
             End With
             If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                Call mdlGameDb.GameDb_ExportTxt2(SaveDialog.FileName, _
+                Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName, _
                                      vbTab, _
                                      GameDbSearch, _
                                      GameDbSearch_Pos, _
@@ -279,7 +279,7 @@ Public Class frmGameDb
             End With
             If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
 
-                Call mdlGameDb.GameDb_ExportTxt2(SaveDialog.FileName, _
+                Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName, _
                                                  vbTab, _
                                                  GameDb, _
                                                  GameDb_Pos, _
@@ -308,7 +308,7 @@ Public Class frmGameDb
             End With
             If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
 
-                Call mdlGameDb.GameDb_ExportTxt2(SaveDialog.FileName, _
+                Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName, _
                                      ";", _
                                      GameDbSearch, _
                                      GameDbSearch_Pos, _
@@ -320,7 +320,7 @@ Public Class frmGameDb
                 .Title = "Save records to..."
             End With
             If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                Call mdlGameDb.GameDb_ExportTxt2(SaveDialog.FileName, _
+                Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName, _
                                                   ";", _
                                                   GameDb, _
                                                   GameDb_Pos, _

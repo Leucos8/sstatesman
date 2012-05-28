@@ -24,7 +24,6 @@ Public Class frmSettings
     Dim TmpSettingsFailTab2 As Boolean = False
 
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        Me.Icon = My.Resources.SSM1
         Me.Size = Me.MinimumSize
         Me.panelTab2.Location = Me.panelTab1.Location
 
@@ -41,25 +40,30 @@ Public Class frmSettings
 
     Private Sub frmSettings_Paint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
         If My.Settings.SStateMan_BGEnable Then
-            Dim linGrBrush As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, 0), New Point(0, 150), Color.Gainsboro, Color.White)
-            Dim linGrBrush2 As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.ClientSize.Height - 150), New Point(0, Me.ClientSize.Height), Color.White, Color.Gainsboro)
-            Dim linGrBrush3 As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.panelWindowTitle.Height), New Point(0, Me.panelWindowTitle.Height + 12), Color.Gainsboro, Color.Transparent)
-            Dim linGrBrush4 As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.ClientSize.Height - 46), New Point(0, Me.ClientSize.Height - 34), Color.LightGray, Color.Transparent)
-            'Dim linGrBrush5 As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance), New Point(0, SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 12), Color.Gainsboro, Color.Transparent)
+            Dim linGrBrushTop As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, 0), New Point(0, 150), Color.Gainsboro, Color.WhiteSmoke)
+            Dim linGrBrushBottom As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.ClientSize.Height - 150), New Point(0, Me.ClientSize.Height), Color.WhiteSmoke, Color.Gainsboro)
+            Dim linGrBrushToolbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.panelWindowTitle.Height), New Point(0, Me.panelWindowTitle.Height + 12), Color.Gainsboro, Color.Transparent)
+            Dim linGrBrushStatusbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.ClientSize.Height - 46), New Point(0, Me.ClientSize.Height - 34), Color.Silver, Color.Transparent)
+            'Dim linGrBrushSplitterbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 1), New Point(0, SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 13), Color.Gainsboro, Color.Transparent)
 
-            e.Graphics.FillRectangle(linGrBrush, 0, 0, Me.ClientSize.Width, 150)
-            e.Graphics.FillRectangle(linGrBrush2, 0, CInt(Me.ClientSize.Height - 150), Me.ClientSize.Width, 150)
-            e.Graphics.FillRectangle(linGrBrush3, 0, Me.panelWindowTitle.Height, Me.ClientSize.Width, 12)
-            e.Graphics.FillRectangle(linGrBrush4, 0, Me.ClientSize.Height - 46, Me.ClientSize.Width, 12)
-            e.Graphics.DrawLine(Pens.Gainsboro, 0, Me.panelWindowTitle.Height, Me.ClientSize.Width, Me.panelWindowTitle.Height)
-            e.Graphics.DrawLine(Pens.DarkGray, 0, Me.ClientSize.Height - 46, Me.ClientSize.Width, Me.ClientSize.Height - 46)
-            'e.Graphics.FillRectangle(linGrBrush5, 0, Me.SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance, Me.ClientSize.Width, 12)
+            e.Graphics.FillRectangle(linGrBrushTop, 0, 0, Me.ClientSize.Width, 150)
+            e.Graphics.FillRectangle(linGrBrushBottom, 0, CInt(Me.ClientSize.Height - 150), Me.ClientSize.Width, 150)
+            e.Graphics.FillRectangle(linGrBrushToolbar, 0, Me.panelWindowTitle.Height, Me.ClientSize.Width, 12)
+            e.Graphics.FillRectangle(linGrBrushStatusbar, 0, Me.ClientSize.Height - 46, Me.ClientSize.Width, 12)
+            'If Not (Me.SplitContainer1.Panel1Collapsed Or Me.SplitContainer1.Panel2Collapsed) Then
+            '    e.Graphics.FillRectangle(linGrBrushSplitterbar, 0, Me.SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 1, Me.ClientSize.Width, 12)
+            'End If
 
         End If
-        e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.ClientSize.Height)
-        e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.ClientSize.Width, 0)
-        e.Graphics.DrawLine(Pens.DimGray, Me.ClientSize.Width - 1, 0, Me.ClientSize.Width - 1, Me.ClientSize.Height)
-        e.Graphics.DrawLine(Pens.DimGray, 0, Me.ClientSize.Height - 1, Me.ClientSize.Width, Me.ClientSize.Height - 1)
+        e.Graphics.DrawLine(Pens.Gainsboro, 0, Me.panelWindowTitle.Height, Me.ClientSize.Width, Me.panelWindowTitle.Height)
+        'If Not (Me.SplitContainer1.Panel1Collapsed Or Me.SplitContainer1.Panel2Collapsed) Then
+        '    e.Graphics.DrawLine(Pens.Gainsboro, 0, Me.SplitContainer1.Top + Me.SplitContainer1.SplitterDistance + 1, Me.ClientSize.Width, Me.SplitContainer1.Top + Me.SplitContainer1.SplitterDistance + 1)
+        'End If
+        e.Graphics.DrawLine(Pens.DarkGray, 0, Me.ClientSize.Height - 46, Me.ClientSize.Width, Me.ClientSize.Height - 46)
+        'e.Graphics.DrawLine(Pens.DarkGray, 0, 0, 0, Me.ClientSize.Height)
+        'e.Graphics.DrawLine(Pens.DarkGray, 0, 0, Me.ClientSize.Width, 0)
+        'e.Graphics.DrawLine(Pens.DarkGray, Me.ClientSize.Width - 1, 0, Me.ClientSize.Width - 1, Me.ClientSize.Height)
+        'e.Graphics.DrawLine(Pens.DarkGray, 0, Me.ClientSize.Height - 1, Me.ClientSize.Width, Me.ClientSize.Height - 1)
     End Sub
 
     Private Sub cmdOk_Click(sender As System.Object, e As System.EventArgs) Handles cmdOk.Click
@@ -115,7 +119,7 @@ Public Class frmSettings
             Me.txtPCSX2AppPath.Text = Me.txtPCSX2AppPath.Text.Replace(invalidChars(i), "_")
         Next i
         If Not (My.Computer.FileSystem.DirectoryExists(Me.txtPCSX2AppPath.Text)) Then
-            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("Path not found or inaccessible.", vbCrLf, _
+            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("The specified path is not found or inaccessible.", vbCrLf, _
                                                                  "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
             Me.lblPCSX2AppPathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
             Me.lblPCSX2AppPathStatus.Left = Me.imgPCSX2AppPathStatus.Left + Me.imgPCSX2AppPathStatus.Width
@@ -130,7 +134,7 @@ Public Class frmSettings
             'My.Settings.SStateMan_SettingFail = True
         ElseIf Not (My.Computer.FileSystem.FileExists(My.Computer.FileSystem.CombinePath(Me.txtPCSX2AppPath.Text, My.Settings.PCSX2_GameDbFilename))) Then
             Me.lblPCSX2AppPathStatus.Text = System.String.Concat("Unable to find """, My.Settings.PCSX2_GameDbFilename, """ in the specified path.", vbCrLf, _
-                                                                 "Game info will not be shown in SStatesMan windows.")
+                                                                 "Information about games won't be shown in SStatesMan.")
             Me.lblPCSX2AppPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
             Me.lblPCSX2AppPathStatus.Left = Me.imgPCSX2AppPathStatus.Left + Me.imgPCSX2AppPathStatus.Width
             Me.lblPCSX2AppPathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2AppPathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2AppPathDetect.Left) + 6)
@@ -139,7 +143,7 @@ Public Class frmSettings
             Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Exclamation
             Me.imgPCSX2AppPathStatus.Visible = True
         Else
-            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("Where SStatesMan will look for """, My.Settings.PCSX2_GameDbFilename, """, usually the folder where PCSX2 is installed.")
+            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("The folder where SStatesMan will look for """, My.Settings.PCSX2_GameDbFilename, """, usually the folder where PCSX2 is installed.")
             Me.lblPCSX2AppPathStatus.BackColor = Color.Transparent
             Me.lblPCSX2AppPathStatus.Left = Me.imgPCSX2AppPathStatus.Left
             Me.lblPCSX2AppPathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2AppPathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2AppPathDetect.Left) + 6)
@@ -153,7 +157,7 @@ Public Class frmSettings
             Me.txtPCSX2IniPath.Text = Me.txtPCSX2IniPath.Text.Replace(invalidChars(i), "_")
         Next i
         If Not (My.Computer.FileSystem.DirectoryExists(Me.txtPCSX2IniPath.Text)) Then
-            Me.lblPCSX2IniPathStatus.Text = System.String.Concat("Path not found or inaccessible.", vbCrLf, _
+            Me.lblPCSX2IniPathStatus.Text = System.String.Concat("The specified path is not found or inaccessible.", vbCrLf, _
                                                                  "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
             Me.lblPCSX2IniPathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
             Me.lblPCSX2IniPathStatus.Left = Me.imgPCSX2IniPathStatus.Left + Me.imgPCSX2IniPathStatus.Width
@@ -176,7 +180,7 @@ Public Class frmSettings
             Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Exclamation
             Me.imgPCSX2IniPathStatus.Visible = True
         Else
-            Me.lblPCSX2IniPathStatus.Text = "Where SStatesMan will look PCSX2 inis, usually the ""inis"" folder inside PCSX2 user folder."
+            Me.lblPCSX2IniPathStatus.Text = "The folder where SStatesMan will look PCSX2 inis, usually the ""inis"" folder inside PCSX2 user folder."
             Me.lblPCSX2IniPathStatus.BackColor = Color.Transparent
             Me.lblPCSX2IniPathStatus.Left = Me.imgPCSX2IniPathStatus.Left
             Me.lblPCSX2IniPathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2IniPathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2IniPathDetect.Left) + 6)
@@ -190,7 +194,7 @@ Public Class frmSettings
             Me.txtPCSX2SStatePath.Text = Me.txtPCSX2SStatePath.Text.Replace(invalidChars(i), "_")
         Next i
         If Not (My.Computer.FileSystem.DirectoryExists(Me.txtPCSX2SStatePath.Text)) Then
-            Me.lblPCSX2SStatePathStatus.Text = System.String.Concat("Path not found or inaccessible.", vbCrLf, _
+            Me.lblPCSX2SStatePathStatus.Text = System.String.Concat("The specified path is not found or inaccessible.", vbCrLf, _
                                                                     "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
             Me.lblPCSX2SStatePathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
             Me.lblPCSX2SStatePathStatus.Left = Me.imgPCSX2SStatePathStatus.Left + Me.imgPCSX2SStatePathStatus.Width
@@ -203,7 +207,7 @@ Public Class frmSettings
             Me.cmdOk.Enabled = False
             Me.TmpSettingsFailTab2 = True
         Else
-            Me.lblPCSX2SStatePathStatus.Text = System.String.Format("Where SStatesMan will look for the savestates, usually the ""{0}"" folder inside PCSX2 user folder.", My.Settings.PCSX2_SStateFolder)
+            Me.lblPCSX2SStatePathStatus.Text = System.String.Format("The folder where SStatesMan will look for the savestates, usually the ""{0}"" folder inside PCSX2 user folder.", My.Settings.PCSX2_SStateFolder)
             Me.lblPCSX2SStatePathStatus.BackColor = Color.Transparent
             Me.lblPCSX2SStatePathStatus.Left = Me.imgPCSX2SStatePathStatus.Left
             Me.lblPCSX2SStatePathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2SStatePathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2SStatePathDetect.Left) + 6)
@@ -221,7 +225,7 @@ Public Class frmSettings
             Me.txtSStateManPicsPath.Text = "Not set"
             'Me.lblSStateManPicsPathStatus.Text = System.String.Concat("Path not found or inaccessible.", vbCrLf, _
             '                                                          "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
-            Me.lblSStateManPicsPathStatus.Text = System.String.Concat("Path not found or inaccessible.", vbCrLf, _
+            Me.lblSStateManPicsPathStatus.Text = System.String.Concat("The specified path not found or inaccessible.", vbCrLf, _
                                                                       "Please enter a valid path.")
             Me.lblSStateManPicsPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
             Me.lblSStateManPicsPathStatus.Left = Me.imgSStateManPicsPathStatus.Left + Me.imgSStateManPicsPathStatus.Width
@@ -233,7 +237,7 @@ Public Class frmSettings
 
             'Me.cmdOk.Enabled = False
         Else
-            Me.lblSStateManPicsPathStatus.Text = System.String.Concat("Where SStatesMan will look for the game cover images.", vbCrLf, _
+            Me.lblSStateManPicsPathStatus.Text = System.String.Concat("The folder where SStatesMan will look for the game cover images.", vbCrLf, _
                                                                       "The cover image file MUST be named <executable code>.jpg to work.")
             Me.lblSStateManPicsPathStatus.BackColor = Color.Transparent
             Me.lblSStateManPicsPathStatus.Left = Me.imgSStateManPicsPathStatus.Left
