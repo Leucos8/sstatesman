@@ -46,102 +46,120 @@ Partial Class frmGameDbSearchForm
         Me.cmdSearch = New System.Windows.Forms.Button()
         Me.cmdCancel = New System.Windows.Forms.Button()
         Me.cbGameCompat = New System.Windows.Forms.ComboBox()
+        Me.flpWindowBottom = New System.Windows.Forms.FlowLayoutPanel()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.panelWindowTitle = New System.Windows.Forms.Panel()
+        Me.lblWindowProgramName = New System.Windows.Forms.Label()
+        Me.flpWindowBottom.SuspendLayout()
+        Me.TableLayoutPanel1.SuspendLayout()
+        Me.panelWindowTitle.SuspendLayout()
         Me.SuspendLayout()
         '
         'ckbSerial
         '
         Me.ckbSerial.AutoSize = True
-        Me.ckbSerial.BackColor = System.Drawing.Color.Transparent
+        Me.ckbSerial.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ckbSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbSerial.Location = New System.Drawing.Point(12, 12)
+        Me.ckbSerial.Location = New System.Drawing.Point(12, 8)
+        Me.ckbSerial.Margin = New System.Windows.Forms.Padding(4)
         Me.ckbSerial.Name = "ckbSerial"
-        Me.ckbSerial.Size = New System.Drawing.Size(102, 17)
+        Me.ckbSerial.Size = New System.Drawing.Size(76, 22)
         Me.ckbSerial.TabIndex = 0
-        Me.ckbSerial.Text = "Search by serial"
+        Me.ckbSerial.Text = "by serial"
         Me.ckbSerial.UseVisualStyleBackColor = False
         '
         'txtSerial
         '
         Me.txtSerial.BackColor = System.Drawing.Color.White
         Me.txtSerial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtSerial.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtSerial.Enabled = False
         Me.txtSerial.ForeColor = System.Drawing.Color.DimGray
-        Me.txtSerial.Location = New System.Drawing.Point(12, 35)
+        Me.txtSerial.Location = New System.Drawing.Point(96, 8)
+        Me.txtSerial.Margin = New System.Windows.Forms.Padding(4)
         Me.txtSerial.Name = "txtSerial"
-        Me.txtSerial.Size = New System.Drawing.Size(160, 22)
+        Me.txtSerial.Size = New System.Drawing.Size(366, 22)
         Me.txtSerial.TabIndex = 1
         '
         'txtGameTitle
         '
-        Me.txtGameTitle.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtGameTitle.BackColor = System.Drawing.Color.White
         Me.txtGameTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtGameTitle.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameTitle.Enabled = False
         Me.txtGameTitle.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameTitle.Location = New System.Drawing.Point(12, 84)
+        Me.txtGameTitle.Location = New System.Drawing.Point(96, 38)
+        Me.txtGameTitle.Margin = New System.Windows.Forms.Padding(4)
         Me.txtGameTitle.Name = "txtGameTitle"
-        Me.txtGameTitle.Size = New System.Drawing.Size(326, 22)
+        Me.txtGameTitle.Size = New System.Drawing.Size(366, 22)
         Me.txtGameTitle.TabIndex = 3
         '
         'ckbGameTitle
         '
         Me.ckbGameTitle.AutoSize = True
-        Me.ckbGameTitle.BackColor = System.Drawing.Color.Transparent
+        Me.ckbGameTitle.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ckbGameTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbGameTitle.Location = New System.Drawing.Point(12, 61)
+        Me.ckbGameTitle.Location = New System.Drawing.Point(12, 38)
+        Me.ckbGameTitle.Margin = New System.Windows.Forms.Padding(4)
         Me.ckbGameTitle.Name = "ckbGameTitle"
-        Me.ckbGameTitle.Size = New System.Drawing.Size(126, 17)
+        Me.ckbGameTitle.Size = New System.Drawing.Size(76, 22)
         Me.ckbGameTitle.TabIndex = 2
-        Me.ckbGameTitle.Text = "Search by game title"
+        Me.ckbGameTitle.Text = "by title"
         Me.ckbGameTitle.UseVisualStyleBackColor = False
         '
         'txtGameRegion
         '
         Me.txtGameRegion.BackColor = System.Drawing.Color.White
         Me.txtGameRegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtGameRegion.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameRegion.Enabled = False
         Me.txtGameRegion.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameRegion.Location = New System.Drawing.Point(12, 133)
+        Me.txtGameRegion.Location = New System.Drawing.Point(96, 68)
+        Me.txtGameRegion.Margin = New System.Windows.Forms.Padding(4)
         Me.txtGameRegion.Name = "txtGameRegion"
-        Me.txtGameRegion.Size = New System.Drawing.Size(160, 22)
+        Me.txtGameRegion.Size = New System.Drawing.Size(366, 22)
         Me.txtGameRegion.TabIndex = 5
         '
         'ckbGameRegion
         '
         Me.ckbGameRegion.AutoSize = True
-        Me.ckbGameRegion.BackColor = System.Drawing.Color.Transparent
+        Me.ckbGameRegion.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ckbGameRegion.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbGameRegion.Location = New System.Drawing.Point(12, 110)
+        Me.ckbGameRegion.Location = New System.Drawing.Point(12, 68)
+        Me.ckbGameRegion.Margin = New System.Windows.Forms.Padding(4)
         Me.ckbGameRegion.Name = "ckbGameRegion"
-        Me.ckbGameRegion.Size = New System.Drawing.Size(109, 17)
+        Me.ckbGameRegion.Size = New System.Drawing.Size(76, 22)
         Me.ckbGameRegion.TabIndex = 4
-        Me.ckbGameRegion.Text = "Search by region"
+        Me.ckbGameRegion.Text = "by region"
         Me.ckbGameRegion.UseVisualStyleBackColor = False
         '
         'ckbGameCompat
         '
         Me.ckbGameCompat.AutoSize = True
-        Me.ckbGameCompat.BackColor = System.Drawing.Color.Transparent
+        Me.ckbGameCompat.Dock = System.Windows.Forms.DockStyle.Fill
         Me.ckbGameCompat.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbGameCompat.Location = New System.Drawing.Point(178, 110)
+        Me.ckbGameCompat.Location = New System.Drawing.Point(12, 98)
+        Me.ckbGameCompat.Margin = New System.Windows.Forms.Padding(4)
         Me.ckbGameCompat.Name = "ckbGameCompat"
-        Me.ckbGameCompat.Size = New System.Drawing.Size(113, 17)
+        Me.ckbGameCompat.Size = New System.Drawing.Size(76, 21)
         Me.ckbGameCompat.TabIndex = 6
-        Me.ckbGameCompat.Text = "Search by compat"
+        Me.ckbGameCompat.Text = "by compat"
         Me.ckbGameCompat.UseVisualStyleBackColor = False
         '
         'cmdSearch
         '
         Me.cmdSearch.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdSearch.AutoSize = True
+        Me.cmdSearch.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdSearch.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
         Me.cmdSearch.Enabled = False
         Me.cmdSearch.FlatAppearance.BorderColor = System.Drawing.Color.Gray
         Me.cmdSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSearch.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSearch.Location = New System.Drawing.Point(132, 175)
+        Me.cmdSearch.Location = New System.Drawing.Point(257, 7)
+        Me.cmdSearch.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdSearch.Name = "cmdSearch"
-        Me.cmdSearch.Size = New System.Drawing.Size(100, 22)
+        Me.cmdSearch.Size = New System.Drawing.Size(100, 24)
         Me.cmdSearch.TabIndex = 8
         Me.cmdSearch.Text = "SEARCH"
         Me.cmdSearch.UseVisualStyleBackColor = True
@@ -149,14 +167,17 @@ Partial Class frmGameDbSearchForm
         'cmdCancel
         '
         Me.cmdCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdCancel.AutoSize = True
+        Me.cmdCancel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdCancel.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
         Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdCancel.Location = New System.Drawing.Point(238, 175)
+        Me.cmdCancel.Location = New System.Drawing.Point(363, 7)
+        Me.cmdCancel.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdCancel.Name = "cmdCancel"
-        Me.cmdCancel.Size = New System.Drawing.Size(100, 22)
+        Me.cmdCancel.Size = New System.Drawing.Size(100, 24)
         Me.cmdCancel.TabIndex = 9
         Me.cmdCancel.Text = "CANCEL"
         Me.cmdCancel.UseVisualStyleBackColor = True
@@ -164,34 +185,103 @@ Partial Class frmGameDbSearchForm
         'cbGameCompat
         '
         Me.cbGameCompat.BackColor = System.Drawing.Color.White
+        Me.cbGameCompat.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cbGameCompat.Enabled = False
         Me.cbGameCompat.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cbGameCompat.ForeColor = System.Drawing.Color.DimGray
         Me.cbGameCompat.FormattingEnabled = True
         Me.cbGameCompat.Items.AddRange(New Object() {"0: Unknown", "1: Nothing", "2: Intro", "3: Menus", "4: in-Game", "5: Playable", "6: Perfect", "Missing", "Undetected"})
-        Me.cbGameCompat.Location = New System.Drawing.Point(178, 133)
+        Me.cbGameCompat.Location = New System.Drawing.Point(96, 98)
+        Me.cbGameCompat.Margin = New System.Windows.Forms.Padding(4)
         Me.cbGameCompat.Name = "cbGameCompat"
-        Me.cbGameCompat.Size = New System.Drawing.Size(160, 21)
+        Me.cbGameCompat.Size = New System.Drawing.Size(366, 21)
         Me.cbGameCompat.TabIndex = 10
         Me.cbGameCompat.Text = "0: Unknown"
         '
+        'flpWindowBottom
+        '
+        Me.flpWindowBottom.AutoSize = True
+        Me.flpWindowBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpWindowBottom.BackColor = System.Drawing.Color.Gainsboro
+        Me.flpWindowBottom.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.flpWindowBottom.Controls.Add(Me.cmdCancel)
+        Me.flpWindowBottom.Controls.Add(Me.cmdSearch)
+        Me.flpWindowBottom.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.flpWindowBottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.flpWindowBottom.Location = New System.Drawing.Point(0, 194)
+        Me.flpWindowBottom.Name = "flpWindowBottom"
+        Me.flpWindowBottom.Padding = New System.Windows.Forms.Padding(4)
+        Me.flpWindowBottom.Size = New System.Drawing.Size(474, 38)
+        Me.flpWindowBottom.TabIndex = 11
+        '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.AutoSize = True
+        Me.TableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.TableLayoutPanel1.ColumnCount = 2
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Controls.Add(Me.ckbSerial, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.ckbGameTitle, 0, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtSerial, 1, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtGameRegion, 1, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.txtGameTitle, 1, 2)
+        Me.TableLayoutPanel1.Controls.Add(Me.ckbGameRegion, 0, 3)
+        Me.TableLayoutPanel1.Controls.Add(Me.ckbGameCompat, 0, 4)
+        Me.TableLayoutPanel1.Controls.Add(Me.cbGameCompat, 1, 4)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 30)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.Padding = New System.Windows.Forms.Padding(8, 4, 8, 4)
+        Me.TableLayoutPanel1.RowCount = 6
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(474, 164)
+        Me.TableLayoutPanel1.TabIndex = 33
+        '
+        'panelWindowTitle
+        '
+        Me.panelWindowTitle.AutoSize = True
+        Me.panelWindowTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelWindowTitle.BackColor = System.Drawing.Color.Gainsboro
+        Me.panelWindowTitle.Controls.Add(Me.lblWindowProgramName)
+        Me.panelWindowTitle.Dock = System.Windows.Forms.DockStyle.Top
+        Me.panelWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+        Me.panelWindowTitle.Location = New System.Drawing.Point(0, 0)
+        Me.panelWindowTitle.Margin = New System.Windows.Forms.Padding(2)
+        Me.panelWindowTitle.MinimumSize = New System.Drawing.Size(0, 26)
+        Me.panelWindowTitle.Name = "panelWindowTitle"
+        Me.panelWindowTitle.Size = New System.Drawing.Size(474, 30)
+        Me.panelWindowTitle.TabIndex = 37
+        '
+        'lblWindowProgramName
+        '
+        Me.lblWindowProgramName.AutoSize = True
+        Me.lblWindowProgramName.BackColor = System.Drawing.Color.Transparent
+        Me.lblWindowProgramName.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblWindowProgramName.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblWindowProgramName.Location = New System.Drawing.Point(0, 0)
+        Me.lblWindowProgramName.Margin = New System.Windows.Forms.Padding(6, 0, 6, 3)
+        Me.lblWindowProgramName.Name = "lblWindowProgramName"
+        Me.lblWindowProgramName.Padding = New System.Windows.Forms.Padding(6, 6, 6, 3)
+        Me.lblWindowProgramName.Size = New System.Drawing.Size(67, 30)
+        Me.lblWindowProgramName.TabIndex = 2
+        Me.lblWindowProgramName.Text = "search"
+        '
         'frmGameDbSearchForm
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ClientSize = New System.Drawing.Size(350, 209)
+        Me.ClientSize = New System.Drawing.Size(474, 232)
         Me.ControlBox = False
-        Me.Controls.Add(Me.cbGameCompat)
-        Me.Controls.Add(Me.cmdCancel)
-        Me.Controls.Add(Me.cmdSearch)
-        Me.Controls.Add(Me.ckbGameCompat)
-        Me.Controls.Add(Me.txtGameRegion)
-        Me.Controls.Add(Me.ckbGameRegion)
-        Me.Controls.Add(Me.txtGameTitle)
-        Me.Controls.Add(Me.ckbGameTitle)
-        Me.Controls.Add(Me.txtSerial)
-        Me.Controls.Add(Me.ckbSerial)
+        Me.Controls.Add(Me.TableLayoutPanel1)
+        Me.Controls.Add(Me.panelWindowTitle)
+        Me.Controls.Add(Me.flpWindowBottom)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.DimGray
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -201,6 +291,12 @@ Partial Class frmGameDbSearchForm
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "GameDB util - Search"
+        Me.flpWindowBottom.ResumeLayout(False)
+        Me.flpWindowBottom.PerformLayout()
+        Me.TableLayoutPanel1.ResumeLayout(False)
+        Me.TableLayoutPanel1.PerformLayout()
+        Me.panelWindowTitle.ResumeLayout(False)
+        Me.panelWindowTitle.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -215,4 +311,8 @@ Partial Class frmGameDbSearchForm
     Friend WithEvents cmdSearch As System.Windows.Forms.Button
     Friend WithEvents cmdCancel As System.Windows.Forms.Button
     Friend WithEvents cbGameCompat As System.Windows.Forms.ComboBox
+    Friend WithEvents flpWindowBottom As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
+    Private WithEvents panelWindowTitle As System.Windows.Forms.Panel
+    Private WithEvents lblWindowProgramName As System.Windows.Forms.Label
 End Class

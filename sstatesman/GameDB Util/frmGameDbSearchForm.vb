@@ -34,13 +34,13 @@ Public Class frmGameDbSearchForm
             Me.ckbGameRegion.Checked = False
         End If
         If searchCkbStatus > 0 Then
-            frmGameDb.SearchResultRef_ArrayStatus = mdlGameDb.GameDb_Search(mdlGameDb.GameDb, _
-                                                                 frmGameDb.SearchResultRef, _
-                                                                 Me.txtSerial.Text, Me.ckbSerial.Checked, _
-                                                                 Me.txtGameTitle.Text, Me.ckbGameTitle.Checked, _
-                                                                 Me.txtGameRegion.Text, Me.ckbGameRegion.Checked, _
-                                                                 ConvertedGameCompat, Me.ckbGameCompat.Checked, _
-                                                                 0)
+            frmGameDb.SearchResultRef_ArrayStatus = mdlGameDb.GameDb_Search(mdlGameDb.GameDb,
+                                                                            frmGameDb.SearchResultRef,
+                                                                            Me.txtSerial.Text, Me.ckbSerial.Checked,
+                                                                            Me.txtGameTitle.Text, Me.ckbGameTitle.Checked,
+                                                                            Me.txtGameRegion.Text, Me.ckbGameRegion.Checked,
+                                                                            ConvertedGameCompat, Me.ckbGameCompat.Checked,
+                                                                            0)
             Me.DialogResult = Windows.Forms.DialogResult.OK
             Me.Close()
         Else
@@ -112,39 +112,56 @@ Public Class frmGameDbSearchForm
     End Sub
 
     Private Sub frmGameDbSearchForm_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        Me.txtSerial.Text = frmGameDb.txtGameList_Serial.Text
-        Me.txtGameTitle.Text = frmGameDb.txtGameList_Title.Text
-        Me.txtGameRegion.Text = frmGameDb.txtGameList_Region.Text
-        Me.cbGameCompat.Text = frmGameDb.txtGameList_Compat.Text
+
+        Select Case My.Settings.SStatesMan_BGImage
+            Case Theme.square
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BG
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.None
+                Me.flpWindowBottom.BackgroundImage = Nothing
+                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.None
+            Case Theme.noise
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BgNoise
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
+                Me.flpWindowBottom.BackgroundImage = My.Resources.BgNoise
+                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
+            Case Theme.stripes
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BgStripes
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
+                Me.flpWindowBottom.BackgroundImage = My.Resources.BgStripes
+                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
+            Case Theme.PCSX2
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BG_PCSX2
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Stretch
+                Me.flpWindowBottom.BackgroundImage = My.Resources.BG_PCSX2
+                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Stretch
+            Case Else
+                My.Settings.SStatesMan_BGImage = Theme.none
+                Me.panelWindowTitle.BackgroundImage = Nothing
+                Me.flpWindowBottom.BackgroundImage = Nothing
+        End Select
+
         Me.UICheck()
     End Sub
 
-    Private Sub frmGameDbSearchForm_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles Me.Paint
+    Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
+        Dim recToolbar As New Rectangle(8, 0, 128, 8)
+        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.FromArgb(130, 150, 200), Color.FromArgb(65, 74, 100), 0)
+        e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
         If My.Settings.SStatesMan_BGEnable Then
-            Dim linGrBrushTop As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, 0), New Point(0, 75), Color.Gainsboro, Color.WhiteSmoke)
-            Dim linGrBrushBottom As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.ClientSize.Height - 75), New Point(0, Me.ClientSize.Height), Color.WhiteSmoke, Color.Gainsboro)
-            'Dim linGrBrushToolbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.panelWindowTitle.Height), New Point(0, Me.panelWindowTitle.Height + 12), Color.Gainsboro, Color.Transparent)
-            Dim linGrBrushStatusbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.ClientSize.Height - 46), New Point(0, Me.ClientSize.Height - 34), Color.Silver, Color.Transparent)
-            'Dim linGrBrushSplitterbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 1), New Point(0, SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 13), Color.Gainsboro, Color.Transparent)
-
-            e.Graphics.FillRectangle(linGrBrushTop, 0, 0, Me.ClientSize.Width, 75)
-            e.Graphics.FillRectangle(linGrBrushBottom, 0, CInt(Me.ClientSize.Height - 74), Me.ClientSize.Width, 75)
-            'e.Graphics.FillRectangle(linGrBrushToolbar, 0, Me.panelWindowTitle.Height, Me.ClientSize.Width, 12)
-            e.Graphics.FillRectangle(linGrBrushStatusbar, 0, Me.ClientSize.Height - 46, Me.ClientSize.Width, 12)
-            'If Not (Me.SplitContainer1.Panel1Collapsed Or Me.SplitContainer1.Panel2Collapsed) Then
-            '    e.Graphics.FillRectangle(linGrBrushSplitterbar, 0, Me.SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 1, Me.ClientSize.Width, 12)
-            'End If
-
+            recToolbar = New Rectangle(0, panelWindowTitle.Height - 4, panelWindowTitle.Width, 4)
+            linGrBrushToolbar = New Drawing2D.LinearGradientBrush(recToolbar, Color.Transparent, Color.DarkGray, 90)
+            e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
         End If
-        'e.Graphics.DrawLine(Pens.Gainsboro, 0, Me.panelWindowTitle.Height, Me.ClientSize.Width, Me.panelWindowTitle.Height)
-        'If Not (Me.SplitContainer1.Panel1Collapsed Or Me.SplitContainer1.Panel2Collapsed) Then
-        '    e.Graphics.DrawLine(Pens.Gainsboro, 0, Me.SplitContainer1.Top + Me.SplitContainer1.SplitterDistance + 1, Me.ClientSize.Width, Me.SplitContainer1.Top + Me.SplitContainer1.SplitterDistance + 1)
-        'End If
-        e.Graphics.DrawLine(Pens.DarkGray, 0, Me.ClientSize.Height - 46, Me.ClientSize.Width, Me.ClientSize.Height - 46)
-        'e.Graphics.DrawLine(Pens.DarkGray, 0, 0, 0, Me.ClientSize.Height)
-        'e.Graphics.DrawLine(Pens.DarkGray, 0, 0, Me.ClientSize.Width, 0)
-        'e.Graphics.DrawLine(Pens.DarkGray, Me.ClientSize.Width - 1, 0, Me.ClientSize.Width - 1, Me.ClientSize.Height)
-        'e.Graphics.DrawLine(Pens.DarkGray, 0, Me.ClientSize.Height - 1, Me.ClientSize.Width, Me.ClientSize.Height - 1)
-
+        e.Graphics.DrawLine(Pens.DimGray, 0, panelWindowTitle.Height - 1, panelWindowTitle.Width, panelWindowTitle.Height - 1)
     End Sub
+
+    Private Sub flpWindowBottom_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles flpWindowBottom.Paint
+        If My.Settings.SStatesMan_BGEnable Then
+            Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width, 4)
+            Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
+            e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
+        End If
+        e.Graphics.DrawLine(Pens.DimGray, 0, 0, flpWindowBottom.Width, 0)
+    End Sub
+
 End Class

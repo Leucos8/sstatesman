@@ -37,80 +37,107 @@ Public Class frmDeleteForm
 
     Private Sub frmDeleteForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        Dim imlLvwCheckboxes As New System.Windows.Forms.ImageList
-        imlLvwCheckboxes.ImageSize = New System.Drawing.Size(11, 11)
-        imlLvwCheckboxes.Images.Add(My.Resources.Metro_ChecboxUnchecked)
-        imlLvwCheckboxes.Images.Add(My.Resources.Metro_ChecboxChecked)
-        Me.lvwSStatesListToDelete.StateImageList = imlLvwCheckboxes
+        '    Dim imlLvwCheckboxes As New System.Windows.Forms.ImageList
+        '    imlLvwCheckboxes.ImageSize = New System.Drawing.Size(11, 11)
+        '    imlLvwCheckboxes.Images.Add(My.Resources.Metro_ChecboxUnchecked)
+        '    imlLvwCheckboxes.Images.Add(My.Resources.Metro_ChecboxChecked)
+        '    Me.lvwSStatesListToDelete.StateImageList = imlLvwCheckboxes
 
 
-        UIEnabled(False)
+        '    UIEnabled(False)
 
-        For Each SStateList_Group As System.Windows.Forms.ListViewGroup In frmMain.lvwSStatesList.Groups
-            Dim SStateList_GroupTmp As New System.Windows.Forms.ListViewGroup
+        '    For Each SStateList_Group As System.Windows.Forms.ListViewGroup In frmMain.lvwSStatesList.Groups
+        '        Dim SStateList_GroupTmp As New System.Windows.Forms.ListViewGroup
 
-            With SStateList_GroupTmp
-                .Header = SStateList_Group.Header
-                .HeaderAlignment = System.Windows.Forms.HorizontalAlignment.Left
-                .Name = SStateList_Group.Name
-            End With
-            Me.lvwSStatesListToDelete.Groups.Add(SStateList_GroupTmp)
+        '        With SStateList_GroupTmp
+        '            .Header = SStateList_Group.Header
+        '            .HeaderAlignment = System.Windows.Forms.HorizontalAlignment.Left
+        '            .Name = SStateList_Group.Name
+        '        End With
+        '        Me.lvwSStatesListToDelete.Groups.Add(SStateList_GroupTmp)
 
-            For Each ListItemTmp As System.Windows.Forms.ListViewItem In SStateList_Group.Items
-                If ListItemTmp.Checked = True Then
-                    Dim SStateList_ItemTmp As New System.Windows.Forms.ListViewItem
-                    Dim SStatesList_Pos As System.Int32 = 0
-                    System.Int32.TryParse(ListItemTmp.SubItems(frmMain.frmMainSStatesLvwColumn_ArrayRef).Text, SStatesList_Pos)
-                    SStateList_ItemTmp.Text = mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.Name
-                    SStateList_ItemTmp.SubItems.Add(SStatesList(SStatesList_Pos).Slot.ToString)
-                    SStateList_ItemTmp.SubItems.Add(SStatesList(SStatesList_Pos).isBackup.ToString)
-                    SStateList_ItemTmp.SubItems.Add((SStatesList(SStatesList_Pos).FileInfo.Length / 1024 ^ 2).ToString("#,##0.00 MB"))
-                    SStateList_ItemTmp.SubItems.Add(SStatesList(SStatesList_Pos).SStateSerial)
-                    SStateList_ItemTmp.SubItems.Add(SStatesList_Pos.ToString)
+        '        For Each ListItemTmp As System.Windows.Forms.ListViewItem In SStateList_Group.Items
+        '            If ListItemTmp.Checked = True Then
+        '                Dim SStateList_ItemTmp As New System.Windows.Forms.ListViewItem
+        '                Dim SStatesList_Pos As System.Int32 = 0
+        '                System.Int32.TryParse(ListItemTmp.SubItems(frmMain.frmMainSStatesLvwColumn_ArrayRef).Text, SStatesList_Pos)
+        '                SStateList_ItemTmp.Text = mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.Name
+        '                SStateList_ItemTmp.SubItems.Add(SStatesList(SStatesList_Pos).Slot.ToString)
+        '                SStateList_ItemTmp.SubItems.Add(SStatesList(SStatesList_Pos).isBackup.ToString)
+        '                SStateList_ItemTmp.SubItems.Add((SStatesList(SStatesList_Pos).FileInfo.Length / 1024 ^ 2).ToString("#,##0.00 MB"))
+        '                SStateList_ItemTmp.SubItems.Add(SStatesList(SStatesList_Pos).SStateSerial)
+        '                SStateList_ItemTmp.SubItems.Add(SStatesList_Pos.ToString)
 
-                    If SStatesList(SStatesList_Pos).isBackup = False Then
-                        SStateList_TotalSize = SStateList_TotalSize + SStatesList(SStatesList_Pos).FileInfo.Length
-                    Else
-                        SStateList_TotalSizeBackup = SStateList_TotalSizeBackup + SStatesList(SStatesList_Pos).FileInfo.Length
-                    End If
+        '                If SStatesList(SStatesList_Pos).isBackup = False Then
+        '                    SStateList_TotalSize = SStateList_TotalSize + SStatesList(SStatesList_Pos).FileInfo.Length
+        '                Else
+        '                    SStateList_TotalSizeBackup = SStateList_TotalSizeBackup + SStatesList(SStatesList_Pos).FileInfo.Length
+        '                End If
 
-                    For lvwSubitemIndex = 1 To SStateList_ItemTmp.SubItems.Count - 1
-                        SStateList_ItemTmp.SubItems(lvwSubitemIndex).ForeColor = Color.Gray
-                    Next lvwSubitemIndex
+        '                For lvwSubitemIndex = 1 To SStateList_ItemTmp.SubItems.Count - 1
+        '                    SStateList_ItemTmp.SubItems(lvwSubitemIndex).ForeColor = Color.Gray
+        '                Next lvwSubitemIndex
 
-                    If colorswitch Then
-                        colorswitch = False
-                    Else
-                        For lvwSubitemIndex = 0 To SStateList_ItemTmp.SubItems.Count - 1
-                            SStateList_ItemTmp.SubItems(lvwSubitemIndex).BackColor = Color.WhiteSmoke
-                        Next lvwSubitemIndex
-                        colorswitch = True
-                    End If
+        '                If colorswitch Then
+        '                    colorswitch = False
+        '                Else
+        '                    For lvwSubitemIndex = 0 To SStateList_ItemTmp.SubItems.Count - 1
+        '                        SStateList_ItemTmp.SubItems(lvwSubitemIndex).BackColor = Color.WhiteSmoke
+        '                    Next lvwSubitemIndex
+        '                    colorswitch = True
+        '                End If
 
-                    If System.IO.File.Exists(mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.FullName) Then
-                        SStateList_ItemTmp.SubItems.Add("")
-                        SStateList_ItemTmp.Checked = True
-                        If SStatesList(SStatesList_Pos).isBackup = False Then
-                            SStateList_TotalSizeSelected = SStateList_TotalSizeSelected + SStatesList(SStatesList_Pos).FileInfo.Length
-                        Else
-                            SStateList_TotalSizeBackupSelected = SStateList_TotalSizeBackupSelected + SStatesList(SStatesList_Pos).FileInfo.Length
-                        End If
-                    Else
-                        SStateList_ItemTmp.SubItems.Add("Error: file not found or inaccessible.")
-                        SStateList_ItemTmp.Checked = False
-                        SStateList_ItemTmp.BackColor = Color.FromArgb(255, 255, 192, 192)
-                    End If
+        '                If System.IO.File.Exists(mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.FullName) Then
+        '                    SStateList_ItemTmp.SubItems.Add("")
+        '                    SStateList_ItemTmp.Checked = True
+        '                    If SStatesList(SStatesList_Pos).isBackup = False Then
+        '                        SStateList_TotalSizeSelected = SStateList_TotalSizeSelected + SStatesList(SStatesList_Pos).FileInfo.Length
+        '                    Else
+        '                        SStateList_TotalSizeBackupSelected = SStateList_TotalSizeBackupSelected + SStatesList(SStatesList_Pos).FileInfo.Length
+        '                    End If
+        '                Else
+        '                    SStateList_ItemTmp.SubItems.Add("Error: file not found or inaccessible.")
+        '                    SStateList_ItemTmp.Checked = False
+        '                    SStateList_ItemTmp.BackColor = Color.FromArgb(255, 255, 192, 192)
+        '                End If
 
-                    SStateList_ItemTmp.Group = SStateList_GroupTmp
-                    Me.lvwSStatesListToDelete.Items.Add(SStateList_ItemTmp)
-                End If
-            Next
+        '                SStateList_ItemTmp.Group = SStateList_GroupTmp
+        '                Me.lvwSStatesListToDelete.Items.Add(SStateList_ItemTmp)
+        '            End If
+        '        Next
 
-        Next
+        '    Next
 
-        colorswitch = True
-        UIEnabled(True)
-        UICheck()
+        '    colorswitch = True
+        '    UIEnabled(True)
+        '    UICheck()
+
+        Select Case My.Settings.SStatesMan_BGImage
+            Case Theme.square
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BG
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.None
+                Me.flpWindowBottom.BackgroundImage = Nothing
+                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.None
+            Case Theme.noise
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BgNoise
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
+                Me.flpWindowBottom.BackgroundImage = My.Resources.BgNoise
+                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
+            Case Theme.stripes
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BgStripes
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
+                Me.flpWindowBottom.BackgroundImage = My.Resources.BgStripes
+                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
+            Case Theme.PCSX2
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BG_PCSX2
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Stretch
+                Me.flpWindowBottom.BackgroundImage = My.Resources.BG_PCSX2
+                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Stretch
+            Case Else
+                My.Settings.SStatesMan_BGImage = Theme.none
+                Me.panelWindowTitle.BackgroundImage = Nothing
+                Me.flpWindowBottom.BackgroundImage = Nothing
+        End Select
     End Sub
 
     Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
@@ -118,74 +145,46 @@ Public Class frmDeleteForm
     End Sub
 
     Private Sub cmdDeleteSStateSelected_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDeleteSStateSelected.Click
-        Me.UIEnabled(False)
-        For Each tmp As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
-            Dim SStatesList_Pos As System.Int32 = 0
-            Dim GamesIndexSS_Pos As System.Int32 = 0
-            System.Int32.TryParse(tmp.SubItems(frmDelSStatesLvwColumn_ArrayRef).Text, SStatesList_Pos)
-            GamesIndexSS_Pos = mdlSStatesList.SStatesList(SStatesList_Pos).GameIndexRef
-            Try
-                If My.Settings.SStatesMan_SStateTrash = True Then
-                    My.Computer.FileSystem.DeleteFile(mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.FullName, _
-                                                      FileIO.UIOption.OnlyErrorDialogs, _
-                                                      FileIO.RecycleOption.SendToRecycleBin)
-                Else
-                    'My.Computer.FileSystem.DeleteFile(mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.FullName, _
-                    '                                  FileIO.UIOption.OnlyErrorDialogs, _
-                    '                                  FileIO.RecycleOption.DeletePermanently)
-                    mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.Delete()
-                End If
-                If mdlSStatesList.SStatesList(SStatesList_Pos).isBackup Then
-                    mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_SizeTot = mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_SizeTot - mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.Length
-                    mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_Count = mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_Count - 1
-                Else
-                    mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_SizeTot = mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_SizeTot - mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.Length
-                    mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Count = mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Count - 1
-                End If
-                mdlSStatesList.SStatesList(SStatesList_Pos).isDeleted = True
-                Me.lvwSStatesListToDelete.Items(tmp.Index).SubItems(frmDelSStatesLvwColumn_Status).Text = "File deleted successfully."
-                Me.lvwSStatesListToDelete.Items(tmp.Index).BackColor = Color.FromArgb(255, 192, 255, 192)
-            Catch ex As Exception
-                Me.lvwSStatesListToDelete.Items(tmp.Index).SubItems(frmDelSStatesLvwColumn_Status).Text = ex.Message
-                Me.lvwSStatesListToDelete.Items(tmp.Index).BackColor = Color.FromArgb(255, 255, 192, 192)
-            Finally
-                Me.lvwSStatesListToDelete.Items(tmp.Index).Checked = False
-            End Try
+        'Me.UIEnabled(False)
+        'For Each tmp As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
+        '    Dim SStatesList_Pos As System.Int32 = 0
+        '    Dim GamesIndexSS_Pos As System.Int32 = 0
+        '    System.Int32.TryParse(tmp.SubItems(frmDelSStatesLvwColumn_ArrayRef).Text, SStatesList_Pos)
+        '    GamesIndexSS_Pos = mdlSStatesList.SStatesList(SStatesList_Pos).GameIndexRef
+        '    Try
+        '        If My.Settings.SStatesMan_SStateTrash = True Then
+        '            My.Computer.FileSystem.DeleteFile(mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.FullName, _
+        '                                              FileIO.UIOption.OnlyErrorDialogs, _
+        '                                              FileIO.RecycleOption.SendToRecycleBin)
+        '        Else
+        '            'My.Computer.FileSystem.DeleteFile(mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.FullName, _
+        '            '                                  FileIO.UIOption.OnlyErrorDialogs, _
+        '            '                                  FileIO.RecycleOption.DeletePermanently)
+        '            mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.Delete()
+        '        End If
+        '        If mdlSStatesList.SStatesList(SStatesList_Pos).isBackup Then
+        '            'mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_SizeTot = mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_SizeTot - mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.Length
+        '            'mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_Count = mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_Count - 1
+        '        Else
+        '            'mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_SizeTot = mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_SizeTot - mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.Length
+        '            'mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Count = mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Count - 1
+        '        End If
+        '        mdlSStatesList.SStatesList(SStatesList_Pos).isDeleted = True
+        '        Me.lvwSStatesListToDelete.Items(tmp.Index).SubItems(frmDelSStatesLvwColumn_Status).Text = "File deleted successfully."
+        '        Me.lvwSStatesListToDelete.Items(tmp.Index).BackColor = Color.FromArgb(255, 192, 255, 192)
+        '    Catch ex As Exception
+        '        Me.lvwSStatesListToDelete.Items(tmp.Index).SubItems(frmDelSStatesLvwColumn_Status).Text = ex.Message
+        '        Me.lvwSStatesListToDelete.Items(tmp.Index).BackColor = Color.FromArgb(255, 255, 192, 192)
+        '    Finally
+        '        Me.lvwSStatesListToDelete.Items(tmp.Index).Checked = False
+        '    End Try
 
-        Next
-        Me.UIEnabled(True)
-        Me.UICheck()
-        frmMain.SStatesLvw_Refresh()
-        frmMain.GamesLvw_Update()
-        frmMain.UICheck()
-    End Sub
-
-    Private Sub frmDeleteFrom_Paint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
-        If My.Settings.SStatesMan_BGEnable Then
-            Dim linGrBrushTop As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, 0), New Point(0, 150), Color.Gainsboro, Color.WhiteSmoke)
-            Dim linGrBrushBottom As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.ClientSize.Height - 150), New Point(0, Me.ClientSize.Height), Color.WhiteSmoke, Color.Gainsboro)
-            Dim linGrBrushToolbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.panelWindowTitle.Height), New Point(0, Me.panelWindowTitle.Height + 12), Color.Gainsboro, Color.Transparent)
-            Dim linGrBrushStatusbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.ClientSize.Height - 46), New Point(0, Me.ClientSize.Height - 34), Color.Silver, Color.Transparent)
-            'Dim linGrBrushSplitterbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 1), New Point(0, SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 13), Color.Gainsboro, Color.Transparent)
-
-            e.Graphics.FillRectangle(linGrBrushTop, 0, 0, Me.ClientSize.Width, 150)
-            e.Graphics.FillRectangle(linGrBrushBottom, 0, CInt(Me.ClientSize.Height - 150), Me.ClientSize.Width, 150)
-            e.Graphics.FillRectangle(linGrBrushToolbar, 0, Me.panelWindowTitle.Height, Me.ClientSize.Width, 12)
-            e.Graphics.FillRectangle(linGrBrushStatusbar, 0, Me.ClientSize.Height - 46, Me.ClientSize.Width, 12)
-            'If Not (Me.SplitContainer1.Panel1Collapsed Or Me.SplitContainer1.Panel2Collapsed) Then
-            '    e.Graphics.FillRectangle(linGrBrushSplitterbar, 0, Me.SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 1, Me.ClientSize.Width, 12)
-            'End If
-
-        End If
-        e.Graphics.DrawLine(Pens.Gainsboro, 0, Me.panelWindowTitle.Height, Me.ClientSize.Width, Me.panelWindowTitle.Height)
-        'If Not (Me.SplitContainer1.Panel1Collapsed Or Me.SplitContainer1.Panel2Collapsed) Then
-        '    e.Graphics.DrawLine(Pens.Gainsboro, 0, Me.SplitContainer1.Top + Me.SplitContainer1.SplitterDistance + 1, Me.ClientSize.Width, Me.SplitContainer1.Top + Me.SplitContainer1.SplitterDistance + 1)
-        'End If
-        e.Graphics.DrawLine(Pens.DarkGray, 0, Me.ClientSize.Height - 46, Me.ClientSize.Width, Me.ClientSize.Height - 46)
-        'e.Graphics.DrawLine(Pens.DarkGray, 0, 0, 0, Me.ClientSize.Height)
-        'e.Graphics.DrawLine(Pens.DarkGray, 0, 0, Me.ClientSize.Width, 0)
-        'e.Graphics.DrawLine(Pens.DarkGray, Me.ClientSize.Width - 1, 0, Me.ClientSize.Width - 1, Me.ClientSize.Height)
-        'e.Graphics.DrawLine(Pens.DarkGray, 0, Me.ClientSize.Height - 1, Me.ClientSize.Width, Me.ClientSize.Height - 1)
+        'Next
+        'Me.UIEnabled(True)
+        'Me.UICheck()
+        'frmMain.SStatesLvw_Refresh()
+        'frmMain.GamesLvw_Update()
+        'frmMain.UICheck()
     End Sub
 
     Private Sub cmdWindowMaximize_Click(sender As System.Object, e As System.EventArgs) Handles cmdWindowMaximize.Click
@@ -205,7 +204,7 @@ Public Class frmDeleteForm
     'SStatesList management
     Private Sub cmdSStateSelectAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectAll.Click
         Me.UIEnabled(False)
-        For lvwItemIndex = 0 To Me.lvwSStatesListToDelete.Items.Count - 1
+        For lvwItemIndex As System.Int32 = 0 To Me.lvwSStatesListToDelete.Items.Count - 1
             If Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn_Status).Text = "" Then
                 Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = True
             Else
@@ -218,7 +217,7 @@ Public Class frmDeleteForm
 
     Private Sub cmdSStateSelectNone_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectNone.Click
         Me.UIEnabled(False)
-        For lvwItemIndex = 0 To Me.lvwSStatesListToDelete.Items.Count - 1
+        For lvwItemIndex As System.Int32 = 0 To Me.lvwSStatesListToDelete.Items.Count - 1
             Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = False
         Next
         Me.SStatesLvw_SelectionChanged()
@@ -263,22 +262,22 @@ Public Class frmDeleteForm
     End Sub
 
     Private Sub SStatesLvw_SelectionChanged()
-        UIEnabled(False)
-        Me.SStateList_TotalSizeSelected = 0
-        Me.SStateList_TotalSizeBackupSelected = 0
-        If Me.lvwSStatesListToDelete.Items.Count > 0 Then
-            For Each SStateList_ItemChecked As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
-                Dim SStatesList_Pos As System.Int32 = 0
-                System.Int32.TryParse(SStateList_ItemChecked.SubItems(frmDelSStatesLvwColumn_ArrayRef).Text, SStatesList_Pos)
-                If SStatesList(SStatesList_Pos).isBackup = False Then
-                    SStateList_TotalSizeSelected = SStateList_TotalSizeSelected + SStatesList(SStatesList_Pos).FileInfo.Length
-                Else
-                    SStateList_TotalSizeBackupSelected = SStateList_TotalSizeBackupSelected + SStatesList(SStatesList_Pos).FileInfo.Length
-                End If
-            Next
-        End If
-        UIEnabled(True)
-        UICheck()
+        'UIEnabled(False)
+        'Me.SStateList_TotalSizeSelected = 0
+        'Me.SStateList_TotalSizeBackupSelected = 0
+        'If Me.lvwSStatesListToDelete.Items.Count > 0 Then
+        '    For Each SStateList_ItemChecked As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
+        '        Dim SStatesList_Pos As System.Int32 = 0
+        '        System.Int32.TryParse(SStateList_ItemChecked.SubItems(frmDelSStatesLvwColumn_ArrayRef).Text, SStatesList_Pos)
+        '        If SStatesList(SStatesList_Pos).isBackup = False Then
+        '            SStateList_TotalSizeSelected = SStateList_TotalSizeSelected + SStatesList(SStatesList_Pos).FileInfo.Length
+        '        Else
+        '            SStateList_TotalSizeBackupSelected = SStateList_TotalSizeBackupSelected + SStatesList(SStatesList_Pos).FileInfo.Length
+        '        End If
+        '    Next
+        'End If
+        'UIEnabled(True)
+        'UICheck()
     End Sub
 
     Private Sub UIEnabled(enable As Boolean)
@@ -325,4 +324,26 @@ Public Class frmDeleteForm
     Private Sub frmDeleteForm_Resize(sender As Object, e As System.EventArgs) Handles Me.Resize
         Me.Refresh()
     End Sub
+
+    Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
+        Dim recToolbar As New Rectangle(0, 8, 24, panelWindowTitle.Height - 17)
+        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.FromArgb(130, 150, 200), Color.FromArgb(65, 74, 100), 90)
+        e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
+        If My.Settings.SStatesMan_BGEnable Then
+            recToolbar = New Rectangle(0, panelWindowTitle.Height - 4, panelWindowTitle.Width, 4)
+            linGrBrushToolbar = New Drawing2D.LinearGradientBrush(recToolbar, Color.Transparent, Color.DarkGray, 90)
+            e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
+        End If
+        e.Graphics.DrawLine(Pens.DimGray, 0, panelWindowTitle.Height - 1, panelWindowTitle.Width, panelWindowTitle.Height - 1)
+    End Sub
+
+    Private Sub flpWindowBottom_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles flpWindowBottom.Paint
+        If My.Settings.SStatesMan_BGEnable Then
+            Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width, 4)
+            Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
+            e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
+        End If
+        e.Graphics.DrawLine(Pens.DimGray, 0, 0, flpWindowBottom.Width, 0)
+    End Sub
+
 End Class

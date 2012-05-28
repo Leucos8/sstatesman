@@ -13,58 +13,149 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Public Class frmSettings
-    'Protected Overrides ReadOnly Property CreateParams() As System.Windows.Forms.CreateParams
-    '    Get
-    '        Dim param As CreateParams = MyBase.CreateParams
-    '        param.ClassStyle += CS_DROPSHADOW
-    '        Return param
-    '    End Get
-    'End Property
 
     Dim TmpSettingsFailTab2 As Boolean = False
+    Dim disablePaintUpdate As Boolean = False
 
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        Me.Size = Me.MinimumSize
-        Me.panelTab2.Location = Me.panelTab1.Location
+
+        Me.ckbFirstRun.Checked = My.Settings.SStatesMan_FirstRun2
+        Me.ckb_SStatesListShowOnly.Checked = My.Settings.SStatesMan_SStatesListShowOnly
+        Me.ckb_SStatesListAutoRefresh.Checked = My.Settings.SStatesMan_SStatesListAutoRefresh
+        Me.ckbSStatesManMoveToTrash.Checked = My.Settings.SStatesMan_SStateTrash
+        Me.txtSStatesManPicsPath.Text = My.Settings.SStatesMan_PathPics
 
         Me.txtPCSX2AppPath.Text = My.Settings.PCSX2_PathBin
         Me.txtPCSX2IniPath.Text = My.Settings.PCSX2_PathInis
         Me.txtPCSX2SStatePath.Text = My.Settings.PCSX2_PathSState
-        Me.txtSStatesManPicsPath.Text = My.Settings.SStatesMan_PathPics
-        Me.ckbFirstRun.Checked = My.Settings.SStatesMan_FirstRun2
-        Me.ckb_SStatesListAutoRefresh.Checked = My.Settings.SStatesMan_SStatesListAutoRefresh
-        Me.ckbSStatesManMoveToTrash.Checked = My.Settings.SStatesMan_SStateTrash
-        Me.ckbSStatesManBGEnabled.Checked = Not (My.Settings.SStatesMan_BGEnable)
+
+        Select Case My.Settings.SStatesMan_BGImage
+            Case Theme.square
+                Me.ckbSStatesManBGImage.Checked = True
+                Me.optTheme1.Checked = True
+            Case Theme.noise
+                Me.ckbSStatesManBGImage.Checked = True
+                Me.optTheme2.Checked = True
+            Case Theme.stripes
+                Me.ckbSStatesManBGImage.Checked = True
+                Me.optTheme3.Checked = True
+            Case Theme.PCSX2
+                Me.ckbSStatesManBGImage.Checked = True
+                Me.optTheme11.Checked = True
+            Case Else
+                My.Settings.SStatesMan_BGImage = Theme.none
+                Me.ckbSStatesManBGImage.Checked = False
+                Me.pnlThemeOptions.Enabled = False
+        End Select
+
+        Me.ckbSStatesManBGEnabled.Checked = My.Settings.SStatesMan_BGEnable
 
         Me.SettingsCheck()
+
+
+
+        Select Case My.Settings.SStatesMan_BGImage
+            Case Theme.square
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BG
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.None
+                Me.flpWindowBottom.BackgroundImage = Nothing
+                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.None
+            Case Theme.noise
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BgNoise
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
+                Me.flpWindowBottom.BackgroundImage = My.Resources.BgNoise
+                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
+            Case Theme.stripes
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BgStripes
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
+                Me.flpWindowBottom.BackgroundImage = My.Resources.BgStripes
+                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
+            Case Theme.PCSX2
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BG_PCSX2
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Stretch
+                Me.flpWindowBottom.BackgroundImage = My.Resources.BG_PCSX2
+                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Stretch
+            Case Else
+                My.Settings.SStatesMan_BGImage = Theme.none
+                Me.panelWindowTitle.BackgroundImage = Nothing
+                Me.flpWindowBottom.BackgroundImage = Nothing
+        End Select
+
+        If Not Me.pnlTab1.Dock = DockStyle.Fill Then
+            Me.pnlTab1.Dock = DockStyle.Fill
+            Me.pnlTab2.Dock = DockStyle.Fill
+            Me.pnlTab3.Dock = DockStyle.Fill
+        End If
+
     End Sub
 
-    Private Sub frmSettings_Paint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
-        If My.Settings.SStatesMan_BGEnable Then
-            Dim linGrBrushTop As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, 0), New Point(0, 150), Color.Gainsboro, Color.WhiteSmoke)
-            Dim linGrBrushBottom As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.ClientSize.Height - 150), New Point(0, Me.ClientSize.Height), Color.WhiteSmoke, Color.Gainsboro)
-            Dim linGrBrushToolbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.panelWindowTitle.Height), New Point(0, Me.panelWindowTitle.Height + 12), Color.Gainsboro, Color.Transparent)
-            Dim linGrBrushStatusbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.ClientSize.Height - 46), New Point(0, Me.ClientSize.Height - 34), Color.Silver, Color.Transparent)
-            'Dim linGrBrushSplitterbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 1), New Point(0, SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 13), Color.Gainsboro, Color.Transparent)
-
-            e.Graphics.FillRectangle(linGrBrushTop, 0, 0, Me.ClientSize.Width, 150)
-            e.Graphics.FillRectangle(linGrBrushBottom, 0, CInt(Me.ClientSize.Height - 150), Me.ClientSize.Width, 150)
-            e.Graphics.FillRectangle(linGrBrushToolbar, 0, Me.panelWindowTitle.Height, Me.ClientSize.Width, 12)
-            e.Graphics.FillRectangle(linGrBrushStatusbar, 0, Me.ClientSize.Height - 46, Me.ClientSize.Width, 12)
-            'If Not (Me.SplitContainer1.Panel1Collapsed Or Me.SplitContainer1.Panel2Collapsed) Then
-            '    e.Graphics.FillRectangle(linGrBrushSplitterbar, 0, Me.SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 1, Me.ClientSize.Width, 12)
-            'End If
-
+    Private Sub optSettingTab1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab1.CheckedChanged
+        If Me.optSettingTab1.Checked = True Then
+            With Me.optSettingTab1
+                '.ForeColor = Me.flpTab.ForeColor
+                .FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+            End With
+            With Me.optSettingTab2
+                '.ForeColor = Color.DarkGray
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseDownBackColor = Color.White
+            End With
+            With Me.optSettingTab3
+                '.ForeColor = Color.DarkGray
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseDownBackColor = Color.White
+            End With
+            Me.pnlTab1.Visible = True
+            Me.pnlTab2.Visible = False
+            Me.pnlTab3.Visible = False
         End If
-        e.Graphics.DrawLine(Pens.Gainsboro, 0, Me.panelWindowTitle.Height, Me.ClientSize.Width, Me.panelWindowTitle.Height)
-        'If Not (Me.SplitContainer1.Panel1Collapsed Or Me.SplitContainer1.Panel2Collapsed) Then
-        '    e.Graphics.DrawLine(Pens.Gainsboro, 0, Me.SplitContainer1.Top + Me.SplitContainer1.SplitterDistance + 1, Me.ClientSize.Width, Me.SplitContainer1.Top + Me.SplitContainer1.SplitterDistance + 1)
-        'End If
-        e.Graphics.DrawLine(Pens.DarkGray, 0, Me.ClientSize.Height - 46, Me.ClientSize.Width, Me.ClientSize.Height - 46)
-        'e.Graphics.DrawLine(Pens.DarkGray, 0, 0, 0, Me.ClientSize.Height)
-        'e.Graphics.DrawLine(Pens.DarkGray, 0, 0, Me.ClientSize.Width, 0)
-        'e.Graphics.DrawLine(Pens.DarkGray, Me.ClientSize.Width - 1, 0, Me.ClientSize.Width - 1, Me.ClientSize.Height)
-        'e.Graphics.DrawLine(Pens.DarkGray, 0, Me.ClientSize.Height - 1, Me.ClientSize.Width, Me.ClientSize.Height - 1)
+    End Sub
+
+    Private Sub optSettingTab2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab2.CheckedChanged
+        If Me.optSettingTab2.Checked = True Then
+            With Me.optSettingTab2
+                '.ForeColor = Me.flpTab.ForeColor
+                .FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+            End With
+            With Me.optSettingTab1
+                '.ForeColor = Color.DarkGray
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseDownBackColor = Color.White
+            End With
+            With Me.optSettingTab3
+                '.ForeColor = Color.DarkGray
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseDownBackColor = Color.White
+            End With
+            Me.pnlTab2.Visible = True
+            Me.pnlTab1.Visible = False
+            Me.pnlTab3.Visible = False
+        End If
+    End Sub
+
+    Private Sub optSettingTab3_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab3.CheckedChanged
+        If Me.optSettingTab3.Checked = True Then
+            With Me.optSettingTab3
+                '.ForeColor = Me.flpTab.ForeColor
+                .FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+            End With
+            With Me.optSettingTab1
+                '.ForeColor = Color.DarkGray
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseDownBackColor = Color.White
+            End With
+            With Me.optSettingTab2
+                '.ForeColor = Color.DarkGray
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseDownBackColor = Color.White
+            End With
+            Me.pnlTab3.Visible = True
+            Me.pnlTab1.Visible = False
+            Me.pnlTab2.Visible = False
+        End If
     End Sub
 
     Private Sub cmdOk_Click(sender As System.Object, e As System.EventArgs) Handles cmdOk.Click
@@ -75,23 +166,187 @@ Public Class frmSettings
         My.Settings.SStatesMan_PathPics = Me.txtSStatesManPicsPath.Text
 
         My.Settings.SStatesMan_FirstRun2 = Me.ckbFirstRun.Checked
+        My.Settings.SStatesMan_SStatesListShowOnly = Me.ckb_SStatesListShowOnly.Checked
         My.Settings.SStatesMan_SStatesListAutoRefresh = Me.ckb_SStatesListAutoRefresh.Checked
         frmMain.tmrSStatesListRefresh.Enabled = My.Settings.SStatesMan_SStatesListAutoRefresh
         My.Settings.SStatesMan_SStateTrash = Me.ckbSStatesManMoveToTrash.Checked
 
-        My.Settings.SStatesMan_BGEnable = Not (Me.ckbSStatesManBGEnabled.Checked)
+        My.Settings.SStatesMan_BGImage = Theme.none
+        If Me.ckbSStatesManBGImage.Checked Then
+            If Me.optTheme1.Checked Then
+                My.Settings.SStatesMan_BGImage = Theme.square
+            ElseIf Me.optTheme2.Checked Then
+                My.Settings.SStatesMan_BGImage = Theme.noise
+            ElseIf Me.optTheme3.Checked Then
+                My.Settings.SStatesMan_BGImage = Theme.stripes
+            ElseIf Me.optTheme11.Checked Then
+                My.Settings.SStatesMan_BGImage = Theme.PCSX2
+            End If
+        End If
+
+        My.Settings.SStatesMan_BGEnable = Me.ckbSStatesManBGEnabled.Checked
+
+
+
+        Select Case My.Settings.SStatesMan_BGImage
+            Case Theme.square
+                frmMain.panelWindowTitle.BackgroundImage = My.Resources.BG
+                frmMain.panelWindowTitle.BackgroundImageLayout = ImageLayout.None
+            Case Theme.noise
+                frmMain.panelWindowTitle.BackgroundImage = My.Resources.BgNoise
+                frmMain.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
+            Case Theme.stripes
+                frmMain.panelWindowTitle.BackgroundImage = My.Resources.BgStripes
+                frmMain.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
+            Case Theme.PCSX2
+                frmMain.panelWindowTitle.BackgroundImage = My.Resources.BG_PCSX2
+                frmMain.panelWindowTitle.BackgroundImageLayout = ImageLayout.Stretch
+            Case Else
+                My.Settings.SStatesMan_BGImage = Theme.none
+                frmMain.panelWindowTitle.BackgroundImage = Nothing
+        End Select
         frmMain.Refresh()
 
-        My.Settings.SStatesMan_SettingFail = False
         My.Settings.Save()
     End Sub
 
     Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click
         Me.Close()
-        If My.Settings.SStatesMan_SettingFail = True Then
+        If mdlMain.PCSX2_PathAll_Check Then
             My.Settings.SStatesMan_FirstRun2 = True
             End
         End If
+    End Sub
+
+    Private Sub SettingsCheck()
+        Dim badChars() As System.Char = {System.Char.Parse(" "), System.Char.Parse("\"), System.Char.Parse("/"), System.Char.Parse(":")}
+        Dim invalidChars() As System.Char = {System.Char.Parse(""""), System.Char.Parse("*"), System.Char.Parse("?"), System.Char.Parse("|"), System.Char.Parse("<"), System.Char.Parse(">")}
+
+        Me.cmdOk.Enabled = True
+        Me.TmpSettingsFailTab2 = False
+
+        'PCSX2 application path
+        Me.txtPCSX2AppPath.Text = Me.txtPCSX2AppPath.Text.Trim(badChars)
+        For i As System.Int32 = 0 To invalidChars.Length - 1
+            Me.txtPCSX2AppPath.Text = Me.txtPCSX2AppPath.Text.Replace(invalidChars(i), "_")
+        Next i
+        If Not (System.IO.Directory.Exists(Me.txtPCSX2AppPath.Text)) Then
+            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("The specified path is not found or inaccessible.", System.Environment.NewLine, _
+                                                                 "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
+            Me.tlpPCSX2AppPath.BackColor = Color.FromArgb(255, 255, 192, 192)
+            Me.cmdPCSX2AppPathOpen.Enabled = False
+
+            Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Error
+            Me.imgPCSX2AppPathStatus.Visible = True
+
+            Me.cmdOk.Enabled = False
+            Me.TmpSettingsFailTab2 = True
+        ElseIf Not (System.IO.File.Exists(System.IO.Path.Combine(Me.txtPCSX2AppPath.Text, My.Settings.PCSX2_GameDbFilename))) Then
+            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("Unable to find """, My.Settings.PCSX2_GameDbFilename, """ in the specified path.", System.Environment.NewLine, _
+                                                                 "Information about games won't be shown in SStatesMan.")
+            Me.tlpPCSX2AppPath.BackColor = Color.FromArgb(255, 255, 255, 192)
+            Me.cmdPCSX2AppPathOpen.Enabled = False
+
+            Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Exclamation
+            Me.imgPCSX2AppPathStatus.Visible = True
+        Else
+            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("The folder where SStatesMan will look for """, My.Settings.PCSX2_GameDbFilename, """, usually the folder where PCSX2 is installed.")
+            Me.tlpPCSX2AppPath.BackColor = Color.Transparent
+            Me.cmdPCSX2AppPathOpen.Enabled = True
+
+            Me.imgPCSX2AppPathStatus.Visible = False
+        End If
+
+        'PCSX2 inis path
+        Me.txtPCSX2IniPath.Text = Me.txtPCSX2IniPath.Text.Trim(badChars)
+        For i As System.Int32 = 0 To invalidChars.Length - 1
+            Me.txtPCSX2IniPath.Text = Me.txtPCSX2IniPath.Text.Replace(invalidChars(i), "_")
+        Next i
+        If Not (System.IO.Directory.Exists(Me.txtPCSX2IniPath.Text)) Then
+            Me.lblPCSX2IniPathStatus.Text = System.String.Concat("The specified path is not found or inaccessible.", System.Environment.NewLine, _
+                                                                 "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
+            Me.tlpPCSX2IniPath.BackColor = Color.FromArgb(255, 255, 192, 192)
+            Me.cmdPCSX2IniPathOpen.Enabled = False
+
+            Me.imgPCSX2IniPathStatus.Image = My.Resources.Metro_Button_Error
+            Me.imgPCSX2IniPathStatus.Visible = True
+
+            Me.cmdOk.Enabled = False
+            Me.TmpSettingsFailTab2 = True
+        ElseIf Not (System.IO.File.Exists(System.IO.Path.Combine(Me.txtPCSX2IniPath.Text, My.Settings.PCSX2_PCSX2_uiFilename))) Then
+            Me.lblPCSX2IniPathStatus.Text = System.String.Concat("Unable to find """, My.Settings.PCSX2_PCSX2_uiFilename, """ in the specified path.", System.Environment.NewLine, _
+                                                                 "It may not be the correct PCSX2 ""inis"" folder.")
+            Me.tlpPCSX2IniPath.BackColor = Color.FromArgb(255, 255, 255, 192)
+            Me.cmdPCSX2IniPathOpen.Enabled = False
+
+            Me.imgPCSX2IniPathStatus.Image = My.Resources.Metro_Button_Exclamation
+            Me.imgPCSX2IniPathStatus.Visible = True
+        Else
+            Me.lblPCSX2IniPathStatus.Text = "The folder where SStatesMan will look PCSX2 inis, usually the ""inis"" folder inside PCSX2 user folder."
+            Me.tlpPCSX2IniPath.BackColor = Color.Transparent
+            Me.cmdPCSX2IniPathOpen.Enabled = True
+
+            Me.imgPCSX2IniPathStatus.Visible = False
+        End If
+
+        'PCSX2 savestates path
+        Me.txtPCSX2SStatePath.Text = Me.txtPCSX2SStatePath.Text.Trim(badChars)
+        For i As System.Int32 = 0 To invalidChars.Length - 1
+            Me.txtPCSX2SStatePath.Text = Me.txtPCSX2SStatePath.Text.Replace(invalidChars(i), "_")
+        Next i
+        If Not (System.IO.Directory.Exists(Me.txtPCSX2SStatePath.Text)) Then
+            Me.lblPCSX2SStatePathStatus.Text = System.String.Concat("The specified path is not found or inaccessible.", System.Environment.NewLine, _
+                                                                    "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
+            Me.tlpPCSX2SStatePath.BackColor = Color.FromArgb(255, 255, 192, 192)
+            Me.cmdPCSX2SStatePathOpen.Enabled = False
+
+            Me.imgPCSX2SStatePathStatus.Image = My.Resources.Metro_Button_Error
+            Me.imgPCSX2SStatePathStatus.Visible = True
+
+            Me.cmdOk.Enabled = False
+            Me.TmpSettingsFailTab2 = True
+        Else
+            Me.lblPCSX2SStatePathStatus.Text = System.String.Format("The folder where SStatesMan will look for the savestates, usually the ""{0}"" folder inside PCSX2 user folder.", My.Settings.PCSX2_SStateFolder)
+            Me.tlpPCSX2SStatePath.BackColor = Color.Transparent
+            Me.cmdPCSX2SStatePathOpen.Enabled = True
+
+
+            Me.imgPCSX2SStatePathStatus.Visible = False
+        End If
+
+        'SStatesMan cover pics path
+        Me.txtSStatesManPicsPath.Text = Me.txtSStatesManPicsPath.Text.Trim(badChars)
+        For i As System.Int32 = 0 To invalidChars.Length - 1
+            Me.txtSStatesManPicsPath.Text = Me.txtSStatesManPicsPath.Text.Replace(invalidChars(i), "_")
+        Next i
+        If Not (System.IO.Directory.Exists(Me.txtSStatesManPicsPath.Text)) Then
+            'Me.txtSStatesManPicsPath.Text = "Not set"
+            'Me.lblSStatesManPicsPathStatus.Text = System.String.Concat("Path not found or inaccessible.", System.Environment.NewLine, _
+            '                                                          "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
+            Me.lblSStatesManPicsPathStatus.Text = System.String.Concat("The specified path not found or inaccessible.", System.Environment.NewLine, _
+                                                                      "Please enter a valid path.")
+            Me.tlpSStatesManPicsPath.BackColor = Color.FromArgb(255, 255, 255, 192)
+            Me.cmdSStatesManPicsPathOpen.Enabled = False
+            Me.imgSStatesManPicsPathStatus.Visible = True
+
+            'Me.cmdOk.Enabled = False
+        Else
+            Me.lblSStatesManPicsPathStatus.Text = System.String.Concat("The folder where SStatesMan will look for the game covers.", System.Environment.NewLine, _
+                                                                      "The image file MUST be named <executable code>.jpg to work.")
+            Me.tlpSStatesManPicsPath.BackColor = Color.Transparent
+            Me.cmdSStatesManPicsPathOpen.Enabled = True
+            Me.imgSStatesManPicsPathStatus.Visible = False
+        End If
+
+
+
+
+        If Me.TmpSettingsFailTab2 Then
+            Me.optSettingTab2.BackColor = Color.FromArgb(255, 255, 192, 192)
+        Else
+            Me.optSettingTab2.BackColor = Color.Transparent
+        End If
+
     End Sub
 
     Private Sub txtPCSX2AppPath_LostFocus(sender As Object, e As System.EventArgs) Handles txtPCSX2AppPath.LostFocus
@@ -108,166 +363,6 @@ Public Class frmSettings
 
     Private Sub txtSStatesManPicsPath_LostFocus(sender As Object, e As System.EventArgs) Handles txtSStatesManPicsPath.LostFocus
         Me.SettingsCheck()
-    End Sub
-
-    Private Sub SettingsCheck()
-        Dim badChars() As System.Char = {System.Char.Parse(" "), System.Char.Parse("\"), System.Char.Parse("/"), System.Char.Parse(":")}
-        Dim invalidChars() As System.Char = {System.Char.Parse(""""), System.Char.Parse("*"), System.Char.Parse("?"), System.Char.Parse("|"), System.Char.Parse("<"), System.Char.Parse(">")}
-
-        Me.cmdOk.Enabled = True
-        Me.TmpSettingsFailTab2 = False
-
-        Me.txtPCSX2AppPath.Text = Me.txtPCSX2AppPath.Text.Trim(badChars)
-        For i As System.Int32 = 0 To invalidChars.Length - 1
-            Me.txtPCSX2AppPath.Text = Me.txtPCSX2AppPath.Text.Replace(invalidChars(i), "_")
-        Next i
-        If Not (System.IO.Directory.Exists(Me.txtPCSX2AppPath.Text)) Then
-            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("The specified path is not found or inaccessible.", System.Environment.NewLine, _
-                                                                 "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
-            Me.lblPCSX2AppPathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
-            Me.lblPCSX2AppPathStatus.Left = Me.imgPCSX2AppPathStatus.Left + Me.imgPCSX2AppPathStatus.Width
-            Me.lblPCSX2AppPathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2AppPathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2AppPathDetect.Left) + 6)
-            Me.cmdPCSX2AppPathOpen.Enabled = False
-
-            Me.imgPCSX2AppPathStatus.BackColor = Color.FromArgb(255, 255, 192, 192) 'Red
-            Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Error
-            Me.imgPCSX2AppPathStatus.Visible = True
-
-            Me.cmdOk.Enabled = False
-            Me.TmpSettingsFailTab2 = True
-            'My.Settings.SStatesMan_SettingFail = True
-        ElseIf Not (System.IO.File.Exists(System.IO.Path.Combine(Me.txtPCSX2AppPath.Text, My.Settings.PCSX2_GameDbFilename))) Then
-            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("Unable to find """, My.Settings.PCSX2_GameDbFilename, """ in the specified path.", System.Environment.NewLine, _
-                                                                 "Information about games won't be shown in SStatesMan.")
-            Me.lblPCSX2AppPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
-            Me.lblPCSX2AppPathStatus.Left = Me.imgPCSX2AppPathStatus.Left + Me.imgPCSX2AppPathStatus.Width
-            Me.lblPCSX2AppPathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2AppPathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2AppPathDetect.Left) + 6)
-            Me.cmdPCSX2AppPathOpen.Enabled = False
-
-            Me.imgPCSX2AppPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192) 'yellow
-            Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Exclamation
-            Me.imgPCSX2AppPathStatus.Visible = True
-        Else
-            Me.lblPCSX2AppPathStatus.Text = System.String.Concat("The folder where SStatesMan will look for """, My.Settings.PCSX2_GameDbFilename, """, usually the folder where PCSX2 is installed.")
-            Me.lblPCSX2AppPathStatus.BackColor = Color.Transparent
-            Me.lblPCSX2AppPathStatus.Left = Me.imgPCSX2AppPathStatus.Left
-            Me.lblPCSX2AppPathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2AppPathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2AppPathDetect.Left) + 6)
-            Me.cmdPCSX2AppPathOpen.Enabled = True
-
-            Me.imgPCSX2AppPathStatus.Visible = False
-        End If
-
-
-        Me.txtPCSX2IniPath.Text = Me.txtPCSX2IniPath.Text.Trim(badChars)
-        For i As System.Int32 = 0 To invalidChars.Length - 1
-            Me.txtPCSX2IniPath.Text = Me.txtPCSX2IniPath.Text.Replace(invalidChars(i), "_")
-        Next i
-        If Not (System.IO.Directory.Exists(Me.txtPCSX2IniPath.Text)) Then
-            Me.lblPCSX2IniPathStatus.Text = System.String.Concat("The specified path is not found or inaccessible.", System.Environment.NewLine, _
-                                                                 "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
-            Me.lblPCSX2IniPathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
-            Me.lblPCSX2IniPathStatus.Left = Me.imgPCSX2IniPathStatus.Left + Me.imgPCSX2IniPathStatus.Width
-            Me.lblPCSX2IniPathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2IniPathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2IniPathDetect.Left) + 6)
-            Me.cmdPCSX2IniPathOpen.Enabled = False
-
-            Me.imgPCSX2IniPathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
-            Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Error
-            Me.imgPCSX2IniPathStatus.Visible = True
-
-            Me.cmdOk.Enabled = False
-            Me.TmpSettingsFailTab2 = True
-        ElseIf Not (System.IO.File.Exists(System.IO.Path.Combine(Me.txtPCSX2IniPath.Text, My.Settings.PCSX2_PCSX2_uiFilename))) Then
-            Me.lblPCSX2IniPathStatus.Text = System.String.Concat("Unable to find """, My.Settings.PCSX2_PCSX2_uiFilename, """ in the specified path.", System.Environment.NewLine, _
-                                                                 "It may not be the correct PCSX2 ""inis"" folder.")
-            Me.lblPCSX2IniPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
-            Me.lblPCSX2IniPathStatus.Left = Me.imgPCSX2IniPathStatus.Left + Me.imgPCSX2IniPathStatus.Width
-            Me.lblPCSX2IniPathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2IniPathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2IniPathDetect.Left) + 6)
-            Me.cmdPCSX2IniPathOpen.Enabled = False
-
-            Me.imgPCSX2IniPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
-            Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Exclamation
-            Me.imgPCSX2IniPathStatus.Visible = True
-        Else
-            Me.lblPCSX2IniPathStatus.Text = "The folder where SStatesMan will look PCSX2 inis, usually the ""inis"" folder inside PCSX2 user folder."
-            Me.lblPCSX2IniPathStatus.BackColor = Color.Transparent
-            Me.lblPCSX2IniPathStatus.Left = Me.imgPCSX2IniPathStatus.Left
-            Me.lblPCSX2IniPathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2IniPathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2IniPathDetect.Left) + 6)
-            Me.cmdPCSX2IniPathOpen.Enabled = True
-
-            Me.imgPCSX2IniPathStatus.Visible = False
-        End If
-
-
-        Me.txtPCSX2SStatePath.Text = Me.txtPCSX2SStatePath.Text.Trim(badChars)
-        For i As System.Int32 = 0 To invalidChars.Length - 1
-            Me.txtPCSX2SStatePath.Text = Me.txtPCSX2SStatePath.Text.Replace(invalidChars(i), "_")
-        Next i
-        If Not (System.IO.Directory.Exists(Me.txtPCSX2SStatePath.Text)) Then
-            Me.lblPCSX2SStatePathStatus.Text = System.String.Concat("The specified path is not found or inaccessible.", System.Environment.NewLine, _
-                                                                    "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
-            Me.lblPCSX2SStatePathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
-            Me.lblPCSX2SStatePathStatus.Left = Me.imgPCSX2SStatePathStatus.Left + Me.imgPCSX2SStatePathStatus.Width
-            Me.lblPCSX2SStatePathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2SStatePathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2SStatePathDetect.Left) + 6)
-            Me.cmdPCSX2SStatePathOpen.Enabled = False
-
-            Me.imgPCSX2SStatePathStatus.BackColor = Color.FromArgb(255, 255, 192, 192)
-            Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Error
-            Me.imgPCSX2SStatePathStatus.Visible = True
-
-            Me.cmdOk.Enabled = False
-            Me.TmpSettingsFailTab2 = True
-        Else
-            Me.lblPCSX2SStatePathStatus.Text = System.String.Format("The folder where SStatesMan will look for the savestates, usually the ""{0}"" folder inside PCSX2 user folder.", My.Settings.PCSX2_SStateFolder)
-            Me.lblPCSX2SStatePathStatus.BackColor = Color.Transparent
-            Me.lblPCSX2SStatePathStatus.Left = Me.imgPCSX2SStatePathStatus.Left
-            Me.lblPCSX2SStatePathStatus.Width = Me.panelTab2.Width - (Me.lblPCSX2SStatePathStatus.Left + (Me.panelTab2.Width - Me.cmdPCSX2SStatePathDetect.Left) + 6)
-            Me.cmdPCSX2SStatePathOpen.Enabled = True
-
-
-            Me.imgPCSX2SStatePathStatus.Visible = False
-        End If
-
-
-        Me.txtSStatesManPicsPath.Text = Me.txtSStatesManPicsPath.Text.Trim(badChars)
-        For i As System.Int32 = 0 To invalidChars.Length - 1
-            Me.txtSStatesManPicsPath.Text = Me.txtSStatesManPicsPath.Text.Replace(invalidChars(i), "_")
-        Next i
-        If Not (System.IO.Directory.Exists(Me.txtSStatesManPicsPath.Text)) Then
-            'Me.txtSStatesManPicsPath.Text = "Not set"
-            'Me.lblSStatesManPicsPathStatus.Text = System.String.Concat("Path not found or inaccessible.", System.Environment.NewLine, _
-            '                                                          "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
-            Me.lblSStatesManPicsPathStatus.Text = System.String.Concat("The specified path not found or inaccessible.", System.Environment.NewLine, _
-                                                                      "Please enter a valid path.")
-            Me.lblSStatesManPicsPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
-            Me.lblSStatesManPicsPathStatus.Left = Me.imgSStatesManPicsPathStatus.Left + Me.imgSStatesManPicsPathStatus.Width
-            Me.lblSStatesManPicsPathStatus.Width = Me.panelTab1.Width - (Me.lblSStatesManPicsPathStatus.Left + (Me.panelTab1.Width - Me.cmdSStatesManPicsPathOpen.Left) + 6)
-            Me.cmdSStatesManPicsPathOpen.Enabled = False
-
-            Me.imgSStatesManPicsPathStatus.BackColor = Color.FromArgb(255, 255, 255, 192)
-            Me.imgPCSX2AppPathStatus.Image = My.Resources.Metro_Button_Exclamation
-            Me.imgSStatesManPicsPathStatus.Visible = True
-
-            'Me.cmdOk.Enabled = False
-        Else
-            Me.lblSStatesManPicsPathStatus.Text = System.String.Concat("The folder where SStatesMan will look for the game covers.", System.Environment.NewLine, _
-                                                                      "The image file MUST be named <executable code>.jpg to work.")
-            Me.lblSStatesManPicsPathStatus.BackColor = Color.Transparent
-            Me.lblSStatesManPicsPathStatus.Left = Me.imgSStatesManPicsPathStatus.Left
-            Me.lblSStatesManPicsPathStatus.Width = Me.panelTab1.Width - (Me.lblSStatesManPicsPathStatus.Left + (Me.panelTab1.Width - Me.cmdSStatesManPicsPathOpen.Left) + 6)
-            Me.cmdSStatesManPicsPathOpen.Enabled = True
-
-            Me.imgSStatesManPicsPathStatus.Visible = False
-        End If
-
-
-
-
-        If Me.TmpSettingsFailTab2 Then
-            Me.optStettingTab2.BackColor = Color.FromArgb(255, 255, 192, 192)
-        Else
-            Me.optStettingTab2.BackColor = Color.Transparent
-        End If
-
     End Sub
 
     Private Sub cmdPCSX2AppPathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2AppPathBrowse.Click
@@ -342,32 +437,6 @@ Public Class frmSettings
         Me.SettingsCheck()
     End Sub
 
-    Private Sub optStettingTab1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optStettingTab1.CheckedChanged
-        If Me.optStettingTab1.Checked = True Then
-            Me.optStettingTab1.FlatAppearance.MouseOverBackColor = Color.Gainsboro
-            Me.optStettingTab2.FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-            Me.panelTab2.Visible = False
-            Me.panelTab1.Visible = True
-        End If
-    End Sub
-
-    Private Sub optStettingTab2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optStettingTab2.CheckedChanged
-        If Me.optStettingTab2.Checked = True Then
-            Me.optStettingTab2.FlatAppearance.MouseOverBackColor = Color.Gainsboro
-            Me.optStettingTab1.FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-            Me.panelTab1.Visible = False
-            Me.panelTab2.Visible = True
-        End If
-    End Sub
-
-    Private Sub optStettingTab1_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles optStettingTab1.MouseDown
-        optStettingTab1.FlatAppearance.MouseOverBackColor = Color.Gainsboro
-    End Sub
-
-    Private Sub optStettingTab2_MouseDown(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles optStettingTab2.MouseDown
-        optStettingTab2.FlatAppearance.MouseOverBackColor = Color.Gainsboro
-    End Sub
-
     Private Sub cmdPCSX2AppPathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2AppPathDetect.Click
         mdlMain.PCSX2_PathBin_Detect(Me.txtPCSX2AppPath.Text)
         Me.SettingsCheck()
@@ -413,5 +482,58 @@ Public Class frmSettings
         Else
             Me.SettingsCheck()
         End If
+    End Sub
+
+    Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
+        Dim recToolbar As New Rectangle(8, 0, 128, 8)
+        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.FromArgb(130, 150, 200), Color.FromArgb(65, 74, 100), 0)
+        e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
+        If My.Settings.SStatesMan_BGEnable Then
+            recToolbar = New Rectangle(0, panelWindowTitle.Height - 4, panelWindowTitle.Width, 4)
+            linGrBrushToolbar = New Drawing2D.LinearGradientBrush(recToolbar, Color.Transparent, Color.DarkGray, 90)
+            e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
+        End If
+        e.Graphics.DrawLine(Pens.DimGray, 0, panelWindowTitle.Height - 1, panelWindowTitle.Width, panelWindowTitle.Height - 1)
+    End Sub
+
+    Private Sub flpWindowBottom_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles flpWindowBottom.Paint
+        If disablePaintUpdate = False Then
+            If My.Settings.SStatesMan_BGEnable Then
+                Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width, 4)
+                Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
+                'Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.FromArgb(130, 150, 200), Color.Transparent, 90)
+                e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
+            End If
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, flpWindowBottom.Width, 0)
+        End If
+    End Sub
+
+    Private Sub optSettingTab1_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optSettingTab1.Paint
+        If Me.optSettingTab1.Checked Then
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.optSettingTab1.Width, 0)
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.optSettingTab1.Height)
+            e.Graphics.DrawLine(Pens.DimGray, Me.optSettingTab1.Width - 1, 0, Me.optSettingTab1.Width - 1, Me.optSettingTab1.Height)
+        End If
+    End Sub
+
+    Private Sub optSettingTab2_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optSettingTab2.Paint
+        If Me.optSettingTab2.Checked Then
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.optSettingTab2.Width, 0)
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.optSettingTab2.Height)
+            e.Graphics.DrawLine(Pens.DimGray, Me.optSettingTab2.Width - 1, 0, Me.optSettingTab2.Width - 1, Me.optSettingTab2.Height)
+        End If
+    End Sub
+
+
+    Private Sub optSettingTab3_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optSettingTab3.Paint
+        If Me.optSettingTab3.Checked Then
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.optSettingTab3.Width, 0)
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.optSettingTab3.Height)
+            e.Graphics.DrawLine(Pens.DimGray, Me.optSettingTab3.Width - 1, 0, Me.optSettingTab3.Width - 1, Me.optSettingTab3.Height)
+        End If
+    End Sub
+
+    Private Sub ckbSStatesManBGImage_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ckbSStatesManBGImage.CheckedChanged
+        Me.pnlThemeOptions.Enabled = ckbSStatesManBGImage.Checked
     End Sub
 End Class

@@ -36,9 +36,6 @@
     <Setting Name="PCSX2_GameDbFilename" Type="System.String" Scope="Application">
       <Value Profile="(Default)">GameIndex.dbf</Value>
     </Setting>
-    <Setting Name="SStatesMan_SettingFail" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="SStatesMan_Channel" Type="System.String" Scope="Application">
       <Value Profile="(Default)">alpha</Value>
     </Setting>
@@ -67,7 +64,7 @@
       <Value Profile="(Default)">coverpics</Value>
     </Setting>
     <Setting Name="SStatesMan_BGEnable" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
+      <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="PCSX2_PathBinSet" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
@@ -83,6 +80,12 @@
     </Setting>
     <Setting Name="SStatesMan_SStatesListAutoRefresh" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SStatesMan_SStatesListShowOnly" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SStatesMan_BGImage" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">1</Value>
     </Setting>
   </Settings>
 </SettingsFile>

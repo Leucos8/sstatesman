@@ -82,6 +82,27 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property BG_PCSX2() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("BG_PCSX2", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property BgNoise() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("BgNoise", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property BgStripes() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("BgStripes", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property Flag_0Null_30x20() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Flag_0Null_30x20", resourceCulture)
@@ -215,13 +236,6 @@ Namespace My.Resources
             End Get
         End Property
         
-        Friend ReadOnly Property GradientBlueDarkV() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("GradientBlueDarkV", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
         Friend ReadOnly Property Metro_Button_Error() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Metro_Button_Error", resourceCulture)
@@ -232,6 +246,13 @@ Namespace My.Resources
         Friend ReadOnly Property Metro_Button_Exclamation() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Metro_Button_Exclamation", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property Metro_Button_Refresh() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Metro_Button_Refresh", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -323,13 +344,6 @@ Namespace My.Resources
         Friend ReadOnly Property SSM1ico24() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("SSM1ico24", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        Friend ReadOnly Property SStatesMan_Badge3() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("SStatesMan_Badge3", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

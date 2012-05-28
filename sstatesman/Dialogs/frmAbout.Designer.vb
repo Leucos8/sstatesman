@@ -38,276 +38,353 @@ Partial Class frmAbout
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAbout))
-        Me.TableLayoutPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
-        Me.LabelCompanyName = New System.Windows.Forms.Label()
-        Me.LabelCopyright = New System.Windows.Forms.Label()
-        Me.LabelVersion = New System.Windows.Forms.Label()
+        Me.lblAuthorName = New System.Windows.Forms.Label()
+        Me.lblCopyright = New System.Windows.Forms.Label()
+        Me.lblVersionMain = New System.Windows.Forms.Label()
         Me.TextBoxDescription = New System.Windows.Forms.TextBox()
         Me.OKButton = New System.Windows.Forms.Button()
-        Me.panelWindowTitle = New System.Windows.Forms.Panel()
-        Me.optStettingTab2 = New System.Windows.Forms.RadioButton()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.optStettingTab1 = New System.Windows.Forms.RadioButton()
+        Me.flpWindowBottom = New System.Windows.Forms.FlowLayoutPanel()
+        Me.flpTab = New System.Windows.Forms.FlowLayoutPanel()
+        Me.optSettingTab1 = New System.Windows.Forms.RadioButton()
+        Me.optSettingTab2 = New System.Windows.Forms.RadioButton()
         Me.lblWindowProgramName = New System.Windows.Forms.Label()
-        Me.imgWindowGradientLeft = New System.Windows.Forms.PictureBox()
-        Me.lblWindowTitle = New System.Windows.Forms.Label()
-        Me.TableLayoutPanel.SuspendLayout()
+        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.lblLinksTitle = New System.Windows.Forms.Label()
+        Me.lblAuthorTitle = New System.Windows.Forms.Label()
+        Me.lblVersionChannel = New System.Windows.Forms.Label()
+        Me.lblVersionTitle = New System.Windows.Forms.Label()
+        Me.panelWindowTitle = New System.Windows.Forms.Panel()
+        Me.flpWindowBottom.SuspendLayout()
+        Me.flpTab.SuspendLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SplitContainer1.Panel1.SuspendLayout()
+        Me.SplitContainer1.Panel2.SuspendLayout()
+        Me.SplitContainer1.SuspendLayout()
         Me.panelWindowTitle.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.imgWindowGradientLeft, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
-        '
-        'TableLayoutPanel
-        '
-        Me.TableLayoutPanel.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TableLayoutPanel.BackColor = System.Drawing.Color.Transparent
-        Me.TableLayoutPanel.ColumnCount = 1
-        Me.TableLayoutPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel.Controls.Add(Me.LinkLabel1, 0, 3)
-        Me.TableLayoutPanel.Controls.Add(Me.LabelCompanyName, 0, 2)
-        Me.TableLayoutPanel.Controls.Add(Me.LabelCopyright, 0, 1)
-        Me.TableLayoutPanel.Controls.Add(Me.LabelVersion, 0, 0)
-        Me.TableLayoutPanel.Location = New System.Drawing.Point(12, 76)
-        Me.TableLayoutPanel.Name = "TableLayoutPanel"
-        Me.TableLayoutPanel.RowCount = 4
-        Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.0!))
-        Me.TableLayoutPanel.Size = New System.Drawing.Size(416, 135)
-        Me.TableLayoutPanel.TabIndex = 0
         '
         'LinkLabel1
         '
         Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.LinkLabel1.Dock = System.Windows.Forms.DockStyle.Top
         Me.LinkLabel1.LinkColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.LinkLabel1.Location = New System.Drawing.Point(3, 99)
+        Me.LinkLabel1.Location = New System.Drawing.Point(6, 134)
+        Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(410, 36)
+        Me.LinkLabel1.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
+        Me.LinkLabel1.Size = New System.Drawing.Size(186, 17)
         Me.LinkLabel1.TabIndex = 18
         Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "Official Thread on PCSX2 Forums"
         '
-        'LabelCompanyName
+        'lblAuthorName
         '
-        Me.LabelCompanyName.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LabelCompanyName.Location = New System.Drawing.Point(6, 66)
-        Me.LabelCompanyName.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
-        Me.LabelCompanyName.MaximumSize = New System.Drawing.Size(0, 17)
-        Me.LabelCompanyName.Name = "LabelCompanyName"
-        Me.LabelCompanyName.Size = New System.Drawing.Size(407, 17)
-        Me.LabelCompanyName.TabIndex = 0
-        Me.LabelCompanyName.Text = "Nome società"
-        Me.LabelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblAuthorName.AutoSize = True
+        Me.lblAuthorName.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblAuthorName.Location = New System.Drawing.Point(6, 79)
+        Me.lblAuthorName.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblAuthorName.Name = "lblAuthorName"
+        Me.lblAuthorName.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
+        Me.lblAuthorName.Size = New System.Drawing.Size(110, 17)
+        Me.lblAuthorName.TabIndex = 0
+        Me.lblAuthorName.Text = "<Author's name>"
         '
-        'LabelCopyright
+        'lblCopyright
         '
-        Me.LabelCopyright.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LabelCopyright.Location = New System.Drawing.Point(6, 33)
-        Me.LabelCopyright.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
-        Me.LabelCopyright.MaximumSize = New System.Drawing.Size(0, 17)
-        Me.LabelCopyright.Name = "LabelCopyright"
-        Me.LabelCopyright.Size = New System.Drawing.Size(407, 17)
-        Me.LabelCopyright.TabIndex = 0
-        Me.LabelCopyright.Text = "Copyright"
-        Me.LabelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblCopyright.AutoSize = True
+        Me.lblCopyright.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblCopyright.Location = New System.Drawing.Point(6, 96)
+        Me.lblCopyright.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblCopyright.Name = "lblCopyright"
+        Me.lblCopyright.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
+        Me.lblCopyright.Size = New System.Drawing.Size(86, 17)
+        Me.lblCopyright.TabIndex = 0
+        Me.lblCopyright.Text = "<Copyright>"
         '
-        'LabelVersion
+        'lblVersionMain
         '
-        Me.LabelVersion.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.LabelVersion.Location = New System.Drawing.Point(6, 0)
-        Me.LabelVersion.Margin = New System.Windows.Forms.Padding(6, 0, 3, 0)
-        Me.LabelVersion.MaximumSize = New System.Drawing.Size(0, 17)
-        Me.LabelVersion.Name = "LabelVersion"
-        Me.LabelVersion.Size = New System.Drawing.Size(407, 17)
-        Me.LabelVersion.TabIndex = 0
-        Me.LabelVersion.Text = "Versione"
-        Me.LabelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblVersionMain.AutoSize = True
+        Me.lblVersionMain.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblVersionMain.Location = New System.Drawing.Point(6, 24)
+        Me.lblVersionMain.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblVersionMain.Name = "lblVersionMain"
+        Me.lblVersionMain.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
+        Me.lblVersionMain.Size = New System.Drawing.Size(105, 17)
+        Me.lblVersionMain.TabIndex = 0
+        Me.lblVersionMain.Text = "<Major version>"
         '
         'TextBoxDescription
         '
         Me.TextBoxDescription.BackColor = System.Drawing.Color.WhiteSmoke
         Me.TextBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBoxDescription.ForeColor = System.Drawing.Color.Black
-        Me.TextBoxDescription.Location = New System.Drawing.Point(12, 76)
-        Me.TextBoxDescription.Margin = New System.Windows.Forms.Padding(6, 3, 3, 3)
+        Me.TextBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TextBoxDescription.Location = New System.Drawing.Point(6, 3)
+        Me.TextBoxDescription.Margin = New System.Windows.Forms.Padding(2)
         Me.TextBoxDescription.Multiline = True
         Me.TextBoxDescription.Name = "TextBoxDescription"
         Me.TextBoxDescription.ReadOnly = True
         Me.TextBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBoxDescription.Size = New System.Drawing.Size(416, 174)
+        Me.TextBoxDescription.Size = New System.Drawing.Size(196, 177)
         Me.TextBoxDescription.TabIndex = 1
         Me.TextBoxDescription.TabStop = False
         Me.TextBoxDescription.Text = resources.GetString("TextBoxDescription.Text")
-        Me.TextBoxDescription.Visible = False
         '
         'OKButton
         '
         Me.OKButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.OKButton.AutoSize = True
+        Me.OKButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.OKButton.BackColor = System.Drawing.Color.White
         Me.OKButton.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
         Me.OKButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.OKButton.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray
+        Me.OKButton.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
         Me.OKButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.OKButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.OKButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.OKButton.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.OKButton.Location = New System.Drawing.Point(328, 266)
+        Me.OKButton.Location = New System.Drawing.Point(304, 6)
+        Me.OKButton.Margin = New System.Windows.Forms.Padding(2)
+        Me.OKButton.MinimumSize = New System.Drawing.Size(100, 0)
         Me.OKButton.Name = "OKButton"
-        Me.OKButton.Size = New System.Drawing.Size(100, 22)
+        Me.OKButton.Size = New System.Drawing.Size(100, 24)
         Me.OKButton.TabIndex = 16
         Me.OKButton.Text = "&OK"
         Me.OKButton.UseVisualStyleBackColor = False
         '
-        'panelWindowTitle
+        'flpWindowBottom
         '
-        Me.panelWindowTitle.BackColor = System.Drawing.Color.Transparent
-        Me.panelWindowTitle.BackgroundImage = Global.sstatesman.My.Resources.Resources.BG
-        Me.panelWindowTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.panelWindowTitle.Controls.Add(Me.optStettingTab2)
-        Me.panelWindowTitle.Controls.Add(Me.PictureBox1)
-        Me.panelWindowTitle.Controls.Add(Me.optStettingTab1)
-        Me.panelWindowTitle.Controls.Add(Me.lblWindowProgramName)
-        Me.panelWindowTitle.Controls.Add(Me.imgWindowGradientLeft)
-        Me.panelWindowTitle.Controls.Add(Me.lblWindowTitle)
-        Me.panelWindowTitle.Dock = System.Windows.Forms.DockStyle.Top
-        Me.panelWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.panelWindowTitle.Location = New System.Drawing.Point(0, 0)
-        Me.panelWindowTitle.Name = "panelWindowTitle"
-        Me.panelWindowTitle.Size = New System.Drawing.Size(440, 70)
-        Me.panelWindowTitle.TabIndex = 15
+        Me.flpWindowBottom.AutoSize = True
+        Me.flpWindowBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpWindowBottom.BackColor = System.Drawing.Color.Gainsboro
+        Me.flpWindowBottom.Controls.Add(Me.OKButton)
+        Me.flpWindowBottom.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.flpWindowBottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.flpWindowBottom.Location = New System.Drawing.Point(0, 236)
+        Me.flpWindowBottom.Name = "flpWindowBottom"
+        Me.flpWindowBottom.Padding = New System.Windows.Forms.Padding(4)
+        Me.flpWindowBottom.Size = New System.Drawing.Size(414, 36)
+        Me.flpWindowBottom.TabIndex = 17
         '
-        'optStettingTab2
+        'flpTab
         '
-        Me.optStettingTab2.Appearance = System.Windows.Forms.Appearance.Button
-        Me.optStettingTab2.AutoSize = True
-        Me.optStettingTab2.BackColor = System.Drawing.Color.Transparent
-        Me.optStettingTab2.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.optStettingTab2.FlatAppearance.BorderSize = 0
-        Me.optStettingTab2.FlatAppearance.CheckedBackColor = System.Drawing.Color.Gainsboro
-        Me.optStettingTab2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gainsboro
-        Me.optStettingTab2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optStettingTab2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optStettingTab2.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.optStettingTab2.Location = New System.Drawing.Point(73, 47)
-        Me.optStettingTab2.Name = "optStettingTab2"
-        Me.optStettingTab2.Size = New System.Drawing.Size(61, 23)
-        Me.optStettingTab2.TabIndex = 29
-        Me.optStettingTab2.Text = "LICENCE"
-        Me.optStettingTab2.UseVisualStyleBackColor = False
+        Me.flpTab.AutoSize = True
+        Me.flpTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpTab.BackColor = System.Drawing.Color.Transparent
+        Me.flpTab.Controls.Add(Me.optSettingTab1)
+        Me.flpTab.Controls.Add(Me.optSettingTab2)
+        Me.flpTab.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.flpTab.Location = New System.Drawing.Point(0, 30)
+        Me.flpTab.Margin = New System.Windows.Forms.Padding(0)
+        Me.flpTab.Name = "flpTab"
+        Me.flpTab.Padding = New System.Windows.Forms.Padding(16, 0, 16, 0)
+        Me.flpTab.Size = New System.Drawing.Size(414, 23)
+        Me.flpTab.TabIndex = 33
+        Me.flpTab.WrapContents = False
         '
-        'PictureBox1
+        'optSettingTab1
         '
-        Me.PictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.PictureBox1.Image = Global.sstatesman.My.Resources.Resources.SStatesMan_Badge3
-        Me.PictureBox1.Location = New System.Drawing.Point(175, 30)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(258, 34)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
-        Me.PictureBox1.TabIndex = 17
-        Me.PictureBox1.TabStop = False
+        Me.optSettingTab1.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
+        Me.optSettingTab1.Appearance = System.Windows.Forms.Appearance.Button
+        Me.optSettingTab1.AutoSize = True
+        Me.optSettingTab1.Checked = True
+        Me.optSettingTab1.FlatAppearance.BorderSize = 0
+        Me.optSettingTab1.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optSettingTab1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.optSettingTab1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
+        Me.optSettingTab1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.optSettingTab1.Location = New System.Drawing.Point(16, 0)
+        Me.optSettingTab1.Margin = New System.Windows.Forms.Padding(0)
+        Me.optSettingTab1.Name = "optSettingTab1"
+        Me.optSettingTab1.Size = New System.Drawing.Size(74, 23)
+        Me.optSettingTab1.TabIndex = 26
+        Me.optSettingTab1.TabStop = True
+        Me.optSettingTab1.Text = "sstatesman"
+        Me.optSettingTab1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.optSettingTab1.UseVisualStyleBackColor = False
         '
-        'optStettingTab1
+        'optSettingTab2
         '
-        Me.optStettingTab1.Appearance = System.Windows.Forms.Appearance.Button
-        Me.optStettingTab1.AutoSize = True
-        Me.optStettingTab1.BackColor = System.Drawing.Color.Transparent
-        Me.optStettingTab1.Checked = True
-        Me.optStettingTab1.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.optStettingTab1.FlatAppearance.BorderSize = 0
-        Me.optStettingTab1.FlatAppearance.CheckedBackColor = System.Drawing.Color.Gainsboro
-        Me.optStettingTab1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Gainsboro
-        Me.optStettingTab1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Gainsboro
-        Me.optStettingTab1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optStettingTab1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.optStettingTab1.Location = New System.Drawing.Point(34, 47)
-        Me.optStettingTab1.Name = "optStettingTab1"
-        Me.optStettingTab1.Size = New System.Drawing.Size(43, 23)
-        Me.optStettingTab1.TabIndex = 28
-        Me.optStettingTab1.TabStop = True
-        Me.optStettingTab1.Text = "INFO"
-        Me.optStettingTab1.UseVisualStyleBackColor = False
+        Me.optSettingTab2.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
+        Me.optSettingTab2.Appearance = System.Windows.Forms.Appearance.Button
+        Me.optSettingTab2.AutoSize = True
+        Me.optSettingTab2.FlatAppearance.BorderSize = 0
+        Me.optSettingTab2.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optSettingTab2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.optSettingTab2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
+        Me.optSettingTab2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.optSettingTab2.Location = New System.Drawing.Point(90, 0)
+        Me.optSettingTab2.Margin = New System.Windows.Forms.Padding(0)
+        Me.optSettingTab2.Name = "optSettingTab2"
+        Me.optSettingTab2.Size = New System.Drawing.Size(52, 23)
+        Me.optSettingTab2.TabIndex = 27
+        Me.optSettingTab2.Text = "licence"
+        Me.optSettingTab2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.optSettingTab2.UseVisualStyleBackColor = False
         '
         'lblWindowProgramName
         '
         Me.lblWindowProgramName.AutoSize = True
         Me.lblWindowProgramName.BackColor = System.Drawing.Color.Transparent
-        Me.lblWindowProgramName.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWindowProgramName.Location = New System.Drawing.Point(8, 4)
+        Me.lblWindowProgramName.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblWindowProgramName.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblWindowProgramName.Location = New System.Drawing.Point(0, 0)
+        Me.lblWindowProgramName.Margin = New System.Windows.Forms.Padding(6, 0, 6, 3)
         Me.lblWindowProgramName.Name = "lblWindowProgramName"
-        Me.lblWindowProgramName.Size = New System.Drawing.Size(79, 13)
-        Me.lblWindowProgramName.TabIndex = 14
-        Me.lblWindowProgramName.Text = "SSTATESMAN"
+        Me.lblWindowProgramName.Padding = New System.Windows.Forms.Padding(6, 6, 6, 3)
+        Me.lblWindowProgramName.Size = New System.Drawing.Size(62, 30)
+        Me.lblWindowProgramName.TabIndex = 2
+        Me.lblWindowProgramName.Text = "about"
         '
-        'imgWindowGradientLeft
+        'SplitContainer1
         '
-        Me.imgWindowGradientLeft.BackgroundImage = Global.sstatesman.My.Resources.Resources.GradientBlueDarkH
-        Me.imgWindowGradientLeft.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.imgWindowGradientLeft.Location = New System.Drawing.Point(0, 24)
-        Me.imgWindowGradientLeft.Name = "imgWindowGradientLeft"
-        Me.imgWindowGradientLeft.Size = New System.Drawing.Size(24, 40)
-        Me.imgWindowGradientLeft.TabIndex = 3
-        Me.imgWindowGradientLeft.TabStop = False
+        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 53)
+        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(2)
+        Me.SplitContainer1.Name = "SplitContainer1"
         '
-        'lblWindowTitle
+        'SplitContainer1.Panel1
         '
-        Me.lblWindowTitle.AutoSize = True
-        Me.lblWindowTitle.BackColor = System.Drawing.Color.Transparent
-        Me.lblWindowTitle.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWindowTitle.Location = New System.Drawing.Point(30, 24)
-        Me.lblWindowTitle.Name = "lblWindowTitle"
-        Me.lblWindowTitle.Size = New System.Drawing.Size(52, 21)
-        Me.lblWindowTitle.TabIndex = 4
-        Me.lblWindowTitle.Text = "About"
+        Me.SplitContainer1.Panel1.AutoScroll = True
+        Me.SplitContainer1.Panel1.Controls.Add(Me.LinkLabel1)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.lblLinksTitle)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.lblCopyright)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.lblAuthorName)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.lblAuthorTitle)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.lblVersionChannel)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.lblVersionMain)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.lblVersionTitle)
+        Me.SplitContainer1.Panel1.Padding = New System.Windows.Forms.Padding(6, 3, 6, 3)
+        '
+        'SplitContainer1.Panel2
+        '
+        Me.SplitContainer1.Panel2.Controls.Add(Me.TextBoxDescription)
+        Me.SplitContainer1.Panel2.Padding = New System.Windows.Forms.Padding(6, 3, 6, 3)
+        Me.SplitContainer1.Size = New System.Drawing.Size(414, 183)
+        Me.SplitContainer1.SplitterDistance = 203
+        Me.SplitContainer1.SplitterWidth = 3
+        Me.SplitContainer1.TabIndex = 35
+        '
+        'lblLinksTitle
+        '
+        Me.lblLinksTitle.AutoSize = True
+        Me.lblLinksTitle.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblLinksTitle.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblLinksTitle.Location = New System.Drawing.Point(6, 113)
+        Me.lblLinksTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblLinksTitle.Name = "lblLinksTitle"
+        Me.lblLinksTitle.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
+        Me.lblLinksTitle.Size = New System.Drawing.Size(36, 21)
+        Me.lblLinksTitle.TabIndex = 23
+        Me.lblLinksTitle.Text = "Links"
+        '
+        'lblAuthorTitle
+        '
+        Me.lblAuthorTitle.AutoSize = True
+        Me.lblAuthorTitle.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblAuthorTitle.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblAuthorTitle.Location = New System.Drawing.Point(6, 58)
+        Me.lblAuthorTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblAuthorTitle.Name = "lblAuthorTitle"
+        Me.lblAuthorTitle.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
+        Me.lblAuthorTitle.Size = New System.Drawing.Size(47, 21)
+        Me.lblAuthorTitle.TabIndex = 22
+        Me.lblAuthorTitle.Text = "Author"
+        '
+        'lblVersionChannel
+        '
+        Me.lblVersionChannel.AutoSize = True
+        Me.lblVersionChannel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblVersionChannel.Location = New System.Drawing.Point(6, 41)
+        Me.lblVersionChannel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblVersionChannel.Name = "lblVersionChannel"
+        Me.lblVersionChannel.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
+        Me.lblVersionChannel.Size = New System.Drawing.Size(118, 17)
+        Me.lblVersionChannel.TabIndex = 21
+        Me.lblVersionChannel.Text = "<Release channel>"
+        '
+        'lblVersionTitle
+        '
+        Me.lblVersionTitle.AutoSize = True
+        Me.lblVersionTitle.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblVersionTitle.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblVersionTitle.Location = New System.Drawing.Point(6, 3)
+        Me.lblVersionTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblVersionTitle.Name = "lblVersionTitle"
+        Me.lblVersionTitle.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
+        Me.lblVersionTitle.Size = New System.Drawing.Size(123, 21)
+        Me.lblVersionTitle.TabIndex = 19
+        Me.lblVersionTitle.Text = "Version information"
+        '
+        'panelWindowTitle
+        '
+        Me.panelWindowTitle.AutoSize = True
+        Me.panelWindowTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.panelWindowTitle.BackColor = System.Drawing.Color.Gainsboro
+        Me.panelWindowTitle.Controls.Add(Me.lblWindowProgramName)
+        Me.panelWindowTitle.Controls.Add(Me.flpTab)
+        Me.panelWindowTitle.Dock = System.Windows.Forms.DockStyle.Top
+        Me.panelWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+        Me.panelWindowTitle.Location = New System.Drawing.Point(0, 0)
+        Me.panelWindowTitle.Margin = New System.Windows.Forms.Padding(2)
+        Me.panelWindowTitle.MinimumSize = New System.Drawing.Size(0, 26)
+        Me.panelWindowTitle.Name = "panelWindowTitle"
+        Me.panelWindowTitle.Size = New System.Drawing.Size(414, 53)
+        Me.panelWindowTitle.TabIndex = 36
         '
         'frmAbout
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ClientSize = New System.Drawing.Size(440, 300)
+        Me.ClientSize = New System.Drawing.Size(414, 272)
         Me.ControlBox = False
-        Me.Controls.Add(Me.OKButton)
+        Me.Controls.Add(Me.SplitContainer1)
+        Me.Controls.Add(Me.flpWindowBottom)
         Me.Controls.Add(Me.panelWindowTitle)
-        Me.Controls.Add(Me.TableLayoutPanel)
-        Me.Controls.Add(Me.TextBoxDescription)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.DimGray
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.Icon = Global.sstatesman.My.Resources.Resources.SSM1
+        Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmAbout"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "About"
-        Me.TableLayoutPanel.ResumeLayout(False)
-        Me.TableLayoutPanel.PerformLayout()
+        Me.flpWindowBottom.ResumeLayout(False)
+        Me.flpWindowBottom.PerformLayout()
+        Me.flpTab.ResumeLayout(False)
+        Me.flpTab.PerformLayout()
+        Me.SplitContainer1.Panel1.ResumeLayout(False)
+        Me.SplitContainer1.Panel1.PerformLayout()
+        Me.SplitContainer1.Panel2.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.PerformLayout()
+        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.SplitContainer1.ResumeLayout(False)
         Me.panelWindowTitle.ResumeLayout(False)
         Me.panelWindowTitle.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.imgWindowGradientLeft, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents panelWindowTitle As System.Windows.Forms.Panel
-    Friend WithEvents lblWindowProgramName As System.Windows.Forms.Label
-    Friend WithEvents imgWindowGradientLeft As System.Windows.Forms.PictureBox
-    Friend WithEvents lblWindowTitle As System.Windows.Forms.Label
-    Friend WithEvents TableLayoutPanel As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents OKButton As System.Windows.Forms.Button
     Friend WithEvents TextBoxDescription As System.Windows.Forms.TextBox
-    Friend WithEvents LabelCompanyName As System.Windows.Forms.Label
-    Friend WithEvents LabelCopyright As System.Windows.Forms.Label
-    Friend WithEvents LabelVersion As System.Windows.Forms.Label
-    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
-    Friend WithEvents optStettingTab2 As System.Windows.Forms.RadioButton
-    Friend WithEvents optStettingTab1 As System.Windows.Forms.RadioButton
+    Friend WithEvents lblAuthorName As System.Windows.Forms.Label
+    Friend WithEvents lblCopyright As System.Windows.Forms.Label
+    Friend WithEvents lblVersionMain As System.Windows.Forms.Label
     Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
+    Friend WithEvents flpWindowBottom As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents flpTab As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents optSettingTab1 As System.Windows.Forms.RadioButton
+    Private WithEvents optSettingTab2 As System.Windows.Forms.RadioButton
+    Private WithEvents lblWindowProgramName As System.Windows.Forms.Label
+    Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
+    Friend WithEvents lblVersionTitle As System.Windows.Forms.Label
+    Friend WithEvents lblVersionChannel As System.Windows.Forms.Label
+    Friend WithEvents lblLinksTitle As System.Windows.Forms.Label
+    Friend WithEvents lblAuthorTitle As System.Windows.Forms.Label
+    Private WithEvents panelWindowTitle As System.Windows.Forms.Panel
 
 End Class

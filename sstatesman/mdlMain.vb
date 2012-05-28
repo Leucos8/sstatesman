@@ -12,29 +12,44 @@
 '
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
-Option Explicit On
+Imports System.IO
+Imports Microsoft.Win32
+
 Module mdlMain
-    Public Enum ArrayStatus As System.Byte
-        ArrayEmpty
-        ArrayLoadedOK
-        ArrayNotLoaded
-        ErrorOccurred
+
+    Public checkedGames As New List(Of String)
+    Public currentFiles As New List(Of FileInfo)
+    Public checkedFiles As New List(Of FileInfo)
+
+    Public Enum LoadStatus As Byte
+        StatusEmpty
+        StatusLoadedOK
+        StatusNotLoaded
+        StatusError
     End Enum
 
-    Public colorswitch As System.Boolean = True
+    Public Enum Theme As Byte
+        none = 0
+        square = 1
+        noise = 2
+        stripes = 3
+        PCSX2 = 11
+    End Enum
+
+    Public colorswitch As Boolean = True
 
     Public Sub FirstRun()
         'Show the warning message
         'If My.Settings.SStatesMan_Channel.ToLower = "alpha" Then
-        '    System.Windows.Forms.MessageBox.Show(System.String.Format("{0} version {1} {2}" & System.Environment.NewLine & _
-        '                                         "This is an {3} version, for tests only. Do not redistribute." & System.Environment.NewLine & _
-        '                                         "The warnings have been issued, now enjoy the application :)", _
-        '                                         My.Application.Info.ProductName.ToString, _
-        '                                         My.Application.Info.Version.ToString, _
-        '                                         My.Settings.SStatesMan_Channel, _
-        '                                         My.Settings.SStatesMan_Channel.ToUpper), _
-        '                                         My.Application.Info.ProductName, _
-        '                                         MessageBoxButtons.OK, _
+        '    System.Windows.Forms.MessageBox.Show(System.String.Format("{0} version {1} {2}" & System.Environment.NewLine &
+        '                                         "This is an {3} version, for tests only. Do not redistribute." & System.Environment.NewLine &
+        '                                         "The warnings have been issued, now enjoy the application :)",
+        '                                         My.Application.Info.ProductName.ToString,
+        '                                         My.Application.Info.Version.ToString,
+        '                                         My.Settings.SStatesMan_Channel,
+        '                                         My.Settings.SStatesMan_Channel.ToUpper),
+        '                                         My.Application.Info.ProductName,
+        '                                         MessageBoxButtons.OK,
         '                                         MessageBoxIcon.Information)
         'End If
         My.Settings.Reset()
@@ -52,32 +67,32 @@ Module mdlMain
 
     End Sub
 
-    Public Function PCSX2_PathBin_Detect(ByRef pResult As System.String) As System.Boolean
+    Public Function PCSX2_PathBin_Detect(ByRef pResult As String) As Boolean
         pResult = "Not detected"
         PCSX2_PathBin_Detect = False
 
         Try
-            Using PCSX2_Registry As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(My.Settings.PCSX2_PathRegKey)
+            Using PCSX2_Registry As RegistryKey = Registry.CurrentUser.OpenSubKey(My.Settings.PCSX2_PathRegKey)
                 'OpenSubKey returns Nothing if the key doesn't exist
                 If PCSX2_Registry IsNot Nothing Then
                     'I assume that the installation found in the registry is the good one
-                    '                                                       Install_Dir
+                    '                                                   Install_Dir
                     pResult = PCSX2_Registry.GetValue(My.Settings.PCSX2_PathBinReg, "Not detected").ToString
                 End If
             End Using
         Catch ex As Exception
-            System.Windows.Forms.MessageBox.Show("Something went wrong while detecting PCSX2 settings, make sure you have the right permissions in the registry or in the directories/files." _
-                                                 & System.Environment.NewLine & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Something went wrong while detecting PCSX2 settings, make sure you have the right permissions in the registry or in the directories/files." & Environment.NewLine & ex.Message,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
-        If System.IO.Directory.Exists(pResult) Then
+        If Directory.Exists(pResult) Then
             PCSX2_PathBin_Detect = True
         Else
             pResult = "Not detected"
         End If
     End Function
 
-    Public Function PCSX2_PathInis_Detect(ByRef pResult As System.String) As System.Boolean
+    Public Function PCSX2_PathInis_Detect(ByRef pResult As String) As Boolean
         pResult = "Not detected"
         PCSX2_PathInis_Detect = False
         Try
@@ -100,34 +115,34 @@ Module mdlMain
             End If
 
         Catch ex As Exception
-            System.Windows.Forms.MessageBox.Show("Something went wrong while detecting PCSX2 settings, make sure you have the right permissions in the registry or in the directories/files." _
-                                                 & System.Environment.NewLine & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("Something went wrong while detecting PCSX2 settings, make sure you have the right permissions in the registry or in the directories/files." & Environment.NewLine & ex.Message,
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
-        If System.IO.Directory.Exists(pResult) Then
+        If Directory.Exists(pResult) Then
             PCSX2_PathInis_Detect = True
         Else
             pResult = "Not detected"
         End If
     End Function
 
-    Public Function PCSX2_PathSStates_Detect(ByRef pResult As System.String) As System.Boolean
+    Public Function PCSX2_PathSStates_Detect(ByRef pResult As String) As Boolean
         pResult = "Not detected"
         PCSX2_PathSStates_Detect = False
 
         If My.Settings.PCSX2_PathInisSet And System.IO.Directory.Exists(My.Settings.PCSX2_PathInis) Then
             'If PCSX2_UI.ini is present in the set inis directory
-            If System.IO.File.Exists(System.IO.Path.Combine(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename)) Then
+            If System.IO.File.Exists(Path.Combine(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename)) Then
                 'PCSX2_UI.ini is read and checked for the savestates folder
-                Using PCSX2UI_reader As New System.IO.StreamReader(System.IO.Path.Combine(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename))
+                Using PCSX2UI_reader As New StreamReader(Path.Combine(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename))
                     While Not PCSX2UI_reader.EndOfStream
-                        Dim sTmp1 As System.String = PCSX2UI_reader.ReadLine.Trim
+                        Dim sTmp1 As String = PCSX2UI_reader.ReadLine.Trim.ToLower
 
-                        If sTmp1 = "UseDefaultSavestates=enabled" Then
-                            pResult = System.IO.Path.Combine(My.Settings.PCSX2_PathInis.Remove(My.Settings.PCSX2_PathInis.Length - 5), My.Settings.PCSX2_SStateFolder)
+                        If sTmp1 = "usedefaultsavestates=enabled" Then
+                            pResult = Path.Combine(My.Settings.PCSX2_PathInis.Remove(My.Settings.PCSX2_PathInis.Length - 5), My.Settings.PCSX2_SStateFolder)
                             Exit While
-                        ElseIf sTmp1.StartsWith(My.Settings.PCSX2_SStateFolder) Then
-                            Dim sTmp2 As System.String() = sTmp1.Split({CChar("=")}, 2, StringSplitOptions.RemoveEmptyEntries)
+                        ElseIf sTmp1.StartsWith("savestates=") Then
+                            Dim sTmp2 As String() = sTmp1.Split({CChar("=")}, 2, StringSplitOptions.RemoveEmptyEntries)
                             If sTmp2.GetLength(0) >= 2 Then
                                 pResult = sTmp2(1).Replace("\\", "\")
                             End If
@@ -147,37 +162,37 @@ Module mdlMain
     End Function
 
     Public Function PCSX2_PathAll_Check() As System.Boolean
-        If System.IO.Directory.Exists(My.Settings.PCSX2_PathBin) Then
+        If Directory.Exists(My.Settings.PCSX2_PathBin) Then
             My.Settings.PCSX2_PathBinSet = True
         Else
             My.Settings.PCSX2_PathBin = "Not detected"
             My.Settings.PCSX2_PathBinSet = False
         End If
 
-        If System.IO.Directory.Exists(My.Settings.PCSX2_PathInis) Then
+        If Directory.Exists(My.Settings.PCSX2_PathInis) Then
             My.Settings.PCSX2_PathInisSet = True
         Else
             My.Settings.PCSX2_PathInis = "Not detected"
             My.Settings.PCSX2_PathInisSet = False
         End If
 
-        If System.IO.Directory.Exists(My.Settings.PCSX2_PathSState) Then
+        If Directory.Exists(My.Settings.PCSX2_PathSState) Then
             My.Settings.PCSX2_PathSStatesSet = True
         Else
             My.Settings.PCSX2_PathSState = "Not detected"
             My.Settings.PCSX2_PathSStatesSet = False
         End If
 
-        If Not (My.Settings.PCSX2_PathBinSet) Or _
-           Not (My.Settings.PCSX2_PathInisSet) Or _
-           Not (My.Settings.PCSX2_PathSStatesSet) Then
+        If (My.Settings.PCSX2_PathBinSet = False) Or _
+           (My.Settings.PCSX2_PathInisSet = False) Or _
+           (My.Settings.PCSX2_PathSStatesSet = False) Then
             PCSX2_PathAll_Check = True
         Else
             PCSX2_PathAll_Check = False
         End If
     End Function
 
-    Public Function assignFlag(ByVal pRegionToCheck As System.String, Optional ByVal pSerialToCheck As System.String = "") As System.Drawing.Bitmap
+    Public Function assignFlag(ByVal pRegionToCheck As String, Optional ByVal pSerialToCheck As String = "") As Bitmap
         assignFlag = My.Resources.Flag_0Null_30x20
         If pRegionToCheck IsNot Nothing And pSerialToCheck IsNot Nothing Then
             pRegionToCheck = pRegionToCheck.ToUpper
@@ -252,7 +267,7 @@ Module mdlMain
         End Select
     End Function
 
-    Public Function assignCompatColor(ByVal pCompat As System.String, ByVal pBGcolor As System.Drawing.Color) As System.Drawing.Color
+    Public Function assignCompatColor(ByVal pCompat As String, ByVal pBGcolor As Color) As Color
         Select Case pCompat
             Case "0" : assignCompatColor = pBGcolor  'Unknown
             Case "1" : assignCompatColor = Color.FromArgb(255, 255, 192, 192)  'Nothing:    Red
@@ -265,8 +280,8 @@ Module mdlMain
         End Select
     End Function
 
-    Public Sub WriteToConsole(ByVal pClass As System.String, ByVal pMethod As System.String, ByVal pText As System.String)
-        Console.WriteLine(System.String.Format("[{0:HH.mm.ss}] {1}.{2} {3}", Now, pClass, pMethod, pText))
+    Public Sub WriteToConsole(ByVal pClass As String, ByVal pMethod As String, ByVal pText As String)
+        Console.WriteLine(String.Format("[{0:HH.mm.ss}] {1}.{2} {3}", Now, pClass, pMethod, pText))
     End Sub
 
 End Module

@@ -14,36 +14,34 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Public Class frmGameDb
     'Dim WindowSearchActive As System.Boolean = False
-    Dim GameDb_Pos As System.Int32 = 0
-    Dim myGameDbRecord As mdlGameDb.rGameDb
+    Dim CurrentSerial As System.String = ""
+    Dim CurrentGame As New GameTitle With {.Serial = "", .Name = "", .Region = "", .Compat = "0"}
     Dim populationTime As System.TimeSpan
 
 
-    Friend SearchResultRef() As System.Int32
-    Friend SearchResultRef_Pos As System.Int32 = 0
-    Friend SearchResultRef_ArrayStatus As ArrayStatus = ArrayStatus.ArrayNotLoaded
+    Friend SearchResultRef As New List(Of System.String)
+    Friend SearchResultRef_ArrayStatus As LoadStatus = LoadStatus.StatusNotLoaded
+    Dim SearchResultRef_Pos As System.String
 
     Private Sub ShowStatus()
 
-        With Me.myGameDbRecord
-            .Name = ""
-            .Serial = ""
-            .Region = ""
-            .Compat = ""
-            .RStatus = rGameDb_RStatus.RStatus0
-        End With
+        mdlMain.WriteToConsole("GameDB_Util", "ShowStatus", "Refreshed status")
+
+        'With myGameDbRecord
+        '    .Name = ""
+        '    .Serial = ""
+        '    .Region = ""
+        '    .Compat = ""
+        '    '.RStatus = rGameDb_RStatus.RStatus0
+        'End With
 
         Me.tsGameDbUnload.Enabled = False
         Me.tsListShow.Enabled = False
+        Me.tsListShow.Visible = False
         Me.tsCmdSearch.Enabled = False
         Me.tsTxtSearchSerial.Enabled = False
         Me.tsCmdSearchSerial.Enabled = False
         Me.tsExport.Enabled = False
-
-        Me.tsRecordPrevious.Enabled = False
-        Me.tsRecordFirst.Enabled = False
-        Me.tsRecordNext.Enabled = False
-        Me.tsRecordLast.Enabled = False
 
         Me.txtGameList_Title.Text = ""
         Me.txtGameList_Serial.Text = ""
@@ -51,44 +49,25 @@ Public Class frmGameDb
         Me.txtGameList_Compat.Text = ""
         Me.imgFlag.Image = My.Resources.Flag_0Null_30x20
 
-        Me.ToolStripStatusLabel2.Text = ""
+        Me.ToolStripStatusLabel1.Text = ""
+        Me.ToolStripStatusLabel3.Text = ""
 
-        Select Case mdlGameDb.GameDb_ArrayStatus
-            Case ArrayStatus.ArrayLoadedOK
+        Select Case mdlGameDb.GameDb_Status
+            Case LoadStatus.StatusLoadedOK
+                Me.CurrentGame = mdlGameDb.GameDb_RecordExtract(Me.CurrentSerial, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
+                Me.ToolStripStatusLabel2.Text = System.String.Format("GameDB loaded in {0:#,##0}ms.", mdlGameDb.GameDb_LoadTime.TotalMilliseconds)
+                Me.ToolStripStatusLabel3.Text = System.String.Format("List created in {0:#,##0}ms.", Me.populationTime.TotalMilliseconds)
                 Select Case Me.SearchResultRef_ArrayStatus
-                    Case ArrayStatus.ArrayNotLoaded
-                        Me.myGameDbRecord = mdlGameDb.GameDb_RecordExtract(Me.GameDb_Pos, mdlGameDb.GameDb)
-                        Me.ToolStripStatusLabel1.Text = System.String.Format("Position: {0}", Me.GameDb_Pos.ToString("#,##0"))
-                        Me.ToolStripStatusLabel2.Text = System.String.Format("Records: {0}", mdlGameDb.GameDb.GetLength(0).ToString("#,##0"))
-                        Me.ToolStripStatusLabel3.Text = System.String.Format("Load time: {0:#,##0}ms (list {1:#,##0}ms)", mdlGameDb.GameDb_LoadTime.TotalMilliseconds, Me.populationTime.TotalMilliseconds)
-                        If Me.GameDb_Pos > mdlGameDb.GameDb.GetLowerBound(0) Then
-                            Me.tsRecordPrevious.Enabled = True
-                            Me.tsRecordFirst.Enabled = True
-                        End If
-                        If Me.GameDb_Pos < (mdlGameDb.GameDb.GetUpperBound(0)) Then
-                            Me.tsRecordNext.Enabled = True
-                            Me.tsRecordLast.Enabled = True
-                        End If
-                    Case ArrayStatus.ArrayLoadedOK
-                        Me.GameDb_Pos = Me.SearchResultRef(Me.SearchResultRef_Pos)
-                        'Me.GameDb_Pos = mdlGameDb.GameDb_RefExtract(Me.SearchResultRef(Me.SearchResultRef_Pos), mdlGameDb.GameDb)
-                        myGameDbRecord = mdlGameDb.GameDb_RecordExtract(Me.GameDb_Pos, mdlGameDb.GameDb)
-                        Me.ToolStripStatusLabel1.Text = System.String.Format("Position: {0:#,##0}/{1:#,##0}", Me.SearchResultRef_Pos, Me.GameDb_Pos)
-                        Me.ToolStripStatusLabel2.Text = System.String.Format("Found: {0:#,##0}/{1:#,##0}", Me.SearchResultRef.GetLength(0), mdlGameDb.GameDb.GetLength(0))
-
+                    Case LoadStatus.StatusNotLoaded
+                        Me.ToolStripStatusLabel1.Text = System.String.Format("{0} games.", mdlGameDb.GameDb.Count.ToString("#,##0"))
+                    Case LoadStatus.StatusLoadedOK
+                        Me.ToolStripStatusLabel1.Text = System.String.Format("Found {0:#,##0} in {1:#,##0} games.", Me.SearchResultRef.Count, mdlGameDb.GameDb.Count)
                         Me.tsListShow.Enabled = True
-
-                        If Me.SearchResultRef_Pos > Me.SearchResultRef.GetLowerBound(0) Then
-                            Me.tsRecordPrevious.Enabled = True
-                            Me.tsRecordFirst.Enabled = True
-                        End If
-                        If Me.SearchResultRef_Pos < (Me.SearchResultRef.GetUpperBound(0)) Then
-                            Me.tsRecordNext.Enabled = True
-                            Me.tsRecordLast.Enabled = True
-                        End If
-                    Case ArrayStatus.ArrayEmpty
-                        Me.ToolStripStatusLabel1.Text = System.String.Format("No result found", (Me.SearchResultRef_Pos))
-                        Me.ToolStripStatusLabel2.Text = System.String.Format("Found: {0:#,##0}/{1:#,##0}", Me.SearchResultRef.GetLength(0), mdlGameDb.GameDb.GetLength(0))
+                        Me.tsListShow.Visible = True
+                    Case LoadStatus.StatusEmpty
+                        Me.ToolStripStatusLabel1.Text = System.String.Format("No result found. {1:#,##0} games.", Me.SearchResultRef.Count, mdlGameDb.GameDb.Count)
+                        Me.tsListShow.Enabled = True
+                        Me.tsListShow.Visible = True
                 End Select
 
                 Me.tsGameDbUnload.Enabled = True
@@ -100,50 +79,57 @@ Public Class frmGameDb
 
 
 
-                Me.txtGameList_Title.Text = myGameDbRecord.Name
-                Me.txtGameList_Serial.Text = myGameDbRecord.Serial
-                Me.txtGameList_Region.Text = myGameDbRecord.Region
-                Me.txtGameList_Compat.Text = mdlMain.assignCompatText(myGameDbRecord.Compat)
-                Me.imgFlag.Image = mdlMain.assignFlag(myGameDbRecord.Region, myGameDbRecord.Serial)
+                Me.txtGameList_Title.Text = CurrentGame.Name
+                Me.txtGameList_Serial.Text = CurrentGame.Serial
+                Me.txtGameList_Region.Text = CurrentGame.Region
+                Me.txtGameList_Compat.Text = mdlMain.assignCompatText(CurrentGame.Compat)
+                Me.imgFlag.Image = mdlMain.assignFlag(CurrentGame.Region, CurrentGame.Serial)
 
 
-            Case ArrayStatus.ArrayNotLoaded
-                Me.ToolStripStatusLabel1.Text = "GameDB not loaded."
-            Case ArrayStatus.ErrorOccurred
-                Me.ToolStripStatusLabel1.Text = "Error loading GameDB."
-            Case ArrayStatus.ArrayEmpty
-                Me.ToolStripStatusLabel1.Text = "GameDB has no records."
+            Case LoadStatus.StatusNotLoaded
+                Me.ToolStripStatusLabel2.Text = "GameDB not loaded."
+            Case LoadStatus.StatusError
+                Me.ToolStripStatusLabel2.Text = "Error loading GameDB."
+            Case LoadStatus.StatusEmpty
+                Me.ToolStripStatusLabel2.Text = "GameDB has no records."
         End Select
     End Sub
 
     Private Sub frmGameDb_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Me.tsListShow_Click(Nothing, Nothing)
+
+        Me.CurrentSerial = ""
+        Me.SearchResultRef.Clear()
+        Me.SearchResultRef_ArrayStatus = LoadStatus.StatusNotLoaded
+
+        Me.PopulateList(mdlGameDb.GameDb)
+
+        Me.ShowStatus()
+
     End Sub
 
     Private Sub tsGameDbLoad_Click(sender As System.Object, e As System.EventArgs) Handles tsGameDbLoad.Click
+        mdlGameDb.GameDb_Status = mdlGameDb.GameDb_Load(System.IO.Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename), GameDb)
 
-        'If System.Windows.Forms.MessageBox.Show("Warning, re-loading the GameDB could lead to undesired effects." & System.Environment.NewLine & "Do you wish to continue?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
+        Me.CurrentSerial = ""
+        Me.SearchResultRef.Clear()
+        Me.SearchResultRef_ArrayStatus = LoadStatus.StatusNotLoaded
 
-        mdlGameDb.GameDb_ArrayStatus = mdlGameDb.GameDb_Load3(System.IO.Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename), GameDb)
-
-        ReDim Me.SearchResultRef(-1)
-        Me.SearchResultRef_ArrayStatus = ArrayStatus.ArrayNotLoaded
-
-        Me.tsListShow_Click(Nothing, Nothing)
+        Me.PopulateList(mdlGameDb.GameDb)
 
         Me.ShowStatus()
-        'End If
-
     End Sub
 
     Private Sub tsGameDbUnload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsGameDbUnload.Click
 
         If System.Windows.Forms.MessageBox.Show("Warning, clearing the GameDB could lead to undesired effects." & System.Environment.NewLine & "Be sure to load it again before closing GameDB util." & System.Environment.NewLine & "Do you wish to continue?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
             Me.lvwGameDBList.Items.Clear()
-            mdlGameDb.GameDb_ArrayStatus = mdlGameDb.GameDb_Unload(GameDb)
 
-            ReDim Me.SearchResultRef(-1)
-            Me.SearchResultRef_ArrayStatus = ArrayStatus.ArrayNotLoaded
+            mdlGameDb.GameDb.Clear()
+            mdlGameDb.GameDb_Status = LoadStatus.StatusNotLoaded
+
+            Me.CurrentSerial = ""
+            Me.SearchResultRef.Clear()
+            Me.SearchResultRef_ArrayStatus = LoadStatus.StatusNotLoaded
 
             Me.ShowStatus()
         End If
@@ -152,30 +138,10 @@ Public Class frmGameDb
 
     Private Sub tsListShow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsListShow.Click
 
-        ReDim Me.SearchResultRef(-1)
-        Me.SearchResultRef_ArrayStatus = ArrayStatus.ArrayNotLoaded
+        Me.SearchResultRef.Clear()
+        Me.SearchResultRef_ArrayStatus = LoadStatus.StatusNotLoaded
 
-        Me.lvwGameDBList.BeginUpdate()
-        Me.lvwGameDBList.Items.Clear()
-        Dim startTime As System.DateTime = Now
-
-        Dim myLvwItems(mdlGameDb.GameDb.GetUpperBound(0)) As System.Windows.Forms.ListViewItem
-        For Me.GameDb_Pos = 0 To mdlGameDb.GameDb.GetUpperBound(0)
-            Dim myTmpItem As New System.Windows.Forms.ListViewItem(mdlGameDb.GameDb(GameDb_Pos).Name)
-            myTmpItem.SubItems.AddRange({mdlGameDb.GameDb(GameDb_Pos).Serial,
-                                    mdlGameDb.GameDb(GameDb_Pos).Region,
-                                    mdlMain.assignCompatText(mdlGameDb.GameDb(GameDb_Pos).Compat),
-                                    mdlGameDb.GameDb(GameDb_Pos).RStatus.ToString,
-                                    GameDb_Pos.ToString("#,##0")})
-            myLvwItems(GameDb_Pos) = myTmpItem
-        Next Me.GameDb_Pos
-        Me.lvwGameDBList.Items.AddRange(myLvwItems)
-
-        Me.populationTime = Now.Subtract(startTime)
-
-        Me.GameDb_Pos = 0
-
-        Me.lvwGameDBList.EndUpdate()
+        Me.PopulateList(mdlGameDb.GameDb)
 
         Me.ShowStatus()
 
@@ -193,19 +159,22 @@ Public Class frmGameDb
             .ValidateNames = True
         End With
 
-        If Me.SearchResultRef_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
+        If Me.SearchResultRef_ArrayStatus = LoadStatus.StatusLoadedOK Then
             With SaveDialog
                 .FileName = "GameDB search results"
                 .Title = "Save found records to..."
             End With
             If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                Dim GameDbExtract(0) As mdlGameDb.rGameDb
-                Dim GameDbExtract_ArrayStatus As System.Byte = ArrayStatus.ArrayNotLoaded
+                Dim GameDbExtract As New Dictionary(Of System.String, GameTitle)
+                Dim GameDbExtract_ArrayStatus As System.Byte = LoadStatus.StatusNotLoaded
 
-                GameDbExtract_ArrayStatus = mdlGameDb.GameDb_RefExtract(SearchResultRef, GameDbExtract, mdlGameDb.GameDb)
-                Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName, _
-                                     Microsoft.VisualBasic.vbTab, _
-                                     GameDbExtract)
+                GameDbExtract_ArrayStatus = mdlGameDb.GameDb_RecordExtract(SearchResultRef,
+                                                                           mdlGameDb.GameDb,
+                                                                           mdlGameDb.GameDb_Status,
+                                                                           GameDbExtract)
+                Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName,
+                                                vbTab,
+                                                GameDbExtract)
             End If
         Else
             With SaveDialog
@@ -214,8 +183,8 @@ Public Class frmGameDb
             End With
             If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
 
-                Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName, _
-                                                 vbTab, _
+                Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName,
+                                                vbTab, _
                                                  GameDb)
             End If
         End If
@@ -234,19 +203,24 @@ Public Class frmGameDb
             .ValidateNames = True
         End With
 
-        If Me.SearchResultRef_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
+        If Me.SearchResultRef_ArrayStatus = LoadStatus.StatusLoadedOK Then
             With SaveDialog
                 .FileName = "GameDB search results"
                 .Title = "Save found records list to..."
             End With
             If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                Dim GameDbExtract(0) As mdlGameDb.rGameDb
-                Dim GameDbExtract_ArrayStatus As System.Byte = ArrayStatus.ArrayNotLoaded
+                If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+                    Dim GameDbExtract As New Dictionary(Of System.String, GameTitle)
+                    Dim GameDbExtract_ArrayStatus As System.Byte = LoadStatus.StatusNotLoaded
 
-                GameDbExtract_ArrayStatus = mdlGameDb.GameDb_RefExtract(SearchResultRef, GameDbExtract, mdlGameDb.GameDb)
-                Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName, _
-                                     ";", _
-                                     GameDbExtract)
+                    GameDbExtract_ArrayStatus = mdlGameDb.GameDb_RecordExtract(SearchResultRef,
+                                                                               mdlGameDb.GameDb,
+                                                                               mdlGameDb.GameDb_Status,
+                                                                               GameDbExtract)
+                    Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName,
+                                                    ";",
+                                                    GameDbExtract)
+                End If
             End If
         Else
             With SaveDialog
@@ -254,9 +228,9 @@ Public Class frmGameDb
                 .Title = "Save records to..."
             End With
             If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName, _
-                                                  ";", _
-                                                  GameDb)
+                Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName,
+                                                ";",
+                                                GameDb)
             End If
         End If
         SaveDialog.Dispose()
@@ -277,69 +251,15 @@ Public Class frmGameDb
     Private Sub tsCmdSearchSerial_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsCmdSearchSerial.Click
         If Not (Me.tsTxtSearchSerial.Text = "Serial") Then
             Me.tsTxtSearchSerial.Text = Me.tsTxtSearchSerial.Text.ToUpper
-            GameDb_Pos = mdlGameDb.GameDb_RefExtract(tsTxtSearchSerial.Text, mdlGameDb.GameDb)
+            CurrentSerial = Me.tsTxtSearchSerial.Text
             Me.ShowStatus()
         End If
-    End Sub
-
-
-    Private Sub tsRecordFirst_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsRecordFirst.Click
-        If Me.SearchResultRef_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
-            Me.SearchResultRef_Pos = 0
-            GameDb_Pos = Me.SearchResultRef(Me.SearchResultRef_Pos)
-        ElseIf mdlGameDb.GameDb_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
-            GameDb_Pos = 0
-        End If
-        Me.ShowStatus()
-    End Sub
-
-    Private Sub tsRecordPrevious_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsRecordPrevious.Click
-        If Me.SearchResultRef_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
-            If SearchResultRef_Pos > 0 Then
-                Me.SearchResultRef_Pos -= 1
-                GameDb_Pos = SearchResultRef(SearchResultRef_Pos)
-            End If
-        ElseIf mdlGameDb.GameDb_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
-            If GameDb_Pos > 0 Then
-                GameDb_Pos -= 1
-            End If
-        End If
-        Me.ShowStatus()
-    End Sub
-
-    Private Sub tsRecordNext_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsRecordNext.Click
-        If Me.SearchResultRef_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
-            If SearchResultRef_Pos < SearchResultRef.GetUpperBound(0) Then
-                Me.SearchResultRef_Pos += 1
-                GameDb_Pos = SearchResultRef(SearchResultRef_Pos)
-            End If
-        ElseIf mdlGameDb.GameDb_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
-            If GameDb_Pos < mdlGameDb.GameDb.GetUpperBound(0) Then
-                GameDb_Pos += 1
-            End If
-        End If
-        Me.ShowStatus()
-    End Sub
-
-    Private Sub tsRecordLast_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsRecordLast.Click
-        If Me.SearchResultRef_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
-            Me.SearchResultRef_Pos = SearchResultRef.GetUpperBound(0)
-            GameDb_Pos = SearchResultRef(SearchResultRef_Pos)
-        ElseIf mdlGameDb.GameDb_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
-            GameDb_Pos = mdlGameDb.GameDb.GetUpperBound(0)
-        End If
-        Me.ShowStatus()
     End Sub
 
     Private Sub lvwGameDBList_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lvwGameDBList.SelectedIndexChanged
         Try
             If lvwGameDBList.SelectedItems.Count > 0 Then
-                If Me.SearchResultRef_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
-                    Me.SearchResultRef_Pos = Me.lvwGameDBList.SelectedItems(0).Index
-                    'GameDb_Pos = Me.SearchResultRef(Me.SearchResultRef_Pos)
-                ElseIf mdlGameDb.GameDb_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
-                    GameDb_Pos = Me.lvwGameDBList.SelectedItems(0).Index
-                End If
+                Me.CurrentSerial = Me.lvwGameDBList.SelectedItems(0).SubItems(1).Text
                 Me.ShowStatus()
             End If
         Catch ex As Exception
@@ -350,31 +270,33 @@ Public Class frmGameDb
 
     Private Sub tsCmdSearch_Click(sender As System.Object, e As System.EventArgs) Handles tsCmdSearch.Click
         If frmGameDbSearchForm.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-            Me.lvwGameDBList.BeginUpdate()
-            Me.lvwGameDBList.Items.Clear()
-
-            For Me.SearchResultRef_Pos = 0 To Me.SearchResultRef.GetUpperBound(0)
-                Dim ListItemTmp As New System.Windows.Forms.ListViewItem
-                ListItemTmp.Text = mdlGameDb.GameDb(Me.SearchResultRef(Me.SearchResultRef_Pos)).Name
-                With ListItemTmp.SubItems
-                    .Add(mdlGameDb.GameDb(Me.SearchResultRef(Me.SearchResultRef_Pos)).Serial)
-                    .Add(mdlGameDb.GameDb(Me.SearchResultRef(Me.SearchResultRef_Pos)).Region)
-                    .Add(mdlMain.assignCompatText(mdlGameDb.GameDb(Me.SearchResultRef(Me.SearchResultRef_Pos)).Compat))
-                    .Add(mdlGameDb.GameDb(Me.SearchResultRef(Me.SearchResultRef_Pos)).RStatus.ToString)
-                    .Add(Me.SearchResultRef_Pos.ToString("#,##0"))
-                End With
-                ListItemTmp.UseItemStyleForSubItems = False
-                ListItemTmp.SubItems(3).BackColor = mdlMain.assignCompatColor(mdlGameDb.GameDb(Me.SearchResultRef(Me.SearchResultRef_Pos)).Compat, Color.Transparent)
-                Me.lvwGameDBList.Items.Add(ListItemTmp)
-            Next Me.SearchResultRef_Pos
-
-            Me.SearchResultRef_Pos = 0
-            'mdlGameDb.GameDb_Pos = SearchResultRef(SearchResultRef_Pos)
-
-            Me.lvwGameDBList.EndUpdate()
+            Dim SearchGameDb As New Dictionary(Of System.String, GameTitle)
+            mdlGameDb.GameDb_RecordExtract(Me.SearchResultRef,
+                                           mdlGameDb.GameDb,
+                                           mdlGameDb.GameDb_Status,
+                                           SearchGameDb)
+            Me.PopulateList(SearchGameDb)
 
             Me.ShowStatus()
         End If
     End Sub
+
+    Private Sub PopulateList(ByVal pList As Dictionary(Of System.String, GameTitle))
+        Me.lvwGameDBList.Items.Clear()
+
+        Dim myLvwItems As New List(Of System.Windows.Forms.ListViewItem)
+        For Each myTmpGame As KeyValuePair(Of System.String, GameTitle) In pList
+            Dim myTmpItem As New System.Windows.Forms.ListViewItem With {.Text = myTmpGame.Value.Name}
+            myTmpItem.SubItems.AddRange({myTmpGame.Key,
+                                         myTmpGame.Value.Region,
+                                         mdlMain.assignCompatText(myTmpGame.Value.Compat)})
+            myLvwItems.Add(myTmpItem)
+        Next
+        Dim startTime As System.DateTime = Now
+        Me.lvwGameDBList.Items.AddRange(myLvwItems.ToArray)
+        Me.populationTime = Now.Subtract(startTime)
+
+    End Sub
+
 
 End Class

@@ -12,59 +12,46 @@
 '
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
+Imports System.IO
+
 Public Class frmSStateList
-    Dim SStatesList_Pos As System.Int32 = 0
-    Dim mySStatesListRecord As mdlSStatesList.rSStatesList
+    Dim SStatesList_Pos As Int32 = 0
+    Dim mySStatesListRecord As FileInfo = Nothing
     Private Sub ShowStatus()
 
-        With Me.mySStatesListRecord
-            .FileInfo = Nothing
-            .GameIndexRef = 0
-            .isBackup = False
-            .isDeleted = False
-            .Slot = 0
-            .SStateSerial = ""
-        End With
-
-        Me.tsSStateListUnload.Enabled = False
-        Me.tsExport.Enabled = False
-
-        Me.tsRecordPrevious.Enabled = False
-        Me.tsRecordFirst.Enabled = False
-        Me.tsRecordNext.Enabled = False
-        Me.tsRecordLast.Enabled = False
+        Me.mySStatesListRecord = Nothing
 
         Me.LblSearchResults.Text = ""
 
         Me.ToolStripStatusLabel2.Text = ""
 
-        Select Case mdlSStatesList.SStatesList_ArrayStatus
-            Case ArrayStatus.ArrayLoadedOK
-                Me.mySStatesListRecord = mdlSStatesList.SStatesList(Me.SStatesList_Pos)
-                Me.ToolStripStatusLabel1.Text = System.String.Format("Position: {0}", Me.SStatesList_Pos.ToString("#,##0"))
-                Me.ToolStripStatusLabel2.Text = System.String.Format("Records: {0}", mdlSStatesList.SStatesList.GetLength(0).ToString("#,##0"))
-                If Me.SStatesList_Pos > mdlSStatesList.SStatesList.GetLowerBound(0) Then
-                    Me.tsRecordPrevious.Enabled = True
-                    Me.tsRecordFirst.Enabled = True
-                End If
-                If Me.SStatesList_Pos < mdlSStatesList.SStatesList.GetUpperBound(0) Then
-                    Me.tsRecordNext.Enabled = True
-                    Me.tsRecordLast.Enabled = True
-                End If
-                Me.tsSStateListUnload.Enabled = True
-                Me.tsExport.Enabled = True
+        Select Case mdlFileList.GamesList_Status
+            Case LoadStatus.StatusLoadedOK
+                'Me.mySStatesListRecord = mdlSStatesList.SStatesList(Me.SStatesList_Pos)
+                '        Me.ToolStripStatusLabel1.Text = System.String.Format("Position: {0}", Me.SStatesList_Pos.ToString("#,##0"))
+                '        Me.ToolStripStatusLabel2.Text = System.String.Format("Records: {0}", mdlSStatesList.SStatesList.GetLength(0).ToString("#,##0"))
+                '        If Me.SStatesList_Pos > mdlSStatesList.SStatesList.GetLowerBound(0) Then
+                '            Me.tsRecordPrevious.Enabled = True
+                '            Me.tsRecordFirst.Enabled = True
+                '        End If
+                '        If Me.SStatesList_Pos < mdlSStatesList.SStatesList.GetUpperBound(0) Then
+                '            Me.tsRecordNext.Enabled = True
+                '            Me.tsRecordLast.Enabled = True
+                '        End If
+                '        Me.tsSStateListUnload.Enabled = True
+                '        Me.tsExport.Enabled = True
 
-                Me.LblSearchResults.Text = "Serial   = " & SStatesList(SStatesList_Pos).SStateSerial & System.Environment.NewLine & _
-                                           "Slot     = " & SStatesList(SStatesList_Pos).Slot & System.Environment.NewLine & _
-                                           "Filename = " & SStatesList(SStatesList_Pos).FileInfo.Name & System.Environment.NewLine & _
-                                           "Size     = " & (SStatesList(SStatesList_Pos).FileInfo.Length / 1024 / 1024).ToString("#,##0.00 MB") & System.Environment.NewLine & _
-                                           "Created  = " & SStatesList(SStatesList_Pos).FileInfo.LastWriteTime
-            Case ArrayStatus.ArrayNotLoaded
-                Me.ToolStripStatusLabel1.Text = "SStatesList not loaded."
-            Case ArrayStatus.ErrorOccurred
-                Me.ToolStripStatusLabel1.Text = "Error loading SStatesList."
-            Case ArrayStatus.ArrayEmpty
-                Me.ToolStripStatusLabel1.Text = "SStatesList has no records."
+                '        Me.LblSearchResults.Text = "Serial   = " & SStatesList(SStatesList_Pos).SStateSerial & System.Environment.NewLine & _
+                '                                   "Slot     = " & SStatesList(SStatesList_Pos).Slot & System.Environment.NewLine & _
+                '                                   "Filename = " & SStatesList(SStatesList_Pos).FileInfo.Name & System.Environment.NewLine & _
+                '                                   "Size     = " & (SStatesList(SStatesList_Pos).FileInfo.Length / 1024 / 1024).ToString("#,##0.00 MB") & System.Environment.NewLine & _
+                '                                   "Created  = " & SStatesList(SStatesList_Pos).FileInfo.LastWriteTime
+                '    Case LoadStatus.StatusNotLoaded
+                '        Me.ToolStripStatusLabel1.Text = "SStatesList not loaded."
+                '    Case LoadStatus.StatusError
+                '        Me.ToolStripStatusLabel1.Text = "Error loading SStatesList."
+                '    Case LoadStatus.StatusEmpty
+                '        Me.ToolStripStatusLabel1.Text = "SStatesList has no records."
         End Select
     End Sub
 
@@ -73,94 +60,101 @@ Public Class frmSStateList
         Me.ShowStatus()
     End Sub
 
-
-    Private Sub tsSStateListUnload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsSStateListUnload.Click
-        If System.Windows.Forms.MessageBox.Show("Warning, unloading the SStateList *will* lead to crashes." & System.Environment.NewLine & "Reloading it won't fix this mistake." & System.Environment.NewLine & "Do you wish to continue?", _
-                                                "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
-            Me.ListBox1.Items.Clear()
-            mdlSStatesList.SStatesList_ArrayStatus = mdlSStatesList.SStatesList_Unload(SStatesList, SStatesList_Pos)
-            Me.ShowStatus()
-        End If
-    End Sub
-
-    Private Sub tsExportTSVTxt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsExportTSVTxt.Click
-        Call mdlSStatesList.SStatesList_ExportTxt(System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & "\SStateList.txt", vbTab, SStatesList)
-        MsgBox("A dump of the array has been saved to the Desktop", MsgBoxStyle.Information, "Notice")
-    End Sub
-
-    Private Sub tsRecordFirst_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsRecordFirst.Click
-        If mdlSStatesList.SStatesList_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
-            Me.SStatesList_Pos = 0
-        End If
-        Me.ShowStatus()
-    End Sub
-
-    Private Sub tsRecordPrevious_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsRecordPrevious.Click
-        If mdlSStatesList.SStatesList_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
-            Me.SStatesList_Pos -= 1
-        End If
-        Me.ShowStatus()
-    End Sub
-
-    Private Sub tsRecordNext_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsRecordNext.Click
-        If mdlSStatesList.SStatesList_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
-            Me.SStatesList_Pos += 1
-        End If
-        Me.ShowStatus()
-    End Sub
-
-    Private Sub tsRecordLast_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsRecordLast.Click
-        If mdlSStatesList.SStatesList_ArrayStatus = ArrayStatus.ArrayLoadedOK Then
-            Me.SStatesList_Pos = mdlSStatesList.SStatesList.GetUpperBound(0)
-        End If
-        Me.ShowStatus()
-    End Sub
-
     Private Sub frmSStateList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Me.ListBox1.Visible = False
+        Me.ListBox1.BeginUpdate()
         Me.ListBox1.Items.Clear()
-        For Me.SStatesList_Pos = 0 To mdlSStatesList.SStatesList.GetUpperBound(0)
-            ListBox1.Items.Add(System.String.Format("{0,-12}|{1,2}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}", _
-                                                    SStatesList(SStatesList_Pos).SStateSerial, _
-                                                    SStatesList(SStatesList_Pos).Slot.ToString, _
-                                                    SStatesList(SStatesList_Pos).isBackup.ToString, _
-                                                    SStatesList(SStatesList_Pos).FileInfo.Name, _
-                                                    SStatesList(SStatesList_Pos).FileInfo.Length / 1024 ^ 2, _
-                                                    SStatesList(SStatesList_Pos).FileInfo.LastWriteTime.ToString, _
-                                                    SStatesList(SStatesList_Pos).FileInfo.Attributes.ToString))
-        Next SStatesList_Pos
-        Me.ListBox1.Visible = True
+        'For Each myCurrentGame As KeyValuePair(Of String, mdlSStatesList.rSStatesIndex) In mdlSStatesList.SStatesIndex
+        '    For Each myCurrentSState As FileInfo In myCurrentGame.Value.SStates_List
+        '        ListBox1.Items.Add(String.Format("{0,-12}|{1,2}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}", _
+        '                                         mdlSStatesList.SStates_GetSerial(myCurrentSState.Name), _
+        '                                         mdlSStatesList.SStates_GetSlot(myCurrentSState.Name).ToString, _
+        '                                         mdlSStatesList.SStates_GetType(myCurrentSState.Name).ToString, _
+        '                                         myCurrentSState.Name, _
+        '                                         myCurrentSState.Length / 1024 ^ 2, _
+        '                                         myCurrentSState.LastWriteTime.ToString, _
+        '                                         myCurrentSState.Attributes.ToString))
+        '    Next
+        'Next
+        Me.ListBox1.EndUpdate()
         Me.SStatesList_Pos = 0
         ShowStatus()
     End Sub
 
-    Private Sub tsExportCSVTxt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsExportCSVTxt.Click
-        Call mdlSStatesList.SStatesList_ExportTxt(System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & "\SStateList.csv", ";", SStatesList)
-        System.Windows.Forms.MessageBox.Show("A dump of the array has been saved to the Desktop", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
+    Private Sub tsShowGameList_Click(sender As System.Object, e As System.EventArgs) Handles tsShowGameList.Click
+        Me.ListBox1.BeginUpdate()
+        Me.ListBox1.Items.Clear()
+        For Each mySerial As String In mdlFileList.GamesList.Keys
+            Dim myRecord As GameTitle = mdlGameDb.GameDb_RecordExtract(mySerial,
+                                                                       mdlGameDb.GameDb,
+                                                                       mdlGameDb.GameDb_Status)
+            Me.ListBox1.Items.Add(String.Concat(myRecord.Name, vbTab,
+                                                myRecord.Serial, vbTab,
+                                                myRecord.Region, vbTab,
+                                                myRecord.Compat))
+        Next
+        Me.ListBox1.EndUpdate()
     End Sub
 
-    Private Sub tsSStateListLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsSStateListLoad.Click
-        If System.Windows.Forms.MessageBox.Show("Warning, reloading the SStateList *will* lead to crashes." & System.Environment.NewLine & "Do you wish to continue?", _
-                                                "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
-            Me.ListBox1.Items.Clear()
-            mdlSStatesList.SStatesList_ArrayStatus = mdlSStatesList.SStatesList_Load(My.Settings.PCSX2_PathSState, _
-                                                                                     mdlSStatesList.SStatesList)
-            Me.ListBox1.Visible = False
-            Me.ListBox1.Items.Clear()
-            For Me.SStatesList_Pos = 0 To mdlSStatesList.SStatesList.GetUpperBound(0)
-                ListBox1.Items.Add(System.String.Format("{0,-12}|{1,2}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}", _
-                                                        SStatesList(SStatesList_Pos).SStateSerial, _
-                                                        SStatesList(SStatesList_Pos).Slot.ToString, _
-                                                        SStatesList(SStatesList_Pos).isBackup.ToString, _
-                                                        SStatesList(SStatesList_Pos).FileInfo.Name, _
-                                                        SStatesList(SStatesList_Pos).FileInfo.Length / 1024 ^ 2, _
-                                                        SStatesList(SStatesList_Pos).FileInfo.LastWriteTime.ToString, _
-                                                        SStatesList(SStatesList_Pos).FileInfo.Attributes.ToString))
-            Next SStatesList_Pos
-            Me.ListBox1.Visible = True
-            Me.SStatesList_Pos = 0
-            ShowStatus()
-        End If
+    Private Sub tsShowSavestatesAll_Click(sender As System.Object, e As System.EventArgs) Handles tsShowSavestatesAll.Click
+        Me.ListFiles(mdlFileList.GamesList, ListKeys.Savestates)
     End Sub
 
+    Private Sub tsShowBackupsAll_Click(sender As System.Object, e As System.EventArgs) Handles tsShowBackupsAll.Click
+        Me.ListFiles(mdlFileList.GamesList, ListKeys.Savestates_Backup)
+    End Sub
+
+    Private Sub tsShowSavestatesUIList_Click(sender As System.Object, e As System.EventArgs) Handles tsShowSavestatesUIList.Click
+        Me.ListBox1.BeginUpdate()
+        Me.ListBox1.Items.Clear()
+        For Each myFile As FileInfo In mdlMain.currentFiles
+            ListBox1.Items.Add(String.Format("{0,-12}|{1,3}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}",
+                                             mdlFileList.SStates_GetSerial(myFile.Name),
+                                             mdlFileList.SStates_GetSlot(myFile.Name).ToString,
+                                             mdlFileList.SStates_GetType(myFile.Name).ToString,
+                                             myFile.Name,
+                                             myFile.Length / 1024 ^ 2,
+                                             myFile.LastWriteTime.ToString,
+                                             myFile.Attributes.ToString))
+
+        Next
+        Me.ListBox1.EndUpdate()
+    End Sub
+
+    Private Sub tsShowSavestatesUIListChecked_Click(sender As System.Object, e As System.EventArgs) Handles tsShowSavestatesUIListChecked.Click
+        Me.ListBox1.BeginUpdate()
+        Me.ListBox1.Items.Clear()
+        For Each myFile As FileInfo In mdlMain.checkedFiles
+            ListBox1.Items.Add(String.Format("{0,-12}|{1,3}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}",
+                                             mdlFileList.SStates_GetSerial(myFile.Name),
+                                             mdlFileList.SStates_GetSlot(myFile.Name).ToString,
+                                             mdlFileList.SStates_GetType(myFile.Name).ToString,
+                                             myFile.Name,
+                                             myFile.Length / 1024 ^ 2,
+                                             myFile.LastWriteTime.ToString,
+                                             myFile.Attributes.ToString))
+        Next
+        Me.ListBox1.EndUpdate()
+    End Sub
+
+    Private Sub ListFiles(ByVal pGameList As Dictionary(Of String, Dictionary(Of mdlFileList.ListKeys, mdlFileList.rFileList)),
+                          ByVal pFileType As mdlFileList.ListKeys)
+        Me.ListBox1.BeginUpdate()
+        Me.ListBox1.Items.Clear()
+        For Each myGame As KeyValuePair(Of String, Dictionary(Of mdlFileList.ListKeys, mdlFileList.rFileList)) In pGameList
+            Dim myFileList As New mdlFileList.rFileList
+            If myGame.Value.TryGetValue(pFileType, myFileList) Then
+                For Each myFile As KeyValuePair(Of String, FileInfo) In myFileList.InfoList
+                    ListBox1.Items.Add(String.Format("{0,-12}|{1,3}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}",
+                                                     mdlFileList.SStates_GetSerial(myFile.Value.Name),
+                                                     mdlFileList.SStates_GetSlot(myFile.Value.Name).ToString,
+                                                     mdlFileList.SStates_GetType(myFile.Value.Name).ToString,
+                                                     myFile.Value.Name,
+                                                     myFile.Value.Length / 1024 ^ 2,
+                                                     myFile.Value.LastWriteTime.ToString,
+                                                     myFile.Value.Attributes.ToString))
+                Next
+            End If
+        Next
+        Me.ListBox1.EndUpdate()
+    End Sub
 End Class
