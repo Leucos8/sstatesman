@@ -1,5 +1,5 @@
 ﻿'   SStatesMan - a savestate managing tool for PCSX2
-'   Copyright (C) 2011 - Leucos
+'   Copyright (C) 2011-2012 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
 '   the terms of the GNU Lesser General Public License as published by the Free
@@ -19,14 +19,14 @@ Module mdlMain
 
     Public Sub FirstRun()
         'Show the warning message
-        'If My.Settings.SStateMan_Channel.ToLower = "alpha" Then
+        'If My.Settings.SStatesMan_Channel.ToLower = "alpha" Then
         '    System.Windows.Forms.MessageBox.Show(System.String.Format("{0} version {1} {2}" & vbCrLf & _
         '                                         "This is an {3} version, for tests only. Do not redistribute." & vbCrLf & _
         '                                         "The warnings have been issued, now enjoy the application :)", _
         '                                         My.Application.Info.ProductName.ToString, _
         '                                         My.Application.Info.Version.ToString, _
-        '                                         My.Settings.SStateMan_Channel, _
-        '                                         My.Settings.SStateMan_Channel.ToUpper), _
+        '                                         My.Settings.SStatesMan_Channel, _
+        '                                         My.Settings.SStatesMan_Channel.ToUpper), _
         '                                         My.Application.Info.ProductName, _
         '                                         MessageBoxButtons.OK, _
         '                                         MessageBoxIcon.Information)
@@ -34,7 +34,7 @@ Module mdlMain
         My.Settings.Reset()
         PCSX2_PathAll_Detect()
 
-        My.Settings.SStateMan_FirstRun2 = False
+        My.Settings.SStatesMan_FirstRun2 = False
         My.Settings.Save()
     End Sub
 
@@ -51,7 +51,7 @@ Module mdlMain
         PCSX2_PathBin_Detect = False
 
         Try
-            Using PCSX2_Registry As Microsoft.Win32.RegistryKey = My.Computer.Registry.CurrentUser.OpenSubKey(My.Settings.PCSX2_PathRegKey)
+            Using PCSX2_Registry As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(My.Settings.PCSX2_PathRegKey)
                 'OpenSubKey returns Nothing if the key doesn't exist
                 If PCSX2_Registry IsNot Nothing Then
                     'I assume that the installation found in the registry is the good one
@@ -64,7 +64,7 @@ Module mdlMain
                                                  & vbCrLf & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
-        If My.Computer.FileSystem.DirectoryExists(pResult) Then
+        If System.IO.Directory.Exists(pResult) Then
             PCSX2_PathBin_Detect = True
         Else
             pResult = "Not detected"
@@ -75,14 +75,14 @@ Module mdlMain
         pResult = "Not detected"
         PCSX2_PathInis_Detect = False
         Try
-            If My.Settings.PCSX2_PathBinSet And My.Computer.FileSystem.DirectoryExists(My.Settings.PCSX2_PathBin) Then
+            If My.Settings.PCSX2_PathBinSet And System.IO.Directory.Exists(My.Settings.PCSX2_PathBin) Then
                 'Check if it is the case of a user who installed PCSX2 in usermode and then switched to portable mode
-                If My.Computer.FileSystem.FileExists(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathBin, "portable.ini")) Then
+                If System.IO.File.Exists(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathBin, "portable.ini")) Then
                     'If so the inis are in the "inis" folder of the PCSX2 binaries directory
                     pResult = My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathBin, "inis")
                 Else
                     'Else the registry value is checked                                 SettingsFolder
-                    Using PCSX2_Registry As Microsoft.Win32.RegistryKey = My.Computer.Registry.CurrentUser.OpenSubKey(My.Settings.PCSX2_PathRegKey)
+                    Using PCSX2_Registry As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(My.Settings.PCSX2_PathRegKey)
                         'OpenSubKey returns Nothing if the key doesn't exist
                         If PCSX2_Registry IsNot Nothing Then
                             'I assume that the installation found in the registry is the good one
@@ -98,7 +98,7 @@ Module mdlMain
                                                  & vbCrLf & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
-        If My.Computer.FileSystem.DirectoryExists(pResult) Then
+        If System.IO.Directory.Exists(pResult) Then
             PCSX2_PathInis_Detect = True
         Else
             pResult = "Not detected"
@@ -109,11 +109,11 @@ Module mdlMain
         pResult = "Not detected"
         PCSX2_PathSStates_Detect = False
 
-        If My.Settings.PCSX2_PathInisSet And My.Computer.FileSystem.DirectoryExists(My.Settings.PCSX2_PathInis) Then
+        If My.Settings.PCSX2_PathInisSet And System.IO.Directory.Exists(My.Settings.PCSX2_PathInis) Then
             'If PCSX2_UI.ini is present in the set inis directory
-            If My.Computer.FileSystem.FileExists(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename)) Then
+            If System.IO.File.Exists(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename)) Then
                 'PCSX2_UI.ini is read and checked for the savestates folder
-                Using PCSX2UI_reader = My.Computer.FileSystem.OpenTextFileReader(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename))
+                Using PCSX2UI_reader As New System.IO.StreamReader(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename))
                     While Not PCSX2UI_reader.EndOfStream
                         Dim sTmp1 As System.String = PCSX2UI_reader.ReadLine.Trim
 
@@ -133,7 +133,7 @@ Module mdlMain
             End If
         End If
 
-        If My.Computer.FileSystem.DirectoryExists(pResult) Then
+        If System.IO.Directory.Exists(pResult) Then
             PCSX2_PathSStates_Detect = True
         Else
             pResult = "Not detected"
@@ -141,21 +141,21 @@ Module mdlMain
     End Function
 
     Public Function PCSX2_PathAll_Check() As System.Boolean
-        If My.Computer.FileSystem.DirectoryExists(My.Settings.PCSX2_PathBin) Then
+        If System.IO.Directory.Exists(My.Settings.PCSX2_PathBin) Then
             My.Settings.PCSX2_PathBinSet = True
         Else
             My.Settings.PCSX2_PathBin = "Not detected"
             My.Settings.PCSX2_PathBinSet = False
         End If
 
-        If My.Computer.FileSystem.DirectoryExists(My.Settings.PCSX2_PathInis) Then
+        If System.IO.Directory.Exists(My.Settings.PCSX2_PathInis) Then
             My.Settings.PCSX2_PathInisSet = True
         Else
             My.Settings.PCSX2_PathInis = "Not detected"
             My.Settings.PCSX2_PathInisSet = False
         End If
 
-        If My.Computer.FileSystem.DirectoryExists(My.Settings.PCSX2_PathSState) Then
+        If System.IO.Directory.Exists(My.Settings.PCSX2_PathSState) Then
             My.Settings.PCSX2_PathSStatesSet = True
         Else
             My.Settings.PCSX2_PathSState = "Not detected"
@@ -170,5 +170,94 @@ Module mdlMain
             PCSX2_PathAll_Check = False
         End If
     End Function
+
+    Public Function assignFlag(ByVal pRegionToCheck As System.String, Optional ByVal pSerialToCheck As System.String = "") As System.Drawing.Bitmap
+        assignFlag = My.Resources.Flag_0Null_30x20
+        If pRegionToCheck IsNot Nothing And pSerialToCheck IsNot Nothing Then
+            pRegionToCheck = pRegionToCheck.ToUpper
+            If pRegionToCheck.StartsWith("PAL") Then
+                If pRegionToCheck.StartsWith("PAL-I") Then
+                    assignFlag = My.Resources.Flag_Italy_30x20
+                ElseIf pRegionToCheck.StartsWith("PAL-F") Then
+                    assignFlag = My.Resources.Flag_France_30x20
+                ElseIf pRegionToCheck.StartsWith("PAL-GR") Then
+                    assignFlag = My.Resources.Flag_Greece_30x20
+                ElseIf pRegionToCheck.StartsWith("PAL-G") Or pRegionToCheck.StartsWith("PAL-D") Then
+                    If System.Globalization.CultureInfo.CurrentCulture.ThreeLetterISOLanguageName = "AUT" Then
+                        assignFlag = My.Resources.Flag_Austria_30x20
+                    Else : assignFlag = My.Resources.Flag_Germany_30x20
+                    End If
+                    'ElseIf pRegionToCheck.StartsWith("PAL-SW") Then
+                    '    assignFlag = My.Resources.Flag_Switzerland_30x20
+                ElseIf pRegionToCheck.StartsWith("PAL-S") Then
+                    assignFlag = My.Resources.Flag_Spain_30x20
+                ElseIf pRegionToCheck.StartsWith("PAL-E") Then
+                    If System.Globalization.CultureInfo.CurrentCulture.ThreeLetterISOLanguageName = "AUS" Then
+                        assignFlag = My.Resources.Flag_Australia_30x20
+                    Else : assignFlag = My.Resources.Flag_UK_30x20
+                    End If
+                ElseIf pRegionToCheck.StartsWith("PAL-P") Then
+                    assignFlag = My.Resources.Flag_Poland_30x20
+                ElseIf pRegionToCheck.StartsWith("PAL-R") Then
+                    assignFlag = My.Resources.Flag_Russia_30x20
+                ElseIf pRegionToCheck.StartsWith("PAL-N") Then
+                    assignFlag = My.Resources.Flag_Netherlands_30x20
+                Else
+                    If System.Globalization.CultureInfo.CurrentCulture.ThreeLetterISOLanguageName = "AUS" Then
+                        assignFlag = My.Resources.Flag_Australia_30x20
+                    Else : assignFlag = My.Resources.Flag_Europe_Union_30x20
+                    End If
+                End If
+            ElseIf pRegionToCheck.StartsWith("NTSC") Then
+                If pRegionToCheck.StartsWith("NTSC-CH") Then
+                    assignFlag = My.Resources.Flag_China_30x20
+                ElseIf pRegionToCheck.StartsWith("NTSC-K") Or _
+                    pSerialToCheck.StartsWith("SCKA") Or _
+                    pSerialToCheck.StartsWith("SLKA") Then
+                    assignFlag = My.Resources.Flag_South_Korea_30x20
+                ElseIf pRegionToCheck.StartsWith("NTSC-J") Or _
+                    pSerialToCheck.StartsWith("SCPS") Or _
+                    pSerialToCheck.StartsWith("SLPM") Or _
+                    pSerialToCheck.StartsWith("SLPS") Then
+                    assignFlag = My.Resources.Flag_Japan_30x20
+                ElseIf ((Not (pRegionToCheck = "NTSC-UNK")) And pRegionToCheck.StartsWith("NTSC-U")) Or _
+                    pSerialToCheck.StartsWith("SCUS") Or _
+                    pSerialToCheck.StartsWith("SLUS") Then
+                    If System.Globalization.CultureInfo.CurrentCulture.ThreeLetterISOLanguageName = "CAN" Then
+                        assignFlag = My.Resources.Flag_Canada_30x20
+                    Else : assignFlag = My.Resources.Flag_US_30x20
+                    End If
+                End If
+            End If
+        End If
+    End Function
+
+    Public Function assignCompatText(ByVal pCompat As System.String) As System.String
+        Select Case pCompat
+            Case "0" : assignCompatText = "Unknown"
+            Case "1" : assignCompatText = "Nothing"
+            Case "2" : assignCompatText = "Intro"
+            Case "3" : assignCompatText = "Menus"
+            Case "4" : assignCompatText = "in-Game"
+            Case "5" : assignCompatText = "Playable"
+            Case "6" : assignCompatText = "Perfect"
+            Case "" : assignCompatText = "Missing"
+            Case Else : assignCompatText = "Undetected"
+        End Select
+    End Function
+
+    Public Function assignCompatColor(ByVal pCompat As System.String, ByVal pBGcolor As System.Drawing.Color) As System.Drawing.Color
+        Select Case pCompat
+            Case "0" : assignCompatColor = pBGcolor  'Unknown
+            Case "1" : assignCompatColor = Color.FromArgb(255, 255, 192, 192)  'Nothing:    Red
+            Case "2" : assignCompatColor = Color.FromArgb(255, 255, 224, 192)  'Intro:      Orange
+            Case "3" : assignCompatColor = Color.FromArgb(255, 255, 255, 192)  'Menus:      Yellow
+            Case "4" : assignCompatColor = Color.FromArgb(255, 255, 192, 255)  'in-Game:    Purple
+            Case "5" : assignCompatColor = Color.FromArgb(255, 192, 255, 192)  'Playable:   Green
+            Case "6" : assignCompatColor = Color.FromArgb(255, 192, 192, 255)  'Perfect:    Blue
+            Case Else : assignCompatColor = pBGcolor
+        End Select
+    End Function
+
 
 End Module

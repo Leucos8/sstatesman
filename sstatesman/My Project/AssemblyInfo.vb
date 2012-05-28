@@ -1,5 +1,5 @@
 ﻿'   SStatesMan - a savestate managing tool for PCSX2
-'   Copyright (C) 2011 - Leucos
+'   Copyright (C) 2011-2012 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
 '   the terms of the GNU Lesser General Public License as published by the Free
@@ -12,6 +12,8 @@
 '
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
+Imports System.Resources
+
 Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
@@ -26,7 +28,7 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyDescription("a savestate managing tool for PCSX2")> 
 <Assembly: AssemblyCompany("Leucos")> 
 <Assembly: AssemblyProduct("SStatesMan")> 
-<Assembly: AssemblyCopyright("Copyright (C) 2011 - Leucos")> 
+<Assembly: AssemblyCopyright("Copyright ©  2011-2012 - Leucos")> 
 <Assembly: AssemblyTrademark("")> 
 
 <Assembly: ComVisible(False)> 
@@ -45,5 +47,5 @@ Imports System.Runtime.InteropServices
 ' utilizzando l'asterisco (*) come descritto di seguito:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("0.1.4.1485")> 
-<Assembly: AssemblyFileVersion("0.1.4.1485")> 
+<Assembly: AssemblyVersion("0.1.4.1492")> 
+<Assembly: AssemblyFileVersion("0.1.4.1492")> 

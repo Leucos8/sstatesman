@@ -1,5 +1,5 @@
 ﻿'   SStatesMan - a savestate managing tool for PCSX2
-'   Copyright (C) 2011 - Leucos
+'   Copyright (C) 2011-2012 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
 '   the terms of the GNU Lesser General Public License as published by the Free
@@ -166,7 +166,7 @@ Partial Class frmAbout
         'panelWindowTitle
         '
         Me.panelWindowTitle.BackColor = System.Drawing.Color.Transparent
-        Me.panelWindowTitle.BackgroundImage = Global.sstatesman.My.Resources.Resources.Bg3_1
+        Me.panelWindowTitle.BackgroundImage = Global.sstatesman.My.Resources.Resources.BG
         Me.panelWindowTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.panelWindowTitle.Controls.Add(Me.optStettingTab2)
         Me.panelWindowTitle.Controls.Add(Me.PictureBox1)
@@ -270,14 +270,15 @@ Partial Class frmAbout
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(440, 300)
+        Me.ControlBox = False
         Me.Controls.Add(Me.OKButton)
         Me.Controls.Add(Me.panelWindowTitle)
         Me.Controls.Add(Me.TableLayoutPanel)
         Me.Controls.Add(Me.TextBoxDescription)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.DimGray
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
-        Me.Icon = Global.sstatesman.My.Resources.SSM1
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.Icon = Global.sstatesman.My.Resources.Resources.SSM1
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmAbout"

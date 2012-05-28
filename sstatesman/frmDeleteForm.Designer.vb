@@ -1,5 +1,5 @@
 ﻿'   SStatesMan - a savestate managing tool for PCSX2
-'   Copyright (C) 2011 - Leucos
+'   Copyright (C) 2011-2012 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
 '   the terms of the GNU Lesser General Public License as published by the Free
@@ -75,7 +75,7 @@ Partial Class frmDeleteForm
         Me.cmdCancel.BackColor = System.Drawing.Color.White
         Me.cmdCancel.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
         Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.Silver
+        Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray
         Me.cmdCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -92,7 +92,7 @@ Partial Class frmDeleteForm
         Me.cmdDeleteSStateSelected.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdDeleteSStateSelected.BackColor = System.Drawing.Color.White
         Me.cmdDeleteSStateSelected.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdDeleteSStateSelected.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray
+        Me.cmdDeleteSStateSelected.FlatAppearance.BorderColor = System.Drawing.Color.Gray
         Me.cmdDeleteSStateSelected.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdDeleteSStateSelected.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdDeleteSStateSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -321,7 +321,7 @@ Partial Class frmDeleteForm
         'panelWindowTitle
         '
         Me.panelWindowTitle.BackColor = System.Drawing.Color.Transparent
-        Me.panelWindowTitle.BackgroundImage = Global.sstatesman.My.Resources.Resources.Bg3_1
+        Me.panelWindowTitle.BackgroundImage = Global.sstatesman.My.Resources.Resources.BG
         Me.panelWindowTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.panelWindowTitle.Controls.Add(Me.imgWindowGradientIcon)
         Me.panelWindowTitle.Controls.Add(Me.lblWindowProgramName)
@@ -341,9 +341,11 @@ Partial Class frmDeleteForm
         Me.imgWindowGradientIcon.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.imgWindowGradientIcon.BackgroundImage = Global.sstatesman.My.Resources.Resources.GradientBlueDarkH
         Me.imgWindowGradientIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.imgWindowGradientIcon.Image = Global.sstatesman.My.Resources.Resources.SSM1ico24
         Me.imgWindowGradientIcon.Location = New System.Drawing.Point(561, 0)
         Me.imgWindowGradientIcon.Name = "imgWindowGradientIcon"
         Me.imgWindowGradientIcon.Size = New System.Drawing.Size(32, 32)
+        Me.imgWindowGradientIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.imgWindowGradientIcon.TabIndex = 16
         Me.imgWindowGradientIcon.TabStop = False
         '
@@ -419,6 +421,7 @@ Partial Class frmDeleteForm
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.CancelButton = Me.cmdCancel
         Me.ClientSize = New System.Drawing.Size(632, 333)
+        Me.ControlBox = False
         Me.Controls.Add(Me.lblGameListCheck)
         Me.Controls.Add(Me.txtSStateListSelection)
         Me.Controls.Add(Me.lblSizeBackup)
@@ -436,7 +439,7 @@ Partial Class frmDeleteForm
         Me.Controls.Add(Me.cmdDeleteSStateSelected)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.ForeColor = System.Drawing.Color.DimGray
-        Me.Icon = Global.sstatesman.My.Resources.SSM1
+        Me.Icon = Global.sstatesman.My.Resources.Resources.SSM1
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(640, 320)
         Me.Name = "frmDeleteForm"

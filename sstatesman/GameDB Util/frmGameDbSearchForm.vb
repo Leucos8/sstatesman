@@ -1,5 +1,5 @@
 ﻿'   SStatesMan - a savestate managing tool for PCSX2
-'   Copyright (C) 2011 - Leucos
+'   Copyright (C) 2011-2012 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
 '   the terms of the GNU Lesser General Public License as published by the Free
@@ -34,7 +34,9 @@ Public Class frmGameDbSearchForm
             Me.ckbGameRegion.Checked = False
         End If
         If searchCkbStatus > 0 Then
-            frmGameDb.GameDbSearch_Len = frmGameDb.GameDb_Search(Me.txtSerial.Text, Me.ckbSerial.Checked, _
+            frmGameDb.SearchResultRef_Len = mdlGameDb.GameDb_Search(mdlGameDb.GameDb, mdlGameDb.GameDb_Pos, mdlGameDb.GameDb_Len, _
+                                                                 frmGameDb.SearchResultRef, frmGameDb.SearchResultRef_Pos, _
+                                                                 Me.txtSerial.Text, Me.ckbSerial.Checked, _
                                                                  Me.txtGameTitle.Text, Me.ckbGameTitle.Checked, _
                                                                  Me.txtGameRegion.Text, Me.ckbGameRegion.Checked, _
                                                                  ConvertedGameCompat, Me.ckbGameCompat.Checked, _
@@ -115,5 +117,34 @@ Public Class frmGameDbSearchForm
         Me.txtGameRegion.Text = frmGameDb.txtGameList_Region.Text
         Me.cbGameCompat.Text = frmGameDb.txtGameList_Compat.Text
         Me.UICheck()
+    End Sub
+
+    Private Sub frmGameDbSearchForm_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles Me.Paint
+        If My.Settings.SStatesMan_BGEnable Then
+            Dim linGrBrushTop As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, 0), New Point(0, 75), Color.Gainsboro, Color.WhiteSmoke)
+            Dim linGrBrushBottom As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.ClientSize.Height - 75), New Point(0, Me.ClientSize.Height), Color.WhiteSmoke, Color.Gainsboro)
+            'Dim linGrBrushToolbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.panelWindowTitle.Height), New Point(0, Me.panelWindowTitle.Height + 12), Color.Gainsboro, Color.Transparent)
+            Dim linGrBrushStatusbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.ClientSize.Height - 46), New Point(0, Me.ClientSize.Height - 34), Color.Silver, Color.Transparent)
+            'Dim linGrBrushSplitterbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 1), New Point(0, SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 13), Color.Gainsboro, Color.Transparent)
+
+            e.Graphics.FillRectangle(linGrBrushTop, 0, 0, Me.ClientSize.Width, 75)
+            e.Graphics.FillRectangle(linGrBrushBottom, 0, CInt(Me.ClientSize.Height - 74), Me.ClientSize.Width, 75)
+            'e.Graphics.FillRectangle(linGrBrushToolbar, 0, Me.panelWindowTitle.Height, Me.ClientSize.Width, 12)
+            e.Graphics.FillRectangle(linGrBrushStatusbar, 0, Me.ClientSize.Height - 46, Me.ClientSize.Width, 12)
+            'If Not (Me.SplitContainer1.Panel1Collapsed Or Me.SplitContainer1.Panel2Collapsed) Then
+            '    e.Graphics.FillRectangle(linGrBrushSplitterbar, 0, Me.SplitContainer1.Location.Y + Me.SplitContainer1.SplitterDistance + 1, Me.ClientSize.Width, 12)
+            'End If
+
+        End If
+        'e.Graphics.DrawLine(Pens.Gainsboro, 0, Me.panelWindowTitle.Height, Me.ClientSize.Width, Me.panelWindowTitle.Height)
+        'If Not (Me.SplitContainer1.Panel1Collapsed Or Me.SplitContainer1.Panel2Collapsed) Then
+        '    e.Graphics.DrawLine(Pens.Gainsboro, 0, Me.SplitContainer1.Top + Me.SplitContainer1.SplitterDistance + 1, Me.ClientSize.Width, Me.SplitContainer1.Top + Me.SplitContainer1.SplitterDistance + 1)
+        'End If
+        e.Graphics.DrawLine(Pens.DarkGray, 0, Me.ClientSize.Height - 46, Me.ClientSize.Width, Me.ClientSize.Height - 46)
+        'e.Graphics.DrawLine(Pens.DarkGray, 0, 0, 0, Me.ClientSize.Height)
+        'e.Graphics.DrawLine(Pens.DarkGray, 0, 0, Me.ClientSize.Width, 0)
+        'e.Graphics.DrawLine(Pens.DarkGray, Me.ClientSize.Width - 1, 0, Me.ClientSize.Width - 1, Me.ClientSize.Height)
+        'e.Graphics.DrawLine(Pens.DarkGray, 0, Me.ClientSize.Height - 1, Me.ClientSize.Width, Me.ClientSize.Height - 1)
+
     End Sub
 End Class

@@ -1,5 +1,5 @@
 ﻿'   SStatesMan - a savestate managing tool for PCSX2
-'   Copyright (C) 2011 - Leucos
+'   Copyright (C) 2011-2012 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
 '   the terms of the GNU Lesser General Public License as published by the Free
@@ -41,7 +41,7 @@ Public Class frmMain
     Friend Const frmMainSStatesLvwColumn_FileName As System.Byte = 0
     Friend Const frmMainSStatesLvwColumn_Slot As System.Byte = 1
     Friend Const frmMainSStatesLvwColumn_Backup As System.Byte = 2
-    Friend Const frmMainSStatesLvwColumn_CreationDate As System.Byte = 3
+    Friend Const frmMainSStatesLvwColumn_LastWriteDate As System.Byte = 3
     Friend Const frmMainSStatesLvwColumn_Size As System.Byte = 4
     Friend Const frmMainSStatesLvwColumn_SerialRef As System.Byte = 5
     Friend Const frmMainSStatesLvwColumn_ArrayRef As System.Byte = 6
@@ -49,17 +49,21 @@ Public Class frmMain
     Private Sub frmMain_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         'Me.SetStyle(ControlStyles.ResizeRedraw, True)
 
-        If My.Settings.SStateMan_FirstRun2 = True Then  'Executes the FirstRun procedure (it tries to detect PCSX2 folders)
+        If My.Settings.SStatesMan_FirstRun2 = True Then  'Executes the FirstRun procedure (it tries to detect PCSX2 folders)
             mdlMain.FirstRun()
         End If
-        My.Settings.SStateMan_SettingFail = mdlMain.PCSX2_PathAll_Check()   'Checks if there are some invalid settings
-        If My.Settings.SStateMan_SettingFail Then                           'Show the settings dialog
+        My.Settings.SStatesMan_SettingFail = mdlMain.PCSX2_PathAll_Check()   'Checks if there are some invalid settings
+        If My.Settings.SStatesMan_SettingFail Then                           'Show the settings dialog
             frmSettings.ShowDialog(Me)
+        End If
+
+        If My.Settings.SStatesMan_SStatesListAutoRefresh Then
+            Me.tmrSStatesListRefresh.Enabled = True
         End If
 
         Me.lblWindowVersion.Text = System.String.Concat(Me.lblWindowVersion.Text, _
                                                         My.Application.Info.Version.ToString, " ", _
-                                                        My.Settings.SStateMan_Channel) 'Add version information to the main window
+                                                        My.Settings.SStatesMan_Channel) 'Add version information to the main window
 
         Dim imlLvwCheckboxes As New System.Windows.Forms.ImageList          'Listviews checkboxes (stateimagelist)
         imlLvwCheckboxes.ImageSize = New System.Drawing.Size(11, 11)        'Setting up the size
@@ -80,7 +84,7 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_Paint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
-        If My.Settings.SStateMan_BGEnable Then
+        If My.Settings.SStatesMan_BGEnable Then
             Dim linGrBrushTop As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, 0), New Point(0, 150), Color.Gainsboro, Color.WhiteSmoke)
             Dim linGrBrushBottom As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.ClientSize.Height - 150), New Point(0, Me.ClientSize.Height), Color.WhiteSmoke, Color.Gainsboro)
             Dim linGrBrushToolbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.panelWindowTitle.Height), New Point(0, Me.panelWindowTitle.Height + 12), Color.Gainsboro, Color.Transparent)
@@ -281,18 +285,18 @@ Public Class frmMain
     Public Sub GamesLvw_Refresh()
         Me.UIEnabled(False)
 
-        mdlSStateList.SStateList_Len = mdlSStateList.SStateList_Load(My.Settings.PCSX2_PathSState, _
-                                                                     mdlSStateList.SStateList, _
-                                                                     mdlSStateList.SStateList_Pos)
+        mdlSStatesList.SStatesList_Len = mdlSStatesList.SStatesList_Load2(My.Settings.PCSX2_PathSState, _
+                                                                     mdlSStatesList.SStatesList, _
+                                                                     mdlSStatesList.SStatesList_Pos)
 
-        mdlSStateList.SStateGameIndex_Len = mdlSStateList.SStateGameIndex_Load(mdlSStateList.SStateList, _
-                                                                               mdlSStateList.SStateList_Pos, _
-                                                                               mdlSStateList.SStateList_Len, _
+        mdlGamesIndexSS.GamesIndexSS_Len = mdlGamesIndexSS.GameIndexSS_Load(mdlSStatesList.SStatesList, _
+                                                                               mdlSStatesList.SStatesList_Pos, _
+                                                                               mdlSStatesList.SStatesList_Len, _
                                                                                mdlGameDb.GameDb, _
                                                                                mdlGameDb.GameDb_Pos, _
                                                                                mdlGameDb.GameDb_Len, _
-                                                                               mdlSStateList.SStateGameIndex, _
-                                                                               mdlSStateList.SStateGameIndex_Pos)
+                                                                               mdlGamesIndexSS.GamesIndexSS, _
+                                                                               mdlGamesIndexSS.GamesIndexSS_Pos)
         Me.lvwGamesList.Items.Clear()
         Me.lvwSStatesList.Items.Clear()
         Me.lvwSStatesList.Groups.Clear()
@@ -303,24 +307,24 @@ Public Class frmMain
         Me.lvwGamesList.LargeImageList = smImageList
 
 
-        For mdlSStateList.SStateGameIndex_Pos = 1 To mdlSStateList.SStateGameIndex_Len Step 1
+        For mdlGamesIndexSS.GamesIndexSS_Pos = 1 To mdlGamesIndexSS.GamesIndexSS_Len Step 1
             Dim GameList_ItemTmp As New System.Windows.Forms.ListViewItem
-            GameList_ItemTmp.Text = mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Name
+            GameList_ItemTmp.Text = mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Name
             GameList_ItemTmp.UseItemStyleForSubItems = False
             With GameList_ItemTmp.SubItems
-                .Add(mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Serial)
-                .Add(mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Region)
-                .Add(System.String.Format("{0:#,##0} × {1:#,##0.00} MiB",
-                                          mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStateList_Count, _
-                                          mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStates_SizeTotal / 1024 ^ 2))
-                .Add(System.String.Format("{0:#,##0} × {1:#,##0.00} MiB",
-                                          mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStateListBackup_Count, _
-                                          mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStatesBackup_SizeTotal / 1024 ^ 2))
-                .Add(mdlSStateList.SStateGameIndex_Pos.ToString)
+                .Add(mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Serial)
+                .Add(mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Region)
+                .Add(System.String.Format("{0:#,##0} × {1:#,##0.00} MB",
+                                          mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Count, _
+                                          mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_SizeTot / 1024 ^ 2))
+                .Add(System.String.Format("{0:#,##0} × {1:#,##0.00} MB",
+                                          mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Bck_Count, _
+                                          mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Bck_SizeTot / 1024 ^ 2))
+                .Add(mdlGamesIndexSS.GamesIndexSS_Pos.ToString)
             End With
 
-            If My.Computer.FileSystem.FileExists(My.Computer.FileSystem.CombinePath(My.Settings.SStateMan_PathPics, mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Serial & ".jpg")) Then
-                smImageList.Images.Add(Bitmap.FromFile(My.Computer.FileSystem.CombinePath(My.Settings.SStateMan_PathPics, mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Serial & ".jpg")))
+            If System.IO.File.Exists(My.Computer.FileSystem.CombinePath(My.Settings.SStatesMan_PathPics, mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Serial & ".jpg")) Then
+                smImageList.Images.Add(System.Drawing.Bitmap.FromFile(My.Computer.FileSystem.CombinePath(My.Settings.SStatesMan_PathPics, mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Serial & ".jpg")))
                 GameList_ItemTmp.ImageIndex = smImageList.Images.Count - 1
             Else
                 GameList_ItemTmp.ImageIndex = 0
@@ -328,7 +332,7 @@ Public Class frmMain
 
 
             Me.lvwGamesList.Items.Add(GameList_ItemTmp)
-        Next SStateGameIndex_Pos
+        Next GamesIndexSS_Pos
 
         'Me.lvwGamesList.LargeImageList = smImageList
 
@@ -362,21 +366,21 @@ Public Class frmMain
         Dim ItemCount As System.Int32 = lvwGamesList.Items.Count - 1
         If ItemCount > 0 Then
             Do While ItemIndex <= ItemCount
-                mdlSStateList.SStateGameIndex_Pos = CInt(lvwGamesList.Items(ItemIndex).SubItems(frmMainGamesLvwColumn_ArrayRef).Text)
-                If mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStateList_Count > 0 Or _
-                    mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStateListBackup_Count > 0 Then
-                    lvwGamesList.Items(ItemIndex).SubItems(frmMainGamesLvwColumn_SStateInfo).Text = System.String.Format("{0:#,##0} × {1:#,##0.00} MiB",
-                                          mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStateList_Count, _
-                                          mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStates_SizeTotal / 1024 ^ 2)
+                mdlGamesIndexSS.GamesIndexSS_Pos = CInt(lvwGamesList.Items(ItemIndex).SubItems(frmMainGamesLvwColumn_ArrayRef).Text)
+                If mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Count > 0 Or _
+                    mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Bck_Count > 0 Then
+                    lvwGamesList.Items(ItemIndex).SubItems(frmMainGamesLvwColumn_SStateInfo).Text = System.String.Format("{0:#,##0} × {1:#,##0.00} MB",
+                                          mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Count, _
+                                          mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_SizeTot / 1024 ^ 2)
 
-                    lvwGamesList.Items(ItemIndex).SubItems(frmMainGamesLvwColumn_SStateBackupInfo).Text = System.String.Format("{0:#,##0} × {1:#,##0.00} MiB",
-                                          mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStateListBackup_Count, _
-                                          mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStatesBackup_SizeTotal / 1024 ^ 2)
+                    lvwGamesList.Items(ItemIndex).SubItems(frmMainGamesLvwColumn_SStateBackupInfo).Text = System.String.Format("{0:#,##0} × {1:#,##0.00} MB",
+                                          mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Bck_Count, _
+                                          mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Bck_SizeTot / 1024 ^ 2)
 
-                    ItemIndex = ItemIndex + 1
+                    ItemIndex += 1
                 Else
                     lvwGamesList.Items(ItemIndex).Remove()
-                    ItemCount = ItemCount - 1
+                    ItemCount -= 1
                 End If
             Loop
         End If
@@ -418,16 +422,16 @@ Public Class frmMain
         If Me.lvwGamesList.CheckedItems.Count > 0 Then
 
             For Each GameList_ItemChecked As System.Windows.Forms.ListViewItem In Me.lvwGamesList.CheckedItems
-                mdlSStateList.SStateGameIndex_Pos = CInt(GameList_ItemChecked.SubItems(frmMainGamesLvwColumn_ArrayRef).Text)
+                mdlGamesIndexSS.GamesIndexSS_Pos = CInt(GameList_ItemChecked.SubItems(frmMainGamesLvwColumn_ArrayRef).Text)
                 Dim SStateList_GroupTmp As New System.Windows.Forms.ListViewGroup
 
                 With SStateList_GroupTmp
                     .Header = System.String.Format("{0} ({1}) [{2}]", _
-                                                   mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Name, _
-                                                   mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Region, _
-                                                   mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Serial)
+                                                   mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Name, _
+                                                   mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Region, _
+                                                   mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Serial)
                     .HeaderAlignment = System.Windows.Forms.HorizontalAlignment.Left
-                    .Name = mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Serial
+                    .Name = mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Serial
                 End With
                 Me.lvwSStatesList.Groups.Add(SStateList_GroupTmp)
 
@@ -437,23 +441,23 @@ Public Class frmMain
                     Me.lvwSStatesList.ShowGroups = False
                 End If
 
-                GamesLvw_SelectedSize = GamesLvw_SelectedSize + mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStates_SizeTotal
-                GamesLvw_SelectedSizeBackup = GamesLvw_SelectedSizeBackup + mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStatesBackup_SizeTotal
+                GamesLvw_SelectedSize = GamesLvw_SelectedSize + mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_SizeTot
+                GamesLvw_SelectedSizeBackup = GamesLvw_SelectedSizeBackup + mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Bck_SizeTot
 
-                For mdlSStateList.SStateList_Pos = (mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStateList_Start) _
-                    To (mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStateList_End)
+                For mdlSStatesList.SStatesList_Pos = (mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStatesList_StartPos) _
+                    To (mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStatesList_EndPos)
 
-                    If mdlSStateList.SStateList(SStateList_Pos).isDeleted = False Then
+                    If mdlSStatesList.SStatesList(SStatesList_Pos).isDeleted = False Then
                         Dim SStateList_ItemTmp As New System.Windows.Forms.ListViewItem
                         With SStateList_ItemTmp
-                            .Text = mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).FileInfo.Name
-                            .SubItems.Add(mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).SStateSlot.ToString)
-                            .SubItems.Add(mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).SStateBackup.ToString)
-                            .SubItems.Add(mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).FileInfo.CreationTime.ToString)
-                            .SubItems.Add(System.String.Format("{0:#,##0.00} MiB", _
-                                                               mdlSStateList.SStateList(SStateList_Pos).FileInfo.Length / 1024 ^ 2))
-                            .SubItems.Add(mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).SStateSerial)
-                            .SubItems.Add(mdlSStateList.SStateList_Pos.ToString)
+                            .Text = mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.Name
+                            .SubItems.Add(mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).Slot.ToString)
+                            .SubItems.Add(mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).isBackup.ToString)
+                            .SubItems.Add(mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.LastWriteTime.ToString)
+                            .SubItems.Add(System.String.Format("{0:#,##0.00} MB", _
+                                                               mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.Length / 1024 ^ 2))
+                            .SubItems.Add(mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).SStateSerial)
+                            .SubItems.Add(mdlSStatesList.SStatesList_Pos.ToString)
                             .Group = SStateList_GroupTmp
                             .UseItemStyleForSubItems = False
                         End With
@@ -463,10 +467,10 @@ Public Class frmMain
                         '    GamesLvw_SelectedSize = GamesLvw_SelectedSize + mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).FileInfo.Length
                         'End If
 
-                        If mdlSStateList.SStateList(SStateList_Pos).isDeleted Or My.Computer.FileSystem.FileExists(mdlSStateList.SStateList(SStateList_Pos).FileInfo.FullName) = False Then
+                        If mdlSStatesList.SStatesList(SStatesList_Pos).isDeleted Or System.IO.File.Exists(mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.FullName) = False Then
                             SStateList_ItemTmp.BackColor = Color.FromArgb(255, 255, 192, 192)
                             'mdlSStateList.SStateList(SStateList_Pos).isDeleted = True
-                            'mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStates_SizeTotal = mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStates_SizeTotal - mdlSStateList.SStateList(mdlSStateList.SStateGameIndex_Pos).FileInfo.Length
+                            'mdlSStateList.GameIndexSS(mdlSStateList.GameIndexSS_Pos).SStates_SizeTot = mdlSStateList.GameIndexSS(mdlSStateList.GameIndexSS_Pos).SStates_SizeTot - mdlSStateList.SStateList(mdlSStateList.GameIndexSS_Pos).FileInfo.Length
                         End If
 
                         For lvwSubitemIndex = 1 To SStateList_ItemTmp.SubItems.Count - 1
@@ -483,24 +487,24 @@ Public Class frmMain
 
                         Me.lvwSStatesList.Items.Add(SStateList_ItemTmp)
                     End If
-                Next mdlSStateList.SStateList_Pos
+                Next mdlSStatesList.SStatesList_Pos
             Next
 
         ElseIf Me.lvwGamesList.SelectedItems.Count > 0 Then
 
             For Each GameList_ItemSelected As System.Windows.Forms.ListViewItem In Me.lvwGamesList.SelectedItems
-                mdlSStateList.SStateGameIndex_Pos = CInt(GameList_ItemSelected.SubItems(frmMainGamesLvwColumn_ArrayRef).Text)
+                mdlGamesIndexSS.GamesIndexSS_Pos = CInt(GameList_ItemSelected.SubItems(frmMainGamesLvwColumn_ArrayRef).Text)
 
                 Dim SStateList_GroupTmp As New System.Windows.Forms.ListViewGroup
                 'If Me.lvwGamesList.CheckedItems.Count > 1 Then
 
                 With SStateList_GroupTmp
                     .Header = System.String.Format("{0} ({1}) [{2}]", _
-                                                   mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Name, _
-                                                   mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Region, _
-                                                   mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Serial)
+                                                   mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Name, _
+                                                   mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Region, _
+                                                   mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Serial)
                     .HeaderAlignment = System.Windows.Forms.HorizontalAlignment.Left
-                    .Name = mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Serial
+                    .Name = mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Serial
                 End With
                 Me.lvwSStatesList.Groups.Add(SStateList_GroupTmp)
                 'End If
@@ -510,30 +514,30 @@ Public Class frmMain
                     Me.lvwSStatesList.ShowGroups = False
                 End If
 
-                GamesLvw_SelectedSize = GamesLvw_SelectedSize + mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStates_SizeTotal
-                GamesLvw_SelectedSizeBackup = GamesLvw_SelectedSizeBackup + mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStatesBackup_SizeTotal
+                GamesLvw_SelectedSize = GamesLvw_SelectedSize + mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_SizeTot
+                GamesLvw_SelectedSizeBackup = GamesLvw_SelectedSizeBackup + mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Bck_SizeTot
 
-                For mdlSStateList.SStateList_Pos = (mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStateList_Start) _
-                    To (mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStateList_End)
+                For mdlSStatesList.SStatesList_Pos = (mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStatesList_StartPos) _
+                    To (mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStatesList_EndPos)
 
-                    If mdlSStateList.SStateList(SStateList_Pos).isDeleted = False Then
+                    If mdlSStatesList.SStatesList(SStatesList_Pos).isDeleted = False Then
                         Dim SStateList_ItemTmp As New System.Windows.Forms.ListViewItem
                         With SStateList_ItemTmp
-                            .Text = mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).FileInfo.Name
-                            .SubItems.Add(mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).SStateSlot.ToString)
-                            .SubItems.Add(mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).SStateBackup.ToString)
-                            .SubItems.Add(mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).FileInfo.CreationTime.ToString)
-                            .SubItems.Add(System.String.Format("{0:#,##0.00} MiB", _
-                                                               mdlSStateList.SStateList(SStateList_Pos).FileInfo.Length / 1024 ^ 2))
-                            .SubItems.Add(mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).SStateSerial)
-                            .SubItems.Add(mdlSStateList.SStateList_Pos.ToString)
+                            .Text = mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.Name
+                            .SubItems.Add(mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).Slot.ToString)
+                            .SubItems.Add(mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).isBackup.ToString)
+                            .SubItems.Add(mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.LastWriteTime.ToString)
+                            .SubItems.Add(System.String.Format("{0:#,##0.00} MB", _
+                                                               mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.Length / 1024 ^ 2))
+                            .SubItems.Add(mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).SStateSerial)
+                            .SubItems.Add(mdlSStatesList.SStatesList_Pos.ToString)
                             .Group = SStateList_GroupTmp
                             .UseItemStyleForSubItems = False
                         End With
 
-                        If mdlSStateList.SStateList(SStateList_Pos).isDeleted Or My.Computer.FileSystem.FileExists(mdlSStateList.SStateList(SStateList_Pos).FileInfo.FullName) = False Then
+                        If mdlSStatesList.SStatesList(SStatesList_Pos).isDeleted Or System.IO.File.Exists(mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.FullName) = False Then
                             SStateList_ItemTmp.BackColor = Color.FromArgb(255, 255, 192, 192)
-                            'mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStates_SizeTotal = mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStates_SizeTotal - mdlSStateList.SStateList(mdlSStateList.SStateGameIndex_Pos).FileInfo.Length
+                            'mdlSStateList.GameIndexSS(mdlSStateList.GameIndexSS_Pos).SStates_SizeTot = mdlSStateList.GameIndexSS(mdlSStateList.GameIndexSS_Pos).SStates_SizeTot - mdlSStateList.SStateList(mdlSStateList.GameIndexSS_Pos).FileInfo.Length
                             'mdlSStateList.SStateList(SStateList_Pos).isDeleted = True
                         End If
 
@@ -559,11 +563,11 @@ Public Class frmMain
 
                         Me.lvwSStatesList.Items.Add(SStateList_ItemTmp)
                     End If
-                Next mdlSStateList.SStateList_Pos
+                Next mdlSStatesList.SStatesList_Pos
 
             Next
-            Me.GamesLvw_SelectedSize = SStateGameIndex(SStateGameIndex_Pos).SStates_SizeTotal
-            Me.GamesLvw_SelectedSizeBackup = SStateGameIndex(SStateGameIndex_Pos).SStatesBackup_SizeTotal
+            Me.GamesLvw_SelectedSize = GamesIndexSS(GamesIndexSS_Pos).SStates_SizeTot
+            Me.GamesLvw_SelectedSizeBackup = GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_SizeTot
             'Else
 
         End If
@@ -578,11 +582,11 @@ Public Class frmMain
         Me.SStatesLvw_SelectedSizeBackup = 0
         If Me.lvwSStatesList.Items.Count > 0 Then
             For Each SStateList_ItemChecked As ListViewItem In Me.lvwSStatesList.CheckedItems
-                mdlSStateList.SStateList_Pos = CInt(SStateList_ItemChecked.SubItems(frmMainSStatesLvwColumn_ArrayRef).Text)
-                If SStateList(SStateList_Pos).SStateBackup = False Then
-                    SStatesLvw_SelectedSize = SStatesLvw_SelectedSize + SStateList(SStateList_Pos).FileInfo.Length
+                mdlSStatesList.SStatesList_Pos = CInt(SStateList_ItemChecked.SubItems(frmMainSStatesLvwColumn_ArrayRef).Text)
+                If SStatesList(SStatesList_Pos).isBackup = False Then
+                    SStatesLvw_SelectedSize = SStatesLvw_SelectedSize + SStatesList(SStatesList_Pos).FileInfo.Length
                 Else
-                    SStatesLvw_SelectedSizeBackup = SStatesLvw_SelectedSizeBackup + SStateList(SStateList_Pos).FileInfo.Length
+                    SStatesLvw_SelectedSizeBackup = SStatesLvw_SelectedSizeBackup + SStatesList(SStatesList_Pos).FileInfo.Length
                 End If
             Next
         End If
@@ -614,21 +618,21 @@ Public Class frmMain
 
             If Me.lvwGamesList.CheckedItems.Count > 0 Or Me.lvwGamesList.SelectedItems.Count > 0 Then
 
-                Me.txtSize.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MiB", Me.SStatesLvw_SelectedSize / 1024 ^ 2, Me.GamesLvw_SelectedSize / 1024 ^ 2)
-                Me.txtSizeBackup.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MiB", Me.SStatesLvw_SelectedSizeBackup / 1024 ^ 2, Me.GamesLvw_SelectedSizeBackup / 1024 ^ 2)
-                Me.txtGameList_Title.Text = mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Name
-                Me.txtGameList_Serial.Text = mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Serial
-                Me.txtGameList_Region.Text = mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Region
-                Me.txtGameList_Compat.Text = frmGameDb.assignCompatText(mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Compat)
-                Me.txtGameList_Compat.BackColor = frmGameDb.assignCompatColor(mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Compat, Color.WhiteSmoke)
+                Me.txtSize.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MB", Me.SStatesLvw_SelectedSize / 1024 ^ 2, Me.GamesLvw_SelectedSize / 1024 ^ 2)
+                Me.txtSizeBackup.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MB", Me.SStatesLvw_SelectedSizeBackup / 1024 ^ 2, Me.GamesLvw_SelectedSizeBackup / 1024 ^ 2)
+                Me.txtGameList_Title.Text = mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Name
+                Me.txtGameList_Serial.Text = mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Serial
+                Me.txtGameList_Region.Text = mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Region
+                Me.txtGameList_Compat.Text = mdlMain.assignCompatText(mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Compat)
+                Me.txtGameList_Compat.BackColor = mdlMain.assignCompatColor(mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Compat, Color.WhiteSmoke)
                 Me.imgFlag.Visible = True
-                Me.imgFlag.Image = frmGameDb.assignFlag(mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Region, mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Serial)
+                Me.imgFlag.Image = mdlMain.assignFlag(mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Region, mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Serial)
                 Me.cmdGameSelectNone.Enabled = False
 
-                If My.Computer.FileSystem.FileExists(My.Computer.FileSystem.CombinePath(My.Settings.SStateMan_PathPics, mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Serial & ".jpg")) Then
-                    Me.imgCover.Load(My.Computer.FileSystem.CombinePath(My.Settings.SStateMan_PathPics, mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).GameInfo.Serial & ".jpg"))
+                If System.IO.File.Exists(My.Computer.FileSystem.CombinePath(My.Settings.SStatesMan_PathPics, mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Serial & ".jpg")) Then
+                    Me.imgCover.Load(My.Computer.FileSystem.CombinePath(My.Settings.SStatesMan_PathPics, mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).GameInfo.Serial & ".jpg"))
                     If Me.imgCover.Tag = "ex" Then
-                        Me.imgCover.Height = 171
+                        Me.imgCover.Height = 169
                         Me.imgCover.Width = Int(Me.imgCover.Size.Height * Me.imgCover.Image.PhysicalDimension.Width / Me.imgCover.Image.Height)
                         If Me.imgCover.Width > 126 Then
                             Me.imgCover.Width = Me.txtGameList_Title.Left - 18
@@ -642,7 +646,7 @@ Public Class frmMain
                             Me.imgCover.Height = Int(Me.imgCover.Size.Width * Me.imgCover.Image.PhysicalDimension.Height / Me.imgCover.Image.Width)
                         End If
                     End If
-                    Me.imgCover.Location = New Point(12, Me.SplitContainer1.Panel1.Height - Me.imgCover.Height - 3)
+                    Me.imgCover.Location = New Point(12, Me.SplitContainer1.Panel1.Height - Me.imgCover.Height - 5)
                     Me.imgCover.Visible = True
                 Else
                     Me.imgCover.Image = My.Resources.Flag_0Null_30x20
@@ -704,8 +708,8 @@ Public Class frmMain
 
         Else
 
-            Me.txtSize.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MiB", Me.SStatesLvw_SelectedSize / 1024 ^ 2, Me.GamesLvw_SelectedSize / 1024 ^ 2)
-            Me.txtSizeBackup.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MiB", Me.SStatesLvw_SelectedSizeBackup / 1024 ^ 2, Me.GamesLvw_SelectedSizeBackup / 1024 ^ 2)
+            Me.txtSize.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MB", Me.SStatesLvw_SelectedSize / 1024 ^ 2, Me.GamesLvw_SelectedSize / 1024 ^ 2)
+            Me.txtSizeBackup.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MB", Me.SStatesLvw_SelectedSizeBackup / 1024 ^ 2, Me.GamesLvw_SelectedSizeBackup / 1024 ^ 2)
             Me.txtSStateListSelection.Text = System.String.Format("{0:#,##0} | {1:#,##0}", Me.lvwSStatesList.CheckedItems.Count, Me.lvwSStatesList.Items.Count)
 
             Me.cmdSStateSelectInvert.Enabled = True
@@ -731,7 +735,7 @@ Public Class frmMain
 
     Private Sub imgCover_Click(sender As System.Object, e As System.EventArgs) Handles imgCover.Click
         If Me.imgCover.Tag = "min" Then
-            Me.imgCover.Height = 171
+            Me.imgCover.Height = 169
             Me.imgCover.Width = Int(Me.imgCover.Size.Height * Me.imgCover.Image.PhysicalDimension.Width / Me.imgCover.Image.Height)
             If Me.imgCover.Width > 126 Then
                 Me.imgCover.Width = Me.txtGameList_Title.Left - 18
@@ -758,7 +762,7 @@ Public Class frmMain
             Me.cmdCoverExpand.Image = My.Resources.Metro_ExpandRight
             Me.imgCover.Tag = "min"
         End If
-        Me.imgCover.Location = New Point(12, Me.SplitContainer1.Panel1.Height - Me.imgCover.Height - 3)
+        Me.imgCover.Location = New Point(12, Me.SplitContainer1.Panel1.Height - Me.imgCover.Height - 5)
         Me.cmdRefresh.Left = Me.lvwGamesList.Left + 12
     End Sub
 
@@ -806,6 +810,21 @@ Public Class frmMain
         If Me.SplitContainer1.Panel1Collapsed Then
             Me.SplitContainer1.Panel1Collapsed = False
         Else : Me.SplitContainer1.Panel2Collapsed = True
+        End If
+    End Sub
+
+    Private Sub tmrSStatesListRefresh_Tick(sender As System.Object, e As System.EventArgs) Handles tmrSStatesListRefresh.Tick
+        If My.Settings.SStatesMan_SStatesListAutoRefresh Then
+            If System.IO.Directory.Exists(My.Settings.PCSX2_PathSState) And Not frmDeleteForm.Visible Then
+                If Not (System.IO.Directory.GetLastWriteTime(My.Settings.PCSX2_PathSState) = mdlSStatesList.SStates_FolderLastModified) Then
+                    Me.Enabled = False
+                    GamesLvw_Refresh()
+                    UICheck()
+                    Me.Enabled = True
+                End If
+            End If
+        Else
+            Me.tmrSStatesListRefresh.Enabled = False
         End If
     End Sub
 End Class

@@ -1,5 +1,5 @@
 ﻿'   SStatesMan - a savestate managing tool for PCSX2
-'   Copyright (C) 2011 - Leucos
+'   Copyright (C) 2011-2012 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
 '   the terms of the GNU Lesser General Public License as published by the Free
@@ -51,94 +51,122 @@ Partial Class frmGameDbSearchForm
         'ckbSerial
         '
         Me.ckbSerial.AutoSize = True
+        Me.ckbSerial.BackColor = System.Drawing.Color.Transparent
+        Me.ckbSerial.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ckbSerial.Location = New System.Drawing.Point(12, 12)
         Me.ckbSerial.Name = "ckbSerial"
-        Me.ckbSerial.Size = New System.Drawing.Size(101, 17)
+        Me.ckbSerial.Size = New System.Drawing.Size(102, 17)
         Me.ckbSerial.TabIndex = 0
         Me.ckbSerial.Text = "Search by serial"
-        Me.ckbSerial.UseVisualStyleBackColor = True
+        Me.ckbSerial.UseVisualStyleBackColor = False
         '
         'txtSerial
         '
+        Me.txtSerial.BackColor = System.Drawing.Color.White
+        Me.txtSerial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtSerial.Enabled = False
+        Me.txtSerial.ForeColor = System.Drawing.Color.DimGray
         Me.txtSerial.Location = New System.Drawing.Point(12, 35)
         Me.txtSerial.Name = "txtSerial"
-        Me.txtSerial.Size = New System.Drawing.Size(160, 20)
+        Me.txtSerial.Size = New System.Drawing.Size(160, 22)
         Me.txtSerial.TabIndex = 1
         '
         'txtGameTitle
         '
         Me.txtGameTitle.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtGameTitle.BackColor = System.Drawing.Color.White
+        Me.txtGameTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameTitle.Enabled = False
+        Me.txtGameTitle.ForeColor = System.Drawing.Color.DimGray
         Me.txtGameTitle.Location = New System.Drawing.Point(12, 84)
         Me.txtGameTitle.Name = "txtGameTitle"
-        Me.txtGameTitle.Size = New System.Drawing.Size(326, 20)
+        Me.txtGameTitle.Size = New System.Drawing.Size(326, 22)
         Me.txtGameTitle.TabIndex = 3
         '
         'ckbGameTitle
         '
         Me.ckbGameTitle.AutoSize = True
+        Me.ckbGameTitle.BackColor = System.Drawing.Color.Transparent
+        Me.ckbGameTitle.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ckbGameTitle.Location = New System.Drawing.Point(12, 61)
         Me.ckbGameTitle.Name = "ckbGameTitle"
-        Me.ckbGameTitle.Size = New System.Drawing.Size(122, 17)
+        Me.ckbGameTitle.Size = New System.Drawing.Size(126, 17)
         Me.ckbGameTitle.TabIndex = 2
         Me.ckbGameTitle.Text = "Search by game title"
-        Me.ckbGameTitle.UseVisualStyleBackColor = True
+        Me.ckbGameTitle.UseVisualStyleBackColor = False
         '
         'txtGameRegion
         '
+        Me.txtGameRegion.BackColor = System.Drawing.Color.White
+        Me.txtGameRegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameRegion.Enabled = False
+        Me.txtGameRegion.ForeColor = System.Drawing.Color.DimGray
         Me.txtGameRegion.Location = New System.Drawing.Point(12, 133)
         Me.txtGameRegion.Name = "txtGameRegion"
-        Me.txtGameRegion.Size = New System.Drawing.Size(160, 20)
+        Me.txtGameRegion.Size = New System.Drawing.Size(160, 22)
         Me.txtGameRegion.TabIndex = 5
         '
         'ckbGameRegion
         '
         Me.ckbGameRegion.AutoSize = True
+        Me.ckbGameRegion.BackColor = System.Drawing.Color.Transparent
+        Me.ckbGameRegion.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ckbGameRegion.Location = New System.Drawing.Point(12, 110)
         Me.ckbGameRegion.Name = "ckbGameRegion"
-        Me.ckbGameRegion.Size = New System.Drawing.Size(106, 17)
+        Me.ckbGameRegion.Size = New System.Drawing.Size(109, 17)
         Me.ckbGameRegion.TabIndex = 4
         Me.ckbGameRegion.Text = "Search by region"
-        Me.ckbGameRegion.UseVisualStyleBackColor = True
+        Me.ckbGameRegion.UseVisualStyleBackColor = False
         '
         'ckbGameCompat
         '
         Me.ckbGameCompat.AutoSize = True
+        Me.ckbGameCompat.BackColor = System.Drawing.Color.Transparent
+        Me.ckbGameCompat.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ckbGameCompat.Location = New System.Drawing.Point(178, 110)
         Me.ckbGameCompat.Name = "ckbGameCompat"
-        Me.ckbGameCompat.Size = New System.Drawing.Size(112, 17)
+        Me.ckbGameCompat.Size = New System.Drawing.Size(113, 17)
         Me.ckbGameCompat.TabIndex = 6
         Me.ckbGameCompat.Text = "Search by compat"
-        Me.ckbGameCompat.UseVisualStyleBackColor = True
+        Me.ckbGameCompat.UseVisualStyleBackColor = False
         '
         'cmdSearch
         '
         Me.cmdSearch.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdSearch.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
         Me.cmdSearch.Enabled = False
-        Me.cmdSearch.Location = New System.Drawing.Point(182, 165)
+        Me.cmdSearch.FlatAppearance.BorderColor = System.Drawing.Color.Gray
+        Me.cmdSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdSearch.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdSearch.Location = New System.Drawing.Point(132, 175)
         Me.cmdSearch.Name = "cmdSearch"
-        Me.cmdSearch.Size = New System.Drawing.Size(75, 23)
+        Me.cmdSearch.Size = New System.Drawing.Size(100, 22)
         Me.cmdSearch.TabIndex = 8
-        Me.cmdSearch.Text = "Search"
+        Me.cmdSearch.Text = "SEARCH"
         Me.cmdSearch.UseVisualStyleBackColor = True
         '
         'cmdCancel
         '
         Me.cmdCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdCancel.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
         Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.cmdCancel.Location = New System.Drawing.Point(263, 165)
+        Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray
+        Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdCancel.Location = New System.Drawing.Point(238, 175)
         Me.cmdCancel.Name = "cmdCancel"
-        Me.cmdCancel.Size = New System.Drawing.Size(75, 23)
+        Me.cmdCancel.Size = New System.Drawing.Size(100, 22)
         Me.cmdCancel.TabIndex = 9
-        Me.cmdCancel.Text = "Cancel"
+        Me.cmdCancel.Text = "CANCEL"
         Me.cmdCancel.UseVisualStyleBackColor = True
         '
         'cbGameCompat
         '
+        Me.cbGameCompat.BackColor = System.Drawing.Color.White
         Me.cbGameCompat.Enabled = False
+        Me.cbGameCompat.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cbGameCompat.ForeColor = System.Drawing.Color.DimGray
         Me.cbGameCompat.FormattingEnabled = True
         Me.cbGameCompat.Items.AddRange(New Object() {"0: Unknown", "1: Nothing", "2: Intro", "3: Menus", "4: in-Game", "5: Playable", "6: Perfect", "Missing", "Undetected"})
         Me.cbGameCompat.Location = New System.Drawing.Point(178, 133)
@@ -151,7 +179,9 @@ Partial Class frmGameDbSearchForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(350, 194)
+        Me.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.ClientSize = New System.Drawing.Size(350, 209)
+        Me.ControlBox = False
         Me.Controls.Add(Me.cbGameCompat)
         Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.cmdSearch)
@@ -162,6 +192,8 @@ Partial Class frmGameDbSearchForm
         Me.Controls.Add(Me.ckbGameTitle)
         Me.Controls.Add(Me.txtSerial)
         Me.Controls.Add(Me.ckbSerial)
+        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ForeColor = System.Drawing.Color.DimGray
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False

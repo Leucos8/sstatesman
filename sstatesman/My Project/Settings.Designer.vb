@@ -1,5 +1,5 @@
 ﻿'   SStatesMan - a savestate managing tool for PCSX2
-'   Copyright (C) 2011 - Leucos
+'   Copyright (C) 2011-2012 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
 '   the terms of the GNU Lesser General Public License as published by the Free
@@ -30,7 +30,7 @@ Option Explicit On
 Namespace My
     
     <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "12.0.0.0"),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "10.0.0.0"),  _
      Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
     Partial Friend NotInheritable Class MySettings
         Inherits Global.System.Configuration.ApplicationSettingsBase
@@ -135,21 +135,21 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property SStateMan_SettingFail() As Boolean
+        Public Property SStatesMan_SettingFail() As Boolean
             Get
-                Return CType(Me("SStateMan_SettingFail"),Boolean)
+                Return CType(Me("SStatesMan_SettingFail"),Boolean)
             End Get
             Set
-                Me("SStateMan_SettingFail") = value
+                Me("SStatesMan_SettingFail") = value
             End Set
         End Property
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("alpha")>  _
-        Public ReadOnly Property SStateMan_Channel() As String
+        Public ReadOnly Property SStatesMan_Channel() As String
             Get
-                Return CType(Me("SStateMan_Channel"),String)
+                Return CType(Me("SStatesMan_Channel"),String)
             End Get
         End Property
         
@@ -192,57 +192,57 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property SStateMan_FirstRun2() As Boolean
+        Public Property SStatesMan_FirstRun2() As Boolean
             Get
-                Return CType(Me("SStateMan_FirstRun2"),Boolean)
+                Return CType(Me("SStatesMan_FirstRun2"),Boolean)
             End Get
             Set
-                Me("SStateMan_FirstRun2") = value
+                Me("SStatesMan_FirstRun2") = value
             End Set
         End Property
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property SStateMan_SStateTrash() As Boolean
+        Public Property SStatesMan_SStateTrash() As Boolean
             Get
-                Return CType(Me("SStateMan_SStateTrash"),Boolean)
+                Return CType(Me("SStatesMan_SStateTrash"),Boolean)
             End Get
             Set
-                Me("SStateMan_SStateTrash") = value
+                Me("SStatesMan_SStateTrash") = value
             End Set
         End Property
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("Not set")>  _
-        Public Property SStateMan_PathPics() As String
+        Public Property SStatesMan_PathPics() As String
             Get
-                Return CType(Me("SStateMan_PathPics"),String)
+                Return CType(Me("SStatesMan_PathPics"),String)
             End Get
             Set
-                Me("SStateMan_PathPics") = value
+                Me("SStatesMan_PathPics") = value
             End Set
         End Property
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("coverpics")>  _
-        Public ReadOnly Property SStateMan_PicsFolder() As String
+        Public ReadOnly Property SStatesMan_PicsFolder() As String
             Get
-                Return CType(Me("SStateMan_PicsFolder"),String)
+                Return CType(Me("SStatesMan_PicsFolder"),String)
             End Get
         End Property
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property SStateMan_BGEnable() As Boolean
+        Public Property SStatesMan_BGEnable() As Boolean
             Get
-                Return CType(Me("SStateMan_BGEnable"),Boolean)
+                Return CType(Me("SStatesMan_BGEnable"),Boolean)
             End Get
             Set
-                Me("SStateMan_BGEnable") = value
+                Me("SStatesMan_BGEnable") = value
             End Set
         End Property
         
@@ -289,6 +289,18 @@ Namespace My
             Get
                 Return CType(Me("PCSX2_PCSX2_uiFilename"),String)
             End Get
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property SStatesMan_SStatesListAutoRefresh() As Boolean
+            Get
+                Return CType(Me("SStatesMan_SStatesListAutoRefresh"),Boolean)
+            End Get
+            Set
+                Me("SStatesMan_SStatesListAutoRefresh") = value
+            End Set
         End Property
     End Class
 End Namespace

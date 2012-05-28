@@ -1,5 +1,5 @@
 ﻿'   SStatesMan - a savestate managing tool for PCSX2
-'   Copyright (C) 2011 - Leucos
+'   Copyright (C) 2011-2012 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
 '   the terms of the GNU Lesser General Public License as published by the Free
@@ -14,32 +14,32 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Public Class frmSStateList
     Private Sub ShowStatus()
-        Me.StatusStrip1.Items.Item(0).Text = "Position: " & (mdlSStateList.SStateList_Pos + 1).ToString("#,##0")
-        If SStateList_Len < 0 Then
+        Me.StatusStrip1.Items.Item(0).Text = "Position: " & (mdlSStatesList.SStatesList_Pos + 1).ToString("#,##0")
+        If SStatesList_Len < 0 Then
             Me.StatusStrip1.Items.Item(0).Text = "Not loaded!"
         End If
-        Me.StatusStrip1.Items.Item(1).Text = "Records: " & (mdlSStateList.SStateList_Len + 1).ToString("#,##0")
+        Me.StatusStrip1.Items.Item(1).Text = "Records: " & (mdlSStatesList.SStatesList_Len + 1).ToString("#,##0")
 
-        If mdlSStateList.SStateList_Len >= 0 Then
-            Me.LblSearchResults.Text = "Serial   = " & SStateList(SStateList_Pos).SStateSerial & vbCrLf & _
-                                       "Slot     = " & SStateList(SStateList_Pos).SStateSlot & vbCrLf & _
-                                       "Filename = " & SStateList(SStateList_Pos).FileInfo.Name & vbCrLf & _
-                                       "Size     = " & (SStateList(SStateList_Pos).FileInfo.Length / 1024 / 1024).ToString("#,##0.00 MiB") & vbCrLf & _
-                                       "Created  = " & SStateList(SStateList_Pos).FileInfo.CreationTime
+        If mdlSStatesList.SStatesList_Len >= 0 Then
+            Me.LblSearchResults.Text = "Serial   = " & SStatesList(SStatesList_Pos).SStateSerial & vbCrLf & _
+                                       "Slot     = " & SStatesList(SStatesList_Pos).Slot & vbCrLf & _
+                                       "Filename = " & SStatesList(SStatesList_Pos).FileInfo.Name & vbCrLf & _
+                                       "Size     = " & (SStatesList(SStatesList_Pos).FileInfo.Length / 1024 / 1024).ToString("#,##0.00 MB") & vbCrLf & _
+                                       "Created  = " & SStatesList(SStatesList_Pos).FileInfo.LastWriteTime
             Me.tsSStateListUnload.Enabled = True
             Me.tsListShow.Enabled = True
             Me.tsExport.Enabled = True
-            If (mdlSStateList.SStateList_Pos > 0) And (mdlSStateList.SStateList_Pos < mdlSStateList.SStateList_Len) Then
+            If (mdlSStatesList.SStatesList_Pos > 0) And (mdlSStatesList.SStatesList_Pos < mdlSStatesList.SStatesList_Len) Then
                 Me.tsRecordNext.Enabled = True
                 Me.tsRecordLast.Enabled = True
                 Me.tsRecordPrevious.Enabled = True
                 Me.tsRecordFirst.Enabled = True
-            ElseIf mdlSStateList.SStateList_Pos <= 0 Then
+            ElseIf mdlSStatesList.SStatesList_Pos <= 0 Then
                 Me.tsRecordNext.Enabled = True
                 Me.tsRecordLast.Enabled = True
                 Me.tsRecordPrevious.Enabled = False
                 Me.tsRecordFirst.Enabled = False
-            ElseIf mdlSStateList.SStateList_Pos >= mdlSStateList.SStateList_Len Then
+            ElseIf mdlSStatesList.SStatesList_Pos >= mdlSStatesList.SStatesList_Len Then
                 Me.tsRecordNext.Enabled = False
                 Me.tsRecordLast.Enabled = False
                 Me.tsRecordPrevious.Enabled = True
@@ -58,7 +58,7 @@ Public Class frmSStateList
     End Sub
 
     Private Sub ListBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ListBox1.SelectedIndexChanged
-        MdlSStateList.SStateList_Pos = Me.ListBox1.SelectedIndex
+        mdlSStatesList.SStatesList_Pos = Me.ListBox1.SelectedIndex
         ShowStatus()
     End Sub
 
@@ -67,7 +67,7 @@ Public Class frmSStateList
         If System.Windows.Forms.MessageBox.Show("Warning, unloading the SStateList *will* lead to crashes." & vbCrLf & "Reloading it won't fix this mistake." & vbCrLf & "Do you wish to continue?", _
                                                 "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
             Me.ListBox1.Items.Clear()
-            SStateList_Len = mdlSStateList.SStateList_Unload(SStateList, SStateList_Pos)
+            SStatesList_Len = mdlSStatesList.SStatesList_Unload(SStatesList, SStatesList_Pos)
             ShowStatus()
         End If
     End Sub
@@ -75,17 +75,17 @@ Public Class frmSStateList
     Private Sub tsListShow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsListShow.Click
         Me.ListBox1.Items.Clear()
         Me.ListBox1.Visible = False
-        For MdlSStateList.SStateList_Pos = 0 To SStateList_Len
-            ListBox1.Items.Add(System.String.Format("{0,-12}|{1,2}|{2,-6}|{3,-36}|{4,12:#,##0.00 MiB}|{5,20}|{6}", _
-                                                    SStateList(SStateList_Pos).SStateSerial, _
-                                                    SStateList(SStateList_Pos).SStateSlot.ToString, _
-                                                    SStateList(SStateList_Pos).SStateBackup.ToString, _
-                                                    SStateList(SStateList_Pos).FileInfo.Name, _
-                                                    SStateList(SStateList_Pos).FileInfo.Length / 1024 ^ 2, _
-                                                    SStateList(SStateList_Pos).FileInfo.CreationTime.ToString, _
-                                                    SStateList(SStateList_Pos).FileInfo.Attributes.ToString))
-        Next SStateList_Pos
-        MdlSStateList.SStateList_Pos = 0
+        For mdlSStatesList.SStatesList_Pos = 0 To SStatesList_Len
+            ListBox1.Items.Add(System.String.Format("{0,-12}|{1,2}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}", _
+                                                    SStatesList(SStatesList_Pos).SStateSerial, _
+                                                    SStatesList(SStatesList_Pos).Slot.ToString, _
+                                                    SStatesList(SStatesList_Pos).isBackup.ToString, _
+                                                    SStatesList(SStatesList_Pos).FileInfo.Name, _
+                                                    SStatesList(SStatesList_Pos).FileInfo.Length / 1024 ^ 2, _
+                                                    SStatesList(SStatesList_Pos).FileInfo.LastWriteTime.ToString, _
+                                                    SStatesList(SStatesList_Pos).FileInfo.Attributes.ToString))
+        Next SStatesList_Pos
+        mdlSStatesList.SStatesList_Pos = 0
         Me.ListBox1.Visible = True
         Me.tsListClear.Enabled = True
     End Sub
@@ -96,31 +96,31 @@ Public Class frmSStateList
     End Sub
 
     Private Sub tsExportTSVTxt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsExportTSVTxt.Click
-        Call mdlSStateList.SStateList_ExportTxt(My.Computer.FileSystem.SpecialDirectories.Desktop & "\SStateList.txt", vbTab, SStateList, SStateList_Pos, SStateList_Len)
+        Call mdlSStatesList.SStatesList_ExportTxt(System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & "\SStateList.txt", vbTab, SStatesList, SStatesList_Pos, SStatesList_Len)
         MsgBox("A dump of the array has been saved to the Desktop", MsgBoxStyle.Information, "Notice")
     End Sub
 
     Private Sub tsRecordFirst_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsRecordFirst.Click
-        MdlSStateList.SStateList_Pos = 0
+        mdlSStatesList.SStatesList_Pos = 0
         ShowStatus()
     End Sub
 
     Private Sub tsRecordPrevious_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsRecordPrevious.Click
-        If MdlSStateList.SStateList_Pos > 0 Then
-            MdlSStateList.SStateList_Pos = MdlSStateList.SStateList_Pos - 1
+        If mdlSStatesList.SStatesList_Pos > 0 Then
+            mdlSStatesList.SStatesList_Pos = mdlSStatesList.SStatesList_Pos - 1
         End If
         ShowStatus()
     End Sub
 
     Private Sub tsRecordNext_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsRecordNext.Click
-        If MdlSStateList.SStateList_Pos < MdlSStateList.SStateList_Len Then
-            MdlSStateList.SStateList_Pos = MdlSStateList.SStateList_Pos + 1
+        If mdlSStatesList.SStatesList_Pos < mdlSStatesList.SStatesList_Len Then
+            mdlSStatesList.SStatesList_Pos = mdlSStatesList.SStatesList_Pos + 1
         End If
         ShowStatus()
     End Sub
 
     Private Sub tsRecordLast_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsRecordLast.Click
-        MdlSStateList.SStateList_Pos = MdlSStateList.SStateList_Len
+        mdlSStatesList.SStatesList_Pos = mdlSStatesList.SStatesList_Len
         ShowStatus()
     End Sub
 
@@ -129,17 +129,17 @@ Public Class frmSStateList
     End Sub
 
     Private Sub tsExportCSVTxt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsExportCSVTxt.Click
-        Call mdlSStateList.SStateList_ExportTxt(My.Computer.FileSystem.SpecialDirectories.Desktop & "\SStateList.csv", ";", SStateList, SStateList_Pos, SStateList_Len)
-        MsgBox("A dump of the array has been saved to the Desktop", MsgBoxStyle.Information, "Notice")
+        Call mdlSStatesList.SStatesList_ExportTxt(System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop) & "\SStateList.csv", ";", SStatesList, SStatesList_Pos, SStatesList_Len)
+        System.Windows.Forms.MessageBox.Show("A dump of the array has been saved to the Desktop", "Notice", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
     Private Sub tsSStateListLoad_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsSStateListLoad.Click
         If System.Windows.Forms.MessageBox.Show("Warning, reloading the SStateList *will* lead to crashes." & vbCrLf & "Do you wish to continue?", _
                                                 "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) = Windows.Forms.DialogResult.Yes Then
             Me.ListBox1.Items.Clear()
-            SStateList_Len = mdlSStateList.SStateList_Load(My.Settings.PCSX2_PathSState, _
-                                                           mdlSStateList.SStateList, _
-                                                           mdlSStateList.SStateList_Pos)
+            SStatesList_Len = mdlSStatesList.SStatesList_Load(My.Settings.PCSX2_PathSState, _
+                                                           mdlSStatesList.SStatesList, _
+                                                           mdlSStatesList.SStatesList_Pos)
             ShowStatus()
         End If
     End Sub

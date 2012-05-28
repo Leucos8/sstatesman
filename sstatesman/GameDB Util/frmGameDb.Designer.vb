@@ -1,5 +1,5 @@
 ﻿'   SStatesMan - a savestate managing tool for PCSX2
-'   Copyright (C) 2011 - Leucos
+'   Copyright (C) 2011-2012 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
 '   the terms of the GNU Lesser General Public License as published by the Free
@@ -36,15 +36,12 @@ Partial Class frmGameDb
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmGameDb))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.tsGameDbLoad = New System.Windows.Forms.ToolStripSplitButton()
-        Me.LoadV1ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LoadV2ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LoadV3ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsGameDbUnload = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsListShow = New System.Windows.Forms.ToolStripButton()
@@ -76,6 +73,7 @@ Partial Class frmGameDb
         Me.ArrayRecordStatus = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ArrayPosition = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.imgFlag = New System.Windows.Forms.PictureBox()
+        Me.tsGameDbLoad = New System.Windows.Forms.ToolStripButton()
         Me.StatusStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.imgFlag, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -119,36 +117,6 @@ Partial Class frmGameDb
         Me.ToolStrip1.Size = New System.Drawing.Size(746, 25)
         Me.ToolStrip1.TabIndex = 16
         Me.ToolStrip1.Text = "ToolStrip1"
-        '
-        'tsGameDbLoad
-        '
-        Me.tsGameDbLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.tsGameDbLoad.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadV1ToolStripMenuItem, Me.LoadV2ToolStripMenuItem, Me.LoadV3ToolStripMenuItem})
-        Me.tsGameDbLoad.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsGameDbLoad.Name = "tsGameDbLoad"
-        Me.tsGameDbLoad.Size = New System.Drawing.Size(98, 22)
-        Me.tsGameDbLoad.Text = "Load &GameDB"
-        Me.tsGameDbLoad.ToolTipText = "Load the PCSX2 Game Database into an array."
-        '
-        'LoadV1ToolStripMenuItem
-        '
-        Me.LoadV1ToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 9.0!)
-        Me.LoadV1ToolStripMenuItem.Name = "LoadV1ToolStripMenuItem"
-        Me.LoadV1ToolStripMenuItem.Size = New System.Drawing.Size(263, 22)
-        Me.LoadV1ToolStripMenuItem.Text = "Load v&1 (VB6 port)"
-        '
-        'LoadV2ToolStripMenuItem
-        '
-        Me.LoadV2ToolStripMenuItem.Name = "LoadV2ToolStripMenuItem"
-        Me.LoadV2ToolStripMenuItem.Size = New System.Drawing.Size(263, 22)
-        Me.LoadV2ToolStripMenuItem.Text = "Load v&2 (VB2010 TextFieldParser)"
-        '
-        'LoadV3ToolStripMenuItem
-        '
-        Me.LoadV3ToolStripMenuItem.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
-        Me.LoadV3ToolStripMenuItem.Name = "LoadV3ToolStripMenuItem"
-        Me.LoadV3ToolStripMenuItem.Size = New System.Drawing.Size(263, 22)
-        Me.LoadV3ToolStripMenuItem.Text = "Load v&3 (VB2010 TextFileReader) "
         '
         'tsGameDbUnload
         '
@@ -414,12 +382,22 @@ Partial Class frmGameDb
         Me.imgFlag.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.imgFlag.TabIndex = 32
         Me.imgFlag.TabStop = False
-        Me.imgFlag.Visible = False
+        '
+        'tsGameDbLoad
+        '
+        Me.tsGameDbLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.tsGameDbLoad.Image = CType(resources.GetObject("tsGameDbLoad.Image"), System.Drawing.Image)
+        Me.tsGameDbLoad.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsGameDbLoad.Name = "tsGameDbLoad"
+        Me.tsGameDbLoad.Size = New System.Drawing.Size(86, 22)
+        Me.tsGameDbLoad.Text = "Load &GameDB"
+        Me.tsGameDbLoad.ToolTipText = "Load the PCSX2 Game Database into an array."
         '
         'frmGameDb
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(746, 473)
         Me.Controls.Add(Me.lvwGameDBList)
         Me.Controls.Add(Me.imgFlag)
@@ -461,9 +439,6 @@ Partial Class frmGameDb
     Private WithEvents ToolStripStatusLabel2 As System.Windows.Forms.ToolStripStatusLabel
     Private WithEvents ToolStripStatusLabel3 As System.Windows.Forms.ToolStripStatusLabel
     Private WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Private WithEvents tsGameDbLoad As System.Windows.Forms.ToolStripSplitButton
-    Private WithEvents LoadV1ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents LoadV2ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
     Private WithEvents tsListShow As System.Windows.Forms.ToolStripButton
     Private WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
@@ -477,7 +452,6 @@ Partial Class frmGameDb
     Private WithEvents tsRecordFirst As System.Windows.Forms.ToolStripButton
     Private WithEvents tsTxtSearchSerial As System.Windows.Forms.ToolStripTextBox
     Private WithEvents tsCmdSearchSerial As System.Windows.Forms.ToolStripButton
-    Private WithEvents LoadV3ToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents tsExportCSVTxt As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsCmdSearch As System.Windows.Forms.ToolStripButton
     Friend WithEvents txtGameList_Compat As System.Windows.Forms.TextBox
@@ -485,4 +459,5 @@ Partial Class frmGameDb
     Friend WithEvents txtGameList_Region As System.Windows.Forms.TextBox
     Friend WithEvents txtGameList_Title As System.Windows.Forms.TextBox
     Friend WithEvents lvwGameDBList As System.Windows.Forms.ListView
+    Private WithEvents tsGameDbLoad As System.Windows.Forms.ToolStripButton
 End Class

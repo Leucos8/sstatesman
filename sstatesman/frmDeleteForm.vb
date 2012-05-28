@@ -1,5 +1,5 @@
 ﻿'   SStatesMan - a savestate managing tool for PCSX2
-'   Copyright (C) 2011 - Leucos
+'   Copyright (C) 2011-2012 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
 '   the terms of the GNU Lesser General Public License as published by the Free
@@ -59,18 +59,18 @@ Public Class frmDeleteForm
             For Each ListItemTmp As System.Windows.Forms.ListViewItem In SStateList_Group.Items
                 If ListItemTmp.Checked = True Then
                     Dim SStateList_ItemTmp As New System.Windows.Forms.ListViewItem
-                    SStateList_Pos = CInt(ListItemTmp.SubItems(frmMain.frmMainSStatesLvwColumn_ArrayRef).Text)
-                    SStateList_ItemTmp.Text = mdlSStateList.SStateList(SStateList_Pos).FileInfo.Name
-                    SStateList_ItemTmp.SubItems.Add(SStateList(SStateList_Pos).SStateSlot.ToString)
-                    SStateList_ItemTmp.SubItems.Add(SStateList(SStateList_Pos).SStateBackup.ToString)
-                    SStateList_ItemTmp.SubItems.Add(Format((SStateList(SStateList_Pos).FileInfo.Length / 1024 / 1024), "#,##0.00 MiB"))
-                    SStateList_ItemTmp.SubItems.Add(Trim(SStateList(SStateList_Pos).SStateSerial))
-                    SStateList_ItemTmp.SubItems.Add(mdlSStateList.SStateList_Pos.ToString)
+                    SStatesList_Pos = CInt(ListItemTmp.SubItems(frmMain.frmMainSStatesLvwColumn_ArrayRef).Text)
+                    SStateList_ItemTmp.Text = mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.Name
+                    SStateList_ItemTmp.SubItems.Add(SStatesList(SStatesList_Pos).Slot.ToString)
+                    SStateList_ItemTmp.SubItems.Add(SStatesList(SStatesList_Pos).isBackup.ToString)
+                    SStateList_ItemTmp.SubItems.Add((SStatesList(SStatesList_Pos).FileInfo.Length / 1024 ^ 2).ToString("#,##0.00 MB"))
+                    SStateList_ItemTmp.SubItems.Add(SStatesList(SStatesList_Pos).SStateSerial)
+                    SStateList_ItemTmp.SubItems.Add(mdlSStatesList.SStatesList_Pos.ToString)
 
-                    If SStateList(SStateList_Pos).SStateBackup = False Then
-                        SStateList_TotalSize = SStateList_TotalSize + SStateList(SStateList_Pos).FileInfo.Length
+                    If SStatesList(SStatesList_Pos).isBackup = False Then
+                        SStateList_TotalSize = SStateList_TotalSize + SStatesList(SStatesList_Pos).FileInfo.Length
                     Else
-                        SStateList_TotalSizeBackup = SStateList_TotalSizeBackup + SStateList(SStateList_Pos).FileInfo.Length
+                        SStateList_TotalSizeBackup = SStateList_TotalSizeBackup + SStatesList(SStatesList_Pos).FileInfo.Length
                     End If
 
                     For lvwSubitemIndex = 1 To SStateList_ItemTmp.SubItems.Count - 1
@@ -86,13 +86,13 @@ Public Class frmDeleteForm
                         colorswitch = True
                     End If
 
-                    If My.Computer.FileSystem.FileExists(mdlSStateList.SStateList(SStateList_Pos).FileInfo.FullName) Then
+                    If System.IO.File.Exists(mdlSStatesList.SStatesList(SStatesList_Pos).FileInfo.FullName) Then
                         SStateList_ItemTmp.SubItems.Add("")
                         SStateList_ItemTmp.Checked = True
-                        If SStateList(SStateList_Pos).SStateBackup = False Then
-                            SStateList_TotalSizeSelected = SStateList_TotalSizeSelected + SStateList(SStateList_Pos).FileInfo.Length
+                        If SStatesList(SStatesList_Pos).isBackup = False Then
+                            SStateList_TotalSizeSelected = SStateList_TotalSizeSelected + SStatesList(SStatesList_Pos).FileInfo.Length
                         Else
-                            SStateList_TotalSizeBackupSelected = SStateList_TotalSizeBackupSelected + SStateList(SStateList_Pos).FileInfo.Length
+                            SStateList_TotalSizeBackupSelected = SStateList_TotalSizeBackupSelected + SStatesList(SStatesList_Pos).FileInfo.Length
                         End If
                     Else
                         SStateList_ItemTmp.SubItems.Add("Error: file not found or inaccessible.")
@@ -119,26 +119,27 @@ Public Class frmDeleteForm
     Private Sub cmdDeleteSStateSelected_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDeleteSStateSelected.Click
         Me.UIEnabled(False)
         For Each tmp As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
-            mdlSStateList.SStateList_Pos = CInt(tmp.SubItems(frmDelSStatesLvwColumn_ArrayRef).Text)
-            mdlSStateList.SStateGameIndex_Pos = mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).GameIndexRef
+            mdlSStatesList.SStatesList_Pos = CInt(tmp.SubItems(frmDelSStatesLvwColumn_ArrayRef).Text)
+            mdlGamesIndexSS.GamesIndexSS_Pos = mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).GameIndexRef
             Try
-                If My.Settings.SStateMan_SStateTrash = True Then
-                    My.Computer.FileSystem.DeleteFile(mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).FileInfo.FullName, _
+                If My.Settings.SStatesMan_SStateTrash = True Then
+                    My.Computer.FileSystem.DeleteFile(mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.FullName, _
                                                       FileIO.UIOption.OnlyErrorDialogs, _
                                                       FileIO.RecycleOption.SendToRecycleBin)
                 Else
-                    My.Computer.FileSystem.DeleteFile(mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).FileInfo.FullName, _
-                                                      FileIO.UIOption.OnlyErrorDialogs, _
-                                                      FileIO.RecycleOption.DeletePermanently)
+                    'My.Computer.FileSystem.DeleteFile(mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.FullName, _
+                    '                                  FileIO.UIOption.OnlyErrorDialogs, _
+                    '                                  FileIO.RecycleOption.DeletePermanently)
+                    mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.Delete()
                 End If
-                If mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).SStateBackup Then
-                    mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStatesBackup_SizeTotal = mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStatesBackup_SizeTotal - mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).FileInfo.Length
-                    mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStateListBackup_Count = mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStateListBackup_Count - 1
+                If mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).isBackup Then
+                    mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Bck_SizeTot = mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Bck_SizeTot - mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.Length
+                    mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Bck_Count = mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Bck_Count - 1
                 Else
-                    mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStates_SizeTotal = mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStates_SizeTotal - mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).FileInfo.Length
-                    mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStateList_Count = mdlSStateList.SStateGameIndex(mdlSStateList.SStateGameIndex_Pos).SStateList_Count - 1
+                    mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_SizeTot = mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_SizeTot - mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).FileInfo.Length
+                    mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Count = mdlGamesIndexSS.GamesIndexSS(mdlGamesIndexSS.GamesIndexSS_Pos).SStates_Count - 1
                 End If
-                mdlSStateList.SStateList(mdlSStateList.SStateList_Pos).isDeleted = True
+                mdlSStatesList.SStatesList(mdlSStatesList.SStatesList_Pos).isDeleted = True
                 Me.lvwSStatesListToDelete.Items(tmp.Index).SubItems(frmDelSStatesLvwColumn_Status).Text = "File deleted successfully."
                 Me.lvwSStatesListToDelete.Items(tmp.Index).BackColor = Color.FromArgb(255, 192, 255, 192)
             Catch ex As Exception
@@ -157,7 +158,7 @@ Public Class frmDeleteForm
     End Sub
 
     Private Sub frmDeleteFrom_Paint(ByVal sender As Object, ByVal e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
-        If My.Settings.SStateMan_BGEnable Then
+        If My.Settings.SStatesMan_BGEnable Then
             Dim linGrBrushTop As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, 0), New Point(0, 150), Color.Gainsboro, Color.WhiteSmoke)
             Dim linGrBrushBottom As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.ClientSize.Height - 150), New Point(0, Me.ClientSize.Height), Color.WhiteSmoke, Color.Gainsboro)
             Dim linGrBrushToolbar As New System.Drawing.Drawing2D.LinearGradientBrush(New Point(0, Me.panelWindowTitle.Height), New Point(0, Me.panelWindowTitle.Height + 12), Color.Gainsboro, Color.Transparent)
@@ -264,11 +265,11 @@ Public Class frmDeleteForm
         Me.SStateList_TotalSizeBackupSelected = 0
         If Me.lvwSStatesListToDelete.Items.Count > 0 Then
             For Each SStateList_ItemChecked As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
-                mdlSStateList.SStateList_Pos = CInt(SStateList_ItemChecked.SubItems(frmDelSStatesLvwColumn_ArrayRef).Text)
-                If SStateList(SStateList_Pos).SStateBackup = False Then
-                    SStateList_TotalSizeSelected = SStateList_TotalSizeSelected + SStateList(SStateList_Pos).FileInfo.Length
+                mdlSStatesList.SStatesList_Pos = CInt(SStateList_ItemChecked.SubItems(frmDelSStatesLvwColumn_ArrayRef).Text)
+                If SStatesList(SStatesList_Pos).isBackup = False Then
+                    SStateList_TotalSizeSelected = SStateList_TotalSizeSelected + SStatesList(SStatesList_Pos).FileInfo.Length
                 Else
-                    SStateList_TotalSizeBackupSelected = SStateList_TotalSizeBackupSelected + SStateList(SStateList_Pos).FileInfo.Length
+                    SStateList_TotalSizeBackupSelected = SStateList_TotalSizeBackupSelected + SStatesList(SStatesList_Pos).FileInfo.Length
                 End If
             Next
         End If
@@ -297,8 +298,8 @@ Public Class frmDeleteForm
             Me.cmdSStateSelectBackup.Enabled = False
             Me.cmdDeleteSStateSelected.Enabled = False
         Else
-            Me.txtSize.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MiB", Me.SStateList_TotalSizeSelected / 1024 ^ 2, Me.SStateList_TotalSize / 1024 ^ 2)
-            Me.txtSizeBackup.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MiB", Me.SStateList_TotalSizeBackupSelected / 1024 ^ 2, Me.SStateList_TotalSizeBackup / 1024 ^ 2)
+            Me.txtSize.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MB", Me.SStateList_TotalSizeSelected / 1024 ^ 2, Me.SStateList_TotalSize / 1024 ^ 2)
+            Me.txtSizeBackup.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MB", Me.SStateList_TotalSizeBackupSelected / 1024 ^ 2, Me.SStateList_TotalSizeBackup / 1024 ^ 2)
             Me.txtSStateListSelection.Text = System.String.Format("{0:#,##0} | {1:#,##0}", Me.lvwSStatesListToDelete.CheckedItems.Count, Me.lvwSStatesListToDelete.Items.Count)
             Me.cmdSStateSelectInvert.Enabled = True
             Me.cmdSStateSelectBackup.Enabled = True

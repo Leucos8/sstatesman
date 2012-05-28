@@ -1,5 +1,5 @@
 ﻿'   SStatesMan - a savestate managing tool for PCSX2
-'   Copyright (C) 2011 - Leucos
+'   Copyright (C) 2011-2012 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
 '   the terms of the GNU Lesser General Public License as published by the Free
@@ -75,9 +75,9 @@ Namespace My.Resources
             End Set
         End Property
         
-        Friend ReadOnly Property Bg3_1() As System.Drawing.Bitmap
+        Friend ReadOnly Property BG() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Bg3_1", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("BG", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -310,6 +310,13 @@ Namespace My.Resources
             Get
                 Dim obj As Object = ResourceManager.GetObject("SSM1", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property SSM1ico24() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("SSM1ico24", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
         

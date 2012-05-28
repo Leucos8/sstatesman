@@ -1,5 +1,5 @@
 ﻿'   SStatesMan - a savestate managing tool for PCSX2
-'   Copyright (C) 2011 - Leucos
+'   Copyright (C) 2011-2012 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
 '   the terms of the GNU Lesser General Public License as published by the Free
@@ -36,6 +36,7 @@ Partial Class frmMain
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.cmdSStatesLvwExpand = New System.Windows.Forms.Button()
         Me.imgCover = New System.Windows.Forms.PictureBox()
@@ -75,7 +76,7 @@ Partial Class frmMain
         Me.SStatesLvw_FileName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SStatesLvw_Slot = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SStatesLvw_Backup = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.SStatesLvw_DateCreation = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.SStatesLvw_DateLastWrite = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SStatesLvw_Size = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SStatesLvw_SerialRef = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SStatesLvw_ArrayRef = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -96,6 +97,7 @@ Partial Class frmMain
         Me.blWindowDescription = New System.Windows.Forms.Label()
         Me.imgWindowGradientIcon = New System.Windows.Forms.PictureBox()
         Me.lblWindowVersion = New System.Windows.Forms.Label()
+        Me.tmrSStatesListRefresh = New System.Windows.Forms.Timer(Me.components)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -155,8 +157,8 @@ Partial Class frmMain
         Me.SplitContainer1.Panel2.Controls.Add(Me.cmdSStateSelectAll)
         Me.SplitContainer1.Panel2.Controls.Add(Me.cmdSStateSelectNone)
         Me.SplitContainer1.Panel2MinSize = 120
-        Me.SplitContainer1.Size = New System.Drawing.Size(632, 383)
-        Me.SplitContainer1.SplitterDistance = 200
+        Me.SplitContainer1.Size = New System.Drawing.Size(632, 394)
+        Me.SplitContainer1.SplitterDistance = 205
         Me.SplitContainer1.TabIndex = 20
         '
         'cmdSStatesLvwExpand
@@ -170,7 +172,7 @@ Partial Class frmMain
         Me.cmdSStatesLvwExpand.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStatesLvwExpand.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.cmdSStatesLvwExpand.Image = Global.sstatesman.My.Resources.Resources.Metro_ExpandTop
-        Me.cmdSStatesLvwExpand.Location = New System.Drawing.Point(614, 182)
+        Me.cmdSStatesLvwExpand.Location = New System.Drawing.Point(614, 185)
         Me.cmdSStatesLvwExpand.Name = "cmdSStatesLvwExpand"
         Me.cmdSStatesLvwExpand.Size = New System.Drawing.Size(15, 15)
         Me.cmdSStatesLvwExpand.TabIndex = 30
@@ -181,7 +183,7 @@ Partial Class frmMain
         Me.imgCover.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.imgCover.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.imgCover.Image = Global.sstatesman.My.Resources.Resources.Flag_0Null_30x20
-        Me.imgCover.Location = New System.Drawing.Point(12, 146)
+        Me.imgCover.Location = New System.Drawing.Point(12, 149)
         Me.imgCover.Name = "imgCover"
         Me.imgCover.Size = New System.Drawing.Size(51, 51)
         Me.imgCover.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
@@ -196,7 +198,7 @@ Partial Class frmMain
         Me.imgFlag.BackColor = System.Drawing.Color.WhiteSmoke
         Me.imgFlag.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.imgFlag.Image = Global.sstatesman.My.Resources.Resources.Flag_0Null_30x20
-        Me.imgFlag.Location = New System.Drawing.Point(206, 176)
+        Me.imgFlag.Location = New System.Drawing.Point(206, 179)
         Me.imgFlag.Name = "imgFlag"
         Me.imgFlag.Size = New System.Drawing.Size(30, 20)
         Me.imgFlag.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
@@ -215,7 +217,7 @@ Partial Class frmMain
         Me.cmdCoverExpand.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCoverExpand.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.cmdCoverExpand.Image = Global.sstatesman.My.Resources.Resources.Metro_ExpandRight
-        Me.cmdCoverExpand.Location = New System.Drawing.Point(12, 181)
+        Me.cmdCoverExpand.Location = New System.Drawing.Point(12, 184)
         Me.cmdCoverExpand.Name = "cmdCoverExpand"
         Me.cmdCoverExpand.Size = New System.Drawing.Size(15, 15)
         Me.cmdCoverExpand.TabIndex = 29
@@ -225,7 +227,7 @@ Partial Class frmMain
         '
         Me.lblGameListCheck.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblGameListCheck.AutoSize = True
-        Me.lblGameListCheck.Location = New System.Drawing.Point(390, 6)
+        Me.lblGameListCheck.Location = New System.Drawing.Point(393, 6)
         Me.lblGameListCheck.Name = "lblGameListCheck"
         Me.lblGameListCheck.Size = New System.Drawing.Size(75, 13)
         Me.lblGameListCheck.TabIndex = 27
@@ -238,7 +240,7 @@ Partial Class frmMain
         Me.txtGameList_Compat.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtGameList_Compat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Compat.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Compat.Location = New System.Drawing.Point(501, 175)
+        Me.txtGameList_Compat.Location = New System.Drawing.Point(501, 178)
         Me.txtGameList_Compat.Name = "txtGameList_Compat"
         Me.txtGameList_Compat.ReadOnly = True
         Me.txtGameList_Compat.Size = New System.Drawing.Size(96, 22)
@@ -248,7 +250,7 @@ Partial Class frmMain
         '
         Me.lblGameList_Compat.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblGameList_Compat.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Compat.Location = New System.Drawing.Point(423, 178)
+        Me.lblGameList_Compat.Location = New System.Drawing.Point(423, 181)
         Me.lblGameList_Compat.Name = "lblGameList_Compat"
         Me.lblGameList_Compat.Size = New System.Drawing.Size(72, 13)
         Me.lblGameList_Compat.TabIndex = 24
@@ -300,7 +302,7 @@ Partial Class frmMain
         Me.cmdGameSelectAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdGameSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdGameSelectAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdGameSelectAll.Location = New System.Drawing.Point(468, 3)
+        Me.cmdGameSelectAll.Location = New System.Drawing.Point(471, 3)
         Me.cmdGameSelectAll.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdGameSelectAll.Name = "cmdGameSelectAll"
         Me.cmdGameSelectAll.Size = New System.Drawing.Size(40, 20)
@@ -318,7 +320,7 @@ Partial Class frmMain
         Me.cmdGameSelectNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdGameSelectNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdGameSelectNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdGameSelectNone.Location = New System.Drawing.Point(508, 3)
+        Me.cmdGameSelectNone.Location = New System.Drawing.Point(511, 3)
         Me.cmdGameSelectNone.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdGameSelectNone.Name = "cmdGameSelectNone"
         Me.cmdGameSelectNone.Size = New System.Drawing.Size(40, 20)
@@ -332,7 +334,7 @@ Partial Class frmMain
         Me.txtGameList_Serial.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtGameList_Serial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Serial.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Serial.Location = New System.Drawing.Point(321, 175)
+        Me.txtGameList_Serial.Location = New System.Drawing.Point(321, 178)
         Me.txtGameList_Serial.Name = "txtGameList_Serial"
         Me.txtGameList_Serial.ReadOnly = True
         Me.txtGameList_Serial.Size = New System.Drawing.Size(96, 22)
@@ -344,7 +346,7 @@ Partial Class frmMain
         Me.txtGameList_Region.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtGameList_Region.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Region.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Region.Location = New System.Drawing.Point(141, 175)
+        Me.txtGameList_Region.Location = New System.Drawing.Point(141, 178)
         Me.txtGameList_Region.Name = "txtGameList_Region"
         Me.txtGameList_Region.ReadOnly = True
         Me.txtGameList_Region.Size = New System.Drawing.Size(96, 22)
@@ -357,7 +359,7 @@ Partial Class frmMain
         Me.txtGameList_Title.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtGameList_Title.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Title.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Title.Location = New System.Drawing.Point(141, 147)
+        Me.txtGameList_Title.Location = New System.Drawing.Point(141, 150)
         Me.txtGameList_Title.Name = "txtGameList_Title"
         Me.txtGameList_Title.ReadOnly = True
         Me.txtGameList_Title.Size = New System.Drawing.Size(479, 22)
@@ -367,7 +369,7 @@ Partial Class frmMain
         '
         Me.lblGameList_Serial.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblGameList_Serial.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Serial.Location = New System.Drawing.Point(243, 178)
+        Me.lblGameList_Serial.Location = New System.Drawing.Point(243, 181)
         Me.lblGameList_Serial.Name = "lblGameList_Serial"
         Me.lblGameList_Serial.Size = New System.Drawing.Size(72, 13)
         Me.lblGameList_Serial.TabIndex = 3
@@ -378,7 +380,7 @@ Partial Class frmMain
         '
         Me.lblGameList_Region.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblGameList_Region.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Region.Location = New System.Drawing.Point(63, 178)
+        Me.lblGameList_Region.Location = New System.Drawing.Point(63, 181)
         Me.lblGameList_Region.Name = "lblGameList_Region"
         Me.lblGameList_Region.Size = New System.Drawing.Size(72, 13)
         Me.lblGameList_Region.TabIndex = 2
@@ -389,7 +391,7 @@ Partial Class frmMain
         '
         Me.lblGameList_Title.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblGameList_Title.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Title.Location = New System.Drawing.Point(63, 150)
+        Me.lblGameList_Title.Location = New System.Drawing.Point(63, 153)
         Me.lblGameList_Title.Name = "lblGameList_Title"
         Me.lblGameList_Title.Size = New System.Drawing.Size(72, 13)
         Me.lblGameList_Title.TabIndex = 1
@@ -406,7 +408,6 @@ Partial Class frmMain
         Me.lvwGamesList.CheckBoxes = True
         Me.lvwGamesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.GamesLvw_GameTitle, Me.GameLvw_GameSerial, Me.GameLvw_GameRegion, Me.GameLvw_SStatesInfo, Me.GameLvw_BackupInfo, Me.GameLvw_ArrayRef})
         Me.lvwGamesList.Cursor = System.Windows.Forms.Cursors.Default
-        Me.lvwGamesList.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lvwGamesList.ForeColor = System.Drawing.Color.DimGray
         Me.lvwGamesList.FullRowSelect = True
         Me.lvwGamesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
@@ -414,7 +415,7 @@ Partial Class frmMain
         Me.lvwGamesList.Location = New System.Drawing.Point(12, 26)
         Me.lvwGamesList.MultiSelect = False
         Me.lvwGamesList.Name = "lvwGamesList"
-        Me.lvwGamesList.Size = New System.Drawing.Size(608, 115)
+        Me.lvwGamesList.Size = New System.Drawing.Size(608, 118)
         Me.lvwGamesList.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.lvwGamesList.TabIndex = 1
         Me.lvwGamesList.TileSize = New System.Drawing.Size(480, 96)
@@ -423,27 +424,27 @@ Partial Class frmMain
         '
         'GamesLvw_GameTitle
         '
-        Me.GamesLvw_GameTitle.Text = "GAME TITLE"
+        Me.GamesLvw_GameTitle.Text = "Game title"
         Me.GamesLvw_GameTitle.Width = 220
         '
         'GameLvw_GameSerial
         '
-        Me.GameLvw_GameSerial.Text = "SERIAL CODE"
+        Me.GameLvw_GameSerial.Text = "Serial code"
         Me.GameLvw_GameSerial.Width = 80
         '
         'GameLvw_GameRegion
         '
-        Me.GameLvw_GameRegion.Text = "REGION"
+        Me.GameLvw_GameRegion.Text = "Region"
         '
         'GameLvw_SStatesInfo
         '
-        Me.GameLvw_SStatesInfo.Text = "SAVESTATES"
+        Me.GameLvw_SStatesInfo.Text = "Savestates"
         Me.GameLvw_SStatesInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.GameLvw_SStatesInfo.Width = 110
         '
         'GameLvw_BackupInfo
         '
-        Me.GameLvw_BackupInfo.Text = "BACKUPS"
+        Me.GameLvw_BackupInfo.Text = "Backups"
         Me.GameLvw_BackupInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.GameLvw_BackupInfo.Width = 110
         '
@@ -474,7 +475,7 @@ Partial Class frmMain
         '
         Me.lblSStateListCheck.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblSStateListCheck.AutoSize = True
-        Me.lblSStateListCheck.Location = New System.Drawing.Point(316, 3)
+        Me.lblSStateListCheck.Location = New System.Drawing.Point(319, 3)
         Me.lblSStateListCheck.Name = "lblSStateListCheck"
         Me.lblSStateListCheck.Size = New System.Drawing.Size(94, 13)
         Me.lblSStateListCheck.TabIndex = 28
@@ -486,7 +487,7 @@ Partial Class frmMain
         Me.txtSStateListSelection.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtSStateListSelection.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtSStateListSelection.ForeColor = System.Drawing.Color.DimGray
-        Me.txtSStateListSelection.Location = New System.Drawing.Point(90, 161)
+        Me.txtSStateListSelection.Location = New System.Drawing.Point(90, 163)
         Me.txtSStateListSelection.Name = "txtSStateListSelection"
         Me.txtSStateListSelection.ReadOnly = True
         Me.txtSStateListSelection.Size = New System.Drawing.Size(96, 15)
@@ -497,7 +498,7 @@ Partial Class frmMain
         '
         Me.lblSizeBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblSizeBackup.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblSizeBackup.Location = New System.Drawing.Point(414, 161)
+        Me.lblSizeBackup.Location = New System.Drawing.Point(414, 163)
         Me.lblSizeBackup.Name = "lblSizeBackup"
         Me.lblSizeBackup.Size = New System.Drawing.Size(72, 13)
         Me.lblSizeBackup.TabIndex = 23
@@ -508,7 +509,7 @@ Partial Class frmMain
         '
         Me.lblSStateListSelection.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lblSStateListSelection.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblSStateListSelection.Location = New System.Drawing.Point(12, 161)
+        Me.lblSStateListSelection.Location = New System.Drawing.Point(12, 163)
         Me.lblSStateListSelection.Name = "lblSStateListSelection"
         Me.lblSStateListSelection.Size = New System.Drawing.Size(72, 13)
         Me.lblSStateListSelection.TabIndex = 23
@@ -519,7 +520,7 @@ Partial Class frmMain
         '
         Me.lblSize.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lblSize.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblSize.Location = New System.Drawing.Point(202, 161)
+        Me.lblSize.Location = New System.Drawing.Point(202, 163)
         Me.lblSize.Name = "lblSize"
         Me.lblSize.Size = New System.Drawing.Size(72, 13)
         Me.lblSize.TabIndex = 22
@@ -532,7 +533,7 @@ Partial Class frmMain
         Me.txtSizeBackup.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtSizeBackup.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtSizeBackup.ForeColor = System.Drawing.Color.DimGray
-        Me.txtSizeBackup.Location = New System.Drawing.Point(492, 161)
+        Me.txtSizeBackup.Location = New System.Drawing.Point(492, 163)
         Me.txtSizeBackup.Name = "txtSizeBackup"
         Me.txtSizeBackup.ReadOnly = True
         Me.txtSizeBackup.Size = New System.Drawing.Size(128, 15)
@@ -545,7 +546,7 @@ Partial Class frmMain
         Me.txtSize.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtSize.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtSize.ForeColor = System.Drawing.Color.DimGray
-        Me.txtSize.Location = New System.Drawing.Point(280, 161)
+        Me.txtSize.Location = New System.Drawing.Point(280, 163)
         Me.txtSize.Name = "txtSize"
         Me.txtSize.ReadOnly = True
         Me.txtSize.Size = New System.Drawing.Size(128, 15)
@@ -595,7 +596,7 @@ Partial Class frmMain
         Me.lvwSStatesList.BackColor = System.Drawing.Color.White
         Me.lvwSStatesList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lvwSStatesList.CheckBoxes = True
-        Me.lvwSStatesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.SStatesLvw_FileName, Me.SStatesLvw_Slot, Me.SStatesLvw_Backup, Me.SStatesLvw_DateCreation, Me.SStatesLvw_Size, Me.SStatesLvw_SerialRef, Me.SStatesLvw_ArrayRef})
+        Me.lvwSStatesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.SStatesLvw_FileName, Me.SStatesLvw_Slot, Me.SStatesLvw_Backup, Me.SStatesLvw_DateLastWrite, Me.SStatesLvw_Size, Me.SStatesLvw_SerialRef, Me.SStatesLvw_ArrayRef})
         Me.lvwSStatesList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lvwSStatesList.ForeColor = System.Drawing.Color.DimGray
         Me.lvwSStatesList.FullRowSelect = True
@@ -603,7 +604,7 @@ Partial Class frmMain
         Me.lvwSStatesList.Location = New System.Drawing.Point(12, 23)
         Me.lvwSStatesList.MultiSelect = False
         Me.lvwSStatesList.Name = "lvwSStatesList"
-        Me.lvwSStatesList.Size = New System.Drawing.Size(608, 132)
+        Me.lvwSStatesList.Size = New System.Drawing.Size(608, 134)
         Me.lvwSStatesList.TabIndex = 9
         Me.lvwSStatesList.UseCompatibleStateImageBehavior = False
         Me.lvwSStatesList.View = System.Windows.Forms.View.Details
@@ -623,10 +624,10 @@ Partial Class frmMain
         '
         Me.SStatesLvw_Backup.Text = "Backup"
         '
-        'SStatesLvw_DateCreation
+        'SStatesLvw_DateLastWrite
         '
-        Me.SStatesLvw_DateCreation.Text = "Creation date"
-        Me.SStatesLvw_DateCreation.Width = 120
+        Me.SStatesLvw_DateLastWrite.Text = "Modify date"
+        Me.SStatesLvw_DateLastWrite.Width = 120
         '
         'SStatesLvw_Size
         '
@@ -655,7 +656,7 @@ Partial Class frmMain
         Me.cmdSStateSelectBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStateSelectBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStateSelectBackup.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSStateSelectBackup.Location = New System.Drawing.Point(413, 0)
+        Me.cmdSStateSelectBackup.Location = New System.Drawing.Point(416, 0)
         Me.cmdSStateSelectBackup.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectBackup.Name = "cmdSStateSelectBackup"
         Me.cmdSStateSelectBackup.Size = New System.Drawing.Size(55, 20)
@@ -673,7 +674,7 @@ Partial Class frmMain
         Me.cmdSStateSelectAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStateSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStateSelectAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSStateSelectAll.Location = New System.Drawing.Point(468, 0)
+        Me.cmdSStateSelectAll.Location = New System.Drawing.Point(471, 0)
         Me.cmdSStateSelectAll.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectAll.Name = "cmdSStateSelectAll"
         Me.cmdSStateSelectAll.Size = New System.Drawing.Size(40, 20)
@@ -691,7 +692,7 @@ Partial Class frmMain
         Me.cmdSStateSelectNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStateSelectNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStateSelectNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSStateSelectNone.Location = New System.Drawing.Point(508, 0)
+        Me.cmdSStateSelectNone.Location = New System.Drawing.Point(511, 0)
         Me.cmdSStateSelectNone.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectNone.Name = "cmdSStateSelectNone"
         Me.cmdSStateSelectNone.Size = New System.Drawing.Size(40, 20)
@@ -702,7 +703,7 @@ Partial Class frmMain
         'panelWindowTitle
         '
         Me.panelWindowTitle.BackColor = System.Drawing.Color.Transparent
-        Me.panelWindowTitle.BackgroundImage = Global.sstatesman.My.Resources.Resources.Bg3_1
+        Me.panelWindowTitle.BackgroundImage = Global.sstatesman.My.Resources.Resources.BG
         Me.panelWindowTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.panelWindowTitle.Controls.Add(Me.lblDevUtils)
         Me.panelWindowTitle.Controls.Add(Me.cmdSettings)
@@ -893,9 +894,11 @@ Partial Class frmMain
         Me.imgWindowGradientIcon.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.imgWindowGradientIcon.BackgroundImage = Global.sstatesman.My.Resources.Resources.GradientBlueDarkH
         Me.imgWindowGradientIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.imgWindowGradientIcon.Image = Global.sstatesman.My.Resources.Resources.SSM1ico24
         Me.imgWindowGradientIcon.Location = New System.Drawing.Point(547, 0)
         Me.imgWindowGradientIcon.Name = "imgWindowGradientIcon"
         Me.imgWindowGradientIcon.Size = New System.Drawing.Size(32, 32)
+        Me.imgWindowGradientIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.imgWindowGradientIcon.TabIndex = 6
         Me.imgWindowGradientIcon.TabStop = False
         '
@@ -911,17 +914,22 @@ Partial Class frmMain
         Me.lblWindowVersion.Text = "version "
         Me.lblWindowVersion.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
+        'tmrSStatesListRefresh
+        '
+        Me.tmrSStatesListRefresh.Interval = 5000
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ClientSize = New System.Drawing.Size(632, 453)
+        Me.ClientSize = New System.Drawing.Size(632, 464)
+        Me.ControlBox = False
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.panelWindowTitle)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.ForeColor = System.Drawing.Color.DimGray
-        Me.Icon = Global.sstatesman.My.Resources.SSM1
+        Me.Icon = Global.sstatesman.My.Resources.Resources.SSM1
         Me.MinimumSize = New System.Drawing.Size(640, 480)
         Me.Name = "frmMain"
         Me.Text = "SStatesMan"
@@ -962,7 +970,7 @@ Partial Class frmMain
     Private WithEvents SStatesLvw_Slot As System.Windows.Forms.ColumnHeader
     Private WithEvents SStatesLvw_Backup As System.Windows.Forms.ColumnHeader
     Private WithEvents SStatesLvw_Size As System.Windows.Forms.ColumnHeader
-    Private WithEvents SStatesLvw_DateCreation As System.Windows.Forms.ColumnHeader
+    Private WithEvents SStatesLvw_DateLastWrite As System.Windows.Forms.ColumnHeader
     Private WithEvents GameLvw_BackupInfo As System.Windows.Forms.ColumnHeader
     Private WithEvents cmdAbout As System.Windows.Forms.Button
     Private WithEvents cmdSettings As System.Windows.Forms.Button
@@ -1000,4 +1008,5 @@ Partial Class frmMain
     Private WithEvents cmdSStatesLvwExpand As System.Windows.Forms.Button
     Private WithEvents cmdGamesLvwExpand As System.Windows.Forms.Button
     Private WithEvents GameLvw_SStatesInfo As System.Windows.Forms.ColumnHeader
+    Protected Friend WithEvents tmrSStatesListRefresh As System.Windows.Forms.Timer
 End Class
