@@ -814,14 +814,14 @@ Public Class frmMain
 
     Private Sub imgCover_Click(sender As System.Object, e As System.EventArgs) Handles imgCover.Click
         If Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 3 Then
-            Me.lblGameList_Title.Visible = True
-            Me.lblGameList_Region.Visible = True
             Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 2)
             Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 1)
             Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 1))
             Me.imgCover.Size = New Size(48, 48)
             Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(0, 0))
             Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 9)
+            Me.lblGameList_Title.Visible = True
+            Me.lblGameList_Region.Visible = True
         ElseIf Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 2 Then
             Me.lblGameList_Title.Visible = False
             Me.lblGameList_Region.Visible = False

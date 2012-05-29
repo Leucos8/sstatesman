@@ -249,7 +249,7 @@ Partial Class frmMain
         '
         'GameLvw_GameSerial
         '
-        Me.GameLvw_GameSerial.Text = "Serial code"
+        Me.GameLvw_GameSerial.Text = "Serial"
         Me.GameLvw_GameSerial.Width = 80
         '
         'GameLvw_GameRegion
@@ -293,8 +293,8 @@ Partial Class frmMain
         Me.lblGameList_Title.AutoSize = True
         Me.lblGameList_Title.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGameList_Title.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Title.Location = New System.Drawing.Point(52, 122)
-        Me.lblGameList_Title.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
+        Me.lblGameList_Title.Location = New System.Drawing.Point(62, 122)
+        Me.lblGameList_Title.Margin = New System.Windows.Forms.Padding(10, 0, 4, 0)
         Me.lblGameList_Title.Name = "lblGameList_Title"
         Me.lblGameList_Title.Size = New System.Drawing.Size(58, 24)
         Me.lblGameList_Title.TabIndex = 1
@@ -308,11 +308,11 @@ Partial Class frmMain
         Me.TableLayoutPanel3.SetColumnSpan(Me.txtGameList_Title, 7)
         Me.txtGameList_Title.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameList_Title.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Title.Location = New System.Drawing.Point(114, 122)
+        Me.txtGameList_Title.Location = New System.Drawing.Point(124, 122)
         Me.txtGameList_Title.Margin = New System.Windows.Forms.Padding(0, 0, 0, 2)
         Me.txtGameList_Title.Name = "txtGameList_Title"
         Me.txtGameList_Title.ReadOnly = True
-        Me.txtGameList_Title.Size = New System.Drawing.Size(494, 22)
+        Me.txtGameList_Title.Size = New System.Drawing.Size(484, 22)
         Me.txtGameList_Title.TabIndex = 5
         '
         'lblGameList_Region
@@ -320,8 +320,8 @@ Partial Class frmMain
         Me.lblGameList_Region.AutoSize = True
         Me.lblGameList_Region.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGameList_Region.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Region.Location = New System.Drawing.Point(52, 146)
-        Me.lblGameList_Region.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
+        Me.lblGameList_Region.Location = New System.Drawing.Point(62, 146)
+        Me.lblGameList_Region.Margin = New System.Windows.Forms.Padding(10, 0, 4, 0)
         Me.lblGameList_Region.Name = "lblGameList_Region"
         Me.lblGameList_Region.Size = New System.Drawing.Size(58, 26)
         Me.lblGameList_Region.TabIndex = 2
@@ -334,7 +334,7 @@ Partial Class frmMain
         Me.imgFlag.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.imgFlag.Dock = System.Windows.Forms.DockStyle.Fill
         Me.imgFlag.Image = Global.sstatesman.My.Resources.Resources.Flag_0Null_30x20
-        Me.imgFlag.Location = New System.Drawing.Point(216, 148)
+        Me.imgFlag.Location = New System.Drawing.Point(226, 148)
         Me.imgFlag.Margin = New System.Windows.Forms.Padding(2)
         Me.imgFlag.Name = "imgFlag"
         Me.imgFlag.Size = New System.Drawing.Size(30, 22)
@@ -348,7 +348,7 @@ Partial Class frmMain
         Me.txtGameList_Compat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Compat.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameList_Compat.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Compat.Location = New System.Drawing.Point(477, 148)
+        Me.txtGameList_Compat.Location = New System.Drawing.Point(469, 148)
         Me.txtGameList_Compat.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Compat.Name = "txtGameList_Compat"
         Me.txtGameList_Compat.ReadOnly = True
@@ -361,7 +361,7 @@ Partial Class frmMain
         Me.txtGameList_Region.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Region.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameList_Region.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Region.Location = New System.Drawing.Point(114, 148)
+        Me.txtGameList_Region.Location = New System.Drawing.Point(124, 148)
         Me.txtGameList_Region.Margin = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.txtGameList_Region.Name = "txtGameList_Region"
         Me.txtGameList_Region.ReadOnly = True
@@ -373,7 +373,7 @@ Partial Class frmMain
         Me.lblGameList_Compat.AutoSize = True
         Me.lblGameList_Compat.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGameList_Compat.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Compat.Location = New System.Drawing.Point(410, 146)
+        Me.lblGameList_Compat.Location = New System.Drawing.Point(402, 146)
         Me.lblGameList_Compat.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Compat.Name = "lblGameList_Compat"
         Me.lblGameList_Compat.Size = New System.Drawing.Size(63, 26)
@@ -386,12 +386,12 @@ Partial Class frmMain
         Me.lblGameList_Serial.AutoSize = True
         Me.lblGameList_Serial.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGameList_Serial.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Serial.Location = New System.Drawing.Point(250, 146)
+        Me.lblGameList_Serial.Location = New System.Drawing.Point(260, 146)
         Me.lblGameList_Serial.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Serial.Name = "lblGameList_Serial"
-        Me.lblGameList_Serial.Size = New System.Drawing.Size(52, 26)
+        Me.lblGameList_Serial.Size = New System.Drawing.Size(34, 26)
         Me.lblGameList_Serial.TabIndex = 3
-        Me.lblGameList_Serial.Text = "exe code"
+        Me.lblGameList_Serial.Text = "serial"
         Me.lblGameList_Serial.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'txtGameList_Serial
@@ -400,7 +400,7 @@ Partial Class frmMain
         Me.txtGameList_Serial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Serial.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameList_Serial.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Serial.Location = New System.Drawing.Point(306, 148)
+        Me.txtGameList_Serial.Location = New System.Drawing.Point(298, 148)
         Me.txtGameList_Serial.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Serial.Name = "txtGameList_Serial"
         Me.txtGameList_Serial.ReadOnly = True
