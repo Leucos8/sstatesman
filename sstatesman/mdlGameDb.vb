@@ -144,6 +144,7 @@ Module mdlGameDb
                     Case Else
 
                         If Not (pGameDb.TryGetValue(pSerial, myGameDb_RecordExtract)) Then
+                            myGameDb_RecordExtract = New GameTitle
                             With myGameDb_RecordExtract
                                 .Serial = pSerial
                                 .Name = "(Not found in GameDB)"
