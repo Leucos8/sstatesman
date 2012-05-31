@@ -602,9 +602,11 @@ Public Class frmMain
                 Me.cmdGameSelectNone.Enabled = False
 
                 If System.IO.File.Exists(System.IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg")) Then
+                    Me.imgCover.SizeMode = PictureBoxSizeMode.Zoom
                     Me.imgCover.Load(System.IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg"))
                 Else
-                    Me.imgCover.Image = My.Resources.Flag_0Null_30x20
+                    Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
+                    Me.imgCover.Image = My.Resources.Nocover
                 End If
 
                 If Me.lvwGamesList.CheckedItems.Count > 0 Then
@@ -618,6 +620,8 @@ Public Class frmMain
                     Me.txtGameList_Compat.Text = ""
                     Me.txtGameList_Compat.BackColor = Color.WhiteSmoke
                     Me.imgFlag.Image = My.Resources.Flag_0Null_30x20
+
+                    Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                     Me.imgCover.Image = My.Resources.Flag_0Null_30x20
 
                     If Me.lvwGamesList.Items.Count = Me.lvwGamesList.CheckedItems.Count Then
@@ -641,6 +645,7 @@ Public Class frmMain
                     Me.txtSizeBackup.Text = ""
                     Me.imgFlag.Image = My.Resources.Flag_0Null_30x20
 
+                    Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                     Me.imgCover.Image = My.Resources.Flag_0Null_30x20
                 End If
             End If
@@ -812,25 +817,27 @@ Public Class frmMain
         e.Graphics.DrawLine(Pens.DarkGray, 0, Me.SplitContainer1.SplitterDistance + 1, Me.SplitContainer1.Width, Me.SplitContainer1.SplitterDistance + 1)
     End Sub
 
-    Private Sub imgCover_Click(sender As System.Object, e As System.EventArgs) Handles imgCover.Click
-        If Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 3 Then
-            Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 2)
-            Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 1)
-            Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 1))
-            Me.imgCover.Size = New Size(48, 48)
-            Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(0, 0))
-            Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 9)
-            Me.lblGameList_Title.Visible = True
-            Me.lblGameList_Region.Visible = True
-        ElseIf Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 2 Then
-            Me.lblGameList_Title.Visible = False
-            Me.lblGameList_Region.Visible = False
-            Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 7)
-            Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(2, 0))
-            Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 0))
-            Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 2)
-            Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 3)
-            Me.imgCover.Width = 120
+    Private Sub imgCover_MouseClick(sender As System.Object, e As MouseEventArgs) Handles imgCover.MouseClick
+        If e.Button = Windows.Forms.MouseButtons.Left Then
+            If Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 3 Then
+                Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 2)
+                Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 1)
+                Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 1))
+                Me.imgCover.Size = New Size(48, 48)
+                Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(0, 0))
+                Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 9)
+                Me.lblGameList_Title.Visible = True
+                Me.lblGameList_Region.Visible = True
+            ElseIf Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 2 Then
+                Me.lblGameList_Title.Visible = False
+                Me.lblGameList_Region.Visible = False
+                Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 7)
+                Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(2, 0))
+                Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 0))
+                Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 2)
+                Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 3)
+                Me.imgCover.Width = 120
+            End If
         End If
     End Sub
 End Class

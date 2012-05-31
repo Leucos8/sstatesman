@@ -278,13 +278,11 @@ Partial Class frmMain
         '
         Me.imgCover.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.imgCover.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgCover.Image = Global.sstatesman.My.Resources.Resources.Flag_0Null_30x20
         Me.imgCover.Location = New System.Drawing.Point(0, 122)
         Me.imgCover.Margin = New System.Windows.Forms.Padding(0, 0, 4, 2)
         Me.imgCover.Name = "imgCover"
         Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 2)
         Me.imgCover.Size = New System.Drawing.Size(48, 48)
-        Me.imgCover.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.imgCover.TabIndex = 26
         Me.imgCover.TabStop = False
         '

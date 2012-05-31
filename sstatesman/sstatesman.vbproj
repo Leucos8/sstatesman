@@ -243,6 +243,7 @@
     <None Include="Resources\Metro-ChecboxChecked.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Nocover.png" />
     <None Include="Resources\PCSX2.png" />
     <None Include="Resources\Metro-Button-Refresh.png" />
     <None Include="Resources\BgNoise.png" />

@@ -251,4 +251,7 @@
   <data name="BG_PCSX2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\PCSX2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Nocover" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Nocover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
