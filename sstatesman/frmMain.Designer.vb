@@ -38,7 +38,6 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.cmdCoverExpand = New System.Windows.Forms.Button()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.lvwGamesList = New System.Windows.Forms.ListView()
         Me.GamesLvw_GameTitle = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -146,7 +145,6 @@ Partial Class frmMain
         '
         'SplitContainer1.Panel1
         '
-        Me.SplitContainer1.Panel1.Controls.Add(Me.cmdCoverExpand)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TableLayoutPanel3)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TableLayoutPanel2)
         Me.SplitContainer1.Panel1.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
@@ -163,23 +161,6 @@ Partial Class frmMain
         Me.SplitContainer1.SplitterDistance = 200
         Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 20
-        '
-        'cmdCoverExpand
-        '
-        Me.cmdCoverExpand.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.cmdCoverExpand.BackColor = System.Drawing.Color.Transparent
-        Me.cmdCoverExpand.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdCoverExpand.FlatAppearance.BorderSize = 0
-        Me.cmdCoverExpand.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdCoverExpand.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdCoverExpand.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdCoverExpand.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.cmdCoverExpand.Location = New System.Drawing.Point(18, 196)
-        Me.cmdCoverExpand.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdCoverExpand.Name = "cmdCoverExpand"
-        Me.cmdCoverExpand.Size = New System.Drawing.Size(12, 12)
-        Me.cmdCoverExpand.TabIndex = 29
-        Me.cmdCoverExpand.UseVisualStyleBackColor = False
         '
         'TableLayoutPanel3
         '
@@ -1328,7 +1309,6 @@ Partial Class frmMain
     Private WithEvents imgCover As System.Windows.Forms.PictureBox
     Friend WithEvents lvwGamesList As System.Windows.Forms.ListView
     Friend WithEvents lvwSStatesList As System.Windows.Forms.ListView
-    Private WithEvents cmdCoverExpand As System.Windows.Forms.Button
     Private WithEvents cmdSStatesLvwExpand As System.Windows.Forms.Button
     Private WithEvents GameLvw_SStatesInfo As System.Windows.Forms.ColumnHeader
     Protected Friend WithEvents tmrSStatesListRefresh As System.Windows.Forms.Timer
