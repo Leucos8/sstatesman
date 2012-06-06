@@ -125,7 +125,7 @@ Public Class frmMain
 
     End Sub
 
-    'Window command buttons
+#Region "Window command buttons"
     Private Sub cmdWindowMinimize_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdWindowMinimize.Click
         Me.WindowState = FormWindowState.Minimized
     End Sub
@@ -145,7 +145,17 @@ Public Class frmMain
         End
     End Sub
 
-    'Window dialogs buttons
+    Private Sub frmMain_SizeChanged(sender As Object, e As System.EventArgs) Handles Me.SizeChanged
+        If Me.WindowState = FormWindowState.Normal Then
+            Me.cmdWindowMaximize.Image = My.Resources.Metro_WindowButtonMaximize
+        ElseIf Me.WindowState = FormWindowState.Maximized Then
+            Me.cmdWindowMaximize.Image = My.Resources.Metro_WindowButtonRestore
+        End If
+    End Sub
+
+#End Region
+
+#Region "Window dialogs buttons"
     Private Sub cmdAbout_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdAbout.Click
         frmAbout.ShowDialog(Me)
     End Sub
@@ -169,7 +179,7 @@ Public Class frmMain
             frmSStateList.BringToFront()
         End If
     End Sub
-    'End window buttons & movement
+#End Region
 
     Private Sub cmdRefresh_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRefresh.Click
         GamesLvw_Populate()
@@ -180,7 +190,7 @@ Public Class frmMain
         frmDeleteForm.ShowDialog(Me)
     End Sub
 
-    'Gamelist management
+#Region "Gamelist management"
 
     Private Sub cmdGameSelectAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdGameSelectAll.Click
         Me.UIEnabled(False)
@@ -222,8 +232,9 @@ Public Class frmMain
             Me.UICheck()
         End If
     End Sub
+#End Region
 
-    'SStatesList management
+#Region "SStatesList management"
     Private Sub cmdSStatesLvwExpand_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStatesLvwExpand.Click
         If Me.SplitContainer1.Panel1Collapsed Then
             Me.SplitContainer1.Panel1Collapsed = False
@@ -300,6 +311,7 @@ Public Class frmMain
             Me.UIEnabled(True)
         End If
     End Sub
+#End Region
 
     Public Sub GamesLvw_Populate()
         mdlMain.WriteToConsole("MainWindow", "GamesLvw_Populate", "Reloading the savestates and gameindex arrays, refreshing GameLvw listview.")
@@ -777,15 +789,17 @@ Public Class frmMain
     End Sub
 
     Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
-        Dim recToolbar As New Rectangle(0, 7, 24, 40)
-        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.FromArgb(130, 150, 200), Color.FromArgb(65, 74, 100), 90)
-        e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-        If My.Settings.SStatesMan_BGEnable Then
-            recToolbar = New Rectangle(0, panelWindowTitle.Height - 4, panelWindowTitle.Width, 4)
-            linGrBrushToolbar = New Drawing2D.LinearGradientBrush(recToolbar, Color.Transparent, Color.DarkGray, 90)
-            e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
+        Dim rectoolbar As New Rectangle(0, 8, 24, 39)
+        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, Color.FromArgb(130, 150, 200), Color.FromArgb(65, 74, 100), 90)
+        e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
+        If (panelWindowTitle.Height > 4) And (panelWindowTitle.Width > 0) Then
+            If My.Settings.SStatesMan_BGEnable Then
+                rectoolbar = New Rectangle(0, panelWindowTitle.Height - 4, panelWindowTitle.Width, 4)
+                linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, Color.Transparent, Color.DarkGray, 90)
+                e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
+            End If
+            e.Graphics.DrawLine(Pens.DimGray, 0, panelWindowTitle.Height - 1, panelWindowTitle.Width, panelWindowTitle.Height - 1)
         End If
-        e.Graphics.DrawLine(Pens.DimGray, 0, panelWindowTitle.Height - 1, panelWindowTitle.Width, panelWindowTitle.Height - 1)
     End Sub
 
     Private Sub optSettingTab1_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optSettingTab1.Paint

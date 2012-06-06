@@ -88,13 +88,12 @@ Partial Class frmMain
         Me.lblSStateListCheck = New System.Windows.Forms.Label()
         Me.panelWindowTitle = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
+        Me.FlowLayoutPanel3 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.cmdSStateListUtil = New System.Windows.Forms.Button()
+        Me.cmdGameDbUtil = New System.Windows.Forms.Button()
         Me.FlowPanelSettings = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdAbout = New System.Windows.Forms.Button()
         Me.cmdSettings = New System.Windows.Forms.Button()
-        Me.FlowPanelDevUtil = New System.Windows.Forms.FlowLayoutPanel()
-        Me.cmdSStateListUtil = New System.Windows.Forms.Button()
-        Me.cmdGameDbUtil = New System.Windows.Forms.Button()
-        Me.lblDevUtils = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdWindowMinimize = New System.Windows.Forms.Button()
         Me.cmdWindowMaximize = New System.Windows.Forms.Button()
@@ -125,8 +124,8 @@ Partial Class frmMain
         Me.FlowPanelSStatesList.SuspendLayout()
         Me.panelWindowTitle.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
+        Me.FlowLayoutPanel3.SuspendLayout()
         Me.FlowPanelSettings.SuspendLayout()
-        Me.FlowPanelDevUtil.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.FlowLayoutPanel2.SuspendLayout()
@@ -137,7 +136,7 @@ Partial Class frmMain
         'SplitContainer1
         '
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 79)
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 74)
         Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(2)
         Me.SplitContainer1.MinimumSize = New System.Drawing.Size(0, 160)
         Me.SplitContainer1.Name = "SplitContainer1"
@@ -157,8 +156,8 @@ Partial Class frmMain
         Me.SplitContainer1.Panel2.Controls.Add(Me.TableLayoutPanel4)
         Me.SplitContainer1.Panel2.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
         Me.SplitContainer1.Panel2MinSize = 120
-        Me.SplitContainer1.Size = New System.Drawing.Size(624, 385)
-        Me.SplitContainer1.SplitterDistance = 200
+        Me.SplitContainer1.Size = New System.Drawing.Size(624, 390)
+        Me.SplitContainer1.SplitterDistance = 202
         Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 20
         '
@@ -196,7 +195,7 @@ Partial Class frmMain
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(608, 174)
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(608, 176)
         Me.TableLayoutPanel3.TabIndex = 31
         '
         'lvwGamesList
@@ -216,7 +215,7 @@ Partial Class frmMain
         Me.lvwGamesList.Margin = New System.Windows.Forms.Padding(0, 0, 0, 4)
         Me.lvwGamesList.MultiSelect = False
         Me.lvwGamesList.Name = "lvwGamesList"
-        Me.lvwGamesList.Size = New System.Drawing.Size(608, 116)
+        Me.lvwGamesList.Size = New System.Drawing.Size(608, 118)
         Me.lvwGamesList.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.lvwGamesList.TabIndex = 1
         Me.lvwGamesList.TileSize = New System.Drawing.Size(480, 96)
@@ -259,7 +258,7 @@ Partial Class frmMain
         '
         Me.imgCover.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.imgCover.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgCover.Location = New System.Drawing.Point(0, 122)
+        Me.imgCover.Location = New System.Drawing.Point(0, 124)
         Me.imgCover.Margin = New System.Windows.Forms.Padding(0, 0, 4, 2)
         Me.imgCover.Name = "imgCover"
         Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 2)
@@ -272,7 +271,7 @@ Partial Class frmMain
         Me.lblGameList_Title.AutoSize = True
         Me.lblGameList_Title.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGameList_Title.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Title.Location = New System.Drawing.Point(62, 122)
+        Me.lblGameList_Title.Location = New System.Drawing.Point(62, 124)
         Me.lblGameList_Title.Margin = New System.Windows.Forms.Padding(10, 0, 4, 0)
         Me.lblGameList_Title.Name = "lblGameList_Title"
         Me.lblGameList_Title.Size = New System.Drawing.Size(58, 24)
@@ -287,7 +286,7 @@ Partial Class frmMain
         Me.TableLayoutPanel3.SetColumnSpan(Me.txtGameList_Title, 7)
         Me.txtGameList_Title.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameList_Title.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Title.Location = New System.Drawing.Point(124, 122)
+        Me.txtGameList_Title.Location = New System.Drawing.Point(124, 124)
         Me.txtGameList_Title.Margin = New System.Windows.Forms.Padding(0, 0, 0, 2)
         Me.txtGameList_Title.Name = "txtGameList_Title"
         Me.txtGameList_Title.ReadOnly = True
@@ -299,7 +298,7 @@ Partial Class frmMain
         Me.lblGameList_Region.AutoSize = True
         Me.lblGameList_Region.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGameList_Region.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Region.Location = New System.Drawing.Point(62, 146)
+        Me.lblGameList_Region.Location = New System.Drawing.Point(62, 148)
         Me.lblGameList_Region.Margin = New System.Windows.Forms.Padding(10, 0, 4, 0)
         Me.lblGameList_Region.Name = "lblGameList_Region"
         Me.lblGameList_Region.Size = New System.Drawing.Size(58, 26)
@@ -313,7 +312,7 @@ Partial Class frmMain
         Me.imgFlag.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.imgFlag.Dock = System.Windows.Forms.DockStyle.Fill
         Me.imgFlag.Image = Global.sstatesman.My.Resources.Resources.Flag_0Null_30x20
-        Me.imgFlag.Location = New System.Drawing.Point(226, 148)
+        Me.imgFlag.Location = New System.Drawing.Point(226, 150)
         Me.imgFlag.Margin = New System.Windows.Forms.Padding(2)
         Me.imgFlag.Name = "imgFlag"
         Me.imgFlag.Size = New System.Drawing.Size(30, 22)
@@ -327,7 +326,7 @@ Partial Class frmMain
         Me.txtGameList_Compat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Compat.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameList_Compat.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Compat.Location = New System.Drawing.Point(469, 148)
+        Me.txtGameList_Compat.Location = New System.Drawing.Point(469, 150)
         Me.txtGameList_Compat.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Compat.Name = "txtGameList_Compat"
         Me.txtGameList_Compat.ReadOnly = True
@@ -340,7 +339,7 @@ Partial Class frmMain
         Me.txtGameList_Region.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Region.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameList_Region.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Region.Location = New System.Drawing.Point(124, 148)
+        Me.txtGameList_Region.Location = New System.Drawing.Point(124, 150)
         Me.txtGameList_Region.Margin = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.txtGameList_Region.Name = "txtGameList_Region"
         Me.txtGameList_Region.ReadOnly = True
@@ -352,7 +351,7 @@ Partial Class frmMain
         Me.lblGameList_Compat.AutoSize = True
         Me.lblGameList_Compat.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGameList_Compat.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Compat.Location = New System.Drawing.Point(402, 146)
+        Me.lblGameList_Compat.Location = New System.Drawing.Point(402, 148)
         Me.lblGameList_Compat.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Compat.Name = "lblGameList_Compat"
         Me.lblGameList_Compat.Size = New System.Drawing.Size(63, 26)
@@ -365,7 +364,7 @@ Partial Class frmMain
         Me.lblGameList_Serial.AutoSize = True
         Me.lblGameList_Serial.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGameList_Serial.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Serial.Location = New System.Drawing.Point(260, 146)
+        Me.lblGameList_Serial.Location = New System.Drawing.Point(260, 148)
         Me.lblGameList_Serial.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Serial.Name = "lblGameList_Serial"
         Me.lblGameList_Serial.Size = New System.Drawing.Size(34, 26)
@@ -379,7 +378,7 @@ Partial Class frmMain
         Me.txtGameList_Serial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Serial.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameList_Serial.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Serial.Location = New System.Drawing.Point(298, 148)
+        Me.txtGameList_Serial.Location = New System.Drawing.Point(298, 150)
         Me.txtGameList_Serial.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Serial.Name = "txtGameList_Serial"
         Me.txtGameList_Serial.ReadOnly = True
@@ -506,7 +505,7 @@ Partial Class frmMain
         Me.lvwSStatesList.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwSStatesList.MultiSelect = False
         Me.lvwSStatesList.Name = "lvwSStatesList"
-        Me.lvwSStatesList.Size = New System.Drawing.Size(608, 117)
+        Me.lvwSStatesList.Size = New System.Drawing.Size(608, 120)
         Me.lvwSStatesList.TabIndex = 9
         Me.lvwSStatesList.UseCompatibleStateImageBehavior = False
         Me.lvwSStatesList.View = System.Windows.Forms.View.Details
@@ -564,7 +563,7 @@ Partial Class frmMain
         Me.TableLayoutPanel5.Controls.Add(Me.lblSizeBackup, 2, 0)
         Me.TableLayoutPanel5.Controls.Add(Me.txtSize, 1, 1)
         Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(8, 139)
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(8, 142)
         Me.TableLayoutPanel5.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
         Me.TableLayoutPanel5.RowCount = 2
@@ -817,7 +816,7 @@ Partial Class frmMain
         Me.panelWindowTitle.Location = New System.Drawing.Point(0, 0)
         Me.panelWindowTitle.MinimumSize = New System.Drawing.Size(0, 56)
         Me.panelWindowTitle.Name = "panelWindowTitle"
-        Me.panelWindowTitle.Size = New System.Drawing.Size(624, 79)
+        Me.panelWindowTitle.Size = New System.Drawing.Size(624, 74)
         Me.panelWindowTitle.TabIndex = 12
         '
         'TableLayoutPanel1
@@ -829,21 +828,76 @@ Partial Class frmMain
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel3, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.FlowPanelSettings, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.FlowPanelDevUtil, 0, 2)
         Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel1, 2, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.imgWindowGradientIcon, 1, 0)
         Me.TableLayoutPanel1.Controls.Add(Me.lblWindowVersion, 0, 1)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(222, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Right
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(402, 0)
         Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.RowCount = 3
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(402, 56)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(222, 51)
         Me.TableLayoutPanel1.TabIndex = 22
+        '
+        'FlowLayoutPanel3
+        '
+        Me.FlowLayoutPanel3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.FlowLayoutPanel3.AutoSize = True
+        Me.FlowLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.TableLayoutPanel1.SetColumnSpan(Me.FlowLayoutPanel3, 3)
+        Me.FlowLayoutPanel3.Controls.Add(Me.cmdSStateListUtil)
+        Me.FlowLayoutPanel3.Controls.Add(Me.cmdGameDbUtil)
+        Me.FlowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.FlowLayoutPanel3.Location = New System.Drawing.Point(83, 34)
+        Me.FlowLayoutPanel3.Margin = New System.Windows.Forms.Padding(0)
+        Me.FlowLayoutPanel3.Name = "FlowLayoutPanel3"
+        Me.FlowLayoutPanel3.Padding = New System.Windows.Forms.Padding(0, 0, 16, 0)
+        Me.FlowLayoutPanel3.Size = New System.Drawing.Size(139, 22)
+        Me.FlowLayoutPanel3.TabIndex = 31
+        Me.FlowLayoutPanel3.WrapContents = False
+        '
+        'cmdSStateListUtil
+        '
+        Me.cmdSStateListUtil.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdSStateListUtil.AutoSize = True
+        Me.cmdSStateListUtil.BackColor = System.Drawing.Color.Transparent
+        Me.cmdSStateListUtil.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdSStateListUtil.FlatAppearance.BorderSize = 0
+        Me.cmdSStateListUtil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdSStateListUtil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdSStateListUtil.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdSStateListUtil.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdSStateListUtil.Location = New System.Drawing.Point(54, 0)
+        Me.cmdSStateListUtil.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdSStateListUtil.Name = "cmdSStateListUtil"
+        Me.cmdSStateListUtil.Size = New System.Drawing.Size(69, 22)
+        Me.cmdSStateListUtil.TabIndex = 25
+        Me.cmdSStateListUtil.Text = "SSTATESLIST"
+        Me.cmdSStateListUtil.UseVisualStyleBackColor = False
+        '
+        'cmdGameDbUtil
+        '
+        Me.cmdGameDbUtil.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdGameDbUtil.AutoSize = True
+        Me.cmdGameDbUtil.BackColor = System.Drawing.Color.Transparent
+        Me.cmdGameDbUtil.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdGameDbUtil.FlatAppearance.BorderSize = 0
+        Me.cmdGameDbUtil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdGameDbUtil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdGameDbUtil.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdGameDbUtil.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdGameDbUtil.Location = New System.Drawing.Point(0, 0)
+        Me.cmdGameDbUtil.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdGameDbUtil.Name = "cmdGameDbUtil"
+        Me.cmdGameDbUtil.Size = New System.Drawing.Size(54, 22)
+        Me.cmdGameDbUtil.TabIndex = 24
+        Me.cmdGameDbUtil.Text = "GAMEDB"
+        Me.cmdGameDbUtil.UseVisualStyleBackColor = False
         '
         'FlowPanelSettings
         '
@@ -853,7 +907,7 @@ Partial Class frmMain
         Me.FlowPanelSettings.Controls.Add(Me.cmdAbout)
         Me.FlowPanelSettings.Controls.Add(Me.cmdSettings)
         Me.FlowPanelSettings.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowPanelSettings.Location = New System.Drawing.Point(180, 0)
+        Me.FlowPanelSettings.Location = New System.Drawing.Point(0, 0)
         Me.FlowPanelSettings.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowPanelSettings.Name = "FlowPanelSettings"
         Me.FlowPanelSettings.Size = New System.Drawing.Size(104, 22)
@@ -898,81 +952,13 @@ Partial Class frmMain
         Me.cmdSettings.Text = "&SETTINGS"
         Me.cmdSettings.UseVisualStyleBackColor = False
         '
-        'FlowPanelDevUtil
-        '
-        Me.FlowPanelDevUtil.AutoSize = True
-        Me.FlowPanelDevUtil.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.TableLayoutPanel1.SetColumnSpan(Me.FlowPanelDevUtil, 3)
-        Me.FlowPanelDevUtil.Controls.Add(Me.cmdSStateListUtil)
-        Me.FlowPanelDevUtil.Controls.Add(Me.cmdGameDbUtil)
-        Me.FlowPanelDevUtil.Controls.Add(Me.lblDevUtils)
-        Me.FlowPanelDevUtil.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FlowPanelDevUtil.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowPanelDevUtil.Location = New System.Drawing.Point(0, 34)
-        Me.FlowPanelDevUtil.Margin = New System.Windows.Forms.Padding(0)
-        Me.FlowPanelDevUtil.Name = "FlowPanelDevUtil"
-        Me.FlowPanelDevUtil.Padding = New System.Windows.Forms.Padding(0, 0, 16, 0)
-        Me.FlowPanelDevUtil.Size = New System.Drawing.Size(402, 22)
-        Me.FlowPanelDevUtil.TabIndex = 29
-        Me.FlowPanelDevUtil.WrapContents = False
-        '
-        'cmdSStateListUtil
-        '
-        Me.cmdSStateListUtil.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdSStateListUtil.AutoSize = True
-        Me.cmdSStateListUtil.BackColor = System.Drawing.Color.Transparent
-        Me.cmdSStateListUtil.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdSStateListUtil.FlatAppearance.BorderSize = 0
-        Me.cmdSStateListUtil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateListUtil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdSStateListUtil.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateListUtil.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSStateListUtil.Location = New System.Drawing.Point(317, 0)
-        Me.cmdSStateListUtil.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdSStateListUtil.Name = "cmdSStateListUtil"
-        Me.cmdSStateListUtil.Size = New System.Drawing.Size(69, 22)
-        Me.cmdSStateListUtil.TabIndex = 25
-        Me.cmdSStateListUtil.Text = "SSTATESLIST"
-        Me.cmdSStateListUtil.UseVisualStyleBackColor = False
-        '
-        'cmdGameDbUtil
-        '
-        Me.cmdGameDbUtil.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdGameDbUtil.AutoSize = True
-        Me.cmdGameDbUtil.BackColor = System.Drawing.Color.Transparent
-        Me.cmdGameDbUtil.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdGameDbUtil.FlatAppearance.BorderSize = 0
-        Me.cmdGameDbUtil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdGameDbUtil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdGameDbUtil.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdGameDbUtil.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdGameDbUtil.Location = New System.Drawing.Point(263, 0)
-        Me.cmdGameDbUtil.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdGameDbUtil.Name = "cmdGameDbUtil"
-        Me.cmdGameDbUtil.Size = New System.Drawing.Size(54, 22)
-        Me.cmdGameDbUtil.TabIndex = 24
-        Me.cmdGameDbUtil.Text = "GAMEDB"
-        Me.cmdGameDbUtil.UseVisualStyleBackColor = False
-        '
-        'lblDevUtils
-        '
-        Me.lblDevUtils.AutoSize = True
-        Me.lblDevUtils.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblDevUtils.Location = New System.Drawing.Point(154, 0)
-        Me.lblDevUtils.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblDevUtils.Name = "lblDevUtils"
-        Me.lblDevUtils.Size = New System.Drawing.Size(107, 22)
-        Me.lblDevUtils.TabIndex = 28
-        Me.lblDevUtils.Text = "developers utilities:"
-        Me.lblDevUtils.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
         'FlowLayoutPanel1
         '
         Me.FlowLayoutPanel1.AutoSize = True
         Me.FlowLayoutPanel1.Controls.Add(Me.cmdWindowMinimize)
         Me.FlowLayoutPanel1.Controls.Add(Me.cmdWindowMaximize)
         Me.FlowLayoutPanel1.Controls.Add(Me.cmdWindowClose)
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(324, 0)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(144, 0)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0, 0, 6, 0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(72, 16)
@@ -1032,7 +1018,7 @@ Partial Class frmMain
         Me.imgWindowGradientIcon.BackgroundImage = Global.sstatesman.My.Resources.Resources.GradientBlueDarkH
         Me.imgWindowGradientIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.imgWindowGradientIcon.Image = Global.sstatesman.My.Resources.Resources.SSM1ico24
-        Me.imgWindowGradientIcon.Location = New System.Drawing.Point(288, 0)
+        Me.imgWindowGradientIcon.Location = New System.Drawing.Point(108, 0)
         Me.imgWindowGradientIcon.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.imgWindowGradientIcon.Name = "imgWindowGradientIcon"
         Me.TableLayoutPanel1.SetRowSpan(Me.imgWindowGradientIcon, 2)
@@ -1047,7 +1033,7 @@ Partial Class frmMain
         Me.lblWindowVersion.AutoSize = True
         Me.lblWindowVersion.BackColor = System.Drawing.Color.Transparent
         Me.lblWindowVersion.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWindowVersion.Location = New System.Drawing.Point(247, 22)
+        Me.lblWindowVersion.Location = New System.Drawing.Point(67, 22)
         Me.lblWindowVersion.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblWindowVersion.Name = "lblWindowVersion"
         Me.lblWindowVersion.Size = New System.Drawing.Size(35, 12)
@@ -1062,13 +1048,13 @@ Partial Class frmMain
         Me.FlowLayoutPanel2.BackColor = System.Drawing.Color.Transparent
         Me.FlowLayoutPanel2.Controls.Add(Me.lblWindowTitle)
         Me.FlowLayoutPanel2.Controls.Add(Me.blWindowDescription)
-        Me.FlowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Left
+        Me.FlowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FlowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.FlowLayoutPanel2.Location = New System.Drawing.Point(0, 0)
         Me.FlowLayoutPanel2.Margin = New System.Windows.Forms.Padding(2)
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
         Me.FlowLayoutPanel2.Padding = New System.Windows.Forms.Padding(24, 4, 0, 4)
-        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(222, 56)
+        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(624, 51)
         Me.FlowLayoutPanel2.TabIndex = 21
         Me.FlowLayoutPanel2.WrapContents = False
         '
@@ -1109,7 +1095,7 @@ Partial Class frmMain
         Me.TableLayoutPanel6.Controls.Add(Me.cmdRefresh, 2, 0)
         Me.TableLayoutPanel6.Controls.Add(Me.flpTab, 0, 0)
         Me.TableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel6.Location = New System.Drawing.Point(0, 56)
+        Me.TableLayoutPanel6.Location = New System.Drawing.Point(0, 51)
         Me.TableLayoutPanel6.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel6.Name = "TableLayoutPanel6"
         Me.TableLayoutPanel6.Padding = New System.Windows.Forms.Padding(16, 0, 16, 0)
@@ -1129,11 +1115,10 @@ Partial Class frmMain
         Me.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdRefresh.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdRefresh.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Refresh
-        Me.cmdRefresh.Location = New System.Drawing.Point(540, 0)
+        Me.cmdRefresh.Location = New System.Drawing.Point(554, 0)
         Me.cmdRefresh.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdRefresh.Name = "cmdRefresh"
-        Me.cmdRefresh.Size = New System.Drawing.Size(68, 23)
+        Me.cmdRefresh.Size = New System.Drawing.Size(54, 23)
         Me.cmdRefresh.TabIndex = 0
         Me.cmdRefresh.Text = "&REFRESH"
         Me.cmdRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
@@ -1151,6 +1136,7 @@ Partial Class frmMain
         Me.flpTab.Name = "flpTab"
         Me.flpTab.Size = New System.Drawing.Size(203, 23)
         Me.flpTab.TabIndex = 33
+        Me.flpTab.Visible = False
         Me.flpTab.WrapContents = False
         '
         'optSettingTab1
@@ -1256,10 +1242,10 @@ Partial Class frmMain
         Me.panelWindowTitle.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
+        Me.FlowLayoutPanel3.ResumeLayout(False)
+        Me.FlowLayoutPanel3.PerformLayout()
         Me.FlowPanelSettings.ResumeLayout(False)
         Me.FlowPanelSettings.PerformLayout()
-        Me.FlowPanelDevUtil.ResumeLayout(False)
-        Me.FlowPanelDevUtil.PerformLayout()
         Me.FlowLayoutPanel1.ResumeLayout(False)
         CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.FlowLayoutPanel2.ResumeLayout(False)
@@ -1321,10 +1307,8 @@ Partial Class frmMain
     Friend WithEvents FlowPanelSettings As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdAbout As System.Windows.Forms.Button
     Private WithEvents cmdSettings As System.Windows.Forms.Button
-    Friend WithEvents FlowPanelDevUtil As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdSStateListUtil As System.Windows.Forms.Button
     Private WithEvents cmdGameDbUtil As System.Windows.Forms.Button
-    Private WithEvents lblDevUtils As System.Windows.Forms.Label
     Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdWindowMinimize As System.Windows.Forms.Button
     Private WithEvents cmdWindowMaximize As System.Windows.Forms.Button
@@ -1346,4 +1330,5 @@ Partial Class frmMain
     Friend WithEvents TableLayoutPanel6 As System.Windows.Forms.TableLayoutPanel
     Private WithEvents cmdRefresh As System.Windows.Forms.Button
     Friend WithEvents panelWindowTitle As System.Windows.Forms.Panel
+    Friend WithEvents FlowLayoutPanel3 As System.Windows.Forms.FlowLayoutPanel
 End Class

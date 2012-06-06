@@ -201,6 +201,14 @@ Public Class frmDeleteForm
         Me.Close()
     End Sub
 
+    Private Sub frmDeleteForm_SizeChanged(sender As Object, e As System.EventArgs) Handles Me.SizeChanged
+        If Me.WindowState = FormWindowState.Normal Then
+            Me.cmdWindowMaximize.Image = My.Resources.Metro_WindowButtonMaximize
+        ElseIf Me.WindowState = FormWindowState.Maximized Then
+            Me.cmdWindowMaximize.Image = My.Resources.Metro_WindowButtonRestore
+        End If
+    End Sub
+
     'SStatesList management
     Private Sub cmdSStateSelectAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectAll.Click
         Me.UIEnabled(False)
@@ -326,24 +334,28 @@ Public Class frmDeleteForm
     End Sub
 
     Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
-        Dim recToolbar As New Rectangle(0, 8, 24, panelWindowTitle.Height - 17)
-        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.FromArgb(130, 150, 200), Color.FromArgb(65, 74, 100), 90)
-        e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-        If My.Settings.SStatesMan_BGEnable Then
-            recToolbar = New Rectangle(0, panelWindowTitle.Height - 4, panelWindowTitle.Width, 4)
-            linGrBrushToolbar = New Drawing2D.LinearGradientBrush(recToolbar, Color.Transparent, Color.DarkGray, 90)
-            e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
+        Dim rectoolbar As New Rectangle(0, 8, 24, 39)
+        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, Color.FromArgb(130, 150, 200), Color.FromArgb(65, 74, 100), 90)
+        e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
+        If (panelWindowTitle.Height > 4) And (panelWindowTitle.Width > 0) Then
+            If My.Settings.SStatesMan_BGEnable Then
+                rectoolbar = New Rectangle(0, panelWindowTitle.Height - 4, panelWindowTitle.Width, 4)
+                linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, Color.Transparent, Color.DarkGray, 90)
+                e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
+            End If
+            e.Graphics.DrawLine(Pens.DimGray, 0, panelWindowTitle.Height - 1, panelWindowTitle.Width, panelWindowTitle.Height - 1)
         End If
-        e.Graphics.DrawLine(Pens.DimGray, 0, panelWindowTitle.Height - 1, panelWindowTitle.Width, panelWindowTitle.Height - 1)
     End Sub
 
     Private Sub flpWindowBottom_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles flpWindowBottom.Paint
-        If My.Settings.SStatesMan_BGEnable Then
-            Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width, 4)
-            Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
-            e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
+        If flpWindowBottom.Width > 0 Then
+            If My.Settings.SStatesMan_BGEnable Then
+                Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width, 4)
+                Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
+                e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
+            End If
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, flpWindowBottom.Width, 0)
         End If
-        e.Graphics.DrawLine(Pens.DimGray, 0, 0, flpWindowBottom.Width, 0)
     End Sub
 
 End Class
