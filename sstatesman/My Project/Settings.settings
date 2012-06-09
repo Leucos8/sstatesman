@@ -87,5 +87,8 @@
     <Setting Name="SStatesMan_BGImage" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
+    <Setting Name="SStatesMan_SStatesVersionExtract" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

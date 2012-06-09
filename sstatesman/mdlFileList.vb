@@ -32,10 +32,10 @@ Module mdlFileList
     Public Class GamesList_Item
         Public Property Savestates As New Dictionary(Of String, Savestate)
         'Public Property Savestates_Count As Int32 = 0
-        Public Property Savestates_SizeTot As Int64 = 0
+        Public Property Savestates_SizeTot As UInt64 = 0
         'Public Property Savestates_Backup As New Dictionary(Of String, Savestate)
         'Public Property SavestatesBackup_Count As Int32 = 0
-        Public Property SavestatesBackup_SizeTot As Int64 = 0
+        Public Property SavestatesBackup_SizeTot As UInt64 = 0
     End Class
 
     'Public GamesList As New Dictionary(Of String, Dictionary(Of ListKeys, rFileList))
@@ -101,12 +101,12 @@ Module mdlFileList
                     .Lenght = FileInformation.Length,
                     .LastWriteTime = FileInformation.LastWriteTime,
                     .Slot = SStates_GetSlot(FileInformation.Name),
-                    .Backup = SStates_GetType(FileInformation.Extension),
-                    .Version = mdlSimpleZipExtractor.ExtractFirstFile(FileInformation)}
+                    .Backup = SStates_GetType(FileInformation.Extension)}
+                If My.Settings.SStatesMan_SStatesVersionExtract Then
+                    newItem.Version = mdlSimpleZipExtractor.ExtractFirstFile(FileInformation)
+                Else : newItem.Version = "-"
+                End If
                 myTmpSStatesList.Add(FileInformation.Name, newItem)
-
-                Dim tmp As String = ""
-
 
             Next
 

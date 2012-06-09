@@ -23,6 +23,7 @@ Public Class frmSettings
         Me.ckb_SStatesListShowOnly.Checked = My.Settings.SStatesMan_SStatesListShowOnly
         Me.ckb_SStatesListAutoRefresh.Checked = My.Settings.SStatesMan_SStatesListAutoRefresh
         Me.ckbSStatesManMoveToTrash.Checked = My.Settings.SStatesMan_SStateTrash
+        Me.ckbSStatesManVersionExtract.Checked = My.Settings.SStatesMan_SStatesVersionExtract
         Me.txtSStatesManPicsPath.Text = My.Settings.SStatesMan_PathPics
 
         Me.txtPCSX2AppPath.Text = My.Settings.PCSX2_PathBin
@@ -170,6 +171,7 @@ Public Class frmSettings
         My.Settings.SStatesMan_SStatesListAutoRefresh = Me.ckb_SStatesListAutoRefresh.Checked
         frmMain.tmrSStatesListRefresh.Enabled = My.Settings.SStatesMan_SStatesListAutoRefresh
         My.Settings.SStatesMan_SStateTrash = Me.ckbSStatesManMoveToTrash.Checked
+        My.Settings.SStatesMan_SStatesVersionExtract = Me.ckbSStatesManVersionExtract.Checked
 
         My.Settings.SStatesMan_BGImage = Theme.none
         If Me.ckbSStatesManBGImage.Checked Then

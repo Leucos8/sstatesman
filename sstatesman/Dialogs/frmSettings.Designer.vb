@@ -98,6 +98,7 @@ Partial Class frmSettings
         Me.optTheme1 = New System.Windows.Forms.RadioButton()
         Me.ckbSStatesManBGImage = New System.Windows.Forms.CheckBox()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.ckbSStatesManVersionExtract = New System.Windows.Forms.CheckBox()
         CType(Me.imgPCSX2IniPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgPCSX2AppPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgSStatesManPicsPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -730,7 +731,7 @@ Partial Class frmSettings
         Me.tlpSStatesManPicsPath.Controls.Add(Me.lblSStatesManPicsPathStatus, 1, 1)
         Me.tlpSStatesManPicsPath.Controls.Add(Me.imgSStatesManPicsPathStatus, 0, 1)
         Me.tlpSStatesManPicsPath.Dock = System.Windows.Forms.DockStyle.Top
-        Me.tlpSStatesManPicsPath.Location = New System.Drawing.Point(8, 157)
+        Me.tlpSStatesManPicsPath.Location = New System.Drawing.Point(8, 178)
         Me.tlpSStatesManPicsPath.Name = "tlpSStatesManPicsPath"
         Me.tlpSStatesManPicsPath.Padding = New System.Windows.Forms.Padding(4, 2, 4, 2)
         Me.tlpSStatesManPicsPath.RowCount = 2
@@ -828,6 +829,7 @@ Partial Class frmSettings
         Me.pnlTab1.Controls.Add(Me.tlpSStatesManPicsPath)
         Me.pnlTab1.Controls.Add(Me.lblSStatesManPicsPath)
         Me.pnlTab1.Controls.Add(Me.ckbSStatesManMoveToTrash)
+        Me.pnlTab1.Controls.Add(Me.ckbSStatesManVersionExtract)
         Me.pnlTab1.Controls.Add(Me.Label1)
         Me.pnlTab1.Controls.Add(Me.ckb_SStatesListAutoRefresh)
         Me.pnlTab1.Controls.Add(Me.ckb_SStatesListShowOnly)
@@ -844,7 +846,7 @@ Partial Class frmSettings
         Me.lblSStatesManPicsPath.AutoSize = True
         Me.lblSStatesManPicsPath.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblSStatesManPicsPath.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.lblSStatesManPicsPath.Location = New System.Drawing.Point(8, 134)
+        Me.lblSStatesManPicsPath.Location = New System.Drawing.Point(8, 155)
         Me.lblSStatesManPicsPath.Name = "lblSStatesManPicsPath"
         Me.lblSStatesManPicsPath.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.lblSStatesManPicsPath.Size = New System.Drawing.Size(189, 23)
@@ -859,7 +861,7 @@ Partial Class frmSettings
         Me.ckbSStatesManMoveToTrash.Dock = System.Windows.Forms.DockStyle.Top
         Me.ckbSStatesManMoveToTrash.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.ckbSStatesManMoveToTrash.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbSStatesManMoveToTrash.Location = New System.Drawing.Point(8, 113)
+        Me.ckbSStatesManMoveToTrash.Location = New System.Drawing.Point(8, 134)
         Me.ckbSStatesManMoveToTrash.Name = "ckbSStatesManMoveToTrash"
         Me.ckbSStatesManMoveToTrash.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
         Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(128, 21)
@@ -1083,6 +1085,22 @@ Partial Class frmSettings
         Me.Label5.TabIndex = 49
         Me.Label5.Text = "Background"
         '
+        'ckbSStatesManVersionExtract
+        '
+        Me.ckbSStatesManVersionExtract.AutoSize = True
+        Me.ckbSStatesManVersionExtract.Checked = True
+        Me.ckbSStatesManVersionExtract.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ckbSStatesManVersionExtract.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ckbSStatesManVersionExtract.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.ckbSStatesManVersionExtract.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ckbSStatesManVersionExtract.Location = New System.Drawing.Point(8, 113)
+        Me.ckbSStatesManVersionExtract.Name = "ckbSStatesManVersionExtract"
+        Me.ckbSStatesManVersionExtract.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
+        Me.ckbSStatesManVersionExtract.Size = New System.Drawing.Size(128, 21)
+        Me.ckbSStatesManVersionExtract.TabIndex = 49
+        Me.ckbSStatesManVersionExtract.Text = "Extract savestates version. (experimental)"
+        Me.ckbSStatesManVersionExtract.UseVisualStyleBackColor = False
+        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1206,4 +1224,5 @@ Partial Class frmSettings
     Private WithEvents Label2 As System.Windows.Forms.Label
     Private WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents optTheme11 As System.Windows.Forms.RadioButton
+    Private WithEvents ckbSStatesManVersionExtract As System.Windows.Forms.CheckBox
 End Class
