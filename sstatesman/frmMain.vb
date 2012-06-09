@@ -38,6 +38,7 @@ Public Class frmMain
         FileName
         Slot
         Backup
+        Version
         LastWriteDate
         Size
         SerialRef
@@ -46,9 +47,6 @@ Public Class frmMain
 
 
     Private Sub frmMain_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-
-        'Dim zfi As System.IO.Packaging.ZipPackage
-        'zfi.PartExists()
 
         If My.Settings.SStatesMan_FirstRun2 = True Then  'Executes the FirstRun procedure (it tries to detect PCSX2 folders)
             mdlMain.FirstRun()
@@ -324,27 +322,27 @@ Public Class frmMain
 
         mdlFileList.GamesList_Status = GamesList_LoadAll(My.Settings.PCSX2_PathSState, mdlFileList.GamesList)
 
-        For Each GameItem As KeyValuePair(Of String, Dictionary(Of ListKeys, rFileList)) In mdlFileList.GamesList
+        For Each GameItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In mdlFileList.GamesList
             currentGameInfo = mdlGameDb.GameDb_RecordExtract(GameItem.Key, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
 
             Dim GameLwv_ItemTmp As New ListViewItem
             GameLwv_ItemTmp.Text = currentGameInfo.Name
             GameLwv_ItemTmp.SubItems.AddRange({currentGameInfo.Serial, currentGameInfo.Region})
 
-            Dim myFileListTmp As New mdlFileList.rFileList
-            If GameItem.Value.TryGetValue(ListKeys.Savestates, myFileListTmp) Then
+            Dim myFileListTmp As New GamesList_Item
+            If GameItem.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count > 0 Then
                 GameLwv_ItemTmp.SubItems.Add(String.Format("{0:#,##0} × {1:#,##0.00} MB",
-                                                           GameItem.Value.Item(ListKeys.Savestates).InfoList.Count,
-                                                           GameItem.Value.Item(ListKeys.Savestates).SizeTot / 1024 ^ 2))
+                                                               GameItem.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count,
+                                                               GameItem.Value.Savestates_SizeTot / 1024 ^ 2))
             Else
                 GameLwv_ItemTmp.SubItems.Add("None")
             End If
 
-            myFileListTmp = New mdlFileList.rFileList
-            If GameItem.Value.TryGetValue(ListKeys.Savestates_Backup, myFileListTmp) Then
+            myFileListTmp = New GamesList_Item
+            If GameItem.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Count > 0 Then
                 GameLwv_ItemTmp.SubItems.Add(String.Format("{0:#,##0} × {1:#,##0.00} MB",
-                                                           GameItem.Value.Item(ListKeys.Savestates_Backup).InfoList.Count,
-                                                           GameItem.Value.Item(ListKeys.Savestates_Backup).SizeTot / 1024 ^ 2))
+                                                           GameItem.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Count,
+                                                           GameItem.Value.SavestatesBackup_SizeTot / 1024 ^ 2))
             Else
                 GameLwv_ItemTmp.SubItems.Add("None")
             End If
@@ -352,19 +350,6 @@ Public Class frmMain
             Me.lvwGamesList.Items.Add(GameLwv_ItemTmp)
 
         Next
-
-        'mdlSStatesList.SStatesList_Status = mdlSStatesList.SStatesList_Load(My.Settings.PCSX2_PathSState, mdlSStatesList.SStatesIndex)
-
-        'For Each myItemTmp As KeyValuePair(Of String, mdlSStatesList.rSStatesIndex) In mdlSStatesList.SStatesIndex
-        '    Dim GameList_ItemTmp As New ListViewItem
-        '    currentGame = mdlGameDb.GameDb_RecordExtract(myItemTmp.Key, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
-        '    GameList_ItemTmp.Text = currentGame.Name
-        '    GameList_ItemTmp.SubItems.AddRange({currentGame.Serial, currentGame.Region,
-        '                                       String.Format("{0:#,##0} × {1:#,##0.00} MB", myItemTmp.Value.SStates_List.Count, myItemTmp.Value.SStates_SizeTot / 1024 ^ 2),
-        '                                       String.Format("{0:#,##0} × {1:#,##0.00} MB", myItemTmp.Value.SStatesBck_List.Count, myItemTmp.Value.SStatesBck_SizeTot / 1024 ^ 2)})
-
-        '    Me.lvwGamesList.Items.Add(GameList_ItemTmp)
-        'Next
 
         For Each lvwItem As ListViewItem In Me.lvwGamesList.Items
             If colorswitch Then
@@ -477,84 +462,31 @@ Public Class frmMain
 
             Me.lvwSStatesList.Groups.Add(SStateList_GroupTmp)
 
-            Dim myImportantFileList As New mdlFileList.rFileList
-            If mdlFileList.GamesList(currentGameInfo.Serial).TryGetValue(ListKeys.Savestates, myImportantFileList) Then
-                GamesLvw_SelectedSize += myImportantFileList.SizeTot
-                mdlMain.currentFiles.AddRange(myImportantFileList.InfoList.Values)
+            Dim myImportantFileList As New GamesList_Item
+            myImportantFileList = mdlFileList.GamesList(currentGameInfo.Serial)
+            GamesLvw_SelectedSize += myImportantFileList.Savestates_SizeTot
+            'mdlMain.currentFiles.AddRange(myImportantFileList.Savestates)
 
-                For Each myFileInfoTmp As KeyValuePair(Of String, System.IO.FileInfo) In myImportantFileList.InfoList
+            For Each myFileInfoTmp As KeyValuePair(Of String, Savestate) In myImportantFileList.Savestates
 
-                    Dim SStateList_ItemTmp As New System.Windows.Forms.ListViewItem With {.Text = myFileInfoTmp.Value.Name,
-                                                                                          .Group = SStateList_GroupTmp}
-                    SStateList_ItemTmp.SubItems.AddRange({mdlFileList.SStates_GetSlot(myFileInfoTmp.Value.Name).ToString,
-                                                          vbFalse.ToString,
-                                                          myFileInfoTmp.Value.LastWriteTime.ToString,
-                                                          System.String.Format("{0:#,##0.00} MB", myFileInfoTmp.Value.Length / 1024 ^ 2)})
-                    If colorswitch Then
-                        colorswitch = False
-                    Else
-                        SStateList_ItemTmp.BackColor = Color.WhiteSmoke
-                        colorswitch = True
-                    End If
+                Dim SStateList_ItemTmp As New System.Windows.Forms.ListViewItem With {.Text = myFileInfoTmp.Value.Name,
+                                                                                        .Group = SStateList_GroupTmp}
+                SStateList_ItemTmp.SubItems.AddRange({myFileInfoTmp.Value.Slot.ToString,
+                                                        myFileInfoTmp.Value.Backup.ToString,
+                                                        myFileInfoTmp.Value.Version,
+                                                        myFileInfoTmp.Value.LastWriteTime.ToString,
+                                                        System.String.Format("{0:#,##0.00} MB", myFileInfoTmp.Value.Lenght / 1024 ^ 2)})
+                If colorswitch Then
+                    colorswitch = False
+                Else
+                    SStateList_ItemTmp.BackColor = Color.WhiteSmoke
+                    colorswitch = True
+                End If
 
-                    Me.lvwSStatesList.Items.Add(SStateList_ItemTmp)
-                Next
-
-            End If
-
-            myImportantFileList = New mdlFileList.rFileList
-            If mdlFileList.GamesList(currentGameInfo.Serial).TryGetValue(ListKeys.Savestates_Backup, myImportantFileList) Then
-                GamesLvw_SelectedSizeBackup += myImportantFileList.SizeTot
-                mdlMain.currentFiles.AddRange(myImportantFileList.InfoList.Values)
-
-                For Each myFileInfoTmp As KeyValuePair(Of String, System.IO.FileInfo) In myImportantFileList.InfoList
-
-                    Dim SStateList_ItemTmp As New System.Windows.Forms.ListViewItem With {.Text = myFileInfoTmp.Value.Name,
-                                                                                          .Group = SStateList_GroupTmp}
-                    SStateList_ItemTmp.SubItems.AddRange({mdlFileList.SStates_GetSlot(myFileInfoTmp.Value.Name).ToString,
-                                                          vbTrue.ToString,
-                                                          myFileInfoTmp.Value.LastWriteTime.ToString,
-                                                          System.String.Format("{0:#,##0.00} MB", myFileInfoTmp.Value.Length / 1024 ^ 2)})
-                    If colorswitch Then
-                        colorswitch = False
-                    Else
-                        SStateList_ItemTmp.BackColor = Color.WhiteSmoke
-                        colorswitch = True
-                    End If
-
-                    Me.lvwSStatesList.Items.Add(SStateList_ItemTmp)
-                Next
-
-            End If
+                Me.lvwSStatesList.Items.Add(SStateList_ItemTmp)
+            Next
 
 
-
-            'GamesLvw_SelectedSize = GamesLvw_SelectedSize + mdlSStatesList.SStatesIndex(currentGame.Serial).SStates_SizeTot
-            'GamesLvw_SelectedSizeBackup = GamesLvw_SelectedSizeBackup + mdlSStatesList.SStatesIndex(currentGame.Serial).SStatesBck_SizeTot
-
-            'For Each myFileInfoTmp As System.IO.FileInfo In mdlSStatesList.SStatesIndex(currentGame.Serial).SStates_List
-
-            '    Dim SStateList_ItemTmp As New System.Windows.Forms.ListViewItem With {.Text = myFileInfoTmp.Name, .Group = SStateList_GroupTmp}
-            '    SStateList_ItemTmp.SubItems.AddRange({mdlSStatesList.SStates_GetSlot(myFileInfoTmp.Name).ToString,
-            '                                          mdlSStatesList.SStates_GetType(myFileInfoTmp.Extension).ToString,
-            '                                          myFileInfoTmp.LastWriteTime.ToString,
-            '                                          System.String.Format("{0:#,##0.00} MB", myFileInfoTmp.Length / 1024 ^ 2)})
-
-            '    If mdlSStatesList.SStates_GetType(myFileInfoTmp.Extension) Then
-            '        GamesLvw_SelectedSizeBackup = GamesLvw_SelectedSizeBackup + myFileInfoTmp.Length
-            '    Else
-            '        GamesLvw_SelectedSize = GamesLvw_SelectedSize + myFileInfoTmp.Length
-            '    End If
-
-            '    If colorswitch Then
-            '        colorswitch = False
-            '    Else
-            '        SStateList_ItemTmp.BackColor = Color.WhiteSmoke
-            '        colorswitch = True
-            '    End If
-
-            '    Me.lvwSStatesList.Items.Add(SStateList_ItemTmp)
-            'Next
         Next
 
         colorswitch = True
@@ -563,7 +495,7 @@ Public Class frmMain
     End Sub
 
     Private Sub SStatesLvw_SelectionChanged()
-        'Me.UIEnabled(False)
+        Me.UIEnabled(False)
         'Me.SStatesLvw_SelectedSize = 0
         'Me.SStatesLvw_SelectedSizeBackup = 0
         'If Me.lvwSStatesList.Items.Count > 0 Then

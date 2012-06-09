@@ -110,6 +110,7 @@ Partial Class frmMain
         Me.optSettingTab2 = New System.Windows.Forms.RadioButton()
         Me.optSettingTab3 = New System.Windows.Forms.RadioButton()
         Me.tmrSStatesListRefresh = New System.Windows.Forms.Timer(Me.components)
+        Me.SStatesLvw_Version = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -495,7 +496,7 @@ Partial Class frmMain
         Me.lvwSStatesList.BackColor = System.Drawing.Color.White
         Me.lvwSStatesList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lvwSStatesList.CheckBoxes = True
-        Me.lvwSStatesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.SStatesLvw_FileName, Me.SStatesLvw_Slot, Me.SStatesLvw_Backup, Me.SStatesLvw_DateLastWrite, Me.SStatesLvw_Size, Me.SStatesLvw_SerialRef, Me.SStatesLvw_ArrayRef})
+        Me.lvwSStatesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.SStatesLvw_FileName, Me.SStatesLvw_Slot, Me.SStatesLvw_Backup, Me.SStatesLvw_Version, Me.SStatesLvw_DateLastWrite, Me.SStatesLvw_Size, Me.SStatesLvw_SerialRef, Me.SStatesLvw_ArrayRef})
         Me.lvwSStatesList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvwSStatesList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lvwSStatesList.ForeColor = System.Drawing.Color.DimGray
@@ -513,7 +514,7 @@ Partial Class frmMain
         'SStatesLvw_FileName
         '
         Me.SStatesLvw_FileName.Text = "Savestate file name"
-        Me.SStatesLvw_FileName.Width = 240
+        Me.SStatesLvw_FileName.Width = 220
         '
         'SStatesLvw_Slot
         '
@@ -524,6 +525,7 @@ Partial Class frmMain
         'SStatesLvw_Backup
         '
         Me.SStatesLvw_Backup.Text = "Backup"
+        Me.SStatesLvw_Backup.Width = 40
         '
         'SStatesLvw_DateLastWrite
         '
@@ -534,7 +536,7 @@ Partial Class frmMain
         '
         Me.SStatesLvw_Size.Text = "Size"
         Me.SStatesLvw_Size.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.SStatesLvw_Size.Width = 100
+        Me.SStatesLvw_Size.Width = 80
         '
         'SStatesLvw_SerialRef
         '
@@ -1202,6 +1204,11 @@ Partial Class frmMain
         '
         Me.tmrSStatesListRefresh.Interval = 5000
         '
+        'SStatesLvw_Version
+        '
+        Me.SStatesLvw_Version.Text = "Version"
+        Me.SStatesLvw_Version.Width = 80
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1331,4 +1338,5 @@ Partial Class frmMain
     Private WithEvents cmdRefresh As System.Windows.Forms.Button
     Friend WithEvents panelWindowTitle As System.Windows.Forms.Panel
     Friend WithEvents FlowLayoutPanel3 As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents SStatesLvw_Version As System.Windows.Forms.ColumnHeader
 End Class

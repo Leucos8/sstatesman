@@ -83,24 +83,24 @@ Public Class frmSStateList
     Private Sub tsShowGameList_Click(sender As System.Object, e As System.EventArgs) Handles tsShowGameList.Click
         Me.ListBox1.BeginUpdate()
         Me.ListBox1.Items.Clear()
-        For Each mySerial As String In mdlFileList.GamesList.Keys
-            Dim myRecord As GameTitle = mdlGameDb.GameDb_RecordExtract(mySerial,
-                                                                       mdlGameDb.GameDb,
-                                                                       mdlGameDb.GameDb_Status)
-            Me.ListBox1.Items.Add(String.Concat(myRecord.Name, vbTab,
-                                                myRecord.Serial, vbTab,
-                                                myRecord.Region, vbTab,
-                                                myRecord.Compat))
-        Next
+        'For Each mySerial As String In mdlFileList.GamesList.Keys
+        '    Dim myRecord As GameTitle = mdlGameDb.GameDb_RecordExtract(mySerial,
+        '                                                               mdlGameDb.GameDb,
+        '                                                               mdlGameDb.GameDb_Status)
+        '    Me.ListBox1.Items.Add(String.Concat(myRecord.Name, vbTab,
+        '                                        myRecord.Serial, vbTab,
+        '                                        myRecord.Region, vbTab,
+        '                                        myRecord.Compat))
+        'Next
         Me.ListBox1.EndUpdate()
     End Sub
 
     Private Sub tsShowSavestatesAll_Click(sender As System.Object, e As System.EventArgs) Handles tsShowSavestatesAll.Click
-        Me.ListFiles(mdlFileList.GamesList, ListKeys.Savestates)
+        'Me.ListFiles(mdlFileList.GamesList, ListKeys.Savestates)
     End Sub
 
     Private Sub tsShowBackupsAll_Click(sender As System.Object, e As System.EventArgs) Handles tsShowBackupsAll.Click
-        Me.ListFiles(mdlFileList.GamesList, ListKeys.Savestates_Backup)
+        'Me.ListFiles(mdlFileList.GamesList, ListKeys.Savestates_Backup)
     End Sub
 
     Private Sub tsShowSavestatesUIList_Click(sender As System.Object, e As System.EventArgs) Handles tsShowSavestatesUIList.Click
@@ -121,40 +121,40 @@ Public Class frmSStateList
     End Sub
 
     Private Sub tsShowSavestatesUIListChecked_Click(sender As System.Object, e As System.EventArgs) Handles tsShowSavestatesUIListChecked.Click
-        Me.ListBox1.BeginUpdate()
-        Me.ListBox1.Items.Clear()
-        For Each myFile As FileInfo In mdlMain.checkedFiles
-            ListBox1.Items.Add(String.Format("{0,-12}|{1,3}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}",
-                                             mdlFileList.SStates_GetSerial(myFile.Name),
-                                             mdlFileList.SStates_GetSlot(myFile.Name).ToString,
-                                             mdlFileList.SStates_GetType(myFile.Name).ToString,
-                                             myFile.Name,
-                                             myFile.Length / 1024 ^ 2,
-                                             myFile.LastWriteTime.ToString,
-                                             myFile.Attributes.ToString))
-        Next
-        Me.ListBox1.EndUpdate()
+        'Me.ListBox1.BeginUpdate()
+        'Me.ListBox1.Items.Clear()
+        'For Each myFile As FileInfo In mdlMain.checkedFiles
+        '    ListBox1.Items.Add(String.Format("{0,-12}|{1,3}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}",
+        '                                     mdlFileList.SStates_GetSerial(myFile.Name),
+        '                                     mdlFileList.SStates_GetSlot(myFile.Name).ToString,
+        '                                     mdlFileList.SStates_GetType(myFile.Name).ToString,
+        '                                     myFile.Name,
+        '                                     myFile.Length / 1024 ^ 2,
+        '                                     myFile.LastWriteTime.ToString,
+        '                                     myFile.Attributes.ToString))
+        'Next
+        'Me.ListBox1.EndUpdate()
     End Sub
 
-    Private Sub ListFiles(ByVal pGameList As Dictionary(Of String, Dictionary(Of mdlFileList.ListKeys, mdlFileList.rFileList)),
-                          ByVal pFileType As mdlFileList.ListKeys)
-        Me.ListBox1.BeginUpdate()
-        Me.ListBox1.Items.Clear()
-        For Each myGame As KeyValuePair(Of String, Dictionary(Of mdlFileList.ListKeys, mdlFileList.rFileList)) In pGameList
-            Dim myFileList As New mdlFileList.rFileList
-            If myGame.Value.TryGetValue(pFileType, myFileList) Then
-                For Each myFile As KeyValuePair(Of String, FileInfo) In myFileList.InfoList
-                    ListBox1.Items.Add(String.Format("{0,-12}|{1,3}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}",
-                                                     mdlFileList.SStates_GetSerial(myFile.Value.Name),
-                                                     mdlFileList.SStates_GetSlot(myFile.Value.Name).ToString,
-                                                     mdlFileList.SStates_GetType(myFile.Value.Name).ToString,
-                                                     myFile.Value.Name,
-                                                     myFile.Value.Length / 1024 ^ 2,
-                                                     myFile.Value.LastWriteTime.ToString,
-                                                     myFile.Value.Attributes.ToString))
-                Next
-            End If
-        Next
-        Me.ListBox1.EndUpdate()
-    End Sub
+    'Private Sub ListFiles(ByVal pGameList As Dictionary(Of String, Dictionary(Of mdlFileList.ListKeys, mdlFileList.rFileList)),
+    '                      ByVal pFileType As mdlFileList.ListKeys)
+    '    Me.ListBox1.BeginUpdate()
+    '    Me.ListBox1.Items.Clear()
+    '    For Each myGame As KeyValuePair(Of String, Dictionary(Of mdlFileList.ListKeys, mdlFileList.rFileList)) In pGameList
+    '        Dim myFileList As New mdlFileList.rFileList
+    '        If myGame.Value.TryGetValue(pFileType, myFileList) Then
+    '            For Each myFile As KeyValuePair(Of String, FileInfo) In myFileList.InfoList
+    '                ListBox1.Items.Add(String.Format("{0,-12}|{1,3}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}",
+    '                                                 mdlFileList.SStates_GetSerial(myFile.Value.Name),
+    '                                                 mdlFileList.SStates_GetSlot(myFile.Value.Name).ToString,
+    '                                                 mdlFileList.SStates_GetType(myFile.Value.Name).ToString,
+    '                                                 myFile.Value.Name,
+    '                                                 myFile.Value.Length / 1024 ^ 2,
+    '                                                 myFile.Value.LastWriteTime.ToString,
+    '                                                 myFile.Value.Attributes.ToString))
+    '            Next
+    '        End If
+    '    Next
+    '    Me.ListBox1.EndUpdate()
+    'End Sub
 End Class
