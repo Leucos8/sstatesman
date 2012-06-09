@@ -539,4 +539,5 @@ Public Class frmSettings
     Private Sub ckbSStatesManBGImage_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ckbSStatesManBGImage.CheckedChanged
         Me.pnlThemeOptions.Enabled = ckbSStatesManBGImage.Checked
     End Sub
+
 End Class

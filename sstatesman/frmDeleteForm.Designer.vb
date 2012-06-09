@@ -96,7 +96,7 @@ Partial Class frmDeleteForm
         Me.cmdCancel.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.Size = New System.Drawing.Size(100, 24)
-        Me.cmdCancel.TabIndex = 18
+        Me.cmdCancel.TabIndex = 9
         Me.cmdCancel.Text = "CLOSE"
         Me.cmdCancel.UseVisualStyleBackColor = False
         '
@@ -117,7 +117,7 @@ Partial Class frmDeleteForm
         Me.cmdDeleteSStateSelected.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdDeleteSStateSelected.Name = "cmdDeleteSStateSelected"
         Me.cmdDeleteSStateSelected.Size = New System.Drawing.Size(100, 24)
-        Me.cmdDeleteSStateSelected.TabIndex = 17
+        Me.cmdDeleteSStateSelected.TabIndex = 8
         Me.cmdDeleteSStateSelected.Text = "DELETE CHECKED"
         Me.cmdDeleteSStateSelected.UseVisualStyleBackColor = False
         '
@@ -137,7 +137,7 @@ Partial Class frmDeleteForm
         Me.lvwSStatesListToDelete.MultiSelect = False
         Me.lvwSStatesListToDelete.Name = "lvwSStatesListToDelete"
         Me.lvwSStatesListToDelete.Size = New System.Drawing.Size(624, 191)
-        Me.lvwSStatesListToDelete.TabIndex = 20
+        Me.lvwSStatesListToDelete.TabIndex = 10
         Me.lvwSStatesListToDelete.UseCompatibleStateImageBehavior = False
         Me.lvwSStatesListToDelete.View = System.Windows.Forms.View.Details
         '
@@ -186,14 +186,14 @@ Partial Class frmDeleteForm
         Me.cmdSStateSelectInvert.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdSStateSelectInvert.FlatAppearance.BorderSize = 0
         Me.cmdSStateSelectInvert.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateSelectInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdSStateSelectInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdSStateSelectInvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStateSelectInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdSStateSelectInvert.Location = New System.Drawing.Point(551, 0)
         Me.cmdSStateSelectInvert.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectInvert.Name = "cmdSStateSelectInvert"
         Me.cmdSStateSelectInvert.Size = New System.Drawing.Size(47, 22)
-        Me.cmdSStateSelectInvert.TabIndex = 25
+        Me.cmdSStateSelectInvert.TabIndex = 16
         Me.cmdSStateSelectInvert.Text = "INVERT"
         Me.cmdSStateSelectInvert.UseVisualStyleBackColor = False
         '
@@ -205,14 +205,14 @@ Partial Class frmDeleteForm
         Me.cmdSStateSelectBackup.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdSStateSelectBackup.FlatAppearance.BorderSize = 0
         Me.cmdSStateSelectBackup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateSelectBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdSStateSelectBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdSStateSelectBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStateSelectBackup.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdSStateSelectBackup.Location = New System.Drawing.Point(422, 0)
         Me.cmdSStateSelectBackup.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectBackup.Name = "cmdSStateSelectBackup"
         Me.cmdSStateSelectBackup.Size = New System.Drawing.Size(57, 22)
-        Me.cmdSStateSelectBackup.TabIndex = 24
+        Me.cmdSStateSelectBackup.TabIndex = 13
         Me.cmdSStateSelectBackup.Text = "BACKUPS"
         Me.cmdSStateSelectBackup.UseVisualStyleBackColor = False
         '
@@ -224,14 +224,14 @@ Partial Class frmDeleteForm
         Me.cmdSStateSelectAll.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdSStateSelectAll.FlatAppearance.BorderSize = 0
         Me.cmdSStateSelectAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateSelectAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdSStateSelectAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdSStateSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStateSelectAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdSStateSelectAll.Location = New System.Drawing.Point(479, 0)
         Me.cmdSStateSelectAll.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectAll.Name = "cmdSStateSelectAll"
         Me.cmdSStateSelectAll.Size = New System.Drawing.Size(31, 22)
-        Me.cmdSStateSelectAll.TabIndex = 22
+        Me.cmdSStateSelectAll.TabIndex = 14
         Me.cmdSStateSelectAll.Text = "ALL"
         Me.cmdSStateSelectAll.UseVisualStyleBackColor = False
         '
@@ -243,14 +243,14 @@ Partial Class frmDeleteForm
         Me.cmdSStateSelectNone.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdSStateSelectNone.FlatAppearance.BorderSize = 0
         Me.cmdSStateSelectNone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateSelectNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdSStateSelectNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdSStateSelectNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStateSelectNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdSStateSelectNone.Location = New System.Drawing.Point(510, 0)
         Me.cmdSStateSelectNone.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectNone.Name = "cmdSStateSelectNone"
         Me.cmdSStateSelectNone.Size = New System.Drawing.Size(41, 22)
-        Me.cmdSStateSelectNone.TabIndex = 23
+        Me.cmdSStateSelectNone.TabIndex = 15
         Me.cmdSStateSelectNone.Text = "NONE"
         Me.cmdSStateSelectNone.UseVisualStyleBackColor = False
         '
@@ -265,7 +265,8 @@ Partial Class frmDeleteForm
         Me.txtSStateListSelection.Name = "txtSStateListSelection"
         Me.txtSStateListSelection.ReadOnly = True
         Me.txtSStateListSelection.Size = New System.Drawing.Size(128, 22)
-        Me.txtSStateListSelection.TabIndex = 31
+        Me.txtSStateListSelection.TabIndex = 19
+        Me.txtSStateListSelection.TabStop = False
         Me.txtSStateListSelection.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblSizeBackup
@@ -275,7 +276,7 @@ Partial Class frmDeleteForm
         Me.lblSizeBackup.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSizeBackup.Name = "lblSizeBackup"
         Me.lblSizeBackup.Size = New System.Drawing.Size(72, 13)
-        Me.lblSizeBackup.TabIndex = 29
+        Me.lblSizeBackup.TabIndex = 22
         Me.lblSizeBackup.Text = "backups size"
         '
         'lblSStateListSelection
@@ -285,7 +286,7 @@ Partial Class frmDeleteForm
         Me.lblSStateListSelection.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSStateListSelection.Name = "lblSStateListSelection"
         Me.lblSStateListSelection.Size = New System.Drawing.Size(53, 13)
-        Me.lblSStateListSelection.TabIndex = 30
+        Me.lblSStateListSelection.TabIndex = 18
         Me.lblSStateListSelection.Text = "selection"
         '
         'lblSize
@@ -295,7 +296,7 @@ Partial Class frmDeleteForm
         Me.lblSize.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSize.Name = "lblSize"
         Me.lblSize.Size = New System.Drawing.Size(64, 13)
-        Me.lblSize.TabIndex = 28
+        Me.lblSize.TabIndex = 20
         Me.lblSize.Text = "sstates size"
         '
         'txtSizeBackup
@@ -309,7 +310,8 @@ Partial Class frmDeleteForm
         Me.txtSizeBackup.Name = "txtSizeBackup"
         Me.txtSizeBackup.ReadOnly = True
         Me.txtSizeBackup.Size = New System.Drawing.Size(128, 22)
-        Me.txtSizeBackup.TabIndex = 27
+        Me.txtSizeBackup.TabIndex = 23
+        Me.txtSizeBackup.TabStop = False
         Me.txtSizeBackup.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtSize
@@ -323,7 +325,8 @@ Partial Class frmDeleteForm
         Me.txtSize.Name = "txtSize"
         Me.txtSize.ReadOnly = True
         Me.txtSize.Size = New System.Drawing.Size(128, 22)
-        Me.txtSize.TabIndex = 26
+        Me.txtSize.TabIndex = 21
+        Me.txtSize.TabStop = False
         Me.txtSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblGameListCheck
@@ -352,7 +355,7 @@ Partial Class frmDeleteForm
         Me.panelWindowTitle.MinimumSize = New System.Drawing.Size(0, 56)
         Me.panelWindowTitle.Name = "panelWindowTitle"
         Me.panelWindowTitle.Size = New System.Drawing.Size(624, 56)
-        Me.panelWindowTitle.TabIndex = 33
+        Me.panelWindowTitle.TabIndex = 0
         '
         'FlowLayoutPanel2
         '
@@ -367,7 +370,7 @@ Partial Class frmDeleteForm
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
         Me.FlowLayoutPanel2.Padding = New System.Windows.Forms.Padding(24, 4, 0, 4)
         Me.FlowLayoutPanel2.Size = New System.Drawing.Size(532, 56)
-        Me.FlowLayoutPanel2.TabIndex = 21
+        Me.FlowLayoutPanel2.TabIndex = 1
         Me.FlowLayoutPanel2.WrapContents = False
         '
         'lblWindowTitle
@@ -379,7 +382,7 @@ Partial Class frmDeleteForm
         Me.lblWindowTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblWindowTitle.Name = "lblWindowTitle"
         Me.lblWindowTitle.Size = New System.Drawing.Size(197, 30)
-        Me.lblWindowTitle.TabIndex = 4
+        Me.lblWindowTitle.TabIndex = 2
         Me.lblWindowTitle.Text = "Delete confirmation"
         '
         'TableLayoutPanel1
@@ -413,7 +416,7 @@ Partial Class frmDeleteForm
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0, 0, 6, 0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(48, 16)
-        Me.FlowLayoutPanel1.TabIndex = 23
+        Me.FlowLayoutPanel1.TabIndex = 4
         Me.FlowLayoutPanel1.WrapContents = False
         '
         'cmdWindowMaximize
@@ -429,7 +432,7 @@ Partial Class frmDeleteForm
         Me.cmdWindowMaximize.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowMaximize.Name = "cmdWindowMaximize"
         Me.cmdWindowMaximize.Size = New System.Drawing.Size(24, 16)
-        Me.cmdWindowMaximize.TabIndex = 22
+        Me.cmdWindowMaximize.TabIndex = 5
         Me.cmdWindowMaximize.UseVisualStyleBackColor = False
         '
         'cmdWindowClose
@@ -445,7 +448,7 @@ Partial Class frmDeleteForm
         Me.cmdWindowClose.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowClose.Name = "cmdWindowClose"
         Me.cmdWindowClose.Size = New System.Drawing.Size(24, 16)
-        Me.cmdWindowClose.TabIndex = 23
+        Me.cmdWindowClose.TabIndex = 6
         Me.cmdWindowClose.UseVisualStyleBackColor = False
         '
         'imgWindowGradientIcon
@@ -477,7 +480,7 @@ Partial Class frmDeleteForm
         Me.flpWindowBottom.Name = "flpWindowBottom"
         Me.flpWindowBottom.Padding = New System.Windows.Forms.Padding(4)
         Me.flpWindowBottom.Size = New System.Drawing.Size(624, 36)
-        Me.flpWindowBottom.TabIndex = 34
+        Me.flpWindowBottom.TabIndex = 7
         '
         'FlowPanelGameList
         '
@@ -495,7 +498,7 @@ Partial Class frmDeleteForm
         Me.FlowPanelGameList.Name = "FlowPanelGameList"
         Me.FlowPanelGameList.Padding = New System.Windows.Forms.Padding(13, 0, 13, 0)
         Me.FlowPanelGameList.Size = New System.Drawing.Size(624, 22)
-        Me.FlowPanelGameList.TabIndex = 35
+        Me.FlowPanelGameList.TabIndex = 12
         Me.FlowPanelGameList.WrapContents = False
         '
         'TableLayoutPanel2
@@ -521,7 +524,7 @@ Partial Class frmDeleteForm
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(624, 39)
-        Me.TableLayoutPanel2.TabIndex = 36
+        Me.TableLayoutPanel2.TabIndex = 17
         '
         'frmDeleteForm
         '

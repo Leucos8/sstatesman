@@ -48,11 +48,11 @@ Partial Class frmGameDb
         Me.tsCmdSearch = New System.Windows.Forms.ToolStripButton()
         Me.tsListShow = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.tsTxtSearchSerial = New System.Windows.Forms.ToolStripTextBox()
         Me.tsCmdSearchSerial = New System.Windows.Forms.ToolStripButton()
         Me.tsExport = New System.Windows.Forms.ToolStripDropDownButton()
         Me.tsExportTSVTxt = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsExportCSVTxt = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsTxtSearchSerial = New System.Windows.Forms.ToolStripTextBox()
         Me.txtGameList_Compat = New System.Windows.Forms.TextBox()
         Me.lblGameList_Compat = New System.Windows.Forms.Label()
         Me.txtGameList_Serial = New System.Windows.Forms.TextBox()
@@ -83,7 +83,7 @@ Partial Class frmGameDb
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 11, 0)
         Me.StatusStrip1.Size = New System.Drawing.Size(624, 22)
-        Me.StatusStrip1.TabIndex = 7
+        Me.StatusStrip1.TabIndex = 3
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'ToolStripStatusLabel2
@@ -109,8 +109,8 @@ Partial Class frmGameDb
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(624, 25)
-        Me.ToolStrip1.TabIndex = 16
-        Me.ToolStrip1.Text = "ToolStrip1"
+        Me.ToolStrip1.TabIndex = 2
+        Me.ToolStrip1.Text = "ToolStrip"
         '
         'tsGameDbLoad
         '
@@ -118,7 +118,7 @@ Partial Class frmGameDb
         Me.tsGameDbLoad.Image = CType(resources.GetObject("tsGameDbLoad.Image"), System.Drawing.Image)
         Me.tsGameDbLoad.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsGameDbLoad.Name = "tsGameDbLoad"
-        Me.tsGameDbLoad.Size = New System.Drawing.Size(83, 22)
+        Me.tsGameDbLoad.Size = New System.Drawing.Size(86, 22)
         Me.tsGameDbLoad.Text = "Load &GameDB"
         Me.tsGameDbLoad.ToolTipText = "Load the PCSX2 Game Database."
         '
@@ -143,7 +143,7 @@ Partial Class frmGameDb
         Me.tsCmdSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.tsCmdSearch.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsCmdSearch.Name = "tsCmdSearch"
-        Me.tsCmdSearch.Size = New System.Drawing.Size(45, 22)
+        Me.tsCmdSearch.Size = New System.Drawing.Size(46, 22)
         Me.tsCmdSearch.Text = "&Search"
         Me.tsCmdSearch.ToolTipText = "Perform a search inside the game database."
         '
@@ -153,7 +153,7 @@ Partial Class frmGameDb
         Me.tsListShow.Enabled = False
         Me.tsListShow.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsListShow.Name = "tsListShow"
-        Me.tsListShow.Size = New System.Drawing.Size(73, 22)
+        Me.tsListShow.Size = New System.Drawing.Size(75, 22)
         Me.tsListShow.Text = "&Clear search"
         Me.tsListShow.ToolTipText = "Clear the search results listing the full game database."
         Me.tsListShow.Visible = False
@@ -164,13 +164,6 @@ Partial Class frmGameDb
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
         Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
         '
-        'tsTxtSearchSerial
-        '
-        Me.tsTxtSearchSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.tsTxtSearchSerial.Name = "tsTxtSearchSerial"
-        Me.tsTxtSearchSerial.Size = New System.Drawing.Size(105, 25)
-        Me.tsTxtSearchSerial.Text = "Serial"
-        '
         'tsCmdSearchSerial
         '
         Me.tsCmdSearchSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
@@ -178,7 +171,7 @@ Partial Class frmGameDb
         Me.tsCmdSearchSerial.Enabled = False
         Me.tsCmdSearchSerial.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsCmdSearchSerial.Name = "tsCmdSearchSerial"
-        Me.tsCmdSearchSerial.Size = New System.Drawing.Size(77, 22)
+        Me.tsCmdSearchSerial.Size = New System.Drawing.Size(79, 22)
         Me.tsCmdSearchSerial.Text = "&Quick search"
         Me.tsCmdSearchSerial.ToolTipText = "Perform a quick search using the given serial"
         '
@@ -197,14 +190,21 @@ Partial Class frmGameDb
         'tsExportTSVTxt
         '
         Me.tsExportTSVTxt.Name = "tsExportTSVTxt"
-        Me.tsExportTSVTxt.Size = New System.Drawing.Size(237, 22)
+        Me.tsExportTSVTxt.Size = New System.Drawing.Size(243, 22)
         Me.tsExportTSVTxt.Text = "Tab separated value text file"
         '
         'tsExportCSVTxt
         '
         Me.tsExportCSVTxt.Name = "tsExportCSVTxt"
-        Me.tsExportCSVTxt.Size = New System.Drawing.Size(237, 22)
+        Me.tsExportCSVTxt.Size = New System.Drawing.Size(243, 22)
         Me.tsExportCSVTxt.Text = "Comma separated value text file"
+        '
+        'tsTxtSearchSerial
+        '
+        Me.tsTxtSearchSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.tsTxtSearchSerial.Name = "tsTxtSearchSerial"
+        Me.tsTxtSearchSerial.Size = New System.Drawing.Size(105, 25)
+        Me.tsTxtSearchSerial.Text = "Serial"
         '
         'txtGameList_Compat
         '
@@ -215,7 +215,7 @@ Partial Class frmGameDb
         Me.txtGameList_Compat.Name = "txtGameList_Compat"
         Me.txtGameList_Compat.ReadOnly = True
         Me.txtGameList_Compat.Size = New System.Drawing.Size(80, 22)
-        Me.txtGameList_Compat.TabIndex = 31
+        Me.txtGameList_Compat.TabIndex = 12
         '
         'lblGameList_Compat
         '
@@ -225,7 +225,7 @@ Partial Class frmGameDb
         Me.lblGameList_Compat.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Compat.Name = "lblGameList_Compat"
         Me.lblGameList_Compat.Size = New System.Drawing.Size(63, 30)
-        Me.lblGameList_Compat.TabIndex = 33
+        Me.lblGameList_Compat.TabIndex = 11
         Me.lblGameList_Compat.Text = "Emu status"
         Me.lblGameList_Compat.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -238,7 +238,7 @@ Partial Class frmGameDb
         Me.txtGameList_Serial.Name = "txtGameList_Serial"
         Me.txtGameList_Serial.ReadOnly = True
         Me.txtGameList_Serial.Size = New System.Drawing.Size(80, 22)
-        Me.txtGameList_Serial.TabIndex = 30
+        Me.txtGameList_Serial.TabIndex = 10
         '
         'txtGameList_Region
         '
@@ -249,7 +249,7 @@ Partial Class frmGameDb
         Me.txtGameList_Region.Name = "txtGameList_Region"
         Me.txtGameList_Region.ReadOnly = True
         Me.txtGameList_Region.Size = New System.Drawing.Size(80, 22)
-        Me.txtGameList_Region.TabIndex = 29
+        Me.txtGameList_Region.TabIndex = 8
         '
         'txtGameList_Title
         '
@@ -262,7 +262,7 @@ Partial Class frmGameDb
         Me.txtGameList_Title.Name = "txtGameList_Title"
         Me.txtGameList_Title.ReadOnly = True
         Me.txtGameList_Title.Size = New System.Drawing.Size(545, 22)
-        Me.txtGameList_Title.TabIndex = 28
+        Me.txtGameList_Title.TabIndex = 6
         '
         'lblGameList_Serial
         '
@@ -272,7 +272,7 @@ Partial Class frmGameDb
         Me.lblGameList_Serial.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Serial.Name = "lblGameList_Serial"
         Me.lblGameList_Serial.Size = New System.Drawing.Size(52, 30)
-        Me.lblGameList_Serial.TabIndex = 27
+        Me.lblGameList_Serial.TabIndex = 9
         Me.lblGameList_Serial.Text = "Exe code"
         Me.lblGameList_Serial.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -284,7 +284,7 @@ Partial Class frmGameDb
         Me.lblGameList_Region.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Region.Name = "lblGameList_Region"
         Me.lblGameList_Region.Size = New System.Drawing.Size(59, 30)
-        Me.lblGameList_Region.TabIndex = 26
+        Me.lblGameList_Region.TabIndex = 7
         Me.lblGameList_Region.Text = "Region"
         Me.lblGameList_Region.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -296,7 +296,7 @@ Partial Class frmGameDb
         Me.lblGameList_Title.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Title.Name = "lblGameList_Title"
         Me.lblGameList_Title.Size = New System.Drawing.Size(59, 26)
-        Me.lblGameList_Title.TabIndex = 25
+        Me.lblGameList_Title.TabIndex = 5
         Me.lblGameList_Title.Text = "Game title"
         Me.lblGameList_Title.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -311,7 +311,7 @@ Partial Class frmGameDb
         Me.lvwGameDBList.MultiSelect = False
         Me.lvwGameDBList.Name = "lvwGameDBList"
         Me.lvwGameDBList.Size = New System.Drawing.Size(624, 219)
-        Me.lvwGameDBList.TabIndex = 34
+        Me.lvwGameDBList.TabIndex = 0
         Me.lvwGameDBList.TileSize = New System.Drawing.Size(480, 64)
         Me.lvwGameDBList.UseCompatibleStateImageBehavior = False
         Me.lvwGameDBList.View = System.Windows.Forms.View.Details
@@ -398,7 +398,7 @@ Partial Class frmGameDb
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(624, 56)
-        Me.TableLayoutPanel1.TabIndex = 38
+        Me.TableLayoutPanel1.TabIndex = 4
         '
         'frmGameDb
         '

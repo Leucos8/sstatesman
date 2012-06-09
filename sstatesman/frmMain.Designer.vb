@@ -156,8 +156,8 @@ Partial Class frmMain
         Me.SplitContainer1.Panel2.Controls.Add(Me.TableLayoutPanel4)
         Me.SplitContainer1.Panel2.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
         Me.SplitContainer1.Panel2MinSize = 120
-        Me.SplitContainer1.Size = New System.Drawing.Size(624, 390)
-        Me.SplitContainer1.SplitterDistance = 202
+        Me.SplitContainer1.Size = New System.Drawing.Size(624, 368)
+        Me.SplitContainer1.SplitterDistance = 200
         Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 20
         '
@@ -190,13 +190,12 @@ Partial Class frmMain
         Me.TableLayoutPanel3.Location = New System.Drawing.Point(8, 22)
         Me.TableLayoutPanel3.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        Me.TableLayoutPanel3.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.TableLayoutPanel3.RowCount = 3
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(608, 176)
-        Me.TableLayoutPanel3.TabIndex = 31
+        Me.TableLayoutPanel3.Size = New System.Drawing.Size(608, 174)
+        Me.TableLayoutPanel3.TabIndex = 21
         '
         'lvwGamesList
         '
@@ -211,13 +210,13 @@ Partial Class frmMain
         Me.lvwGamesList.FullRowSelect = True
         Me.lvwGamesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
         Me.lvwGamesList.HideSelection = False
-        Me.lvwGamesList.Location = New System.Drawing.Point(0, 2)
+        Me.lvwGamesList.Location = New System.Drawing.Point(0, 0)
         Me.lvwGamesList.Margin = New System.Windows.Forms.Padding(0, 0, 0, 4)
         Me.lvwGamesList.MultiSelect = False
         Me.lvwGamesList.Name = "lvwGamesList"
-        Me.lvwGamesList.Size = New System.Drawing.Size(608, 118)
+        Me.lvwGamesList.Size = New System.Drawing.Size(608, 120)
         Me.lvwGamesList.Sorting = System.Windows.Forms.SortOrder.Ascending
-        Me.lvwGamesList.TabIndex = 1
+        Me.lvwGamesList.TabIndex = 22
         Me.lvwGamesList.TileSize = New System.Drawing.Size(480, 96)
         Me.lvwGamesList.UseCompatibleStateImageBehavior = False
         Me.lvwGamesList.View = System.Windows.Forms.View.Details
@@ -275,7 +274,7 @@ Partial Class frmMain
         Me.lblGameList_Title.Margin = New System.Windows.Forms.Padding(10, 0, 4, 0)
         Me.lblGameList_Title.Name = "lblGameList_Title"
         Me.lblGameList_Title.Size = New System.Drawing.Size(58, 24)
-        Me.lblGameList_Title.TabIndex = 1
+        Me.lblGameList_Title.TabIndex = 23
         Me.lblGameList_Title.Text = "game title"
         Me.lblGameList_Title.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -291,7 +290,8 @@ Partial Class frmMain
         Me.txtGameList_Title.Name = "txtGameList_Title"
         Me.txtGameList_Title.ReadOnly = True
         Me.txtGameList_Title.Size = New System.Drawing.Size(484, 22)
-        Me.txtGameList_Title.TabIndex = 5
+        Me.txtGameList_Title.TabIndex = 24
+        Me.txtGameList_Title.TabStop = False
         '
         'lblGameList_Region
         '
@@ -302,7 +302,7 @@ Partial Class frmMain
         Me.lblGameList_Region.Margin = New System.Windows.Forms.Padding(10, 0, 4, 0)
         Me.lblGameList_Region.Name = "lblGameList_Region"
         Me.lblGameList_Region.Size = New System.Drawing.Size(58, 26)
-        Me.lblGameList_Region.TabIndex = 2
+        Me.lblGameList_Region.TabIndex = 25
         Me.lblGameList_Region.Text = "region"
         Me.lblGameList_Region.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -331,7 +331,8 @@ Partial Class frmMain
         Me.txtGameList_Compat.Name = "txtGameList_Compat"
         Me.txtGameList_Compat.ReadOnly = True
         Me.txtGameList_Compat.Size = New System.Drawing.Size(100, 22)
-        Me.txtGameList_Compat.TabIndex = 8
+        Me.txtGameList_Compat.TabIndex = 30
+        Me.txtGameList_Compat.TabStop = False
         '
         'txtGameList_Region
         '
@@ -344,7 +345,8 @@ Partial Class frmMain
         Me.txtGameList_Region.Name = "txtGameList_Region"
         Me.txtGameList_Region.ReadOnly = True
         Me.txtGameList_Region.Size = New System.Drawing.Size(100, 22)
-        Me.txtGameList_Region.TabIndex = 6
+        Me.txtGameList_Region.TabIndex = 26
+        Me.txtGameList_Region.TabStop = False
         '
         'lblGameList_Compat
         '
@@ -355,7 +357,7 @@ Partial Class frmMain
         Me.lblGameList_Compat.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Compat.Name = "lblGameList_Compat"
         Me.lblGameList_Compat.Size = New System.Drawing.Size(63, 26)
-        Me.lblGameList_Compat.TabIndex = 24
+        Me.lblGameList_Compat.TabIndex = 29
         Me.lblGameList_Compat.Text = "emu status"
         Me.lblGameList_Compat.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -368,7 +370,7 @@ Partial Class frmMain
         Me.lblGameList_Serial.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Serial.Name = "lblGameList_Serial"
         Me.lblGameList_Serial.Size = New System.Drawing.Size(34, 26)
-        Me.lblGameList_Serial.TabIndex = 3
+        Me.lblGameList_Serial.TabIndex = 27
         Me.lblGameList_Serial.Text = "serial"
         Me.lblGameList_Serial.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -383,7 +385,8 @@ Partial Class frmMain
         Me.txtGameList_Serial.Name = "txtGameList_Serial"
         Me.txtGameList_Serial.ReadOnly = True
         Me.txtGameList_Serial.Size = New System.Drawing.Size(100, 22)
-        Me.txtGameList_Serial.TabIndex = 7
+        Me.txtGameList_Serial.TabIndex = 28
+        Me.txtGameList_Serial.TabStop = False
         '
         'TableLayoutPanel2
         '
@@ -402,7 +405,7 @@ Partial Class frmMain
         Me.TableLayoutPanel2.RowCount = 1
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(608, 22)
-        Me.TableLayoutPanel2.TabIndex = 21
+        Me.TableLayoutPanel2.TabIndex = 31
         '
         'FlowPanelGameList
         '
@@ -429,14 +432,14 @@ Partial Class frmMain
         Me.cmdGameSelectInvert.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdGameSelectInvert.FlatAppearance.BorderSize = 0
         Me.cmdGameSelectInvert.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdGameSelectInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdGameSelectInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdGameSelectInvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdGameSelectInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdGameSelectInvert.Location = New System.Drawing.Point(151, 0)
         Me.cmdGameSelectInvert.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdGameSelectInvert.Name = "cmdGameSelectInvert"
         Me.cmdGameSelectInvert.Size = New System.Drawing.Size(47, 22)
-        Me.cmdGameSelectInvert.TabIndex = 4
+        Me.cmdGameSelectInvert.TabIndex = 36
         Me.cmdGameSelectInvert.Text = "INVERT"
         Me.cmdGameSelectInvert.UseVisualStyleBackColor = False
         '
@@ -448,14 +451,14 @@ Partial Class frmMain
         Me.cmdGameSelectNone.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdGameSelectNone.FlatAppearance.BorderSize = 0
         Me.cmdGameSelectNone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdGameSelectNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdGameSelectNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdGameSelectNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdGameSelectNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdGameSelectNone.Location = New System.Drawing.Point(110, 0)
         Me.cmdGameSelectNone.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdGameSelectNone.Name = "cmdGameSelectNone"
         Me.cmdGameSelectNone.Size = New System.Drawing.Size(41, 22)
-        Me.cmdGameSelectNone.TabIndex = 3
+        Me.cmdGameSelectNone.TabIndex = 35
         Me.cmdGameSelectNone.Text = "NONE"
         Me.cmdGameSelectNone.UseVisualStyleBackColor = False
         '
@@ -467,14 +470,14 @@ Partial Class frmMain
         Me.cmdGameSelectAll.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdGameSelectAll.FlatAppearance.BorderSize = 0
         Me.cmdGameSelectAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdGameSelectAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdGameSelectAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdGameSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdGameSelectAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdGameSelectAll.Location = New System.Drawing.Point(79, 0)
         Me.cmdGameSelectAll.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdGameSelectAll.Name = "cmdGameSelectAll"
         Me.cmdGameSelectAll.Size = New System.Drawing.Size(31, 22)
-        Me.cmdGameSelectAll.TabIndex = 2
+        Me.cmdGameSelectAll.TabIndex = 34
         Me.cmdGameSelectAll.Text = "ALL"
         Me.cmdGameSelectAll.UseVisualStyleBackColor = False
         '
@@ -486,7 +489,7 @@ Partial Class frmMain
         Me.lblGameListCheck.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameListCheck.Name = "lblGameListCheck"
         Me.lblGameListCheck.Size = New System.Drawing.Size(75, 22)
-        Me.lblGameListCheck.TabIndex = 27
+        Me.lblGameListCheck.TabIndex = 33
         Me.lblGameListCheck.Text = "check games:"
         Me.lblGameListCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -505,8 +508,8 @@ Partial Class frmMain
         Me.lvwSStatesList.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwSStatesList.MultiSelect = False
         Me.lvwSStatesList.Name = "lvwSStatesList"
-        Me.lvwSStatesList.Size = New System.Drawing.Size(608, 120)
-        Me.lvwSStatesList.TabIndex = 9
+        Me.lvwSStatesList.Size = New System.Drawing.Size(608, 100)
+        Me.lvwSStatesList.TabIndex = 37
         Me.lvwSStatesList.UseCompatibleStateImageBehavior = False
         Me.lvwSStatesList.View = System.Windows.Forms.View.Details
         '
@@ -558,14 +561,14 @@ Partial Class frmMain
         Me.TableLayoutPanel5.Controls.Add(Me.lblSizeBackup, 2, 0)
         Me.TableLayoutPanel5.Controls.Add(Me.txtSize, 1, 1)
         Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(8, 142)
+        Me.TableLayoutPanel5.Location = New System.Drawing.Point(8, 122)
         Me.TableLayoutPanel5.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
         Me.TableLayoutPanel5.RowCount = 2
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel5.Size = New System.Drawing.Size(608, 39)
-        Me.TableLayoutPanel5.TabIndex = 37
+        Me.TableLayoutPanel5.TabIndex = 48
         '
         'lblSStateListSelection
         '
@@ -574,7 +577,7 @@ Partial Class frmMain
         Me.lblSStateListSelection.Margin = New System.Windows.Forms.Padding(0, 0, 2, 0)
         Me.lblSStateListSelection.Name = "lblSStateListSelection"
         Me.lblSStateListSelection.Size = New System.Drawing.Size(53, 13)
-        Me.lblSStateListSelection.TabIndex = 30
+        Me.lblSStateListSelection.TabIndex = 49
         Me.lblSStateListSelection.Text = "selection"
         '
         'txtSStateListSelection
@@ -588,7 +591,8 @@ Partial Class frmMain
         Me.txtSStateListSelection.Name = "txtSStateListSelection"
         Me.txtSStateListSelection.ReadOnly = True
         Me.txtSStateListSelection.Size = New System.Drawing.Size(128, 22)
-        Me.txtSStateListSelection.TabIndex = 31
+        Me.txtSStateListSelection.TabIndex = 50
+        Me.txtSStateListSelection.TabStop = False
         Me.txtSStateListSelection.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtSizeBackup
@@ -602,7 +606,8 @@ Partial Class frmMain
         Me.txtSizeBackup.Name = "txtSizeBackup"
         Me.txtSizeBackup.ReadOnly = True
         Me.txtSizeBackup.Size = New System.Drawing.Size(128, 22)
-        Me.txtSizeBackup.TabIndex = 27
+        Me.txtSizeBackup.TabIndex = 54
+        Me.txtSizeBackup.TabStop = False
         Me.txtSizeBackup.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblSize
@@ -612,7 +617,7 @@ Partial Class frmMain
         Me.lblSize.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSize.Name = "lblSize"
         Me.lblSize.Size = New System.Drawing.Size(64, 13)
-        Me.lblSize.TabIndex = 28
+        Me.lblSize.TabIndex = 51
         Me.lblSize.Text = "sstates size"
         '
         'lblSizeBackup
@@ -622,7 +627,7 @@ Partial Class frmMain
         Me.lblSizeBackup.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSizeBackup.Name = "lblSizeBackup"
         Me.lblSizeBackup.Size = New System.Drawing.Size(72, 13)
-        Me.lblSizeBackup.TabIndex = 29
+        Me.lblSizeBackup.TabIndex = 53
         Me.lblSizeBackup.Text = "backups size"
         '
         'txtSize
@@ -636,7 +641,8 @@ Partial Class frmMain
         Me.txtSize.Name = "txtSize"
         Me.txtSize.ReadOnly = True
         Me.txtSize.Size = New System.Drawing.Size(128, 22)
-        Me.txtSize.TabIndex = 26
+        Me.txtSize.TabIndex = 52
+        Me.txtSize.TabStop = False
         Me.txtSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'TableLayoutPanel4
@@ -647,7 +653,7 @@ Partial Class frmMain
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 16.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel4.Controls.Add(Me.cmdSStatesLvwExpand, 3, 0)
         Me.TableLayoutPanel4.Controls.Add(Me.cmdSStateDelete, 1, 0)
         Me.TableLayoutPanel4.Controls.Add(Me.FlowPanelSStatesList, 2, 0)
@@ -659,24 +665,25 @@ Partial Class frmMain
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel4.Size = New System.Drawing.Size(608, 22)
-        Me.TableLayoutPanel4.TabIndex = 32
+        Me.TableLayoutPanel4.TabIndex = 38
         '
         'cmdSStatesLvwExpand
         '
+        Me.cmdSStatesLvwExpand.AutoSize = True
         Me.cmdSStatesLvwExpand.BackColor = System.Drawing.Color.Transparent
         Me.cmdSStatesLvwExpand.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdSStatesLvwExpand.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdSStatesLvwExpand.FlatAppearance.BorderSize = 0
         Me.cmdSStatesLvwExpand.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStatesLvwExpand.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdSStatesLvwExpand.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdSStatesLvwExpand.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStatesLvwExpand.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.cmdSStatesLvwExpand.Image = Global.sstatesman.My.Resources.Resources.Metro_ExpandTop
-        Me.cmdSStatesLvwExpand.Location = New System.Drawing.Point(594, 2)
-        Me.cmdSStatesLvwExpand.Margin = New System.Windows.Forms.Padding(2)
+        Me.cmdSStatesLvwExpand.Location = New System.Drawing.Point(590, 0)
+        Me.cmdSStatesLvwExpand.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStatesLvwExpand.Name = "cmdSStatesLvwExpand"
-        Me.cmdSStatesLvwExpand.Size = New System.Drawing.Size(12, 18)
-        Me.cmdSStatesLvwExpand.TabIndex = 30
+        Me.cmdSStatesLvwExpand.Size = New System.Drawing.Size(18, 22)
+        Me.cmdSStatesLvwExpand.TabIndex = 47
         Me.cmdSStatesLvwExpand.UseVisualStyleBackColor = False
         '
         'cmdSStateDelete
@@ -685,14 +692,14 @@ Partial Class frmMain
         Me.cmdSStateDelete.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdSStateDelete.FlatAppearance.BorderSize = 0
         Me.cmdSStateDelete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdSStateDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdSStateDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStateDelete.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdSStateDelete.Location = New System.Drawing.Point(16, 0)
         Me.cmdSStateDelete.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateDelete.Name = "cmdSStateDelete"
         Me.cmdSStateDelete.Size = New System.Drawing.Size(91, 22)
-        Me.cmdSStateDelete.TabIndex = 14
+        Me.cmdSStateDelete.TabIndex = 40
         Me.cmdSStateDelete.Text = "&DELETE CHECKED"
         Me.cmdSStateDelete.UseVisualStyleBackColor = False
         '
@@ -707,11 +714,11 @@ Partial Class frmMain
         Me.FlowPanelSStatesList.Controls.Add(Me.lblSStateListCheck)
         Me.FlowPanelSStatesList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FlowPanelSStatesList.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowPanelSStatesList.Location = New System.Drawing.Point(317, 0)
+        Me.FlowPanelSStatesList.Location = New System.Drawing.Point(315, 0)
         Me.FlowPanelSStatesList.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowPanelSStatesList.Name = "FlowPanelSStatesList"
         Me.FlowPanelSStatesList.Size = New System.Drawing.Size(275, 22)
-        Me.FlowPanelSStatesList.TabIndex = 31
+        Me.FlowPanelSStatesList.TabIndex = 41
         Me.FlowPanelSStatesList.WrapContents = False
         '
         'cmdSStateSelectInvert
@@ -721,14 +728,14 @@ Partial Class frmMain
         Me.cmdSStateSelectInvert.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdSStateSelectInvert.FlatAppearance.BorderSize = 0
         Me.cmdSStateSelectInvert.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateSelectInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdSStateSelectInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdSStateSelectInvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStateSelectInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdSStateSelectInvert.Location = New System.Drawing.Point(228, 0)
         Me.cmdSStateSelectInvert.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectInvert.Name = "cmdSStateSelectInvert"
         Me.cmdSStateSelectInvert.Size = New System.Drawing.Size(47, 22)
-        Me.cmdSStateSelectInvert.TabIndex = 13
+        Me.cmdSStateSelectInvert.TabIndex = 46
         Me.cmdSStateSelectInvert.Text = "INVERT"
         Me.cmdSStateSelectInvert.UseVisualStyleBackColor = False
         '
@@ -739,14 +746,14 @@ Partial Class frmMain
         Me.cmdSStateSelectNone.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdSStateSelectNone.FlatAppearance.BorderSize = 0
         Me.cmdSStateSelectNone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateSelectNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdSStateSelectNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdSStateSelectNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStateSelectNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdSStateSelectNone.Location = New System.Drawing.Point(187, 0)
         Me.cmdSStateSelectNone.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectNone.Name = "cmdSStateSelectNone"
         Me.cmdSStateSelectNone.Size = New System.Drawing.Size(41, 22)
-        Me.cmdSStateSelectNone.TabIndex = 12
+        Me.cmdSStateSelectNone.TabIndex = 45
         Me.cmdSStateSelectNone.Text = "NONE"
         Me.cmdSStateSelectNone.UseVisualStyleBackColor = False
         '
@@ -757,14 +764,14 @@ Partial Class frmMain
         Me.cmdSStateSelectAll.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdSStateSelectAll.FlatAppearance.BorderSize = 0
         Me.cmdSStateSelectAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateSelectAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdSStateSelectAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdSStateSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStateSelectAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdSStateSelectAll.Location = New System.Drawing.Point(155, 0)
         Me.cmdSStateSelectAll.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectAll.Name = "cmdSStateSelectAll"
         Me.cmdSStateSelectAll.Size = New System.Drawing.Size(32, 22)
-        Me.cmdSStateSelectAll.TabIndex = 11
+        Me.cmdSStateSelectAll.TabIndex = 44
         Me.cmdSStateSelectAll.Text = "ALL"
         Me.cmdSStateSelectAll.UseVisualStyleBackColor = False
         '
@@ -775,14 +782,14 @@ Partial Class frmMain
         Me.cmdSStateSelectBackup.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdSStateSelectBackup.FlatAppearance.BorderSize = 0
         Me.cmdSStateSelectBackup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateSelectBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdSStateSelectBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdSStateSelectBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStateSelectBackup.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdSStateSelectBackup.Location = New System.Drawing.Point(98, 0)
         Me.cmdSStateSelectBackup.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateSelectBackup.Name = "cmdSStateSelectBackup"
         Me.cmdSStateSelectBackup.Size = New System.Drawing.Size(57, 22)
-        Me.cmdSStateSelectBackup.TabIndex = 10
+        Me.cmdSStateSelectBackup.TabIndex = 43
         Me.cmdSStateSelectBackup.Text = "BACKUPS"
         Me.cmdSStateSelectBackup.UseVisualStyleBackColor = False
         '
@@ -794,7 +801,7 @@ Partial Class frmMain
         Me.lblSStateListCheck.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSStateListCheck.Name = "lblSStateListCheck"
         Me.lblSStateListCheck.Size = New System.Drawing.Size(94, 22)
-        Me.lblSStateListCheck.TabIndex = 28
+        Me.lblSStateListCheck.TabIndex = 42
         Me.lblSStateListCheck.Text = "check savestates:"
         Me.lblSStateListCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
@@ -812,7 +819,7 @@ Partial Class frmMain
         Me.panelWindowTitle.MinimumSize = New System.Drawing.Size(0, 56)
         Me.panelWindowTitle.Name = "panelWindowTitle"
         Me.panelWindowTitle.Size = New System.Drawing.Size(624, 74)
-        Me.panelWindowTitle.TabIndex = 12
+        Me.panelWindowTitle.TabIndex = 0
         '
         'TableLayoutPanel1
         '
@@ -837,7 +844,7 @@ Partial Class frmMain
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(222, 51)
-        Me.TableLayoutPanel1.TabIndex = 22
+        Me.TableLayoutPanel1.TabIndex = 4
         '
         'FlowLayoutPanel3
         '
@@ -853,7 +860,8 @@ Partial Class frmMain
         Me.FlowLayoutPanel3.Name = "FlowLayoutPanel3"
         Me.FlowLayoutPanel3.Padding = New System.Windows.Forms.Padding(0, 0, 16, 0)
         Me.FlowLayoutPanel3.Size = New System.Drawing.Size(139, 22)
-        Me.FlowLayoutPanel3.TabIndex = 31
+        Me.FlowLayoutPanel3.TabIndex = 11
+        Me.FlowLayoutPanel3.Visible = False
         Me.FlowLayoutPanel3.WrapContents = False
         '
         'cmdSStateListUtil
@@ -871,7 +879,7 @@ Partial Class frmMain
         Me.cmdSStateListUtil.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStateListUtil.Name = "cmdSStateListUtil"
         Me.cmdSStateListUtil.Size = New System.Drawing.Size(69, 22)
-        Me.cmdSStateListUtil.TabIndex = 25
+        Me.cmdSStateListUtil.TabIndex = 13
         Me.cmdSStateListUtil.Text = "SSTATESLIST"
         Me.cmdSStateListUtil.UseVisualStyleBackColor = False
         '
@@ -890,7 +898,7 @@ Partial Class frmMain
         Me.cmdGameDbUtil.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdGameDbUtil.Name = "cmdGameDbUtil"
         Me.cmdGameDbUtil.Size = New System.Drawing.Size(54, 22)
-        Me.cmdGameDbUtil.TabIndex = 24
+        Me.cmdGameDbUtil.TabIndex = 12
         Me.cmdGameDbUtil.Text = "GAMEDB"
         Me.cmdGameDbUtil.UseVisualStyleBackColor = False
         '
@@ -906,7 +914,7 @@ Partial Class frmMain
         Me.FlowPanelSettings.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowPanelSettings.Name = "FlowPanelSettings"
         Me.FlowPanelSettings.Size = New System.Drawing.Size(104, 22)
-        Me.FlowPanelSettings.TabIndex = 30
+        Me.FlowPanelSettings.TabIndex = 5
         Me.FlowPanelSettings.WrapContents = False
         '
         'cmdAbout
@@ -924,7 +932,7 @@ Partial Class frmMain
         Me.cmdAbout.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdAbout.Name = "cmdAbout"
         Me.cmdAbout.Size = New System.Drawing.Size(46, 22)
-        Me.cmdAbout.TabIndex = 19
+        Me.cmdAbout.TabIndex = 7
         Me.cmdAbout.Text = "ABOUT"
         Me.cmdAbout.UseVisualStyleBackColor = False
         '
@@ -943,7 +951,7 @@ Partial Class frmMain
         Me.cmdSettings.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSettings.Name = "cmdSettings"
         Me.cmdSettings.Size = New System.Drawing.Size(58, 22)
-        Me.cmdSettings.TabIndex = 18
+        Me.cmdSettings.TabIndex = 6
         Me.cmdSettings.Text = "&SETTINGS"
         Me.cmdSettings.UseVisualStyleBackColor = False
         '
@@ -973,7 +981,7 @@ Partial Class frmMain
         Me.cmdWindowMinimize.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowMinimize.Name = "cmdWindowMinimize"
         Me.cmdWindowMinimize.Size = New System.Drawing.Size(24, 16)
-        Me.cmdWindowMinimize.TabIndex = 21
+        Me.cmdWindowMinimize.TabIndex = 8
         Me.cmdWindowMinimize.UseVisualStyleBackColor = False
         '
         'cmdWindowMaximize
@@ -989,7 +997,7 @@ Partial Class frmMain
         Me.cmdWindowMaximize.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowMaximize.Name = "cmdWindowMaximize"
         Me.cmdWindowMaximize.Size = New System.Drawing.Size(24, 16)
-        Me.cmdWindowMaximize.TabIndex = 22
+        Me.cmdWindowMaximize.TabIndex = 9
         Me.cmdWindowMaximize.UseVisualStyleBackColor = False
         '
         'cmdWindowClose
@@ -1005,7 +1013,7 @@ Partial Class frmMain
         Me.cmdWindowClose.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowClose.Name = "cmdWindowClose"
         Me.cmdWindowClose.Size = New System.Drawing.Size(24, 16)
-        Me.cmdWindowClose.TabIndex = 23
+        Me.cmdWindowClose.TabIndex = 10
         Me.cmdWindowClose.UseVisualStyleBackColor = False
         '
         'imgWindowGradientIcon
@@ -1050,7 +1058,7 @@ Partial Class frmMain
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
         Me.FlowLayoutPanel2.Padding = New System.Windows.Forms.Padding(24, 4, 0, 4)
         Me.FlowLayoutPanel2.Size = New System.Drawing.Size(624, 51)
-        Me.FlowLayoutPanel2.TabIndex = 21
+        Me.FlowLayoutPanel2.TabIndex = 1
         Me.FlowLayoutPanel2.WrapContents = False
         '
         'lblWindowTitle
@@ -1062,7 +1070,7 @@ Partial Class frmMain
         Me.lblWindowTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblWindowTitle.Name = "lblWindowTitle"
         Me.lblWindowTitle.Size = New System.Drawing.Size(122, 30)
-        Me.lblWindowTitle.TabIndex = 4
+        Me.lblWindowTitle.TabIndex = 2
         Me.lblWindowTitle.Text = "SStatesMan"
         '
         'blWindowDescription
@@ -1075,7 +1083,7 @@ Partial Class frmMain
         Me.blWindowDescription.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.blWindowDescription.Name = "blWindowDescription"
         Me.blWindowDescription.Size = New System.Drawing.Size(194, 13)
-        Me.blWindowDescription.TabIndex = 5
+        Me.blWindowDescription.TabIndex = 3
         Me.blWindowDescription.Text = "a savestate managing tool for PCSX2"
         '
         'TableLayoutPanel6
@@ -1097,7 +1105,7 @@ Partial Class frmMain
         Me.TableLayoutPanel6.RowCount = 1
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel6.Size = New System.Drawing.Size(624, 23)
-        Me.TableLayoutPanel6.TabIndex = 35
+        Me.TableLayoutPanel6.TabIndex = 14
         '
         'cmdRefresh
         '
@@ -1110,13 +1118,14 @@ Partial Class frmMain
         Me.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdRefresh.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdRefresh.Location = New System.Drawing.Point(554, 0)
+        Me.cmdRefresh.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Refresh
+        Me.cmdRefresh.Location = New System.Drawing.Point(540, 0)
         Me.cmdRefresh.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdRefresh.Name = "cmdRefresh"
-        Me.cmdRefresh.Size = New System.Drawing.Size(54, 23)
-        Me.cmdRefresh.TabIndex = 0
+        Me.cmdRefresh.Size = New System.Drawing.Size(68, 23)
+        Me.cmdRefresh.TabIndex = 19
         Me.cmdRefresh.Text = "&REFRESH"
-        Me.cmdRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.cmdRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         Me.cmdRefresh.UseVisualStyleBackColor = False
         '
         'flpTab
@@ -1130,7 +1139,7 @@ Partial Class frmMain
         Me.flpTab.Margin = New System.Windows.Forms.Padding(0)
         Me.flpTab.Name = "flpTab"
         Me.flpTab.Size = New System.Drawing.Size(203, 23)
-        Me.flpTab.TabIndex = 33
+        Me.flpTab.TabIndex = 15
         Me.flpTab.Visible = False
         Me.flpTab.WrapContents = False
         '
@@ -1149,7 +1158,7 @@ Partial Class frmMain
         Me.optSettingTab1.Margin = New System.Windows.Forms.Padding(0)
         Me.optSettingTab1.Name = "optSettingTab1"
         Me.optSettingTab1.Size = New System.Drawing.Size(69, 23)
-        Me.optSettingTab1.TabIndex = 26
+        Me.optSettingTab1.TabIndex = 16
         Me.optSettingTab1.TabStop = True
         Me.optSettingTab1.Text = "savestates"
         Me.optSettingTab1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -1169,7 +1178,7 @@ Partial Class frmMain
         Me.optSettingTab2.Margin = New System.Windows.Forms.Padding(0)
         Me.optSettingTab2.Name = "optSettingTab2"
         Me.optSettingTab2.Size = New System.Drawing.Size(56, 23)
-        Me.optSettingTab2.TabIndex = 27
+        Me.optSettingTab2.TabIndex = 17
         Me.optSettingTab2.Text = "storage"
         Me.optSettingTab2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.optSettingTab2.UseVisualStyleBackColor = False
@@ -1188,7 +1197,7 @@ Partial Class frmMain
         Me.optSettingTab3.Margin = New System.Windows.Forms.Padding(0)
         Me.optSettingTab3.Name = "optSettingTab3"
         Me.optSettingTab3.Size = New System.Drawing.Size(78, 23)
-        Me.optSettingTab3.TabIndex = 28
+        Me.optSettingTab3.TabIndex = 18
         Me.optSettingTab3.Text = "screenshots"
         Me.optSettingTab3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.optSettingTab3.UseVisualStyleBackColor = False
@@ -1207,7 +1216,7 @@ Partial Class frmMain
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ClientSize = New System.Drawing.Size(624, 464)
+        Me.ClientSize = New System.Drawing.Size(624, 442)
         Me.ControlBox = False
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.panelWindowTitle)

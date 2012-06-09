@@ -64,7 +64,7 @@ Partial Class frmGameDbSearchForm
         Me.ckbSerial.Margin = New System.Windows.Forms.Padding(4)
         Me.ckbSerial.Name = "ckbSerial"
         Me.ckbSerial.Size = New System.Drawing.Size(76, 22)
-        Me.ckbSerial.TabIndex = 0
+        Me.ckbSerial.TabIndex = 6
         Me.ckbSerial.Text = "by serial"
         Me.ckbSerial.UseVisualStyleBackColor = False
         '
@@ -79,7 +79,7 @@ Partial Class frmGameDbSearchForm
         Me.txtSerial.Margin = New System.Windows.Forms.Padding(4)
         Me.txtSerial.Name = "txtSerial"
         Me.txtSerial.Size = New System.Drawing.Size(366, 22)
-        Me.txtSerial.TabIndex = 1
+        Me.txtSerial.TabIndex = 7
         '
         'txtGameTitle
         '
@@ -92,7 +92,7 @@ Partial Class frmGameDbSearchForm
         Me.txtGameTitle.Margin = New System.Windows.Forms.Padding(4)
         Me.txtGameTitle.Name = "txtGameTitle"
         Me.txtGameTitle.Size = New System.Drawing.Size(366, 22)
-        Me.txtGameTitle.TabIndex = 3
+        Me.txtGameTitle.TabIndex = 9
         '
         'ckbGameTitle
         '
@@ -103,7 +103,7 @@ Partial Class frmGameDbSearchForm
         Me.ckbGameTitle.Margin = New System.Windows.Forms.Padding(4)
         Me.ckbGameTitle.Name = "ckbGameTitle"
         Me.ckbGameTitle.Size = New System.Drawing.Size(76, 22)
-        Me.ckbGameTitle.TabIndex = 2
+        Me.ckbGameTitle.TabIndex = 8
         Me.ckbGameTitle.Text = "by title"
         Me.ckbGameTitle.UseVisualStyleBackColor = False
         '
@@ -118,7 +118,7 @@ Partial Class frmGameDbSearchForm
         Me.txtGameRegion.Margin = New System.Windows.Forms.Padding(4)
         Me.txtGameRegion.Name = "txtGameRegion"
         Me.txtGameRegion.Size = New System.Drawing.Size(366, 22)
-        Me.txtGameRegion.TabIndex = 5
+        Me.txtGameRegion.TabIndex = 11
         '
         'ckbGameRegion
         '
@@ -129,7 +129,7 @@ Partial Class frmGameDbSearchForm
         Me.ckbGameRegion.Margin = New System.Windows.Forms.Padding(4)
         Me.ckbGameRegion.Name = "ckbGameRegion"
         Me.ckbGameRegion.Size = New System.Drawing.Size(76, 22)
-        Me.ckbGameRegion.TabIndex = 4
+        Me.ckbGameRegion.TabIndex = 10
         Me.ckbGameRegion.Text = "by region"
         Me.ckbGameRegion.UseVisualStyleBackColor = False
         '
@@ -142,7 +142,7 @@ Partial Class frmGameDbSearchForm
         Me.ckbGameCompat.Margin = New System.Windows.Forms.Padding(4)
         Me.ckbGameCompat.Name = "ckbGameCompat"
         Me.ckbGameCompat.Size = New System.Drawing.Size(76, 21)
-        Me.ckbGameCompat.TabIndex = 6
+        Me.ckbGameCompat.TabIndex = 12
         Me.ckbGameCompat.Text = "by compat"
         Me.ckbGameCompat.UseVisualStyleBackColor = False
         '
@@ -160,7 +160,7 @@ Partial Class frmGameDbSearchForm
         Me.cmdSearch.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdSearch.Name = "cmdSearch"
         Me.cmdSearch.Size = New System.Drawing.Size(100, 24)
-        Me.cmdSearch.TabIndex = 8
+        Me.cmdSearch.TabIndex = 3
         Me.cmdSearch.Text = "SEARCH"
         Me.cmdSearch.UseVisualStyleBackColor = True
         '
@@ -178,7 +178,7 @@ Partial Class frmGameDbSearchForm
         Me.cmdCancel.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.Size = New System.Drawing.Size(100, 24)
-        Me.cmdCancel.TabIndex = 9
+        Me.cmdCancel.TabIndex = 4
         Me.cmdCancel.Text = "CANCEL"
         Me.cmdCancel.UseVisualStyleBackColor = True
         '
@@ -195,7 +195,7 @@ Partial Class frmGameDbSearchForm
         Me.cbGameCompat.Margin = New System.Windows.Forms.Padding(4)
         Me.cbGameCompat.Name = "cbGameCompat"
         Me.cbGameCompat.Size = New System.Drawing.Size(366, 21)
-        Me.cbGameCompat.TabIndex = 10
+        Me.cbGameCompat.TabIndex = 13
         Me.cbGameCompat.Text = "0: Unknown"
         '
         'flpWindowBottom
@@ -212,7 +212,7 @@ Partial Class frmGameDbSearchForm
         Me.flpWindowBottom.Name = "flpWindowBottom"
         Me.flpWindowBottom.Padding = New System.Windows.Forms.Padding(4)
         Me.flpWindowBottom.Size = New System.Drawing.Size(474, 38)
-        Me.flpWindowBottom.TabIndex = 11
+        Me.flpWindowBottom.TabIndex = 2
         '
         'TableLayoutPanel1
         '
@@ -241,7 +241,7 @@ Partial Class frmGameDbSearchForm
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(474, 164)
-        Me.TableLayoutPanel1.TabIndex = 33
+        Me.TableLayoutPanel1.TabIndex = 5
         '
         'panelWindowTitle
         '
@@ -256,7 +256,7 @@ Partial Class frmGameDbSearchForm
         Me.panelWindowTitle.MinimumSize = New System.Drawing.Size(0, 26)
         Me.panelWindowTitle.Name = "panelWindowTitle"
         Me.panelWindowTitle.Size = New System.Drawing.Size(474, 30)
-        Me.panelWindowTitle.TabIndex = 37
+        Me.panelWindowTitle.TabIndex = 0
         '
         'lblWindowProgramName
         '
@@ -269,7 +269,7 @@ Partial Class frmGameDbSearchForm
         Me.lblWindowProgramName.Name = "lblWindowProgramName"
         Me.lblWindowProgramName.Padding = New System.Windows.Forms.Padding(6, 6, 6, 3)
         Me.lblWindowProgramName.Size = New System.Drawing.Size(67, 30)
-        Me.lblWindowProgramName.TabIndex = 2
+        Me.lblWindowProgramName.TabIndex = 1
         Me.lblWindowProgramName.Text = "search"
         '
         'frmGameDbSearchForm
