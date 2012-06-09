@@ -69,7 +69,6 @@ Partial Class frmMain
         Me.SStatesLvw_DateLastWrite = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SStatesLvw_Size = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SStatesLvw_SerialRef = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.SStatesLvw_ArrayRef = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblSStateListSelection = New System.Windows.Forms.Label()
         Me.txtSStateListSelection = New System.Windows.Forms.TextBox()
@@ -496,7 +495,7 @@ Partial Class frmMain
         Me.lvwSStatesList.BackColor = System.Drawing.Color.White
         Me.lvwSStatesList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lvwSStatesList.CheckBoxes = True
-        Me.lvwSStatesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.SStatesLvw_FileName, Me.SStatesLvw_Slot, Me.SStatesLvw_Backup, Me.SStatesLvw_Version, Me.SStatesLvw_DateLastWrite, Me.SStatesLvw_Size, Me.SStatesLvw_SerialRef, Me.SStatesLvw_ArrayRef})
+        Me.lvwSStatesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.SStatesLvw_FileName, Me.SStatesLvw_Slot, Me.SStatesLvw_Backup, Me.SStatesLvw_Version, Me.SStatesLvw_DateLastWrite, Me.SStatesLvw_Size, Me.SStatesLvw_SerialRef})
         Me.lvwSStatesList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvwSStatesList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lvwSStatesList.ForeColor = System.Drawing.Color.DimGray
@@ -542,12 +541,6 @@ Partial Class frmMain
         '
         Me.SStatesLvw_SerialRef.Text = "Serial"
         Me.SStatesLvw_SerialRef.Width = 0
-        '
-        'SStatesLvw_ArrayRef
-        '
-        Me.SStatesLvw_ArrayRef.Text = "#"
-        Me.SStatesLvw_ArrayRef.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.SStatesLvw_ArrayRef.Width = 0
         '
         'TableLayoutPanel5
         '
@@ -1284,7 +1277,6 @@ Partial Class frmMain
     Private WithEvents cmdSStateSelectBackup As System.Windows.Forms.Button
     Private WithEvents GameLvw_ArrayRef As System.Windows.Forms.ColumnHeader
     Private WithEvents SStatesLvw_SerialRef As System.Windows.Forms.ColumnHeader
-    Private WithEvents SStatesLvw_ArrayRef As System.Windows.Forms.ColumnHeader
     Private WithEvents txtGameList_Serial As System.Windows.Forms.TextBox
     Private WithEvents txtGameList_Region As System.Windows.Forms.TextBox
     Private WithEvents txtGameList_Title As System.Windows.Forms.TextBox

@@ -42,7 +42,6 @@ Public Class frmMain
         LastWriteDate
         Size
         SerialRef
-        ArrayRef
     End Enum
 
 
@@ -92,7 +91,7 @@ Public Class frmMain
         End Select
 
 
-        Dim imlLvwCheckboxes As New ImageList          'Listviews checkboxes (stateimagelist)
+        Dim imlLvwCheckboxes As New ImageList                   'Listviews checkboxes (stateimagelist)
         With imlLvwCheckboxes
             .ImageSize = New System.Drawing.Size(11, 11)        'Setting up the size
             .Images.Add(My.Resources.Metro_ChecboxUnchecked)    'Unchecked state image

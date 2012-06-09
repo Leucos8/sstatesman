@@ -81,7 +81,7 @@ Module mdlSimpleZipExtractor
                             FileReader.Read(myFilename, 0, ZipH_FileNameLength)
                             'convert filename to a meaningful string
                             For i As UInteger = 0 To ZipH_FileNameLength - 1
-                                ZipH_Filename = String.Concat(ZipH_Filename, ChrW(myFilename(i)))
+                                ZipH_Filename = String.Concat(ZipH_Filename, Convert.ToChar(myFilename(i)))
                             Next
                             'check if it is the correct file
                             If ZipH_Filename = "PCSX2 Savestate Version.id" Then

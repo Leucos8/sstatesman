@@ -19,7 +19,7 @@ Module mdlMain
 
     Public checkedGames As New List(Of String)
     Public currentFiles As New List(Of FileInfo)
-    Public checkedFiles As New List(Of FileInfo)
+    Public checkedFiles As New List(Of String)
 
     Public Enum LoadStatus As Byte
         StatusEmpty

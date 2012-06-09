@@ -153,7 +153,7 @@ Module mdlGameDb
                             End With
                         End If
                 End Select
-                mdlMain.WriteToConsole("GameDB", "RecordExtract", System.String.Format("from serial ""{0}"" > ""{1}"".", pSerial, myGameDb_RecordExtract.Name))
+                'mdlMain.WriteToConsole("GameDB", "RecordExtract", System.String.Format("from serial ""{0}"" > ""{1}"".", pSerial, myGameDb_RecordExtract.Name))
             Case LoadStatus.StatusNotLoaded
                 With myGameDb_RecordExtract
                     .Serial = pSerial
