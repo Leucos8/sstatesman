@@ -421,6 +421,8 @@ Public Class frmMain
 
         Me.UIEnabled(False)
 
+        mdlMain.checkedGames.Clear()
+
         Me.lvwSStatesList.Items.Clear()
         Me.lvwSStatesList.Groups.Clear()
 
@@ -434,7 +436,6 @@ Public Class frmMain
 
         'Dim myImportantListViewItems As New List(Of System.String)
 
-        mdlMain.checkedGames.Clear()
         If Me.lvwGamesList.CheckedItems.Count > 0 Then
             For Each GameList_ItemChecked As System.Windows.Forms.ListViewItem In Me.lvwGamesList.CheckedItems
                 mdlMain.checkedGames.Add(GameList_ItemChecked.SubItems(frmMainGamesLvwColumn.GameSerial).Text)
@@ -464,6 +465,7 @@ Public Class frmMain
             Dim myImportantFileList As New GamesList_Item
             myImportantFileList = mdlFileList.GamesList(currentGameInfo.Serial)
             GamesLvw_SelectedSize += myImportantFileList.Savestates_SizeTot
+            GamesLvw_SelectedSizeBackup += myImportantFileList.SavestatesBackup_SizeTot
             'mdlMain.currentFiles.AddRange(myImportantFileList.Savestates)
 
             For Each myFileInfoTmp As KeyValuePair(Of String, Savestate) In myImportantFileList.Savestates
@@ -474,7 +476,10 @@ Public Class frmMain
                                                         myFileInfoTmp.Value.Backup.ToString,
                                                         myFileInfoTmp.Value.Version,
                                                         myFileInfoTmp.Value.LastWriteTime.ToString,
-                                                        System.String.Format("{0:#,##0.00} MB", myFileInfoTmp.Value.Lenght / 1024 ^ 2)})
+                                                        System.String.Format("{0:#,##0.00} MB", myFileInfoTmp.Value.Lenght / 1024 ^ 2),
+                                                        mySerial})
+                currentFiles.Add(myFileInfoTmp.Key)
+
                 If colorswitch Then
                     colorswitch = False
                 Else
@@ -495,17 +500,17 @@ Public Class frmMain
 
     Private Sub SStatesLvw_SelectionChanged()
         Me.UIEnabled(False)
-        'Me.SStatesLvw_SelectedSize = 0
-        'Me.SStatesLvw_SelectedSizeBackup = 0
-        'If Me.lvwSStatesList.Items.Count > 0 Then
-        '    For Each SStateList_ItemChecked As ListViewItem In Me.lvwSStatesList.CheckedItems
-        '        If SStatesList(SStatesList_Pos).isBackup = False Then
-        '            SStatesLvw_SelectedSize = SStatesLvw_SelectedSize + SStatesList(SStatesList_Pos).FileInfo.Length
-        '        Else
-        '            SStatesLvw_SelectedSizeBackup = SStatesLvw_SelectedSizeBackup + SStatesList(SStatesList_Pos).FileInfo.Length
-        '        End If
-        '    Next
-        'End If
+        Me.SStatesLvw_SelectedSize = 0
+        Me.SStatesLvw_SelectedSizeBackup = 0
+        If Me.lvwSStatesList.Items.Count > 0 Then
+            For Each SStateList_ItemChecked As ListViewItem In Me.lvwSStatesList.CheckedItems
+                If GamesList(SStateList_ItemChecked.SubItems(frmMainSStatesLvwColumn.SerialRef).Text).Savestates(SStateList_ItemChecked.SubItems(frmMainSStatesLvwColumn.FileName).Text).Backup = False Then
+                    SStatesLvw_SelectedSize = SStatesLvw_SelectedSize + GamesList(SStateList_ItemChecked.SubItems(frmMainSStatesLvwColumn.SerialRef).Text).Savestates(SStateList_ItemChecked.SubItems(frmMainSStatesLvwColumn.FileName).Text).Lenght
+                Else
+                    SStatesLvw_SelectedSizeBackup = SStatesLvw_SelectedSizeBackup + GamesList(SStateList_ItemChecked.SubItems(frmMainSStatesLvwColumn.SerialRef).Text).Savestates(SStateList_ItemChecked.SubItems(frmMainSStatesLvwColumn.FileName).Text).Lenght
+                End If
+            Next
+        End If
         Me.UIEnabled(True)
     End Sub
 

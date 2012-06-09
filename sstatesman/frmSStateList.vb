@@ -106,17 +106,17 @@ Public Class frmSStateList
     Private Sub tsShowSavestatesUIList_Click(sender As System.Object, e As System.EventArgs) Handles tsShowSavestatesUIList.Click
         Me.ListBox1.BeginUpdate()
         Me.ListBox1.Items.Clear()
-        For Each myFile As FileInfo In mdlMain.currentFiles
-            ListBox1.Items.Add(String.Format("{0,-12}|{1,3}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}",
-                                             mdlFileList.SStates_GetSerial(myFile.Name),
-                                             mdlFileList.SStates_GetSlot(myFile.Name).ToString,
-                                             mdlFileList.SStates_GetType(myFile.Name).ToString,
-                                             myFile.Name,
-                                             myFile.Length / 1024 ^ 2,
-                                             myFile.LastWriteTime.ToString,
-                                             myFile.Attributes.ToString))
+        'For Each myFile As FileInfo In mdlMain.currentFiles
+        '    ListBox1.Items.Add(String.Format("{0,-12}|{1,3}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}",
+        '                                     mdlFileList.SStates_GetSerial(myFile.Name),
+        '                                     mdlFileList.SStates_GetSlot(myFile.Name).ToString,
+        '                                     mdlFileList.SStates_GetType(myFile.Name).ToString,
+        '                                     myFile.Name,
+        '                                     myFile.Length / 1024 ^ 2,
+        '                                     myFile.LastWriteTime.ToString,
+        '                                     myFile.Attributes.ToString))
 
-        Next
+        'Next
         Me.ListBox1.EndUpdate()
     End Sub
 
