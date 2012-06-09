@@ -642,8 +642,11 @@ Public Class frmMain
 
     Private Sub tmrSStatesListRefresh_Tick(sender As System.Object, e As System.EventArgs) Handles tmrSStatesListRefresh.Tick
         If My.Settings.SStatesMan_SStatesListAutoRefresh Then
-            If System.IO.Directory.Exists(My.Settings.PCSX2_PathSState) And Not frmDeleteForm.Visible Then
-                If Not (System.IO.Directory.GetLastWriteTime(My.Settings.PCSX2_PathSState) = mdlFileList.SStates_FolderLastModified) Then
+            If System.IO.Directory.Exists(My.Settings.PCSX2_PathSState) And Not frmDeleteForm.Visible And Not frmSettings.Visible And Not Me.WindowState = FormWindowState.Minimized Then
+                Dim tmpDate As System.DateTime = System.IO.Directory.GetLastWriteTime(My.Settings.PCSX2_PathSState)
+                If Not tmpDate = mdlFileList.SStates_FolderLastModified Then
+                    mdlMain.WriteToConsole("MainWindow", "Timer", "Refresh...")
+                    mdlFileList.SStates_FolderLastModified = tmpDate
                     Me.Enabled = False
                     GamesLvw_Populate()
                     UICheck()

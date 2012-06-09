@@ -51,8 +51,8 @@ Module mdlFileList
     Public GamesList_Status As mdlMain.LoadStatus = LoadStatus.StatusNotLoaded
     Public GameList_LoadTime As System.TimeSpan
     Public SStates_FolderLastModified As DateTime
-    Public SStatesStored_FolderLastModified As DateTime
-    Public SShots_FolderLastModified As DateTime
+    'Public SStatesStored_FolderLastModified As DateTime
+    'Public SShots_FolderLastModified As DateTime
 
     Public Function GamesList_LoadAll(ByVal pPath As String,
                                       ByRef pGamesList As Dictionary(Of String, GamesList_Item)
@@ -84,7 +84,9 @@ Module mdlFileList
 
     Public Sub SStatesList_Load(ByVal pDirectory As DirectoryInfo,
                                 ByRef pGamesList As Dictionary(Of String, GamesList_Item))
-        'ByVal pSearchPath As String,
+
+        SStates_FolderLastModified = pDirectory.LastWriteTime
+
         Dim mySStates_GroupedBySerial = pDirectory.EnumerateFiles().Where(
             Function(extfilter) {My.Settings.PCSX2_SStateExt, My.Settings.PCSX2_SStateExtBackup}.Contains(extfilter.Extension.ToLower)
                 ).GroupBy(Function(aws) SStates_GetSerial(aws.Name))
