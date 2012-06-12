@@ -16,14 +16,6 @@ Public NotInheritable Class frmAbout
 
     Private Sub frmAbout_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         ' Imposta il titolo del form.
-        Dim ApplicationTitle As String
-        If My.Application.Info.Title <> "" Then
-            ApplicationTitle = My.Application.Info.Title
-        Else
-            ApplicationTitle = System.IO.Path.GetFileNameWithoutExtension(My.Application.Info.AssemblyName)
-        End If
-        Me.Text = String.Format("About {0}", ApplicationTitle)
-
         Me.lblVersionMain.Text = String.Format("Version {0}",
                                                My.Application.Info.Version.ToString)
         Me.lblVersionChannel.Text = String.Format("Release channel: {0}", My.Settings.SStatesMan_Channel)
@@ -46,6 +38,11 @@ Public NotInheritable Class frmAbout
                 Me.panelWindowTitle.BackgroundImage = My.Resources.BgStripes
                 Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
                 Me.flpWindowBottom.BackgroundImage = My.Resources.BgStripes
+                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
+            Case Theme.brushmetal
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BgMetalBrush
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
+                Me.flpWindowBottom.BackgroundImage = My.Resources.BgMetalBrush
                 Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
             Case Theme.PCSX2
                 Me.panelWindowTitle.BackgroundImage = My.Resources.BG_PCSX2

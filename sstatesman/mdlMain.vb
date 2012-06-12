@@ -33,6 +33,7 @@ Module mdlMain
         square = 1
         noise = 2
         stripes = 3
+        brushmetal = 4
         PCSX2 = 11
     End Enum
 

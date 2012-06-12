@@ -62,7 +62,6 @@ Public Class frmMain
                                                  My.Application.Info.Version.ToString, " ", _
                                                  My.Settings.SStatesMan_Channel) 'Add version information to the main window
 
-
         Select Case My.Settings.SStatesMan_BGImage
             Case Theme.square
                 Me.panelWindowTitle.BackgroundImage = My.Resources.BG
@@ -78,6 +77,11 @@ Public Class frmMain
                 Me.panelWindowTitle.BackgroundImage = My.Resources.BgStripes
                 Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
                 'Me.flpWindowBottom.BackgroundImage = My.Resources.BgStripes
+                'Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
+            Case Theme.brushmetal
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BgMetalBrush
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
+                'Me.flpWindowBottom.BackgroundImage = My.Resources.BgMetalBrush
                 'Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
             Case Theme.PCSX2
                 Me.panelWindowTitle.BackgroundImage = My.Resources.BG_PCSX2
@@ -130,9 +134,11 @@ Public Class frmMain
     Private Sub cmdWindowMaximize_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdWindowMaximize.Click
         If Me.WindowState = FormWindowState.Normal Then
             Me.WindowState = FormWindowState.Maximized
+            'Me.Padding = New System.Windows.Forms.Padding(System.Math.Abs(Me.Top))
             Me.cmdWindowMaximize.Image = My.Resources.Metro_WindowButtonRestore
         ElseIf Me.WindowState = FormWindowState.Maximized Then
             Me.WindowState = FormWindowState.Normal
+            'Me.Padding = New System.Windows.Forms.Padding(1)
             Me.cmdWindowMaximize.Image = My.Resources.Metro_WindowButtonMaximize
         End If
     End Sub
@@ -321,32 +327,30 @@ Public Class frmMain
 
         mdlFileList.GamesList_Status = GamesList_LoadAll(My.Settings.PCSX2_PathSState, mdlFileList.GamesList)
 
-        For Each GameItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In mdlFileList.GamesList
-            currentGameInfo = mdlGameDb.GameDb_RecordExtract(GameItem.Key, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
+        For Each GamesList_Item As KeyValuePair(Of String, mdlFileList.GamesList_Item) In mdlFileList.GamesList
+            currentGameInfo = mdlGameDb.GameDb_RecordExtract(GamesList_Item.Key, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
 
-            Dim GameLwv_ItemTmp As New ListViewItem
-            GameLwv_ItemTmp.Text = currentGameInfo.Name
-            GameLwv_ItemTmp.SubItems.AddRange({currentGameInfo.Serial, currentGameInfo.Region})
+            Dim tmpGamesLwv_Item As New ListViewItem
+            tmpGamesLwv_Item.Text = currentGameInfo.Name
+            tmpGamesLwv_Item.SubItems.AddRange({currentGameInfo.Serial, currentGameInfo.Region})
 
-            Dim myFileListTmp As New GamesList_Item
-            If GameItem.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count > 0 Then
-                GameLwv_ItemTmp.SubItems.Add(String.Format("{0:#,##0} × {1:#,##0.00} MB",
-                                                               GameItem.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count,
-                                                               GameItem.Value.Savestates_SizeTot / 1024 ^ 2))
+            If GamesList_Item.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count > 0 Then
+                tmpGamesLwv_Item.SubItems.Add(String.Format("{0:#,##0} × {1:#,##0.00} MB",
+                                                               GamesList_Item.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count,
+                                                               GamesList_Item.Value.Savestates_SizeTot / 1024 ^ 2))
             Else
-                GameLwv_ItemTmp.SubItems.Add("None")
+                tmpGamesLwv_Item.SubItems.Add("None")
             End If
 
-            myFileListTmp = New GamesList_Item
-            If GameItem.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Count > 0 Then
-                GameLwv_ItemTmp.SubItems.Add(String.Format("{0:#,##0} × {1:#,##0.00} MB",
-                                                           GameItem.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Count,
-                                                           GameItem.Value.SavestatesBackup_SizeTot / 1024 ^ 2))
+            If GamesList_Item.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Count > 0 Then
+                tmpGamesLwv_Item.SubItems.Add(String.Format("{0:#,##0} × {1:#,##0.00} MB",
+                                                           GamesList_Item.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Count,
+                                                           GamesList_Item.Value.SavestatesBackup_SizeTot / 1024 ^ 2))
             Else
-                GameLwv_ItemTmp.SubItems.Add("None")
+                tmpGamesLwv_Item.SubItems.Add("None")
             End If
 
-            Me.lvwGamesList.Items.Add(GameLwv_ItemTmp)
+            Me.lvwGamesList.Items.Add(tmpGamesLwv_Item)
 
         Next
 
@@ -793,4 +797,24 @@ Public Class frmMain
             End If
         End If
     End Sub
+
+    'Protected Overrides Sub WndProc(ByRef m As System.Windows.Forms.Message)
+    '    If (m.Msg = &H83) Then
+    '        Dim point As New Point(m.LParam.ToInt32)
+    '        m.Result = New IntPtr(-1)
+    '        Return
+    '    End If
+
+    '    MyBase.WndProc(m)
+    'End Sub
+
+    'Private Sub frmMain_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
+    '    If Me.Width > 0 And Me.Height > 0 Then
+    '        e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.Width - 1, 0)
+    '        e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.Height - 1)
+    '        e.Graphics.DrawLine(Pens.DimGray, 0, Me.Height - 1, Me.Width - 1, Me.Height - 1)
+    '        e.Graphics.DrawLine(Pens.DimGray, Me.Width - 1, 0, Me.Width - 1, Me.Height - 1)
+    '    End If
+
+    'End Sub
 End Class

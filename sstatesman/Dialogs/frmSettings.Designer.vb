@@ -99,6 +99,7 @@ Partial Class frmSettings
         Me.optTheme1 = New System.Windows.Forms.RadioButton()
         Me.ckbSStatesManBGImage = New System.Windows.Forms.CheckBox()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.optTheme4 = New System.Windows.Forms.RadioButton()
         CType(Me.imgPCSX2IniPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgPCSX2AppPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgSStatesManPicsPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -987,7 +988,7 @@ Partial Class frmSettings
         Me.ckbSStatesManBGEnabled.Dock = System.Windows.Forms.DockStyle.Top
         Me.ckbSStatesManBGEnabled.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.ckbSStatesManBGEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbSStatesManBGEnabled.Location = New System.Drawing.Point(8, 143)
+        Me.ckbSStatesManBGEnabled.Location = New System.Drawing.Point(8, 160)
         Me.ckbSStatesManBGEnabled.Name = "ckbSStatesManBGEnabled"
         Me.ckbSStatesManBGEnabled.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
         Me.ckbSStatesManBGEnabled.Size = New System.Drawing.Size(74, 21)
@@ -1000,7 +1001,7 @@ Partial Class frmSettings
         Me.Label2.AutoSize = True
         Me.Label2.Dock = System.Windows.Forms.DockStyle.Top
         Me.Label2.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.Label2.Location = New System.Drawing.Point(8, 120)
+        Me.Label2.Location = New System.Drawing.Point(8, 137)
         Me.Label2.Name = "Label2"
         Me.Label2.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.Label2.Size = New System.Drawing.Size(95, 23)
@@ -1012,6 +1013,7 @@ Partial Class frmSettings
         Me.pnlThemeOptions.AutoSize = True
         Me.pnlThemeOptions.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.pnlThemeOptions.Controls.Add(Me.optTheme11)
+        Me.pnlThemeOptions.Controls.Add(Me.optTheme4)
         Me.pnlThemeOptions.Controls.Add(Me.optTheme3)
         Me.pnlThemeOptions.Controls.Add(Me.optTheme2)
         Me.pnlThemeOptions.Controls.Add(Me.optTheme1)
@@ -1019,7 +1021,7 @@ Partial Class frmSettings
         Me.pnlThemeOptions.Location = New System.Drawing.Point(8, 48)
         Me.pnlThemeOptions.Name = "pnlThemeOptions"
         Me.pnlThemeOptions.Padding = New System.Windows.Forms.Padding(16, 2, 16, 2)
-        Me.pnlThemeOptions.Size = New System.Drawing.Size(74, 72)
+        Me.pnlThemeOptions.Size = New System.Drawing.Size(74, 89)
         Me.pnlThemeOptions.TabIndex = 51
         '
         'optTheme11
@@ -1027,7 +1029,7 @@ Partial Class frmSettings
         Me.optTheme11.AutoSize = True
         Me.optTheme11.Dock = System.Windows.Forms.DockStyle.Top
         Me.optTheme11.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optTheme11.Location = New System.Drawing.Point(16, 53)
+        Me.optTheme11.Location = New System.Drawing.Point(16, 70)
         Me.optTheme11.Name = "optTheme11"
         Me.optTheme11.Size = New System.Drawing.Size(42, 17)
         Me.optTheme11.TabIndex = 55
@@ -1100,6 +1102,19 @@ Partial Class frmSettings
         Me.Label5.Size = New System.Drawing.Size(82, 23)
         Me.Label5.TabIndex = 49
         Me.Label5.Text = "Background"
+        '
+        'optTheme4
+        '
+        Me.optTheme4.AutoSize = True
+        Me.optTheme4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.optTheme4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.optTheme4.Location = New System.Drawing.Point(16, 53)
+        Me.optTheme4.Name = "optTheme4"
+        Me.optTheme4.Size = New System.Drawing.Size(42, 17)
+        Me.optTheme4.TabIndex = 56
+        Me.optTheme4.TabStop = True
+        Me.optTheme4.Text = "Brushed metal"
+        Me.optTheme4.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
@@ -1225,4 +1240,5 @@ Partial Class frmSettings
     Private WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents optTheme11 As System.Windows.Forms.RadioButton
     Private WithEvents ckbSStatesManVersionExtract As System.Windows.Forms.CheckBox
+    Friend WithEvents optTheme4 As System.Windows.Forms.RadioButton
 End Class

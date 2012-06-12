@@ -128,6 +128,11 @@ Public Class frmDeleteForm
                 Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
                 Me.flpWindowBottom.BackgroundImage = My.Resources.BgStripes
                 Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
+            Case Theme.brushmetal
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BgMetalBrush
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
+                Me.flpWindowBottom.BackgroundImage = My.Resources.BgMetalBrush
+                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
             Case Theme.PCSX2
                 Me.panelWindowTitle.BackgroundImage = My.Resources.BG_PCSX2
                 Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Stretch

@@ -40,6 +40,9 @@ Public Class frmSettings
             Case Theme.stripes
                 Me.ckbSStatesManBGImage.Checked = True
                 Me.optTheme3.Checked = True
+            Case Theme.brushmetal
+                Me.ckbSStatesManBGImage.Checked = True
+                Me.optTheme4.Checked = True
             Case Theme.PCSX2
                 Me.ckbSStatesManBGImage.Checked = True
                 Me.optTheme11.Checked = True
@@ -70,6 +73,11 @@ Public Class frmSettings
                 Me.panelWindowTitle.BackgroundImage = My.Resources.BgStripes
                 Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
                 Me.flpWindowBottom.BackgroundImage = My.Resources.BgStripes
+                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
+            Case Theme.brushmetal
+                Me.panelWindowTitle.BackgroundImage = My.Resources.BgMetalBrush
+                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
+                Me.flpWindowBottom.BackgroundImage = My.Resources.BgMetalBrush
                 Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
             Case Theme.PCSX2
                 Me.panelWindowTitle.BackgroundImage = My.Resources.BG_PCSX2
@@ -181,6 +189,8 @@ Public Class frmSettings
                 My.Settings.SStatesMan_BGImage = Theme.noise
             ElseIf Me.optTheme3.Checked Then
                 My.Settings.SStatesMan_BGImage = Theme.stripes
+            ElseIf Me.optTheme4.Checked Then
+                My.Settings.SStatesMan_BGImage = Theme.brushmetal
             ElseIf Me.optTheme11.Checked Then
                 My.Settings.SStatesMan_BGImage = Theme.PCSX2
             End If
@@ -199,6 +209,9 @@ Public Class frmSettings
                 frmMain.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
             Case Theme.stripes
                 frmMain.panelWindowTitle.BackgroundImage = My.Resources.BgStripes
+                frmMain.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
+            Case Theme.brushmetal
+                frmMain.panelWindowTitle.BackgroundImage = My.Resources.BgMetalBrush
                 frmMain.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
             Case Theme.PCSX2
                 frmMain.panelWindowTitle.BackgroundImage = My.Resources.BG_PCSX2

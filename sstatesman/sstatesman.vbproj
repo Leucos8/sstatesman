@@ -249,6 +249,7 @@
     <None Include="Resources\BgNoise.png" />
     <None Include="Resources\BgStripes.png" />
     <None Include="Resources\Bg.png" />
+    <None Include="Resources\BgMetalBrush.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

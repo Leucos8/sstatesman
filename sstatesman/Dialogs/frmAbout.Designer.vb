@@ -344,7 +344,7 @@ Partial Class frmAbout
         Me.Controls.Add(Me.panelWindowTitle)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.DimGray
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = Global.sstatesman.My.Resources.Resources.SSM1
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MaximizeBox = False

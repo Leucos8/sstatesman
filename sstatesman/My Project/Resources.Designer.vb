@@ -89,6 +89,13 @@ Namespace My.Resources
             End Get
         End Property
         
+        Friend ReadOnly Property BgMetalBrush() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("BgMetalBrush", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
         Friend ReadOnly Property BgNoise() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("BgNoise", resourceCulture)
