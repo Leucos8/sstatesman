@@ -240,7 +240,7 @@ Module mdlGameDb
                                   ByVal pGameRegion As System.String, ByVal pSearchByGameRegion As System.Boolean,
                                   ByVal pGameCompat As System.String, ByVal pSearchByGameCompat As System.Boolean,
                                   ByVal pSearchType As System.Byte) As mdlMain.LoadStatus
-        'Returns an array of integers which are the position of the records found in the GameDb. Return value: lenght of the integer array.
+        'Returns an array of integers which are the position of the records found in the GameDb. Return value: Length of the integer array.
         'ByVal  pGameDb                 The GameDb to search in
         'ByRef  pGameDbSearch           The integer array where the references will be stored
         'ByVal  pSerial                 Serial to search

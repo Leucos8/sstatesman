@@ -22,7 +22,7 @@ Module mdlFileList
     Public Class Savestate
         Public Property Name As String
         Public Property Extension As String
-        Public Property Lenght As Int64
+        Public Property Length As Int64
         Public Property LastWriteTime As DateTime
         Public Property Slot As String
         Public Property Backup As Boolean
@@ -100,7 +100,7 @@ Module mdlFileList
                 Dim newItem As New Savestate With {
                     .Name = FileInformation.Name,
                     .Extension = FileInformation.Extension,
-                    .Lenght = FileInformation.Length,
+                    .Length = FileInformation.Length,
                     .LastWriteTime = FileInformation.LastWriteTime,
                     .Slot = SStates_GetSlot(FileInformation.Name),
                     .Backup = SStates_GetType(FileInformation.Extension)}
@@ -128,9 +128,9 @@ Module mdlFileList
             End If
             'Operazione comune ai due bracci dell'If precedente
             'myCurrentGame.Savestates_Count = myCurrentGame.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count
-            myCurrentGame.Savestates_SizeTot = myCurrentGame.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Sum(Function(lenghtsum) lenghtsum.Value.Lenght)
+            myCurrentGame.Savestates_SizeTot = myCurrentGame.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Sum(Function(Lengthsum) Lengthsum.Value.Length)
             'myCurrentGame.SavestatesBackup_Count = myCurrentGame.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Count
-            myCurrentGame.SavestatesBackup_SizeTot = myCurrentGame.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Sum(Function(lenghtsum) lenghtsum.Value.Lenght)
+            myCurrentGame.SavestatesBackup_SizeTot = myCurrentGame.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Sum(Function(Lengthsum) Lengthsum.Value.Length)
         Next
 
     End Sub
