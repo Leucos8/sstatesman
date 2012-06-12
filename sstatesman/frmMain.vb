@@ -330,24 +330,30 @@ Public Class frmMain
         For Each GamesList_Item As KeyValuePair(Of String, mdlFileList.GamesList_Item) In mdlFileList.GamesList
             currentGameInfo = mdlGameDb.GameDb_RecordExtract(GamesList_Item.Key, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
 
-            Dim tmpGamesLwv_Item As New ListViewItem
-            tmpGamesLwv_Item.Text = currentGameInfo.Name
+            Dim tmpGamesLwv_Item As New ListViewItem With {
+                .Text = currentGameInfo.Name,
+                .ImageKey = currentGameInfo.Serial}
             tmpGamesLwv_Item.SubItems.AddRange({currentGameInfo.Serial, currentGameInfo.Region})
+
 
             If GamesList_Item.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count > 0 Then
                 tmpGamesLwv_Item.SubItems.Add(String.Format("{0:#,##0} × {1:#,##0.00} MB",
-                                                               GamesList_Item.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count,
-                                                               GamesList_Item.Value.Savestates_SizeTot / 1024 ^ 2))
+                                                            GamesList_Item.Value.Savestates.Where(Function(extfilter) extfilter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count,
+                                                            GamesList_Item.Value.Savestates_SizeTot / 1024 ^ 2))
             Else
                 tmpGamesLwv_Item.SubItems.Add("None")
             End If
 
             If GamesList_Item.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Count > 0 Then
                 tmpGamesLwv_Item.SubItems.Add(String.Format("{0:#,##0} × {1:#,##0.00} MB",
-                                                           GamesList_Item.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Count,
-                                                           GamesList_Item.Value.SavestatesBackup_SizeTot / 1024 ^ 2))
+                                                            GamesList_Item.Value.Savestates.Where(Function(extfilter) extfilter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Count,
+                                                            GamesList_Item.Value.SavestatesBackup_SizeTot / 1024 ^ 2))
             Else
                 tmpGamesLwv_Item.SubItems.Add("None")
+            End If
+
+            If checkedGames.Contains(currentGameInfo.Serial) Then
+                tmpGamesLwv_Item.Checked = True
             End If
 
             Me.lvwGamesList.Items.Add(tmpGamesLwv_Item)
@@ -730,7 +736,7 @@ Public Class frmMain
             'Me.pnlTab2.Visible = False
         End If
     End Sub
-
+#Region "UI paint"
     Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
         Dim rectoolbar As New Rectangle(0, 8, 24, 39)
         Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, Color.FromArgb(130, 150, 200), Color.FromArgb(65, 74, 100), 90)
@@ -774,6 +780,26 @@ Public Class frmMain
         e.Graphics.DrawLine(Pens.DarkGray, 0, Me.SplitContainer1.SplitterDistance + 1, Me.SplitContainer1.Width, Me.SplitContainer1.SplitterDistance + 1)
     End Sub
 
+    'Protected Overrides Sub WndProc(ByRef m As System.Windows.Forms.Message)
+    '    If (m.Msg = &H83) Then
+    '        Dim point As New Point(m.LParam.ToInt32)
+    '        m.Result = New IntPtr(-1)
+    '        Return
+    '    End If
+
+    '    MyBase.WndProc(m)
+    'End Sub
+
+    'Private Sub frmMain_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
+    '    If Me.Width > 0 And Me.Height > 0 Then
+    '        e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.Width - 1, 0)
+    '        e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.Height - 1)
+    '        e.Graphics.DrawLine(Pens.DimGray, 0, Me.Height - 1, Me.Width - 1, Me.Height - 1)
+    '        e.Graphics.DrawLine(Pens.DimGray, Me.Width - 1, 0, Me.Width - 1, Me.Height - 1)
+    '    End If
+
+    'End Sub
+#End Region
     Private Sub imgCover_MouseClick(sender As System.Object, e As MouseEventArgs) Handles imgCover.MouseClick
         If e.Button = Windows.Forms.MouseButtons.Left Then
             If Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 3 Then
@@ -797,24 +823,4 @@ Public Class frmMain
             End If
         End If
     End Sub
-
-    'Protected Overrides Sub WndProc(ByRef m As System.Windows.Forms.Message)
-    '    If (m.Msg = &H83) Then
-    '        Dim point As New Point(m.LParam.ToInt32)
-    '        m.Result = New IntPtr(-1)
-    '        Return
-    '    End If
-
-    '    MyBase.WndProc(m)
-    'End Sub
-
-    'Private Sub frmMain_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
-    '    If Me.Width > 0 And Me.Height > 0 Then
-    '        e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.Width - 1, 0)
-    '        e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.Height - 1)
-    '        e.Graphics.DrawLine(Pens.DimGray, 0, Me.Height - 1, Me.Width - 1, Me.Height - 1)
-    '        e.Graphics.DrawLine(Pens.DimGray, Me.Width - 1, 0, Me.Width - 1, Me.Height - 1)
-    '    End If
-
-    'End Sub
 End Class

@@ -15,146 +15,121 @@
 Imports System.IO
 
 Public Class frmSStateList
-    Dim SStatesList_Pos As Int32 = 0
-    Dim mySStatesListRecord As FileInfo = Nothing
     Private Sub ShowStatus()
 
-        Me.mySStatesListRecord = Nothing
+    End Sub
 
-        Me.LblSearchResults.Text = ""
-
-        Me.ToolStripStatusLabel2.Text = ""
-
-        Select Case mdlFileList.GamesList_Status
-            Case LoadStatus.StatusLoadedOK
-                'Me.mySStatesListRecord = mdlSStatesList.SStatesList(Me.SStatesList_Pos)
-                '        Me.ToolStripStatusLabel1.Text = System.String.Format("Position: {0}", Me.SStatesList_Pos.ToString("#,##0"))
-                '        Me.ToolStripStatusLabel2.Text = System.String.Format("Records: {0}", mdlSStatesList.SStatesList.GetLength(0).ToString("#,##0"))
-                '        If Me.SStatesList_Pos > mdlSStatesList.SStatesList.GetLowerBound(0) Then
-                '            Me.tsRecordPrevious.Enabled = True
-                '            Me.tsRecordFirst.Enabled = True
-                '        End If
-                '        If Me.SStatesList_Pos < mdlSStatesList.SStatesList.GetUpperBound(0) Then
-                '            Me.tsRecordNext.Enabled = True
-                '            Me.tsRecordLast.Enabled = True
-                '        End If
-                '        Me.tsSStateListUnload.Enabled = True
-                '        Me.tsExport.Enabled = True
-
-                '        Me.LblSearchResults.Text = "Serial   = " & SStatesList(SStatesList_Pos).SStateSerial & System.Environment.NewLine & _
-                '                                   "Slot     = " & SStatesList(SStatesList_Pos).Slot & System.Environment.NewLine & _
-                '                                   "Filename = " & SStatesList(SStatesList_Pos).FileInfo.Name & System.Environment.NewLine & _
-                '                                   "Size     = " & (SStatesList(SStatesList_Pos).FileInfo.Length / 1024 / 1024).ToString("#,##0.00 MB") & System.Environment.NewLine & _
-                '                                   "Created  = " & SStatesList(SStatesList_Pos).FileInfo.LastWriteTime
-                '    Case LoadStatus.StatusNotLoaded
-                '        Me.ToolStripStatusLabel1.Text = "SStatesList not loaded."
-                '    Case LoadStatus.StatusError
-                '        Me.ToolStripStatusLabel1.Text = "Error loading SStatesList."
-                '    Case LoadStatus.StatusEmpty
-                '        Me.ToolStripStatusLabel1.Text = "SStatesList has no records."
+    Private Sub AddHeader(ByVal Type As Byte)
+        Me.ListView1.BeginUpdate()
+        Me.ListView1.Items.Clear()
+        Me.ListView1.Columns.Clear()
+        Select Case Type
+            Case 0
+                Me.ListView1.Columns.AddRange({New ColumnHeader With {.Text = "Game name", .Width = 240},
+                                               New ColumnHeader With {.Text = "Serial", .Width = 80},
+                                               New ColumnHeader With {.Text = "Region", .Width = 60},
+                                               New ColumnHeader With {.Text = "Compat", .Width = 60}
+                                              })
+            Case 1
+                Me.ListView1.Columns.AddRange({New ColumnHeader With {.Text = "File name", .Width = 240},
+                                               New ColumnHeader With {.Text = "Slot", .Width = 40, .TextAlign = HorizontalAlignment.Left},
+                                               New ColumnHeader With {.Text = "Extension", .Width = 60},
+                                               New ColumnHeader With {.Text = "Version", .Width = 80},
+                                               New ColumnHeader With {.Text = "Modify Date", .Width = 120},
+                                               New ColumnHeader With {.Text = "Size", .Width = 80, .TextAlign = HorizontalAlignment.Right}
+                                              })
         End Select
-    End Sub
-
-    Private Sub ListBox1_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ListBox1.SelectedIndexChanged
-        Me.SStatesList_Pos = Me.ListBox1.SelectedIndex
-        Me.ShowStatus()
-    End Sub
-
-    Private Sub frmSStateList_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        Me.ListBox1.BeginUpdate()
-        Me.ListBox1.Items.Clear()
-        'For Each myCurrentGame As KeyValuePair(Of String, mdlSStatesList.rSStatesIndex) In mdlSStatesList.SStatesIndex
-        '    For Each myCurrentSState As FileInfo In myCurrentGame.Value.SStates_List
-        '        ListBox1.Items.Add(String.Format("{0,-12}|{1,2}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}", _
-        '                                         mdlSStatesList.SStates_GetSerial(myCurrentSState.Name), _
-        '                                         mdlSStatesList.SStates_GetSlot(myCurrentSState.Name).ToString, _
-        '                                         mdlSStatesList.SStates_GetType(myCurrentSState.Name).ToString, _
-        '                                         myCurrentSState.Name, _
-        '                                         myCurrentSState.Length / 1024 ^ 2, _
-        '                                         myCurrentSState.LastWriteTime.ToString, _
-        '                                         myCurrentSState.Attributes.ToString))
-        '    Next
-        'Next
-        Me.ListBox1.EndUpdate()
-        Me.SStatesList_Pos = 0
-        ShowStatus()
+        Me.ListView1.EndUpdate()
     End Sub
 
     Private Sub tsShowGameList_Click(sender As System.Object, e As System.EventArgs) Handles tsShowGameList.Click
-        Me.ListBox1.BeginUpdate()
-        Me.ListBox1.Items.Clear()
-        'For Each mySerial As String In mdlFileList.GamesList.Keys
-        '    Dim myRecord As GameTitle = mdlGameDb.GameDb_RecordExtract(mySerial,
-        '                                                               mdlGameDb.GameDb,
-        '                                                               mdlGameDb.GameDb_Status)
-        '    Me.ListBox1.Items.Add(String.Concat(myRecord.Name, vbTab,
-        '                                        myRecord.Serial, vbTab,
-        '                                        myRecord.Region, vbTab,
-        '                                        myRecord.Compat))
-        'Next
-        Me.ListBox1.EndUpdate()
+        Me.ListView1.BeginUpdate()
+        AddHeader(0)
+        For Each tmpGamesListKey As String In mdlFileList.GamesList.Keys
+            Dim tmpGame As GameTitle = mdlGameDb.GameDb_RecordExtract(tmpGamesListKey, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
+            Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Name, .ImageKey = tmpGame.Serial}
+            tmpListViewItem.SubItems.AddRange({tmpGame.Serial, tmpGame.Region, mdlMain.assignCompatText(tmpGame.Compat)})
+            If checkedGames.Contains(tmpGame.Serial) Then
+                tmpListViewItem.BackColor = Color.FromArgb(130, 150, 200)
+            End If
+            Me.ListView1.Items.Add(tmpListViewItem)
+        Next
+        Me.ListView1.EndUpdate()
+    End Sub
+
+    Private Sub tsShowGameChecked_Click(sender As System.Object, e As System.EventArgs) Handles tsShowGameChecked.Click
+        Me.ListView1.BeginUpdate()
+        AddHeader(0)
+        For Each tmpChGSerial As String In mdlMain.checkedGames
+            Dim tmpGame As GameTitle = mdlGameDb.GameDb_RecordExtract(tmpChGSerial, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
+            Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Name, .ImageKey = tmpGame.Serial}
+            tmpListViewItem.SubItems.AddRange({tmpGame.Serial, tmpGame.Region, mdlMain.assignCompatText(tmpGame.Compat)})
+            Dim tmpGamesListItem As New mdlFileList.GamesList_Item
+            If Not (mdlFileList.GamesList.TryGetValue(tmpGame.Serial, tmpGamesListItem)) Then
+                tmpListViewItem.BackColor = Color.FromArgb(255, 255, 192, 192)       'red
+            End If
+            Me.ListView1.Items.Add(tmpListViewItem)
+        Next
+        Me.ListView1.EndUpdate()
     End Sub
 
     Private Sub tsShowSavestatesAll_Click(sender As System.Object, e As System.EventArgs) Handles tsShowSavestatesAll.Click
-        'Me.ListFiles(mdlFileList.GamesList, ListKeys.Savestates)
+        Me.ListView1.BeginUpdate()
+        AddHeader(1)
+        For Each tmpGamesListItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In mdlFileList.GamesList
+            For Each tmpSavestate As KeyValuePair(Of String, mdlFileList.Savestate) In tmpGamesListItem.Value.Savestates
+                Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestate.Value.Name, .ImageKey = tmpSavestate.Value.Name}
+                tmpListViewItem.SubItems.AddRange({tmpSavestate.Value.Slot, tmpSavestate.Value.Extension, tmpSavestate.Value.Version, tmpSavestate.Value.LastWriteTime, (tmpSavestate.Value.Lenght / 1024 ^ 2).ToString("#,##0.00 MB")})
+                If currentFiles.Contains(tmpSavestate.Value.Name) Then
+                    tmpListViewItem.BackColor = Color.FromArgb(215, 220, 255)
+                ElseIf checkedFiles.Contains(tmpSavestate.Value.Name) Then
+                    tmpListViewItem.BackColor = Color.FromArgb(130, 150, 200)
+                End If
+                Me.ListView1.Items.Add(tmpListViewItem)
+
+            Next
+        Next
+        Me.ListView1.EndUpdate()
     End Sub
 
-    Private Sub tsShowBackupsAll_Click(sender As System.Object, e As System.EventArgs) Handles tsShowBackupsAll.Click
-        'Me.ListFiles(mdlFileList.GamesList, ListKeys.Savestates_Backup)
+    Private Sub tsShowSavestatesCurrent_Click(sender As System.Object, e As System.EventArgs) Handles tsShowSavestatesCurrent.Click
+        Me.ListView1.BeginUpdate()
+        AddHeader(1)
+        For Each tmpSavestateName As String In currentFiles
+            Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestateName, .ImageKey = tmpSavestateName}
+            Dim tmpGamesListItem As New GamesList_Item
+            If checkedFiles.Contains(tmpSavestateName) Then
+                tmpListViewItem.BackColor = Color.FromArgb(130, 150, 200)
+            End If
+            If GamesList.TryGetValue(mdlFileList.SStates_GetSerial(tmpSavestateName), tmpGamesListItem) Then
+                Dim tmpSavestate As New Savestate
+                If tmpGamesListItem.Savestates.TryGetValue(tmpSavestateName, tmpSavestate) Then
+                    tmpListViewItem.SubItems.AddRange({tmpSavestate.Slot, tmpSavestate.Extension, tmpSavestate.Version, tmpSavestate.LastWriteTime, (tmpSavestate.Lenght / 1024 ^ 2).ToString("#,##0.00 MB")})
+                Else : tmpListViewItem.BackColor = Color.FromArgb(255, 255, 224, 192)   'orange
+                End If
+            Else : tmpListViewItem.BackColor = Color.FromArgb(255, 255, 192, 192)       'red
+            End If
+            Me.ListView1.Items.Add(tmpListViewItem)
+        Next
+        Me.ListView1.EndUpdate()
     End Sub
 
-    Private Sub tsShowSavestatesUIList_Click(sender As System.Object, e As System.EventArgs) Handles tsShowSavestatesUIList.Click
-        Me.ListBox1.BeginUpdate()
-        Me.ListBox1.Items.Clear()
-        'For Each myFile As FileInfo In mdlMain.currentFiles
-        '    ListBox1.Items.Add(String.Format("{0,-12}|{1,3}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}",
-        '                                     mdlFileList.SStates_GetSerial(myFile.Name),
-        '                                     mdlFileList.SStates_GetSlot(myFile.Name).ToString,
-        '                                     mdlFileList.SStates_GetType(myFile.Name).ToString,
-        '                                     myFile.Name,
-        '                                     myFile.Length / 1024 ^ 2,
-        '                                     myFile.LastWriteTime.ToString,
-        '                                     myFile.Attributes.ToString))
-
-        'Next
-        Me.ListBox1.EndUpdate()
+    Private Sub tsShowSavestatesChecked_Click(sender As System.Object, e As System.EventArgs) Handles tsShowSavestatesChecked.Click
+        Me.ListView1.BeginUpdate()
+        AddHeader(1)
+        For Each tmpSavestateName As String In checkedFiles
+            Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestateName, .ImageKey = tmpSavestateName}
+            Dim tmpGamesListItem As New GamesList_Item
+            If GamesList.TryGetValue(mdlFileList.SStates_GetSerial(tmpSavestateName), tmpGamesListItem) Then
+                Dim tmpSavestate As New Savestate
+                If tmpGamesListItem.Savestates.TryGetValue(tmpSavestateName, tmpSavestate) Then
+                    tmpListViewItem.SubItems.AddRange({tmpSavestate.Slot, tmpSavestate.Extension, tmpSavestate.Version, tmpSavestate.LastWriteTime, (tmpSavestate.Lenght / 1024 ^ 2).ToString("#,##0.00 MB")})
+                Else : tmpListViewItem.BackColor = Color.FromArgb(255, 255, 224, 192)   'orange
+                End If
+            Else : tmpListViewItem.BackColor = Color.FromArgb(255, 255, 192, 192)       'red
+            End If
+            Me.ListView1.Items.Add(tmpListViewItem)
+        Next
+        Me.ListView1.EndUpdate()
     End Sub
-
-    Private Sub tsShowSavestatesUIListChecked_Click(sender As System.Object, e As System.EventArgs) Handles tsShowSavestatesUIListChecked.Click
-        'Me.ListBox1.BeginUpdate()
-        'Me.ListBox1.Items.Clear()
-        'For Each myFile As FileInfo In mdlMain.checkedFiles
-        '    ListBox1.Items.Add(String.Format("{0,-12}|{1,3}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}",
-        '                                     mdlFileList.SStates_GetSerial(myFile.Name),
-        '                                     mdlFileList.SStates_GetSlot(myFile.Name).ToString,
-        '                                     mdlFileList.SStates_GetType(myFile.Name).ToString,
-        '                                     myFile.Name,
-        '                                     myFile.Length / 1024 ^ 2,
-        '                                     myFile.LastWriteTime.ToString,
-        '                                     myFile.Attributes.ToString))
-        'Next
-        'Me.ListBox1.EndUpdate()
-    End Sub
-
-    'Private Sub ListFiles(ByVal pGameList As Dictionary(Of String, Dictionary(Of mdlFileList.ListKeys, mdlFileList.rFileList)),
-    '                      ByVal pFileType As mdlFileList.ListKeys)
-    '    Me.ListBox1.BeginUpdate()
-    '    Me.ListBox1.Items.Clear()
-    '    For Each myGame As KeyValuePair(Of String, Dictionary(Of mdlFileList.ListKeys, mdlFileList.rFileList)) In pGameList
-    '        Dim myFileList As New mdlFileList.rFileList
-    '        If myGame.Value.TryGetValue(pFileType, myFileList) Then
-    '            For Each myFile As KeyValuePair(Of String, FileInfo) In myFileList.InfoList
-    '                ListBox1.Items.Add(String.Format("{0,-12}|{1,3}|{2,-6}|{3,-36}|{4,12:#,##0.00 MB}|{5,20}|{6}",
-    '                                                 mdlFileList.SStates_GetSerial(myFile.Value.Name),
-    '                                                 mdlFileList.SStates_GetSlot(myFile.Value.Name).ToString,
-    '                                                 mdlFileList.SStates_GetType(myFile.Value.Name).ToString,
-    '                                                 myFile.Value.Name,
-    '                                                 myFile.Value.Length / 1024 ^ 2,
-    '                                                 myFile.Value.LastWriteTime.ToString,
-    '                                                 myFile.Value.Attributes.ToString))
-    '            Next
-    '        End If
-    '    Next
-    '    Me.ListBox1.EndUpdate()
-    'End Sub
 End Class

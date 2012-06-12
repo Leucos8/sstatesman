@@ -36,39 +36,28 @@ Partial Class frmSStateList
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.ListBox1 = New System.Windows.Forms.ListBox()
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.LblSearchResults = New System.Windows.Forms.Label()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripLabel2 = New System.Windows.Forms.ToolStripLabel()
         Me.tsShowGameList = New System.Windows.Forms.ToolStripButton()
+        Me.tsShowGameChecked = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripLabel1 = New System.Windows.Forms.ToolStripLabel()
         Me.tsShowSavestatesAll = New System.Windows.Forms.ToolStripButton()
-        Me.tsShowBackupsAll = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
+        Me.tsShowSavestatesCurrent = New System.Windows.Forms.ToolStripButton()
+        Me.tsShowSavestatesChecked = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripButton2 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ToolStripLabel2 = New System.Windows.Forms.ToolStripLabel()
         Me.tsShowSavestatesUIList = New System.Windows.Forms.ToolStripButton()
         Me.tsShowSavestatesUIListChecked = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ListView1 = New System.Windows.Forms.ListView()
+        Me.ToolStripLabel3 = New System.Windows.Forms.ToolStripLabel()
         Me.StatusStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'ListBox1
-        '
-        Me.ListBox1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ListBox1.Font = New System.Drawing.Font("Lucida Console", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.ItemHeight = 11
-        Me.ListBox1.Location = New System.Drawing.Point(14, 106)
-        Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(718, 290)
-        Me.ListBox1.TabIndex = 6
         '
         'StatusStrip1
         '
@@ -91,94 +80,101 @@ Partial Class frmSStateList
         Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(121, 17)
         Me.ToolStripStatusLabel2.Text = "ToolStripStatusLabel2"
         '
-        'LblSearchResults
-        '
-        Me.LblSearchResults.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.LblSearchResults.Font = New System.Drawing.Font("Lucida Console", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LblSearchResults.Location = New System.Drawing.Point(12, 35)
-        Me.LblSearchResults.Name = "LblSearchResults"
-        Me.LblSearchResults.Size = New System.Drawing.Size(720, 62)
-        Me.LblSearchResults.TabIndex = 12
-        '
         'ToolStrip1
         '
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsShowGameList, Me.ToolStripLabel1, Me.tsShowSavestatesAll, Me.tsShowBackupsAll, Me.ToolStripButton1, Me.ToolStripButton2, Me.ToolStripSeparator1, Me.ToolStripLabel2, Me.tsShowSavestatesUIList, Me.tsShowSavestatesUIListChecked})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripLabel2, Me.tsShowGameList, Me.tsShowGameChecked, Me.ToolStripSeparator2, Me.ToolStripLabel1, Me.tsShowSavestatesAll, Me.tsShowSavestatesCurrent, Me.tsShowSavestatesChecked, Me.ToolStripSeparator1, Me.ToolStripLabel3, Me.tsShowSavestatesUIList, Me.ToolStripButton2, Me.tsShowSavestatesUIListChecked})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(744, 25)
         Me.ToolStrip1.TabIndex = 17
         Me.ToolStrip1.Text = "ToolStrip1"
         '
+        'ToolStripLabel2
+        '
+        Me.ToolStripLabel2.Name = "ToolStripLabel2"
+        Me.ToolStripLabel2.Size = New System.Drawing.Size(46, 22)
+        Me.ToolStripLabel2.Text = "Games:"
+        '
         'tsShowGameList
         '
         Me.tsShowGameList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.tsShowGameList.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsShowGameList.Name = "tsShowGameList"
-        Me.tsShowGameList.Size = New System.Drawing.Size(47, 22)
-        Me.tsShowGameList.Text = "Games"
+        Me.tsShowGameList.Size = New System.Drawing.Size(25, 22)
+        Me.tsShowGameList.Text = "All"
+        '
+        'tsShowGameChecked
+        '
+        Me.tsShowGameChecked.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.tsShowGameChecked.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsShowGameChecked.Name = "tsShowGameChecked"
+        Me.tsShowGameChecked.Size = New System.Drawing.Size(57, 22)
+        Me.tsShowGameChecked.Text = "Checked"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
         '
         'ToolStripLabel1
         '
         Me.ToolStripLabel1.Name = "ToolStripLabel1"
-        Me.ToolStripLabel1.Size = New System.Drawing.Size(33, 22)
-        Me.ToolStripLabel1.Text = "Files:"
+        Me.ToolStripLabel1.Size = New System.Drawing.Size(64, 22)
+        Me.ToolStripLabel1.Text = "Savestates:"
         '
         'tsShowSavestatesAll
         '
         Me.tsShowSavestatesAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.tsShowSavestatesAll.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsShowSavestatesAll.Name = "tsShowSavestatesAll"
-        Me.tsShowSavestatesAll.Size = New System.Drawing.Size(65, 22)
-        Me.tsShowSavestatesAll.Text = "Savestates"
+        Me.tsShowSavestatesAll.Size = New System.Drawing.Size(25, 22)
+        Me.tsShowSavestatesAll.Text = "All"
+        Me.tsShowSavestatesAll.ToolTipText = "All"
         '
-        'tsShowBackupsAll
+        'tsShowSavestatesCurrent
         '
-        Me.tsShowBackupsAll.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.tsShowBackupsAll.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsShowBackupsAll.Name = "tsShowBackupsAll"
-        Me.tsShowBackupsAll.Size = New System.Drawing.Size(55, 22)
-        Me.tsShowBackupsAll.Text = "Backups"
+        Me.tsShowSavestatesCurrent.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.tsShowSavestatesCurrent.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsShowSavestatesCurrent.Name = "tsShowSavestatesCurrent"
+        Me.tsShowSavestatesCurrent.Size = New System.Drawing.Size(51, 22)
+        Me.tsShowSavestatesCurrent.Text = "Current"
         '
-        'ToolStripButton1
+        'tsShowSavestatesChecked
         '
-        Me.ToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.ToolStripButton1.Enabled = False
-        Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton1.Name = "ToolStripButton1"
-        Me.ToolStripButton1.Size = New System.Drawing.Size(45, 22)
-        Me.ToolStripButton1.Text = "Stored"
+        Me.tsShowSavestatesChecked.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.tsShowSavestatesChecked.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.tsShowSavestatesChecked.Name = "tsShowSavestatesChecked"
+        Me.tsShowSavestatesChecked.Size = New System.Drawing.Size(57, 22)
+        Me.tsShowSavestatesChecked.Text = "Checked"
+        Me.tsShowSavestatesChecked.ToolTipText = "Checked"
         '
         'ToolStripButton2
         '
         Me.ToolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.ToolStripButton2.Enabled = False
         Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.ToolStripButton2.Name = "ToolStripButton2"
-        Me.ToolStripButton2.Size = New System.Drawing.Size(74, 22)
-        Me.ToolStripButton2.Text = "Screenshots"
+        Me.ToolStripButton2.Size = New System.Drawing.Size(51, 22)
+        Me.ToolStripButton2.Text = "Current"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
-        'ToolStripLabel2
-        '
-        Me.ToolStripLabel2.Name = "ToolStripLabel2"
-        Me.ToolStripLabel2.Size = New System.Drawing.Size(21, 22)
-        Me.ToolStripLabel2.Text = "UI:"
-        '
         'tsShowSavestatesUIList
         '
         Me.tsShowSavestatesUIList.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.tsShowSavestatesUIList.Enabled = False
         Me.tsShowSavestatesUIList.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsShowSavestatesUIList.Name = "tsShowSavestatesUIList"
-        Me.tsShowSavestatesUIList.Size = New System.Drawing.Size(65, 22)
-        Me.tsShowSavestatesUIList.Text = "Savestates"
+        Me.tsShowSavestatesUIList.Size = New System.Drawing.Size(25, 22)
+        Me.tsShowSavestatesUIList.Text = "All"
         '
         'tsShowSavestatesUIListChecked
         '
         Me.tsShowSavestatesUIListChecked.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.tsShowSavestatesUIListChecked.Enabled = False
         Me.tsShowSavestatesUIListChecked.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsShowSavestatesUIListChecked.Name = "tsShowSavestatesUIListChecked"
         Me.tsShowSavestatesUIListChecked.Size = New System.Drawing.Size(57, 22)
@@ -189,15 +185,30 @@ Partial Class frmSStateList
         Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
         Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 6)
         '
+        'ListView1
+        '
+        Me.ListView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ListView1.Location = New System.Drawing.Point(0, 25)
+        Me.ListView1.Name = "ListView1"
+        Me.ListView1.Size = New System.Drawing.Size(744, 395)
+        Me.ListView1.TabIndex = 18
+        Me.ListView1.UseCompatibleStateImageBehavior = False
+        Me.ListView1.View = System.Windows.Forms.View.Details
+        '
+        'ToolStripLabel3
+        '
+        Me.ToolStripLabel3.Name = "ToolStripLabel3"
+        Me.ToolStripLabel3.Size = New System.Drawing.Size(44, 22)
+        Me.ToolStripLabel3.Text = "Stored:"
+        '
         'frmSStateList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(744, 442)
+        Me.Controls.Add(Me.ListView1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
-        Me.Controls.Add(Me.ListBox1)
-        Me.Controls.Add(Me.LblSearchResults)
         Me.Name = "frmSStateList"
         Me.Text = "SStateList Util - For developer only"
         Me.StatusStrip1.ResumeLayout(False)
@@ -208,21 +219,23 @@ Partial Class frmSStateList
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents ListBox1 As System.Windows.Forms.ListBox
     Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
     Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents ToolStripStatusLabel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents LblSearchResults As System.Windows.Forms.Label
     Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
     Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents tsShowBackupsAll As System.Windows.Forms.ToolStripButton
+    Friend WithEvents tsShowSavestatesChecked As System.Windows.Forms.ToolStripButton
     Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents tsShowSavestatesAll As System.Windows.Forms.ToolStripButton
     Friend WithEvents ToolStripLabel1 As System.Windows.Forms.ToolStripLabel
     Friend WithEvents tsShowGameList As System.Windows.Forms.ToolStripButton
-    Friend WithEvents ToolStripButton1 As System.Windows.Forms.ToolStripButton
+    Friend WithEvents tsShowSavestatesCurrent As System.Windows.Forms.ToolStripButton
     Friend WithEvents ToolStripButton2 As System.Windows.Forms.ToolStripButton
     Friend WithEvents ToolStripLabel2 As System.Windows.Forms.ToolStripLabel
     Friend WithEvents tsShowSavestatesUIList As System.Windows.Forms.ToolStripButton
     Friend WithEvents tsShowSavestatesUIListChecked As System.Windows.Forms.ToolStripButton
+    Friend WithEvents ListView1 As System.Windows.Forms.ListView
+    Friend WithEvents tsShowGameChecked As System.Windows.Forms.ToolStripButton
+    Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents ToolStripLabel3 As System.Windows.Forms.ToolStripLabel
 End Class
