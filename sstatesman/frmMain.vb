@@ -332,7 +332,7 @@ Public Class frmMain
             currentGameInfo = mdlGameDb.GameDb_RecordExtract(tmpGListItem.Key, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
 
             'Creating the listviewitem
-            Dim tmpLvwGListItem As New ListViewItem With {.Text = currentGameInfo.Name, .ImageKey = currentGameInfo.Serial}
+            Dim tmpLvwGListItem As New ListViewItem With {.Text = currentGameInfo.Name, .Name = currentGameInfo.Serial}
             tmpLvwGListItem.SubItems.AddRange({currentGameInfo.Serial, currentGameInfo.Region})
             'Calculating savestates count and displaying size
             If tmpGListItem.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count > 0 Then
@@ -378,56 +378,47 @@ Public Class frmMain
         Me.UIEnabled(True)
     End Sub
 
-    Friend Sub GamesLvw_Update()
-        'mdlMain.WriteToConsole("MainWindow", "GamesLvw_Update", "Updating GameLvw listview.")
+    Friend Sub lvwGamesList_Update()
+        mdlMain.WriteToConsole("MainWindow", "GamesLvw_Update", "Updating GameLvw listview.")
 
-        'Me.UIEnabled(False)
-        'Dim ItemIndex As System.Int32 = 0
-        'Dim ItemCount As System.Int32 = lvwGamesList.Items.Count - 1
-        'If ItemCount > 0 Then
-        '    Dim GamesIndexSS_Pos As System.Int32 = 0
-        '    Do While ItemIndex <= ItemCount
-        '        System.Int32.TryParse(lvwGamesList.Items(ItemIndex).SubItems(frmMainGamesLvwColumn_ArrayRef).Text, GamesIndexSS_Pos)
-        '        If mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Count > 0 Or _
-        '            mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_Count > 0 Then
-        '            lvwGamesList.Items(ItemIndex).SubItems(frmMainGamesLvwColumn_SStateInfo).Text = System.String.Format("{0:#,##0} × {1:#,##0.00} MB",
-        '                                  mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Count, _
-        '                                  mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_SizeTot / 1024 ^ 2)
+        Me.UIEnabled(False)
 
-        '            lvwGamesList.Items(ItemIndex).SubItems(frmMainGamesLvwColumn_SStateBackupInfo).Text = System.String.Format("{0:#,##0} × {1:#,##0.00} MB",
-        '                                  mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_Count, _
-        '                                  mdlGamesIndexSS.GamesIndexSS(GamesIndexSS_Pos).SStates_Bck_SizeTot / 1024 ^ 2)
+        For Each tmpGame In checkedGames
+            If GamesList(tmpGame).Savestates.Count > 0 Then
+                If GamesList(tmpGame).Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count > 0 Then
+                    lvwGamesList.Items(tmpGame).SubItems(frmMainGamesLvwColumn.SStateInfo).Text = String.Format("{0:#,##0} × {1:#,##0.00} MB",
+                                                                                                  GamesList(tmpGame).Savestates.Where(Function(extfilter) extfilter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count,
+                                                                                                  GamesList(tmpGame).Savestates_SizeTot / 1024 ^ 2)
+                Else
+                    lvwGamesList.Items(tmpGame).SubItems(frmMainGamesLvwColumn.SStateInfo).Text = "None"
+                End If
 
-        '            ItemIndex += 1
-        '        Else
-        '            lvwGamesList.Items(ItemIndex).Remove()
-        '            ItemCount -= 1
-        '        End If
-        '    Loop
-        'End If
+                If GamesList(tmpGame).Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Count > 0 Then
+                    lvwGamesList.Items(tmpGame).SubItems(frmMainGamesLvwColumn.SStateBackupInfo).Text = String.Format("{0:#,##0} × {1:#,##0.00} MB",
+                                                                                                         GamesList(tmpGame).Savestates.Where(Function(extfilter) extfilter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Count,
+                                                                                                         GamesList(tmpGame).SavestatesBackup_SizeTot / 1024 ^ 2)
+                Else
+                    lvwGamesList.Items(tmpGame).SubItems(frmMainGamesLvwColumn.SStateBackupInfo).Text = "None"
+                End If
+            Else
+                lvwGamesList.Items(tmpGame).Remove()
+                checkedGames.Remove(tmpGame)
+                GamesList.Remove(tmpGame)
+            End If
+        Next
 
-        'For lvwItemIndex = 0 To Me.lvwGamesList.Items.Count - 1
-        '    Me.lvwGamesList.Items(lvwItemIndex).Font = Me.Font
-        '    For lvwSubitemIndex = 1 To Me.lvwGamesList.Items(lvwItemIndex).SubItems.Count - 1
-        '        Me.lvwGamesList.Items(lvwItemIndex).SubItems(lvwSubitemIndex).ForeColor = Color.Gray
-        '        Me.lvwGamesList.Items(lvwItemIndex).SubItems(lvwSubitemIndex).Font = Me.Font
-        '    Next lvwSubitemIndex
+        For lvwItemIndex = 0 To Me.lvwGamesList.Items.Count - 1
+            If colorswitch Then
+                Me.lvwGamesList.Items(lvwItemIndex).BackColor = Color.Transparent
+                colorswitch = False
+            Else
+                Me.lvwGamesList.Items(lvwItemIndex).BackColor = Color.WhiteSmoke
+                colorswitch = True
+            End If
+        Next lvwItemIndex
+        colorswitch = True
 
-        '    If colorswitch Then
-        '        For lvwSubitemIndex = 0 To Me.lvwGamesList.Items(lvwItemIndex).SubItems.Count - 1
-        '            Me.lvwGamesList.Items(lvwItemIndex).SubItems(lvwSubitemIndex).BackColor = Color.Transparent
-        '        Next lvwSubitemIndex
-        '        colorswitch = False
-        '    Else
-        '        For lvwSubitemIndex = 0 To Me.lvwGamesList.Items(lvwItemIndex).SubItems.Count - 1
-        '            Me.lvwGamesList.Items(lvwItemIndex).SubItems(lvwSubitemIndex).BackColor = Color.WhiteSmoke
-        '        Next lvwSubitemIndex
-        '        colorswitch = True
-        '    End If
-        'Next lvwItemIndex
-        'colorswitch = True
-
-        'Me.UIEnabled(True)
+        Me.UIEnabled(True)
     End Sub
 
     Friend Sub lvwSStatesList_Populate()
@@ -448,11 +439,11 @@ Public Class frmMain
         'reindexing checked games
         If Me.lvwGamesList.CheckedItems.Count > 0 Then
             For Each tmpGamesList_ItemChecked As System.Windows.Forms.ListViewItem In Me.lvwGamesList.CheckedItems
-                mdlMain.checkedGames.Add(tmpGamesList_ItemChecked.ImageKey)
+                mdlMain.checkedGames.Add(tmpGamesList_ItemChecked.Name)
             Next
         ElseIf Me.lvwGamesList.SelectedItems.Count > 0 Then
             For Each tmpGamesList_ItemChecked As System.Windows.Forms.ListViewItem In Me.lvwGamesList.SelectedItems
-                mdlMain.checkedGames.Add(tmpGamesList_ItemChecked.ImageKey)
+                mdlMain.checkedGames.Add(tmpGamesList_ItemChecked.Name)
             Next
         End If
 
@@ -489,7 +480,7 @@ Public Class frmMain
 
                 Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Value.Name,
                                                                                    .Group = tmpLvwSListGroup,
-                                                                                   .ImageKey = tmpSavestate.Value.Name}
+                                                                                   .Name = tmpSavestate.Value.Name}
                 tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Slot.ToString,
                                                    tmpSavestate.Value.Backup.ToString,
                                                    tmpSavestate.Value.Version,
@@ -530,8 +521,8 @@ Public Class frmMain
         If Me.lvwSStatesList.CheckedItems.Count > 0 Then
             For Each tmpLvwSListItemChecked As ListViewItem In Me.lvwSStatesList.CheckedItems
 
-                Dim tmpGameSerial As String = mdlFileList.SStates_GetSerial(tmpLvwSListItemChecked.ImageKey)
-                Dim tmpSavestate As Savestate = mdlFileList.GamesList(tmpGameSerial).Savestates(tmpLvwSListItemChecked.ImageKey)
+                Dim tmpGameSerial As String = mdlFileList.SStates_GetSerial(tmpLvwSListItemChecked.Name)
+                Dim tmpSavestate As Savestate = mdlFileList.GamesList(tmpGameSerial).Savestates(tmpLvwSListItemChecked.Name)
                 checkedFiles.Add(tmpSavestate.Name)
 
                 If tmpSavestate.Backup Then

@@ -47,7 +47,7 @@ Public Class frmSStateList
         AddHeader(0)
         For Each tmpGamesListKey As String In mdlFileList.GamesList.Keys
             Dim tmpGame As GameTitle = mdlGameDb.GameDb_RecordExtract(tmpGamesListKey, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
-            Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Name, .ImageKey = tmpGame.Serial}
+            Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Name, .Name = tmpGame.Serial}
             tmpListViewItem.SubItems.AddRange({tmpGame.Serial, tmpGame.Region, mdlMain.assignCompatText(tmpGame.Compat)})
             If checkedGames.Contains(tmpGame.Serial) Then
                 tmpListViewItem.BackColor = Color.FromArgb(130, 150, 200)
@@ -62,7 +62,7 @@ Public Class frmSStateList
         AddHeader(0)
         For Each tmpChGSerial As String In mdlMain.checkedGames
             Dim tmpGame As GameTitle = mdlGameDb.GameDb_RecordExtract(tmpChGSerial, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
-            Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Name, .ImageKey = tmpGame.Serial, .BackColor = Color.FromArgb(130, 150, 200)}
+            Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Name, .Name = tmpGame.Serial, .BackColor = Color.FromArgb(130, 150, 200)}
             tmpListViewItem.SubItems.AddRange({tmpGame.Serial, tmpGame.Region, mdlMain.assignCompatText(tmpGame.Compat)})
             Dim tmpGamesListItem As New mdlFileList.GamesList_Item
             If Not (mdlFileList.GamesList.TryGetValue(tmpGame.Serial, tmpGamesListItem)) Then
@@ -78,7 +78,7 @@ Public Class frmSStateList
         AddHeader(1)
         For Each tmpGamesListItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In mdlFileList.GamesList
             For Each tmpSavestate As KeyValuePair(Of String, mdlFileList.Savestate) In tmpGamesListItem.Value.Savestates
-                Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestate.Value.Name, .ImageKey = tmpSavestate.Value.Name}
+                Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestate.Value.Name, .Name = tmpSavestate.Value.Name}
                 tmpListViewItem.SubItems.AddRange({tmpSavestate.Value.Slot, tmpSavestate.Value.Extension, tmpSavestate.Value.Version, tmpSavestate.Value.LastWriteTime, (tmpSavestate.Value.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
                 If currentFiles.Contains(tmpSavestate.Value.Name) Then
                     tmpListViewItem.BackColor = Color.FromArgb(215, 220, 255)
@@ -97,7 +97,7 @@ Public Class frmSStateList
         Me.ListView1.BeginUpdate()
         AddHeader(1)
         For Each tmpSavestateName As String In currentFiles
-            Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestateName, .ImageKey = tmpSavestateName, .BackColor = Color.FromArgb(215, 220, 255)}
+            Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestateName, .Name = tmpSavestateName, .BackColor = Color.FromArgb(215, 220, 255)}
             Dim tmpGamesListItem As New GamesList_Item
             If checkedFiles.Contains(tmpSavestateName) Then
                 tmpListViewItem.BackColor = Color.FromArgb(130, 150, 200)
@@ -119,7 +119,7 @@ Public Class frmSStateList
         Me.ListView1.BeginUpdate()
         AddHeader(1)
         For Each tmpSavestateName As String In checkedFiles
-            Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestateName, .ImageKey = tmpSavestateName, .BackColor = Color.FromArgb(130, 150, 200)}
+            Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestateName, .Name = tmpSavestateName, .BackColor = Color.FromArgb(130, 150, 200)}
             Dim tmpGamesListItem As New GamesList_Item
             If GamesList.TryGetValue(mdlFileList.SStates_GetSerial(tmpSavestateName), tmpGamesListItem) Then
                 Dim tmpSavestate As New Savestate
