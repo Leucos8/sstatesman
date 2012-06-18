@@ -581,14 +581,26 @@ Public Class frmMain
                 Me.txtGameList_Compat.Text = mdlMain.assignCompatText(currentGameInfo.Compat)
                 Me.txtGameList_Compat.BackColor = mdlMain.assignCompatColor(currentGameInfo.Compat, Color.WhiteSmoke)
                 Me.imgFlag.Image = mdlMain.assignFlag(currentGameInfo.Region, currentGameInfo.Serial)
+                Me.imgFlag.Width = Me.imgFlag.Image.PhysicalDimension.Width + 2
+                Me.imgFlag.Height = Me.imgFlag.Image.PhysicalDimension.Height + 2
                 Me.cmdGameSelectNone.Enabled = False
 
                 If System.IO.File.Exists(System.IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg")) Then
-                    Me.imgCover.SizeMode = PictureBoxSizeMode.Zoom
+                    Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
                     Me.imgCover.Load(System.IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg"))
+                    If Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 3 Then
+                        Me.imgCover.Height = Me.imgCover.Image.PhysicalDimension.Height * 118 \ Me.imgCover.Image.PhysicalDimension.Width + 2
+                    ElseIf Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 2 Then
+                        Me.imgCover.Width = Me.imgCover.Image.PhysicalDimension.Width * 46 \ Me.imgCover.Image.PhysicalDimension.Height + 2
+                    End If
                 Else
                     Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                     Me.imgCover.Image = My.Resources.Nocover
+                    If Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 3 Then
+                        Me.imgCover.Height = 48
+                    ElseIf Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 2 Then
+                        Me.imgCover.Width = 48
+                    End If
                 End If
 
                 If Me.lvwGamesList.CheckedItems.Count > 0 Then
@@ -830,8 +842,9 @@ Public Class frmMain
             If Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 3 Then
                 Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 2)
                 Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 1)
-                Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 1))
                 Me.imgCover.Size = New Size(48, 48)
+                Me.imgCover.Width = Me.imgCover.Image.PhysicalDimension.Width * (Me.imgCover.Height - 2) \ Me.imgCover.Image.PhysicalDimension.Height + 2
+                Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 1))
                 Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(0, 0))
                 Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 9)
                 Me.lblGameList_Title.Visible = True
@@ -842,9 +855,10 @@ Public Class frmMain
                 Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 7)
                 Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(2, 0))
                 Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 0))
+                Me.imgCover.Width = 120
+                Me.imgCover.Height = Me.imgCover.Image.PhysicalDimension.Height * 118 \ Me.imgCover.Image.PhysicalDimension.Width + 2
                 Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 2)
                 Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 3)
-                Me.imgCover.Width = 120
             End If
         End If
     End Sub
