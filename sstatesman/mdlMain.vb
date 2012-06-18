@@ -18,8 +18,8 @@ Imports Microsoft.Win32
 Module mdlMain
 
     Public checkedGames As New List(Of String)
-    Public currentFiles As New List(Of String)
-    Public checkedFiles As New List(Of String)
+    'Public currentFiles As New List(Of String)
+    Public checkedSavestates As New List(Of String)
 
     Public Enum LoadStatus As Byte
         StatusEmpty

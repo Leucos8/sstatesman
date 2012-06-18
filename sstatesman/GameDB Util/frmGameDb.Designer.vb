@@ -128,8 +128,8 @@ Partial Class frmGameDb
         Me.tsGameDbUnload.Enabled = False
         Me.tsGameDbUnload.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsGameDbUnload.Name = "tsGameDbUnload"
-        Me.tsGameDbUnload.Size = New System.Drawing.Size(49, 22)
-        Me.tsGameDbUnload.Text = "&Unload"
+        Me.tsGameDbUnload.Size = New System.Drawing.Size(40, 22)
+        Me.tsGameDbUnload.Text = "&Close"
         Me.tsGameDbUnload.ToolTipText = "Unload the Game Database. For debugging purpose only"
         '
         'ToolStripSeparator1
@@ -184,20 +184,20 @@ Partial Class frmGameDb
         Me.tsExport.Name = "tsExport"
         Me.tsExport.Size = New System.Drawing.Size(53, 22)
         Me.tsExport.Text = "&Export"
-        Me.tsExport.ToolTipText = "Export the game database to a text file. The search results will be save if searc" & _
-    "h is enabled."
+        Me.tsExport.ToolTipText = "Export the game database to a text file. The search results will be saved if sear" & _
+    "ch has been performed."
         '
         'tsExportTSVTxt
         '
         Me.tsExportTSVTxt.Name = "tsExportTSVTxt"
-        Me.tsExportTSVTxt.Size = New System.Drawing.Size(243, 22)
-        Me.tsExportTSVTxt.Text = "Tab separated value text file"
+        Me.tsExportTSVTxt.Size = New System.Drawing.Size(232, 22)
+        Me.tsExportTSVTxt.Text = "Tab-separated value file..."
         '
         'tsExportCSVTxt
         '
         Me.tsExportCSVTxt.Name = "tsExportCSVTxt"
-        Me.tsExportCSVTxt.Size = New System.Drawing.Size(243, 22)
-        Me.tsExportCSVTxt.Text = "Comma separated value text file"
+        Me.tsExportCSVTxt.Size = New System.Drawing.Size(232, 22)
+        Me.tsExportCSVTxt.Text = "Comma-separated value file..."
         '
         'tsTxtSearchSerial
         '
@@ -208,9 +208,10 @@ Partial Class frmGameDb
         '
         'txtGameList_Compat
         '
+        Me.txtGameList_Compat.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtGameList_Compat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Compat.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Compat.Location = New System.Drawing.Point(392, 28)
+        Me.txtGameList_Compat.Location = New System.Drawing.Point(400, 28)
         Me.txtGameList_Compat.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Compat.Name = "txtGameList_Compat"
         Me.txtGameList_Compat.ReadOnly = True
@@ -221,19 +222,20 @@ Partial Class frmGameDb
         '
         Me.lblGameList_Compat.AutoSize = True
         Me.lblGameList_Compat.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblGameList_Compat.Location = New System.Drawing.Point(325, 26)
+        Me.lblGameList_Compat.Location = New System.Drawing.Point(333, 26)
         Me.lblGameList_Compat.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Compat.Name = "lblGameList_Compat"
-        Me.lblGameList_Compat.Size = New System.Drawing.Size(63, 30)
+        Me.lblGameList_Compat.Size = New System.Drawing.Size(63, 26)
         Me.lblGameList_Compat.TabIndex = 11
         Me.lblGameList_Compat.Text = "Emu status"
         Me.lblGameList_Compat.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'txtGameList_Serial
         '
+        Me.txtGameList_Serial.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtGameList_Serial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Serial.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Serial.Location = New System.Drawing.Point(241, 28)
+        Me.txtGameList_Serial.Location = New System.Drawing.Point(249, 28)
         Me.txtGameList_Serial.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Serial.Name = "txtGameList_Serial"
         Me.txtGameList_Serial.ReadOnly = True
@@ -242,6 +244,7 @@ Partial Class frmGameDb
         '
         'txtGameList_Region
         '
+        Me.txtGameList_Region.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtGameList_Region.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Region.ForeColor = System.Drawing.Color.DimGray
         Me.txtGameList_Region.Location = New System.Drawing.Point(73, 28)
@@ -253,6 +256,7 @@ Partial Class frmGameDb
         '
         'txtGameList_Title
         '
+        Me.txtGameList_Title.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtGameList_Title.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TableLayoutPanel1.SetColumnSpan(Me.txtGameList_Title, 6)
         Me.txtGameList_Title.Dock = System.Windows.Forms.DockStyle.Fill
@@ -268,10 +272,10 @@ Partial Class frmGameDb
         '
         Me.lblGameList_Serial.AutoSize = True
         Me.lblGameList_Serial.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblGameList_Serial.Location = New System.Drawing.Point(185, 26)
+        Me.lblGameList_Serial.Location = New System.Drawing.Point(193, 26)
         Me.lblGameList_Serial.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Serial.Name = "lblGameList_Serial"
-        Me.lblGameList_Serial.Size = New System.Drawing.Size(52, 30)
+        Me.lblGameList_Serial.Size = New System.Drawing.Size(52, 26)
         Me.lblGameList_Serial.TabIndex = 9
         Me.lblGameList_Serial.Text = "Exe code"
         Me.lblGameList_Serial.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -283,7 +287,7 @@ Partial Class frmGameDb
         Me.lblGameList_Region.Location = New System.Drawing.Point(10, 26)
         Me.lblGameList_Region.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Region.Name = "lblGameList_Region"
-        Me.lblGameList_Region.Size = New System.Drawing.Size(59, 30)
+        Me.lblGameList_Region.Size = New System.Drawing.Size(59, 26)
         Me.lblGameList_Region.TabIndex = 7
         Me.lblGameList_Region.Text = "Region"
         Me.lblGameList_Region.TextAlign = System.Drawing.ContentAlignment.MiddleRight
@@ -306,11 +310,11 @@ Partial Class frmGameDb
         Me.lvwGameDBList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvwGameDBList.FullRowSelect = True
         Me.lvwGameDBList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.lvwGameDBList.Location = New System.Drawing.Point(0, 81)
+        Me.lvwGameDBList.Location = New System.Drawing.Point(0, 77)
         Me.lvwGameDBList.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwGameDBList.MultiSelect = False
         Me.lvwGameDBList.Name = "lvwGameDBList"
-        Me.lvwGameDBList.Size = New System.Drawing.Size(624, 219)
+        Me.lvwGameDBList.Size = New System.Drawing.Size(624, 223)
         Me.lvwGameDBList.TabIndex = 0
         Me.lvwGameDBList.TileSize = New System.Drawing.Size(480, 64)
         Me.lvwGameDBList.UseCompatibleStateImageBehavior = False
@@ -334,16 +338,17 @@ Partial Class frmGameDb
         'GameInfoCompat
         '
         Me.GameInfoCompat.Text = "Emu status"
-        Me.GameInfoCompat.Width = 120
+        Me.GameInfoCompat.Width = 80
         '
         'imgFlag
         '
+        Me.imgFlag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.imgFlag.Dock = System.Windows.Forms.DockStyle.Fill
         Me.imgFlag.Image = Global.sstatesman.My.Resources.Resources.Flag_0Null_30x20
         Me.imgFlag.Location = New System.Drawing.Point(157, 28)
         Me.imgFlag.Margin = New System.Windows.Forms.Padding(2)
         Me.imgFlag.Name = "imgFlag"
-        Me.imgFlag.Size = New System.Drawing.Size(24, 26)
+        Me.imgFlag.Size = New System.Drawing.Size(32, 22)
         Me.imgFlag.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.imgFlag.TabIndex = 32
         Me.imgFlag.TabStop = False
@@ -397,13 +402,14 @@ Partial Class frmGameDb
         Me.TableLayoutPanel1.RowCount = 2
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(624, 56)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(624, 52)
         Me.TableLayoutPanel1.TabIndex = 4
         '
         'frmGameDb
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
+        Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(624, 322)
         Me.Controls.Add(Me.lvwGameDBList)
         Me.Controls.Add(Me.TableLayoutPanel1)
@@ -415,7 +421,7 @@ Partial Class frmGameDb
         Me.ForeColor = System.Drawing.Color.Black
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "frmGameDb"
-        Me.Text = "GameDB Util - For developer only"
+        Me.Text = "GameDB Explorer"
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)

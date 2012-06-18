@@ -101,20 +101,23 @@ Public Class frmMain
             .Images.Add(My.Resources.Metro_ChecboxUnchecked)    'Unchecked state image
             .Images.Add(My.Resources.Metro_ChecboxChecked)      'Checked state image
         End With
-        Me.lvwGamesList.StateImageList = imlLvwCheckboxes                   'Assigning the imagelist to the Games listview
-        Me.lvwSStatesList.StateImageList = imlLvwCheckboxes                 'Assigning the imagelist to the Savestates listview
+        Me.lvwGamesList.StateImageList = imlLvwCheckboxes       'Assigning the imagelist to the Games listview
+        Me.lvwSStatesList.StateImageList = imlLvwCheckboxes     'Assigning the imagelist to the Savestates listview
 
 
 
 
-        mdlGameDb.GameDb_Status = mdlGameDb.GameDb_Load(Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename),
-                                                        mdlGameDb.GameDb)   'Loading the Game database (from PCSX2 directory)
-        Me.lvwGamesList_Populate()                                               'Refreshing the games list
+        'Loading the Game database (from PCSX2 directory)
+        mdlGameDb.GameDb_Status = mdlGameDb.GameDb_Load(Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename), mdlGameDb.GameDb)
+        'Scanning savestates
+        mdlFileList.GamesList_Status = GamesList_LoadAll(My.Settings.PCSX2_PathSState, mdlFileList.GamesList)
+        'Refreshing the games list
+        Me.lvwGamesList_Populate()
 
 
 
 
-
+        'Timer auto refresh
         Me.tmrSStatesListRefresh.Enabled = My.Settings.SStatesMan_SStatesListAutoRefresh
 
 
@@ -185,6 +188,7 @@ Public Class frmMain
 #End Region
 
     Private Sub cmdRefresh_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRefresh.Click
+        mdlFileList.GamesList_Status = GamesList_LoadAll(My.Settings.PCSX2_PathSState, mdlFileList.GamesList)
         lvwGamesList_Populate()
         UICheck()
     End Sub
@@ -196,27 +200,27 @@ Public Class frmMain
 #Region "Gamelist management"
 
     Private Sub cmdGameSelectAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdGameSelectAll.Click
-        Me.UIEnabled(False)
+        Me.UIEnabled(False, True, True)
         For lvwItemIndex = 0 To Me.lvwGamesList.Items.Count - 1
             Me.lvwGamesList.Items.Item(lvwItemIndex).Checked = True
         Next
         Me.lvwSStatesList_Populate()
         Me.UICheck()
-        Me.UIEnabled(True)
+        Me.UIEnabled(True, True, True)
     End Sub
 
     Private Sub cmdGameSelectNone_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdGameSelectNone.Click
-        Me.UIEnabled(False)
+        Me.UIEnabled(False, True, True)
         For lvwItemIndex = 0 To Me.lvwGamesList.Items.Count - 1
             Me.lvwGamesList.Items.Item(lvwItemIndex).Checked = False
         Next
         Me.lvwSStatesList_Populate()
         Me.UICheck()
-        Me.UIEnabled(True)
+        Me.UIEnabled(True, True, True)
     End Sub
 
     Private Sub cmdGameSelectInvert_Click(sender As System.Object, e As System.EventArgs) Handles cmdGameSelectInvert.Click
-        Me.UIEnabled(False)
+        Me.UIEnabled(False, True, True)
         For lvwItemIndex = 0 To Me.lvwGamesList.Items.Count - 1
             If Me.lvwGamesList.Items.Item(lvwItemIndex).Checked Then
                 Me.lvwGamesList.Items.Item(lvwItemIndex).Checked = False
@@ -226,7 +230,7 @@ Public Class frmMain
         Next
         Me.lvwSStatesList_Populate()
         Me.UICheck()
-        Me.UIEnabled(True)
+        Me.UIEnabled(True, True, True)
     End Sub
 
     Private Sub lvwGamesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwGamesList.ItemChecked
@@ -251,27 +255,27 @@ Public Class frmMain
     End Sub
 
     Private Sub cmdSStateSelectAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectAll.Click
-        Me.UIEnabled(False)
+        Me.UIEnabled(False, False, True)
         For lvwItemIndex = 0 To Me.lvwSStatesList.Items.Count - 1
             Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = True
         Next
         Me.lvwSStatesList_SelectionChanged()
         Me.UICheck()
-        Me.UIEnabled(True)
+        Me.UIEnabled(True, False, True)
     End Sub
 
     Private Sub cmdSStateSelectNone_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectNone.Click
-        Me.UIEnabled(False)
+        Me.UIEnabled(False, False, True)
         For lvwItemIndex = 0 To Me.lvwSStatesList.Items.Count - 1
             Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = False
         Next
         Me.lvwSStatesList_SelectionChanged()
         Me.UICheck()
-        Me.UIEnabled(True)
+        Me.UIEnabled(True, False, True)
     End Sub
 
     Private Sub cmdSStateSelectInvert_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStateSelectInvert.Click
-        Me.UIEnabled(False)
+        Me.UIEnabled(False, False, True)
         For lvwItemIndex = 0 To Me.lvwSStatesList.Items.Count - 1
             If Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = True Then
                 Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = False
@@ -281,11 +285,11 @@ Public Class frmMain
         Next
         Me.lvwSStatesList_SelectionChanged()
         Me.UICheck()
-        Me.UIEnabled(True)
+        Me.UIEnabled(True, False, True)
     End Sub
 
     Private Sub cmdSStateSelectBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectBackup.Click
-        Me.UIEnabled(False)
+        Me.UIEnabled(False, False, True)
         For lvwItemIndex = 0 To Me.lvwSStatesList.Items.Count - 1
             If Me.lvwSStatesList.Items.Item(lvwItemIndex).SubItems(frmMainSStatesLvwColumn.Backup).Text = "True" Then
                 Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = True
@@ -295,7 +299,7 @@ Public Class frmMain
         Next
         Me.lvwSStatesList_SelectionChanged()
         Me.UICheck()
-        Me.UIEnabled(True)
+        Me.UIEnabled(True, False, True)
     End Sub
 
     Private Sub lvwGamesList_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lvwGamesList.SelectedIndexChanged
@@ -311,7 +315,7 @@ Public Class frmMain
         If WindowSkipListRefresh = False Then
             Me.lvwSStatesList_SelectionChanged()
             Me.UICheck()
-            Me.UIEnabled(True)
+            Me.UIEnabled(True, False, True)
         End If
     End Sub
 #End Region
@@ -319,14 +323,14 @@ Public Class frmMain
     Public Sub lvwGamesList_Populate()
         mdlMain.WriteToConsole("MainWindow", "lvwGamesList_Populate", "Refreshing lvwGamesList listview.")
 
-        Me.UIEnabled(False)
+        Me.UIEnabled(False, True, True)
 
         Me.lvwGamesList.Items.Clear()
         Me.lvwSStatesList.Items.Clear()
         Me.lvwSStatesList.Groups.Clear()
 
         'I must move this line in another procedure
-        mdlFileList.GamesList_Status = GamesList_LoadAll(My.Settings.PCSX2_PathSState, mdlFileList.GamesList)
+        'mdlFileList.GamesList_Status = GamesList_LoadAll(My.Settings.PCSX2_PathSState, mdlFileList.GamesList)
 
         For Each tmpGListItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In mdlFileList.GamesList
             currentGameInfo = mdlGameDb.GameDb_RecordExtract(tmpGListItem.Key, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
@@ -374,14 +378,15 @@ Public Class frmMain
             End If
         Next
         colorswitch = True
+        Me.lvwSStatesList_Populate()
 
-        Me.UIEnabled(True)
+        Me.UIEnabled(True, True, True)
     End Sub
 
     Friend Sub lvwGamesList_Update()
         mdlMain.WriteToConsole("MainWindow", "GamesLvw_Update", "Updating GameLvw listview.")
 
-        Me.UIEnabled(False)
+        Me.UIEnabled(False, True, True)
 
         For Each tmpGame In checkedGames
             If GamesList(tmpGame).Savestates.Count > 0 Then
@@ -418,24 +423,24 @@ Public Class frmMain
         Next lvwItemIndex
         colorswitch = True
 
-        Me.UIEnabled(True)
+        Me.UIEnabled(True, True, True)
     End Sub
 
     Friend Sub lvwSStatesList_Populate()
         mdlMain.WriteToConsole("MainWindow", "lvwSStatesList_Populate", "Refreshing lvwSStatesLvw listview.")
 
-        Me.UIEnabled(False)
+        Me.UIEnabled(False, False, True)
 
-        'Preparation for the upgrade
+        'Preparation for the update
         Me.lvwGamesList_SelectedSize = 0
         Me.lvwGamesList_SelectedSizeBackup = 0
         Me.lvwSStatesList_SelectedSize = 0
         Me.lvwSStatesList_SelectedSizeBackup = 0
-        mdlMain.currentFiles.Clear()
+        'mdlMain.currentFiles.Clear()
+
 
         'checked games are cleared, they are reindexed
         mdlMain.checkedGames.Clear()
-
         'reindexing checked games
         If Me.lvwGamesList.CheckedItems.Count > 0 Then
             For Each tmpGamesList_ItemChecked As System.Windows.Forms.ListViewItem In Me.lvwGamesList.CheckedItems
@@ -486,11 +491,11 @@ Public Class frmMain
                                                    tmpSavestate.Value.Version,
                                                    tmpSavestate.Value.LastWriteTime.ToString,
                                                    System.String.Format("{0:#,##0.00} MB", tmpSavestate.Value.Length / 1024 ^ 2), mySerial})
-                If checkedFiles.Contains(tmpSavestate.Key) Then
+                If checkedSavestates.Contains(tmpSavestate.Key) Then
                     tmpLvwSListItem.Checked = True
                 End If
                 'adding to currentFiles
-                currentFiles.Add(tmpSavestate.Key)
+                'currentFiles.Add(tmpSavestate.Key)
 
                 'Backcolor
                 If colorswitch Then
@@ -508,42 +513,50 @@ Public Class frmMain
 
         colorswitch = True
 
-        Me.UIEnabled(True)
+        Me.UIEnabled(True, False, True)
     End Sub
 
     Private Sub lvwSStatesList_SelectionChanged()
-        Me.UIEnabled(False)
+        'Me.UIEnabled(False, False, True)
 
         Me.lvwSStatesList_SelectedSize = 0
         Me.lvwSStatesList_SelectedSizeBackup = 0
-        checkedFiles.Clear()
+        checkedSavestates.Clear()
 
         If Me.lvwSStatesList.CheckedItems.Count > 0 Then
             For Each tmpLvwSListItemChecked As ListViewItem In Me.lvwSStatesList.CheckedItems
 
                 Dim tmpGameSerial As String = mdlFileList.SStates_GetSerial(tmpLvwSListItemChecked.Name)
                 Dim tmpSavestate As Savestate = mdlFileList.GamesList(tmpGameSerial).Savestates(tmpLvwSListItemChecked.Name)
-                checkedFiles.Add(tmpSavestate.Name)
+                checkedSavestates.Add(tmpSavestate.Name)
 
                 If tmpSavestate.Backup Then
-                    lvwSStatesList_SelectedSize += tmpSavestate.Length
-                Else
                     lvwSStatesList_SelectedSizeBackup += tmpSavestate.Length
+                Else
+                    lvwSStatesList_SelectedSize += tmpSavestate.Length
                 End If
             Next
         End If
-        Me.UIEnabled(True)
+        'Me.UIEnabled(True, False, True)
     End Sub
 
-    Private Sub UIEnabled(enable As Boolean)
+    Private Sub UIEnabled(ByVal enable As Boolean, ByVal GamesList As Boolean, ByVal SavestatesList As Boolean)
         If enable = True Then
             Me.WindowSkipListRefresh = False
-            Me.lvwGamesList.EndUpdate()
-            Me.lvwSStatesList.EndUpdate()
+            If GamesList Then
+                Me.lvwGamesList.EndUpdate()
+            End If
+            If SavestatesList Then
+                Me.lvwSStatesList.EndUpdate()
+            End If
         Else
             Me.WindowSkipListRefresh = True
-            Me.lvwGamesList.BeginUpdate()
-            Me.lvwSStatesList.BeginUpdate()
+            If GamesList Then
+                Me.lvwGamesList.BeginUpdate()
+            End If
+            If SavestatesList Then
+                Me.lvwSStatesList.BeginUpdate()
+            End If
         End If
     End Sub
 
@@ -810,7 +823,6 @@ Public Class frmMain
     '        e.Graphics.DrawLine(Pens.DimGray, 0, Me.Height - 1, Me.Width - 1, Me.Height - 1)
     '        e.Graphics.DrawLine(Pens.DimGray, Me.Width - 1, 0, Me.Width - 1, Me.Height - 1)
     '    End If
-
     'End Sub
 #End Region
     Private Sub imgCover_MouseClick(sender As System.Object, e As MouseEventArgs) Handles imgCover.MouseClick

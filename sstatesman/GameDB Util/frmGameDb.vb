@@ -55,8 +55,8 @@ Public Class frmGameDb
         Select Case mdlGameDb.GameDb_Status
             Case LoadStatus.StatusLoadedOK
                 Me.CurrentGame = mdlGameDb.GameDb_RecordExtract(Me.CurrentSerial, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
-                Me.ToolStripStatusLabel2.Text = System.String.Format("GameDB loaded in {0:#,##0}ms.", mdlGameDb.GameDb_LoadTime.TotalMilliseconds)
-                Me.ToolStripStatusLabel3.Text = System.String.Format("List created in {0:#,##0}ms.", Me.populationTime.TotalMilliseconds)
+                Me.ToolStripStatusLabel2.Text = System.String.Format("GameDB loaded in {0:#,##0.0}ms.", mdlGameDb.GameDb_LoadTime.TotalMilliseconds)
+                Me.ToolStripStatusLabel3.Text = System.String.Format("List created in {0:#,##0.0}ms.", Me.populationTime.TotalMilliseconds)
                 Select Case Me.SearchResultRef_ArrayStatus
                     Case LoadStatus.StatusNotLoaded
                         Me.ToolStripStatusLabel1.Text = System.String.Format("{0} games.", mdlGameDb.GameDb.Count.ToString("#,##0"))
@@ -282,8 +282,8 @@ Public Class frmGameDb
     End Sub
 
     Private Sub PopulateList(ByVal pList As Dictionary(Of System.String, GameTitle))
+        Dim startTime As System.DateTime = Now
         Me.lvwGameDBList.Items.Clear()
-
         Dim myLvwItems As New List(Of System.Windows.Forms.ListViewItem)
         For Each myTmpGame As KeyValuePair(Of System.String, GameTitle) In pList
             Dim myTmpItem As New System.Windows.Forms.ListViewItem With {.Text = myTmpGame.Value.Name}
@@ -292,7 +292,6 @@ Public Class frmGameDb
                                          mdlMain.assignCompatText(myTmpGame.Value.Compat)})
             myLvwItems.Add(myTmpItem)
         Next
-        Dim startTime As System.DateTime = Now
         Me.lvwGameDBList.Items.AddRange(myLvwItems.ToArray)
         Me.populationTime = Now.Subtract(startTime)
 

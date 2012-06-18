@@ -48,13 +48,13 @@ Partial Class frmSStateList
         Me.tsShowSavestatesAll = New System.Windows.Forms.ToolStripButton()
         Me.tsShowSavestatesCurrent = New System.Windows.Forms.ToolStripButton()
         Me.tsShowSavestatesChecked = New System.Windows.Forms.ToolStripButton()
-        Me.ToolStripButton2 = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ToolStripLabel3 = New System.Windows.Forms.ToolStripLabel()
         Me.tsShowSavestatesUIList = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripButton2 = New System.Windows.Forms.ToolStripButton()
         Me.tsShowSavestatesUIListChecked = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.ListView1 = New System.Windows.Forms.ListView()
-        Me.ToolStripLabel3 = New System.Windows.Forms.ToolStripLabel()
         Me.StatusStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
@@ -71,14 +71,14 @@ Partial Class frmSStateList
         'ToolStripStatusLabel1
         '
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(121, 17)
-        Me.ToolStripStatusLabel1.Text = "ToolStripStatusLabel1"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(12, 17)
+        Me.ToolStripStatusLabel1.Text = "_"
         '
         'ToolStripStatusLabel2
         '
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(121, 17)
-        Me.ToolStripStatusLabel2.Text = "ToolStripStatusLabel2"
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(10, 17)
+        Me.ToolStripStatusLabel2.Text = " "
         '
         'ToolStrip1
         '
@@ -148,19 +148,16 @@ Partial Class frmSStateList
         Me.tsShowSavestatesChecked.Text = "Checked"
         Me.tsShowSavestatesChecked.ToolTipText = "Checked"
         '
-        'ToolStripButton2
-        '
-        Me.ToolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.ToolStripButton2.Enabled = False
-        Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButton2.Name = "ToolStripButton2"
-        Me.ToolStripButton2.Size = New System.Drawing.Size(51, 22)
-        Me.ToolStripButton2.Text = "Current"
-        '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
+        '
+        'ToolStripLabel3
+        '
+        Me.ToolStripLabel3.Name = "ToolStripLabel3"
+        Me.ToolStripLabel3.Size = New System.Drawing.Size(44, 22)
+        Me.ToolStripLabel3.Text = "Stored:"
         '
         'tsShowSavestatesUIList
         '
@@ -170,6 +167,15 @@ Partial Class frmSStateList
         Me.tsShowSavestatesUIList.Name = "tsShowSavestatesUIList"
         Me.tsShowSavestatesUIList.Size = New System.Drawing.Size(25, 22)
         Me.tsShowSavestatesUIList.Text = "All"
+        '
+        'ToolStripButton2
+        '
+        Me.ToolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.ToolStripButton2.Enabled = False
+        Me.ToolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripButton2.Name = "ToolStripButton2"
+        Me.ToolStripButton2.Size = New System.Drawing.Size(51, 22)
+        Me.ToolStripButton2.Text = "Current"
         '
         'tsShowSavestatesUIListChecked
         '
@@ -194,12 +200,6 @@ Partial Class frmSStateList
         Me.ListView1.TabIndex = 18
         Me.ListView1.UseCompatibleStateImageBehavior = False
         Me.ListView1.View = System.Windows.Forms.View.Details
-        '
-        'ToolStripLabel3
-        '
-        Me.ToolStripLabel3.Name = "ToolStripLabel3"
-        Me.ToolStripLabel3.Size = New System.Drawing.Size(44, 22)
-        Me.ToolStripLabel3.Text = "Stored:"
         '
         'frmSStateList
         '

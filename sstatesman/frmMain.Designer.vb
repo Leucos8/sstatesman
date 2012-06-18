@@ -310,12 +310,13 @@ Partial Class frmMain
         '
         Me.imgFlag.BackColor = System.Drawing.Color.WhiteSmoke
         Me.imgFlag.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.imgFlag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.imgFlag.Dock = System.Windows.Forms.DockStyle.Fill
         Me.imgFlag.Image = Global.sstatesman.My.Resources.Resources.Flag_0Null_30x20
         Me.imgFlag.Location = New System.Drawing.Point(226, 158)
         Me.imgFlag.Margin = New System.Windows.Forms.Padding(2)
         Me.imgFlag.Name = "imgFlag"
-        Me.imgFlag.Size = New System.Drawing.Size(30, 22)
+        Me.imgFlag.Size = New System.Drawing.Size(32, 22)
         Me.imgFlag.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.imgFlag.TabIndex = 23
         Me.imgFlag.TabStop = False
@@ -326,7 +327,7 @@ Partial Class frmMain
         Me.txtGameList_Compat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Compat.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameList_Compat.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Compat.Location = New System.Drawing.Point(469, 158)
+        Me.txtGameList_Compat.Location = New System.Drawing.Point(471, 158)
         Me.txtGameList_Compat.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Compat.Name = "txtGameList_Compat"
         Me.txtGameList_Compat.ReadOnly = True
@@ -353,7 +354,7 @@ Partial Class frmMain
         Me.lblGameList_Compat.AutoSize = True
         Me.lblGameList_Compat.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGameList_Compat.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Compat.Location = New System.Drawing.Point(402, 156)
+        Me.lblGameList_Compat.Location = New System.Drawing.Point(404, 156)
         Me.lblGameList_Compat.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Compat.Name = "lblGameList_Compat"
         Me.lblGameList_Compat.Size = New System.Drawing.Size(63, 26)
@@ -366,7 +367,7 @@ Partial Class frmMain
         Me.lblGameList_Serial.AutoSize = True
         Me.lblGameList_Serial.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGameList_Serial.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Serial.Location = New System.Drawing.Point(260, 156)
+        Me.lblGameList_Serial.Location = New System.Drawing.Point(262, 156)
         Me.lblGameList_Serial.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Serial.Name = "lblGameList_Serial"
         Me.lblGameList_Serial.Size = New System.Drawing.Size(34, 26)
@@ -380,7 +381,7 @@ Partial Class frmMain
         Me.txtGameList_Serial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Serial.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameList_Serial.ForeColor = System.Drawing.Color.DimGray
-        Me.txtGameList_Serial.Location = New System.Drawing.Point(298, 158)
+        Me.txtGameList_Serial.Location = New System.Drawing.Point(300, 158)
         Me.txtGameList_Serial.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Serial.Name = "txtGameList_Serial"
         Me.txtGameList_Serial.ReadOnly = True
@@ -942,7 +943,6 @@ Partial Class frmMain
         Me.blWindowDescription.AutoSize = True
         Me.blWindowDescription.BackColor = System.Drawing.Color.Transparent
         Me.blWindowDescription.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.blWindowDescription.ForeColor = System.Drawing.Color.Gray
         Me.blWindowDescription.Location = New System.Drawing.Point(26, 34)
         Me.blWindowDescription.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.blWindowDescription.Name = "blWindowDescription"
@@ -1020,6 +1020,7 @@ Partial Class frmMain
         '
         Me.cmdWindowMinimize.BackColor = System.Drawing.Color.Transparent
         Me.cmdWindowMinimize.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdWindowMinimize.FlatAppearance.BorderSize = 0
         Me.cmdWindowMinimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdWindowMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdWindowMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -1036,6 +1037,7 @@ Partial Class frmMain
         '
         Me.cmdWindowMaximize.BackColor = System.Drawing.Color.Transparent
         Me.cmdWindowMaximize.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdWindowMaximize.FlatAppearance.BorderSize = 0
         Me.cmdWindowMaximize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdWindowMaximize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdWindowMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -1052,6 +1054,7 @@ Partial Class frmMain
         '
         Me.cmdWindowClose.BackColor = System.Drawing.Color.Transparent
         Me.cmdWindowClose.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdWindowClose.FlatAppearance.BorderSize = 0
         Me.cmdWindowClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdWindowClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdWindowClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat

@@ -74,10 +74,10 @@ Module mdlFileList
         '              pGamesList)
         GameList_LoadTime = Now.Subtract(startTime)
         If pGamesList.Count = 0 Then
-            mdlMain.WriteToConsole("GamesList", "LoadAll", String.Format("Load complete. Loaded 0 games in {1:#,##0}ms. The array is empty", GameList_LoadTime.TotalMilliseconds))
+            mdlMain.WriteToConsole("GamesList", "LoadAll", String.Format("Load complete. Loaded 0 games in {1:#,##0.0}ms. The array is empty", GameList_LoadTime.TotalMilliseconds))
             Return LoadStatus.StatusEmpty
         Else
-            mdlMain.WriteToConsole("GamesList", "LoadAll", String.Format("Load complete. Loaded {0:#,##0} games in {1:#,##0}ms.", pGamesList.Count, GameList_LoadTime.TotalMilliseconds))
+            mdlMain.WriteToConsole("GamesList", "LoadAll", String.Format("Load complete. Loaded {0:#,##0} games in {1:#,##0.0}ms.", pGamesList.Count, GameList_LoadTime.TotalMilliseconds))
             Return LoadStatus.StatusLoadedOK
         End If
     End Function

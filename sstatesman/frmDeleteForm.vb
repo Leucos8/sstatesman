@@ -77,7 +77,7 @@ Public Class frmDeleteForm
 
         UIEnabled(False)
 
-        For Each tmpCheckedFile In mdlMain.checkedFiles
+        For Each tmpCheckedFile In mdlMain.checkedSavestates
             Dim tmpSerial As String = mdlFileList.SStates_GetSerial(tmpCheckedFile)
             Dim tmpLvwItem As New ListViewItem With {.Text = GamesList(tmpSerial).Savestates(tmpCheckedFile).Name,
                                                      .Name = GamesList(tmpSerial).Savestates(tmpCheckedFile).Name}

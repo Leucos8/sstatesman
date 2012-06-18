@@ -101,10 +101,10 @@ Module mdlGameDb
             End Using
             GameDb_LoadTime = Now.Subtract(startTime)
             If pGameDb.Count = 0 Then
-                mdlMain.WriteToConsole("GameDB", "Load", System.String.Format("Complete. Loaded 0 records in {0:#,##0}ms. The array is empty", GameDb_LoadTime.TotalMilliseconds))
+                mdlMain.WriteToConsole("GameDB", "Load", System.String.Format("Complete. Loaded 0 records in {0:#,##0.0}ms. The array is empty", GameDb_LoadTime.TotalMilliseconds))
                 GameDb_Load = LoadStatus.StatusEmpty
             Else
-                mdlMain.WriteToConsole("GameDB", "Load", System.String.Format("Complete. Loaded {0:#,##0} records in {1:#,##0}ms.", pGameDb.Count, GameDb_LoadTime.TotalMilliseconds))
+                mdlMain.WriteToConsole("GameDB", "Load", System.String.Format("Complete. Loaded {0:#,##0} records in {1:#,##0.0}ms.", pGameDb.Count, GameDb_LoadTime.TotalMilliseconds))
                 GameDb_Load = LoadStatus.StatusLoadedOK
             End If
 
