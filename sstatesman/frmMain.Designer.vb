@@ -303,7 +303,7 @@ Partial Class frmMain
         '
         Me.imgFlag.BackColor = System.Drawing.Color.WhiteSmoke
         Me.imgFlag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.imgFlag.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.imgFlag.Dock = System.Windows.Forms.DockStyle.Top
         Me.imgFlag.Image = Global.sstatesman.My.Resources.Resources.Flag_0Null_30x20
         Me.imgFlag.Location = New System.Drawing.Point(228, 158)
         Me.imgFlag.Margin = New System.Windows.Forms.Padding(2)

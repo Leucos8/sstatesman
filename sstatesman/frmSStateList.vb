@@ -115,18 +115,9 @@ Public Class frmSStateList
             For Each tmpSavestate As KeyValuePair(Of String, Savestate) In tmpGame.Savestates
                 Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestate.Key, .Name = tmpSavestate.Key, .BackColor = Color.FromArgb(215, 220, 255)}
                 tmpListViewItem.SubItems.AddRange({tmpSavestate.Value.Slot, tmpSavestate.Value.Extension, tmpSavestate.Value.Version, tmpSavestate.Value.LastWriteTime, (tmpSavestate.Value.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
-                'Dim tmpGamesListItem As New GamesList_Item
                 If checkedSavestates.Contains(tmpSavestate.Key) Then
                     tmpListViewItem.BackColor = Color.FromArgb(130, 150, 200)
                 End If
-                'If GamesList.TryGetValue(mdlFileList.SStates_GetSerial(tmpSavestate), tmpGamesListItem) Then
-                '    Dim tmpSavestate As New Savestate
-                '    If tmpGamesListItem.Savestates.TryGetValue(tmpSavestate, tmpSavestate) Then
-                '        tmpListViewItem.SubItems.AddRange({tmpSavestate.Slot, tmpSavestate.Extension, tmpSavestate.Version, tmpSavestate.LastWriteTime, (tmpSavestate.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
-                '    Else : tmpListViewItem.BackColor = Color.FromArgb(255, 255, 224, 192)   'orange
-                '    End If
-                'Else : tmpListViewItem.BackColor = Color.FromArgb(255, 255, 192, 192)       'red
-                'End If
                 Me.ListView1.Items.Add(tmpListViewItem)
             Next
         Next

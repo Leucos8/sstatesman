@@ -43,8 +43,6 @@ Partial Class frmDeleteForm
         Me.SStatesLvw_Slot = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SStatesLvw_Backup = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SStatesLvw_Size = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.SStatesLvw_SerialRef = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.SStatesLvw_ArrayRef = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SStatesLvw_Status = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmdSStateSelectInvert = New System.Windows.Forms.Button()
         Me.cmdSStateSelectBackup = New System.Windows.Forms.Button()
@@ -58,9 +56,9 @@ Partial Class frmDeleteForm
         Me.txtSize = New System.Windows.Forms.TextBox()
         Me.lblGameListCheck = New System.Windows.Forms.Label()
         Me.panelWindowTitle = New System.Windows.Forms.Panel()
+        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
         Me.lblWindowTitle = New System.Windows.Forms.Label()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdWindowMaximize = New System.Windows.Forms.Button()
         Me.cmdWindowClose = New System.Windows.Forms.Button()
@@ -69,8 +67,8 @@ Partial Class frmDeleteForm
         Me.FlowPanelGameList = New System.Windows.Forms.FlowLayoutPanel()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
         Me.panelWindowTitle.SuspendLayout()
-        Me.FlowLayoutPanel2.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
+        Me.FlowLayoutPanel2.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.flpWindowBottom.SuspendLayout()
@@ -126,7 +124,7 @@ Partial Class frmDeleteForm
         Me.lvwSStatesListToDelete.BackColor = System.Drawing.Color.White
         Me.lvwSStatesListToDelete.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lvwSStatesListToDelete.CheckBoxes = True
-        Me.lvwSStatesListToDelete.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.SStateLvw_FileName, Me.SStatesLvw_Slot, Me.SStatesLvw_Backup, Me.SStatesLvw_Size, Me.SStatesLvw_SerialRef, Me.SStatesLvw_ArrayRef, Me.SStatesLvw_Status})
+        Me.lvwSStatesListToDelete.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.SStateLvw_FileName, Me.SStatesLvw_Slot, Me.SStatesLvw_Backup, Me.SStatesLvw_Size, Me.SStatesLvw_Status})
         Me.lvwSStatesListToDelete.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvwSStatesListToDelete.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lvwSStatesListToDelete.ForeColor = System.Drawing.Color.DimGray
@@ -161,17 +159,6 @@ Partial Class frmDeleteForm
         Me.SStatesLvw_Size.Text = "Size"
         Me.SStatesLvw_Size.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.SStatesLvw_Size.Width = 100
-        '
-        'SStatesLvw_SerialRef
-        '
-        Me.SStatesLvw_SerialRef.Text = "Serial"
-        Me.SStatesLvw_SerialRef.Width = 0
-        '
-        'SStatesLvw_ArrayRef
-        '
-        Me.SStatesLvw_ArrayRef.Text = "#"
-        Me.SStatesLvw_ArrayRef.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.SStatesLvw_ArrayRef.Width = 0
         '
         'SStatesLvw_Status
         '
@@ -356,6 +343,29 @@ Partial Class frmDeleteForm
         Me.panelWindowTitle.Size = New System.Drawing.Size(624, 56)
         Me.panelWindowTitle.TabIndex = 0
         '
+        'TableLayoutPanel1
+        '
+        Me.TableLayoutPanel1.AutoSize = True
+        Me.TableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Transparent
+        Me.TableLayoutPanel1.ColumnCount = 3
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel2, 0, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel1, 2, 0)
+        Me.TableLayoutPanel1.Controls.Add(Me.imgWindowGradientIcon, 1, 0)
+        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
+        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
+        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
+        Me.TableLayoutPanel1.RowCount = 3
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(624, 56)
+        Me.TableLayoutPanel1.TabIndex = 22
+        '
         'FlowLayoutPanel2
         '
         Me.FlowLayoutPanel2.AutoSize = True
@@ -384,29 +394,6 @@ Partial Class frmDeleteForm
         Me.lblWindowTitle.Size = New System.Drawing.Size(197, 30)
         Me.lblWindowTitle.TabIndex = 2
         Me.lblWindowTitle.Text = "Delete confirmation"
-        '
-        'TableLayoutPanel1
-        '
-        Me.TableLayoutPanel1.AutoSize = True
-        Me.TableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Transparent
-        Me.TableLayoutPanel1.ColumnCount = 3
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel2, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel1, 2, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.imgWindowGradientIcon, 1, 0)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(624, 56)
-        Me.TableLayoutPanel1.TabIndex = 22
         '
         'FlowLayoutPanel1
         '
@@ -556,10 +543,10 @@ Partial Class frmDeleteForm
         Me.Text = "Delete confirmation"
         Me.panelWindowTitle.ResumeLayout(False)
         Me.panelWindowTitle.PerformLayout()
-        Me.FlowLayoutPanel2.ResumeLayout(False)
-        Me.FlowLayoutPanel2.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
+        Me.FlowLayoutPanel2.ResumeLayout(False)
+        Me.FlowLayoutPanel2.PerformLayout()
         Me.FlowLayoutPanel1.ResumeLayout(False)
         CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.flpWindowBottom.ResumeLayout(False)
@@ -580,8 +567,6 @@ Partial Class frmDeleteForm
     Private WithEvents SStatesLvw_Slot As System.Windows.Forms.ColumnHeader
     Private WithEvents SStatesLvw_Backup As System.Windows.Forms.ColumnHeader
     Private WithEvents SStatesLvw_Size As System.Windows.Forms.ColumnHeader
-    Private WithEvents SStatesLvw_SerialRef As System.Windows.Forms.ColumnHeader
-    Private WithEvents SStatesLvw_ArrayRef As System.Windows.Forms.ColumnHeader
     Private WithEvents SStatesLvw_Status As System.Windows.Forms.ColumnHeader
     Private WithEvents cmdSStateSelectInvert As System.Windows.Forms.Button
     Private WithEvents cmdSStateSelectBackup As System.Windows.Forms.Button

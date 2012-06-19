@@ -125,14 +125,7 @@ Public Class frmMain
 
 
         'Refreshing the games list
-        Me.UI_Enabler(False, True, False)
-        Me.lvwGamesList_Populate()
-        Me.UI_Update()
-        Me.UI_Enabler(True, True, False)
-
-
-
-
+        Me.List_Refresher()
 
         'Timer auto refresh
         Me.tmrSStatesListRefresh.Enabled = My.Settings.SStatesMan_SStatesListAutoRefresh
@@ -205,14 +198,7 @@ Public Class frmMain
 #End Region
 
     Private Sub cmdRefresh_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRefresh.Click
-        Me.UI_Enabler(False, True, True)
-        mdlFileList.GamesList_Status = GamesList_LoadAll(My.Settings.PCSX2_PathSState, mdlFileList.GamesList)
-        Me.lvwGamesList_Populate()
-        Me.lvwGamesList_indexCheckedGames()
-        Me.lvwSStatesList_Populate()
-        Me.lvwSStatesList_indexCheckedFiles()
-        Me.UI_Update()
-        Me.UI_Enabler(True, True, True)
+        Me.List_Refresher()
     End Sub
 
     Private Sub cmdSStateDelete_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStateDelete.Click
@@ -356,7 +342,7 @@ Public Class frmMain
     End Sub
 #End Region
 
-    Public Sub lvwGamesList_Populate()
+    Private Sub lvwGamesList_Populate()
         Dim StartTime As DateTime = Now
 
         Me.lvwGamesList.Items.Clear()
@@ -422,7 +408,7 @@ Public Class frmMain
         mdlMain.WriteToConsole("frmMain", "lvwGamesList_Populate", String.Format("Refreshed lvwGamesList listview in {0:N2}.", Me.lvwGamesList_PopTime.TotalMilliseconds))
     End Sub
 
-    Public Sub lvwGamesList_indexCheckedGames()
+    Private Sub lvwGamesList_indexCheckedGames()
         'checked games are cleared, they are reindexed
         mdlMain.checkedGames.Clear()
         'reindexing checked games
@@ -435,7 +421,7 @@ Public Class frmMain
         End If
     End Sub
 
-    Friend Sub lvwSStatesList_Populate()
+    Private Sub lvwSStatesList_Populate()
         Dim StartTime As DateTime = Now
 
         'Preparation for the update
@@ -479,9 +465,9 @@ Public Class frmMain
 
             For Each tmpSavestate As KeyValuePair(Of String, Savestate) In mdlFileList.GamesList(currentGameInfo.Serial).Savestates
 
-                Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Value.Name,
+                Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key,
                                                                                    .Group = tmpLvwSListGroup,
-                                                                                   .Name = tmpSavestate.Value.Name}
+                                                                                   .Name = tmpSavestate.Key}
                 tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Slot.ToString,
                                                    tmpSavestate.Value.Backup.ToString,
                                                    tmpSavestate.Value.Version,
@@ -531,6 +517,17 @@ Public Class frmMain
                 End If
             Next
         End If
+    End Sub
+
+    Friend Sub List_Refresher()
+        Me.UI_Enabler(False, True, True)
+        mdlFileList.GamesList_Status = GamesList_LoadAll(My.Settings.PCSX2_PathSState, mdlFileList.GamesList)
+        Me.lvwGamesList_Populate()
+        Me.lvwGamesList_indexCheckedGames()
+        Me.lvwSStatesList_Populate()
+        Me.lvwSStatesList_indexCheckedFiles()
+        Me.UI_Update()
+        Me.UI_Enabler(True, True, True)
     End Sub
 
     Private Sub UI_Enabler(ByVal pGlobal_Switch As Boolean, ByVal pGamesList_Switch As Boolean, ByVal pSavestatesList_Switch As Boolean)
@@ -586,7 +583,11 @@ Public Class frmMain
 
                     Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                     Me.imgCover.Image = My.Resources.Flag_0Null_30x20
-                    Me.imgCover.Size = New Size(48 * DPIxScale, 48 * DPIyScale)
+                    If coverIsExpandend Then
+                        Me.imgCover.Size = New Size(120 * DPIxScale, 120 * DPIyScale)
+                    Else
+                        Me.imgCover.Size = New Size(48 * DPIxScale, 48 * DPIyScale)
+                    End If
 
                     If Me.lvwGamesList.Items.Count = Me.lvwGamesList.CheckedItems.Count Then
                         Me.cmdGameSelectAll.Enabled = False

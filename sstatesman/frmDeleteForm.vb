@@ -14,7 +14,7 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Public Class frmDeleteForm
 
-    Dim WindowSkipListRefresh As Boolean = False
+    Dim ListsAreCurrentlyRefreshed As Boolean = False
     Dim SStateList_TotalSizeSelected As System.Int64 = 0
     Dim SStateList_TotalSizeBackupSelected As System.Int64 = 0
     Dim SStateList_TotalSize As System.Int64 = 0
@@ -33,6 +33,7 @@ Public Class frmDeleteForm
         Me.lvwSStatesListToDelete.Groups.Clear()
         Me.SStateList_TotalSize = 0
         Me.SStateList_TotalSizeBackup = 0
+        frmMain.List_Refresher()
     End Sub
 
     Private Sub frmDeleteForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -75,48 +76,71 @@ Public Class frmDeleteForm
         imlLvwCheckboxes.Images.Add(My.Resources.Metro_ChecboxChecked)
         Me.lvwSStatesListToDelete.StateImageList = imlLvwCheckboxes
 
-        UIEnabled(False)
+        UI_Enabler(False)
 
-        For Each tmpCheckedFile In mdlMain.checkedSavestates
-            Dim tmpSerial As String = mdlFileList.SStates_GetSerial(tmpCheckedFile)
-            Dim tmpLvwItem As New ListViewItem With {.Text = GamesList(tmpSerial).Savestates(tmpCheckedFile).Name,
-                                                     .Name = GamesList(tmpSerial).Savestates(tmpCheckedFile).Name}
-            tmpLvwItem.SubItems.AddRange({GamesList(tmpSerial).Savestates(tmpCheckedFile).Slot.ToString,
-                                          GamesList(tmpSerial).Savestates(tmpCheckedFile).Backup.ToString,
-                                          (GamesList(tmpSerial).Savestates(tmpCheckedFile).Length / 1024 ^ 2).ToString("#,##0.00 MB")
-                                          })
+        Me.lvwSStatesListToDelete.Items.Clear()
+        Me.lvwSStatesListToDelete.Groups.Clear()
 
+        Dim tmpGameInfo As New mdlGameDb.GameTitle
+        Dim tmpSListGroups As New List(Of ListViewGroup)
+        Dim tmpSListItems As New List(Of ListViewItem)
 
+        For Each mySerial As System.String In mdlMain.checkedGames
 
-            If colorswitch Then
-                tmpLvwItem.BackColor = Color.Transparent
-                colorswitch = False
-            Else
-                tmpLvwItem.BackColor = Color.WhiteSmoke
-                colorswitch = True
-            End If
+            'Creation of the header
+            tmpGameInfo = mdlGameDb.GameDb_RecordExtract(mySerial, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
+            Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With {
+                .Header = System.String.Format("{0} ({1}) [{2}]", tmpGameInfo.Name, tmpGameInfo.Region, tmpGameInfo.Serial),
+                .HeaderAlignment = HorizontalAlignment.Left,
+                .Name = tmpGameInfo.Serial}
 
-            If System.IO.File.Exists(String.Concat(My.Settings.PCSX2_PathSState, "\", GamesList(tmpSerial).Savestates(tmpCheckedFile).Name)) Then
-                tmpLvwItem.SubItems.Add("")
-                tmpLvwItem.Checked = True
-                If GamesList(tmpSerial).Savestates(tmpCheckedFile).Backup = False Then
-                    SStateList_TotalSize += GamesList(tmpSerial).Savestates(tmpCheckedFile).Length
-                Else
-                    SStateList_TotalSizeBackup += GamesList(tmpSerial).Savestates(tmpCheckedFile).Length
+            tmpSListGroups.Add(tmpLvwSListGroup)
+
+            '
+            Dim tmpGamesListItem As New GamesList_Item
+            tmpGamesListItem = mdlFileList.GamesList(tmpGameInfo.Serial)
+
+            For Each tmpSavestate As KeyValuePair(Of String, Savestate) In mdlFileList.GamesList(tmpGameInfo.Serial).Savestates
+
+                If checkedSavestates.Contains(tmpSavestate.Key) Then
+                    Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key,
+                                                                                       .Group = tmpLvwSListGroup,
+                                                                                       .Name = tmpSavestate.Key}
+                    tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Slot.ToString,
+                                                       tmpSavestate.Value.Backup.ToString,
+                                                       System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2)})
+                    'Backcolor
+                    If colorswitch Then
+                        colorswitch = False
+                    Else
+                        tmpLvwSListItem.BackColor = Color.WhiteSmoke
+                        colorswitch = True
+                    End If
+                    If System.IO.File.Exists(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathSState, tmpSavestate.Key)) Then
+                        tmpLvwSListItem.SubItems.Add("")
+                        tmpLvwSListItem.Checked = True
+                        If tmpSavestate.Value.Backup = False Then
+                            SStateList_TotalSize += tmpSavestate.Value.Length
+                        Else
+                            SStateList_TotalSizeBackup += tmpSavestate.Value.Length
+                        End If
+                    Else
+                        tmpLvwSListItem.SubItems.Add("Error: file not found or inaccessible.")
+                        tmpLvwSListItem.Checked = False
+                        tmpLvwSListItem.BackColor = Color.FromArgb(255, 255, 192, 192)
+                    End If
+
+                    tmpSListItems.Add(tmpLvwSListItem)
                 End If
-            Else
-                tmpLvwItem.SubItems.Add("Error: file not found or inaccessible.")
-                tmpLvwItem.Checked = False
-                tmpLvwItem.BackColor = Color.FromArgb(255, 255, 192, 192)
-            End If
-            Me.lvwSStatesListToDelete.Items.Add(tmpLvwItem)
-
+            Next
 
         Next
+        Me.lvwSStatesListToDelete.Groups.AddRange(tmpSListGroups.ToArray)
+        Me.lvwSStatesListToDelete.Items.AddRange(tmpSListItems.ToArray)
 
         colorswitch = True
-        UIEnabled(True)
-        UICheck()
+        UI_Enabler(True)
+        UI_Update()
 
     End Sub
 
@@ -125,7 +149,7 @@ Public Class frmDeleteForm
     End Sub
 
     Private Sub cmdDeleteSStateSelected_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDeleteSStateSelected.Click
-        Me.UIEnabled(False)
+        Me.UI_Enabler(False)
         For Each tmp As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
             Try
                 If My.Settings.SStatesMan_SStateTrash = True Then
@@ -151,13 +175,11 @@ Public Class frmDeleteForm
             End Try
 
         Next
-        Me.UIEnabled(True)
-        Me.UICheck()
-        frmMain.lvwSStatesList_Populate()
-        'frmMain.lvwGamesList_Update()
-        frmMain.UI_Update()
-    End Sub
+        Me.UI_Update()
+        Me.UI_Enabler(True)
 
+    End Sub
+#Region "Windows state buttons"
     Private Sub cmdWindowMaximize_Click(sender As System.Object, e As System.EventArgs) Handles cmdWindowMaximize.Click
         If Me.WindowState = FormWindowState.Normal Then
             Me.WindowState = FormWindowState.Maximized
@@ -179,131 +201,137 @@ Public Class frmDeleteForm
             Me.cmdWindowMaximize.Image = My.Resources.Metro_WindowButtonRestore
         End If
     End Sub
+#End Region
 
-    'SStatesList management
+#Region "SStatesList management"
     Private Sub cmdSStateSelectAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectAll.Click
-        Me.UIEnabled(False)
-        For lvwItemIndex As System.Int32 = 0 To Me.lvwSStatesListToDelete.Items.Count - 1
-            If Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn.Status).Text = "" Then
-                Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = True
-            Else
-                Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = False
-            End If
+        Me.UI_Enabler(False)
+        For lvwItemIndex = 0 To Me.lvwSStatesListToDelete.Items.Count - 1
+            Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = True
         Next
-        Me.SStatesLvw_SelectionChanged()
-        Me.UICheck()
+        Me.lvwSStatesListToDelete_indexCheckedFiles()
+        Me.UI_Update()
+        Me.UI_Enabler(True)
     End Sub
 
     Private Sub cmdSStateSelectNone_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectNone.Click
-        Me.UIEnabled(False)
-        For lvwItemIndex As System.Int32 = 0 To Me.lvwSStatesListToDelete.Items.Count - 1
+        Me.UI_Enabler(False)
+        For lvwItemIndex = 0 To Me.lvwSStatesListToDelete.Items.Count - 1
             Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = False
         Next
-        Me.SStatesLvw_SelectionChanged()
-        Me.UICheck()
+        Me.lvwSStatesListToDelete_indexCheckedFiles()
+        Me.UI_Update()
+        Me.UI_Enabler(True)
     End Sub
 
     Private Sub cmdSStateSelectInvert_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStateSelectInvert.Click
-        Me.UIEnabled(False)
+        Me.UI_Enabler(False)
         For lvwItemIndex = 0 To Me.lvwSStatesListToDelete.Items.Count - 1
             If Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = True Then
                 Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = False
-            ElseIf Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn.Status).Text = "" Then
+            Else
                 Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = True
             End If
         Next
-        Me.SStatesLvw_SelectionChanged()
-        Me.UICheck()
+        Me.lvwSStatesListToDelete_indexCheckedFiles()
+        Me.UI_Update()
+        Me.UI_Enabler(True)
     End Sub
 
     Private Sub cmdSStateSelectBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectBackup.Click
-        Me.UIEnabled(False)
+        Me.UI_Enabler(False)
         For lvwItemIndex = 0 To Me.lvwSStatesListToDelete.Items.Count - 1
-            If Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn.Backup).Text = "True" And _
-               Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn.Status).Text = "" Then
+            If Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn.Backup).Text = "True" Then
                 Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = True
             Else
                 Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = False
             End If
         Next
-        Me.SStatesLvw_SelectionChanged()
-        Me.UICheck()
+        Me.lvwSStatesListToDelete_indexCheckedFiles()
+        Me.UI_Update()
+        Me.UI_Enabler(True)
     End Sub
 
     Private Sub lvwSStatesListToDelete_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwSStatesListToDelete.ItemChecked
-        If WindowSkipListRefresh = False Then
+        If ListsAreCurrentlyRefreshed = False Then
             If e.Item.SubItems(frmDelSStatesLvwColumn.Status).Text <> "" Then
                 e.Item.Checked = False
-                System.Windows.Forms.MessageBox.Show("The file is already gone or you can't access it, quit trying.", "Stop trolling!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                'System.Windows.Forms.MessageBox.Show("The file is already gone or you can't access it, quit trying.", "Stop trolling!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
             End If
-            SStatesLvw_SelectionChanged()
+            Me.lvwSStatesListToDelete_indexCheckedFiles()
+            Me.UI_Update()
         End If
     End Sub
+#End Region
 
-    Private Sub SStatesLvw_SelectionChanged()
-        'UIEnabled(False)
-        'Me.SStateList_TotalSizeSelected = 0
-        'Me.SStateList_TotalSizeBackupSelected = 0
-        'If Me.lvwSStatesListToDelete.Items.Count > 0 Then
-        '    For Each SStateList_ItemChecked As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
-        '        Dim SStatesList_Pos As System.Int32 = 0
-        '        System.Int32.TryParse(SStateList_ItemChecked.SubItems(frmDelSStatesLvwColumn_ArrayRef).Text, SStatesList_Pos)
-        '        If SStatesList(SStatesList_Pos).isBackup = False Then
-        '            SStateList_TotalSizeSelected = SStateList_TotalSizeSelected + SStatesList(SStatesList_Pos).FileInfo.Length
-        '        Else
-        '            SStateList_TotalSizeBackupSelected = SStateList_TotalSizeBackupSelected + SStatesList(SStatesList_Pos).FileInfo.Length
-        '        End If
-        '    Next
-        'End If
-        'UIEnabled(True)
-        'UICheck()
+    Private Sub lvwSStatesListToDelete_indexCheckedFiles()
+        Me.SStateList_TotalSizeSelected = 0
+        Me.SStateList_TotalSizeBackupSelected = 0
+
+        If Me.lvwSStatesListToDelete.CheckedItems.Count > 0 Then
+            For Each tmpLvwSListItemChecked As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
+
+                Dim tmpGameSerial As String = mdlFileList.SStates_GetSerial(tmpLvwSListItemChecked.Name)
+                Dim tmpSavestate As Savestate = mdlFileList.GamesList(tmpGameSerial).Savestates(tmpLvwSListItemChecked.Name)
+
+                If tmpSavestate.Backup Then
+                    SStateList_TotalSizeBackupSelected += tmpSavestate.Length
+                Else
+                    SStateList_TotalSizeSelected += tmpSavestate.Length
+                End If
+            Next
+        End If
+
     End Sub
 
-    Private Sub UIEnabled(enable As Boolean)
-        If enable = True Then
-            Me.WindowSkipListRefresh = False
-            Me.lvwSStatesListToDelete.ResumeLayout()
+    Private Sub UI_Enabler(pGlobalSwitch As Boolean)
+        If pGlobalSwitch = True Then
+            Me.ListsAreCurrentlyRefreshed = False
+            Me.lvwSStatesListToDelete.EndUpdate()
         Else
-            Me.WindowSkipListRefresh = True
-            Me.lvwSStatesListToDelete.SuspendLayout()
+            Me.ListsAreCurrentlyRefreshed = True
+            Me.lvwSStatesListToDelete.BeginUpdate()
         End If
     End Sub
 
-    Private Sub UICheck()
+    Private Sub UI_Update()
         If Me.lvwSStatesListToDelete.Items.Count = 0 Then
-            Me.txtSize.Text = ""
-            Me.txtSizeBackup.Text = ""
-            Me.txtSStateListSelection.Text = ""
+            'No savestates in list
+            Me.txtSStateListSelection.Text = System.String.Format("{0:N0} | {1:N0}", 0, 0)
+            Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", 0, 0)
+            Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", 0, 0)
+
             Me.cmdSStateSelectAll.Enabled = False
             Me.cmdSStateSelectInvert.Enabled = False
             Me.cmdSStateSelectNone.Enabled = False
             Me.cmdSStateSelectBackup.Enabled = False
-            Me.cmdDeleteSStateSelected.Enabled = False
         Else
+
+            Me.txtSStateListSelection.Text = System.String.Format("{0:N0} | {1:N0}", Me.lvwSStatesListToDelete.CheckedItems.Count, Me.lvwSStatesListToDelete.Items.Count)
             Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.SStateList_TotalSizeSelected / 1024 ^ 2, Me.SStateList_TotalSize / 1024 ^ 2)
             Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.SStateList_TotalSizeBackupSelected / 1024 ^ 2, Me.SStateList_TotalSizeBackup / 1024 ^ 2)
-            Me.txtSStateListSelection.Text = System.String.Format("{0:N0} | {1:N0}", Me.lvwSStatesListToDelete.CheckedItems.Count, Me.lvwSStatesListToDelete.Items.Count)
+
             Me.cmdSStateSelectInvert.Enabled = True
             Me.cmdSStateSelectBackup.Enabled = True
+
             If Me.lvwSStatesListToDelete.CheckedItems.Count > 0 Then
+
                 Me.cmdSStateSelectNone.Enabled = True
-                Me.cmdSStateSelectAll.Enabled = True
-                Me.cmdDeleteSStateSelected.Enabled = True
+
                 If Me.lvwSStatesListToDelete.Items.Count = Me.lvwSStatesListToDelete.CheckedItems.Count Then
                     Me.cmdSStateSelectAll.Enabled = False
+                Else
+                    Me.cmdSStateSelectAll.Enabled = True
                 End If
-            ElseIf Me.lvwSStatesListToDelete.CheckedItems.Count = 0 Then
+
+            Else
                 Me.cmdSStateSelectNone.Enabled = False
                 Me.cmdSStateSelectAll.Enabled = True
-                Me.cmdDeleteSStateSelected.Enabled = False
             End If
         End If
     End Sub
 
-    Private Sub frmDeleteForm_Resize(sender As Object, e As System.EventArgs) Handles Me.Resize
-        Me.Refresh()
-    End Sub
-
+#Region "UI paint"
     Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
         Dim rectoolbar As New Rectangle(0, 8 * DPIyScale, 24 * DPIxScale, 40 * DPIyScale)
         Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, Color.FromArgb(130, 150, 200), Color.FromArgb(65, 74, 100), 90)
@@ -328,6 +356,6 @@ Public Class frmDeleteForm
             e.Graphics.DrawLine(Pens.DimGray, 0, 0, flpWindowBottom.Width, 0)
         End If
     End Sub
-
+#End Region
 
 End Class
