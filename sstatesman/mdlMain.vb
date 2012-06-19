@@ -18,8 +18,9 @@ Imports Microsoft.Win32
 Module mdlMain
 
     Public checkedGames As New List(Of String)
-    'Public currentFiles As New List(Of String)
     Public checkedSavestates As New List(Of String)
+    Public DPIxScale As Single = 1.0
+    Public DPIyScale As Single = 1.0
 
     Public Enum LoadStatus As Byte
         StatusEmpty

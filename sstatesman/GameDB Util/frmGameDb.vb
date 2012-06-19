@@ -55,17 +55,17 @@ Public Class frmGameDb
         Select Case mdlGameDb.GameDb_Status
             Case LoadStatus.StatusLoadedOK
                 Me.CurrentGame = mdlGameDb.GameDb_RecordExtract(Me.CurrentSerial, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
-                Me.ToolStripStatusLabel2.Text = System.String.Format("GameDB loaded in {0:#,##0.0}ms.", mdlGameDb.GameDb_LoadTime.TotalMilliseconds)
-                Me.ToolStripStatusLabel3.Text = System.String.Format("List created in {0:#,##0.0}ms.", Me.populationTime.TotalMilliseconds)
+                Me.ToolStripStatusLabel2.Text = System.String.Format("GameDB loaded in {0:N1}ms.", mdlGameDb.GameDb_LoadTime.TotalMilliseconds)
+                Me.ToolStripStatusLabel3.Text = System.String.Format("List created in {0:N1}ms.", Me.populationTime.TotalMilliseconds)
                 Select Case Me.SearchResultRef_ArrayStatus
                     Case LoadStatus.StatusNotLoaded
-                        Me.ToolStripStatusLabel1.Text = System.String.Format("{0} games.", mdlGameDb.GameDb.Count.ToString("#,##0"))
+                        Me.ToolStripStatusLabel1.Text = System.String.Format("{0} games.", mdlGameDb.GameDb.Count.ToString("N0"))
                     Case LoadStatus.StatusLoadedOK
-                        Me.ToolStripStatusLabel1.Text = System.String.Format("Found {0:#,##0} in {1:#,##0} games.", Me.SearchResultRef.Count, mdlGameDb.GameDb.Count)
+                        Me.ToolStripStatusLabel1.Text = System.String.Format("Found {0:N0} in {1:N0} games.", Me.SearchResultRef.Count, mdlGameDb.GameDb.Count)
                         Me.tsListShow.Enabled = True
                         Me.tsListShow.Visible = True
                     Case LoadStatus.StatusEmpty
-                        Me.ToolStripStatusLabel1.Text = System.String.Format("No result found. {1:#,##0} games.", Me.SearchResultRef.Count, mdlGameDb.GameDb.Count)
+                        Me.ToolStripStatusLabel1.Text = System.String.Format("No result found. {1:N0} games.", Me.SearchResultRef.Count, mdlGameDb.GameDb.Count)
                         Me.tsListShow.Enabled = True
                         Me.tsListShow.Visible = True
                 End Select

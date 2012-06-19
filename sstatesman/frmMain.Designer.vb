@@ -45,7 +45,6 @@ Partial Class frmMain
         Me.GameLvw_GameRegion = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GameLvw_SStatesInfo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GameLvw_BackupInfo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.GameLvw_ArrayRef = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.imgCover = New System.Windows.Forms.PictureBox()
         Me.lblGameList_Title = New System.Windows.Forms.Label()
         Me.txtGameList_Title = New System.Windows.Forms.TextBox()
@@ -202,7 +201,7 @@ Partial Class frmMain
         Me.lvwGamesList.BackColor = System.Drawing.Color.White
         Me.lvwGamesList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lvwGamesList.CheckBoxes = True
-        Me.lvwGamesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.GamesLvw_GameTitle, Me.GameLvw_GameSerial, Me.GameLvw_GameRegion, Me.GameLvw_SStatesInfo, Me.GameLvw_BackupInfo, Me.GameLvw_ArrayRef})
+        Me.lvwGamesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.GamesLvw_GameTitle, Me.GameLvw_GameSerial, Me.GameLvw_GameRegion, Me.GameLvw_SStatesInfo, Me.GameLvw_BackupInfo})
         Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 9)
         Me.lvwGamesList.Cursor = System.Windows.Forms.Cursors.Default
         Me.lvwGamesList.Dock = System.Windows.Forms.DockStyle.Fill
@@ -246,12 +245,6 @@ Partial Class frmMain
         Me.GameLvw_BackupInfo.Text = "Backups"
         Me.GameLvw_BackupInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.GameLvw_BackupInfo.Width = 110
-        '
-        'GameLvw_ArrayRef
-        '
-        Me.GameLvw_ArrayRef.Text = "#"
-        Me.GameLvw_ArrayRef.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.GameLvw_ArrayRef.Width = 0
         '
         'imgCover
         '
@@ -1287,7 +1280,6 @@ Partial Class frmMain
     Private WithEvents cmdSStateSelectAll As System.Windows.Forms.Button
     Private WithEvents cmdSStateSelectNone As System.Windows.Forms.Button
     Private WithEvents cmdSStateSelectBackup As System.Windows.Forms.Button
-    Private WithEvents GameLvw_ArrayRef As System.Windows.Forms.ColumnHeader
     Private WithEvents SStatesLvw_SerialRef As System.Windows.Forms.ColumnHeader
     Private WithEvents txtGameList_Serial As System.Windows.Forms.TextBox
     Private WithEvents txtGameList_Region As System.Windows.Forms.TextBox

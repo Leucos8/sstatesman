@@ -15,10 +15,6 @@
 Imports System.IO
 
 Module mdlFileList
-    'Public Class rFileList
-    '    Friend Property InfoList As Dictionary(Of String, FileInfo)
-    '    Friend Property SizeTot As Int64 = 0
-    'End Class
     Public Class Savestate
         Public Property Name As String
         Public Property Extension As String
@@ -38,16 +34,7 @@ Module mdlFileList
         Public Property SavestatesBackup_SizeTot As UInt64 = 0
     End Class
 
-    'Public GamesList As New Dictionary(Of String, Dictionary(Of ListKeys, rFileList))
     Public GamesList As New Dictionary(Of String, GamesList_Item)
-
-    'Public Enum ListKeys As Int32
-    '    Savestates
-    '    Savestates_Backup
-    '    Savestates_Stored
-    '    Screenshots
-    'End Enum
-
     Public GamesList_Status As mdlMain.LoadStatus = LoadStatus.StatusNotLoaded
     Public GameList_LoadTime As System.TimeSpan
     Public SStates_FolderLastModified As DateTime
@@ -66,18 +53,13 @@ Module mdlFileList
 
         SStatesList_Load(sstates_DirectoryInfo,
                          pGamesList)
-        'String.Concat("*", My.Settings.PCSX2_SStateExt),
 
-        'FileList_Load(sstates_DirectoryInfo,
-        '              ListKeys.Savestates_Backup,
-        '              String.Concat("*", My.Settings.PCSX2_SStateExtBackup),
-        '              pGamesList)
         GameList_LoadTime = Now.Subtract(startTime)
         If pGamesList.Count = 0 Then
-            mdlMain.WriteToConsole("GamesList", "LoadAll", String.Format("Load complete. Loaded 0 games in {1:#,##0.0}ms. The array is empty", GameList_LoadTime.TotalMilliseconds))
+            mdlMain.WriteToConsole("GamesList", "LoadAll", String.Format("Load complete. Loaded 0 games in {0:N1}ms. The array is empty", GameList_LoadTime.TotalMilliseconds))
             Return LoadStatus.StatusEmpty
         Else
-            mdlMain.WriteToConsole("GamesList", "LoadAll", String.Format("Load complete. Loaded {0:#,##0} games in {1:#,##0.0}ms.", pGamesList.Count, GameList_LoadTime.TotalMilliseconds))
+            mdlMain.WriteToConsole("GamesList", "LoadAll", String.Format("Load complete. Loaded {0:N0} games in {1:N1}ms.", pGamesList.Count, GameList_LoadTime.TotalMilliseconds))
             Return LoadStatus.StatusLoadedOK
         End If
     End Function

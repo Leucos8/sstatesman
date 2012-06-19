@@ -154,8 +154,8 @@ Public Class frmDeleteForm
         Me.UIEnabled(True)
         Me.UICheck()
         frmMain.lvwSStatesList_Populate()
-        frmMain.lvwGamesList_Update()
-        frmMain.UICheck()
+        'frmMain.lvwGamesList_Update()
+        frmMain.UI_Update()
     End Sub
 
     Private Sub cmdWindowMaximize_Click(sender As System.Object, e As System.EventArgs) Handles cmdWindowMaximize.Click
@@ -280,9 +280,9 @@ Public Class frmDeleteForm
             Me.cmdSStateSelectBackup.Enabled = False
             Me.cmdDeleteSStateSelected.Enabled = False
         Else
-            Me.txtSize.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MB", Me.SStateList_TotalSizeSelected / 1024 ^ 2, Me.SStateList_TotalSize / 1024 ^ 2)
-            Me.txtSizeBackup.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MB", Me.SStateList_TotalSizeBackupSelected / 1024 ^ 2, Me.SStateList_TotalSizeBackup / 1024 ^ 2)
-            Me.txtSStateListSelection.Text = System.String.Format("{0:#,##0} | {1:#,##0}", Me.lvwSStatesListToDelete.CheckedItems.Count, Me.lvwSStatesListToDelete.Items.Count)
+            Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.SStateList_TotalSizeSelected / 1024 ^ 2, Me.SStateList_TotalSize / 1024 ^ 2)
+            Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.SStateList_TotalSizeBackupSelected / 1024 ^ 2, Me.SStateList_TotalSizeBackup / 1024 ^ 2)
+            Me.txtSStateListSelection.Text = System.String.Format("{0:N0} | {1:N0}", Me.lvwSStatesListToDelete.CheckedItems.Count, Me.lvwSStatesListToDelete.Items.Count)
             Me.cmdSStateSelectInvert.Enabled = True
             Me.cmdSStateSelectBackup.Enabled = True
             If Me.lvwSStatesListToDelete.CheckedItems.Count > 0 Then
