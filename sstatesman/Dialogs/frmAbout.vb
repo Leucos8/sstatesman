@@ -97,23 +97,23 @@ Public NotInheritable Class frmAbout
     End Sub
 
     Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
-        Dim recToolbar As New Rectangle(8, 0, 128, 8)
+        Dim recToolbar As New Rectangle(8 * DPIxScale, 0, 128 * DPIxScale, 8 * DPIyScale)
         Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.FromArgb(130, 150, 200), Color.FromArgb(65, 74, 100), 0)
         e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-        If (panelWindowTitle.Height > 4) And (panelWindowTitle.Width > 0) Then
+        If (panelWindowTitle.Height > 4 * DPIyScale) And (panelWindowTitle.Width > 0) Then
             If My.Settings.SStatesMan_BGEnable Then
-                rectoolbar = New Rectangle(0, panelWindowTitle.Height - 4, panelWindowTitle.Width, 4)
-                linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, Color.Transparent, Color.DarkGray, 90)
-                e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
+                recToolbar = New Rectangle(0, panelWindowTitle.Height - 4 * DPIyScale, panelWindowTitle.Width, 4 * DPIyScale)
+                linGrBrushToolbar = New Drawing2D.LinearGradientBrush(recToolbar, Color.Transparent, Color.DarkGray, 90)
+                e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
             End If
             e.Graphics.DrawLine(Pens.DimGray, 0, panelWindowTitle.Height - 1, panelWindowTitle.Width, panelWindowTitle.Height - 1)
         End If
     End Sub
 
     Private Sub flpWindowBottom_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles flpWindowBottom.Paint
-        If flpWindowBottom.Width > 0 Then
+        If flpWindowBottom.Height > 4 * DPIyScale Then
             If My.Settings.SStatesMan_BGEnable Then
-                Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width, 4)
+                Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width, 4 * DPIyScale)
                 Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
                 e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
             End If

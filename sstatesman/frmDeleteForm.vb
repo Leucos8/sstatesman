@@ -70,7 +70,7 @@ Public Class frmDeleteForm
         End Select
 
         Dim imlLvwCheckboxes As New System.Windows.Forms.ImageList
-        imlLvwCheckboxes.ImageSize = New System.Drawing.Size(11, 11)
+        imlLvwCheckboxes.ImageSize = New System.Drawing.Size(11 * DPIxScale, 11 * DPIyScale)
         imlLvwCheckboxes.Images.Add(My.Resources.Metro_ChecboxUnchecked)
         imlLvwCheckboxes.Images.Add(My.Resources.Metro_ChecboxChecked)
         Me.lvwSStatesListToDelete.StateImageList = imlLvwCheckboxes
@@ -305,12 +305,12 @@ Public Class frmDeleteForm
     End Sub
 
     Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
-        Dim rectoolbar As New Rectangle(0, 8, 24, 39)
+        Dim rectoolbar As New Rectangle(0, 8 * DPIyScale, 24 * DPIxScale, 40 * DPIyScale)
         Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, Color.FromArgb(130, 150, 200), Color.FromArgb(65, 74, 100), 90)
         e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
-        If (panelWindowTitle.Height > 4) And (panelWindowTitle.Width > 0) Then
+        If (panelWindowTitle.Height > 4 * DPIyScale) And (panelWindowTitle.Width > 0) Then
             If My.Settings.SStatesMan_BGEnable Then
-                rectoolbar = New Rectangle(0, panelWindowTitle.Height - 4, panelWindowTitle.Width, 4)
+                rectoolbar = New Rectangle(0, panelWindowTitle.Height - 4 * DPIyScale, panelWindowTitle.Width, 4 * DPIyScale)
                 linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, Color.Transparent, Color.DarkGray, 90)
                 e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
             End If
@@ -319,14 +319,15 @@ Public Class frmDeleteForm
     End Sub
 
     Private Sub flpWindowBottom_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles flpWindowBottom.Paint
-        If flpWindowBottom.Width > 0 Then
+        If flpWindowBottom.Height > 4 * DPIyScale Then
             If My.Settings.SStatesMan_BGEnable Then
-                Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width, 4)
+                Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width, 4 * DPIyScale)
                 Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
                 e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
             End If
             e.Graphics.DrawLine(Pens.DimGray, 0, 0, flpWindowBottom.Width, 0)
         End If
     End Sub
+
 
 End Class

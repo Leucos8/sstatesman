@@ -804,7 +804,7 @@ Public Class frmMain
         e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
         If (panelWindowTitle.Height > 4 * DPIyScale) And (panelWindowTitle.Width > 0) Then
             If My.Settings.SStatesMan_BGEnable Then
-                rectoolbar = New Rectangle(0, panelWindowTitle.Height - 4, panelWindowTitle.Width, 4 * DPIyScale)
+                rectoolbar = New Rectangle(0, panelWindowTitle.Height - 4 * DPIyScale, panelWindowTitle.Width, 4 * DPIyScale)
                 linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, Color.Transparent, Color.DarkGray, 90)
                 e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
             End If
