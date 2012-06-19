@@ -573,8 +573,8 @@ Public Class frmMain
 
             If Me.lvwGamesList.CheckedItems.Count > 0 Or Me.lvwGamesList.SelectedItems.Count > 0 Then
 
-                Me.txtSize.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MB", Me.lvwSStatesList_SelectedSize / 1024 ^ 2, Me.lvwGamesList_SelectedSize / 1024 ^ 2)
-                Me.txtSizeBackup.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MB", Me.lvwSStatesList_SelectedSizeBackup / 1024 ^ 2, Me.lvwGamesList_SelectedSizeBackup / 1024 ^ 2)
+                Me.txtSize.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MB", Me.lvwSStatesList_SelectedSize \ 1024 ^ 2, Me.lvwGamesList_SelectedSize \ 1024 ^ 2)
+                Me.txtSizeBackup.Text = System.String.Format("{0:#,##0.00} | {1:#,##0.00} MB", Me.lvwSStatesList_SelectedSizeBackup \ 1024 ^ 2, Me.lvwGamesList_SelectedSizeBackup \ 1024 ^ 2)
                 Me.txtGameList_Title.Text = currentGameInfo.Name
                 Me.txtGameList_Serial.Text = currentGameInfo.Serial
                 Me.txtGameList_Region.Text = currentGameInfo.Region
@@ -590,16 +590,18 @@ Public Class frmMain
                     Me.imgCover.Load(System.IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg"))
                     If Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 3 Then
                         Me.imgCover.Height = Me.imgCover.Image.PhysicalDimension.Height * 118 \ Me.imgCover.Image.PhysicalDimension.Width + 2
+                        Me.imgCover.Width = Me.imgCover.Image.PhysicalDimension.Width * (Me.imgCover.Height - 1) \ Me.imgCover.Image.PhysicalDimension.Height + 2
                     ElseIf Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 2 Then
                         Me.imgCover.Width = Me.imgCover.Image.PhysicalDimension.Width * 46 \ Me.imgCover.Image.PhysicalDimension.Height + 2
+                        Me.imgCover.Height = Me.imgCover.Image.PhysicalDimension.Height * (Me.imgCover.Width - 1) \ Me.imgCover.Image.PhysicalDimension.Width + 2
                     End If
                 Else
                     Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                     Me.imgCover.Image = My.Resources.Nocover
                     If Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 3 Then
-                        Me.imgCover.Height = 48
+                        Me.imgCover.Size = New Size(120, 120)
                     ElseIf Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 2 Then
-                        Me.imgCover.Width = 48
+                        Me.imgCover.Size = New Size(48, 48)
                     End If
                 End If
 
@@ -842,8 +844,8 @@ Public Class frmMain
             If Me.TableLayoutPanel3.GetRowSpan(Me.imgCover) = 3 Then
                 Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 2)
                 Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 1)
-                Me.imgCover.Size = New Size(48, 48)
-                Me.imgCover.Width = Me.imgCover.Image.PhysicalDimension.Width * (Me.imgCover.Height - 2) \ Me.imgCover.Image.PhysicalDimension.Height + 2
+                Me.imgCover.Width = Me.imgCover.Image.PhysicalDimension.Width * 46 \ Me.imgCover.Image.PhysicalDimension.Height + 2
+                Me.imgCover.Height = Me.imgCover.Image.PhysicalDimension.Height * (Me.imgCover.Width - 1) \ Me.imgCover.Image.PhysicalDimension.Width + 2
                 Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 1))
                 Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(0, 0))
                 Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 9)
@@ -855,8 +857,8 @@ Public Class frmMain
                 Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 7)
                 Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(2, 0))
                 Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 0))
-                Me.imgCover.Width = 120
                 Me.imgCover.Height = Me.imgCover.Image.PhysicalDimension.Height * 118 \ Me.imgCover.Image.PhysicalDimension.Width + 2
+                Me.imgCover.Width = Me.imgCover.Image.PhysicalDimension.Width * (Me.imgCover.Height - 1) \ Me.imgCover.Image.PhysicalDimension.Height + 2
                 Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 2)
                 Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 3)
             End If
