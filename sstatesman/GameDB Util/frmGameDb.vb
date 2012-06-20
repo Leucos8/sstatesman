@@ -70,7 +70,6 @@ Public Class frmGameDb
                 End Select
 
                 Me.tsGameDbUnload.Enabled = True
-                'Me.tsListShow.Enabled = True
                 Me.tsCmdSearch.Enabled = True
                 Me.tsTxtSearchSerial.Enabled = True
                 Me.tsExport.Enabled = True
@@ -93,6 +92,18 @@ Public Class frmGameDb
         End Select
     End Sub
 
+    Private Sub LoadGameDB(ByVal pPath As String)
+        mdlGameDb.GameDb_Status = mdlGameDb.GameDb_Load(pPath, GameDb)
+
+        Me.CurrentSerial = ""
+        Me.SearchResultRef.Clear()
+        Me.SearchResultRef_ArrayStatus = LoadStatus.StatusNotLoaded
+
+        Me.PopulateList(mdlGameDb.GameDb)
+
+        Me.ShowStatus()
+    End Sub
+
     Private Sub frmGameDb_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Me.CurrentSerial = ""
@@ -105,16 +116,29 @@ Public Class frmGameDb
 
     End Sub
 
-    Private Sub tsGameDbLoad_Click(sender As System.Object, e As System.EventArgs) Handles tsGameDbLoad.Click
-        mdlGameDb.GameDb_Status = mdlGameDb.GameDb_Load(System.IO.Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename), GameDb)
+    Private Sub tsGameDbLoad_ButtonClick(sender As System.Object, e As System.EventArgs) Handles tsGameDbLoad.ButtonClick
+        LoadGameDB(System.IO.Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
+    End Sub
 
-        Me.CurrentSerial = ""
-        Me.SearchResultRef.Clear()
-        Me.SearchResultRef_ArrayStatus = LoadStatus.StatusNotLoaded
+    Private Sub tsLoadDefaultGameDB_Click(sender As System.Object, e As System.EventArgs) Handles tsLoadDefaultGameDB.Click
+        LoadGameDB(System.IO.Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
+    End Sub
 
-        Me.PopulateList(mdlGameDb.GameDb)
-
-        Me.ShowStatus()
+    Private Sub tsLoadFromFileTool_Click(sender As System.Object, e As System.EventArgs) Handles tsLoadFromFileTool.Click
+        Using openDialog As New System.Windows.Forms.OpenFileDialog
+            With openDialog
+                .AddExtension = True
+                .CheckFileExists = True
+                .CheckPathExists = True
+                .DefaultExt = ".dbf"
+                .InitialDirectory = My.Settings.PCSX2_PathBin
+                .ValidateNames = True
+                .FileName = "GameIndex"
+            End With
+            If openDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+                LoadGameDB(openDialog.FileName)
+            End If
+        End Using
     End Sub
 
     Private Sub tsGameDbUnload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsGameDbUnload.Click
@@ -146,67 +170,22 @@ Public Class frmGameDb
     End Sub
 
     Private Sub tsExportTSVTxt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsExportTSVTxt.Click
-        Dim SaveDialog As New System.Windows.Forms.SaveFileDialog
-        With SaveDialog
-            .AddExtension = True
-            .CheckFileExists = False
-            .CheckPathExists = True
-            .DefaultExt = ".txt"
-            .InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
-            .OverwritePrompt = True
-            .ValidateNames = True
-        End With
-
-        If Me.SearchResultRef_ArrayStatus = LoadStatus.StatusLoadedOK Then
+        Using SaveDialog As New System.Windows.Forms.SaveFileDialog
             With SaveDialog
-                .FileName = "GameDB search results"
-                .Title = "Save found records to..."
+                .AddExtension = True
+                .CheckFileExists = False
+                .CheckPathExists = True
+                .DefaultExt = ".txt"
+                .InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+                .OverwritePrompt = True
+                .ValidateNames = True
             End With
-            If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                Dim GameDbExtract As New Dictionary(Of System.String, GameTitle)
-                Dim GameDbExtract_ArrayStatus As System.Byte = LoadStatus.StatusNotLoaded
 
-                GameDbExtract_ArrayStatus = mdlGameDb.GameDb_RecordExtract(SearchResultRef,
-                                                                           mdlGameDb.GameDb,
-                                                                           mdlGameDb.GameDb_Status,
-                                                                           GameDbExtract)
-                Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName,
-                                                vbTab,
-                                                GameDbExtract)
-            End If
-        Else
-            With SaveDialog
-                .FileName = "GameDB"
-                .Title = "Save records to..."
-            End With
-            If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-
-                Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName,
-                                                vbTab, _
-                                                 GameDb)
-            End If
-        End If
-        SaveDialog.Dispose()
-    End Sub
-
-    Private Sub tsExportCSVTxt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsExportCSVTxt.Click
-        Dim SaveDialog As New System.Windows.Forms.SaveFileDialog
-        With SaveDialog
-            .AddExtension = True
-            .CheckFileExists = False
-            .CheckPathExists = True
-            .DefaultExt = ".csv"
-            .InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
-            .OverwritePrompt = True
-            .ValidateNames = True
-        End With
-
-        If Me.SearchResultRef_ArrayStatus = LoadStatus.StatusLoadedOK Then
-            With SaveDialog
-                .FileName = "GameDB search results"
-                .Title = "Save found records list to..."
-            End With
-            If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+            If Me.SearchResultRef_ArrayStatus = LoadStatus.StatusLoadedOK Then
+                With SaveDialog
+                    .FileName = "GameDB search results"
+                    .Title = "Save found records to..."
+                End With
                 If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
                     Dim GameDbExtract As New Dictionary(Of System.String, GameTitle)
                     Dim GameDbExtract_ArrayStatus As System.Byte = LoadStatus.StatusNotLoaded
@@ -216,22 +195,67 @@ Public Class frmGameDb
                                                                                mdlGameDb.GameDb_Status,
                                                                                GameDbExtract)
                     Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName,
-                                                    ";",
+                                                    vbTab,
                                                     GameDbExtract)
                 End If
+            Else
+                With SaveDialog
+                    .FileName = "GameDB"
+                    .Title = "Save records to..."
+                End With
+                If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+
+                    Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName,
+                                                    vbTab, _
+                                                     GameDb)
+                End If
             End If
-        Else
+        End Using
+    End Sub
+
+    Private Sub tsExportCSVTxt_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsExportCSVTxt.Click
+        Using SaveDialog As New System.Windows.Forms.SaveFileDialog
             With SaveDialog
-                .FileName = "GameDB"
-                .Title = "Save records to..."
+                .AddExtension = True
+                .CheckFileExists = False
+                .CheckPathExists = True
+                .DefaultExt = ".csv"
+                .InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+                .OverwritePrompt = True
+                .ValidateNames = True
             End With
-            If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName,
-                                                ";",
-                                                GameDb)
+
+            If Me.SearchResultRef_ArrayStatus = LoadStatus.StatusLoadedOK Then
+                With SaveDialog
+                    .FileName = "GameDB search results"
+                    .Title = "Save found records list to..."
+                End With
+                If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+                    If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+                        Dim GameDbExtract As New Dictionary(Of System.String, GameTitle)
+                        Dim GameDbExtract_ArrayStatus As System.Byte = LoadStatus.StatusNotLoaded
+
+                        GameDbExtract_ArrayStatus = mdlGameDb.GameDb_RecordExtract(SearchResultRef,
+                                                                                   mdlGameDb.GameDb,
+                                                                                   mdlGameDb.GameDb_Status,
+                                                                                   GameDbExtract)
+                        Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName,
+                                                        ";",
+                                                        GameDbExtract)
+                    End If
+                End If
+            Else
+                With SaveDialog
+                    .FileName = "GameDB"
+                    .Title = "Save records to..."
+                End With
+                If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+                    Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName,
+                                                    ";",
+                                                    GameDb)
+                End If
             End If
-        End If
-        SaveDialog.Dispose()
+        End Using
     End Sub
 
     Private Sub tsTxtSearchSerial_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles tsTxtSearchSerial.GotFocus
@@ -297,4 +321,5 @@ Public Class frmGameDb
             End If
         End If
     End Sub
+
 End Class

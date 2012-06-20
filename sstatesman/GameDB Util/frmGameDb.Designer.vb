@@ -42,7 +42,9 @@ Partial Class frmGameDb
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
-        Me.tsGameDbLoad = New System.Windows.Forms.ToolStripButton()
+        Me.tsGameDbLoad = New System.Windows.Forms.ToolStripSplitButton()
+        Me.tsLoadDefaultGameDB = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsLoadFromFileTool = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsGameDbUnload = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsCmdSearch = New System.Windows.Forms.ToolStripButton()
@@ -123,12 +125,31 @@ Partial Class frmGameDb
         'tsGameDbLoad
         '
         Me.tsGameDbLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.tsGameDbLoad.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsLoadDefaultGameDB, Me.tsLoadFromFileTool})
         Me.tsGameDbLoad.Image = CType(resources.GetObject("tsGameDbLoad.Image"), System.Drawing.Image)
         Me.tsGameDbLoad.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsGameDbLoad.Name = "tsGameDbLoad"
-        Me.tsGameDbLoad.Size = New System.Drawing.Size(75, 22)
+        Me.tsGameDbLoad.Size = New System.Drawing.Size(87, 22)
         Me.tsGameDbLoad.Text = "LOAD &GAMEDB"
         Me.tsGameDbLoad.ToolTipText = "Load the PCSX2 Game Database."
+        '
+        'tsLoadDefaultGameDB
+        '
+        Me.tsLoadDefaultGameDB.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.tsLoadDefaultGameDB.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tsLoadDefaultGameDB.ForeColor = System.Drawing.Color.DimGray
+        Me.tsLoadDefaultGameDB.Name = "tsLoadDefaultGameDB"
+        Me.tsLoadDefaultGameDB.Size = New System.Drawing.Size(199, 22)
+        Me.tsLoadDefaultGameDB.Text = "Load default GameDB"
+        '
+        'tsLoadFromFileTool
+        '
+        Me.tsLoadFromFileTool.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.tsLoadFromFileTool.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tsLoadFromFileTool.ForeColor = System.Drawing.Color.DimGray
+        Me.tsLoadFromFileTool.Name = "tsLoadFromFileTool"
+        Me.tsLoadFromFileTool.Size = New System.Drawing.Size(199, 22)
+        Me.tsLoadFromFileTool.Text = "Load GameDB from file..."
         '
         'tsGameDbUnload
         '
@@ -468,9 +489,11 @@ Partial Class frmGameDb
     Friend WithEvents txtGameList_Region As System.Windows.Forms.TextBox
     Friend WithEvents txtGameList_Title As System.Windows.Forms.TextBox
     Friend WithEvents lvwGameDBList As System.Windows.Forms.ListView
-    Private WithEvents tsGameDbLoad As System.Windows.Forms.ToolStripButton
     Friend WithEvents ToolStripStatusLabel3 As System.Windows.Forms.ToolStripStatusLabel
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents FlowLayoutPanel2 As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents tsGameDbLoad As System.Windows.Forms.ToolStripSplitButton
+    Friend WithEvents tsLoadDefaultGameDB As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsLoadFromFileTool As System.Windows.Forms.ToolStripMenuItem
 End Class
