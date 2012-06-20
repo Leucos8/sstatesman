@@ -19,6 +19,8 @@ Public Class frmSettings
 
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
+        Me.applyTheme()
+
         Me.ckbFirstRun.Checked = My.Settings.SStatesMan_FirstRun2
         Me.ckb_SStatesListShowOnly.Checked = My.Settings.SStatesMan_SStatesListShowOnly
         Me.ckb_SStatesListAutoRefresh.Checked = My.Settings.SStatesMan_SStatesListAutoRefresh
@@ -30,65 +32,27 @@ Public Class frmSettings
         Me.txtPCSX2IniPath.Text = My.Settings.PCSX2_PathInis
         Me.txtPCSX2SStatePath.Text = My.Settings.PCSX2_PathSState
 
-        Select Case My.Settings.SStatesMan_BGImage
-            Case Theme.square
-                Me.ckbSStatesManBGImage.Checked = True
+        Me.ckbSStatesManBGImage.Checked = My.Settings.SStatesMan_ThemeImageEnabled
+        Me.ckbSStatesManBGEnabled.Checked = My.Settings.SStatesMan_ThemeGradientEnabled
+        Select Case My.Settings.SStatesMan_Theme
+            Case eTheme.square
                 Me.optTheme1.Checked = True
-            Case Theme.noise
-                Me.ckbSStatesManBGImage.Checked = True
+            Case eTheme.noise
                 Me.optTheme2.Checked = True
-            Case Theme.stripes
-                Me.ckbSStatesManBGImage.Checked = True
+            Case eTheme.stripes
                 Me.optTheme3.Checked = True
-            Case Theme.brushmetal
-                Me.ckbSStatesManBGImage.Checked = True
+            Case eTheme.brushmetal
                 Me.optTheme4.Checked = True
-            Case Theme.PCSX2
-                Me.ckbSStatesManBGImage.Checked = True
+            Case eTheme.PCSX2
                 Me.optTheme11.Checked = True
             Case Else
-                My.Settings.SStatesMan_BGImage = Theme.none
-                Me.ckbSStatesManBGImage.Checked = False
-                Me.pnlThemeOptions.Enabled = False
+                Me.optTheme1.Checked = True
+                My.Settings.SStatesMan_Theme = eTheme.square
         End Select
 
-        Me.ckbSStatesManBGEnabled.Checked = My.Settings.SStatesMan_BGEnable
 
         Me.SettingsCheck()
 
-
-
-        Select Case My.Settings.SStatesMan_BGImage
-            Case Theme.square
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BG
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.None
-                Me.flpWindowBottom.BackgroundImage = Nothing
-                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.None
-            Case Theme.noise
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BgNoise
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
-                Me.flpWindowBottom.BackgroundImage = My.Resources.BgNoise
-                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
-            Case Theme.stripes
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BgStripes
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
-                Me.flpWindowBottom.BackgroundImage = My.Resources.BgStripes
-                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
-            Case Theme.brushmetal
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BgMetalBrush
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
-                Me.flpWindowBottom.BackgroundImage = My.Resources.BgMetalBrush
-                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
-            Case Theme.PCSX2
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BG_PCSX2
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Stretch
-                Me.flpWindowBottom.BackgroundImage = My.Resources.BG_PCSX2
-                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Stretch
-            Case Else
-                My.Settings.SStatesMan_BGImage = Theme.none
-                Me.panelWindowTitle.BackgroundImage = Nothing
-                Me.flpWindowBottom.BackgroundImage = Nothing
-        End Select
 
         If Not Me.pnlTab1.Dock = DockStyle.Fill Then
             Me.pnlTab1.Dock = DockStyle.Fill
@@ -181,46 +145,24 @@ Public Class frmSettings
         My.Settings.SStatesMan_SStateTrash = Me.ckbSStatesManMoveToTrash.Checked
         My.Settings.SStatesMan_SStatesVersionExtract = Me.ckbSStatesManVersionExtract.Checked
 
-        My.Settings.SStatesMan_BGImage = Theme.none
-        If Me.ckbSStatesManBGImage.Checked Then
-            If Me.optTheme1.Checked Then
-                My.Settings.SStatesMan_BGImage = Theme.square
-            ElseIf Me.optTheme2.Checked Then
-                My.Settings.SStatesMan_BGImage = Theme.noise
-            ElseIf Me.optTheme3.Checked Then
-                My.Settings.SStatesMan_BGImage = Theme.stripes
-            ElseIf Me.optTheme4.Checked Then
-                My.Settings.SStatesMan_BGImage = Theme.brushmetal
-            ElseIf Me.optTheme11.Checked Then
-                My.Settings.SStatesMan_BGImage = Theme.PCSX2
-            End If
+        My.Settings.SStatesMan_Theme = eTheme.square
+        If Me.optTheme1.Checked Then
+            My.Settings.SStatesMan_Theme = eTheme.square
+        ElseIf Me.optTheme2.Checked Then
+            My.Settings.SStatesMan_Theme = eTheme.noise
+        ElseIf Me.optTheme3.Checked Then
+            My.Settings.SStatesMan_Theme = eTheme.stripes
+        ElseIf Me.optTheme4.Checked Then
+            My.Settings.SStatesMan_Theme = eTheme.brushmetal
+        ElseIf Me.optTheme11.Checked Then
+            My.Settings.SStatesMan_Theme = eTheme.PCSX2
         End If
+        My.Settings.SStatesMan_ThemeImageEnabled = Me.ckbSStatesManBGImage.Checked
+        My.Settings.SStatesMan_ThemeGradientEnabled = Me.ckbSStatesManBGEnabled.Checked
 
-        My.Settings.SStatesMan_BGEnable = Me.ckbSStatesManBGEnabled.Checked
+        currentTheme = mdlTheme.LoadTheme(My.Settings.SStatesMan_Theme)
+        frmMain.applyTheme()
 
-
-
-        Select Case My.Settings.SStatesMan_BGImage
-            Case Theme.square
-                frmMain.panelWindowTitle.BackgroundImage = My.Resources.BG
-                frmMain.panelWindowTitle.BackgroundImageLayout = ImageLayout.None
-            Case Theme.noise
-                frmMain.panelWindowTitle.BackgroundImage = My.Resources.BgNoise
-                frmMain.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
-            Case Theme.stripes
-                frmMain.panelWindowTitle.BackgroundImage = My.Resources.BgStripes
-                frmMain.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
-            Case Theme.brushmetal
-                frmMain.panelWindowTitle.BackgroundImage = My.Resources.BgMetalBrush
-                frmMain.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
-            Case Theme.PCSX2
-                frmMain.panelWindowTitle.BackgroundImage = My.Resources.BG_PCSX2
-                frmMain.panelWindowTitle.BackgroundImageLayout = ImageLayout.Stretch
-            Case Else
-                My.Settings.SStatesMan_BGImage = Theme.none
-                frmMain.panelWindowTitle.BackgroundImage = Nothing
-        End Select
-        frmMain.Refresh()
 
         My.Settings.Save()
     End Sub
@@ -501,10 +443,10 @@ Public Class frmSettings
 
     Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
         Dim recToolbar As New Rectangle(8 * DPIxScale, 0, 128 * DPIxScale, 8 * DPIyScale)
-        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.FromArgb(130, 150, 200), Color.FromArgb(65, 74, 100), 0)
+        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 0)
         e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
         If (panelWindowTitle.Height > 4 * DPIyScale) And (panelWindowTitle.Width > 0) Then
-            If My.Settings.SStatesMan_BGEnable Then
+            If My.Settings.SStatesMan_ThemeGradientEnabled Then
                 recToolbar = New Rectangle(0, panelWindowTitle.Height - 4 * DPIyScale, panelWindowTitle.Width, 4 * DPIyScale)
                 linGrBrushToolbar = New Drawing2D.LinearGradientBrush(recToolbar, Color.Transparent, Color.DarkGray, 90)
                 e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
@@ -515,7 +457,7 @@ Public Class frmSettings
 
     Private Sub flpWindowBottom_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles flpWindowBottom.Paint
         If flpWindowBottom.Height > 4 * DPIyScale Then
-            If My.Settings.SStatesMan_BGEnable Then
+            If My.Settings.SStatesMan_ThemeGradientEnabled Then
                 Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width, 4 * DPIyScale)
                 Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
                 e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
@@ -540,7 +482,6 @@ Public Class frmSettings
         End If
     End Sub
 
-
     Private Sub optSettingTab3_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optSettingTab3.Paint
         If Me.optSettingTab3.Checked Then
             e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.optSettingTab3.Width, 0)
@@ -549,8 +490,20 @@ Public Class frmSettings
         End If
     End Sub
 
-    Private Sub ckbSStatesManBGImage_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ckbSStatesManBGImage.CheckedChanged
-        Me.pnlThemeOptions.Enabled = ckbSStatesManBGImage.Checked
+    Private Sub applyTheme()
+        Me.BackColor = currentTheme.BgColor
+        Me.panelWindowTitle.BackColor = currentTheme.BgColorTop
+        Me.flpWindowBottom.BackColor = currentTheme.BgColorBottom
+        If My.Settings.SStatesMan_ThemeImageEnabled Then
+            Me.panelWindowTitle.BackgroundImage = currentTheme.BgImageTop
+            Me.panelWindowTitle.BackgroundImageLayout = currentTheme.BgImageTopStyle
+            Me.flpWindowBottom.BackgroundImage = currentTheme.BgImageBottom
+            Me.flpWindowBottom.BackgroundImageLayout = currentTheme.BgImageBottomStyle
+        Else
+            Me.panelWindowTitle.BackgroundImage = Nothing
+            Me.flpWindowBottom.BackgroundImage = Nothing
+        End If
+        Me.Refresh()
     End Sub
 
 End Class

@@ -48,7 +48,6 @@ Partial Class frmGameDb
         Me.tsCmdSearch = New System.Windows.Forms.ToolStripButton()
         Me.tsListShow = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.tsCmdSearchSerial = New System.Windows.Forms.ToolStripButton()
         Me.tsExport = New System.Windows.Forms.ToolStripDropDownButton()
         Me.tsExportTSVTxt = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsExportCSVTxt = New System.Windows.Forms.ToolStripMenuItem()
@@ -113,7 +112,7 @@ Partial Class frmGameDb
         '
         Me.ToolStrip1.BackColor = System.Drawing.Color.Gainsboro
         Me.ToolStrip1.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsGameDbLoad, Me.tsGameDbUnload, Me.ToolStripSeparator1, Me.tsCmdSearch, Me.tsListShow, Me.ToolStripSeparator2, Me.tsCmdSearchSerial, Me.tsExport, Me.tsTxtSearchSerial})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsGameDbLoad, Me.tsGameDbUnload, Me.ToolStripSeparator1, Me.tsCmdSearch, Me.tsListShow, Me.ToolStripSeparator2, Me.tsExport, Me.tsTxtSearchSerial})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
@@ -143,7 +142,7 @@ Partial Class frmGameDb
         '
         'ToolStripSeparator1
         '
-        Me.ToolStripSeparator1.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ToolStripSeparator1.ForeColor = System.Drawing.Color.DimGray
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(6, 25)
         '
@@ -169,20 +168,9 @@ Partial Class frmGameDb
         '
         'ToolStripSeparator2
         '
-        Me.ToolStripSeparator2.ForeColor = System.Drawing.SystemColors.ControlText
+        Me.ToolStripSeparator2.ForeColor = System.Drawing.Color.DimGray
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
         Me.ToolStripSeparator2.Size = New System.Drawing.Size(6, 25)
-        '
-        'tsCmdSearchSerial
-        '
-        Me.tsCmdSearchSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
-        Me.tsCmdSearchSerial.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.tsCmdSearchSerial.Enabled = False
-        Me.tsCmdSearchSerial.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsCmdSearchSerial.Name = "tsCmdSearchSerial"
-        Me.tsCmdSearchSerial.Size = New System.Drawing.Size(75, 22)
-        Me.tsCmdSearchSerial.Text = "&QUICK SEARCH"
-        Me.tsCmdSearchSerial.ToolTipText = "Perform a quick search using the given serial"
         '
         'tsExport
         '
@@ -473,7 +461,6 @@ Partial Class frmGameDb
     Private WithEvents tsExportTSVTxt As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents tsGameDbUnload As System.Windows.Forms.ToolStripButton
     Private WithEvents tsTxtSearchSerial As System.Windows.Forms.ToolStripTextBox
-    Private WithEvents tsCmdSearchSerial As System.Windows.Forms.ToolStripButton
     Private WithEvents tsExportCSVTxt As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsCmdSearch As System.Windows.Forms.ToolStripButton
     Friend WithEvents txtGameList_Compat As System.Windows.Forms.TextBox

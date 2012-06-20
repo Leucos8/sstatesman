@@ -23,38 +23,7 @@ Public NotInheritable Class frmAbout
         Me.lblCopyright.Text = My.Application.Info.Copyright
         Me.lblAuthorName.Text = String.Concat("Created by ", My.Application.Info.CompanyName)
 
-        Select Case My.Settings.SStatesMan_BGImage
-            Case Theme.square
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BG
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.None
-                Me.flpWindowBottom.BackgroundImage = Nothing
-                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.None
-            Case Theme.noise
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BgNoise
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
-                Me.flpWindowBottom.BackgroundImage = My.Resources.BgNoise
-                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
-            Case Theme.stripes
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BgStripes
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
-                Me.flpWindowBottom.BackgroundImage = My.Resources.BgStripes
-                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
-            Case Theme.brushmetal
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BgMetalBrush
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
-                Me.flpWindowBottom.BackgroundImage = My.Resources.BgMetalBrush
-                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
-            Case Theme.PCSX2
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BG_PCSX2
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Stretch
-                Me.flpWindowBottom.BackgroundImage = My.Resources.BG_PCSX2
-                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Stretch
-            Case Else
-                My.Settings.SStatesMan_BGImage = Theme.none
-                Me.panelWindowTitle.BackgroundImage = Nothing
-                Me.flpWindowBottom.BackgroundImage = Nothing
-        End Select
-
+        Me.applyTheme()
 
     End Sub
 
@@ -98,10 +67,10 @@ Public NotInheritable Class frmAbout
 
     Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
         Dim recToolbar As New Rectangle(8 * DPIxScale, 0, 128 * DPIxScale, 8 * DPIyScale)
-        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.FromArgb(130, 150, 200), Color.FromArgb(65, 74, 100), 0)
+        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 0)
         e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
         If (panelWindowTitle.Height > 4 * DPIyScale) And (panelWindowTitle.Width > 0) Then
-            If My.Settings.SStatesMan_BGEnable Then
+            If My.Settings.SStatesMan_ThemeGradientEnabled Then
                 recToolbar = New Rectangle(0, panelWindowTitle.Height - 4 * DPIyScale, panelWindowTitle.Width, 4 * DPIyScale)
                 linGrBrushToolbar = New Drawing2D.LinearGradientBrush(recToolbar, Color.Transparent, Color.DarkGray, 90)
                 e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
@@ -112,7 +81,7 @@ Public NotInheritable Class frmAbout
 
     Private Sub flpWindowBottom_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles flpWindowBottom.Paint
         If flpWindowBottom.Height > 4 * DPIyScale Then
-            If My.Settings.SStatesMan_BGEnable Then
+            If My.Settings.SStatesMan_ThemeGradientEnabled Then
                 Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width, 4 * DPIyScale)
                 Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
                 e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
@@ -135,5 +104,21 @@ Public NotInheritable Class frmAbout
             e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.optSettingTab2.Height)
             e.Graphics.DrawLine(Pens.DimGray, Me.optSettingTab2.Width - 1, 0, Me.optSettingTab2.Width - 1, Me.optSettingTab2.Height)
         End If
+    End Sub
+
+    Private Sub applyTheme()
+        Me.BackColor = currentTheme.BgColor
+        Me.panelWindowTitle.BackColor = currentTheme.BgColorTop
+        Me.flpWindowBottom.BackColor = currentTheme.BgColorBottom
+        If My.Settings.SStatesMan_ThemeImageEnabled Then
+            Me.panelWindowTitle.BackgroundImage = currentTheme.BgImageTop
+            Me.panelWindowTitle.BackgroundImageLayout = currentTheme.BgImageTopStyle
+            Me.flpWindowBottom.BackgroundImage = currentTheme.BgImageBottom
+            Me.flpWindowBottom.BackgroundImageLayout = currentTheme.BgImageBottomStyle
+        Else
+            Me.panelWindowTitle.BackgroundImage = Nothing
+            Me.flpWindowBottom.BackgroundImage = Nothing
+        End If
+        Me.Refresh()
     End Sub
 End Class

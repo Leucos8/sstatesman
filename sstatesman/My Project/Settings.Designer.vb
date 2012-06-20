@@ -225,12 +225,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property SStatesMan_BGEnable() As Boolean
+        Public Property SStatesMan_ThemeGradientEnabled() As Boolean
             Get
-                Return CType(Me("SStatesMan_BGEnable"),Boolean)
+                Return CType(Me("SStatesMan_ThemeGradientEnabled"),Boolean)
             End Get
             Set
-                Me("SStatesMan_BGEnable") = value
+                Me("SStatesMan_ThemeGradientEnabled") = value
             End Set
         End Property
         
@@ -306,12 +306,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("1")>  _
-        Public Property SStatesMan_BGImage() As Byte
+        Public Property SStatesMan_Theme() As Byte
             Get
-                Return CType(Me("SStatesMan_BGImage"),Byte)
+                Return CType(Me("SStatesMan_Theme"),Byte)
             End Get
             Set
-                Me("SStatesMan_BGImage") = value
+                Me("SStatesMan_Theme") = value
             End Set
         End Property
         
@@ -324,6 +324,18 @@ Namespace My
             End Get
             Set
                 Me("SStatesMan_SStatesVersionExtract") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property SStatesMan_ThemeImageEnabled() As Boolean
+            Get
+                Return CType(Me("SStatesMan_ThemeImageEnabled"),Boolean)
+            End Get
+            Set
+                Me("SStatesMan_ThemeImageEnabled") = value
             End Set
         End Property
     End Class

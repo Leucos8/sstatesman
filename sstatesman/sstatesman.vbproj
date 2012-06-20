@@ -131,6 +131,7 @@
     <Compile Include="mdlGameDb.vb" />
     <Compile Include="mdlMain.vb" />
     <Compile Include="mdlSimpleZipExtractor.vb" />
+    <Compile Include="mdlTheme.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

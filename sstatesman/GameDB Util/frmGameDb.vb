@@ -40,7 +40,6 @@ Public Class frmGameDb
         Me.tsListShow.Visible = False
         Me.tsCmdSearch.Enabled = False
         Me.tsTxtSearchSerial.Enabled = False
-        Me.tsCmdSearchSerial.Enabled = False
         Me.tsExport.Enabled = False
 
         Me.txtGameList_Title.Text = ""
@@ -74,7 +73,6 @@ Public Class frmGameDb
                 'Me.tsListShow.Enabled = True
                 Me.tsCmdSearch.Enabled = True
                 Me.tsTxtSearchSerial.Enabled = True
-                Me.tsCmdSearchSerial.Enabled = True
                 Me.tsExport.Enabled = True
 
 
@@ -248,14 +246,6 @@ Public Class frmGameDb
         End If
     End Sub
 
-    Private Sub tsCmdSearchSerial_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsCmdSearchSerial.Click
-        If Not (Me.tsTxtSearchSerial.Text = "Serial") Then
-            Me.tsTxtSearchSerial.Text = Me.tsTxtSearchSerial.Text.ToUpper
-            CurrentSerial = Me.tsTxtSearchSerial.Text
-            Me.ShowStatus()
-        End If
-    End Sub
-
     Private Sub lvwGameDBList_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lvwGameDBList.SelectedIndexChanged
         Try
             If lvwGameDBList.SelectedItems.Count > 0 Then
@@ -297,5 +287,14 @@ Public Class frmGameDb
 
     End Sub
 
-
+    Private Sub tsTxtSearchSerial_KeyDown(sender As System.Object, e As System.Windows.Forms.KeyEventArgs) Handles tsTxtSearchSerial.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.SuppressKeyPress = True
+            If Not (Me.tsTxtSearchSerial.Text = "Serial") Then
+                Me.tsTxtSearchSerial.Text = Me.tsTxtSearchSerial.Text.ToUpper
+                CurrentSerial = Me.tsTxtSearchSerial.Text
+                Me.ShowStatus()
+            End If
+        End If
+    End Sub
 End Class

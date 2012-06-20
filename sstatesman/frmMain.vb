@@ -67,44 +67,14 @@ Public Class frmMain
             frmSettings.ShowDialog(Me)
         End If
 
+        mdlTheme.currentTheme = mdlTheme.LoadTheme(My.Settings.SStatesMan_Theme)
+
 
         Me.lblWindowVersion.Text = String.Concat(Me.lblWindowVersion.Text, _
                                                  My.Application.Info.Version.ToString, " ", _
                                                  My.Settings.SStatesMan_Channel) 'Add version information to the main window
 
-
-        Select Case My.Settings.SStatesMan_BGImage
-            Case Theme.square
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BG
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.None
-                'Me.flpWindowBottom.BackgroundImage = Nothing
-                'Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.None
-            Case Theme.noise
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BgNoise
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
-                'Me.flpWindowBottom.BackgroundImage = My.Resources.BgNoise
-                'Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
-            Case Theme.stripes
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BgStripes
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
-                'Me.flpWindowBottom.BackgroundImage = My.Resources.BgStripes
-                'Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
-            Case Theme.brushmetal
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BgMetalBrush
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
-                'Me.flpWindowBottom.BackgroundImage = My.Resources.BgMetalBrush
-                'Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
-            Case Theme.PCSX2
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BG_PCSX2
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Stretch
-                'Me.flpWindowBottom.BackgroundImage = My.Resources.BG_PCSX2
-                'Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Stretch
-            Case Else
-                My.Settings.SStatesMan_BGImage = Theme.none
-                Me.panelWindowTitle.BackgroundImage = Nothing
-                'Me.flpWindowBottom.BackgroundImage = Nothing
-        End Select
-
+        Me.applyTheme()
 
         Dim imlLvwCheckboxes As New ImageList                   'Listviews checkboxes (stateimagelist)
         With imlLvwCheckboxes
@@ -796,11 +766,11 @@ Public Class frmMain
 
 #Region "UI paint"
     Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
-        Dim rectoolbar As New Rectangle(0, 8 * DPIyScale, 24 * DPIxScale, 40 * DPIyScale)
-        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, Color.FromArgb(130, 150, 200), Color.FromArgb(65, 74, 100), 90)
+        Dim rectoolbar As New Rectangle(0, 8 * DPIyScale, 24 * DPIxScale, 39 * DPIyScale)
+        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 90)
         e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
         If (panelWindowTitle.Height > 4 * DPIyScale) And (panelWindowTitle.Width > 0) Then
-            If My.Settings.SStatesMan_BGEnable Then
+            If My.Settings.SStatesMan_ThemeGradientEnabled Then
                 rectoolbar = New Rectangle(0, panelWindowTitle.Height - 4 * DPIyScale, panelWindowTitle.Width, 4 * DPIyScale)
                 linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, Color.Transparent, Color.DarkGray, 90)
                 e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
@@ -836,6 +806,22 @@ Public Class frmMain
 
     Private Sub SplitContainer1_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles SplitContainer1.Paint
         e.Graphics.DrawLine(Pens.DarkGray, 0, Me.SplitContainer1.SplitterDistance + 1, Me.SplitContainer1.Width, Me.SplitContainer1.SplitterDistance + 1)
+    End Sub
+
+    Friend Sub applyTheme()
+        Me.BackColor = currentTheme.BgColor
+        Me.panelWindowTitle.BackColor = currentTheme.BgColorTop
+        'Me.flpWindowBottom.BackColor = currentTheme.BgColorBottom
+        If My.Settings.SStatesMan_ThemeImageEnabled Then
+            Me.panelWindowTitle.BackgroundImage = currentTheme.BgImageTop
+            Me.panelWindowTitle.BackgroundImageLayout = currentTheme.BgImageTopStyle
+            'Me.flpWindowBottom.BackgroundImage = currentTheme.BgImageBottom
+            'Me.flpWindowBottom.BackgroundImageLayout = currentTheme.BgImageBottomStyle
+        Else
+            Me.panelWindowTitle.BackgroundImage = Nothing
+            'Me.flpWindowBottom.BackgroundImage = Nothing
+        End If
+        Me.Refresh()
     End Sub
 
     'Protected Overrides Sub WndProc(ByRef m As System.Windows.Forms.Message)
@@ -889,4 +875,5 @@ Public Class frmMain
             End If
         End If
     End Sub
+
 End Class

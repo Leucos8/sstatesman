@@ -29,15 +29,6 @@ Module mdlMain
         StatusError
     End Enum
 
-    Public Enum Theme As Byte
-        none = 0
-        square = 1
-        noise = 2
-        stripes = 3
-        brushmetal = 4
-        PCSX2 = 11
-    End Enum
-
     Public colorswitch As Boolean = True
 
     Public Sub FirstRun()

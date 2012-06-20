@@ -38,43 +38,13 @@ Public Class frmDeleteForm
 
     Private Sub frmDeleteForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        Select Case My.Settings.SStatesMan_BGImage
-            Case Theme.square
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BG
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.None
-                Me.flpWindowBottom.BackgroundImage = Nothing
-                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.None
-            Case Theme.noise
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BgNoise
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
-                Me.flpWindowBottom.BackgroundImage = My.Resources.BgNoise
-                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
-            Case Theme.stripes
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BgStripes
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
-                Me.flpWindowBottom.BackgroundImage = My.Resources.BgStripes
-                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
-            Case Theme.brushmetal
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BgMetalBrush
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Tile
-                Me.flpWindowBottom.BackgroundImage = My.Resources.BgMetalBrush
-                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Tile
-            Case Theme.PCSX2
-                Me.panelWindowTitle.BackgroundImage = My.Resources.BG_PCSX2
-                Me.panelWindowTitle.BackgroundImageLayout = ImageLayout.Stretch
-                Me.flpWindowBottom.BackgroundImage = My.Resources.BG_PCSX2
-                Me.flpWindowBottom.BackgroundImageLayout = ImageLayout.Stretch
-            Case Else
-                My.Settings.SStatesMan_BGImage = Theme.none
-                Me.panelWindowTitle.BackgroundImage = Nothing
-                Me.flpWindowBottom.BackgroundImage = Nothing
-        End Select
-
         Dim imlLvwCheckboxes As New System.Windows.Forms.ImageList
         imlLvwCheckboxes.ImageSize = New System.Drawing.Size(11 * DPIxScale, 11 * DPIyScale)
         imlLvwCheckboxes.Images.Add(My.Resources.Metro_ChecboxUnchecked)
         imlLvwCheckboxes.Images.Add(My.Resources.Metro_ChecboxChecked)
         Me.lvwSStatesListToDelete.StateImageList = imlLvwCheckboxes
+
+        Me.applyTheme()
 
         UI_Enabler(False)
 
@@ -334,10 +304,10 @@ Public Class frmDeleteForm
 #Region "UI paint"
     Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
         Dim rectoolbar As New Rectangle(0, 8 * DPIyScale, 24 * DPIxScale, 40 * DPIyScale)
-        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, Color.FromArgb(130, 150, 200), Color.FromArgb(65, 74, 100), 90)
+        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 90)
         e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
         If (panelWindowTitle.Height > 4 * DPIyScale) And (panelWindowTitle.Width > 0) Then
-            If My.Settings.SStatesMan_BGEnable Then
+            If My.Settings.SStatesMan_ThemeGradientEnabled Then
                 rectoolbar = New Rectangle(0, panelWindowTitle.Height - 4 * DPIyScale, panelWindowTitle.Width, 4 * DPIyScale)
                 linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, Color.Transparent, Color.DarkGray, 90)
                 e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
@@ -348,13 +318,29 @@ Public Class frmDeleteForm
 
     Private Sub flpWindowBottom_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles flpWindowBottom.Paint
         If flpWindowBottom.Height > 4 * DPIyScale Then
-            If My.Settings.SStatesMan_BGEnable Then
+            If My.Settings.SStatesMan_ThemeGradientEnabled Then
                 Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width, 4 * DPIyScale)
                 Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
                 e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
             End If
             e.Graphics.DrawLine(Pens.DimGray, 0, 0, flpWindowBottom.Width, 0)
         End If
+    End Sub
+
+    Private Sub applyTheme()
+        Me.BackColor = currentTheme.BgColor
+        Me.panelWindowTitle.BackColor = currentTheme.BgColorTop
+        Me.flpWindowBottom.BackColor = currentTheme.BgColorBottom
+        If My.Settings.SStatesMan_ThemeImageEnabled Then
+            Me.panelWindowTitle.BackgroundImage = currentTheme.BgImageTop
+            Me.panelWindowTitle.BackgroundImageLayout = currentTheme.BgImageTopStyle
+            Me.flpWindowBottom.BackgroundImage = currentTheme.BgImageBottom
+            Me.flpWindowBottom.BackgroundImageLayout = currentTheme.BgImageBottomStyle
+        Else
+            Me.panelWindowTitle.BackgroundImage = Nothing
+            Me.flpWindowBottom.BackgroundImage = Nothing
+        End If
+        Me.Refresh()
     End Sub
 #End Region
 

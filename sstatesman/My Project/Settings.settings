@@ -63,7 +63,7 @@
     <Setting Name="SStatesMan_PicsFolder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">coverpics</Value>
     </Setting>
-    <Setting Name="SStatesMan_BGEnable" Type="System.Boolean" Scope="User">
+    <Setting Name="SStatesMan_ThemeGradientEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="PCSX2_PathBinSet" Type="System.Boolean" Scope="User">
@@ -84,11 +84,14 @@
     <Setting Name="SStatesMan_SStatesListShowOnly" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="SStatesMan_BGImage" Type="System.Byte" Scope="User">
+    <Setting Name="SStatesMan_Theme" Type="System.Byte" Scope="User">
       <Value Profile="(Default)">1</Value>
     </Setting>
     <Setting Name="SStatesMan_SStatesVersionExtract" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SStatesMan_ThemeImageEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>
