@@ -120,10 +120,6 @@ Public Class frmMain
 
         'Loading the Game database (from PCSX2 directory)
         mdlGameDb.GameDb_Status = mdlGameDb.GameDb_Load(Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename), mdlGameDb.GameDb)
-        'Scanning savestates
-        mdlFileList.GamesList_Status = GamesList_LoadAll(My.Settings.PCSX2_PathSState, mdlFileList.GamesList)
-
-
         'Refreshing the games list
         Me.List_Refresher()
 
