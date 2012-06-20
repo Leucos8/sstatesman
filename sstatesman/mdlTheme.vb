@@ -16,11 +16,12 @@ Imports System.Drawing
 Module mdlTheme
     Public Enum eTheme As Byte
         none = 0
-        square = 1
+        squares = 1
         noise = 2
         stripes_dark = 3
         stripes_light = 4
         brushedmetal = 5
+        hexagons = 6
         PCSX2 = 11
     End Enum
 
@@ -49,7 +50,7 @@ Module mdlTheme
 
     Public Function LoadTheme(ByVal pTheme As eTheme) As sTheme
         Select Case My.Settings.SStatesMan_Theme
-            Case eTheme.square
+            Case eTheme.squares
                 With LoadTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
                     .AccentColorLight = Color.WhiteSmoke
@@ -114,6 +115,19 @@ Module mdlTheme
                     .BgImageBottom = My.Resources.BgMetalBrush
                     .BgImageBottomStyle = ImageLayout.Tile
                 End With
+            Case eTheme.hexagons
+                With LoadTheme
+                    .AccentColor = Color.FromArgb(255, 130, 150, 200)
+                    .AccentColorLight = Color.WhiteSmoke
+                    .AccentColorDark = Color.FromArgb(255, 65, 74, 100)
+                    .BgColor = Color.WhiteSmoke
+                    .BgColorTop = Color.Silver
+                    .BgColorBottom = Color.Silver
+                    .BgImageTop = My.Resources.BgHex
+                    .BgImageTopStyle = ImageLayout.None
+                    .BgImageBottom = Nothing
+                    .BgImageBottomStyle = ImageLayout.None
+                End With
             Case eTheme.PCSX2
                 With LoadTheme
                     .AccentColor = Color.Gainsboro
@@ -128,7 +142,7 @@ Module mdlTheme
                     .BgImageBottomStyle = ImageLayout.Stretch
                 End With
             Case Else
-                My.Settings.SStatesMan_Theme = eTheme.square
+                My.Settings.SStatesMan_Theme = eTheme.squares
                 With LoadTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
                     .AccentColorLight = Color.WhiteSmoke

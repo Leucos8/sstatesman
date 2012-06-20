@@ -35,7 +35,7 @@ Public Class frmSettings
         Me.ckbSStatesManBGImage.Checked = My.Settings.SStatesMan_ThemeImageEnabled
         Me.ckbSStatesManBGEnabled.Checked = My.Settings.SStatesMan_ThemeGradientEnabled
         Select Case My.Settings.SStatesMan_Theme
-            Case eTheme.square
+            Case eTheme.squares
                 Me.optTheme1.Checked = True
             Case eTheme.noise
                 Me.optTheme2.Checked = True
@@ -45,11 +45,13 @@ Public Class frmSettings
                 Me.optTheme4.Checked = True
             Case eTheme.brushedmetal
                 Me.optTheme5.Checked = True
+            Case eTheme.hexagons
+                Me.optTheme6.Checked = True
             Case eTheme.PCSX2
                 Me.optTheme11.Checked = True
             Case Else
                 Me.optTheme1.Checked = True
-                My.Settings.SStatesMan_Theme = eTheme.square
+                My.Settings.SStatesMan_Theme = eTheme.squares
         End Select
 
 
@@ -566,7 +568,7 @@ Public Class frmSettings
         End If
         Me.Refresh()
     End Sub
-
+#Region "Log"
     Private Sub cmdLogRefresh_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogRefresh.Click
         Me.ListView1.BeginUpdate()
         Me.ListView1.Items.Clear()
@@ -618,10 +620,12 @@ Public Class frmSettings
         Me.ListView1.Items.AddRange(tmpListItems.ToArray)
         Me.ListView1.EndUpdate()
     End Sub
+#End Region
 
+#Region "Theme options"
     Private Sub optTheme1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme1.CheckedChanged
         If optTheme1.Checked Then
-            Me.currentSelectedTheme = eTheme.square
+            Me.currentSelectedTheme = eTheme.squares
         End If
     End Sub
 
@@ -649,9 +653,16 @@ Public Class frmSettings
         End If
     End Sub
 
+    Private Sub optTheme6_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme6.CheckedChanged
+        If optTheme6.Checked Then
+            Me.currentSelectedTheme = eTheme.hexagons
+        End If
+    End Sub
+
     Private Sub optTheme11_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme11.CheckedChanged
         If optTheme11.Checked Then
             Me.currentSelectedTheme = eTheme.PCSX2
         End If
     End Sub
+#End Region
 End Class

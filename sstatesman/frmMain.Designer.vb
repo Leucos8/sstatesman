@@ -1142,6 +1142,7 @@ Partial Class frmMain
         Me.flpTab.Name = "flpTab"
         Me.flpTab.Size = New System.Drawing.Size(203, 23)
         Me.flpTab.TabIndex = 15
+        Me.flpTab.Visible = False
         Me.flpTab.WrapContents = False
         '
         'optSettingTab1
