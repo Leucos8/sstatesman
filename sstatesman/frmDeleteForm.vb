@@ -276,6 +276,7 @@ Public Class frmDeleteForm
             Me.cmdSStateSelectInvert.Enabled = False
             Me.cmdSStateSelectNone.Enabled = False
             Me.cmdSStateSelectBackup.Enabled = False
+            Me.cmdDeleteSStateSelected.Enabled = False
         Else
 
             Me.txtSStateListSelection.Text = System.String.Format("{0:N0} | {1:N0}", Me.lvwSStatesListToDelete.CheckedItems.Count, Me.lvwSStatesListToDelete.Items.Count)
@@ -288,6 +289,7 @@ Public Class frmDeleteForm
             If Me.lvwSStatesListToDelete.CheckedItems.Count > 0 Then
 
                 Me.cmdSStateSelectNone.Enabled = True
+                Me.cmdDeleteSStateSelected.Enabled = True
 
                 If Me.lvwSStatesListToDelete.Items.Count = Me.lvwSStatesListToDelete.CheckedItems.Count Then
                     Me.cmdSStateSelectAll.Enabled = False
@@ -298,13 +300,14 @@ Public Class frmDeleteForm
             Else
                 Me.cmdSStateSelectNone.Enabled = False
                 Me.cmdSStateSelectAll.Enabled = True
+                Me.cmdDeleteSStateSelected.Enabled = False
             End If
         End If
     End Sub
 
 #Region "UI paint"
     Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
-        Dim rectoolbar As New Rectangle(0, 8 * DPIyScale, 24 * DPIxScale, 40 * DPIyScale)
+        Dim rectoolbar As New Rectangle(0, 8 * DPIyScale, 24 * DPIxScale, 39 * DPIyScale)
         Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 90)
         e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
         If (panelWindowTitle.Height > 4 * DPIyScale) And (panelWindowTitle.Width > 0) Then

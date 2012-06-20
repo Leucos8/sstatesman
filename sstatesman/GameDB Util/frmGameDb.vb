@@ -131,6 +131,7 @@ Public Class frmGameDb
                 .CheckFileExists = True
                 .CheckPathExists = True
                 .DefaultExt = ".dbf"
+                .Filter = "PCSX2 Game database|*.dbf|Text file|*.txt|All files|*.*"
                 .InitialDirectory = My.Settings.PCSX2_PathBin
                 .ValidateNames = True
                 .FileName = "GameIndex"
@@ -176,6 +177,7 @@ Public Class frmGameDb
                 .CheckFileExists = False
                 .CheckPathExists = True
                 .DefaultExt = ".txt"
+                .Filter = "Text file|*.txt|All files|*.*"
                 .InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
                 .OverwritePrompt = True
                 .ValidateNames = True
@@ -219,6 +221,7 @@ Public Class frmGameDb
                 .AddExtension = True
                 .CheckFileExists = False
                 .CheckPathExists = True
+                .Filter = "Comma-separated value file|*.csv|Text file|*.txt|All files|*.*"
                 .DefaultExt = ".csv"
                 .InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
                 .OverwritePrompt = True
@@ -307,7 +310,7 @@ Public Class frmGameDb
             myLvwItems.Add(myTmpItem)
         Next
         Me.lvwGameDBList.Items.AddRange(myLvwItems.ToArray)
-        mdlTheme.ListAlternateColors(Me.lvwGameDBList)
+        'mdlTheme.ListAlternateColors(Me.lvwGameDBList)
         Me.populationTime = Now.Subtract(startTime)
 
     End Sub
