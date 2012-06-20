@@ -79,35 +79,44 @@ Partial Class frmGameDb
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 300)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 298)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 11, 0)
-        Me.StatusStrip1.Size = New System.Drawing.Size(624, 22)
+        Me.StatusStrip1.Size = New System.Drawing.Size(624, 24)
         Me.StatusStrip1.TabIndex = 3
         Me.StatusStrip1.Text = "StatusStrip1"
         '
         'ToolStripStatusLabel2
         '
+        Me.ToolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(0, 17)
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(14, 19)
+        Me.ToolStripStatusLabel2.Text = " "
         Me.ToolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ToolStripStatusLabel1
         '
+        Me.ToolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(0, 17)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(14, 19)
+        Me.ToolStripStatusLabel1.Text = " "
         Me.ToolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ToolStripStatusLabel3
         '
+        Me.ToolStripStatusLabel3.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right
         Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
-        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(0, 17)
+        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(14, 19)
+        Me.ToolStripStatusLabel3.Text = " "
         '
         'ToolStrip1
         '
+        Me.ToolStrip1.BackColor = System.Drawing.Color.Gainsboro
+        Me.ToolStrip1.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsGameDbLoad, Me.tsGameDbUnload, Me.ToolStripSeparator1, Me.tsCmdSearch, Me.tsListShow, Me.ToolStripSeparator2, Me.tsCmdSearchSerial, Me.tsExport, Me.tsTxtSearchSerial})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional
         Me.ToolStrip1.Size = New System.Drawing.Size(624, 25)
         Me.ToolStrip1.TabIndex = 2
         Me.ToolStrip1.Text = "ToolStrip"
@@ -118,8 +127,8 @@ Partial Class frmGameDb
         Me.tsGameDbLoad.Image = CType(resources.GetObject("tsGameDbLoad.Image"), System.Drawing.Image)
         Me.tsGameDbLoad.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsGameDbLoad.Name = "tsGameDbLoad"
-        Me.tsGameDbLoad.Size = New System.Drawing.Size(86, 22)
-        Me.tsGameDbLoad.Text = "Load &GameDB"
+        Me.tsGameDbLoad.Size = New System.Drawing.Size(75, 22)
+        Me.tsGameDbLoad.Text = "LOAD &GAMEDB"
         Me.tsGameDbLoad.ToolTipText = "Load the PCSX2 Game Database."
         '
         'tsGameDbUnload
@@ -128,8 +137,8 @@ Partial Class frmGameDb
         Me.tsGameDbUnload.Enabled = False
         Me.tsGameDbUnload.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsGameDbUnload.Name = "tsGameDbUnload"
-        Me.tsGameDbUnload.Size = New System.Drawing.Size(40, 22)
-        Me.tsGameDbUnload.Text = "&Close"
+        Me.tsGameDbUnload.Size = New System.Drawing.Size(37, 22)
+        Me.tsGameDbUnload.Text = "&CLOSE"
         Me.tsGameDbUnload.ToolTipText = "Unload the Game Database. For debugging purpose only"
         '
         'ToolStripSeparator1
@@ -143,8 +152,8 @@ Partial Class frmGameDb
         Me.tsCmdSearch.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.tsCmdSearch.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsCmdSearch.Name = "tsCmdSearch"
-        Me.tsCmdSearch.Size = New System.Drawing.Size(46, 22)
-        Me.tsCmdSearch.Text = "&Search"
+        Me.tsCmdSearch.Size = New System.Drawing.Size(44, 22)
+        Me.tsCmdSearch.Text = "&SEARCH"
         Me.tsCmdSearch.ToolTipText = "Perform a search inside the game database."
         '
         'tsListShow
@@ -153,8 +162,8 @@ Partial Class frmGameDb
         Me.tsListShow.Enabled = False
         Me.tsListShow.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsListShow.Name = "tsListShow"
-        Me.tsListShow.Size = New System.Drawing.Size(75, 22)
-        Me.tsListShow.Text = "&Clear search"
+        Me.tsListShow.Size = New System.Drawing.Size(74, 22)
+        Me.tsListShow.Text = "&CLEAR SEARCH"
         Me.tsListShow.ToolTipText = "Clear the search results listing the full game database."
         Me.tsListShow.Visible = False
         '
@@ -171,8 +180,8 @@ Partial Class frmGameDb
         Me.tsCmdSearchSerial.Enabled = False
         Me.tsCmdSearchSerial.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsCmdSearchSerial.Name = "tsCmdSearchSerial"
-        Me.tsCmdSearchSerial.Size = New System.Drawing.Size(79, 22)
-        Me.tsCmdSearchSerial.Text = "&Quick search"
+        Me.tsCmdSearchSerial.Size = New System.Drawing.Size(75, 22)
+        Me.tsCmdSearchSerial.Text = "&QUICK SEARCH"
         Me.tsCmdSearchSerial.ToolTipText = "Perform a quick search using the given serial"
         '
         'tsExport
@@ -183,25 +192,34 @@ Partial Class frmGameDb
         Me.tsExport.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsExport.Name = "tsExport"
         Me.tsExport.Size = New System.Drawing.Size(53, 22)
-        Me.tsExport.Text = "&Export"
+        Me.tsExport.Text = "&EXPORT"
         Me.tsExport.ToolTipText = "Export the game database to a text file. The search results will be saved if sear" & _
     "ch has been performed."
         '
         'tsExportTSVTxt
         '
+        Me.tsExportTSVTxt.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.tsExportTSVTxt.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tsExportTSVTxt.ForeColor = System.Drawing.Color.DimGray
         Me.tsExportTSVTxt.Name = "tsExportTSVTxt"
-        Me.tsExportTSVTxt.Size = New System.Drawing.Size(232, 22)
+        Me.tsExportTSVTxt.Size = New System.Drawing.Size(223, 22)
         Me.tsExportTSVTxt.Text = "Tab-separated value file..."
         '
         'tsExportCSVTxt
         '
+        Me.tsExportCSVTxt.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.tsExportCSVTxt.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tsExportCSVTxt.ForeColor = System.Drawing.Color.DimGray
         Me.tsExportCSVTxt.Name = "tsExportCSVTxt"
-        Me.tsExportCSVTxt.Size = New System.Drawing.Size(232, 22)
+        Me.tsExportCSVTxt.Size = New System.Drawing.Size(223, 22)
         Me.tsExportCSVTxt.Text = "Comma-separated value file..."
         '
         'tsTxtSearchSerial
         '
         Me.tsTxtSearchSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.tsTxtSearchSerial.BackColor = System.Drawing.Color.White
+        Me.tsTxtSearchSerial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.tsTxtSearchSerial.ForeColor = System.Drawing.Color.DimGray
         Me.tsTxtSearchSerial.Name = "tsTxtSearchSerial"
         Me.tsTxtSearchSerial.Size = New System.Drawing.Size(105, 25)
         Me.tsTxtSearchSerial.Text = "Serial"
@@ -306,15 +324,17 @@ Partial Class frmGameDb
         '
         'lvwGameDBList
         '
+        Me.lvwGameDBList.BackColor = System.Drawing.Color.White
         Me.lvwGameDBList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.GameInfoName, Me.GameInfoSerial, Me.GameInfoRegion, Me.GameInfoCompat})
         Me.lvwGameDBList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lvwGameDBList.ForeColor = System.Drawing.Color.DimGray
         Me.lvwGameDBList.FullRowSelect = True
         Me.lvwGameDBList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
         Me.lvwGameDBList.Location = New System.Drawing.Point(0, 77)
         Me.lvwGameDBList.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwGameDBList.MultiSelect = False
         Me.lvwGameDBList.Name = "lvwGameDBList"
-        Me.lvwGameDBList.Size = New System.Drawing.Size(624, 223)
+        Me.lvwGameDBList.Size = New System.Drawing.Size(624, 221)
         Me.lvwGameDBList.TabIndex = 0
         Me.lvwGameDBList.TileSize = New System.Drawing.Size(480, 64)
         Me.lvwGameDBList.UseCompatibleStateImageBehavior = False
@@ -418,7 +438,7 @@ Partial Class frmGameDb
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ForeColor = System.Drawing.Color.Black
+        Me.ForeColor = System.Drawing.Color.DimGray
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "frmGameDb"
         Me.Text = "GameDB Explorer"
