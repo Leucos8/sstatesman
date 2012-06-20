@@ -44,7 +44,7 @@ Module mdlGameDb
         '   ByRef   pGameDb                     The dinamic array of the GameDB
 
 
-        mdlMain.WriteToConsole("GameDB", "Load", System.String.Format("Opening database from ""{0}"".", pFileGameDb_Loc))
+        mdlMain.AppendToLog("GameDB", "Load", System.String.Format("Opening database from ""{0}"".", pFileGameDb_Loc))
         Try
             Dim startTime As System.DateTime = Now
 
@@ -101,15 +101,15 @@ Module mdlGameDb
             End Using
             GameDb_LoadTime = Now.Subtract(startTime)
             If pGameDb.Count = 0 Then
-                mdlMain.WriteToConsole("GameDB", "Load", System.String.Format("Complete. Loaded 0 records in {0:N1}ms. The array is empty", GameDb_LoadTime.TotalMilliseconds))
+                mdlMain.AppendToLog("GameDB", "Load", "Complete. Loaded 0 records, the dictionary is empty", GameDb_LoadTime.TotalMilliseconds)
                 GameDb_Load = LoadStatus.StatusEmpty
             Else
-                mdlMain.WriteToConsole("GameDB", "Load", System.String.Format("Complete. Loaded {0:N0} records in {1:N1}ms.", pGameDb.Count, GameDb_LoadTime.TotalMilliseconds))
+                mdlMain.AppendToLog("GameDB", "Load", System.String.Format("Complete. Loaded {0:N0} records.", pGameDb.Count), GameDb_LoadTime.TotalMilliseconds)
                 GameDb_Load = LoadStatus.StatusLoadedOK
             End If
 
         Catch ex As Exception
-            mdlMain.WriteToConsole("GameDB", "Load", System.String.Concat("Some kinda failure during GameDB loading. ", ex.Message))
+            mdlMain.AppendToLog("GameDB", "Load", System.String.Concat("Some kinda failure during GameDB loading. ", ex.Message))
             pGameDb.Clear()
             GameDb_Load = LoadStatus.StatusError
         End Try
@@ -161,7 +161,7 @@ Module mdlGameDb
                     .Region = ""
                     .Compat = "0"
                 End With
-                mdlMain.WriteToConsole("GameDB", "RecordExtract", "failed, GameDB was not loaded.")
+                mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB was not loaded.")
             Case LoadStatus.StatusError
                 With myGameDb_RecordExtract
                     .Serial = pSerial
@@ -169,7 +169,7 @@ Module mdlGameDb
                     .Region = ""
                     .Compat = "0"
                 End With
-                mdlMain.WriteToConsole("GameDB", "RecordExtract", "failed, GameDB was not loaded because an error occurred.")
+                mdlMain.AppendToLog("GameDB", "RecordExtract", "failed, GameDB was not loaded because an error occurred.")
         End Select
         Return myGameDb_RecordExtract
     End Function
@@ -219,16 +219,16 @@ Module mdlGameDb
                     GameDb_RecordExtract = LoadStatus.StatusEmpty
                 End If
 
-                mdlMain.WriteToConsole("GameDB", "RecordExtract", "from multiple serials")
+                mdlMain.AppendToLog("GameDB", "RecordExtract", "From multiple serials")
             Case LoadStatus.StatusNotLoaded
                 GameDb_RecordExtract = LoadStatus.StatusNotLoaded
-                mdlMain.WriteToConsole("GameDB", "RecordExtract", "failed, GameDB was not loaded.")
+                mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB was not loaded.")
             Case LoadStatus.StatusError
                 GameDb_RecordExtract = LoadStatus.StatusNotLoaded
-                mdlMain.WriteToConsole("GameDB", "RecordExtract", "failed, GameDB was not loaded because an error occurred.")
+                mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB was not loaded because an error occurred.")
             Case Else
                 GameDb_RecordExtract = LoadStatus.StatusError
-                mdlMain.WriteToConsole("GameDB", "RecordExtract", "failed, something is wrong you shouldn't get this O.o")
+                mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, something is wrong you shouldn't get this O.o")
         End Select
 
     End Function

@@ -25,16 +25,6 @@ Public Class frmGameDb
 
     Private Sub ShowStatus()
 
-        mdlMain.WriteToConsole("GameDB_Util", "ShowStatus", "Refreshed status")
-
-        'With myGameDbRecord
-        '    .Name = ""
-        '    .Serial = ""
-        '    .Region = ""
-        '    .Compat = ""
-        '    '.RStatus = rGameDb_RStatus.RStatus0
-        'End With
-
         Me.tsGameDbUnload.Enabled = False
         Me.tsListShow.Enabled = False
         Me.tsListShow.Visible = False
@@ -90,6 +80,10 @@ Public Class frmGameDb
             Case LoadStatus.StatusEmpty
                 Me.ToolStripStatusLabel2.Text = "GameDB has no records."
         End Select
+
+        mdlMain.AppendToLog("frmGameDB", "ShowStatus", "Refreshed UI status")
+
+
     End Sub
 
     Private Sub LoadGameDB(ByVal pPath As String)
@@ -117,11 +111,11 @@ Public Class frmGameDb
     End Sub
 
     Private Sub tsGameDbLoad_ButtonClick(sender As System.Object, e As System.EventArgs) Handles tsGameDbLoad.ButtonClick
-        LoadGameDB(System.IO.Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
+        LoadGameDB(IO.Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
     End Sub
 
     Private Sub tsLoadDefaultGameDB_Click(sender As System.Object, e As System.EventArgs) Handles tsLoadDefaultGameDB.Click
-        LoadGameDB(System.IO.Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
+        LoadGameDB(IO.Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
     End Sub
 
     Private Sub tsLoadFromFileTool_Click(sender As System.Object, e As System.EventArgs) Handles tsLoadFromFileTool.Click

@@ -86,7 +86,7 @@ Public Class frmDeleteForm
                     '    tmpLvwSListItem.BackColor = Color.WhiteSmoke
                     '    colorswitch = True
                     'End If
-                    If System.IO.File.Exists(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathSState, tmpSavestate.Key)) Then
+                    If IO.File.Exists(IO.Path.Combine(My.Settings.PCSX2_PathSState, tmpSavestate.Key)) Then
                         tmpLvwSListItem.SubItems.Add("")
                         tmpLvwSListItem.Checked = True
                         If tmpSavestate.Value.Backup = False Then

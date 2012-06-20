@@ -360,7 +360,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwGamesList)
 
         Me.lvwGamesList_PopTime = Now.Subtract(StartTime)
-        mdlMain.WriteToConsole("frmMain", "lvwGamesList_Populate", String.Format("Refreshed lvwGamesList listview in {0:N2}.", Me.lvwGamesList_PopTime.TotalMilliseconds))
+        mdlMain.AppendToLog("frmMain", "lvwGamesList_Populate", String.Format("Refreshed lvwGamesList listview with {0:N0} items.", Me.lvwGamesList.Items.Count), Me.lvwGamesList_PopTime.TotalMilliseconds)
     End Sub
 
     Private Sub lvwGamesList_indexCheckedGames()
@@ -441,7 +441,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwSStatesList)
 
         Me.lvwSStatesList_PopTime = Now.Subtract(StartTime)
-        mdlMain.WriteToConsole("frmMain", "lvwSStatesList_Populate", String.Format("Refreshed lvwSStatesLvw listview in {0:N1}ms.", Me.lvwSStatesList_PopTime.TotalMilliseconds))
+        mdlMain.AppendToLog("frmMain", "lvwSStatesList_Populate", String.Format("Refreshed lvwSStatesLvw listview with {0:N1} items.", Me.lvwSStatesList.Items.Count), Me.lvwSStatesList_PopTime.TotalMilliseconds)
     End Sub
 
     Private Sub lvwSStatesList_indexCheckedFiles()
@@ -552,9 +552,9 @@ Public Class frmMain
                     Me.imgFlag.Size = New Size(CInt(Me.imgFlag.Image.PhysicalDimension.Width + 2 * DPIxScale), CInt(Me.imgFlag.Image.PhysicalDimension.Height + 2 * DPIyScale))
 
                     'Cover image
-                    If System.IO.File.Exists(System.IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg")) Then
+                    If System.IO.File.Exists(IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg")) Then
                         Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
-                        Me.imgCover.Load(System.IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg"))
+                        Me.imgCover.Load(IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg"))
                         'A lot of bug here
                         If coverIsExpandend Then
                             Me.imgCover.Height = (Me.imgCover.Image.PhysicalDimension.Height * 118 \ Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale
@@ -650,7 +650,7 @@ Public Class frmMain
             End If
         End If
         Me.UIUpdate_Time = Now.Subtract(StartTime)
-        mdlMain.WriteToConsole("frmMain", "UI_Update", String.Format("Refreshed ui commands in {0:N1}ms.", Me.UIUpdate_Time.TotalMilliseconds))
+        mdlMain.AppendToLog("frmMain", "UI_Update", "Refreshed UI.", Me.UIUpdate_Time.TotalMilliseconds)
     End Sub
 
     Private Sub tmrSStatesListRefresh_Tick(sender As System.Object, e As System.EventArgs) Handles tmrSStatesListRefresh.Tick
@@ -658,15 +658,8 @@ Public Class frmMain
             If Directory.Exists(My.Settings.PCSX2_PathSState) And Not frmDeleteForm.Visible And Not frmSettings.Visible And Not Me.WindowState = FormWindowState.Minimized Then
                 Dim tmpDate As DateTime = Directory.GetLastWriteTime(My.Settings.PCSX2_PathSState)
                 If Not tmpDate = mdlFileList.SStates_FolderLastModified Then
-                    mdlMain.WriteToConsole("frmMain", "Timer", "Refresh...")
-                    Me.UI_Enabler(False, True, True)
-                    mdlFileList.GamesList_Status = GamesList_LoadAll(My.Settings.PCSX2_PathSState, mdlFileList.GamesList)
-                    Me.lvwGamesList_Populate()
-                    Me.lvwGamesList_indexCheckedGames()
-                    Me.lvwSStatesList_Populate()
-                    Me.lvwSStatesList_indexCheckedFiles()
-                    Me.UI_Update()
-                    Me.UI_Enabler(True, True, True)
+                    mdlMain.AppendToLog("frmMain", "Timer", "Refresh ListViews")
+                    Me.List_Refresher()
                 End If
             End If
         Else

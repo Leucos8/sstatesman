@@ -17,8 +17,8 @@ Imports Microsoft.Win32
 
 Module mdlMain
 
-    Public checkedGames As New List(Of String)
-    Public checkedSavestates As New List(Of String)
+    Friend checkedGames As New List(Of String)
+    Friend checkedSavestates As New List(Of String)
     Public DPIxScale As Single = 1.0
     Public DPIyScale As Single = 1.0
 
@@ -29,7 +29,14 @@ Module mdlMain
         StatusError
     End Enum
 
-    'Public colorswitch As Boolean = True
+    Friend Structure sLog
+        Friend Time As DateTime
+        Friend OrClass As String
+        Friend OrMethod As String
+        Friend Description As String
+        Friend Duration As Double
+    End Structure
+    Public AppLog As New List(Of sLog)
 
     Public Sub FirstRun()
         'Show the warning message
@@ -135,7 +142,7 @@ Module mdlMain
                             pResult = Path.Combine(My.Settings.PCSX2_PathInis.Remove(My.Settings.PCSX2_PathInis.Length - 5), My.Settings.PCSX2_SStateFolder)
                             Exit While
                         ElseIf sTmp1.StartsWith("savestates=") Then
-                            Dim sTmp2 As String() = sTmp1.Split({CChar("=")}, 2, StringSplitOptions.RemoveEmptyEntries)
+                            Dim sTmp2 As String() = sTmp1.Split({"="c}, 2, StringSplitOptions.RemoveEmptyEntries)
                             If sTmp2.GetLength(0) >= 2 Then
                                 pResult = sTmp2(1).Replace("\\", "\")
                             End If
@@ -273,7 +280,13 @@ Module mdlMain
         End Select
     End Function
 
-    Public Sub WriteToConsole(ByVal pClass As String, ByVal pMethod As String, ByVal pText As String)
+    Public Sub AppendToLog(ByVal pClass As String, ByVal pMethod As String, ByVal pText As String, Optional pDuration As Double = -1)
+        Const AppLog_MaxLenght As Integer = 31
+        If AppLog.Count >= AppLog_MaxLenght Then
+            AppLog.RemoveAt(0)
+        End If
+        AppLog.Add(New sLog With {.Time = Now, .OrClass = pClass, .OrMethod = pMethod, .Description = pText, .Duration = pDuration})
+
         Console.WriteLine(String.Format("[{0:HH.mm.ss}] {1}.{2} {3}", Now, pClass, pMethod, pText))
     End Sub
 
