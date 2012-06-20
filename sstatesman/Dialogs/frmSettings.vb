@@ -573,7 +573,7 @@ Public Class frmSettings
         Me.ListView1.BeginUpdate()
         Me.ListView1.Items.Clear()
         Dim tmpListItems As New List(Of ListViewItem)
-        For i As Integer = 1 To mdlMain.AppLog.Count - 1
+        For i As Integer = 0 To mdlMain.AppLog.Count - 1
             Dim tmpListItem As New ListViewItem With {.Text = AppLog(i).Time.ToString("H.mm.ss")}
             tmpListItem.SubItems.AddRange({String.Concat(AppLog(i).OrClass, ".", AppLog(i).OrMethod), AppLog(i).Description, String.Format("{0:N0}ms", AppLog(i).Duration)})
             tmpListItems.Add(tmpListItem)
