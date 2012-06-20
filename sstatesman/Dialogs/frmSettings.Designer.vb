@@ -97,6 +97,7 @@ Partial Class frmSettings
         Me.pnlThemeOptions = New System.Windows.Forms.Panel()
         Me.optTheme11 = New System.Windows.Forms.RadioButton()
         Me.optTheme5 = New System.Windows.Forms.RadioButton()
+        Me.optTheme4 = New System.Windows.Forms.RadioButton()
         Me.optTheme3 = New System.Windows.Forms.RadioButton()
         Me.optTheme2 = New System.Windows.Forms.RadioButton()
         Me.optTheme1 = New System.Windows.Forms.RadioButton()
@@ -114,7 +115,6 @@ Partial Class frmSettings
         Me.cmdLogFilter_Files = New System.Windows.Forms.Button()
         Me.cmdLogFilter_GameDB = New System.Windows.Forms.Button()
         Me.lblSStateListCheck = New System.Windows.Forms.Label()
-        Me.optTheme4 = New System.Windows.Forms.RadioButton()
         CType(Me.imgPCSX2IniPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgPCSX2AppPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgSStatesManPicsPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1104,6 +1104,19 @@ Partial Class frmSettings
         Me.optTheme5.Text = "Brushed metal"
         Me.optTheme5.UseVisualStyleBackColor = True
         '
+        'optTheme4
+        '
+        Me.optTheme4.AutoSize = True
+        Me.optTheme4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.optTheme4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.optTheme4.Location = New System.Drawing.Point(8, 53)
+        Me.optTheme4.Name = "optTheme4"
+        Me.optTheme4.Size = New System.Drawing.Size(135, 17)
+        Me.optTheme4.TabIndex = 57
+        Me.optTheme4.TabStop = True
+        Me.optTheme4.Text = "Light stripes"
+        Me.optTheme4.UseVisualStyleBackColor = True
+        '
         'optTheme3
         '
         Me.optTheme3.AutoSize = True
@@ -1322,19 +1335,6 @@ Partial Class frmSettings
         Me.lblSStateListCheck.TabIndex = 42
         Me.lblSStateListCheck.Text = "filter:"
         Me.lblSStateListCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'optTheme4
-        '
-        Me.optTheme4.AutoSize = True
-        Me.optTheme4.Dock = System.Windows.Forms.DockStyle.Top
-        Me.optTheme4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optTheme4.Location = New System.Drawing.Point(8, 53)
-        Me.optTheme4.Name = "optTheme4"
-        Me.optTheme4.Size = New System.Drawing.Size(135, 17)
-        Me.optTheme4.TabIndex = 57
-        Me.optTheme4.TabStop = True
-        Me.optTheme4.Text = "Light stripes"
-        Me.optTheme4.UseVisualStyleBackColor = True
         '
         'frmSettings
         '

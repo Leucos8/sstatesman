@@ -15,7 +15,7 @@
 Public Class frmSettings
 
     Dim TmpSettingsFailTab2 As Boolean = False
-    Dim disablePaintUpdate As Boolean = False
+    Dim currentSelectedTheme As mdlTheme.eTheme
 
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
@@ -195,20 +195,21 @@ Public Class frmSettings
         My.Settings.SStatesMan_SStateTrash = Me.ckbSStatesManMoveToTrash.Checked
         My.Settings.SStatesMan_SStatesVersionExtract = Me.ckbSStatesManVersionExtract.Checked
 
-        My.Settings.SStatesMan_Theme = eTheme.square
-        If Me.optTheme1.Checked Then
-            My.Settings.SStatesMan_Theme = eTheme.square
-        ElseIf Me.optTheme2.Checked Then
-            My.Settings.SStatesMan_Theme = eTheme.noise
-        ElseIf Me.optTheme3.Checked Then
-            My.Settings.SStatesMan_Theme = eTheme.stripes_dark
-        ElseIf Me.optTheme4.Checked Then
-            My.Settings.SStatesMan_Theme = eTheme.stripes_light
-        ElseIf Me.optTheme5.Checked Then
-            My.Settings.SStatesMan_Theme = eTheme.brushedmetal
-        ElseIf Me.optTheme11.Checked Then
-            My.Settings.SStatesMan_Theme = eTheme.PCSX2
-        End If
+        'My.Settings.SStatesMan_Theme = eTheme.square
+        'If Me.optTheme1.Checked Then
+        '    My.Settings.SStatesMan_Theme = eTheme.square
+        'ElseIf Me.optTheme2.Checked Then
+        '    My.Settings.SStatesMan_Theme = eTheme.noise
+        'ElseIf Me.optTheme3.Checked Then
+        '    My.Settings.SStatesMan_Theme = eTheme.stripes_dark
+        'ElseIf Me.optTheme4.Checked Then
+        '    My.Settings.SStatesMan_Theme = eTheme.stripes_light
+        'ElseIf Me.optTheme5.Checked Then
+        '    My.Settings.SStatesMan_Theme = eTheme.brushedmetal
+        'ElseIf Me.optTheme11.Checked Then
+        '    My.Settings.SStatesMan_Theme = eTheme.PCSX2
+        'End If
+        My.Settings.SStatesMan_Theme = currentSelectedTheme
         My.Settings.SStatesMan_ThemeImageEnabled = Me.ckbSStatesManBGImage.Checked
         My.Settings.SStatesMan_ThemeGradientEnabled = Me.ckbSStatesManBGEnabled.Checked
 
@@ -616,5 +617,41 @@ Public Class frmSettings
         Next
         Me.ListView1.Items.AddRange(tmpListItems.ToArray)
         Me.ListView1.EndUpdate()
+    End Sub
+
+    Private Sub optTheme1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme1.CheckedChanged
+        If optTheme1.Checked Then
+            Me.currentSelectedTheme = eTheme.square
+        End If
+    End Sub
+
+    Private Sub optTheme2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme2.CheckedChanged
+        If optTheme2.Checked Then
+            Me.currentSelectedTheme = eTheme.noise
+        End If
+    End Sub
+
+    Private Sub optTheme3_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme3.CheckedChanged
+        If optTheme3.Checked Then
+            Me.currentSelectedTheme = eTheme.stripes_dark
+        End If
+    End Sub
+
+    Private Sub optTheme4_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme4.CheckedChanged
+        If optTheme4.Checked Then
+            Me.currentSelectedTheme = eTheme.stripes_light
+        End If
+    End Sub
+
+    Private Sub optTheme5_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme5.CheckedChanged
+        If optTheme5.Checked Then
+            Me.currentSelectedTheme = eTheme.brushedmetal
+        End If
+    End Sub
+
+    Private Sub optTheme11_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme11.CheckedChanged
+        If optTheme11.Checked Then
+            Me.currentSelectedTheme = eTheme.PCSX2
+        End If
     End Sub
 End Class
