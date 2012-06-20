@@ -441,7 +441,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwSStatesList)
 
         Me.lvwSStatesList_PopTime = Now.Subtract(StartTime)
-        mdlMain.AppendToLog("frmMain", "lvwSStatesList_Populate", String.Format("Refreshed lvwSStatesLvw listview with {0:N1} items.", Me.lvwSStatesList.Items.Count), Me.lvwSStatesList_PopTime.TotalMilliseconds)
+        mdlMain.AppendToLog("frmMain", "lvwSStatesList_Populate", String.Format("Refreshed lvwSStatesLvw listview with {0:N0} items.", Me.lvwSStatesList.Items.Count), Me.lvwSStatesList_PopTime.TotalMilliseconds)
     End Sub
 
     Private Sub lvwSStatesList_indexCheckedFiles()

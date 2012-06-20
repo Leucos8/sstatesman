@@ -58,6 +58,7 @@ Public Class frmSettings
             Me.pnlTab1.Dock = DockStyle.Fill
             Me.pnlTab2.Dock = DockStyle.Fill
             Me.pnlTab3.Dock = DockStyle.Fill
+            Me.pnlTab4.Dock = DockStyle.Fill
         End If
 
     End Sub
@@ -79,9 +80,15 @@ Public Class frmSettings
                 .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
                 .FlatAppearance.MouseDownBackColor = Color.White
             End With
+            With Me.optSettingTab4
+                '.ForeColor = Color.DarkGray
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseDownBackColor = Color.White
+            End With
             Me.pnlTab1.Visible = True
             Me.pnlTab2.Visible = False
             Me.pnlTab3.Visible = False
+            Me.pnlTab4.Visible = False
         End If
     End Sub
 
@@ -102,9 +109,15 @@ Public Class frmSettings
                 .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
                 .FlatAppearance.MouseDownBackColor = Color.White
             End With
+            With Me.optSettingTab4
+                '.ForeColor = Color.DarkGray
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseDownBackColor = Color.White
+            End With
             Me.pnlTab2.Visible = True
             Me.pnlTab1.Visible = False
             Me.pnlTab3.Visible = False
+            Me.pnlTab4.Visible = False
         End If
     End Sub
 
@@ -125,9 +138,44 @@ Public Class frmSettings
                 .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
                 .FlatAppearance.MouseDownBackColor = Color.White
             End With
+            With Me.optSettingTab4
+                '.ForeColor = Color.DarkGray
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseDownBackColor = Color.White
+            End With
             Me.pnlTab3.Visible = True
             Me.pnlTab1.Visible = False
             Me.pnlTab2.Visible = False
+            Me.pnlTab4.Visible = False
+        End If
+    End Sub
+
+    Private Sub optSettingTab4_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab4.CheckedChanged
+        If Me.optSettingTab4.Checked = True Then
+            With Me.optSettingTab4
+                '.ForeColor = Me.flpTab.ForeColor
+                .FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+            End With
+            With Me.optSettingTab1
+                '.ForeColor = Color.DarkGray
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseDownBackColor = Color.White
+            End With
+            With Me.optSettingTab2
+                '.ForeColor = Color.DarkGray
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseDownBackColor = Color.White
+            End With
+            With Me.optSettingTab3
+                '.ForeColor = Color.DarkGray
+                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
+                .FlatAppearance.MouseDownBackColor = Color.White
+            End With
+            Me.pnlTab4.Visible = True
+            Me.pnlTab1.Visible = False
+            Me.pnlTab2.Visible = False
+            Me.pnlTab3.Visible = False
         End If
     End Sub
 
@@ -490,6 +538,14 @@ Public Class frmSettings
         End If
     End Sub
 
+    Private Sub optSettingTab4_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optSettingTab4.Paint
+        If Me.optSettingTab4.Checked Then
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.optSettingTab4.Width, 0)
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.optSettingTab4.Height)
+            e.Graphics.DrawLine(Pens.DimGray, Me.optSettingTab4.Width - 1, 0, Me.optSettingTab4.Width - 1, Me.optSettingTab4.Height)
+        End If
+    End Sub
+
     Private Sub applyTheme()
         Me.BackColor = currentTheme.BgColor
         Me.panelWindowTitle.BackColor = currentTheme.BgColorTop
@@ -506,4 +562,55 @@ Public Class frmSettings
         Me.Refresh()
     End Sub
 
+    Private Sub cmdLogRefresh_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogRefresh.Click
+        Me.ListView1.BeginUpdate()
+        Me.ListView1.Items.Clear()
+        Dim tmpListItems As New List(Of ListViewItem)
+        For i As Integer = 1 To mdlMain.AppLog.Count - 1
+            Dim tmpListItem As New ListViewItem With {.Text = AppLog(i).Time.ToString("H.mm.ss")}
+            tmpListItem.SubItems.AddRange({String.Concat(AppLog(i).OrClass, ".", AppLog(i).OrMethod), AppLog(i).Description, String.Format("{0:N0}ms", AppLog(i).Duration)})
+            tmpListItems.Add(tmpListItem)
+        Next
+        Me.ListView1.Items.AddRange(tmpListItems.ToArray)
+        Me.ListView1.EndUpdate()
+    End Sub
+
+    Private Sub cmdLogFilter_GameDB_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogFilter_GameDB.Click
+        Me.ListView1.BeginUpdate()
+        Me.ListView1.Items.Clear()
+        Dim tmpListItems As New List(Of ListViewItem)
+        For Each tmpLogItem As mdlMain.sLog In mdlMain.AppLog.Where(Function(tmp) tmp.OrClass = "GameDB")
+            Dim tmpListItem As New ListViewItem With {.Text = tmpLogItem.Time.ToString("H.mm.ss")}
+            tmpListItem.SubItems.AddRange({String.Concat(tmpLogItem.OrClass, ".", tmpLogItem.OrMethod), tmpLogItem.Description, String.Format("{0:N0}ms", tmpLogItem.Duration)})
+            tmpListItems.Add(tmpListItem)
+        Next
+        Me.ListView1.Items.AddRange(tmpListItems.ToArray)
+        Me.ListView1.EndUpdate()
+    End Sub
+
+    Private Sub cmdLogFilter_Files_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogFilter_Files.Click
+        Me.ListView1.BeginUpdate()
+        Me.ListView1.Items.Clear()
+        Dim tmpListItems As New List(Of ListViewItem)
+        For Each tmpLogItem As mdlMain.sLog In mdlMain.AppLog.Where(Function(tmp) tmp.OrClass = "FilesList")
+            Dim tmpListItem As New ListViewItem With {.Text = tmpLogItem.Time.ToString("H.mm.ss")}
+            tmpListItem.SubItems.AddRange({String.Concat(tmpLogItem.OrClass, ".", tmpLogItem.OrMethod), tmpLogItem.Description, String.Format("{0:N0}ms", tmpLogItem.Duration)})
+            tmpListItems.Add(tmpListItem)
+        Next
+        Me.ListView1.Items.AddRange(tmpListItems.ToArray)
+        Me.ListView1.EndUpdate()
+    End Sub
+
+    Private Sub cmdLogFilter_frmMain_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogFilter_frmMain.Click
+        Me.ListView1.BeginUpdate()
+        Me.ListView1.Items.Clear()
+        Dim tmpListItems As New List(Of ListViewItem)
+        For Each tmpLogItem As mdlMain.sLog In mdlMain.AppLog.Where(Function(tmp) tmp.OrClass = "frmMain")
+            Dim tmpListItem As New ListViewItem With {.Text = tmpLogItem.Time.ToString("H.mm.ss")}
+            tmpListItem.SubItems.AddRange({String.Concat(tmpLogItem.OrClass, ".", tmpLogItem.OrMethod), tmpLogItem.Description, String.Format("{0:N0}ms", tmpLogItem.Duration)})
+            tmpListItems.Add(tmpListItem)
+        Next
+        Me.ListView1.Items.AddRange(tmpListItems.ToArray)
+        Me.ListView1.EndUpdate()
+    End Sub
 End Class

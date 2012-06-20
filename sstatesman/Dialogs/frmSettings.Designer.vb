@@ -77,6 +77,7 @@ Partial Class frmSettings
         Me.flpWindowBottom = New System.Windows.Forms.FlowLayoutPanel()
         Me.flpTab = New System.Windows.Forms.FlowLayoutPanel()
         Me.optSettingTab3 = New System.Windows.Forms.RadioButton()
+        Me.optSettingTab4 = New System.Windows.Forms.RadioButton()
         Me.panelWindowTitle = New System.Windows.Forms.Panel()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.pnlTab1 = New System.Windows.Forms.Panel()
@@ -91,6 +92,7 @@ Partial Class frmSettings
         Me.pnlTab2 = New System.Windows.Forms.Panel()
         Me.pnlTab3 = New System.Windows.Forms.Panel()
         Me.ckbSStatesManBGEnabled = New System.Windows.Forms.CheckBox()
+        Me.ckbSStatesManBGImage = New System.Windows.Forms.CheckBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pnlThemeOptions = New System.Windows.Forms.Panel()
         Me.optTheme11 = New System.Windows.Forms.RadioButton()
@@ -98,8 +100,20 @@ Partial Class frmSettings
         Me.optTheme3 = New System.Windows.Forms.RadioButton()
         Me.optTheme2 = New System.Windows.Forms.RadioButton()
         Me.optTheme1 = New System.Windows.Forms.RadioButton()
-        Me.ckbSStatesManBGImage = New System.Windows.Forms.CheckBox()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.pnlTab4 = New System.Windows.Forms.Panel()
+        Me.ListView1 = New System.Windows.Forms.ListView()
+        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
+        Me.cmdLogRefresh = New System.Windows.Forms.Button()
+        Me.FlowPanelSStatesList = New System.Windows.Forms.FlowLayoutPanel()
+        Me.cmdLogFilter_frmMain = New System.Windows.Forms.Button()
+        Me.cmdLogFilter_Files = New System.Windows.Forms.Button()
+        Me.cmdLogFilter_GameDB = New System.Windows.Forms.Button()
+        Me.lblSStateListCheck = New System.Windows.Forms.Label()
         CType(Me.imgPCSX2IniPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgPCSX2AppPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgSStatesManPicsPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -119,6 +133,9 @@ Partial Class frmSettings
         Me.pnlTab2.SuspendLayout()
         Me.pnlTab3.SuspendLayout()
         Me.pnlThemeOptions.SuspendLayout()
+        Me.pnlTab4.SuspendLayout()
+        Me.TableLayoutPanel4.SuspendLayout()
+        Me.FlowPanelSStatesList.SuspendLayout()
         Me.SuspendLayout()
         '
         'cmdOk
@@ -155,7 +172,7 @@ Partial Class frmSettings
         Me.txtSStatesManPicsPath.Location = New System.Drawing.Point(6, 4)
         Me.txtSStatesManPicsPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtSStatesManPicsPath.Name = "txtSStatesManPicsPath"
-        Me.txtSStatesManPicsPath.Size = New System.Drawing.Size(125, 22)
+        Me.txtSStatesManPicsPath.Size = New System.Drawing.Size(53, 22)
         Me.txtSStatesManPicsPath.TabIndex = 19
         '
         'cmdCancel
@@ -263,7 +280,7 @@ Partial Class frmSettings
         Me.lblPCSX2IniPathStatus.AutoSize = True
         Me.lblPCSX2IniPathStatus.Location = New System.Drawing.Point(31, 28)
         Me.lblPCSX2IniPathStatus.Name = "lblPCSX2IniPathStatus"
-        Me.lblPCSX2IniPathStatus.Size = New System.Drawing.Size(42, 13)
+        Me.lblPCSX2IniPathStatus.Size = New System.Drawing.Size(1, 13)
         Me.lblPCSX2IniPathStatus.TabIndex = 39
         Me.lblPCSX2IniPathStatus.Text = "<text>"
         '
@@ -298,7 +315,7 @@ Partial Class frmSettings
         Me.txtPCSX2IniPath.Location = New System.Drawing.Point(6, 4)
         Me.txtPCSX2IniPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2IniPath.Name = "txtPCSX2IniPath"
-        Me.txtPCSX2IniPath.Size = New System.Drawing.Size(247, 22)
+        Me.txtPCSX2IniPath.Size = New System.Drawing.Size(59, 22)
         Me.txtPCSX2IniPath.TabIndex = 34
         '
         'cmdPCSX2AppPathOpen
@@ -418,7 +435,7 @@ Partial Class frmSettings
         Me.txtPCSX2AppPath.Location = New System.Drawing.Point(6, 4)
         Me.txtPCSX2AppPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2AppPath.Name = "txtPCSX2AppPath"
-        Me.txtPCSX2AppPath.Size = New System.Drawing.Size(247, 22)
+        Me.txtPCSX2AppPath.Size = New System.Drawing.Size(59, 22)
         Me.txtPCSX2AppPath.TabIndex = 27
         '
         'cmdSStatesManPicsPathOpen
@@ -499,7 +516,7 @@ Partial Class frmSettings
         Me.flpSStatesManPicsPath.Controls.Add(Me.cmdSStatesManPicsPathBrowse)
         Me.flpSStatesManPicsPath.Controls.Add(Me.cmdSStatesManPicsPathOpen)
         Me.flpSStatesManPicsPath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpSStatesManPicsPath.Location = New System.Drawing.Point(15, 28)
+        Me.flpSStatesManPicsPath.Location = New System.Drawing.Point(-57, 28)
         Me.flpSStatesManPicsPath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpSStatesManPicsPath.Name = "flpSStatesManPicsPath"
         Me.flpSStatesManPicsPath.Size = New System.Drawing.Size(118, 28)
@@ -526,7 +543,7 @@ Partial Class frmSettings
         Me.tlpPCSX2AppPath.RowCount = 2
         Me.tlpPCSX2AppPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2AppPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2AppPath.Size = New System.Drawing.Size(259, 58)
+        Me.tlpPCSX2AppPath.Size = New System.Drawing.Size(71, 58)
         Me.tlpPCSX2AppPath.TabIndex = 26
         '
         'flpPCSX2AppPath
@@ -536,7 +553,7 @@ Partial Class frmSettings
         Me.flpPCSX2AppPath.Controls.Add(Me.cmdPCSX2AppPathOpen)
         Me.flpPCSX2AppPath.Controls.Add(Me.cmdPCSX2AppPathDetect)
         Me.flpPCSX2AppPath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2AppPath.Location = New System.Drawing.Point(78, 28)
+        Me.flpPCSX2AppPath.Location = New System.Drawing.Point(-110, 28)
         Me.flpPCSX2AppPath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpPCSX2AppPath.Name = "flpPCSX2AppPath"
         Me.flpPCSX2AppPath.Size = New System.Drawing.Size(177, 28)
@@ -548,7 +565,7 @@ Partial Class frmSettings
         Me.lblPCSX2AppPathStatus.AutoSize = True
         Me.lblPCSX2AppPathStatus.Location = New System.Drawing.Point(31, 28)
         Me.lblPCSX2AppPathStatus.Name = "lblPCSX2AppPathStatus"
-        Me.lblPCSX2AppPathStatus.Size = New System.Drawing.Size(42, 13)
+        Me.lblPCSX2AppPathStatus.Size = New System.Drawing.Size(1, 13)
         Me.lblPCSX2AppPathStatus.TabIndex = 32
         Me.lblPCSX2AppPathStatus.Text = "<text>"
         '
@@ -572,7 +589,7 @@ Partial Class frmSettings
         Me.tlpPCSX2SStatePath.RowCount = 2
         Me.tlpPCSX2SStatePath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2SStatePath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2SStatePath.Size = New System.Drawing.Size(259, 58)
+        Me.tlpPCSX2SStatePath.Size = New System.Drawing.Size(71, 58)
         Me.tlpPCSX2SStatePath.TabIndex = 41
         '
         'flpPCSX2SStatePath
@@ -582,7 +599,7 @@ Partial Class frmSettings
         Me.flpPCSX2SStatePath.Controls.Add(Me.cmdPCSX2SStatePathOpen)
         Me.flpPCSX2SStatePath.Controls.Add(Me.cmdPCSX2SStatePathDetect)
         Me.flpPCSX2SStatePath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2SStatePath.Location = New System.Drawing.Point(78, 28)
+        Me.flpPCSX2SStatePath.Location = New System.Drawing.Point(-110, 28)
         Me.flpPCSX2SStatePath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpPCSX2SStatePath.Name = "flpPCSX2SStatePath"
         Me.flpPCSX2SStatePath.Size = New System.Drawing.Size(177, 28)
@@ -658,7 +675,7 @@ Partial Class frmSettings
         Me.txtPCSX2SStatePath.Location = New System.Drawing.Point(6, 4)
         Me.txtPCSX2SStatePath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2SStatePath.Name = "txtPCSX2SStatePath"
-        Me.txtPCSX2SStatePath.Size = New System.Drawing.Size(247, 22)
+        Me.txtPCSX2SStatePath.Size = New System.Drawing.Size(59, 22)
         Me.txtPCSX2SStatePath.TabIndex = 42
         '
         'lblPCSX2SStatePathStatus
@@ -666,7 +683,7 @@ Partial Class frmSettings
         Me.lblPCSX2SStatePathStatus.AutoSize = True
         Me.lblPCSX2SStatePathStatus.Location = New System.Drawing.Point(31, 28)
         Me.lblPCSX2SStatePathStatus.Name = "lblPCSX2SStatePathStatus"
-        Me.lblPCSX2SStatePathStatus.Size = New System.Drawing.Size(42, 13)
+        Me.lblPCSX2SStatePathStatus.Size = New System.Drawing.Size(1, 13)
         Me.lblPCSX2SStatePathStatus.TabIndex = 47
         Me.lblPCSX2SStatePathStatus.Text = "<text>"
         '
@@ -702,7 +719,7 @@ Partial Class frmSettings
         Me.tlpPCSX2IniPath.RowCount = 2
         Me.tlpPCSX2IniPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2IniPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2IniPath.Size = New System.Drawing.Size(259, 58)
+        Me.tlpPCSX2IniPath.Size = New System.Drawing.Size(71, 58)
         Me.tlpPCSX2IniPath.TabIndex = 30
         '
         'flpPCSX2IniPath
@@ -712,7 +729,7 @@ Partial Class frmSettings
         Me.flpPCSX2IniPath.Controls.Add(Me.cmdPCSX2IniPathOpen)
         Me.flpPCSX2IniPath.Controls.Add(Me.cmdPCSX2IniPathDetect)
         Me.flpPCSX2IniPath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2IniPath.Location = New System.Drawing.Point(78, 28)
+        Me.flpPCSX2IniPath.Location = New System.Drawing.Point(-110, 28)
         Me.flpPCSX2IniPath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpPCSX2IniPath.Name = "flpPCSX2IniPath"
         Me.flpPCSX2IniPath.Size = New System.Drawing.Size(177, 28)
@@ -738,7 +755,7 @@ Partial Class frmSettings
         Me.tlpSStatesManPicsPath.RowCount = 2
         Me.tlpSStatesManPicsPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpSStatesManPicsPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpSStatesManPicsPath.Size = New System.Drawing.Size(137, 58)
+        Me.tlpSStatesManPicsPath.Size = New System.Drawing.Size(65, 58)
         Me.tlpSStatesManPicsPath.TabIndex = 18
         '
         'flpWindowBottom
@@ -765,6 +782,7 @@ Partial Class frmSettings
         Me.flpTab.Controls.Add(Me.optSettingTab1)
         Me.flpTab.Controls.Add(Me.optSettingTab2)
         Me.flpTab.Controls.Add(Me.optSettingTab3)
+        Me.flpTab.Controls.Add(Me.optSettingTab4)
         Me.flpTab.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.flpTab.Location = New System.Drawing.Point(0, 33)
         Me.flpTab.Margin = New System.Windows.Forms.Padding(0)
@@ -793,6 +811,26 @@ Partial Class frmSettings
         Me.optSettingTab3.Text = "Theme"
         Me.optSettingTab3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.optSettingTab3.UseVisualStyleBackColor = False
+        '
+        'optSettingTab4
+        '
+        Me.optSettingTab4.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
+        Me.optSettingTab4.Appearance = System.Windows.Forms.Appearance.Button
+        Me.optSettingTab4.AutoSize = True
+        Me.optSettingTab4.BackColor = System.Drawing.Color.Transparent
+        Me.optSettingTab4.FlatAppearance.BorderSize = 0
+        Me.optSettingTab4.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optSettingTab4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optSettingTab4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optSettingTab4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.optSettingTab4.Location = New System.Drawing.Point(230, 0)
+        Me.optSettingTab4.Margin = New System.Windows.Forms.Padding(0)
+        Me.optSettingTab4.Name = "optSettingTab4"
+        Me.optSettingTab4.Size = New System.Drawing.Size(36, 23)
+        Me.optSettingTab4.TabIndex = 9
+        Me.optSettingTab4.Text = "Log"
+        Me.optSettingTab4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.optSettingTab4.UseVisualStyleBackColor = False
         '
         'panelWindowTitle
         '
@@ -836,10 +874,10 @@ Partial Class frmSettings
         Me.pnlTab1.Controls.Add(Me.ckb_SStatesListShowOnly)
         Me.pnlTab1.Controls.Add(Me.ckbFirstRun)
         Me.pnlTab1.Controls.Add(Me.Label3)
-        Me.pnlTab1.Location = New System.Drawing.Point(12, 78)
+        Me.pnlTab1.Location = New System.Drawing.Point(12, 61)
         Me.pnlTab1.Name = "pnlTab1"
         Me.pnlTab1.Padding = New System.Windows.Forms.Padding(8, 4, 8, 4)
-        Me.pnlTab1.Size = New System.Drawing.Size(153, 252)
+        Me.pnlTab1.Size = New System.Drawing.Size(81, 269)
         Me.pnlTab1.TabIndex = 9
         '
         'lblSStatesManPicsPath
@@ -865,7 +903,7 @@ Partial Class frmSettings
         Me.ckbSStatesManMoveToTrash.Location = New System.Drawing.Point(8, 134)
         Me.ckbSStatesManMoveToTrash.Name = "ckbSStatesManMoveToTrash"
         Me.ckbSStatesManMoveToTrash.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
-        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(137, 21)
+        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(65, 21)
         Me.ckbSStatesManMoveToTrash.TabIndex = 16
         Me.ckbSStatesManMoveToTrash.Text = "Move the deleted savestates to the Recycle Bin instead of deleting them permanent" & _
     "ly."
@@ -882,7 +920,7 @@ Partial Class frmSettings
         Me.ckbSStatesManVersionExtract.Location = New System.Drawing.Point(8, 113)
         Me.ckbSStatesManVersionExtract.Name = "ckbSStatesManVersionExtract"
         Me.ckbSStatesManVersionExtract.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
-        Me.ckbSStatesManVersionExtract.Size = New System.Drawing.Size(137, 21)
+        Me.ckbSStatesManVersionExtract.Size = New System.Drawing.Size(65, 21)
         Me.ckbSStatesManVersionExtract.TabIndex = 15
         Me.ckbSStatesManVersionExtract.Text = "Extract savestates version. (experimental)"
         Me.ckbSStatesManVersionExtract.UseVisualStyleBackColor = False
@@ -908,7 +946,7 @@ Partial Class frmSettings
         Me.ckb_SStatesListAutoRefresh.Location = New System.Drawing.Point(8, 69)
         Me.ckb_SStatesListAutoRefresh.Name = "ckb_SStatesListAutoRefresh"
         Me.ckb_SStatesListAutoRefresh.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
-        Me.ckb_SStatesListAutoRefresh.Size = New System.Drawing.Size(137, 21)
+        Me.ckb_SStatesListAutoRefresh.Size = New System.Drawing.Size(65, 21)
         Me.ckb_SStatesListAutoRefresh.TabIndex = 13
         Me.ckb_SStatesListAutoRefresh.Text = "Automatically refresh the savestates list."
         Me.ckb_SStatesListAutoRefresh.UseVisualStyleBackColor = False
@@ -922,7 +960,7 @@ Partial Class frmSettings
         Me.ckb_SStatesListShowOnly.Location = New System.Drawing.Point(8, 48)
         Me.ckb_SStatesListShowOnly.Name = "ckb_SStatesListShowOnly"
         Me.ckb_SStatesListShowOnly.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
-        Me.ckb_SStatesListShowOnly.Size = New System.Drawing.Size(137, 21)
+        Me.ckb_SStatesListShowOnly.Size = New System.Drawing.Size(65, 21)
         Me.ckb_SStatesListShowOnly.TabIndex = 12
         Me.ckb_SStatesListShowOnly.Text = "By default hide the games list."
         Me.ckb_SStatesListShowOnly.UseVisualStyleBackColor = False
@@ -936,7 +974,7 @@ Partial Class frmSettings
         Me.ckbFirstRun.Location = New System.Drawing.Point(8, 27)
         Me.ckbFirstRun.Name = "ckbFirstRun"
         Me.ckbFirstRun.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
-        Me.ckbFirstRun.Size = New System.Drawing.Size(137, 21)
+        Me.ckbFirstRun.Size = New System.Drawing.Size(65, 21)
         Me.ckbFirstRun.TabIndex = 11
         Me.ckbFirstRun.Text = "Restore SStatesMan settings to their defaults on next startup."
         Me.ckbFirstRun.UseVisualStyleBackColor = False
@@ -962,10 +1000,10 @@ Partial Class frmSettings
         Me.pnlTab2.Controls.Add(Me.lblPCSX2IniPath)
         Me.pnlTab2.Controls.Add(Me.tlpPCSX2AppPath)
         Me.pnlTab2.Controls.Add(Me.lblPCSX2AppPath)
-        Me.pnlTab2.Location = New System.Drawing.Point(171, 78)
+        Me.pnlTab2.Location = New System.Drawing.Point(93, 61)
         Me.pnlTab2.Name = "pnlTab2"
         Me.pnlTab2.Padding = New System.Windows.Forms.Padding(8, 4, 8, 4)
-        Me.pnlTab2.Size = New System.Drawing.Size(275, 252)
+        Me.pnlTab2.Size = New System.Drawing.Size(87, 269)
         Me.pnlTab2.TabIndex = 24
         '
         'pnlTab3
@@ -976,10 +1014,10 @@ Partial Class frmSettings
         Me.pnlTab3.Controls.Add(Me.Label2)
         Me.pnlTab3.Controls.Add(Me.pnlThemeOptions)
         Me.pnlTab3.Controls.Add(Me.Label5)
-        Me.pnlTab3.Location = New System.Drawing.Point(452, 78)
+        Me.pnlTab3.Location = New System.Drawing.Point(180, 61)
         Me.pnlTab3.Name = "pnlTab3"
         Me.pnlTab3.Padding = New System.Windows.Forms.Padding(8, 4, 8, 4)
-        Me.pnlTab3.Size = New System.Drawing.Size(90, 252)
+        Me.pnlTab3.Size = New System.Drawing.Size(50, 269)
         Me.pnlTab3.TabIndex = 48
         '
         'ckbSStatesManBGEnabled
@@ -991,10 +1029,24 @@ Partial Class frmSettings
         Me.ckbSStatesManBGEnabled.Location = New System.Drawing.Point(8, 160)
         Me.ckbSStatesManBGEnabled.Name = "ckbSStatesManBGEnabled"
         Me.ckbSStatesManBGEnabled.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
-        Me.ckbSStatesManBGEnabled.Size = New System.Drawing.Size(74, 21)
+        Me.ckbSStatesManBGEnabled.Size = New System.Drawing.Size(34, 21)
         Me.ckbSStatesManBGEnabled.TabIndex = 57
         Me.ckbSStatesManBGEnabled.Text = "Enable windows gradient backgrounds."
         Me.ckbSStatesManBGEnabled.UseVisualStyleBackColor = False
+        '
+        'ckbSStatesManBGImage
+        '
+        Me.ckbSStatesManBGImage.AutoSize = True
+        Me.ckbSStatesManBGImage.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ckbSStatesManBGImage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.ckbSStatesManBGImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ckbSStatesManBGImage.Location = New System.Drawing.Point(8, 139)
+        Me.ckbSStatesManBGImage.Name = "ckbSStatesManBGImage"
+        Me.ckbSStatesManBGImage.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
+        Me.ckbSStatesManBGImage.Size = New System.Drawing.Size(34, 21)
+        Me.ckbSStatesManBGImage.TabIndex = 50
+        Me.ckbSStatesManBGImage.Text = "Enable windows background image."
+        Me.ckbSStatesManBGImage.UseVisualStyleBackColor = False
         '
         'Label2
         '
@@ -1021,7 +1073,7 @@ Partial Class frmSettings
         Me.pnlThemeOptions.Location = New System.Drawing.Point(8, 27)
         Me.pnlThemeOptions.Name = "pnlThemeOptions"
         Me.pnlThemeOptions.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
-        Me.pnlThemeOptions.Size = New System.Drawing.Size(74, 89)
+        Me.pnlThemeOptions.Size = New System.Drawing.Size(34, 89)
         Me.pnlThemeOptions.TabIndex = 51
         '
         'optTheme11
@@ -1031,7 +1083,7 @@ Partial Class frmSettings
         Me.optTheme11.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optTheme11.Location = New System.Drawing.Point(8, 70)
         Me.optTheme11.Name = "optTheme11"
-        Me.optTheme11.Size = New System.Drawing.Size(58, 17)
+        Me.optTheme11.Size = New System.Drawing.Size(18, 17)
         Me.optTheme11.TabIndex = 55
         Me.optTheme11.TabStop = True
         Me.optTheme11.Text = "PCSX2"
@@ -1044,7 +1096,7 @@ Partial Class frmSettings
         Me.optTheme4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optTheme4.Location = New System.Drawing.Point(8, 53)
         Me.optTheme4.Name = "optTheme4"
-        Me.optTheme4.Size = New System.Drawing.Size(58, 17)
+        Me.optTheme4.Size = New System.Drawing.Size(18, 17)
         Me.optTheme4.TabIndex = 56
         Me.optTheme4.TabStop = True
         Me.optTheme4.Text = "Brushed metal"
@@ -1057,7 +1109,7 @@ Partial Class frmSettings
         Me.optTheme3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optTheme3.Location = New System.Drawing.Point(8, 36)
         Me.optTheme3.Name = "optTheme3"
-        Me.optTheme3.Size = New System.Drawing.Size(58, 17)
+        Me.optTheme3.Size = New System.Drawing.Size(18, 17)
         Me.optTheme3.TabIndex = 54
         Me.optTheme3.TabStop = True
         Me.optTheme3.Text = "Stripes"
@@ -1070,7 +1122,7 @@ Partial Class frmSettings
         Me.optTheme2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optTheme2.Location = New System.Drawing.Point(8, 19)
         Me.optTheme2.Name = "optTheme2"
-        Me.optTheme2.Size = New System.Drawing.Size(58, 17)
+        Me.optTheme2.Size = New System.Drawing.Size(18, 17)
         Me.optTheme2.TabIndex = 53
         Me.optTheme2.TabStop = True
         Me.optTheme2.Text = "Noise"
@@ -1084,25 +1136,11 @@ Partial Class frmSettings
         Me.optTheme1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.optTheme1.Location = New System.Drawing.Point(8, 2)
         Me.optTheme1.Name = "optTheme1"
-        Me.optTheme1.Size = New System.Drawing.Size(58, 17)
+        Me.optTheme1.Size = New System.Drawing.Size(18, 17)
         Me.optTheme1.TabIndex = 52
         Me.optTheme1.TabStop = True
         Me.optTheme1.Text = "Squares"
         Me.optTheme1.UseVisualStyleBackColor = True
-        '
-        'ckbSStatesManBGImage
-        '
-        Me.ckbSStatesManBGImage.AutoSize = True
-        Me.ckbSStatesManBGImage.Dock = System.Windows.Forms.DockStyle.Top
-        Me.ckbSStatesManBGImage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.ckbSStatesManBGImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbSStatesManBGImage.Location = New System.Drawing.Point(8, 139)
-        Me.ckbSStatesManBGImage.Name = "ckbSStatesManBGImage"
-        Me.ckbSStatesManBGImage.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
-        Me.ckbSStatesManBGImage.Size = New System.Drawing.Size(74, 21)
-        Me.ckbSStatesManBGImage.TabIndex = 50
-        Me.ckbSStatesManBGImage.Text = "Enable windows background image."
-        Me.ckbSStatesManBGImage.UseVisualStyleBackColor = False
         '
         'Label5
         '
@@ -1116,6 +1154,173 @@ Partial Class frmSettings
         Me.Label5.TabIndex = 49
         Me.Label5.Text = "Style"
         '
+        'pnlTab4
+        '
+        Me.pnlTab4.AutoScroll = True
+        Me.pnlTab4.Controls.Add(Me.ListView1)
+        Me.pnlTab4.Controls.Add(Me.TableLayoutPanel4)
+        Me.pnlTab4.Location = New System.Drawing.Point(236, 61)
+        Me.pnlTab4.Name = "pnlTab4"
+        Me.pnlTab4.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
+        Me.pnlTab4.Size = New System.Drawing.Size(306, 269)
+        Me.pnlTab4.TabIndex = 58
+        '
+        'ListView1
+        '
+        Me.ListView1.BackColor = System.Drawing.Color.White
+        Me.ListView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4})
+        Me.ListView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ListView1.ForeColor = System.Drawing.Color.DimGray
+        Me.ListView1.FullRowSelect = True
+        Me.ListView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.ListView1.Location = New System.Drawing.Point(8, 23)
+        Me.ListView1.Margin = New System.Windows.Forms.Padding(0)
+        Me.ListView1.Name = "ListView1"
+        Me.ListView1.Size = New System.Drawing.Size(290, 242)
+        Me.ListView1.TabIndex = 0
+        Me.ListView1.UseCompatibleStateImageBehavior = False
+        Me.ListView1.View = System.Windows.Forms.View.Details
+        '
+        'ColumnHeader1
+        '
+        Me.ColumnHeader1.Text = "Time"
+        '
+        'ColumnHeader2
+        '
+        Me.ColumnHeader2.Text = "Origin"
+        Me.ColumnHeader2.Width = 180
+        '
+        'ColumnHeader3
+        '
+        Me.ColumnHeader3.Text = "Decription"
+        Me.ColumnHeader3.Width = 240
+        '
+        'ColumnHeader4
+        '
+        Me.ColumnHeader4.Text = "Duration"
+        Me.ColumnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.ColumnHeader4.Width = 40
+        '
+        'TableLayoutPanel4
+        '
+        Me.TableLayoutPanel4.AutoSize = True
+        Me.TableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.TableLayoutPanel4.ColumnCount = 3
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.TableLayoutPanel4.Controls.Add(Me.cmdLogRefresh, 2, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.FlowPanelSStatesList, 0, 0)
+        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TableLayoutPanel4.Location = New System.Drawing.Point(8, 0)
+        Me.TableLayoutPanel4.Margin = New System.Windows.Forms.Padding(0)
+        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
+        Me.TableLayoutPanel4.Padding = New System.Windows.Forms.Padding(16, 0, 16, 0)
+        Me.TableLayoutPanel4.RowCount = 1
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(290, 23)
+        Me.TableLayoutPanel4.TabIndex = 39
+        '
+        'cmdLogRefresh
+        '
+        Me.cmdLogRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdLogRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdLogRefresh.FlatAppearance.BorderSize = 0
+        Me.cmdLogRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdLogRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdLogRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdLogRefresh.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdLogRefresh.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Refresh
+        Me.cmdLogRefresh.Location = New System.Drawing.Point(252, 0)
+        Me.cmdLogRefresh.Margin = New System.Windows.Forms.Padding(0, 0, 0, 1)
+        Me.cmdLogRefresh.Name = "cmdLogRefresh"
+        Me.cmdLogRefresh.Size = New System.Drawing.Size(22, 22)
+        Me.cmdLogRefresh.TabIndex = 20
+        Me.cmdLogRefresh.UseVisualStyleBackColor = False
+        '
+        'FlowPanelSStatesList
+        '
+        Me.FlowPanelSStatesList.AutoSize = True
+        Me.FlowPanelSStatesList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.FlowPanelSStatesList.Controls.Add(Me.cmdLogFilter_frmMain)
+        Me.FlowPanelSStatesList.Controls.Add(Me.cmdLogFilter_Files)
+        Me.FlowPanelSStatesList.Controls.Add(Me.cmdLogFilter_GameDB)
+        Me.FlowPanelSStatesList.Controls.Add(Me.lblSStateListCheck)
+        Me.FlowPanelSStatesList.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.FlowPanelSStatesList.Location = New System.Drawing.Point(16, 0)
+        Me.FlowPanelSStatesList.Margin = New System.Windows.Forms.Padding(0)
+        Me.FlowPanelSStatesList.Name = "FlowPanelSStatesList"
+        Me.FlowPanelSStatesList.Size = New System.Drawing.Size(217, 22)
+        Me.FlowPanelSStatesList.TabIndex = 48
+        Me.FlowPanelSStatesList.WrapContents = False
+        '
+        'cmdLogFilter_frmMain
+        '
+        Me.cmdLogFilter_frmMain.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdLogFilter_frmMain.AutoSize = True
+        Me.cmdLogFilter_frmMain.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdLogFilter_frmMain.FlatAppearance.BorderSize = 0
+        Me.cmdLogFilter_frmMain.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdLogFilter_frmMain.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdLogFilter_frmMain.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdLogFilter_frmMain.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdLogFilter_frmMain.Location = New System.Drawing.Point(133, 0)
+        Me.cmdLogFilter_frmMain.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdLogFilter_frmMain.Name = "cmdLogFilter_frmMain"
+        Me.cmdLogFilter_frmMain.Size = New System.Drawing.Size(84, 22)
+        Me.cmdLogFilter_frmMain.TabIndex = 45
+        Me.cmdLogFilter_frmMain.Text = "MAIN WINDOW"
+        Me.cmdLogFilter_frmMain.UseVisualStyleBackColor = False
+        '
+        'cmdLogFilter_Files
+        '
+        Me.cmdLogFilter_Files.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdLogFilter_Files.AutoSize = True
+        Me.cmdLogFilter_Files.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdLogFilter_Files.FlatAppearance.BorderSize = 0
+        Me.cmdLogFilter_Files.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdLogFilter_Files.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdLogFilter_Files.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdLogFilter_Files.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdLogFilter_Files.Location = New System.Drawing.Point(95, 0)
+        Me.cmdLogFilter_Files.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdLogFilter_Files.Name = "cmdLogFilter_Files"
+        Me.cmdLogFilter_Files.Size = New System.Drawing.Size(38, 22)
+        Me.cmdLogFilter_Files.TabIndex = 44
+        Me.cmdLogFilter_Files.Text = "FILES"
+        Me.cmdLogFilter_Files.UseVisualStyleBackColor = False
+        '
+        'cmdLogFilter_GameDB
+        '
+        Me.cmdLogFilter_GameDB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdLogFilter_GameDB.AutoSize = True
+        Me.cmdLogFilter_GameDB.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdLogFilter_GameDB.FlatAppearance.BorderSize = 0
+        Me.cmdLogFilter_GameDB.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdLogFilter_GameDB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdLogFilter_GameDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdLogFilter_GameDB.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdLogFilter_GameDB.Location = New System.Drawing.Point(38, 0)
+        Me.cmdLogFilter_GameDB.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdLogFilter_GameDB.Name = "cmdLogFilter_GameDB"
+        Me.cmdLogFilter_GameDB.Size = New System.Drawing.Size(57, 22)
+        Me.cmdLogFilter_GameDB.TabIndex = 43
+        Me.cmdLogFilter_GameDB.Text = "GAMEDB"
+        Me.cmdLogFilter_GameDB.UseVisualStyleBackColor = False
+        '
+        'lblSStateListCheck
+        '
+        Me.lblSStateListCheck.AutoSize = True
+        Me.lblSStateListCheck.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSStateListCheck.Location = New System.Drawing.Point(2, 0)
+        Me.lblSStateListCheck.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblSStateListCheck.Name = "lblSStateListCheck"
+        Me.lblSStateListCheck.Size = New System.Drawing.Size(34, 22)
+        Me.lblSStateListCheck.TabIndex = 42
+        Me.lblSStateListCheck.Text = "filter:"
+        Me.lblSStateListCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1123,6 +1328,7 @@ Partial Class frmSettings
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(554, 372)
         Me.ControlBox = False
+        Me.Controls.Add(Me.pnlTab4)
         Me.Controls.Add(Me.pnlTab3)
         Me.Controls.Add(Me.pnlTab2)
         Me.Controls.Add(Me.pnlTab1)
@@ -1173,6 +1379,12 @@ Partial Class frmSettings
         Me.pnlTab3.PerformLayout()
         Me.pnlThemeOptions.ResumeLayout(False)
         Me.pnlThemeOptions.PerformLayout()
+        Me.pnlTab4.ResumeLayout(False)
+        Me.pnlTab4.PerformLayout()
+        Me.TableLayoutPanel4.ResumeLayout(False)
+        Me.TableLayoutPanel4.PerformLayout()
+        Me.FlowPanelSStatesList.ResumeLayout(False)
+        Me.FlowPanelSStatesList.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1241,4 +1453,18 @@ Partial Class frmSettings
     Friend WithEvents optTheme11 As System.Windows.Forms.RadioButton
     Private WithEvents ckbSStatesManVersionExtract As System.Windows.Forms.CheckBox
     Friend WithEvents optTheme4 As System.Windows.Forms.RadioButton
+    Friend WithEvents pnlTab4 As System.Windows.Forms.Panel
+    Friend WithEvents ListView1 As System.Windows.Forms.ListView
+    Private WithEvents optSettingTab4 As System.Windows.Forms.RadioButton
+    Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColumnHeader3 As System.Windows.Forms.ColumnHeader
+    Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
+    Private WithEvents cmdLogRefresh As System.Windows.Forms.Button
+    Friend WithEvents FlowPanelSStatesList As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents cmdLogFilter_frmMain As System.Windows.Forms.Button
+    Private WithEvents cmdLogFilter_Files As System.Windows.Forms.Button
+    Private WithEvents cmdLogFilter_GameDB As System.Windows.Forms.Button
+    Private WithEvents lblSStateListCheck As System.Windows.Forms.Label
+    Friend WithEvents TableLayoutPanel4 As System.Windows.Forms.TableLayoutPanel
 End Class
