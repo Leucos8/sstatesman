@@ -29,7 +29,7 @@ Module mdlMain
         StatusError
     End Enum
 
-    Public colorswitch As Boolean = True
+    'Public colorswitch As Boolean = True
 
     Public Sub FirstRun()
         'Show the warning message

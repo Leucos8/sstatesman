@@ -307,6 +307,7 @@ Public Class frmGameDb
             myLvwItems.Add(myTmpItem)
         Next
         Me.lvwGameDBList.Items.AddRange(myLvwItems.ToArray)
+        mdlTheme.ListAlternateColors(Me.lvwGameDBList)
         Me.populationTime = Now.Subtract(startTime)
 
     End Sub

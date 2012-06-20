@@ -80,12 +80,12 @@ Public Class frmDeleteForm
                                                        tmpSavestate.Value.Backup.ToString,
                                                        System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2)})
                     'Backcolor
-                    If colorswitch Then
-                        colorswitch = False
-                    Else
-                        tmpLvwSListItem.BackColor = Color.WhiteSmoke
-                        colorswitch = True
-                    End If
+                    'If colorswitch Then
+                    '    colorswitch = False
+                    'Else
+                    '    tmpLvwSListItem.BackColor = Color.WhiteSmoke
+                    '    colorswitch = True
+                    'End If
                     If System.IO.File.Exists(My.Computer.FileSystem.CombinePath(My.Settings.PCSX2_PathSState, tmpSavestate.Key)) Then
                         tmpLvwSListItem.SubItems.Add("")
                         tmpLvwSListItem.Checked = True
@@ -107,8 +107,9 @@ Public Class frmDeleteForm
         Next
         Me.lvwSStatesListToDelete.Groups.AddRange(tmpSListGroups.ToArray)
         Me.lvwSStatesListToDelete.Items.AddRange(tmpSListItems.ToArray)
+        mdlTheme.ListAlternateColors(Me.lvwSStatesListToDelete)
 
-        colorswitch = True
+        'colorswitch = True
         UI_Enabler(True)
         UI_Update()
 

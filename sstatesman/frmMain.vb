@@ -353,22 +353,11 @@ Public Class frmMain
             tmpGListItems.Add(tmpLvwGListItem)
 
         Next
+
         'Addrange is faster than adding each item, even with begin/endupdate
         Me.lvwGamesList.Items.AddRange(tmpGListItems.ToArray)
 
-
-        'item back color
-        'done here because the games are sorted by title instead of serials
-        For Each tmpLvwGListItem As ListViewItem In Me.lvwGamesList.Items
-            If colorswitch Then
-                tmpLvwGListItem.BackColor = Color.Transparent
-                colorswitch = False
-            Else
-                tmpLvwGListItem.BackColor = Color.WhiteSmoke
-                colorswitch = True
-            End If
-        Next
-        colorswitch = True
+        mdlTheme.ListAlternateColors(Me.lvwGamesList)
 
         Me.lvwGamesList_PopTime = Now.Subtract(StartTime)
         mdlMain.WriteToConsole("frmMain", "lvwGamesList_Populate", String.Format("Refreshed lvwGamesList listview in {0:N2}.", Me.lvwGamesList_PopTime.TotalMilliseconds))
@@ -443,22 +432,13 @@ Public Class frmMain
                     tmpLvwSListItem.Checked = True
                 End If
 
-                'Backcolor
-                If colorswitch Then
-                    colorswitch = False
-                Else
-                    tmpLvwSListItem.BackColor = Color.WhiteSmoke
-                    colorswitch = True
-                End If
-
                 tmpSListItems.Add(tmpLvwSListItem)
             Next
 
         Next
         Me.lvwSStatesList.Groups.AddRange(tmpSListGroups.ToArray)
         Me.lvwSStatesList.Items.AddRange(tmpSListItems.ToArray)
-
-        colorswitch = True
+        mdlTheme.ListAlternateColors(Me.lvwSStatesList)
 
         Me.lvwSStatesList_PopTime = Now.Subtract(StartTime)
         mdlMain.WriteToConsole("frmMain", "lvwSStatesList_Populate", String.Format("Refreshed lvwSStatesLvw listview in {0:N1}ms.", Me.lvwSStatesList_PopTime.TotalMilliseconds))
@@ -693,6 +673,7 @@ Public Class frmMain
             Me.tmrSStatesListRefresh.Enabled = False
         End If
     End Sub
+
 #Region "Tabs"
     Private Sub optSettingTab1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab1.CheckedChanged
         If Me.optSettingTab1.Checked = True Then
@@ -843,6 +824,7 @@ Public Class frmMain
     '    End If
     'End Sub
 #End Region
+
     Private Sub imgCover_MouseClick(sender As System.Object, e As MouseEventArgs) Handles imgCover.MouseClick
         If e.Button = Windows.Forms.MouseButtons.Left Then
             If Me.coverIsExpandend Then
