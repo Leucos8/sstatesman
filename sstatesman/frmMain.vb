@@ -557,8 +557,8 @@ Public Class frmMain
                         Me.imgCover.Load(IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg"))
                         'A lot of bug here
                         If coverIsExpandend Then
-                            Me.imgCover.Height = (Me.imgCover.Image.PhysicalDimension.Height * 118 \ Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale
-                            Me.imgCover.Width = 120 * DPIxScale
+                            Me.imgCover.Height = (Me.imgCover.Image.PhysicalDimension.Height * 120 \ Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale
+                            Me.imgCover.Width = 122 * DPIxScale
                         Else
                             If Me.imgCover.Image.PhysicalDimension.Height > Me.imgCover.Image.PhysicalDimension.Width Then
                                 Me.imgCover.Width = (Me.imgCover.Image.PhysicalDimension.Width * 46 \ Me.imgCover.Image.PhysicalDimension.Height + 2) * DPIxScale
@@ -573,7 +573,7 @@ Public Class frmMain
                         Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                         Me.imgCover.Image = My.Resources.Nocover
                         If coverIsExpandend Then
-                            Me.imgCover.Size = New Size(120 * DPIxScale, 120 * DPIyScale)
+                            Me.imgCover.Size = New Size(122 * DPIxScale, 122 * DPIyScale)
                         Else
                             Me.imgCover.Size = New Size(48 * DPIxScale, 48 * DPIyScale)
                         End If
@@ -843,8 +843,8 @@ Public Class frmMain
                 Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 7)
                 Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(2, 0))
                 Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 0))
-                Me.imgCover.Height = (Me.imgCover.Image.PhysicalDimension.Height * 118 \ Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale
-                Me.imgCover.Width = 120 * DPIxScale
+                Me.imgCover.Height = (Me.imgCover.Image.PhysicalDimension.Height * 120 \ Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale
+                Me.imgCover.Width = 122 * DPIxScale
                 Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 2)
                 Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 3)
             End If
