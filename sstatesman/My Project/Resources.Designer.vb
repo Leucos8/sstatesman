@@ -75,20 +75,6 @@ Namespace My.Resources
             End Set
         End Property
         
-        Friend ReadOnly Property BG() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("BG", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        Friend ReadOnly Property BG_PCSX2() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("BG_PCSX2", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
         Friend ReadOnly Property BgMetalBrush() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("BgMetalBrush", resourceCulture)
@@ -103,9 +89,30 @@ Namespace My.Resources
             End Get
         End Property
         
-        Friend ReadOnly Property BgStripes() As System.Drawing.Bitmap
+        Friend ReadOnly Property BgPCSX2() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("BgStripes", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("BgPCSX2", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property BgSquares() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("BgSquares", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property BgStripesDark() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("BgStripesDark", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        Friend ReadOnly Property BgStripesLight() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("BgStripesLight", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

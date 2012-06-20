@@ -18,8 +18,9 @@ Module mdlTheme
         none = 0
         square = 1
         noise = 2
-        stripes = 3
-        brushmetal = 4
+        stripes_dark = 3
+        stripes_light = 4
+        brushedmetal = 5
         PCSX2 = 11
     End Enum
 
@@ -41,7 +42,7 @@ Module mdlTheme
                                             .BgColor = Color.WhiteSmoke,
                                             .BgColorTop = Color.Gainsboro,
                                             .BgColorBottom = Color.Gainsboro,
-                                            .BgImageTop = My.Resources.BG,
+                                            .BgImageTop = My.Resources.BgSquares,
                                             .BgImageTopStyle = ImageLayout.None,
                                             .BgImageBottom = Nothing,
                                             .BgImageBottomStyle = ImageLayout.None}
@@ -56,7 +57,7 @@ Module mdlTheme
                     .BgColor = Color.WhiteSmoke
                     .BgColorTop = Color.Gainsboro
                     .BgColorBottom = Color.Gainsboro
-                    .BgImageTop = My.Resources.BG
+                    .BgImageTop = My.Resources.BgSquares
                     .BgImageTopStyle = ImageLayout.None
                     .BgImageBottom = Nothing
                     .BgImageBottomStyle = ImageLayout.None
@@ -74,7 +75,7 @@ Module mdlTheme
                     .BgImageBottom = My.Resources.BgNoise
                     .BgImageBottomStyle = ImageLayout.Tile
                 End With
-            Case eTheme.stripes
+            Case eTheme.stripes_dark
                 With LoadTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
                     .AccentColorLight = Color.WhiteSmoke
@@ -82,12 +83,25 @@ Module mdlTheme
                     .BgColor = Color.WhiteSmoke
                     .BgColorTop = Color.Gainsboro
                     .BgColorBottom = Color.Gainsboro
-                    .BgImageTop = My.Resources.BgStripes
+                    .BgImageTop = My.Resources.BgStripesDark
                     .BgImageTopStyle = ImageLayout.Tile
-                    .BgImageBottom = My.Resources.BgStripes
+                    .BgImageBottom = My.Resources.BgStripesDark
                     .BgImageBottomStyle = ImageLayout.Tile
                 End With
-            Case eTheme.brushmetal
+            Case eTheme.stripes_light
+                With LoadTheme
+                    .AccentColor = Color.FromArgb(255, 130, 150, 200)
+                    .AccentColorLight = Color.WhiteSmoke
+                    .AccentColorDark = Color.FromArgb(255, 65, 74, 100)
+                    .BgColor = Color.WhiteSmoke
+                    .BgColorTop = Color.Gainsboro
+                    .BgColorBottom = Color.Gainsboro
+                    .BgImageTop = My.Resources.BgStripesLight
+                    .BgImageTopStyle = ImageLayout.Tile
+                    .BgImageBottom = My.Resources.BgStripesLight
+                    .BgImageBottomStyle = ImageLayout.Tile
+                End With
+            Case eTheme.brushedmetal
                 With LoadTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
                     .AccentColorLight = Color.WhiteSmoke
@@ -108,9 +122,9 @@ Module mdlTheme
                     .BgColor = Color.WhiteSmoke
                     .BgColorTop = Color.FromArgb(&HFF82DDF8)
                     .BgColorBottom = Color.FromArgb(&HFF1EBAFB)
-                    .BgImageTop = My.Resources.BG_PCSX2
+                    .BgImageTop = My.Resources.BgPCSX2
                     .BgImageTopStyle = ImageLayout.Stretch
-                    .BgImageBottom = My.Resources.BG_PCSX2
+                    .BgImageBottom = My.Resources.BgPCSX2
                     .BgImageBottomStyle = ImageLayout.Stretch
                 End With
             Case Else
@@ -122,7 +136,7 @@ Module mdlTheme
                     .BgColor = Color.WhiteSmoke
                     .BgColorTop = Color.Gainsboro
                     .BgColorBottom = Color.Gainsboro
-                    .BgImageTop = My.Resources.BG
+                    .BgImageTop = My.Resources.BgSquares
                     .BgImageTopStyle = ImageLayout.None
                     .BgImageBottom = Nothing
                     .BgImageBottomStyle = ImageLayout.None

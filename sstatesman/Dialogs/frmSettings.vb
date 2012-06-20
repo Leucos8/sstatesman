@@ -39,10 +39,12 @@ Public Class frmSettings
                 Me.optTheme1.Checked = True
             Case eTheme.noise
                 Me.optTheme2.Checked = True
-            Case eTheme.stripes
+            Case eTheme.stripes_dark
                 Me.optTheme3.Checked = True
-            Case eTheme.brushmetal
+            Case eTheme.stripes_light
                 Me.optTheme4.Checked = True
+            Case eTheme.brushedmetal
+                Me.optTheme5.Checked = True
             Case eTheme.PCSX2
                 Me.optTheme11.Checked = True
             Case Else
@@ -199,9 +201,11 @@ Public Class frmSettings
         ElseIf Me.optTheme2.Checked Then
             My.Settings.SStatesMan_Theme = eTheme.noise
         ElseIf Me.optTheme3.Checked Then
-            My.Settings.SStatesMan_Theme = eTheme.stripes
+            My.Settings.SStatesMan_Theme = eTheme.stripes_dark
         ElseIf Me.optTheme4.Checked Then
-            My.Settings.SStatesMan_Theme = eTheme.brushmetal
+            My.Settings.SStatesMan_Theme = eTheme.stripes_light
+        ElseIf Me.optTheme5.Checked Then
+            My.Settings.SStatesMan_Theme = eTheme.brushedmetal
         ElseIf Me.optTheme11.Checked Then
             My.Settings.SStatesMan_Theme = eTheme.PCSX2
         End If
