@@ -64,6 +64,11 @@ Partial Class frmMain
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
         Me.lvwGamesList = New System.Windows.Forms.ListView()
+        Me.GamesLvw_GameTitle = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.GameLvw_GameSerial = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.GameLvw_GameRegion = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.GameLvw_SStatesInfo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.GameLvw_BackupInfo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.imgCover = New System.Windows.Forms.PictureBox()
         Me.lblGameList_Title = New System.Windows.Forms.Label()
         Me.txtGameList_Title = New System.Windows.Forms.TextBox()
@@ -104,11 +109,6 @@ Partial Class frmMain
         Me.cmdSStateSelectAll = New System.Windows.Forms.Button()
         Me.cmdSStateSelectBackup = New System.Windows.Forms.Button()
         Me.lblSStateListCheck = New System.Windows.Forms.Label()
-        Me.GamesLvw_GameTitle = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.GameLvw_GameSerial = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.GameLvw_GameRegion = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.GameLvw_SStatesInfo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.GameLvw_BackupInfo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.panelWindowTitle.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel3.SuspendLayout()
@@ -624,6 +624,32 @@ Partial Class frmMain
         Me.lvwGamesList.TileSize = New System.Drawing.Size(480, 96)
         Me.lvwGamesList.UseCompatibleStateImageBehavior = False
         Me.lvwGamesList.View = System.Windows.Forms.View.Details
+        '
+        'GamesLvw_GameTitle
+        '
+        Me.GamesLvw_GameTitle.Text = "Game title"
+        Me.GamesLvw_GameTitle.Width = 220
+        '
+        'GameLvw_GameSerial
+        '
+        Me.GameLvw_GameSerial.Text = "Serial"
+        Me.GameLvw_GameSerial.Width = 80
+        '
+        'GameLvw_GameRegion
+        '
+        Me.GameLvw_GameRegion.Text = "Region"
+        '
+        'GameLvw_SStatesInfo
+        '
+        Me.GameLvw_SStatesInfo.Text = "Savestates"
+        Me.GameLvw_SStatesInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.GameLvw_SStatesInfo.Width = 110
+        '
+        'GameLvw_BackupInfo
+        '
+        Me.GameLvw_BackupInfo.Text = "Backups"
+        Me.GameLvw_BackupInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.GameLvw_BackupInfo.Width = 110
         '
         'imgCover
         '
@@ -1181,32 +1207,6 @@ Partial Class frmMain
         Me.lblSStateListCheck.TabIndex = 42
         Me.lblSStateListCheck.Text = "check savestates:"
         Me.lblSStateListCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'GamesLvw_GameTitle
-        '
-        Me.GamesLvw_GameTitle.Text = "Game title"
-        Me.GamesLvw_GameTitle.Width = 220
-        '
-        'GameLvw_GameSerial
-        '
-        Me.GameLvw_GameSerial.Text = "Serial"
-        Me.GameLvw_GameSerial.Width = 80
-        '
-        'GameLvw_GameRegion
-        '
-        Me.GameLvw_GameRegion.Text = "Region"
-        '
-        'GameLvw_SStatesInfo
-        '
-        Me.GameLvw_SStatesInfo.Text = "Savestates"
-        Me.GameLvw_SStatesInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.GameLvw_SStatesInfo.Width = 110
-        '
-        'GameLvw_BackupInfo
-        '
-        Me.GameLvw_BackupInfo.Text = "Backups"
-        Me.GameLvw_BackupInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.GameLvw_BackupInfo.Width = 110
         '
         'frmMain
         '

@@ -129,6 +129,17 @@ Public Class frmDeleteForm
         imlLvwCheckboxes.Images.Add(My.Resources.Metro_ChecboxChecked)
         Me.lvwSStatesListToDelete.StateImageList = imlLvwCheckboxes
 
+
+        Me.Size = My.Settings.frmDel_WindowSize
+        Me.WindowState = My.Settings.frmDel_WindowState
+
+        Me.StDelLvw_FileName.Width = My.Settings.frmDel_slvw_cFileName
+        Me.StDelLvw_Slot.Width = My.Settings.frmDel_slvw_cSlot
+        Me.StDelLvw_Version.Width = My.Settings.frmDel_slvw_cVersion
+        Me.StDelLvw_Size.Width = My.Settings.frmDel_slvw_cSize
+        Me.StDelLvw_Status.Width = My.Settings.frmDel_slvw_cStatus
+
+
         Me.applyTheme()
 
         UI_Enabler(False)
@@ -144,6 +155,20 @@ Public Class frmDeleteForm
         Me.lvwSStatesListToDelete.Groups.Clear()
         Me.SStateList_TotalSize = 0
         Me.SStateList_TotalSizeBackup = 0
+
+
+        My.Settings.frmDel_WindowState = Me.WindowState
+        If Not (Me.WindowState = FormWindowState.Maximized Or Me.WindowState = FormWindowState.Minimized) Then
+            My.Settings.frmDel_WindowSize = Me.Size
+        End If
+
+        My.Settings.frmDel_slvw_cFileName = Me.StDelLvw_FileName.Width
+        My.Settings.frmDel_slvw_cSlot = Me.StDelLvw_Slot.Width
+        My.Settings.frmDel_slvw_cVersion = Me.StDelLvw_Version.Width
+        My.Settings.frmDel_slvw_cSize = Me.StDelLvw_Size.Width
+        My.Settings.frmDel_slvw_cStatus = Me.StDelLvw_Status.Width
+
+
         frmMain.List_Refresher()
     End Sub
 

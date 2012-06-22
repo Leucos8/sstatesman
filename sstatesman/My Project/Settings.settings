@@ -138,5 +138,26 @@
     <Setting Name="frmMain_slvw_cSize" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">80</Value>
     </Setting>
+    <Setting Name="frmDel_slvw_cFileName" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">240</Value>
+    </Setting>
+    <Setting Name="frmDel_slvw_cSlot" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">40</Value>
+    </Setting>
+    <Setting Name="frmDel_slvw_cVersion" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">80</Value>
+    </Setting>
+    <Setting Name="frmDel_slvw_cSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="frmDel_slvw_cStatus" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">120</Value>
+    </Setting>
+    <Setting Name="frmDel_WindowSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">640, 360</Value>
+    </Setting>
+    <Setting Name="frmDel_WindowState" Type="System.Windows.Forms.FormWindowState" Scope="User">
+      <Value Profile="(Default)">Normal</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

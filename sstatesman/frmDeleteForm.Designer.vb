@@ -39,11 +39,11 @@ Partial Class frmDeleteForm
         Me.cmdCancel = New System.Windows.Forms.Button()
         Me.cmdDeleteSStateSelected = New System.Windows.Forms.Button()
         Me.lvwSStatesListToDelete = New System.Windows.Forms.ListView()
-        Me.SStateLvw_FileName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.SStatesLvw_Slot = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.SStatesLvw_Backup = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.SStatesLvw_Size = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.SStatesLvw_Status = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.StDelLvw_FileName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.StDelLvw_Slot = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.StDelLvw_Version = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.StDelLvw_Size = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.StDelLvw_Status = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmdSStateSelectInvert = New System.Windows.Forms.Button()
         Me.cmdSStateSelectBackup = New System.Windows.Forms.Button()
         Me.cmdSStateSelectAll = New System.Windows.Forms.Button()
@@ -124,7 +124,7 @@ Partial Class frmDeleteForm
         Me.lvwSStatesListToDelete.BackColor = System.Drawing.Color.White
         Me.lvwSStatesListToDelete.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lvwSStatesListToDelete.CheckBoxes = True
-        Me.lvwSStatesListToDelete.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.SStateLvw_FileName, Me.SStatesLvw_Slot, Me.SStatesLvw_Backup, Me.SStatesLvw_Size, Me.SStatesLvw_Status})
+        Me.lvwSStatesListToDelete.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StDelLvw_FileName, Me.StDelLvw_Slot, Me.StDelLvw_Version, Me.StDelLvw_Size, Me.StDelLvw_Status})
         Me.lvwSStatesListToDelete.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvwSStatesListToDelete.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lvwSStatesListToDelete.ForeColor = System.Drawing.Color.DimGray
@@ -139,31 +139,32 @@ Partial Class frmDeleteForm
         Me.lvwSStatesListToDelete.UseCompatibleStateImageBehavior = False
         Me.lvwSStatesListToDelete.View = System.Windows.Forms.View.Details
         '
-        'SStateLvw_FileName
+        'StDelLvw_FileName
         '
-        Me.SStateLvw_FileName.Text = "Savestate file name"
-        Me.SStateLvw_FileName.Width = 240
+        Me.StDelLvw_FileName.Text = "Savestate file name"
+        Me.StDelLvw_FileName.Width = 240
         '
-        'SStatesLvw_Slot
+        'StDelLvw_Slot
         '
-        Me.SStatesLvw_Slot.Text = "Slot"
-        Me.SStatesLvw_Slot.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.SStatesLvw_Slot.Width = 40
+        Me.StDelLvw_Slot.Text = "Slot"
+        Me.StDelLvw_Slot.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.StDelLvw_Slot.Width = 40
         '
-        'SStatesLvw_Backup
+        'StDelLvw_Version
         '
-        Me.SStatesLvw_Backup.Text = "Backup"
+        Me.StDelLvw_Version.Text = "Version"
+        Me.StDelLvw_Version.Width = 80
         '
-        'SStatesLvw_Size
+        'StDelLvw_Size
         '
-        Me.SStatesLvw_Size.Text = "Size"
-        Me.SStatesLvw_Size.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.SStatesLvw_Size.Width = 100
+        Me.StDelLvw_Size.Text = "Size"
+        Me.StDelLvw_Size.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.StDelLvw_Size.Width = 100
         '
-        'SStatesLvw_Status
+        'StDelLvw_Status
         '
-        Me.SStatesLvw_Status.Text = "Status"
-        Me.SStatesLvw_Status.Width = 120
+        Me.StDelLvw_Status.Text = "Status"
+        Me.StDelLvw_Status.Width = 120
         '
         'cmdSStateSelectInvert
         '
@@ -563,11 +564,11 @@ Partial Class frmDeleteForm
     Private WithEvents cmdCancel As System.Windows.Forms.Button
     Private WithEvents cmdDeleteSStateSelected As System.Windows.Forms.Button
     Private WithEvents lvwSStatesListToDelete As System.Windows.Forms.ListView
-    Private WithEvents SStateLvw_FileName As System.Windows.Forms.ColumnHeader
-    Private WithEvents SStatesLvw_Slot As System.Windows.Forms.ColumnHeader
-    Private WithEvents SStatesLvw_Backup As System.Windows.Forms.ColumnHeader
-    Private WithEvents SStatesLvw_Size As System.Windows.Forms.ColumnHeader
-    Private WithEvents SStatesLvw_Status As System.Windows.Forms.ColumnHeader
+    Private WithEvents StDelLvw_FileName As System.Windows.Forms.ColumnHeader
+    Private WithEvents StDelLvw_Slot As System.Windows.Forms.ColumnHeader
+    Private WithEvents StDelLvw_Version As System.Windows.Forms.ColumnHeader
+    Private WithEvents StDelLvw_Size As System.Windows.Forms.ColumnHeader
+    Private WithEvents StDelLvw_Status As System.Windows.Forms.ColumnHeader
     Private WithEvents cmdSStateSelectInvert As System.Windows.Forms.Button
     Private WithEvents cmdSStateSelectBackup As System.Windows.Forms.Button
     Private WithEvents cmdSStateSelectAll As System.Windows.Forms.Button

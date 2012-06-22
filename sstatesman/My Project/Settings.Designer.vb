@@ -518,6 +518,90 @@ Namespace My
                 Me("frmMain_slvw_cSize") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("240")>  _
+        Public Property frmDel_slvw_cFileName() As Integer
+            Get
+                Return CType(Me("frmDel_slvw_cFileName"),Integer)
+            End Get
+            Set
+                Me("frmDel_slvw_cFileName") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("40")>  _
+        Public Property frmDel_slvw_cSlot() As Integer
+            Get
+                Return CType(Me("frmDel_slvw_cSlot"),Integer)
+            End Get
+            Set
+                Me("frmDel_slvw_cSlot") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("80")>  _
+        Public Property frmDel_slvw_cVersion() As Integer
+            Get
+                Return CType(Me("frmDel_slvw_cVersion"),Integer)
+            End Get
+            Set
+                Me("frmDel_slvw_cVersion") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100")>  _
+        Public Property frmDel_slvw_cSize() As Integer
+            Get
+                Return CType(Me("frmDel_slvw_cSize"),Integer)
+            End Get
+            Set
+                Me("frmDel_slvw_cSize") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("120")>  _
+        Public Property frmDel_slvw_cStatus() As Integer
+            Get
+                Return CType(Me("frmDel_slvw_cStatus"),Integer)
+            End Get
+            Set
+                Me("frmDel_slvw_cStatus") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("640, 360")>  _
+        Public Property frmDel_WindowSize() As Global.System.Drawing.Size
+            Get
+                Return CType(Me("frmDel_WindowSize"),Global.System.Drawing.Size)
+            End Get
+            Set
+                Me("frmDel_WindowSize") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Normal")>  _
+        Public Property frmDel_WindowState() As Global.System.Windows.Forms.FormWindowState
+            Get
+                Return CType(Me("frmDel_WindowState"),Global.System.Windows.Forms.FormWindowState)
+            End Get
+            Set
+                Me("frmDel_WindowState") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
