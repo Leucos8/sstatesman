@@ -15,15 +15,15 @@
 Public NotInheritable Class frmAbout
 
     Private Sub frmAbout_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        ' Imposta il titolo del form.
+
+        Me.applyTheme()
+
         Me.lblVersionMain.Text = String.Format("Version {0}",
                                                My.Application.Info.Version.ToString)
         Me.lblVersionChannel.Text = String.Format("Release channel: {0}", My.Settings.SStatesMan_Channel)
 
         Me.lblCopyright.Text = My.Application.Info.Copyright
         Me.lblAuthorName.Text = String.Concat("Created by ", My.Application.Info.CompanyName)
-
-        Me.applyTheme()
 
     End Sub
 
@@ -35,6 +35,7 @@ Public NotInheritable Class frmAbout
         System.Diagnostics.Process.Start("http://forums.pcsx2.net/Thread-SStatesMan-a-savestates-managing-tool-for-PCSX2")
     End Sub
 
+#Region "Tab management"
     Private Sub optSettingTab1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab1.CheckedChanged
         If Me.optSettingTab1.Checked = True Then
             With Me.optSettingTab1
@@ -64,14 +65,16 @@ Public NotInheritable Class frmAbout
             Me.SplitContainer1.Panel2Collapsed = False
         End If
     End Sub
+#End Region
 
+#Region "UI paint"
     Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
-        Dim recToolbar As New Rectangle(8 * DPIxScale, 0, 128 * DPIxScale, 8 * DPIyScale)
+        Dim recToolbar As New Rectangle(CInt(8 * DPIxScale), 0, CInt(127 * DPIxScale) + 1, CInt(7 * DPIyScale) + 1)
         Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 0)
         e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-        If (panelWindowTitle.Height > 4 * DPIyScale) And (panelWindowTitle.Width > 0) Then
+        If (panelWindowTitle.Height > 4 * CInt(DPIyScale) + 1) And (panelWindowTitle.Width > 0) Then
             If My.Settings.SStatesMan_ThemeGradientEnabled Then
-                recToolbar = New Rectangle(0, panelWindowTitle.Height - 4 * DPIyScale, panelWindowTitle.Width, 4 * DPIyScale)
+                recToolbar = New Rectangle(0, panelWindowTitle.Height - CInt(4 * DPIyScale), panelWindowTitle.Width, CInt(3 * DPIyScale) + 1)
                 linGrBrushToolbar = New Drawing2D.LinearGradientBrush(recToolbar, Color.Transparent, Color.DarkGray, 90)
                 e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
             End If
@@ -80,9 +83,9 @@ Public NotInheritable Class frmAbout
     End Sub
 
     Private Sub flpWindowBottom_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles flpWindowBottom.Paint
-        If flpWindowBottom.Height > 4 * DPIyScale Then
+        If flpWindowBottom.Height > CInt(4 * DPIyScale) Then
             If My.Settings.SStatesMan_ThemeGradientEnabled Then
-                Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width, 4 * DPIyScale)
+                Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width + 1, CInt(3 * DPIyScale) + 1)
                 Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
                 e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
             End If
@@ -121,4 +124,6 @@ Public NotInheritable Class frmAbout
         End If
         Me.Refresh()
     End Sub
+#End Region
+
 End Class
