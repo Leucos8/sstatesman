@@ -280,14 +280,14 @@ Module mdlMain
         End Select
     End Function
 
-    Public Sub AppendToLog(ByVal pClass As String, ByVal pMethod As String, ByVal pText As String, Optional pDuration As Double = -1)
+    Public Sub AppendToLog(ByVal pClass As String, ByVal pMethod As String, ByVal pMessage As String, Optional pDuration As Double = -1)
         Const AppLog_MaxLenght As Integer = 31
         If AppLog.Count >= AppLog_MaxLenght Then
             AppLog.RemoveAt(0)
         End If
-        AppLog.Add(New sLog With {.Time = Now, .OrClass = pClass, .OrMethod = pMethod, .Description = pText, .Duration = pDuration})
+        AppLog.Add(New sLog With {.Time = Now, .OrClass = pClass, .OrMethod = pMethod, .Description = pMessage, .Duration = pDuration})
 
-        Console.WriteLine(String.Format("[{0:HH.mm.ss}] {1}.{2} {3}", Now, pClass, pMethod, pText))
+        Console.WriteLine(String.Format("[{0:HH.mm.ss}] {1}.{2} {3} {4:N}ms.", Now, pClass, pMethod, pMessage, pDuration))
     End Sub
 
 End Module

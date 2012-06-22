@@ -204,7 +204,7 @@ Public Class frmMain
                                                CInt(Me.imgFlag.Image.PhysicalDimension.Height + 2 * DPIyScale))
 
                     'Cover image
-                    If File.Exists(IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg")) Then
+                    Try
                         Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
                         Me.imgCover.Load(IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg"))
 
@@ -220,9 +220,9 @@ Public Class frmMain
                                                             CInt((Me.imgCover.Image.PhysicalDimension.Height * 46 / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
                             End If
                         End If
-
-                    Else
-                        'No cover image found
+                    Catch ex As Exception
+                        'No cover image found or file is corrupted
+                        mdlMain.AppendToLog("frmMain", "UI_Updater", String.Concat("Cover image error: ", ex.Message))
                         Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                         Me.imgCover.Image = My.Resources.Nocover
                         If coverIsExpanded Then
@@ -230,13 +230,12 @@ Public Class frmMain
                         Else
                             Me.imgCover.Size = New Size(CInt(48 * DPIxScale), CInt(48 * DPIyScale))
                         End If
-                    End If
+                    End Try
                     'End cover image
 
                 End If
 
             Else
-
 
                 Me.txtGameList_Title.Text = ""
                 Me.txtGameList_Serial.Text = ""
@@ -311,7 +310,7 @@ Public Class frmMain
             If Directory.Exists(My.Settings.PCSX2_PathSState) And Not frmDeleteForm.Visible And Not frmSettings.Visible And Not Me.WindowState = FormWindowState.Minimized Then
                 Dim tmpDate As DateTime = Directory.GetLastWriteTime(My.Settings.PCSX2_PathSState)
                 If Not tmpDate = mdlFileList.SStates_FolderLastModified Then
-                    mdlMain.AppendToLog("frmMain", "Timer", "Refresh ListViews")
+                    mdlMain.AppendToLog("frmMain", "Timer", "Refreshed ListViews.")
                     Me.List_Refresher()
                 End If
             End If
@@ -485,7 +484,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwGamesList)
 
         Me.lvwGamesList_PopTime = Now.Subtract(StartTime)
-        mdlMain.AppendToLog("frmMain", "lvwGamesList_Populate", String.Format("Refreshed lvwGamesList listview with {0:N0} items.", Me.lvwGamesList.Items.Count), Me.lvwGamesList_PopTime.TotalMilliseconds)
+        mdlMain.AppendToLog("frmMain", "lvwGamesList_Populate", String.Format("Complete. {0:N0} games.", Me.lvwGamesList.Items.Count), Me.lvwGamesList_PopTime.TotalMilliseconds)
     End Sub
 
     Private Sub lvwGamesList_indexCheckedGames()
@@ -621,7 +620,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwSStatesList)
 
         Me.lvwSStatesList_PopTime = Now.Subtract(StartTime)
-        mdlMain.AppendToLog("frmMain", "lvwSStatesList_Populate", String.Format("Refreshed lvwSStatesLvw listview with {0:N0} items.", Me.lvwSStatesList.Items.Count), Me.lvwSStatesList_PopTime.TotalMilliseconds)
+        mdlMain.AppendToLog("frmMain", "lvwSStatesList_Populate", String.Format("Complete {0:N0} savestates.", Me.lvwSStatesList.Items.Count), Me.lvwSStatesList_PopTime.TotalMilliseconds)
     End Sub
 
     Private Sub lvwSStatesList_indexCheckedFiles()

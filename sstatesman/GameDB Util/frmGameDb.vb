@@ -23,7 +23,7 @@ Public Class frmGameDb
     Friend SearchResultRef_ArrayStatus As LoadStatus = LoadStatus.StatusNotLoaded
     Dim SearchResultRef_Pos As System.String
 
-    Private Sub ShowStatus()
+    Private Sub UI_Updater()
 
         Me.tsGameDbUnload.Enabled = False
         Me.tsListShow.Enabled = False
@@ -81,7 +81,7 @@ Public Class frmGameDb
                 Me.ToolStripStatusLabel2.Text = "GameDB has no records."
         End Select
 
-        mdlMain.AppendToLog("frmGameDB", "ShowStatus", "Refreshed UI status")
+        mdlMain.AppendToLog("frmGameDB", "UI_Updater", "Refreshed UI status")
 
 
     End Sub
@@ -95,7 +95,7 @@ Public Class frmGameDb
 
         Me.PopulateList(mdlGameDb.GameDb)
 
-        Me.ShowStatus()
+        Me.UI_Updater()
     End Sub
 
     Private Sub frmGameDb_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
@@ -106,7 +106,7 @@ Public Class frmGameDb
 
         Me.PopulateList(mdlGameDb.GameDb)
 
-        Me.ShowStatus()
+        Me.UI_Updater()
 
     End Sub
 
@@ -148,7 +148,7 @@ Public Class frmGameDb
             Me.SearchResultRef.Clear()
             Me.SearchResultRef_ArrayStatus = LoadStatus.StatusNotLoaded
 
-            Me.ShowStatus()
+            Me.UI_Updater()
         End If
 
     End Sub
@@ -160,7 +160,7 @@ Public Class frmGameDb
 
         Me.PopulateList(mdlGameDb.GameDb)
 
-        Me.ShowStatus()
+        Me.UI_Updater()
 
     End Sub
 
@@ -271,7 +271,7 @@ Public Class frmGameDb
         Try
             If lvwGameDBList.SelectedItems.Count > 0 Then
                 Me.CurrentSerial = Me.lvwGameDBList.SelectedItems(0).SubItems(1).Text
-                Me.ShowStatus()
+                Me.UI_Updater()
             End If
         Catch ex As Exception
 
@@ -288,7 +288,7 @@ Public Class frmGameDb
                                            SearchGameDb)
             Me.PopulateList(SearchGameDb)
 
-            Me.ShowStatus()
+            Me.UI_Updater()
         End If
     End Sub
 
@@ -315,7 +315,7 @@ Public Class frmGameDb
             If Not (Me.tsTxtSearchSerial.Text = "Serial") Then
                 Me.tsTxtSearchSerial.Text = Me.tsTxtSearchSerial.Text.ToUpper
                 CurrentSerial = Me.tsTxtSearchSerial.Text
-                Me.ShowStatus()
+                Me.UI_Updater()
             End If
         End If
     End Sub

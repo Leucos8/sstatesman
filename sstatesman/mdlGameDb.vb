@@ -45,7 +45,7 @@ Module mdlGameDb
         '   ByRef   pGameDb                     The dinamic array of the GameDB
 
 
-        mdlMain.AppendToLog("GameDB", "Load", System.String.Format("Opening database from ""{0}"".", pFileGameDb_Loc))
+        mdlMain.AppendToLog("GameDB", "Load", System.String.Format("DB: ""{0}"".", pFileGameDb_Loc))
         Try
             Dim startTime As System.DateTime = Now
 
@@ -162,7 +162,7 @@ Module mdlGameDb
                     .Region = ""
                     .Compat = "0"
                 End With
-                mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB was not loaded.")
+                mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB is not loaded.")
             Case LoadStatus.StatusError
                 With myGameDb_RecordExtract
                     .Serial = pSerial
@@ -170,7 +170,9 @@ Module mdlGameDb
                     .Region = ""
                     .Compat = "0"
                 End With
-                mdlMain.AppendToLog("GameDB", "RecordExtract", "failed, GameDB was not loaded because an error occurred.")
+                mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB is not loaded because an error occurred.")
+            Case Else
+                mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, something is wrong you shouldn't get this O.o")
         End Select
         Return myGameDb_RecordExtract
     End Function
