@@ -338,6 +338,186 @@ Namespace My
                 Me("SStatesMan_ThemeImageEnabled") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("624, 442")>  _
+        Public Property frmMain_WindowSize() As Global.System.Drawing.Size
+            Get
+                Return CType(Me("frmMain_WindowSize"),Global.System.Drawing.Size)
+            End Get
+            Set
+                Me("frmMain_WindowSize") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Normal")>  _
+        Public Property frmMain_WindowState() As Global.System.Windows.Forms.FormWindowState
+            Get
+                Return CType(Me("frmMain_WindowState"),Global.System.Windows.Forms.FormWindowState)
+            End Get
+            Set
+                Me("frmMain_WindowState") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("20, 20")>  _
+        Public Property frmMain_WindowPosition() As Global.System.Drawing.Point
+            Get
+                Return CType(Me("frmMain_WindowPosition"),Global.System.Drawing.Point)
+            End Get
+            Set
+                Me("frmMain_WindowPosition") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("200")>  _
+        Public Property frmMain_SplitterDistance() As Integer
+            Get
+                Return CType(Me("frmMain_SplitterDistance"),Integer)
+            End Get
+            Set
+                Me("frmMain_SplitterDistance") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("220")>  _
+        Public Property frmMain_glvw_cGameTitle() As Integer
+            Get
+                Return CType(Me("frmMain_glvw_cGameTitle"),Integer)
+            End Get
+            Set
+                Me("frmMain_glvw_cGameTitle") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("80")>  _
+        Public Property frmMain_glvw_cSerial() As Integer
+            Get
+                Return CType(Me("frmMain_glvw_cSerial"),Integer)
+            End Get
+            Set
+                Me("frmMain_glvw_cSerial") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("60")>  _
+        Public Property frmMain_glvw_cRegion() As Integer
+            Get
+                Return CType(Me("frmMain_glvw_cRegion"),Integer)
+            End Get
+            Set
+                Me("frmMain_glvw_cRegion") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("110")>  _
+        Public Property frmMain_glvw_cStInfo() As Integer
+            Get
+                Return CType(Me("frmMain_glvw_cStInfo"),Integer)
+            End Get
+            Set
+                Me("frmMain_glvw_cStInfo") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("110")>  _
+        Public Property frmMain_glvw_cSbInfo() As Integer
+            Get
+                Return CType(Me("frmMain_glvw_cSbInfo"),Integer)
+            End Get
+            Set
+                Me("frmMain_glvw_cSbInfo") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("220")>  _
+        Public Property frmMain_slvw_cFileName() As Integer
+            Get
+                Return CType(Me("frmMain_slvw_cFileName"),Integer)
+            End Get
+            Set
+                Me("frmMain_slvw_cFileName") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("40")>  _
+        Public Property frmMain_slvw_cSlot() As Integer
+            Get
+                Return CType(Me("frmMain_slvw_cSlot"),Integer)
+            End Get
+            Set
+                Me("frmMain_slvw_cSlot") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("40")>  _
+        Public Property frmMain_slvw_cBackup() As Integer
+            Get
+                Return CType(Me("frmMain_slvw_cBackup"),Integer)
+            End Get
+            Set
+                Me("frmMain_slvw_cBackup") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("80")>  _
+        Public Property frmMain_slvw_cVersion() As Integer
+            Get
+                Return CType(Me("frmMain_slvw_cVersion"),Integer)
+            End Get
+            Set
+                Me("frmMain_slvw_cVersion") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("120")>  _
+        Public Property frmMain_slvw_cDateLW() As Integer
+            Get
+                Return CType(Me("frmMain_slvw_cDateLW"),Integer)
+            End Get
+            Set
+                Me("frmMain_slvw_cDateLW") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("80")>  _
+        Public Property frmMain_slvw_cSize() As Integer
+            Get
+                Return CType(Me("frmMain_slvw_cSize"),Integer)
+            End Get
+            Set
+                Me("frmMain_slvw_cSize") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

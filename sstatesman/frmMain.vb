@@ -110,6 +110,26 @@ Public Class frmMain
         Me.lvwSStatesList.StateImageList = imlLvwCheckboxes         'Assigning the imagelist to the Savestates listview
 
 
+        Me.Location = My.Settings.frmMain_WindowPosition
+        Me.Size = My.Settings.frmMain_WindowSize
+        Me.WindowState = My.Settings.frmMain_WindowState
+        Me.SplitContainer1.SplitterDistance = My.Settings.frmMain_SplitterDistance
+
+        Me.GamesLvw_GameTitle.Width = My.Settings.frmMain_glvw_cGameTitle
+        Me.GameLvw_GameSerial.Width = My.Settings.frmMain_glvw_cSerial
+        Me.GameLvw_GameRegion.Width = My.Settings.frmMain_glvw_cRegion
+        Me.GameLvw_SStatesInfo.Width = My.Settings.frmMain_glvw_cStInfo
+        Me.GameLvw_BackupInfo.Width = My.Settings.frmMain_glvw_cSbInfo
+
+        Me.SStatesLvw_FileName.Width = My.Settings.frmMain_slvw_cFileName
+        Me.SStatesLvw_Slot.Width = My.Settings.frmMain_slvw_cSlot
+        Me.SStatesLvw_Backup.Width = My.Settings.frmMain_slvw_cBackup
+        Me.SStatesLvw_Version.Width = My.Settings.frmMain_slvw_cVersion
+        Me.SStatesLvw_DateLastWrite.Width = My.Settings.frmMain_slvw_cDateLW
+        Me.SStatesLvw_Size.Width = My.Settings.frmMain_slvw_cSize
+
+
+
         'Loading the Game database (from PCSX2 directory)
         mdlGameDb.GameDb_Status = mdlGameDb.GameDb_Load(Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename), mdlGameDb.GameDb)
         'Refreshing the games list
@@ -123,6 +143,30 @@ Public Class frmMain
             Me.cmdSStatesLvwExpand_Click(Nothing, Nothing)
         End If
 
+    End Sub
+
+    Private Sub frmMain_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        My.Settings.frmMain_WindowState = Me.WindowState
+        If Not (Me.WindowState = FormWindowState.Maximized Or Me.WindowState = FormWindowState.Minimized) Then
+            My.Settings.frmMain_WindowPosition = Me.Location
+            My.Settings.frmMain_WindowSize = Me.Size
+        End If
+        My.Settings.frmMain_SplitterDistance = Me.SplitContainer1.SplitterDistance
+
+        My.Settings.frmMain_glvw_cGameTitle = Me.GamesLvw_GameTitle.Width
+        My.Settings.frmMain_glvw_cSerial = Me.GameLvw_GameSerial.Width
+        My.Settings.frmMain_glvw_cRegion = Me.GameLvw_GameRegion.Width
+        My.Settings.frmMain_glvw_cStInfo = Me.GameLvw_SStatesInfo.Width
+        My.Settings.frmMain_glvw_cSbInfo = Me.GameLvw_BackupInfo.Width
+
+        My.Settings.frmMain_slvw_cFileName = Me.SStatesLvw_FileName.Width
+        My.Settings.frmMain_slvw_cSlot = Me.SStatesLvw_Slot.Width
+        My.Settings.frmMain_slvw_cBackup = Me.SStatesLvw_Backup.Width
+        My.Settings.frmMain_slvw_cVersion = Me.SStatesLvw_Version.Width
+        My.Settings.frmMain_slvw_cDateLW = Me.SStatesLvw_DateLastWrite.Width
+        My.Settings.frmMain_slvw_cSize = Me.SStatesLvw_Size.Width
+
+        My.Settings.Save()
     End Sub
 
     Private Sub UI_Enabler(ByVal pGlobal_Switch As Boolean, ByVal pGamesList_included As Boolean, ByVal pSavestatesList_included As Boolean)
@@ -338,7 +382,13 @@ Public Class frmMain
     End Sub
 
     Private Sub cmdWindowClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdWindowClose.Click
+        Me.Close()    'Needed for firing the FormClosing event, wich saves some settings.
         End
+    End Sub
+
+    Private Sub frmMain_ResizeBegin(sender As Object, e As System.EventArgs) Handles Me.ResizeBegin
+        My.Settings.frmMain_WindowPosition = Me.Location
+        My.Settings.frmMain_WindowSize = Me.Size
     End Sub
 
     Private Sub frmMain_SizeChanged(sender As Object, e As System.EventArgs) Handles Me.SizeChanged
@@ -848,5 +898,4 @@ Public Class frmMain
     '    End If
     'End Sub
 #End Region
-
 End Class

@@ -287,7 +287,7 @@ Module mdlMain
         End If
         AppLog.Add(New sLog With {.Time = Now, .OrClass = pClass, .OrMethod = pMethod, .Description = pMessage, .Duration = pDuration})
 
-        Console.WriteLine(String.Format("[{0:HH.mm.ss}] {1}.{2} {3} {4:N}ms.", Now, pClass, pMethod, pMessage, pDuration))
+        Console.WriteLine(String.Format("[{0:HH.mm.ss}] {1}.{2} {3} {4:N1}ms.", Now, pClass, pMethod, pMessage, pDuration))
     End Sub
 
 End Module
