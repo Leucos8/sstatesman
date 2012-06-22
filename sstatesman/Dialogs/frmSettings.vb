@@ -91,7 +91,7 @@ Public Class frmSettings
 
         'Me.applyTheme()
 
-        frmMain.applyTheme()    'Updating frMain theme
+        frmMain.applyTheme2()    'Updating frMain theme
         frmMain.tmrSStatesListRefresh.Enabled = My.Settings.SStatesMan_SStatesListAutoRefresh   'Enabling the timer
 
     End Sub

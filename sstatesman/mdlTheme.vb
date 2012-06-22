@@ -37,6 +37,7 @@ Module mdlTheme
         Friend BgImageBottom As Image
         Friend BgImageBottomStyle As ImageLayout
     End Structure
+
     Public currentTheme As New sTheme With {.AccentColor = Color.FromArgb(255, 130, 150, 200),
                                             .AccentColorLight = Color.FromArgb(255, 215, 220, 255),
                                             .AccentColorDark = Color.FromArgb(255, 65, 74, 100),
