@@ -576,13 +576,13 @@ Public Class frmMain
         Dim tmpSListItems As New List(Of ListViewItem)
 
 
-        For Each mySerial As System.String In mdlMain.checkedGames
+        For Each tmpSerial As System.String In mdlMain.checkedGames
 
             Dim tmpGamesListItem As New GamesList_Item
-            If mdlFileList.GamesList.TryGetValue(mySerial, tmpGamesListItem) Then
+            If mdlFileList.GamesList.TryGetValue(tmpSerial, tmpGamesListItem) Then
 
                 'Creation of the header
-                currentGameInfo = mdlGameDb.GameDb_RecordExtract(mySerial, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
+                currentGameInfo = mdlGameDb.GameDb_RecordExtract(tmpSerial, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
                 Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With {
                     .Header = System.String.Format("{0} ({1}) [{2}]", currentGameInfo.Name, currentGameInfo.Region, currentGameInfo.Serial),
                     .HeaderAlignment = HorizontalAlignment.Left,
@@ -594,8 +594,8 @@ Public Class frmMain
                 lvwGamesList_SelectedSize += mdlFileList.GamesList(currentGameInfo.Serial).Savestates_SizeTot
                 lvwGamesList_SelectedSizeBackup += mdlFileList.GamesList(currentGameInfo.Serial).SavestatesBackup_SizeTot
 
-                If mdlFileList.GamesList(mySerial).Savestates.Values.Count > 0 Then
-                    For Each tmpSavestate As KeyValuePair(Of String, Savestate) In mdlFileList.GamesList(mySerial).Savestates
+                If mdlFileList.GamesList(tmpSerial).Savestates.Values.Count > 0 Then
+                    For Each tmpSavestate As KeyValuePair(Of String, Savestate) In mdlFileList.GamesList(tmpSerial).Savestates
 
                         Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key,
                                                                                            .Group = tmpLvwSListGroup,
@@ -604,7 +604,7 @@ Public Class frmMain
                                                            tmpSavestate.Value.Backup.ToString,
                                                            tmpSavestate.Value.Version,
                                                            tmpSavestate.Value.LastWriteTime.ToString,
-                                                           System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2), mySerial})
+                                                           System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2), tmpSerial})
                         If checkedSavestates.Contains(tmpSavestate.Key) Then
                             tmpLvwSListItem.Checked = True
                         End If
