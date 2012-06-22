@@ -28,8 +28,6 @@ Public Class frmMain
     Dim lvwSStatesList_SelectedSize As UInt64 = 0
     Dim lvwSStatesList_SelectedSizeBackup As UInt64 = 0
 
-    Dim coverIsExpanded As Boolean = False
-
     Friend Enum frmMainGamesLvwColumn
         GameTitle
         GameSerial
@@ -128,6 +126,18 @@ Public Class frmMain
         Me.SStatesLvw_DateLastWrite.Width = My.Settings.frmMain_slvw_cDateLW
         Me.SStatesLvw_Size.Width = My.Settings.frmMain_slvw_cSize
 
+        If My.Settings.frmMain_CoverExpanded Then
+            My.Settings.frmMain_CoverExpanded = True
+            Me.lblGameList_Title.Visible = False
+            Me.lblGameList_Region.Visible = False
+            Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 7)
+            Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(2, 0))
+            Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 0))
+            Me.imgCover.Size = New Size(CInt(122 * DPIxScale),
+                                        CInt(122 * DPIyScale))
+            Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 2)
+            Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 3)
+        End If
 
 
         'Loading the Game database (from PCSX2 directory)
@@ -234,8 +244,8 @@ Public Class frmMain
                     Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                     Me.imgCover.Image = My.Resources.Flag_0Null_30x20
 
-                    If coverIsExpanded Then
-                        Me.imgCover.Size = New Size(CInt(120 * DPIxScale), CInt(120 * DPIyScale))
+                    If My.Settings.FrmMain_coverexpanded Then
+                        Me.imgCover.Size = New Size(CInt(122 * DPIxScale), CInt(122 * DPIyScale))
                     Else
                         Me.imgCover.Size = New Size(CInt(48 * DPIxScale), CInt(48 * DPIyScale))
                     End If
@@ -259,36 +269,38 @@ Public Class frmMain
                                                CInt(Me.imgFlag.Image.PhysicalDimension.Height + 2 * DPIyScale))
 
                     'Cover image
-                    Try
-                        Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
-                        Me.imgCover.Load(IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg"))
+                    If Not (My.Settings.SStatesMan_PathPics.ToLower = "not set") Then
+                        Try
+                            Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
+                            Me.imgCover.Load(IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg"))
 
-                        If coverIsExpanded Then
-                            Me.imgCover.Size = New Size(CInt(122 * DPIxScale),
-                                                        CInt((Me.imgCover.Image.PhysicalDimension.Height * 120 / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
-                        Else
-                            If Me.imgCover.Image.PhysicalDimension.Height > Me.imgCover.Image.PhysicalDimension.Width Then
-                                Me.imgCover.Size = New Size(CInt((Me.imgCover.Image.PhysicalDimension.Width * 46 / Me.imgCover.Image.PhysicalDimension.Height + 2) * DPIxScale),
-                                                            CInt(48 * DPIyScale))
+                            If My.Settings.frmMain_CoverExpanded Then
+                                Me.imgCover.Size = New Size(CInt(122 * DPIxScale),
+                                                            CInt((Me.imgCover.Image.PhysicalDimension.Height * 120 / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
                             Else
-                                Me.imgCover.Size = New Size(CInt(48 * DPIxScale),
-                                                            CInt((Me.imgCover.Image.PhysicalDimension.Height * 46 / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
+                                If Me.imgCover.Image.PhysicalDimension.Height > Me.imgCover.Image.PhysicalDimension.Width Then
+                                    Me.imgCover.Size = New Size(CInt((Me.imgCover.Image.PhysicalDimension.Width * 46 / Me.imgCover.Image.PhysicalDimension.Height + 2) * DPIxScale),
+                                                                CInt(48 * DPIyScale))
+                                Else
+                                    Me.imgCover.Size = New Size(CInt(48 * DPIxScale),
+                                                                CInt((Me.imgCover.Image.PhysicalDimension.Height * 46 / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
+                                End If
                             End If
-                        End If
-                    Catch ex As Exception
-                        'No cover image found or file is corrupted
-                        mdlMain.AppendToLog("frmMain", "UI_Updater", String.Concat("Cover image error: ", ex.Message))
-                        Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
-                        Me.imgCover.Image = My.Resources.Nocover
-                        If coverIsExpanded Then
-                            Me.imgCover.Size = New Size(CInt(122 * DPIxScale), CInt(122 * DPIyScale))
-                        Else
-                            Me.imgCover.Size = New Size(CInt(48 * DPIxScale), CInt(48 * DPIyScale))
-                        End If
-                    End Try
+                        Catch ex As Exception
+                            'No cover image found or file is corrupted
+                            mdlMain.AppendToLog("frmMain", "UI_Updater", String.Concat("Cover image error: ", ex.Message))
+                            Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
+                            Me.imgCover.Image = My.Resources.Nocover
+                            If My.Settings.frmMain_CoverExpanded Then
+                                Me.imgCover.Size = New Size(CInt(122 * DPIxScale), CInt(122 * DPIyScale))
+                            Else
+                                Me.imgCover.Size = New Size(CInt(48 * DPIxScale), CInt(48 * DPIyScale))
+                            End If
+                        End Try
+                    End If
                     'End cover image
 
-                End If
+                    End If
 
             Else
 
@@ -303,8 +315,8 @@ Public Class frmMain
 
                 Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                 Me.imgCover.Image = My.Resources.Flag_0Null_30x20
-                If coverIsExpanded Then
-                    Me.imgCover.Size = New Size(CInt(120 * DPIxScale), CInt(120 * DPIyScale))
+                If My.Settings.FrmMain_coverexpanded Then
+                    Me.imgCover.Size = New Size(CInt(122 * DPIxScale), CInt(122 * DPIyScale))
                 Else
                     Me.imgCover.Size = New Size(CInt(48 * DPIxScale), CInt(48 * DPIyScale))
                 End If
@@ -457,8 +469,8 @@ Public Class frmMain
 
     Private Sub imgCover_MouseClick(sender As System.Object, e As MouseEventArgs) Handles imgCover.MouseClick
         If e.Button = Windows.Forms.MouseButtons.Left Then
-            If Me.coverIsExpanded Then
-                Me.coverIsExpanded = False
+            If My.Settings.frmMain_CoverExpanded Then
+                My.Settings.frmMain_CoverExpanded = False
                 Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 2)
                 Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 1)
                 If Me.imgCover.Image.PhysicalDimension.Height > Me.imgCover.Image.PhysicalDimension.Width Then
@@ -474,7 +486,7 @@ Public Class frmMain
                 Me.lblGameList_Title.Visible = True
                 Me.lblGameList_Region.Visible = True
             Else
-                Me.coverIsExpanded = True
+                My.Settings.frmMain_CoverExpanded = True
                 Me.lblGameList_Title.Visible = False
                 Me.lblGameList_Region.Visible = False
                 Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 7)

@@ -602,6 +602,30 @@ Namespace My
                 Me("frmDel_WindowState") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property frmMain_CoverExpanded() As Boolean
+            Get
+                Return CType(Me("frmMain_CoverExpanded"),Boolean)
+            End Get
+            Set
+                Me("frmMain_CoverExpanded") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("20, 40")>  _
+        Public Property frmDel_WindowLocation() As Global.System.Drawing.Point
+            Get
+                Return CType(Me("frmDel_WindowLocation"),Global.System.Drawing.Point)
+            End Get
+            Set
+                Me("frmDel_WindowLocation") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

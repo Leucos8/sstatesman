@@ -130,6 +130,7 @@ Public Class frmDeleteForm
         Me.lvwSStatesListToDelete.StateImageList = imlLvwCheckboxes
 
 
+        Me.Location = My.Settings.frmDel_WindowLocation
         Me.Size = My.Settings.frmDel_WindowSize
         Me.WindowState = My.Settings.frmDel_WindowState
 
@@ -159,6 +160,7 @@ Public Class frmDeleteForm
 
         My.Settings.frmDel_WindowState = Me.WindowState
         If Not (Me.WindowState = FormWindowState.Maximized Or Me.WindowState = FormWindowState.Minimized) Then
+            My.Settings.frmDel_WindowLocation = Me.Location
             My.Settings.frmDel_WindowSize = Me.Size
         End If
 
