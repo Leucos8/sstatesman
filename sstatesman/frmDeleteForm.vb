@@ -44,9 +44,9 @@ Public Class frmDeleteForm
     Private Sub UI_Updater()
         If Me.lvwSStatesListToDelete.Items.Count = 0 Then
             'No savestates in list
-            Me.txtSStateListSelection.Text = System.String.Format("{0:N0} | {1:N0}", 0, 0)
-            Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", 0, 0)
-            Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", 0, 0)
+            Me.txtSStateListSelection.Text = String.Format("{0:N0} | {1:N0}", 0, 0)
+            Me.txtSize.Text = String.Format("{0:N2} | {1:N2} MB", 0, 0)
+            Me.txtSizeBackup.Text = String.Format("{0:N2} | {1:N2} MB", 0, 0)
 
             Me.cmdSStateSelectAll.Enabled = False
             Me.cmdSStateSelectInvert.Enabled = False
@@ -55,9 +55,9 @@ Public Class frmDeleteForm
             Me.cmdDeleteSStateSelected.Enabled = False
         Else
 
-            Me.txtSStateListSelection.Text = System.String.Format("{0:N0} | {1:N0}", Me.lvwSStatesListToDelete.CheckedItems.Count, Me.lvwSStatesListToDelete.Items.Count)
-            Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.SStateList_TotalSizeSelected / 1024 ^ 2, Me.SStateList_TotalSize / 1024 ^ 2)
-            Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.SStateList_TotalSizeBackupSelected / 1024 ^ 2, Me.SStateList_TotalSizeBackup / 1024 ^ 2)
+            Me.txtSStateListSelection.Text = String.Format("{0:N0} | {1:N0}", Me.lvwSStatesListToDelete.CheckedItems.Count, Me.lvwSStatesListToDelete.Items.Count)
+            Me.txtSize.Text = String.Format("{0:N2} | {1:N2} MB", Me.SStateList_TotalSizeSelected / 1024 ^ 2, Me.SStateList_TotalSize / 1024 ^ 2)
+            Me.txtSizeBackup.Text = String.Format("{0:N2} | {1:N2} MB", Me.SStateList_TotalSizeBackupSelected / 1024 ^ 2, Me.SStateList_TotalSizeBackup / 1024 ^ 2)
 
             Me.cmdSStateSelectInvert.Enabled = True
             Me.cmdSStateSelectBackup.Enabled = True
@@ -131,8 +131,9 @@ Public Class frmDeleteForm
 
         Me.applyTheme()
 
+        UI_Enabler(False)
         Me.lvwSStatesList_Populate()
-
+        Me.lvwSStatesListToDelete_indexCheckedFiles()
         UI_Enabler(True)
         UI_Updater()
 
@@ -181,8 +182,6 @@ Public Class frmDeleteForm
 
 #Region "SStatesList management"
     Private Sub lvwSStatesList_Populate()
-        UI_Enabler(False)
-
         Me.lvwSStatesListToDelete.Items.Clear()
         Me.lvwSStatesListToDelete.Groups.Clear()
 

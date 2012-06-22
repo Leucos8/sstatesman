@@ -192,6 +192,17 @@ Public Class frmMain
 
     Private Sub UI_Updater()
         Dim StartTime As DateTime = Now
+
+        Me.UI_UpdaterGameInfo()
+        Me.UI_UpdaterStInfo()
+
+
+        Me.UIUpdate_Time = Now.Subtract(StartTime)
+        mdlMain.AppendToLog("frmMain", "UI_Updater", "Refreshed UI.", Me.UIUpdate_Time.TotalMilliseconds)
+
+    End Sub
+
+    Private Sub UI_UpdaterGameInfo()
         'Games List
         If Me.lvwGamesList.Items.Count = 0 Then
             'If there are no games these three buttons get disabled
@@ -302,8 +313,9 @@ Public Class frmMain
                 Me.cmdGameSelectAll.Enabled = True
             End If
         End If
+    End Sub
 
-
+    Private Sub UI_UpdaterStInfo()
         'Savetates list
         If Me.lvwSStatesList.Items.Count = 0 Then
             'No savestates in list
@@ -343,10 +355,6 @@ Public Class frmMain
                 Me.cmdSStateDelete.Enabled = False
             End If
         End If
-
-
-        Me.UIUpdate_Time = Now.Subtract(StartTime)
-        mdlMain.AppendToLog("frmMain", "UI_Updater", "Refreshed UI.", Me.UIUpdate_Time.TotalMilliseconds)
     End Sub
 
     Private Sub tmrSStatesListRefresh_Tick(sender As System.Object, e As System.EventArgs) Handles tmrSStatesListRefresh.Tick
@@ -700,7 +708,7 @@ Public Class frmMain
             Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = True
         Next
         Me.lvwSStatesList_indexCheckedFiles()
-        Me.UI_Updater()
+        Me.UI_UpdaterStInfo()
         Me.UI_Enabler(True, False, True)
     End Sub
 
@@ -710,7 +718,7 @@ Public Class frmMain
             Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = False
         Next
         Me.lvwSStatesList_indexCheckedFiles()
-        Me.UI_Updater()
+        Me.UI_UpdaterStInfo()
         Me.UI_Enabler(True, False, True)
     End Sub
 
@@ -724,7 +732,7 @@ Public Class frmMain
             End If
         Next
         Me.lvwSStatesList_indexCheckedFiles()
-        Me.UI_Updater()
+        Me.UI_UpdaterStInfo()
         Me.UI_Enabler(True, False, True)
     End Sub
 
@@ -738,14 +746,14 @@ Public Class frmMain
             End If
         Next
         Me.lvwSStatesList_indexCheckedFiles()
-        Me.UI_Updater()
+        Me.UI_UpdaterStInfo()
         Me.UI_Enabler(True, False, True)
     End Sub
 
     Private Sub lvwSStatesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwSStatesList.ItemChecked
         If ListsAreCurrentlyRefreshed = False Then
             Me.lvwSStatesList_indexCheckedFiles()
-            Me.UI_Updater()
+            Me.UI_UpdaterStInfo()
         End If
     End Sub
 #End Region
