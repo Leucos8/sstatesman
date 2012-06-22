@@ -96,11 +96,11 @@ Module mdlMain
         pResult = "Not detected"
         PCSX2_PathInis_Detect = False
         Try
-            If My.Settings.PCSX2_PathBinSet And System.IO.Directory.Exists(My.Settings.PCSX2_PathBin) Then
+            If My.Settings.PCSX2_PathBinSet And Directory.Exists(My.Settings.PCSX2_PathBin) Then
                 'Check if it is the case of a user who installed PCSX2 in usermode and then switched to portable mode
-                If System.IO.File.Exists(System.IO.Path.Combine(My.Settings.PCSX2_PathBin, "portable.ini")) Then
+                If File.Exists(Path.Combine(My.Settings.PCSX2_PathBin, "portable.ini")) Then
                     'If so the inis are in the "inis" folder of the PCSX2 binaries directory
-                    pResult = System.IO.Path.Combine(My.Settings.PCSX2_PathBin, "inis")
+                    pResult = Path.Combine(My.Settings.PCSX2_PathBin, "inis")
                 Else
                     'Else the registry value is checked                                 SettingsFolder
                     Using PCSX2_Registry As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(My.Settings.PCSX2_PathRegKey)
@@ -130,9 +130,9 @@ Module mdlMain
         pResult = "Not detected"
         PCSX2_PathSStates_Detect = False
 
-        If My.Settings.PCSX2_PathInisSet And System.IO.Directory.Exists(My.Settings.PCSX2_PathInis) Then
+        If My.Settings.PCSX2_PathInisSet And Directory.Exists(My.Settings.PCSX2_PathInis) Then
             'If PCSX2_UI.ini is present in the set inis directory
-            If System.IO.File.Exists(Path.Combine(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename)) Then
+            If File.Exists(Path.Combine(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename)) Then
                 'PCSX2_UI.ini is read and checked for the savestates folder
                 Using PCSX2UI_reader As New StreamReader(Path.Combine(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename))
                     While Not PCSX2UI_reader.EndOfStream
@@ -154,7 +154,7 @@ Module mdlMain
             End If
         End If
 
-        If System.IO.Directory.Exists(pResult) Then
+        If Directory.Exists(pResult) Then
             PCSX2_PathSStates_Detect = True
         Else
             pResult = "Not detected"

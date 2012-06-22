@@ -91,11 +91,12 @@ Partial Class frmSettings
         Me.Label3 = New System.Windows.Forms.Label()
         Me.pnlTab2 = New System.Windows.Forms.Panel()
         Me.pnlTab3 = New System.Windows.Forms.Panel()
-        Me.ckbSStatesManBGEnabled = New System.Windows.Forms.CheckBox()
-        Me.ckbSStatesManBGImage = New System.Windows.Forms.CheckBox()
+        Me.ckbSStatesManThemeGradient = New System.Windows.Forms.CheckBox()
+        Me.ckbSStatesManThemeImage = New System.Windows.Forms.CheckBox()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.pnlThemeOptions = New System.Windows.Forms.Panel()
         Me.optTheme11 = New System.Windows.Forms.RadioButton()
+        Me.optTheme6 = New System.Windows.Forms.RadioButton()
         Me.optTheme5 = New System.Windows.Forms.RadioButton()
         Me.optTheme4 = New System.Windows.Forms.RadioButton()
         Me.optTheme3 = New System.Windows.Forms.RadioButton()
@@ -115,7 +116,6 @@ Partial Class frmSettings
         Me.cmdLogFilter_Files = New System.Windows.Forms.Button()
         Me.cmdLogFilter_GameDB = New System.Windows.Forms.Button()
         Me.lblSStateListCheck = New System.Windows.Forms.Label()
-        Me.optTheme6 = New System.Windows.Forms.RadioButton()
         CType(Me.imgPCSX2IniPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgPCSX2AppPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgSStatesManPicsPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1011,8 +1011,8 @@ Partial Class frmSettings
         'pnlTab3
         '
         Me.pnlTab3.AutoScroll = True
-        Me.pnlTab3.Controls.Add(Me.ckbSStatesManBGEnabled)
-        Me.pnlTab3.Controls.Add(Me.ckbSStatesManBGImage)
+        Me.pnlTab3.Controls.Add(Me.ckbSStatesManThemeGradient)
+        Me.pnlTab3.Controls.Add(Me.ckbSStatesManThemeImage)
         Me.pnlTab3.Controls.Add(Me.Label2)
         Me.pnlTab3.Controls.Add(Me.pnlThemeOptions)
         Me.pnlTab3.Controls.Add(Me.Label5)
@@ -1022,33 +1022,33 @@ Partial Class frmSettings
         Me.pnlTab3.Size = New System.Drawing.Size(167, 269)
         Me.pnlTab3.TabIndex = 48
         '
-        'ckbSStatesManBGEnabled
+        'ckbSStatesManThemeGradient
         '
-        Me.ckbSStatesManBGEnabled.AutoSize = True
-        Me.ckbSStatesManBGEnabled.Dock = System.Windows.Forms.DockStyle.Top
-        Me.ckbSStatesManBGEnabled.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.ckbSStatesManBGEnabled.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbSStatesManBGEnabled.Location = New System.Drawing.Point(8, 194)
-        Me.ckbSStatesManBGEnabled.Name = "ckbSStatesManBGEnabled"
-        Me.ckbSStatesManBGEnabled.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
-        Me.ckbSStatesManBGEnabled.Size = New System.Drawing.Size(151, 21)
-        Me.ckbSStatesManBGEnabled.TabIndex = 57
-        Me.ckbSStatesManBGEnabled.Text = "Enable windows gradient backgrounds."
-        Me.ckbSStatesManBGEnabled.UseVisualStyleBackColor = False
+        Me.ckbSStatesManThemeGradient.AutoSize = True
+        Me.ckbSStatesManThemeGradient.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ckbSStatesManThemeGradient.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.ckbSStatesManThemeGradient.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ckbSStatesManThemeGradient.Location = New System.Drawing.Point(8, 194)
+        Me.ckbSStatesManThemeGradient.Name = "ckbSStatesManThemeGradient"
+        Me.ckbSStatesManThemeGradient.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
+        Me.ckbSStatesManThemeGradient.Size = New System.Drawing.Size(151, 21)
+        Me.ckbSStatesManThemeGradient.TabIndex = 57
+        Me.ckbSStatesManThemeGradient.Text = "Enable windows gradient backgrounds."
+        Me.ckbSStatesManThemeGradient.UseVisualStyleBackColor = False
         '
-        'ckbSStatesManBGImage
+        'ckbSStatesManThemeImage
         '
-        Me.ckbSStatesManBGImage.AutoSize = True
-        Me.ckbSStatesManBGImage.Dock = System.Windows.Forms.DockStyle.Top
-        Me.ckbSStatesManBGImage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.ckbSStatesManBGImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbSStatesManBGImage.Location = New System.Drawing.Point(8, 173)
-        Me.ckbSStatesManBGImage.Name = "ckbSStatesManBGImage"
-        Me.ckbSStatesManBGImage.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
-        Me.ckbSStatesManBGImage.Size = New System.Drawing.Size(151, 21)
-        Me.ckbSStatesManBGImage.TabIndex = 50
-        Me.ckbSStatesManBGImage.Text = "Enable windows background image."
-        Me.ckbSStatesManBGImage.UseVisualStyleBackColor = False
+        Me.ckbSStatesManThemeImage.AutoSize = True
+        Me.ckbSStatesManThemeImage.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ckbSStatesManThemeImage.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.ckbSStatesManThemeImage.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ckbSStatesManThemeImage.Location = New System.Drawing.Point(8, 173)
+        Me.ckbSStatesManThemeImage.Name = "ckbSStatesManThemeImage"
+        Me.ckbSStatesManThemeImage.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
+        Me.ckbSStatesManThemeImage.Size = New System.Drawing.Size(151, 21)
+        Me.ckbSStatesManThemeImage.TabIndex = 50
+        Me.ckbSStatesManThemeImage.Text = "Enable windows background image."
+        Me.ckbSStatesManThemeImage.UseVisualStyleBackColor = False
         '
         'Label2
         '
@@ -1092,6 +1092,19 @@ Partial Class frmSettings
         Me.optTheme11.TabStop = True
         Me.optTheme11.Text = "PCSX2"
         Me.optTheme11.UseVisualStyleBackColor = True
+        '
+        'optTheme6
+        '
+        Me.optTheme6.AutoSize = True
+        Me.optTheme6.Dock = System.Windows.Forms.DockStyle.Top
+        Me.optTheme6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.optTheme6.Location = New System.Drawing.Point(8, 87)
+        Me.optTheme6.Name = "optTheme6"
+        Me.optTheme6.Size = New System.Drawing.Size(135, 17)
+        Me.optTheme6.TabIndex = 58
+        Me.optTheme6.TabStop = True
+        Me.optTheme6.Text = "Hexagons"
+        Me.optTheme6.UseVisualStyleBackColor = True
         '
         'optTheme5
         '
@@ -1211,13 +1224,13 @@ Partial Class frmSettings
         'ColumnHeader3
         '
         Me.ColumnHeader3.Text = "Decription"
-        Me.ColumnHeader3.Width = 240
+        Me.ColumnHeader3.Width = 220
         '
         'ColumnHeader4
         '
         Me.ColumnHeader4.Text = "Duration"
         Me.ColumnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.ColumnHeader4.Width = 40
+        Me.ColumnHeader4.Width = 50
         '
         'TableLayoutPanel4
         '
@@ -1337,19 +1350,6 @@ Partial Class frmSettings
         Me.lblSStateListCheck.TabIndex = 42
         Me.lblSStateListCheck.Text = "filter:"
         Me.lblSStateListCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
-        '
-        'optTheme6
-        '
-        Me.optTheme6.AutoSize = True
-        Me.optTheme6.Dock = System.Windows.Forms.DockStyle.Top
-        Me.optTheme6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optTheme6.Location = New System.Drawing.Point(8, 87)
-        Me.optTheme6.Name = "optTheme6"
-        Me.optTheme6.Size = New System.Drawing.Size(135, 17)
-        Me.optTheme6.TabIndex = 58
-        Me.optTheme6.TabStop = True
-        Me.optTheme6.Text = "Hexagons"
-        Me.optTheme6.UseVisualStyleBackColor = True
         '
         'frmSettings
         '
@@ -1476,8 +1476,8 @@ Partial Class frmSettings
     Friend WithEvents optTheme3 As System.Windows.Forms.RadioButton
     Friend WithEvents optTheme2 As System.Windows.Forms.RadioButton
     Friend WithEvents optTheme1 As System.Windows.Forms.RadioButton
-    Private WithEvents ckbSStatesManBGImage As System.Windows.Forms.CheckBox
-    Private WithEvents ckbSStatesManBGEnabled As System.Windows.Forms.CheckBox
+    Private WithEvents ckbSStatesManThemeImage As System.Windows.Forms.CheckBox
+    Private WithEvents ckbSStatesManThemeGradient As System.Windows.Forms.CheckBox
     Private WithEvents Label2 As System.Windows.Forms.Label
     Private WithEvents Label5 As System.Windows.Forms.Label
     Friend WithEvents optTheme11 As System.Windows.Forms.RadioButton

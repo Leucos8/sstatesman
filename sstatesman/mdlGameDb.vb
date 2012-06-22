@@ -12,7 +12,8 @@
 '
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
-Option Explicit On
+Imports System.IO
+
 Module mdlGameDb
     Public Class GameTitle
         Public Property Serial As System.String      'Executable code of the game, normally in the (4 letter)-(5 digits). There are exceptions, though (I'm looking at you GTA III)
@@ -53,7 +54,7 @@ Module mdlGameDb
             Dim myCurrentSerial As String = ""
             'Dim myCurrentRecord As New GameTitle
 
-            Using FileGameDb_Reader As New System.IO.StreamReader(pFileGameDb_Loc, System.Text.Encoding.Default)
+            Using FileGameDb_Reader As New StreamReader(pFileGameDb_Loc, System.Text.Encoding.Default)
                 While Not FileGameDb_Reader.EndOfStream
 
                     Dim myLine As System.String = FileGameDb_Reader.ReadLine()
@@ -319,7 +320,7 @@ Module mdlGameDb
         '   ByRef   pGameDb                     The dinamic array of the GameDB to search in
 
         If pGameDb.Count > 0 Then
-            Using FileGameDb_Tab_Writer As New System.IO.StreamWriter(pGameDbExport_Loc, False)
+            Using FileGameDb_Tab_Writer As New StreamWriter(pGameDbExport_Loc, False)
                 FileGameDb_Tab_Writer.WriteLine(System.String.Concat("Serial", pSepStyle, "Name", pSepStyle, "Region", pSepStyle, "Compat"))
                 For Each myTmpGame As KeyValuePair(Of System.String, GameTitle) In pGameDb
 

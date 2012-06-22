@@ -12,6 +12,7 @@
 '
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
+Imports System.IO
 Module mdlSimpleZipExtractor
 #Region "ZipHeader"
     Private Const ZipH_Sign_Len As Byte = 4                 ' 0
@@ -29,7 +30,7 @@ Module mdlSimpleZipExtractor
 #End Region
 
 
-    Public Function ExtractFirstFile(ByVal pFile As System.IO.FileInfo) As String
+    Public Function ExtractFirstFile(ByVal pFile As FileInfo) As String
         Dim ZipH_Sign() As Byte = {&H50, &H4B, &H3, &H4}    '0x04034b50   Signature at the start of a Zip File
         Dim ZipH_ComprSize As UInteger = 0                  'Compressed size of the first file
         'Private ZipH_UncomSize As UInteger = 0             'Uncomrpessed size of the first file
@@ -41,7 +42,7 @@ Module mdlSimpleZipExtractor
 
             If pFile.Length > 60 Then
                 '60 bytes is the minimun Length that of a file that contains only the savestate version information
-                Using FileReader As System.IO.FileStream = pFile.OpenRead()
+                Using FileReader As FileStream = pFile.OpenRead()
                     Dim ZipHeader(29) As Byte
                     FileReader.Read(ZipHeader, FileReader.Position, ZipH_Sign_Len)
                     'Check if the signature is present

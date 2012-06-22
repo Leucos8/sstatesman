@@ -552,7 +552,7 @@ Public Class frmMain
                     Me.imgFlag.Size = New Size(CInt(Me.imgFlag.Image.PhysicalDimension.Width + 2 * DPIxScale), CInt(Me.imgFlag.Image.PhysicalDimension.Height + 2 * DPIyScale))
 
                     'Cover image
-                    If System.IO.File.Exists(IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg")) Then
+                    If File.Exists(IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg")) Then
                         Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
                         Me.imgCover.Load(IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg"))
                         'A lot of bug here

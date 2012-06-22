@@ -12,6 +12,7 @@
 '
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
+Imports System.IO
 Public Class frmDeleteForm
 
     Dim ListsAreCurrentlyRefreshed As Boolean = False
@@ -128,7 +129,7 @@ Public Class frmDeleteForm
                                                       FileIO.UIOption.OnlyErrorDialogs,
                                                       FileIO.RecycleOption.SendToRecycleBin)
                 Else
-                    System.IO.File.Delete(String.Concat(My.Settings.PCSX2_PathSState, "\", mdlFileList.GamesList(mdlFileList.SStates_GetSerial(tmp.Name)).Savestates(tmp.Name).Name))
+                    File.Delete(String.Concat(My.Settings.PCSX2_PathSState, "\", mdlFileList.GamesList(mdlFileList.SStates_GetSerial(tmp.Name)).Savestates(tmp.Name).Name))
                 End If
                 If mdlFileList.GamesList(mdlFileList.SStates_GetSerial(tmp.Name)).Savestates(tmp.Name).Backup Then
                     mdlFileList.GamesList(mdlFileList.SStates_GetSerial(tmp.Name)).SavestatesBackup_SizeTot -= mdlFileList.GamesList(mdlFileList.SStates_GetSerial(tmp.Name)).Savestates(tmp.Name).Length
