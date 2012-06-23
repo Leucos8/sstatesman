@@ -41,7 +41,9 @@ Partial Class frmDeleteForm
         Me.lvwSStatesListToDelete = New System.Windows.Forms.ListView()
         Me.StDelLvw_FileName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StDelLvw_Slot = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.StDelLvw_Backup = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StDelLvw_Version = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.StDelLvw_LastWT = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StDelLvw_Size = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StDelLvw_Status = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmdSStateSelectInvert = New System.Windows.Forms.Button()
@@ -124,7 +126,7 @@ Partial Class frmDeleteForm
         Me.lvwSStatesListToDelete.BackColor = System.Drawing.Color.White
         Me.lvwSStatesListToDelete.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lvwSStatesListToDelete.CheckBoxes = True
-        Me.lvwSStatesListToDelete.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StDelLvw_FileName, Me.StDelLvw_Slot, Me.StDelLvw_Version, Me.StDelLvw_Size, Me.StDelLvw_Status})
+        Me.lvwSStatesListToDelete.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StDelLvw_FileName, Me.StDelLvw_Slot, Me.StDelLvw_Backup, Me.StDelLvw_Version, Me.StDelLvw_LastWT, Me.StDelLvw_Size, Me.StDelLvw_Status})
         Me.lvwSStatesListToDelete.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvwSStatesListToDelete.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lvwSStatesListToDelete.ForeColor = System.Drawing.Color.DimGray
@@ -150,6 +152,11 @@ Partial Class frmDeleteForm
         Me.StDelLvw_Slot.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.StDelLvw_Slot.Width = 40
         '
+        'StDelLvw_Backup
+        '
+        Me.StDelLvw_Backup.Text = "Backup"
+        Me.StDelLvw_Backup.Width = 0
+        '
         'StDelLvw_Version
         '
         Me.StDelLvw_Version.Text = "Version"
@@ -159,12 +166,17 @@ Partial Class frmDeleteForm
         '
         Me.StDelLvw_Size.Text = "Size"
         Me.StDelLvw_Size.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.StDelLvw_Size.Width = 100
+        Me.StDelLvw_Size.Width = 80
+        '
+        'StDelLvw_LastWT
+        '
+        Me.StDelLvw_LastWT.Text = "Modified"
+        Me.StDelLvw_LastWT.Width = 0
         '
         'StDelLvw_Status
         '
         Me.StDelLvw_Status.Text = "Status"
-        Me.StDelLvw_Status.Width = 120
+        Me.StDelLvw_Status.Width = 140
         '
         'cmdSStateSelectInvert
         '
@@ -590,4 +602,6 @@ Partial Class frmDeleteForm
     Friend WithEvents flpWindowBottom As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents FlowPanelGameList As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
+    Private WithEvents StDelLvw_Backup As System.Windows.Forms.ColumnHeader
+    Private WithEvents StDelLvw_LastWT As System.Windows.Forms.ColumnHeader
 End Class

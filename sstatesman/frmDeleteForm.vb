@@ -26,6 +26,8 @@ Public Class frmDeleteForm
         FileName
         Slot
         Backup
+        Version
+        LastWriteDate
         Size
         Status
     End Enum
@@ -136,7 +138,9 @@ Public Class frmDeleteForm
 
         Me.StDelLvw_FileName.Width = My.Settings.frmDel_slvw_cFileName
         Me.StDelLvw_Slot.Width = My.Settings.frmDel_slvw_cSlot
+        Me.StDelLvw_Backup.Width = My.Settings.frmDel_slvw_cBackup
         Me.StDelLvw_Version.Width = My.Settings.frmDel_slvw_cVersion
+        Me.StDelLvw_LastWT.Width = My.Settings.frmDel_slvw_cLastWT
         Me.StDelLvw_Size.Width = My.Settings.frmDel_slvw_cSize
         Me.StDelLvw_Status.Width = My.Settings.frmDel_slvw_cStatus
 
@@ -166,10 +170,11 @@ Public Class frmDeleteForm
 
         My.Settings.frmDel_slvw_cFileName = Me.StDelLvw_FileName.Width
         My.Settings.frmDel_slvw_cSlot = Me.StDelLvw_Slot.Width
+        My.Settings.frmDel_slvw_cBackup = Me.StDelLvw_Backup.Width
         My.Settings.frmDel_slvw_cVersion = Me.StDelLvw_Version.Width
+        My.Settings.frmDel_slvw_cLastWT = Me.StDelLvw_LastWT.Width
         My.Settings.frmDel_slvw_cSize = Me.StDelLvw_Size.Width
         My.Settings.frmDel_slvw_cStatus = Me.StDelLvw_Status.Width
-
 
         frmMain.List_Refresher()
     End Sub
@@ -240,6 +245,8 @@ Public Class frmDeleteForm
                                                                                                .Name = tmpSavestate.Key}
                             tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Slot.ToString,
                                                                tmpSavestate.Value.Backup.ToString,
+                                                               tmpSavestate.Value.Version,
+                                                               tmpSavestate.Value.LastWriteTime.ToString,
                                                                System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2)})
                             If IO.File.Exists(IO.Path.Combine(My.Settings.PCSX2_PathSState, tmpSavestate.Key)) Then
                                 tmpLvwSListItem.SubItems.Add("")
@@ -273,14 +280,18 @@ Public Class frmDeleteForm
         If Me.lvwSStatesListToDelete.CheckedItems.Count > 0 Then
             For Each tmpLvwSListItemChecked As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
 
-                Dim tmpGameSerial As String = mdlFileList.SStates_GetSerial(tmpLvwSListItemChecked.Name)
-                Dim tmpSavestate As Savestate = mdlFileList.GamesList(tmpGameSerial).Savestates(tmpLvwSListItemChecked.Name)
-
-                If tmpSavestate.Backup Then
-                    SStateList_TotalSizeBackupSelected += tmpSavestate.Length
-                Else
-                    SStateList_TotalSizeSelected += tmpSavestate.Length
+                Dim tmpGamesListItem As New GamesList_Item
+                If mdlFileList.GamesList.TryGetValue(mdlFileList.SStates_GetSerial(tmpLvwSListItemChecked.Name), tmpGamesListItem) Then
+                    Dim tmpSavestate As New Savestate
+                    If tmpGamesListItem.Savestates.TryGetValue(tmpLvwSListItemChecked.Name, tmpSavestate) Then
+                        If tmpSavestate.Backup Then
+                            SStateList_TotalSizeBackupSelected += tmpSavestate.Length
+                        Else
+                            SStateList_TotalSizeSelected += tmpSavestate.Length
+                        End If
+                    End If
                 End If
+
             Next
         End If
 
@@ -289,7 +300,9 @@ Public Class frmDeleteForm
     Private Sub cmdSStateSelectAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectAll.Click
         Me.UI_Enabler(False)
         For lvwItemIndex = 0 To Me.lvwSStatesListToDelete.Items.Count - 1
-            Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = True
+            If Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn.Status).Text = "" Then
+                Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = True
+            End If
         Next
         Me.lvwSStatesListToDelete_indexCheckedFiles()
         Me.UI_Updater()
@@ -312,7 +325,9 @@ Public Class frmDeleteForm
             If Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = True Then
                 Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = False
             Else
-                Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = True
+                If Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn.Status).Text = "" Then
+                    Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = True
+                End If
             End If
         Next
         Me.lvwSStatesListToDelete_indexCheckedFiles()
@@ -323,8 +338,10 @@ Public Class frmDeleteForm
     Private Sub cmdSStateSelectBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectBackup.Click
         Me.UI_Enabler(False)
         For lvwItemIndex = 0 To Me.lvwSStatesListToDelete.Items.Count - 1
-            If Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn.Backup).Text = "True" Then
-                Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = True
+            If Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn.FileName).Text.EndsWith(My.Settings.PCSX2_SStateExtBackup) Then
+                If Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn.Status).Text = "" Then
+                    Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = True
+                End If
             Else
                 Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = False
             End If

@@ -34,7 +34,6 @@ Public Class frmMain
         GameRegion
         SStateInfo
         SStateBackupInfo
-        ArrayRef
     End Enum
 
     Friend Enum frmMainSStatesLvwColumn
@@ -44,7 +43,6 @@ Public Class frmMain
         Version
         LastWriteDate
         Size
-        SerialRef
     End Enum
 
     Friend Sub List_Refresher()
@@ -244,11 +242,12 @@ Public Class frmMain
                     Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                     Me.imgCover.Image = My.Resources.Flag_0Null_30x20
 
-                    If My.Settings.FrmMain_coverexpanded Then
-                        Me.imgCover.Size = New Size(CInt(122 * DPIxScale), CInt(122 * DPIyScale))
-                    Else
-                        Me.imgCover.Size = New Size(CInt(48 * DPIxScale), CInt(48 * DPIyScale))
-                    End If
+                    Me.imgCover.Dock = DockStyle.Fill
+                    'If My.Settings.FrmMain_coverexpanded Then
+                    '    Me.imgCover.Size = New Size(CInt(122 * DPIxScale), CInt(162 * DPIyScale))
+                    'Else
+                    '    Me.imgCover.Size = New Size(CInt(48 * DPIxScale), CInt(48 * DPIyScale))
+                    'End If
 
                     'If all the games are checked
                     If Me.lvwGamesList.Items.Count = Me.lvwGamesList.CheckedItems.Count Then
@@ -274,6 +273,8 @@ Public Class frmMain
                             Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
                             Me.imgCover.Load(IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg"))
 
+                            Me.imgCover.Dock = DockStyle.None
+                            Me.imgCover.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
                             If My.Settings.frmMain_CoverExpanded Then
                                 Me.imgCover.Size = New Size(CInt(122 * DPIxScale),
                                                             CInt((Me.imgCover.Image.PhysicalDimension.Height * 120 / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
@@ -291,11 +292,12 @@ Public Class frmMain
                             mdlMain.AppendToLog("frmMain", "UI_Updater", String.Concat("Cover image error: ", ex.Message))
                             Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                             Me.imgCover.Image = My.Resources.Nocover
-                            If My.Settings.frmMain_CoverExpanded Then
-                                Me.imgCover.Size = New Size(CInt(122 * DPIxScale), CInt(122 * DPIyScale))
-                            Else
-                                Me.imgCover.Size = New Size(CInt(48 * DPIxScale), CInt(48 * DPIyScale))
-                            End If
+                            Me.imgCover.Dock = DockStyle.Fill
+                            'If My.Settings.frmMain_CoverExpanded Then
+                            '    Me.imgCover.Size = New Size(CInt(122 * DPIxScale), CInt(162 * DPIyScale))
+                            'Else
+                            '    Me.imgCover.Size = New Size(CInt(48 * DPIxScale), CInt(48 * DPIyScale))
+                            'End If
                         End Try
                     End If
                     'End cover image
@@ -315,11 +317,12 @@ Public Class frmMain
 
                 Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                 Me.imgCover.Image = My.Resources.Flag_0Null_30x20
-                If My.Settings.FrmMain_coverexpanded Then
-                    Me.imgCover.Size = New Size(CInt(122 * DPIxScale), CInt(122 * DPIyScale))
-                Else
-                    Me.imgCover.Size = New Size(CInt(48 * DPIxScale), CInt(48 * DPIyScale))
-                End If
+                Me.imgCover.Dock = DockStyle.Fill
+                'If My.Settings.frmMain_CoverExpanded Then
+                '    Me.imgCover.Size = New Size(CInt(122 * DPIxScale), CInt(162 * DPIyScale))
+                'Else
+                '    Me.imgCover.Size = New Size(CInt(48 * DPIxScale), CInt(48 * DPIyScale))
+                'End If
 
                 Me.cmdGameSelectNone.Enabled = False
                 Me.cmdGameSelectAll.Enabled = True
@@ -673,7 +676,7 @@ Public Class frmMain
                                                            tmpSavestate.Value.Backup.ToString,
                                                            tmpSavestate.Value.Version,
                                                            tmpSavestate.Value.LastWriteTime.ToString,
-                                                           System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2), tmpSerial})
+                                                           System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2)})
                         If checkedSavestates.Contains(tmpSavestate.Key) Then
                             tmpLvwSListItem.Checked = True
                         End If

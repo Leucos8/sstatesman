@@ -626,6 +626,30 @@ Namespace My
                 Me("frmDel_WindowLocation") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property frmDel_slvw_cBackup() As Integer
+            Get
+                Return CType(Me("frmDel_slvw_cBackup"),Integer)
+            End Get
+            Set
+                Me("frmDel_slvw_cBackup") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")>  _
+        Public Property frmDel_slvw_cLastWT() As Integer
+            Get
+                Return CType(Me("frmDel_slvw_cLastWT"),Integer)
+            End Get
+            Set
+                Me("frmDel_slvw_cLastWT") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

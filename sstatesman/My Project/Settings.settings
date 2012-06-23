@@ -165,5 +165,11 @@
     <Setting Name="frmDel_WindowLocation" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">20, 40</Value>
     </Setting>
+    <Setting Name="frmDel_slvw_cBackup" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="frmDel_slvw_cLastWT" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
