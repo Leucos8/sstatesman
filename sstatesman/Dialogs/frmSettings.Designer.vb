@@ -116,6 +116,7 @@ Partial Class frmSettings
         Me.cmdLogFilter_Files = New System.Windows.Forms.Button()
         Me.cmdLogFilter_GameDB = New System.Windows.Forms.Button()
         Me.lblSStateListCheck = New System.Windows.Forms.Label()
+        Me.cmdApply = New System.Windows.Forms.Button()
         CType(Me.imgPCSX2IniPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgPCSX2AppPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgSStatesManPicsPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -153,7 +154,7 @@ Partial Class frmSettings
         Me.cmdOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdOk.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdOk.Location = New System.Drawing.Point(340, 6)
+        Me.cmdOk.Location = New System.Drawing.Point(236, 6)
         Me.cmdOk.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdOk.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdOk.Name = "cmdOk"
@@ -190,7 +191,7 @@ Partial Class frmSettings
         Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdCancel.Location = New System.Drawing.Point(444, 6)
+        Me.cmdCancel.Location = New System.Drawing.Point(340, 6)
         Me.cmdCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdCancel.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdCancel.Name = "cmdCancel"
@@ -766,6 +767,7 @@ Partial Class frmSettings
         Me.flpWindowBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.flpWindowBottom.BackColor = System.Drawing.Color.Gainsboro
         Me.flpWindowBottom.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.flpWindowBottom.Controls.Add(Me.cmdApply)
         Me.flpWindowBottom.Controls.Add(Me.cmdCancel)
         Me.flpWindowBottom.Controls.Add(Me.cmdOk)
         Me.flpWindowBottom.Dock = System.Windows.Forms.DockStyle.Bottom
@@ -1351,6 +1353,27 @@ Partial Class frmSettings
         Me.lblSStateListCheck.Text = "filter:"
         Me.lblSStateListCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'cmdApply
+        '
+        Me.cmdApply.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdApply.AutoSize = True
+        Me.cmdApply.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdApply.BackColor = System.Drawing.Color.White
+        Me.cmdApply.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdApply.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray
+        Me.cmdApply.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdApply.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdApply.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdApply.Location = New System.Drawing.Point(444, 6)
+        Me.cmdApply.Margin = New System.Windows.Forms.Padding(2)
+        Me.cmdApply.MinimumSize = New System.Drawing.Size(100, 0)
+        Me.cmdApply.Name = "cmdApply"
+        Me.cmdApply.Size = New System.Drawing.Size(100, 24)
+        Me.cmdApply.TabIndex = 3
+        Me.cmdApply.Text = "&APPLY"
+        Me.cmdApply.UseVisualStyleBackColor = False
+        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1499,4 +1522,5 @@ Partial Class frmSettings
     Friend WithEvents TableLayoutPanel4 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents optTheme4 As System.Windows.Forms.RadioButton
     Friend WithEvents optTheme6 As System.Windows.Forms.RadioButton
+    Private WithEvents cmdApply As System.Windows.Forms.Button
 End Class

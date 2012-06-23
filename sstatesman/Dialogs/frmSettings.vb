@@ -101,6 +101,7 @@ Public Class frmSettings
         Dim invalidChars() As Char = {""""c, "*"c, "?"c, "|"c, "<"c, ">"c}
 
         Me.cmdOk.Enabled = True
+        Me.cmdApply.Enabled = True
         Me.tmpTab2SettingsFail = False
 
         'PCSX2 application path
@@ -118,6 +119,7 @@ Public Class frmSettings
             Me.imgPCSX2AppPathStatus.Visible = True
 
             Me.cmdOk.Enabled = False
+            Me.cmdApply.Enabled = False
             Me.tmpTab2SettingsFail = True
         ElseIf Not (File.Exists(Path.Combine(Me.txtPCSX2AppPath.Text, My.Settings.PCSX2_GameDbFilename))) Then
             Me.lblPCSX2AppPathStatus.Text = System.String.Concat("Unable to find """, My.Settings.PCSX2_GameDbFilename, """ in the specified path.", Environment.NewLine,
@@ -150,6 +152,7 @@ Public Class frmSettings
             Me.imgPCSX2IniPathStatus.Visible = True
 
             Me.cmdOk.Enabled = False
+            Me.cmdApply.Enabled = False
             Me.tmpTab2SettingsFail = True
         ElseIf Not (File.Exists(Path.Combine(Me.txtPCSX2IniPath.Text, My.Settings.PCSX2_PCSX2_uiFilename))) Then
             Me.lblPCSX2IniPathStatus.Text = String.Concat("Unable to find """, My.Settings.PCSX2_PCSX2_uiFilename, """ in the specified path.", Environment.NewLine,
@@ -182,6 +185,7 @@ Public Class frmSettings
             Me.imgPCSX2SStatePathStatus.Visible = True
 
             Me.cmdOk.Enabled = False
+            Me.cmdApply.Enabled = False
             Me.tmpTab2SettingsFail = True
         Else
             Me.lblPCSX2SStatePathStatus.Text = String.Format("The folder where SStatesMan will look for the savestates, usually the ""{0}"" folder inside PCSX2 user folder.", My.Settings.PCSX2_SStateFolder)
@@ -207,6 +211,7 @@ Public Class frmSettings
             Me.imgSStatesManPicsPathStatus.Visible = True
 
             'Me.cmdOk.Enabled = False
+            'Me.cmdApply.Enabled=False
         Else
             Me.lblSStatesManPicsPathStatus.Text = String.Concat("The folder where SStatesMan will look for the game covers.", Environment.NewLine,
                                                                 "The image file MUST be named <executable code>.jpg to work.")
@@ -243,6 +248,12 @@ Public Class frmSettings
 
     Private Sub cmdOk_Click(sender As System.Object, e As System.EventArgs) Handles cmdOk.Click
         Me.Settings_Apply()
+    End Sub
+
+    Private Sub cmdApply_Click(sender As System.Object, e As System.EventArgs) Handles cmdApply.Click
+        Me.Settings_Apply()
+        Me.applyTheme()
+        Me.Settings_Load()
     End Sub
 
     Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click
