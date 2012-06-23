@@ -209,7 +209,7 @@ Public Class frmMain
 
 
         Me.UIUpdate_Time = Now.Subtract(StartTime)
-        mdlMain.AppendToLog("frmMain", "UI_Updater", "Refreshed UI.", Me.UIUpdate_Time.TotalMilliseconds)
+        mdlMain.AppendToLog("Main window", "UI_Updater", "Refreshed status.", Me.UIUpdate_Time.TotalMilliseconds)
 
     End Sub
 
@@ -292,7 +292,7 @@ Public Class frmMain
                             End If
                         Catch ex As Exception
                             'No cover image found or file is corrupted
-                            mdlMain.AppendToLog("frmMain", "UI_Updater", String.Concat("Cover image error: ", ex.Message))
+                            mdlMain.AppendToLog("Main window", "UI_Updater", String.Concat("Cover image error: ", ex.Message))
                             Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                             Me.imgCover.Image = My.Resources.Nocover
                             Me.imgCover.Dock = DockStyle.Fill
@@ -380,7 +380,7 @@ Public Class frmMain
             If Directory.Exists(My.Settings.PCSX2_PathSState) And Not frmDeleteForm.Visible And Not frmSettings.Visible And Not Me.WindowState = FormWindowState.Minimized Then
                 Dim tmpDate As DateTime = Directory.GetLastWriteTime(My.Settings.PCSX2_PathSState)
                 If Not tmpDate = mdlFileList.SStates_FolderLastModified Then
-                    mdlMain.AppendToLog("frmMain", "Timer", "Refreshed ListViews.")
+                    mdlMain.AppendToLog("Main window", "Timer", "Refreshed lists.")
                     Me.List_Refresher()
                 End If
             End If
@@ -560,7 +560,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwGamesList)
 
         Me.lvwGamesList_PopTime = Now.Subtract(StartTime)
-        mdlMain.AppendToLog("frmMain", "lvwGamesList_Populate", String.Format("Complete. {0:N0} games.", Me.lvwGamesList.Items.Count), Me.lvwGamesList_PopTime.TotalMilliseconds)
+        mdlMain.AppendToLog("Main window", "populate game list", String.Format("Complete. Listed {0:N0} games.", Me.lvwGamesList.Items.Count), Me.lvwGamesList_PopTime.TotalMilliseconds)
     End Sub
 
     Private Sub lvwGamesList_indexCheckedGames()
@@ -696,7 +696,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwSStatesList)
 
         Me.lvwSStatesList_PopTime = Now.Subtract(StartTime)
-        mdlMain.AppendToLog("frmMain", "lvwSStatesList_Populate", String.Format("Complete {0:N0} savestates.", Me.lvwSStatesList.Items.Count), Me.lvwSStatesList_PopTime.TotalMilliseconds)
+        mdlMain.AppendToLog("Main window", "populate savestates list ", String.Format("Complete. Listed {0:N0} savestates.", Me.lvwSStatesList.Items.Count), Me.lvwSStatesList_PopTime.TotalMilliseconds)
     End Sub
 
     Private Sub lvwSStatesList_indexCheckedFiles()

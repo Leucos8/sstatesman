@@ -81,7 +81,7 @@ Public Class frmGameDb
                 Me.ToolStripStatusLabel2.Text = "GameDB has no records."
         End Select
 
-        mdlMain.AppendToLog("frmGameDB", "UI_Updater", "Refreshed UI status")
+        mdlMain.AppendToLog("GameDB explorer", "UI_Updater", "Refreshed status.")
 
 
     End Sub

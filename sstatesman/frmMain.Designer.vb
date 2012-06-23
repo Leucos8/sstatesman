@@ -1011,9 +1011,9 @@ Partial Class frmMain
         Me.lblSize.Location = New System.Drawing.Point(132, 0)
         Me.lblSize.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSize.Name = "lblSize"
-        Me.lblSize.Size = New System.Drawing.Size(64, 13)
+        Me.lblSize.Size = New System.Drawing.Size(81, 13)
         Me.lblSize.TabIndex = 51
-        Me.lblSize.Text = "sstates size"
+        Me.lblSize.Text = "savestates size"
         '
         'lblSizeBackup
         '

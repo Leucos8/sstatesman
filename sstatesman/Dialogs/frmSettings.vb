@@ -13,6 +13,7 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
+
 Public Class frmSettings
 
     Dim tmpTab2SettingsFail As Boolean = False
@@ -640,9 +641,14 @@ Public Class frmSettings
         Dim tmpListItems As New List(Of ListViewItem)
         For i As Int32 = 0 To mdlMain.AppLog.Count - 1
             Dim tmpListItem As New ListViewItem With {.Text = AppLog(i).Time.ToString("H.mm.ss")}
-            tmpListItem.SubItems.AddRange({String.Concat(AppLog(i).OrClass, ".", AppLog(i).OrMethod),
-                                           AppLog(i).Description,
-                                           String.Format("{0:N0}ms", AppLog(i).Duration)})
+            tmpListItem.SubItems.AddRange({String.Concat(AppLog(i).OrClass, ": ", AppLog(i).OrMethod),
+                                           AppLog(i).Description
+                                           })
+            If AppLog(i).Duration = -1 Then
+                tmpListItem.SubItems.Add("-")
+            Else
+                tmpListItem.SubItems.Add(String.Format("{0:N0}ms", AppLog(i).Duration))
+            End If
             tmpListItems.Add(tmpListItem)
         Next
         Me.ListView1.Items.AddRange(tmpListItems.ToArray)
@@ -658,16 +664,23 @@ Public Class frmSettings
     End Sub
 
     Private Sub cmdLogFilter_frmMain_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogFilter_frmMain.Click
-        Me.ApplyLogFilter("frmMain")
+        Me.ApplyLogFilter("Main window")
     End Sub
 
     Private Sub ApplyLogFilter(ByVal pKeyword As String)
         Me.ListView1.BeginUpdate()
         Me.ListView1.Items.Clear()
         Dim tmpListItems As New List(Of ListViewItem)
-        For Each tmpLogItem As mdlMain.sLog In mdlMain.AppLog.Where(Function(tmp) tmp.OrClass = pKeyword)
+        For Each tmpLogItem As mdlMain.sLog In mdlMain.AppLog.Where(Function(tmp) tmp.OrClass.ToLower = pKeyword.ToLower)
             Dim tmpListItem As New ListViewItem With {.Text = tmpLogItem.Time.ToString("H.mm.ss")}
-            tmpListItem.SubItems.AddRange({String.Concat(tmpLogItem.OrClass, ".", tmpLogItem.OrMethod), tmpLogItem.Description, String.Format("{0:N0}ms", tmpLogItem.Duration)})
+            tmpListItem.SubItems.AddRange({String.Concat(tmpLogItem.OrClass, ": ", tmpLogItem.OrMethod),
+                                           tmpLogItem.Description
+                                           })
+            If tmpLogItem.Duration = -1 Then
+                tmpListItem.SubItems.Add("-")
+            Else
+                tmpListItem.SubItems.Add(String.Format("{0:N0}ms", tmpLogItem.Duration))
+            End If
             tmpListItems.Add(tmpListItem)
         Next
         Me.ListView1.Items.AddRange(tmpListItems.ToArray)

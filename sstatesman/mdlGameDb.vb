@@ -45,7 +45,7 @@ Module mdlGameDb
         '   ByRef   pGameDb                     The dinamic array of the GameDB
 
 
-        mdlMain.AppendToLog("GameDB", "Load", System.String.Format("DB: ""{0}"".", pFileGameDb_Loc))
+        mdlMain.AppendToLog("GameDB", "Load", System.String.Format("Open DB: ""{0}"".", pFileGameDb_Loc))
         Try
             Dim startTime As System.DateTime = Now
 
@@ -102,7 +102,7 @@ Module mdlGameDb
             End Using
             GameDb_LoadTime = Now.Subtract(startTime)
             If pGameDb.Count = 0 Then
-                mdlMain.AppendToLog("GameDB", "Load", "Complete. Loaded 0 records, the dictionary is empty", GameDb_LoadTime.TotalMilliseconds)
+                mdlMain.AppendToLog("GameDB", "Load", "Complete. Loaded 0 records, the dictionary is empty.", GameDb_LoadTime.TotalMilliseconds)
                 GameDb_Load = LoadStatus.StatusEmpty
             Else
                 mdlMain.AppendToLog("GameDB", "Load", System.String.Format("Complete. Loaded {0:N0} records.", pGameDb.Count), GameDb_LoadTime.TotalMilliseconds)
@@ -222,7 +222,7 @@ Module mdlGameDb
                     GameDb_RecordExtract = LoadStatus.StatusEmpty
                 End If
 
-                mdlMain.AppendToLog("GameDB", "RecordExtract", "From multiple serials")
+                mdlMain.AppendToLog("GameDB", "RecordExtract", "From multiple serials.")
             Case LoadStatus.StatusNotLoaded
                 GameDb_RecordExtract = LoadStatus.StatusNotLoaded
                 mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB was not loaded.")

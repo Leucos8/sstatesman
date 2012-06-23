@@ -137,7 +137,7 @@ Partial Class frmDeleteForm
         Me.lvwSStatesListToDelete.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwSStatesListToDelete.MultiSelect = False
         Me.lvwSStatesListToDelete.Name = "lvwSStatesListToDelete"
-        Me.lvwSStatesListToDelete.Size = New System.Drawing.Size(624, 191)
+        Me.lvwSStatesListToDelete.Size = New System.Drawing.Size(624, 169)
         Me.lvwSStatesListToDelete.TabIndex = 10
         Me.lvwSStatesListToDelete.UseCompatibleStateImageBehavior = False
         Me.lvwSStatesListToDelete.View = System.Windows.Forms.View.Details
@@ -296,9 +296,9 @@ Partial Class frmDeleteForm
         Me.lblSize.Location = New System.Drawing.Point(134, 0)
         Me.lblSize.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblSize.Name = "lblSize"
-        Me.lblSize.Size = New System.Drawing.Size(64, 13)
+        Me.lblSize.Size = New System.Drawing.Size(81, 13)
         Me.lblSize.TabIndex = 20
-        Me.lblSize.Text = "sstates size"
+        Me.lblSize.Text = "savestates size"
         '
         'txtSizeBackup
         '
@@ -479,7 +479,7 @@ Partial Class frmDeleteForm
         Me.flpWindowBottom.Controls.Add(Me.cmdDeleteSStateSelected)
         Me.flpWindowBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.flpWindowBottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpWindowBottom.Location = New System.Drawing.Point(0, 308)
+        Me.flpWindowBottom.Location = New System.Drawing.Point(0, 286)
         Me.flpWindowBottom.Name = "flpWindowBottom"
         Me.flpWindowBottom.Padding = New System.Windows.Forms.Padding(4)
         Me.flpWindowBottom.Size = New System.Drawing.Size(624, 36)
@@ -520,7 +520,7 @@ Partial Class frmDeleteForm
         Me.TableLayoutPanel2.Controls.Add(Me.lblSizeBackup, 2, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.txtSize, 1, 1)
         Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 269)
+        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 247)
         Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(0)
         Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
         Me.TableLayoutPanel2.RowCount = 2
@@ -537,7 +537,7 @@ Partial Class frmDeleteForm
         Me.lblWindowDescription.Location = New System.Drawing.Point(26, 34)
         Me.lblWindowDescription.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblWindowDescription.Name = "lblWindowDescription"
-        Me.lblWindowDescription.Size = New System.Drawing.Size(380, 13)
+        Me.lblWindowDescription.Size = New System.Drawing.Size(349, 13)
         Me.lblWindowDescription.TabIndex = 4
         Me.lblWindowDescription.Text = "please check the file you really want to delete and click ""delete checked""."
         '
@@ -548,7 +548,7 @@ Partial Class frmDeleteForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.CancelButton = Me.cmdCancel
-        Me.ClientSize = New System.Drawing.Size(624, 344)
+        Me.ClientSize = New System.Drawing.Size(624, 322)
         Me.ControlBox = False
         Me.Controls.Add(Me.lvwSStatesListToDelete)
         Me.Controls.Add(Me.FlowPanelGameList)
