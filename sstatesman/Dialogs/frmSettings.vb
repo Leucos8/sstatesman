@@ -555,6 +555,7 @@ Public Class frmSettings
             If My.Settings.SStatesMan_ThemeGradientEnabled Then
                 recToolbar = New Rectangle(0, panelWindowTitle.Height - CInt(4 * DPIyScale), panelWindowTitle.Width, CInt(3 * DPIyScale) + 1)
                 linGrBrushToolbar = New Drawing2D.LinearGradientBrush(recToolbar, Color.Transparent, Color.DarkGray, 90)
+                recToolbar.Y += 1
                 e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
             End If
             e.Graphics.DrawLine(Pens.DimGray, 0, panelWindowTitle.Height - 1, panelWindowTitle.Width, panelWindowTitle.Height - 1)
