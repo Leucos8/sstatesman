@@ -68,6 +68,7 @@ Partial Class frmDeleteForm
         Me.flpWindowBottom = New System.Windows.Forms.FlowLayoutPanel()
         Me.FlowPanelGameList = New System.Windows.Forms.FlowLayoutPanel()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblWindowDescription = New System.Windows.Forms.Label()
         Me.panelWindowTitle.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel2.SuspendLayout()
@@ -162,16 +163,16 @@ Partial Class frmDeleteForm
         Me.StDelLvw_Version.Text = "Version"
         Me.StDelLvw_Version.Width = 80
         '
+        'StDelLvw_LastWT
+        '
+        Me.StDelLvw_LastWT.Text = "Modified"
+        Me.StDelLvw_LastWT.Width = 0
+        '
         'StDelLvw_Size
         '
         Me.StDelLvw_Size.Text = "Size"
         Me.StDelLvw_Size.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         Me.StDelLvw_Size.Width = 80
-        '
-        'StDelLvw_LastWT
-        '
-        Me.StDelLvw_LastWT.Text = "Modified"
-        Me.StDelLvw_LastWT.Width = 0
         '
         'StDelLvw_Status
         '
@@ -385,6 +386,7 @@ Partial Class frmDeleteForm
         Me.FlowLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.FlowLayoutPanel2.BackColor = System.Drawing.Color.Transparent
         Me.FlowLayoutPanel2.Controls.Add(Me.lblWindowTitle)
+        Me.FlowLayoutPanel2.Controls.Add(Me.lblWindowDescription)
         Me.FlowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FlowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
         Me.FlowLayoutPanel2.Location = New System.Drawing.Point(2, 2)
@@ -456,8 +458,6 @@ Partial Class frmDeleteForm
         '
         'imgWindowGradientIcon
         '
-        Me.imgWindowGradientIcon.BackgroundImage = Global.sstatesman.My.Resources.Resources.GradientBlueDarkH
-        Me.imgWindowGradientIcon.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.imgWindowGradientIcon.Dock = System.Windows.Forms.DockStyle.Fill
         Me.imgWindowGradientIcon.Image = Global.sstatesman.My.Resources.Resources.SSM1ico24
         Me.imgWindowGradientIcon.Location = New System.Drawing.Point(535, 0)
@@ -528,6 +528,18 @@ Partial Class frmDeleteForm
         Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(624, 39)
         Me.TableLayoutPanel2.TabIndex = 17
+        '
+        'lblWindowDescription
+        '
+        Me.lblWindowDescription.AutoSize = True
+        Me.lblWindowDescription.BackColor = System.Drawing.Color.Transparent
+        Me.lblWindowDescription.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+        Me.lblWindowDescription.Location = New System.Drawing.Point(26, 34)
+        Me.lblWindowDescription.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblWindowDescription.Name = "lblWindowDescription"
+        Me.lblWindowDescription.Size = New System.Drawing.Size(380, 13)
+        Me.lblWindowDescription.TabIndex = 4
+        Me.lblWindowDescription.Text = "please check the file you really want to delete and click ""delete checked""."
         '
         'frmDeleteForm
         '
@@ -604,4 +616,5 @@ Partial Class frmDeleteForm
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Private WithEvents StDelLvw_Backup As System.Windows.Forms.ColumnHeader
     Private WithEvents StDelLvw_LastWT As System.Windows.Forms.ColumnHeader
+    Private WithEvents lblWindowDescription As System.Windows.Forms.Label
 End Class

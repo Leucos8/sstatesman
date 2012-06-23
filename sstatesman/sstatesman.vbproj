@@ -190,8 +190,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\GradientBlueDarkH.png" />
-    <None Include="Resources\GradientBlueDarkV.png" />
     <None Include="Resources\SSM1ico24.png" />
     <None Include="Resources\SStatesMan-Badge3.png" />
     <None Include="Resources\SSM1.ico" />
