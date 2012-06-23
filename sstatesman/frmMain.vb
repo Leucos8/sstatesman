@@ -108,6 +108,9 @@ Public Class frmMain
 
         Me.Location = My.Settings.frmMain_WindowPosition
         Me.Size = My.Settings.frmMain_WindowSize
+        If My.Settings.frmMain_WindowState = FormWindowState.Minimized Then
+            My.Settings.frmMain_WindowState = FormWindowState.Normal
+        End If
         Me.WindowState = My.Settings.frmMain_WindowState
         Me.SplitContainer1.SplitterDistance = My.Settings.frmMain_SplitterDistance
 

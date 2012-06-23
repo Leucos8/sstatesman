@@ -134,6 +134,9 @@ Public Class frmDeleteForm
 
         Me.Location = My.Settings.frmDel_WindowLocation
         Me.Size = My.Settings.frmDel_WindowSize
+        If My.Settings.frmMain_WindowState = FormWindowState.Minimized Then
+            My.Settings.frmMain_WindowState = FormWindowState.Normal
+        End If
         Me.WindowState = My.Settings.frmDel_WindowState
 
         Me.StDelLvw_FileName.Width = My.Settings.frmDel_slvw_cFileName
