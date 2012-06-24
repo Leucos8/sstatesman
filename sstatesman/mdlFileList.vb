@@ -118,12 +118,17 @@ Module mdlFileList
     End Sub
 
     Public Function SStates_GetSerial(ByVal pFileName As String) As String
-        SStates_GetSerial = pFileName.Remove(pFileName.IndexOf(" ", 0))
+        Dim SpacePosition As Int32 = pFileName.IndexOf(" "c, 0)
+        If SpacePosition > 0 Then
+            SStates_GetSerial = pFileName.Remove(SpacePosition)
+        Else
+            SStates_GetSerial = pFileName
+        End If
     End Function
 
     Public Function SStates_GetSlot(ByVal pFileName As String) As Int32
         SStates_GetSlot = -1
-        If Int32.TryParse(pFileName.Substring(pFileName.IndexOf(".", 0) + 1, 2), SStates_GetSlot) Then
+        If Int32.TryParse(pFileName.Substring(pFileName.IndexOf("."c, 0) + 1, 2), SStates_GetSlot) Then
             Return SStates_GetSlot
         End If
     End Function
