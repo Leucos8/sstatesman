@@ -19,8 +19,8 @@ Module mdlMain
 
     Friend checkedGames As New List(Of String)
     Friend checkedSavestates As New List(Of String)
-    Public DPIxScale As Single = 1.0
-    Public DPIyScale As Single = 1.0
+    Public DPIxScale As Single = 1.0F
+    Public DPIyScale As Single = 1.0F
 
     Public Enum LoadStatus As Byte
         StatusEmpty
@@ -37,6 +37,7 @@ Module mdlMain
         Friend Duration As Double
     End Structure
     Public AppLog As New List(Of sLog)
+    Const AppLog_MaxLenght As Integer = 31
 
     Public Sub FirstRun()
         'Show the warning message
@@ -287,7 +288,7 @@ Module mdlMain
         End If
         AppLog.Add(New sLog With {.Time = Now, .OrClass = pClass, .OrMethod = pMethod, .Description = pMessage, .Duration = pDuration})
 
-        Console.WriteLine(String.Format("[{0:HH.mm.ss}] {1}: {2} {3} {4:N1}ms.", Now, pClass, pMethod, pMessage, pDuration))
+        'Console.WriteLine(String.Format("[{0:HH.mm.ss}] {1}: {2} {3} {4:N1}ms.", Now, pClass, pMethod, pMessage, pDuration))
     End Sub
 
 End Module

@@ -18,7 +18,7 @@ Module mdlFileList
     Public Class Savestate
         Public Property Name As String
         Public Property Extension As String
-        Public Property Length As Int64
+        Public Property Length As Long
         Public Property LastWriteTime As DateTime
         Public Property Slot As String
         Public Property Backup As Boolean
@@ -36,7 +36,7 @@ Module mdlFileList
 
     Public GamesList As New Dictionary(Of String, GamesList_Item)
     Public GamesList_Status As mdlMain.LoadStatus = LoadStatus.StatusNotLoaded
-    Public GameList_LoadTime As System.TimeSpan
+    Public GameList_LoadTime As Long
     Public SStates_FolderLastModified As DateTime
     'Public SStatesStored_FolderLastModified As DateTime
     'Public SShots_FolderLastModified As DateTime
@@ -45,7 +45,8 @@ Module mdlFileList
                                       ByRef pGamesList As Dictionary(Of String, GamesList_Item)
                                       ) As LoadStatus
 
-        Dim startTime As System.DateTime = Now
+        Dim sw As New Stopwatch
+        sw.Start()
 
         pGamesList.Clear()
 
@@ -54,12 +55,13 @@ Module mdlFileList
         SStatesList_Load(sstates_DirectoryInfo,
                          pGamesList)
 
-        GameList_LoadTime = Now.Subtract(startTime)
+        sw.Stop()
+        GameList_LoadTime = sw.ElapsedMilliseconds
         If pGamesList.Count = 0 Then
-            mdlMain.AppendToLog("FilesList", "LoadAll", "Complete. No games, the list is empty.", GameList_LoadTime.TotalMilliseconds)
+            mdlMain.AppendToLog("FilesList", "LoadAll", "No games, the list is empty.", GameList_LoadTime)
             Return LoadStatus.StatusEmpty
         Else
-            mdlMain.AppendToLog("FilesList", "LoadAll", String.Format("Complete. Loaded {0:N0} games.", pGamesList.Count), GameList_LoadTime.TotalMilliseconds)
+            mdlMain.AppendToLog("FilesList", "LoadAll", String.Format("Loaded {0:N0} games.", pGamesList.Count), GameList_LoadTime)
             Return LoadStatus.StatusLoadedOK
         End If
     End Function
@@ -84,7 +86,7 @@ Module mdlFileList
                     .Extension = FileInformation.Extension,
                     .Length = FileInformation.Length,
                     .LastWriteTime = FileInformation.LastWriteTime,
-                    .Slot = SStates_GetSlot(FileInformation.Name),
+                    .Slot = SStates_GetSlot(FileInformation.Name).ToString,
                     .Backup = SStates_GetType(FileInformation.Extension)}
                 If My.Settings.SStatesMan_SStatesVersionExtract Then
                     newItem.Version = mdlSimpleZipExtractor.ExtractFirstFile(FileInformation)

@@ -35,7 +35,7 @@ Module mdlGameDb
 
     Public GameDb As New Dictionary(Of String, GameTitle)
     Public GameDb_Status As mdlMain.LoadStatus = mdlMain.LoadStatus.StatusNotLoaded
-    Public GameDb_LoadTime As TimeSpan
+    Public GameDb_LoadTime As Long
 
     Public Function GameDb_Load(ByVal pFileGameDb_Loc As String,
                                 ByRef pGameDb As Dictionary(Of String, GameTitle)
@@ -47,12 +47,12 @@ Module mdlGameDb
 
         mdlMain.AppendToLog("GameDB", "Load", String.Format("Open DB: ""{0}"".", pFileGameDb_Loc))
         Try
-            Dim startTime As DateTime = DateTime.Now
+            Dim sw As New Stopwatch
+            sw.Start()
 
             pGameDb.Clear()
 
             Dim myCurrentSerial As String = ""
-            'Dim myCurrentRecord As New GameTitle
 
             Using FileGameDb_Reader As New StreamReader(pFileGameDb_Loc, System.Text.Encoding.Default)
                 While Not FileGameDb_Reader.EndOfStream
@@ -100,17 +100,17 @@ Module mdlGameDb
                 End While
                 FileGameDb_Reader.Close()
             End Using
-            GameDb_LoadTime = Now.Subtract(startTime)
+            GameDb_LoadTime = sw.ElapsedMilliseconds
             If pGameDb.Count = 0 Then
-                mdlMain.AppendToLog("GameDB", "Load", "Complete. Loaded 0 records, the dictionary is empty.", GameDb_LoadTime.TotalMilliseconds)
+                mdlMain.AppendToLog("GameDB", "Load", "No records found.", GameDb_LoadTime)
                 GameDb_Load = LoadStatus.StatusEmpty
             Else
-                mdlMain.AppendToLog("GameDB", "Load", System.String.Format("Complete. Loaded {0:N0} records.", pGameDb.Count), GameDb_LoadTime.TotalMilliseconds)
+                mdlMain.AppendToLog("GameDB", "Load", String.Format("Loaded {0:N0} records.", pGameDb.Count), GameDb_LoadTime)
                 GameDb_Load = LoadStatus.StatusLoadedOK
             End If
 
         Catch ex As Exception
-            mdlMain.AppendToLog("GameDB", "Load", System.String.Concat("Some kinda failure during GameDB loading. ", ex.Message))
+            mdlMain.AppendToLog("GameDB", "Load", String.Concat("Some kinda GameDB loading failure. ", ex.Message))
             pGameDb.Clear()
             GameDb_Load = LoadStatus.StatusError
         End Try

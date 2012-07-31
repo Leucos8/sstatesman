@@ -14,14 +14,14 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Public Class frmGameDb
     'Dim WindowSearchActive As System.Boolean = False
-    Dim CurrentSerial As System.String = ""
+    Dim CurrentSerial As String = ""
     Dim CurrentGame As New GameTitle With {.Serial = "", .Name = "", .Region = "", .Compat = "0"}
-    Dim populationTime As System.TimeSpan
+    Dim populationTime As Long
 
 
     Friend SearchResultRef As New List(Of System.String)
     Friend SearchResultRef_ArrayStatus As LoadStatus = LoadStatus.StatusNotLoaded
-    Dim SearchResultRef_Pos As System.String
+    Dim SearchResultRef_Pos As String
 
     Private Sub UI_Updater()
 
@@ -44,8 +44,8 @@ Public Class frmGameDb
         Select Case mdlGameDb.GameDb_Status
             Case LoadStatus.StatusLoadedOK
                 Me.CurrentGame = mdlGameDb.GameDb_RecordExtract(Me.CurrentSerial, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
-                Me.ToolStripStatusLabel2.Text = System.String.Format("GameDB loaded in {0:N1}ms.", mdlGameDb.GameDb_LoadTime.TotalMilliseconds)
-                Me.ToolStripStatusLabel3.Text = System.String.Format("List created in {0:N1}ms.", Me.populationTime.TotalMilliseconds)
+                Me.ToolStripStatusLabel2.Text = System.String.Format("GameDB loaded in {0:N1}ms.", mdlGameDb.GameDb_LoadTime)
+                Me.ToolStripStatusLabel3.Text = System.String.Format("List created in {0:N1}ms.", Me.populationTime)
                 Select Case Me.SearchResultRef_ArrayStatus
                     Case LoadStatus.StatusNotLoaded
                         Me.ToolStripStatusLabel1.Text = System.String.Format("{0} games.", mdlGameDb.GameDb.Count.ToString("N0"))
@@ -293,7 +293,8 @@ Public Class frmGameDb
     End Sub
 
     Private Sub PopulateList(ByVal pList As Dictionary(Of System.String, GameTitle))
-        Dim startTime As System.DateTime = Now
+        Dim sw As New Stopwatch
+        sw.Start()
         Me.lvwGameDBList.Items.Clear()
         Dim myLvwItems As New List(Of System.Windows.Forms.ListViewItem)
         For Each myTmpGame As KeyValuePair(Of System.String, GameTitle) In pList
@@ -305,7 +306,8 @@ Public Class frmGameDb
         Next
         Me.lvwGameDBList.Items.AddRange(myLvwItems.ToArray)
         'mdlTheme.ListAlternateColors(Me.lvwGameDBList)
-        Me.populationTime = Now.Subtract(startTime)
+        sw.Stop()
+        Me.populationTime = sw.ElapsedMilliseconds
 
     End Sub
 

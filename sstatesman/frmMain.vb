@@ -17,9 +17,9 @@ Imports System.IO
 Public Class frmMain
 
     Dim ListsAreCurrentlyRefreshed As Boolean = False
-    Dim lvwGamesList_PopTime As System.TimeSpan
-    Dim lvwSStatesList_PopTime As System.TimeSpan
-    Dim UIUpdate_Time As System.TimeSpan
+    Dim lvwGamesList_PopTime As Long
+    Dim lvwSStatesList_PopTime As Long
+    Dim UIUpdate_Time As Long
 
     Dim currentGameInfo As New GameTitle
 
@@ -202,14 +202,16 @@ Public Class frmMain
     End Sub
 
     Private Sub UI_Updater()
-        Dim StartTime As DateTime = Now
+        Dim sw As New Stopwatch
+        sw.Start()
 
         Me.UI_UpdaterGameInfo()
         Me.UI_UpdaterStInfo()
 
 
-        Me.UIUpdate_Time = Now.Subtract(StartTime)
-        mdlMain.AppendToLog("Main window", "UI_Updater", "Refreshed status.", Me.UIUpdate_Time.TotalMilliseconds)
+        sw.Stop()
+        Me.UIUpdate_Time = sw.ElapsedMilliseconds
+        mdlMain.AppendToLog("Main window", "UI_Updater", "Refreshed status.", Me.UIUpdate_Time)
 
     End Sub
 
@@ -509,7 +511,8 @@ Public Class frmMain
 
 #Region "UI - Gamelist management"
     Private Sub lvwGamesList_Populate()
-        Dim StartTime As DateTime = Now
+        Dim sw As New Stopwatch
+        sw.Start()
 
         Me.lvwGamesList.Items.Clear()
         Me.lvwSStatesList.Items.Clear()
@@ -558,9 +561,9 @@ Public Class frmMain
         Me.lvwGamesList.Items.AddRange(tmpGListItems.ToArray)
 
         mdlTheme.ListAlternateColors(Me.lvwGamesList)
-
-        Me.lvwGamesList_PopTime = Now.Subtract(StartTime)
-        mdlMain.AppendToLog("Main window", "populate game list", String.Format("Complete. Listed {0:N0} games.", Me.lvwGamesList.Items.Count), Me.lvwGamesList_PopTime.TotalMilliseconds)
+        sw.Stop()
+        Me.lvwGamesList_PopTime = sw.ElapsedMilliseconds
+        mdlMain.AppendToLog("Main window", "populate game list", String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), Me.lvwGamesList_PopTime)
     End Sub
 
     Private Sub lvwGamesList_indexCheckedGames()
@@ -628,7 +631,8 @@ Public Class frmMain
 
 #Region "UI - SStatesList management"
     Private Sub lvwSStatesList_Populate()
-        Dim StartTime As DateTime = Now
+        Dim sw As New Stopwatch
+        sw.Start()
 
         'Preparation for the update
         Me.lvwGamesList_SelectedSize = 0
@@ -695,8 +699,9 @@ Public Class frmMain
         Me.lvwSStatesList.Items.AddRange(tmpSListItems.ToArray)
         mdlTheme.ListAlternateColors(Me.lvwSStatesList)
 
-        Me.lvwSStatesList_PopTime = Now.Subtract(StartTime)
-        mdlMain.AppendToLog("Main window", "populate savestates list ", String.Format("Complete. Listed {0:N0} savestates.", Me.lvwSStatesList.Items.Count), Me.lvwSStatesList_PopTime.TotalMilliseconds)
+        sw.Stop()
+        Me.lvwSStatesList_PopTime = sw.ElapsedMilliseconds
+        mdlMain.AppendToLog("Main window", "populate savestates list ", String.Format("Listed {0:N0} savestates.", Me.lvwSStatesList.Items.Count), Me.lvwSStatesList_PopTime)
     End Sub
 
     Private Sub lvwSStatesList_indexCheckedFiles()
