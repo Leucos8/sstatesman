@@ -13,15 +13,13 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Public Class frmGameDb
-    'Dim WindowSearchActive As System.Boolean = False
     Dim CurrentSerial As String = ""
-    Dim CurrentGame As New GameTitle With {.Serial = "", .Name = "", .Region = "", .Compat = "0"}
+    Dim CurrentGame As New GameInfo With {.Serial = "", .Name = "", .Region = "", .Compat = "0"}
     Dim populationTime As Long
 
 
     Friend SearchResultRef As New List(Of System.String)
-    Friend SearchResultRef_ArrayStatus As LoadStatus = LoadStatus.StatusNotLoaded
-    Dim SearchResultRef_Pos As String
+    Friend SearchIsActive As Boolean = False
 
     Private Sub UI_Updater()
 
@@ -41,23 +39,25 @@ Public Class frmGameDb
         Me.ToolStripStatusLabel1.Text = ""
         Me.ToolStripStatusLabel3.Text = ""
 
-        Select Case mdlGameDb.GameDb_Status
+        Select Case PCSX2GameDb.Status
             Case LoadStatus.StatusLoadedOK
-                Me.CurrentGame = mdlGameDb.GameDb_RecordExtract(Me.CurrentSerial, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
-                Me.ToolStripStatusLabel2.Text = System.String.Format("GameDB loaded in {0:N1}ms.", mdlGameDb.GameDb_LoadTime)
+                Me.CurrentGame = PCSX2GameDb.RecordExtract(Me.CurrentSerial)
+                Me.ToolStripStatusLabel2.Text = System.String.Format("GameDB loaded in {0:N1}ms.", PCSX2GameDb.LoadTime)
                 Me.ToolStripStatusLabel3.Text = System.String.Format("List created in {0:N1}ms.", Me.populationTime)
-                Select Case Me.SearchResultRef_ArrayStatus
-                    Case LoadStatus.StatusNotLoaded
-                        Me.ToolStripStatusLabel1.Text = System.String.Format("{0} games.", mdlGameDb.GameDb.Count.ToString("N0"))
-                    Case LoadStatus.StatusLoadedOK
-                        Me.ToolStripStatusLabel1.Text = System.String.Format("Found {0:N0} in {1:N0} games.", Me.SearchResultRef.Count, mdlGameDb.GameDb.Count)
-                        Me.tsListShow.Enabled = True
-                        Me.tsListShow.Visible = True
-                    Case LoadStatus.StatusEmpty
-                        Me.ToolStripStatusLabel1.Text = System.String.Format("No result found. {1:N0} games.", Me.SearchResultRef.Count, mdlGameDb.GameDb.Count)
-                        Me.tsListShow.Enabled = True
-                        Me.tsListShow.Visible = True
-                End Select
+                If Not (SearchIsActive) Then
+                    Me.ToolStripStatusLabel1.Text = System.String.Format("{0} games.", PCSX2GameDb.Records.Count.ToString("N0"))
+                Else
+                    Select Case Me.SearchResultRef.Count
+                        Case Is > 0
+                            Me.ToolStripStatusLabel1.Text = System.String.Format("Found {0:N0} in {1:N0} games.", Me.SearchResultRef.Count, PCSX2GameDb.Records.Count.ToString)
+                            Me.tsListShow.Enabled = True
+                            Me.tsListShow.Visible = True
+                        Case 0
+                            Me.ToolStripStatusLabel1.Text = System.String.Format("No result found in {1:N0} games.", Me.SearchResultRef.Count, PCSX2GameDb.Records.Count.ToString)
+                            Me.tsListShow.Enabled = True
+                            Me.tsListShow.Visible = True
+                    End Select
+                End If
 
                 Me.tsGameDbUnload.Enabled = True
                 Me.tsCmdSearch.Enabled = True
@@ -69,7 +69,7 @@ Public Class frmGameDb
                 Me.txtGameList_Title.Text = CurrentGame.Name
                 Me.txtGameList_Serial.Text = CurrentGame.Serial
                 Me.txtGameList_Region.Text = CurrentGame.Region
-                Me.txtGameList_Compat.Text = mdlMain.assignCompatText(CurrentGame.Compat)
+                Me.txtGameList_Compat.Text = CurrentGame.CompatToText
                 Me.imgFlag.Image = mdlMain.assignFlag(CurrentGame.Region, CurrentGame.Serial)
 
 
@@ -87,13 +87,13 @@ Public Class frmGameDb
     End Sub
 
     Private Sub LoadGameDB(ByVal pPath As String)
-        mdlGameDb.GameDb_Status = mdlGameDb.GameDb_Load(pPath, GameDb)
+        PCSX2GameDb.Load(pPath)
 
         Me.CurrentSerial = ""
         Me.SearchResultRef.Clear()
-        Me.SearchResultRef_ArrayStatus = LoadStatus.StatusNotLoaded
+        Me.SearchIsActive = False
 
-        Me.PopulateList(mdlGameDb.GameDb)
+        Me.PopulateList(PCSX2GameDb.Records)
 
         Me.UI_Updater()
     End Sub
@@ -102,12 +102,11 @@ Public Class frmGameDb
 
         Me.CurrentSerial = ""
         Me.SearchResultRef.Clear()
-        Me.SearchResultRef_ArrayStatus = LoadStatus.StatusNotLoaded
+        Me.SearchIsActive = False
 
-        Me.PopulateList(mdlGameDb.GameDb)
+        Me.PopulateList(PCSX2GameDb.Records)
 
         Me.UI_Updater()
-
     End Sub
 
     Private Sub tsGameDbLoad_ButtonClick(sender As System.Object, e As System.EventArgs) Handles tsGameDbLoad.ButtonClick
@@ -138,15 +137,14 @@ Public Class frmGameDb
 
     Private Sub tsGameDbUnload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsGameDbUnload.Click
 
-        If System.Windows.Forms.MessageBox.Show("Warning, clearing the GameDB could lead to undesired effects." & System.Environment.NewLine & "Be sure to load it again before closing GameDB util." & System.Environment.NewLine & "Do you wish to continue?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
+        If System.Windows.Forms.MessageBox.Show("Warning, unloading the GameDB could lead to undesired effects." & System.Environment.NewLine & "Be sure to load it again before closing GameDB util." & System.Environment.NewLine & "Do you wish to continue?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
             Me.lvwGameDBList.Items.Clear()
 
-            mdlGameDb.GameDb.Clear()
-            mdlGameDb.GameDb_Status = LoadStatus.StatusNotLoaded
+            PCSX2GameDb.Unload()
 
             Me.CurrentSerial = ""
             Me.SearchResultRef.Clear()
-            Me.SearchResultRef_ArrayStatus = LoadStatus.StatusNotLoaded
+            Me.SearchIsActive = False
 
             Me.UI_Updater()
         End If
@@ -156,9 +154,9 @@ Public Class frmGameDb
     Private Sub tsListShow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsListShow.Click
 
         Me.SearchResultRef.Clear()
-        Me.SearchResultRef_ArrayStatus = LoadStatus.StatusNotLoaded
+        Me.SearchIsActive = False
 
-        Me.PopulateList(mdlGameDb.GameDb)
+        Me.PopulateList(mdlGameDb.PCSX2GameDb.Records)
 
         Me.UI_Updater()
 
@@ -177,22 +175,17 @@ Public Class frmGameDb
                 .ValidateNames = True
             End With
 
-            If Me.SearchResultRef_ArrayStatus = LoadStatus.StatusLoadedOK Then
+            If Me.SearchResultRef.Count > 0 Then
                 With SaveDialog
                     .FileName = "GameDB search results"
                     .Title = "Save found records to..."
                 End With
                 If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                    Dim GameDbExtract As New Dictionary(Of System.String, GameTitle)
+                    Dim GameDbExtract As New Dictionary(Of System.String, GameInfo)
                     Dim GameDbExtract_ArrayStatus As System.Byte = LoadStatus.StatusNotLoaded
 
-                    GameDbExtract_ArrayStatus = mdlGameDb.GameDb_RecordExtract(SearchResultRef,
-                                                                               mdlGameDb.GameDb,
-                                                                               mdlGameDb.GameDb_Status,
-                                                                               GameDbExtract)
-                    Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName,
-                                                    vbTab,
-                                                    GameDbExtract)
+                    GameDbExtract_ArrayStatus = PCSX2GameDb.RecordExtract(SearchResultRef, GameDbExtract)
+                    GameDB.ExportTxt(SaveDialog.FileName, vbTab, GameDbExtract)
                 End If
             Else
                 With SaveDialog
@@ -200,10 +193,7 @@ Public Class frmGameDb
                     .Title = "Save records to..."
                 End With
                 If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-
-                    Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName,
-                                                    vbTab, _
-                                                     GameDb)
+                    PCSX2GameDb.ExporTxt(SaveDialog.FileName, vbTab)
                 End If
             End If
         End Using
@@ -222,23 +212,18 @@ Public Class frmGameDb
                 .ValidateNames = True
             End With
 
-            If Me.SearchResultRef_ArrayStatus = LoadStatus.StatusLoadedOK Then
+            If Me.SearchResultRef.Count > 0 Then
                 With SaveDialog
                     .FileName = "GameDB search results"
                     .Title = "Save found records list to..."
                 End With
                 If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
                     If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                        Dim GameDbExtract As New Dictionary(Of System.String, GameTitle)
+                        Dim GameDbExtract As New Dictionary(Of System.String, GameInfo)
                         Dim GameDbExtract_ArrayStatus As System.Byte = LoadStatus.StatusNotLoaded
 
-                        GameDbExtract_ArrayStatus = mdlGameDb.GameDb_RecordExtract(SearchResultRef,
-                                                                                   mdlGameDb.GameDb,
-                                                                                   mdlGameDb.GameDb_Status,
-                                                                                   GameDbExtract)
-                        Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName,
-                                                        ";",
-                                                        GameDbExtract)
+                        GameDbExtract_ArrayStatus = PCSX2GameDb.RecordExtract(SearchResultRef, GameDbExtract)
+                        GameDB.ExportTxt(SaveDialog.FileName, ";", GameDbExtract)
                     End If
                 End If
             Else
@@ -247,9 +232,7 @@ Public Class frmGameDb
                     .Title = "Save records to..."
                 End With
                 If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                    Call mdlGameDb.GameDb_ExportTxt(SaveDialog.FileName,
-                                                    ";",
-                                                    GameDb)
+                    PCSX2GameDb.ExporTxt(SaveDialog.FileName, ";")
                 End If
             End If
         End Using
@@ -281,31 +264,28 @@ Public Class frmGameDb
 
     Private Sub tsCmdSearch_Click(sender As System.Object, e As System.EventArgs) Handles tsCmdSearch.Click
         If frmGameDbSearchForm.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-            Dim SearchGameDb As New Dictionary(Of System.String, GameTitle)
-            mdlGameDb.GameDb_RecordExtract(Me.SearchResultRef,
-                                           mdlGameDb.GameDb,
-                                           mdlGameDb.GameDb_Status,
-                                           SearchGameDb)
+            Dim SearchGameDb As New Dictionary(Of System.String, GameInfo)
+            PCSX2GameDb.RecordExtract(Me.SearchResultRef, SearchGameDb)
             Me.PopulateList(SearchGameDb)
 
             Me.UI_Updater()
         End If
     End Sub
 
-    Private Sub PopulateList(ByVal pList As Dictionary(Of System.String, GameTitle))
+    Private Sub PopulateList(ByVal pList As Dictionary(Of System.String, GameInfo))
         Dim sw As New Stopwatch
         sw.Start()
         Me.lvwGameDBList.Items.Clear()
         Dim myLvwItems As New List(Of System.Windows.Forms.ListViewItem)
-        For Each myTmpGame As KeyValuePair(Of System.String, GameTitle) In pList
+        For Each myTmpGame As KeyValuePair(Of System.String, GameInfo) In pList
             Dim myTmpItem As New System.Windows.Forms.ListViewItem With {.Text = myTmpGame.Value.Name}
             myTmpItem.SubItems.AddRange({myTmpGame.Key,
                                          myTmpGame.Value.Region,
-                                         mdlMain.assignCompatText(myTmpGame.Value.Compat)})
+                                         myTmpGame.Value.CompatToText})
             myLvwItems.Add(myTmpItem)
         Next
         Me.lvwGameDBList.Items.AddRange(myLvwItems.ToArray)
-        'mdlTheme.ListAlternateColors(Me.lvwGameDBList)
+        mdlTheme.ListAlternateColors(Me.lvwGameDBList)
         sw.Stop()
         Me.populationTime = sw.ElapsedMilliseconds
 

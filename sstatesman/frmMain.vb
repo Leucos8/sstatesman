@@ -21,7 +21,7 @@ Public Class frmMain
     Dim lvwSStatesList_PopTime As Long
     Dim UIUpdate_Time As Long
 
-    Dim currentGameInfo As New GameTitle
+    Dim currentGameInfo As New GameInfo
 
     Dim lvwGamesList_SelectedSize As UInt64 = 0
     Dim lvwGamesList_SelectedSizeBackup As UInt64 = 0
@@ -142,7 +142,7 @@ Public Class frmMain
 
 
         'Loading the Game database (from PCSX2 directory)
-        mdlGameDb.GameDb_Status = mdlGameDb.GameDb_Load(Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename), mdlGameDb.GameDb)
+        PCSX2GameDb.Load(Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
         'Refreshing the games list
         Me.List_Refresher()
 
@@ -266,8 +266,8 @@ Public Class frmMain
                     Me.txtGameList_Title.Text = currentGameInfo.Name
                     Me.txtGameList_Serial.Text = currentGameInfo.Serial
                     Me.txtGameList_Region.Text = currentGameInfo.Region
-                    Me.txtGameList_Compat.Text = mdlMain.assignCompatText(currentGameInfo.Compat)
-                    Me.txtGameList_Compat.BackColor = mdlMain.assignCompatColor(currentGameInfo.Compat, Color.WhiteSmoke)
+                    Me.txtGameList_Compat.Text = currentGameInfo.CompatToText
+                    Me.txtGameList_Compat.BackColor = currentGameInfo.CompatToColor(Color.WhiteSmoke)
                     Me.imgFlag.Image = mdlMain.assignFlag(currentGameInfo.Region, currentGameInfo.Serial)
                     Me.imgFlag.Size = New Size(CInt(Me.imgFlag.Image.PhysicalDimension.Width + 2 * DPIxScale),
                                                CInt(Me.imgFlag.Image.PhysicalDimension.Height + 2 * DPIyScale))
@@ -520,7 +520,7 @@ Public Class frmMain
 
         Dim tmpGListItems As New List(Of ListViewItem)
         For Each tmpGListItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In mdlFileList.GamesList
-            currentGameInfo = mdlGameDb.GameDb_RecordExtract(tmpGListItem.Key, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
+            currentGameInfo = PCSX2GameDb.RecordExtract(tmpGListItem.Key)
 
             'Creating the listviewitem
             Dim tmpLvwGListItem As New ListViewItem With {.Text = currentGameInfo.Name, .Name = currentGameInfo.Serial}
@@ -661,9 +661,9 @@ Public Class frmMain
             If mdlFileList.GamesList.TryGetValue(tmpSerial, tmpGamesListItem) Then
 
                 'Creation of the header
-                currentGameInfo = mdlGameDb.GameDb_RecordExtract(tmpSerial, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
+                currentGameInfo = PCSX2GameDb.RecordExtract(tmpSerial)
                 Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With {
-                    .Header = System.String.Format("{0} ({1}) [{2}]", currentGameInfo.Name, currentGameInfo.Region, currentGameInfo.Serial),
+                    .Header = currentGameInfo.ToString,
                     .HeaderAlignment = HorizontalAlignment.Left,
                     .Name = currentGameInfo.Serial}
 

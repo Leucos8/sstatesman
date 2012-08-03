@@ -34,13 +34,13 @@ Public Class frmGameDbSearchForm
             Me.ckbGameRegion.Checked = False
         End If
         If searchCkbStatus > 0 Then
-            frmGameDb.SearchResultRef_ArrayStatus = mdlGameDb.GameDb_Search(mdlGameDb.GameDb,
-                                                                            frmGameDb.SearchResultRef,
-                                                                            Me.txtSerial.Text, Me.ckbSerial.Checked,
-                                                                            Me.txtGameTitle.Text, Me.ckbGameTitle.Checked,
-                                                                            Me.txtGameRegion.Text, Me.ckbGameRegion.Checked,
-                                                                            ConvertedGameCompat, Me.ckbGameCompat.Checked,
-                                                                            0)
+            PCSX2GameDb.Search(frmGameDb.SearchResultRef,
+                               Me.txtSerial.Text, Me.ckbSerial.Checked,
+                               Me.txtGameTitle.Text, Me.ckbGameTitle.Checked,
+                               Me.txtGameRegion.Text, Me.ckbGameRegion.Checked,
+                               ConvertedGameCompat, Me.ckbGameCompat.Checked,
+                               0)
+            frmGameDb.SearchIsActive = True
             Me.DialogResult = Windows.Forms.DialogResult.OK
             Me.Close()
         Else

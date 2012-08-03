@@ -194,91 +194,65 @@ Module mdlMain
     End Function
 
     Public Function assignFlag(ByVal pRegionToCheck As String, Optional ByVal pSerialToCheck As String = "") As Bitmap
-        assignFlag = My.Resources.Flag_0Null_30x20
+        'Return My.Resources.Flag_0Null_30x20
         If pRegionToCheck IsNot Nothing And pSerialToCheck IsNot Nothing Then
             pRegionToCheck = pRegionToCheck.ToUpper
             If pRegionToCheck.StartsWith("PAL") Then
                 If pRegionToCheck.StartsWith("PAL-I") Then
-                    assignFlag = My.Resources.Flag_Italy_30x20
+                    Return My.Resources.Flag_Italy_30x20
                 ElseIf pRegionToCheck.StartsWith("PAL-F") Then
-                    assignFlag = My.Resources.Flag_France_30x20
+                    Return My.Resources.Flag_France_30x20
                 ElseIf pRegionToCheck.StartsWith("PAL-GR") Then
-                    assignFlag = My.Resources.Flag_Greece_30x20
+                    Return My.Resources.Flag_Greece_30x20
                 ElseIf pRegionToCheck.StartsWith("PAL-G") Or pRegionToCheck.StartsWith("PAL-D") Then
                     If System.Globalization.CultureInfo.CurrentCulture.ThreeLetterISOLanguageName = "AUT" Then
-                        assignFlag = My.Resources.Flag_Austria_30x20
-                    Else : assignFlag = My.Resources.Flag_Germany_30x20
+                        Return My.Resources.Flag_Austria_30x20
+                    Else : Return My.Resources.Flag_Germany_30x20
                     End If
                     'ElseIf pRegionToCheck.StartsWith("PAL-SW") Then
-                    '    assignFlag = My.Resources.Flag_Switzerland_30x20
+                    '    Return My.Resources.Flag_Switzerland_30x20
                 ElseIf pRegionToCheck.StartsWith("PAL-S") Then
-                    assignFlag = My.Resources.Flag_Spain_30x20
+                    Return My.Resources.Flag_Spain_30x20
                 ElseIf pRegionToCheck.StartsWith("PAL-E") Then
                     If System.Globalization.CultureInfo.CurrentCulture.ThreeLetterISOLanguageName = "AUS" Then
-                        assignFlag = My.Resources.Flag_Australia_30x20
-                    Else : assignFlag = My.Resources.Flag_UK_30x20
+                        Return My.Resources.Flag_Australia_30x20
+                    Else : Return My.Resources.Flag_UK_30x20
                     End If
                 ElseIf pRegionToCheck.StartsWith("PAL-P") Then
-                    assignFlag = My.Resources.Flag_Poland_30x20
+                    Return My.Resources.Flag_Poland_30x20
                 ElseIf pRegionToCheck.StartsWith("PAL-R") Then
-                    assignFlag = My.Resources.Flag_Russia_30x20
+                    Return My.Resources.Flag_Russia_30x20
                 ElseIf pRegionToCheck.StartsWith("PAL-N") Then
-                    assignFlag = My.Resources.Flag_Netherlands_30x20
+                    Return My.Resources.Flag_Netherlands_30x20
                 Else
                     If System.Globalization.CultureInfo.CurrentCulture.ThreeLetterISOLanguageName = "AUS" Then
-                        assignFlag = My.Resources.Flag_Australia_30x20
-                    Else : assignFlag = My.Resources.Flag_Europe_Union_30x20
+                        Return My.Resources.Flag_Australia_30x20
+                    Else : Return My.Resources.Flag_Europe_Union_30x20
                     End If
                 End If
             ElseIf pRegionToCheck.StartsWith("NTSC") Then
                 If pRegionToCheck.StartsWith("NTSC-CH") Then
-                    assignFlag = My.Resources.Flag_China_30x20
+                    Return My.Resources.Flag_China_30x20
                 ElseIf pRegionToCheck.StartsWith("NTSC-K") Or _
                     pSerialToCheck.StartsWith("SCKA") Or _
                     pSerialToCheck.StartsWith("SLKA") Then
-                    assignFlag = My.Resources.Flag_South_Korea_30x20
+                    Return My.Resources.Flag_South_Korea_30x20
                 ElseIf pRegionToCheck.StartsWith("NTSC-J") Or _
                     pSerialToCheck.StartsWith("SCPS") Or _
                     pSerialToCheck.StartsWith("SLPM") Or _
                     pSerialToCheck.StartsWith("SLPS") Then
-                    assignFlag = My.Resources.Flag_Japan_30x20
+                    Return My.Resources.Flag_Japan_30x20
                 ElseIf ((Not (pRegionToCheck = "NTSC-UNK")) And pRegionToCheck.StartsWith("NTSC-U")) Or _
                     pSerialToCheck.StartsWith("SCUS") Or _
                     pSerialToCheck.StartsWith("SLUS") Then
                     If System.Globalization.CultureInfo.CurrentCulture.ThreeLetterISOLanguageName = "CAN" Then
-                        assignFlag = My.Resources.Flag_Canada_30x20
-                    Else : assignFlag = My.Resources.Flag_US_30x20
+                        Return My.Resources.Flag_Canada_30x20
+                    Else : Return My.Resources.Flag_US_30x20
                     End If
                 End If
             End If
         End If
-    End Function
-
-    Public Function assignCompatText(ByVal pCompat As System.String) As System.String
-        Select Case pCompat
-            Case "0" : assignCompatText = "Unknown"
-            Case "1" : assignCompatText = "Nothing"
-            Case "2" : assignCompatText = "Intro"
-            Case "3" : assignCompatText = "Menus"
-            Case "4" : assignCompatText = "in-Game"
-            Case "5" : assignCompatText = "Playable"
-            Case "6" : assignCompatText = "Perfect"
-            Case "" : assignCompatText = "Missing"
-            Case Else : assignCompatText = "Undetected"
-        End Select
-    End Function
-
-    Public Function assignCompatColor(ByVal pCompat As String, ByVal pBGcolor As Color) As Color
-        Select Case pCompat
-            Case "0" : assignCompatColor = pBGcolor  'Unknown
-            Case "1" : assignCompatColor = Color.FromArgb(255, 255, 192, 192)  'Nothing:    Red
-            Case "2" : assignCompatColor = Color.FromArgb(255, 255, 224, 192)  'Intro:      Orange
-            Case "3" : assignCompatColor = Color.FromArgb(255, 255, 255, 192)  'Menus:      Yellow
-            Case "4" : assignCompatColor = Color.FromArgb(255, 255, 192, 255)  'in-Game:    Purple
-            Case "5" : assignCompatColor = Color.FromArgb(255, 192, 255, 192)  'Playable:   Green
-            Case "6" : assignCompatColor = Color.FromArgb(255, 192, 192, 255)  'Perfect:    Blue
-            Case Else : assignCompatColor = pBGcolor
-        End Select
+        Return My.Resources.Flag_0Null_30x20
     End Function
 
     Public Sub AppendToLog(ByVal pClass As String, ByVal pMethod As String, ByVal pMessage As String, Optional pDuration As Double = -1)

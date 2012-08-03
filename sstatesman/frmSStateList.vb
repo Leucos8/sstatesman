@@ -52,9 +52,9 @@ Public Class frmSStateList
         Me.ListView1.BeginUpdate()
         AddHeader(0)
         For Each tmpGamesListKey As String In mdlFileList.GamesList.Keys
-            Dim tmpGame As GameTitle = mdlGameDb.GameDb_RecordExtract(tmpGamesListKey, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
+            Dim tmpGame As GameInfo = PCSX2GameDb.RecordExtract(tmpGamesListKey)
             Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Name, .Name = tmpGame.Serial}
-            tmpListViewItem.SubItems.AddRange({tmpGame.Serial, tmpGame.Region, mdlMain.assignCompatText(tmpGame.Compat)})
+            tmpListViewItem.SubItems.AddRange({tmpGame.Serial, tmpGame.Region, tmpGame.CompatToText})
             If checkedGames.Contains(tmpGame.Serial) Then
                 tmpListViewItem.BackColor = Color.FromArgb(130, 150, 200)
             End If
@@ -72,9 +72,9 @@ Public Class frmSStateList
         Me.ListView1.BeginUpdate()
         AddHeader(0)
         For Each tmpChGSerial As String In mdlMain.checkedGames
-            Dim tmpGame As GameTitle = mdlGameDb.GameDb_RecordExtract(tmpChGSerial, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
+            Dim tmpGame As GameInfo = PCSX2GameDb.RecordExtract(tmpChGSerial)
             Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Name, .Name = tmpGame.Serial, .BackColor = Color.FromArgb(130, 150, 200)}
-            tmpListViewItem.SubItems.AddRange({tmpGame.Serial, tmpGame.Region, mdlMain.assignCompatText(tmpGame.Compat)})
+            tmpListViewItem.SubItems.AddRange({tmpGame.Serial, tmpGame.Region, tmpGame.CompatToText})
             Dim tmpGamesListItem As New mdlFileList.GamesList_Item
             If Not (mdlFileList.GamesList.TryGetValue(tmpGame.Serial, tmpGamesListItem)) Then
                 tmpListViewItem.BackColor = Color.FromArgb(255, 255, 192, 192)       'red

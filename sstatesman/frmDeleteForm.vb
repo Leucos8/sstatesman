@@ -220,7 +220,7 @@ Public Class frmDeleteForm
         Me.lvwSStatesListToDelete.Items.Clear()
         Me.lvwSStatesListToDelete.Groups.Clear()
 
-        Dim tmpGameInfo As New mdlGameDb.GameTitle
+        Dim tmpGameInfo As New mdlGameDb.GameInfo
         Dim tmpSListGroups As New List(Of ListViewGroup)
         Dim tmpSListItems As New List(Of ListViewItem)
 
@@ -230,9 +230,9 @@ Public Class frmDeleteForm
             If mdlFileList.GamesList.TryGetValue(tmpSerial, tmpGamesListItem) Then
 
                 'Creation of the header
-                tmpGameInfo = mdlGameDb.GameDb_RecordExtract(tmpSerial, mdlGameDb.GameDb, mdlGameDb.GameDb_Status)
+                tmpGameInfo = PCSX2GameDb.RecordExtract(tmpSerial)
                 Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With {
-                    .Header = System.String.Format("{0} ({1}) [{2}]", tmpGameInfo.Name, tmpGameInfo.Region, tmpGameInfo.Serial),
+                    .Header = tmpGameInfo.ToString(),
                     .HeaderAlignment = HorizontalAlignment.Left,
                     .Name = tmpGameInfo.Serial}
 
