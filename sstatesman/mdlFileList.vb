@@ -23,6 +23,38 @@ Module mdlFileList
         Public Property Slot As String
         Public Property Backup As Boolean
         Public Property Version As String
+
+        Public Function GetSerial() As String
+            Dim SpacePosition As Int32 = Name.IndexOf(" "c, 0)
+            If SpacePosition > 0 Then
+                GetSerial = Name.Remove(SpacePosition)
+            Else
+                GetSerial = Name
+            End If
+        End Function
+
+        Public Shared Function GetSerial(ByVal pFilename As String) As String
+            Dim tmpSavestate As New Savestate With {.Name = pFilename}
+            Return tmpSavestate.GetSerial
+        End Function
+
+
+        Public Function GetSlot() As Int32
+            GetSlot = -1
+            If Int32.TryParse(Name.Substring(Name.IndexOf("."c, 0) + 1, 2), GetSlot) Then
+                Return GetSlot
+            End If
+            Return -1
+        End Function
+
+        Public Function Get_Type() As System.Boolean
+            If Extension = My.Settings.PCSX2_SStateExtBackup Then
+                Return True
+            Else
+                Return False
+            End If
+        End Function
+
     End Class
 
     Public Class GamesList_Item
@@ -61,7 +93,8 @@ Module mdlFileList
             mdlMain.AppendToLog("FilesList", "LoadAll", "No games, the list is empty.", GameList_LoadTime)
             Return LoadStatus.StatusEmpty
         Else
-            mdlMain.AppendToLog("FilesList", "LoadAll", String.Format("Loaded {0:N0} games.", pGamesList.Count), GameList_LoadTime)
+            Dim SStates_Count As Integer = GamesList.Sum(Function(aws) aws.Value.Savestates.Count)
+            mdlMain.AppendToLog("FilesList", "LoadAll", String.Format("Loaded {0:N0} games with {1:N0} savestates.", pGamesList.Count, SStates_Count), GameList_LoadTime)
             Return LoadStatus.StatusLoadedOK
         End If
     End Function
@@ -73,7 +106,7 @@ Module mdlFileList
 
         Dim mySStates_GroupedBySerial = pDirectory.EnumerateFiles().Where(
             Function(extfilter) {My.Settings.PCSX2_SStateExt, My.Settings.PCSX2_SStateExtBackup}.Contains(extfilter.Extension.ToLower)
-                ).GroupBy(Function(aws) SStates_GetSerial(aws.Name))
+                ).GroupBy(Function(aws) Savestate.GetSerial(aws.Name))
 
         'Raggruppo le FileInfo sui savestates, che ottengo con GetFiles, per seriale utilizzando LINQ GroupBy
 
@@ -85,9 +118,10 @@ Module mdlFileList
                     .Name = FileInformation.Name,
                     .Extension = FileInformation.Extension,
                     .Length = FileInformation.Length,
-                    .LastWriteTime = FileInformation.LastWriteTime,
-                    .Slot = SStates_GetSlot(FileInformation.Name).ToString,
-                    .Backup = SStates_GetType(FileInformation.Extension)}
+                    .LastWriteTime = FileInformation.LastWriteTime}
+                newItem.Slot = newItem.GetSlot().ToString
+                newItem.Backup = newItem.Get_Type()
+
                 If My.Settings.SStatesMan_SStatesVersionExtract Then
                     newItem.Version = mdlSimpleZipExtractor.ExtractFirstFile(FileInformation)
                 Else : newItem.Version = "-"
@@ -119,28 +153,29 @@ Module mdlFileList
 
     End Sub
 
-    Public Function SStates_GetSerial(ByVal pFileName As String) As String
-        Dim SpacePosition As Int32 = pFileName.IndexOf(" "c, 0)
-        If SpacePosition > 0 Then
-            SStates_GetSerial = pFileName.Remove(SpacePosition)
-        Else
-            SStates_GetSerial = pFileName
-        End If
-    End Function
+    'Public Function SStates_GetSerial(ByVal pFileName As String) As String
+    '    Dim SpacePosition As Int32 = pFileName.IndexOf(" "c, 0)
+    '    If SpacePosition > 0 Then
+    '        SStates_GetSerial = pFileName.Remove(SpacePosition)
+    '    Else
+    '        SStates_GetSerial = pFileName
+    '    End If
+    'End Function
 
-    Public Function SStates_GetSlot(ByVal pFileName As String) As Int32
-        SStates_GetSlot = -1
-        If Int32.TryParse(pFileName.Substring(pFileName.IndexOf("."c, 0) + 1, 2), SStates_GetSlot) Then
-            Return SStates_GetSlot
-        End If
-    End Function
+    'Public Function SStates_GetSlot(ByVal pFileName As String) As Int32
+    '    'SStates_GetSlot = -1
+    '    If Int32.TryParse(pFileName.Substring(pFileName.IndexOf("."c, 0) + 1, 2), SStates_GetSlot) Then
+    '        Return SStates_GetSlot
+    '    End If
+    '    Return -1
+    'End Function
 
-    Public Function SStates_GetType(ByVal pExtension As System.String) As System.Boolean
-        If pExtension = My.Settings.PCSX2_SStateExtBackup Then
-            Return True
-        Else
-            Return False
-        End If
-    End Function
+    'Public Function SStates_GetType(ByVal pExtension As System.String) As System.Boolean
+    '    If pExtension = My.Settings.PCSX2_SStateExtBackup Then
+    '        Return True
+    '    Else
+    '        Return False
+    '    End If
+    'End Function
 
 End Module

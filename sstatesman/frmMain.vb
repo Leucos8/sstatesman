@@ -712,7 +712,7 @@ Public Class frmMain
         If Me.lvwSStatesList.CheckedItems.Count > 0 Then
             For Each tmpLvwSListItemChecked As ListViewItem In Me.lvwSStatesList.CheckedItems
 
-                Dim tmpGameSerial As String = mdlFileList.SStates_GetSerial(tmpLvwSListItemChecked.Name)
+                Dim tmpGameSerial As String = Savestate.GetSerial(tmpLvwSListItemChecked.Name)
                 Dim tmpSavestate As Savestate = mdlFileList.GamesList(tmpGameSerial).Savestates(tmpLvwSListItemChecked.Name)
                 checkedSavestates.Add(tmpSavestate.Name)
 

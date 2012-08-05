@@ -284,7 +284,7 @@ Public Class frmDeleteForm
             For Each tmpLvwSListItemChecked As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
 
                 Dim tmpGamesListItem As New GamesList_Item
-                If mdlFileList.GamesList.TryGetValue(mdlFileList.SStates_GetSerial(tmpLvwSListItemChecked.Name), tmpGamesListItem) Then
+                If mdlFileList.GamesList.TryGetValue(Savestate.GetSerial(tmpLvwSListItemChecked.Name), tmpGamesListItem) Then
                     Dim tmpSavestate As New Savestate
                     If tmpGamesListItem.Savestates.TryGetValue(tmpLvwSListItemChecked.Name, tmpSavestate) Then
                         If tmpSavestate.Backup Then

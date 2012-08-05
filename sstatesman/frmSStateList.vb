@@ -142,7 +142,7 @@ Public Class frmSStateList
         For Each tmpSavestateName As String In checkedSavestates
             Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestateName, .Name = tmpSavestateName, .BackColor = Color.FromArgb(130, 150, 200)}
             Dim tmpGamesListItem As New GamesList_Item
-            If GamesList.TryGetValue(mdlFileList.SStates_GetSerial(tmpSavestateName), tmpGamesListItem) Then
+            If GamesList.TryGetValue(Savestate.GetSerial(tmpSavestateName), tmpGamesListItem) Then
                 Dim tmpSavestate As New Savestate
                 If tmpGamesListItem.Savestates.TryGetValue(tmpSavestateName, tmpSavestate) Then
                     tmpListViewItem.SubItems.AddRange({tmpSavestate.Slot, tmpSavestate.Extension, tmpSavestate.Version, tmpSavestate.LastWriteTime.ToString, (tmpSavestate.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
