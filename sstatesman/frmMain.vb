@@ -245,7 +245,7 @@ Public Class frmMain
                     Me.imgFlag.Image = My.Resources.Flag_0Null_30x20
                     'Cover
                     Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
-                    Me.imgCover.Image = My.Resources.Flag_0Null_30x20
+                    Me.imgCover.Image = My.Resources.Nocover
 
                     Me.imgCover.Dock = DockStyle.Fill
                     'If My.Settings.FrmMain_coverexpanded Then

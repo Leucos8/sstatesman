@@ -651,6 +651,7 @@ Partial Class frmMain
         '
         Me.imgCover.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.imgCover.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.imgCover.Image = Global.sstatesman.My.Resources.Resources.Nocover
         Me.imgCover.Location = New System.Drawing.Point(0, 126)
         Me.imgCover.Margin = New System.Windows.Forms.Padding(0, 0, 4, 2)
         Me.imgCover.Name = "imgCover"
