@@ -12,8 +12,6 @@
 '
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
-Imports System.Resources
-
 Imports System
 Imports System.Reflection
 Imports System.Runtime.InteropServices
