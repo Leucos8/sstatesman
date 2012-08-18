@@ -27,9 +27,9 @@ Module mdlFileList
         Public Function GetSerial() As String
             Dim SpacePosition As Int32 = Name.IndexOf(" "c, 0)
             If SpacePosition > 0 Then
-                GetSerial = Name.Remove(SpacePosition)
+                Return Name.Remove(SpacePosition)
             Else
-                GetSerial = Name
+                Return Name
             End If
         End Function
 
@@ -64,6 +64,8 @@ Module mdlFileList
         'Public Property Savestates_Backup As New Dictionary(Of String, Savestate)
         'Public Property SavestatesBackup_Count As Int32 = 0
         Public Property SavestatesBackup_SizeTot As UInt64 = 0
+        Public Property Snapshots As New Dictionary(Of String, FileInfo)
+        Public Property Snapshots_SizeTot As UInt64 = 0
     End Class
 
     Public GamesList As New Dictionary(Of String, GamesList_Item)
@@ -71,9 +73,10 @@ Module mdlFileList
     Public GameList_LoadTime As Long
     Public SStates_FolderLastModified As DateTime
     'Public SStatesStored_FolderLastModified As DateTime
-    'Public SShots_FolderLastModified As DateTime
+    Public Snaps_FolderLastModified As DateTime
 
-    Public Function GamesList_LoadAll(ByVal pPath As String,
+    Public Function GamesList_LoadAll(ByVal pSStatesPath As String,
+                                      ByVal pSnapsPath As String,
                                       ByRef pGamesList As Dictionary(Of String, GamesList_Item)
                                       ) As LoadStatus
 
@@ -82,10 +85,10 @@ Module mdlFileList
 
         pGamesList.Clear()
 
-        Dim sstates_DirectoryInfo As New DirectoryInfo(pPath)
-
-        SStatesList_Load(sstates_DirectoryInfo,
-                         pGamesList)
+        Dim tmpDirectoryInfo As New DirectoryInfo(pSStatesPath)
+        SStatesList_Load(tmpDirectoryInfo, pGamesList)
+        tmpDirectoryInfo = New DirectoryInfo(pSnapsPath)
+        SnapsList_Load(tmpDirectoryInfo, pGamesList)
 
         sw.Stop()
         GameList_LoadTime = sw.ElapsedMilliseconds
@@ -94,7 +97,8 @@ Module mdlFileList
             Return LoadStatus.StatusEmpty
         Else
             Dim SStates_Count As Integer = GamesList.Sum(Function(aws) aws.Value.Savestates.Count)
-            mdlMain.AppendToLog("FilesList", "LoadAll", String.Format("Loaded {0:N0} games with {1:N0} savestates.", pGamesList.Count, SStates_Count), GameList_LoadTime)
+            Dim Snaps_Count As Integer = GamesList.Sum(Function(aws) aws.Value.Snapshots.Count)
+            mdlMain.AppendToLog("FilesList", "LoadAll", String.Format("Loaded {0:N0} games with {1:N0} savestates and {2:N0}.", pGamesList.Count, SStates_Count, Snaps_Count), GameList_LoadTime)
             Return LoadStatus.StatusLoadedOK
         End If
     End Function
@@ -153,29 +157,45 @@ Module mdlFileList
 
     End Sub
 
-    'Public Function SStates_GetSerial(ByVal pFileName As String) As String
-    '    Dim SpacePosition As Int32 = pFileName.IndexOf(" "c, 0)
-    '    If SpacePosition > 0 Then
-    '        SStates_GetSerial = pFileName.Remove(SpacePosition)
-    '    Else
-    '        SStates_GetSerial = pFileName
-    '    End If
-    'End Function
+    Public Sub SnapsList_Load(ByVal pDirectory As DirectoryInfo,
+                              ByRef pGamesList As Dictionary(Of String, GamesList_Item))
 
-    'Public Function SStates_GetSlot(ByVal pFileName As String) As Int32
-    '    'SStates_GetSlot = -1
-    '    If Int32.TryParse(pFileName.Substring(pFileName.IndexOf("."c, 0) + 1, 2), SStates_GetSlot) Then
-    '        Return SStates_GetSlot
-    '    End If
-    '    Return -1
-    'End Function
+        Snaps_FolderLastModified = pDirectory.LastWriteTime
 
-    'Public Function SStates_GetType(ByVal pExtension As System.String) As System.Boolean
-    '    If pExtension = My.Settings.PCSX2_SStateExtBackup Then
-    '        Return True
-    '    Else
-    '        Return False
-    '    End If
-    'End Function
+        Dim mySnaps_GroupedBySerial = pDirectory.EnumerateFiles().Where(
+            Function(extfilter) {".bmp", ".jpg", ".png"}.Contains(extfilter.Extension.ToLower)
+                ).GroupBy(Function(aws) Savestate.GetSerial(aws.Name))
+
+        'Raggruppo le FileInfo sui savestates, che ottengo con GetFiles, per seriale utilizzando LINQ GroupBy
+
+        For Each GroupedBySerial_Item In mySnaps_GroupedBySerial
+            'Creo una lista temporanea di FileInfo partendo dai FileInfo del gruppo, perché non posso fare conversione diretta
+            Dim myTmpSStatesList As New Dictionary(Of String, FileInfo)
+            For Each FileInformation As FileInfo In GroupedBySerial_Item
+
+                myTmpSStatesList.Add(FileInformation.Name, FileInformation)
+
+            Next
+
+            Dim myCurrentGame As New GamesList_Item
+            'Per ogni oggetto nel gruppo devo controllare se il seriale è già presente nella GamesList
+            If pGamesList.TryGetValue(GroupedBySerial_Item.Key, myCurrentGame) Then
+                'Se la FileList per quel tipo di file è già presente allora posso assegnare direttamente la lista di FileInfo temporanea creata precedentemente
+                myCurrentGame.Snapshots = myTmpSStatesList
+
+
+            Else
+                'Se il seriale non è presente significa che devo creare una nuova voce ed assegnarla alla gameslist
+                myCurrentGame = New GamesList_Item
+                myCurrentGame.Snapshots = myTmpSStatesList
+                pGamesList.Add(GroupedBySerial_Item.Key, myCurrentGame)
+
+            End If
+            'Operazione comune ai due bracci dell'If precedente
+            'myCurrentGame.Savestates_Count = myCurrentGame.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count
+            myCurrentGame.Snapshots_SizeTot = myCurrentGame.Snapshots.Sum(Function(Lengthsum) Lengthsum.Value.Length)
+        Next
+
+    End Sub
 
 End Module

@@ -47,7 +47,7 @@ Public Class frmMain
 
     Friend Sub List_Refresher()
         Me.UI_Enabler(False, True, True)
-        mdlFileList.GamesList_Status = GamesList_LoadAll(My.Settings.PCSX2_PathSState, mdlFileList.GamesList)
+        mdlFileList.GamesList_Status = GamesList_LoadAll(My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps, mdlFileList.GamesList)
         Me.lvwGamesList_Populate()
         Me.lvwGamesList_indexCheckedGames()
         Me.lvwSStatesList_Populate()
