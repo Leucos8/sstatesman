@@ -40,158 +40,129 @@ Module mdlMain
     Const AppLog_MaxLenght As Integer = 31
 
     Public Sub FirstRun()
-        'Show the warning message
-        'If My.Settings.SStatesMan_Channel.ToLower = "alpha" Then
-        '    System.Windows.Forms.MessageBox.Show(System.String.Format("{0} version {1} {2}" & System.Environment.NewLine &
-        '                                         "This is an {3} version, for tests only. Do not redistribute." & System.Environment.NewLine &
-        '                                         "The warnings have been issued, now enjoy the application :)",
-        '                                         My.Application.Info.ProductName.ToString,
-        '                                         My.Application.Info.Version.ToString,
-        '                                         My.Settings.SStatesMan_Channel,
-        '                                         My.Settings.SStatesMan_Channel.ToUpper),
-        '                                         My.Application.Info.ProductName,
-        '                                         MessageBoxButtons.OK,
-        '                                         MessageBoxIcon.Information)
-        'End If
         My.Settings.Reset()
         PCSX2_PathAll_Detect()
 
-        My.Settings.SStatesMan_FirstRun2 = False
+        My.Settings.SStatesMan_FirstRun = False
         My.Settings.Save()
     End Sub
 
     Public Sub PCSX2_PathAll_Detect()
+        My.Settings.SStatesMan_SettingFail = True
 
-        My.Settings.PCSX2_PathBinSet = PCSX2_PathBin_Detect(My.Settings.PCSX2_PathBin)
-        My.Settings.PCSX2_PathInisSet = PCSX2_PathInis_Detect(My.Settings.PCSX2_PathInis)
-        My.Settings.PCSX2_PathSStatesSet = PCSX2_PathSStates_Detect(My.Settings.PCSX2_PathSState)
+        My.Settings.PCSX2_PathBin = PCSX2_PathBin_Detect()
+        If Directory.Exists(My.Settings.PCSX2_PathBin) Then
+            My.Settings.PCSX2_PathInis = PCSX2_PathInis_Detect(My.Settings.PCSX2_PathBin)
+            If Directory.Exists(My.Settings.PCSX2_PathInis) Then
+                PCSX2_PathSettings_Detect(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
+                If Directory.Exists(My.Settings.PCSX2_PathSState) Then
+                    My.Settings.SStatesMan_SettingFail = False
+                End If
+            End If
+        End If
 
     End Sub
 
-    Public Function PCSX2_PathBin_Detect(ByRef pResult As String) As Boolean
-        pResult = "Not detected"
-        PCSX2_PathBin_Detect = False
-
+    Public Function PCSX2_PathBin_Detect() As String
+        PCSX2_PathBin_Detect = ""
         Try
             Using PCSX2_Registry As RegistryKey = Registry.CurrentUser.OpenSubKey(My.Settings.PCSX2_PathRegKey)
                 'OpenSubKey returns Nothing if the key doesn't exist
                 If PCSX2_Registry IsNot Nothing Then
                     'I assume that the installation found in the registry is the good one
-                    '                                                   Install_Dir
-                    pResult = PCSX2_Registry.GetValue(My.Settings.PCSX2_PathBinReg, "Not detected").ToString
+                    '                                           Install_Dir
+                    PCSX2_PathBin_Detect = PCSX2_Registry.GetValue(My.Settings.PCSX2_PathBinReg, "").ToString
                 End If
             End Using
         Catch ex As Exception
-            MessageBox.Show("Something went wrong while detecting PCSX2 settings, make sure you have the right permissions in the registry or in the directories/files." & Environment.NewLine & ex.Message,
+            MessageBox.Show("Something went wrong while detecting PCSX2 settings, make sure you have the right registry and/or directories/files permissions ." & Environment.NewLine & ex.Message,
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
-        If Directory.Exists(pResult) Then
-            PCSX2_PathBin_Detect = True
+        If Directory.Exists(PCSX2_PathBin_Detect) Then
+            Return PCSX2_PathBin_Detect
         Else
-            pResult = "Not detected"
+            Return ""
         End If
     End Function
 
-    Public Function PCSX2_PathInis_Detect(ByRef pResult As String) As Boolean
-        pResult = "Not detected"
-        PCSX2_PathInis_Detect = False
+    Public Function PCSX2_PathInis_Detect(ByVal pPCSX2_PathBin As String) As String
+        PCSX2_PathInis_Detect = ""
         Try
-            If My.Settings.PCSX2_PathBinSet And Directory.Exists(My.Settings.PCSX2_PathBin) Then
+            If Directory.Exists(pPCSX2_PathBin) Then
                 'Check if it is the case of a user who installed PCSX2 in usermode and then switched to portable mode
-                If File.Exists(Path.Combine(My.Settings.PCSX2_PathBin, "portable.ini")) Then
+                If File.Exists(Path.Combine(pPCSX2_PathBin, "portable.ini")) Then
                     'If so the inis are in the "inis" folder of the PCSX2 binaries directory
-                    pResult = Path.Combine(My.Settings.PCSX2_PathBin, "inis")
+                    Return Path.Combine(pPCSX2_PathBin, "inis")
                 Else
-                    'Else the registry value is checked                                 SettingsFolder
+                    'Else the registry value is checked
                     Using PCSX2_Registry As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(My.Settings.PCSX2_PathRegKey)
                         'OpenSubKey returns Nothing if the key doesn't exist
                         If PCSX2_Registry IsNot Nothing Then
                             'I assume that the installation found in the registry is the good one
-                            '                                                       Install_Dir
-                            pResult = PCSX2_Registry.GetValue(My.Settings.PCSX2_PathInisReg, "Not detected").ToString
+                            '                                               SettingsFolder
+                            PCSX2_PathInis_Detect = PCSX2_Registry.GetValue(My.Settings.PCSX2_PathInisReg, "").ToString
                         End If
                     End Using
                 End If
             End If
 
         Catch ex As Exception
-            MessageBox.Show("Something went wrong while detecting PCSX2 settings, make sure you have the right permissions in the registry or in the directories/files." & Environment.NewLine & ex.Message,
+            MessageBox.Show("Something went wrong while detecting PCSX2 settings, make sure you have the right registry and/or directories/files permissions ." & Environment.NewLine & ex.Message,
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
 
-        If Directory.Exists(pResult) Then
-            PCSX2_PathInis_Detect = True
+        If Directory.Exists(PCSX2_PathInis_Detect) Then
+            Return PCSX2_PathInis_Detect
         Else
-            pResult = "Not detected"
+            Return ""
         End If
+
     End Function
 
-    Public Function PCSX2_PathSStates_Detect(ByRef pResult As String) As Boolean
-        pResult = "Not detected"
-        PCSX2_PathSStates_Detect = False
+    Public Sub PCSX2_PathSettings_Detect(ByVal pPCSX2_PathInis As String, ByRef pPCSX2_PathSStates_Detect As String, ByRef pPCSX2_PathSnaps_Detect As String)
 
-        If My.Settings.PCSX2_PathInisSet And Directory.Exists(My.Settings.PCSX2_PathInis) Then
-            'If PCSX2_UI.ini is present in the set inis directory
-            If File.Exists(Path.Combine(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename)) Then
-                'PCSX2_UI.ini is read and checked for the savestates folder
-                Using PCSX2UI_reader As New StreamReader(Path.Combine(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename))
-                    While Not PCSX2UI_reader.EndOfStream
-                        Dim sTmp1 As String = PCSX2UI_reader.ReadLine.Trim.ToLower
+        'If PCSX2_UI.ini is present in the set inis directory
+        If File.Exists(Path.Combine(pPCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename)) Then
+            'PCSX2_UI.ini is read and checked for the savestates folder
+            Using PCSX2UI_reader As New StreamReader(Path.Combine(pPCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename))
+                While Not PCSX2UI_reader.EndOfStream
+                    Dim tmpLine As String = PCSX2UI_reader.ReadLine.Trim.ToLower
 
-                        If sTmp1 = "usedefaultsavestates=enabled" Then
-                            pResult = Path.Combine(My.Settings.PCSX2_PathInis.Remove(My.Settings.PCSX2_PathInis.Length - 5), My.Settings.PCSX2_SStateFolder)
-                            Exit While
-                        ElseIf sTmp1.StartsWith("savestates=") Then
-                            Dim sTmp2 As String() = sTmp1.Split({"="c}, 2, StringSplitOptions.RemoveEmptyEntries)
-                            If sTmp2.GetLength(0) >= 2 Then
-                                pResult = sTmp2(1).Replace("\\", "\")
-                            End If
+                    If tmpLine.StartsWith("savestates=") Then
+                        Dim sTmp2 As String() = tmpLine.Split({"="c}, 2, StringSplitOptions.RemoveEmptyEntries)
+                        If sTmp2.GetLength(0) > 1 Then
+                            pPCSX2_PathSStates_Detect = sTmp2(1).Replace("\\", "\")
                         End If
+                    ElseIf tmpLine.StartsWith("snapshots=") Then
+                        Dim tmpFields As String() = tmpLine.Split({"="c}, 2, StringSplitOptions.RemoveEmptyEntries)
+                        If tmpFields.GetLength(0) > 1 Then
+                            pPCSX2_PathSnaps_Detect = tmpFields(1).Replace("\\", "\")
+                        End If
+                    End If
 
-                    End While
-                    PCSX2UI_reader.Close()
-                End Using
-            End If
+                End While
+                PCSX2UI_reader.Close()
+            End Using
         End If
 
-        If Directory.Exists(pResult) Then
-            PCSX2_PathSStates_Detect = True
+        If Not (Directory.Exists(pPCSX2_PathSStates_Detect)) Then
+            pPCSX2_PathSStates_Detect = ""
+        End If
+        If Not (Directory.Exists(pPCSX2_PathSnaps_Detect)) Then
+            pPCSX2_PathSnaps_Detect = ""
+        End If
+    End Sub
+
+    Public Sub PCSX2_PathAll_Check()
+        If Directory.Exists(My.Settings.PCSX2_PathBin) And
+            Directory.Exists(My.Settings.PCSX2_PathInis) And
+            Directory.Exists(My.Settings.PCSX2_PathSState) Then
+            My.Settings.SStatesMan_SettingFail = False
         Else
-            pResult = "Not detected"
+            My.Settings.SStatesMan_SettingFail = True
         End If
-    End Function
-
-    Public Function PCSX2_PathAll_Check() As System.Boolean
-        If Directory.Exists(My.Settings.PCSX2_PathBin) Then
-            My.Settings.PCSX2_PathBinSet = True
-        Else
-            My.Settings.PCSX2_PathBin = "Not detected"
-            My.Settings.PCSX2_PathBinSet = False
-        End If
-
-        If Directory.Exists(My.Settings.PCSX2_PathInis) Then
-            My.Settings.PCSX2_PathInisSet = True
-        Else
-            My.Settings.PCSX2_PathInis = "Not detected"
-            My.Settings.PCSX2_PathInisSet = False
-        End If
-
-        If Directory.Exists(My.Settings.PCSX2_PathSState) Then
-            My.Settings.PCSX2_PathSStatesSet = True
-        Else
-            My.Settings.PCSX2_PathSState = "Not detected"
-            My.Settings.PCSX2_PathSStatesSet = False
-        End If
-
-        If (My.Settings.PCSX2_PathBinSet = False) Or _
-           (My.Settings.PCSX2_PathInisSet = False) Or _
-           (My.Settings.PCSX2_PathSStatesSet = False) Then
-            PCSX2_PathAll_Check = True
-        Else
-            PCSX2_PathAll_Check = False
-        End If
-    End Function
+    End Sub
 
     Public Function assignFlag(ByVal pRegionToCheck As String, Optional ByVal pSerialToCheck As String = "") As Bitmap
         'Return My.Resources.Flag_0Null_30x20

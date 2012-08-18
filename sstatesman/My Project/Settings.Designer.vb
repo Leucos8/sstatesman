@@ -71,19 +71,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Not detected")>  _
-        Public Property PCSX2_PathBin() As String
-            Get
-                Return CType(Me("PCSX2_PathBin"),String)
-            End Get
-            Set
-                Me("PCSX2_PathBin") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Not detected")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property PCSX2_PathInis() As String
             Get
                 Return CType(Me("PCSX2_PathInis"),String)
@@ -95,7 +83,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Not detected")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property PCSX2_PathSState() As String
             Get
                 Return CType(Me("PCSX2_PathSState"),String)
@@ -170,7 +158,7 @@ Namespace My
         
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("SStates")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("sstates")>  _
         Public ReadOnly Property PCSX2_SStateFolder() As String
             Get
                 Return CType(Me("PCSX2_SStateFolder"),String)
@@ -180,12 +168,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property SStatesMan_FirstRun2() As Boolean
+        Public Property SStatesMan_FirstRun() As Boolean
             Get
-                Return CType(Me("SStatesMan_FirstRun2"),Boolean)
+                Return CType(Me("SStatesMan_FirstRun"),Boolean)
             End Get
             Set
-                Me("SStatesMan_FirstRun2") = value
+                Me("SStatesMan_FirstRun") = value
             End Set
         End Property
         
@@ -203,7 +191,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Not set")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property SStatesMan_PathPics() As String
             Get
                 Return CType(Me("SStatesMan_PathPics"),String)
@@ -231,42 +219,6 @@ Namespace My
             End Get
             Set
                 Me("SStatesMan_ThemeGradientEnabled") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property PCSX2_PathBinSet() As Boolean
-            Get
-                Return CType(Me("PCSX2_PathBinSet"),Boolean)
-            End Get
-            Set
-                Me("PCSX2_PathBinSet") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property PCSX2_PathInisSet() As Boolean
-            Get
-                Return CType(Me("PCSX2_PathInisSet"),Boolean)
-            End Get
-            Set
-                Me("PCSX2_PathInisSet") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
-        Public Property PCSX2_PathSStatesSet() As Boolean
-            Get
-                Return CType(Me("PCSX2_PathSStatesSet"),Boolean)
-            End Get
-            Set
-                Me("PCSX2_PathSStatesSet") = value
             End Set
         End Property
         
@@ -648,6 +600,51 @@ Namespace My
             End Get
             Set
                 Me("frmDel_slvw_cLastWT") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PCSX2_PathBin() As String
+            Get
+                Return CType(Me("PCSX2_PathBin"),String)
+            End Get
+            Set
+                Me("PCSX2_PathBin") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PCSX2_PathSnaps() As String
+            Get
+                Return CType(Me("PCSX2_PathSnaps"),String)
+            End Get
+            Set
+                Me("PCSX2_PathSnaps") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("snaps")>  _
+        Public ReadOnly Property PCSX2_SnapsFolder() As String
+            Get
+                Return CType(Me("PCSX2_SnapsFolder"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property SStatesMan_SettingFail() As Boolean
+            Get
+                Return CType(Me("SStatesMan_SettingFail"),Boolean)
+            End Get
+            Set
+                Me("SStatesMan_SettingFail") = value
             End Set
         End Property
     End Class

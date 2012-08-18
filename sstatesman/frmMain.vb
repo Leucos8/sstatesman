@@ -79,12 +79,14 @@ Public Class frmMain
         End Using
 
         'Executes the FirstRun procedure (it tries to detect PCSX2 folders)
-        If My.Settings.SStatesMan_FirstRun2 = True Then
+        If My.Settings.SStatesMan_FirstRun = True Then
             mdlMain.FirstRun()
+        Else
+            'Checks if there are some invalid settings
+            mdlMain.PCSX2_PathAll_Check()
         End If
 
-        'Checks if there are some invalid settings
-        If mdlMain.PCSX2_PathAll_Check() Then
+        If My.Settings.SStatesMan_SettingFail Then
             frmSettings.ShowDialog(Me)
         End If
 

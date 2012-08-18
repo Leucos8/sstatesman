@@ -22,7 +22,7 @@ Public Class frmSettings
 #Region "Settings management"
     Private Sub Settings_Load()
         'General options
-        Me.ckbFirstRun.Checked = My.Settings.SStatesMan_FirstRun2
+        Me.ckbFirstRun.Checked = My.Settings.SStatesMan_FirstRun
         Me.ckb_SStatesListShowOnly.Checked = My.Settings.SStatesMan_SStatesListShowOnly
         Me.ckb_SStatesListAutoRefresh.Checked = My.Settings.SStatesMan_SStatesListAutoRefresh
         'Savestates management
@@ -35,6 +35,7 @@ Public Class frmSettings
         Me.txtPCSX2AppPath.Text = My.Settings.PCSX2_PathBin
         Me.txtPCSX2IniPath.Text = My.Settings.PCSX2_PathInis
         Me.txtPCSX2SStatePath.Text = My.Settings.PCSX2_PathSState
+        Me.txtPCSX2SnapsPath.Text = My.Settings.PCSX2_PathSnaps
 
         'Theme
         Me.ckbSStatesManThemeImage.Checked = My.Settings.SStatesMan_ThemeImageEnabled
@@ -65,7 +66,7 @@ Public Class frmSettings
 
     Private Sub Settings_Apply()
         'General options
-        My.Settings.SStatesMan_FirstRun2 = Me.ckbFirstRun.Checked
+        My.Settings.SStatesMan_FirstRun = Me.ckbFirstRun.Checked
         My.Settings.SStatesMan_SStatesListShowOnly = Me.ckb_SStatesListShowOnly.Checked
         My.Settings.SStatesMan_SStatesListAutoRefresh = Me.ckb_SStatesListAutoRefresh.Checked
         'Savestates management
@@ -75,11 +76,10 @@ Public Class frmSettings
         My.Settings.SStatesMan_PathPics = Me.txtSStatesManPicsPath.Text
         'PCSX2 folders
         My.Settings.PCSX2_PathBin = Me.txtPCSX2AppPath.Text
-        My.Settings.PCSX2_PathBinSet = True
         My.Settings.PCSX2_PathInis = Me.txtPCSX2IniPath.Text
-        My.Settings.PCSX2_PathInisSet = True
         My.Settings.PCSX2_PathSState = Me.txtPCSX2SStatePath.Text
-        My.Settings.PCSX2_PathSStatesSet = True
+        My.Settings.PCSX2_PathSnaps = Me.txtPCSX2SnapsPath.Text
+
         'Theme
         My.Settings.SStatesMan_ThemeImageEnabled = Me.ckbSStatesManThemeImage.Checked
         My.Settings.SStatesMan_ThemeGradientEnabled = Me.ckbSStatesManThemeGradient.Checked
@@ -196,6 +196,31 @@ Public Class frmSettings
             Me.imgPCSX2SStatePathStatus.Visible = False
         End If
 
+        'PCSX2 snapshots path
+        Me.txtPCSX2SnapsPath.Text = Me.txtPCSX2SnapsPath.Text.Trim(badChars)
+        For i As Int32 = 0 To invalidChars.Length - 1
+            Me.txtPCSX2SnapsPath.Text = Me.txtPCSX2SnapsPath.Text.Replace(invalidChars(i), "_")
+        Next i
+        If Not (Directory.Exists(Me.txtPCSX2SnapsPath.Text)) Then
+            Me.lblPCSX2SnapsPathStatus.Text = String.Concat("The specified path is not found or inaccessible.", Environment.NewLine,
+                                                             "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
+            Me.tlpPCSX2SnapsPath.BackColor = Color.FromArgb(255, 255, 192, 192)
+            Me.cmdPCSX2SnapsPathOpen.Enabled = False
+
+            Me.imgPCSX2SnapsPathStatus.Image = My.Resources.Metro_Button_Error
+            Me.imgPCSX2SnapsPathStatus.Visible = True
+
+            Me.cmdOk.Enabled = False
+            Me.cmdApply.Enabled = False
+            Me.tmpTab2SettingsFail = True
+        Else
+            Me.lblPCSX2SnapsPathStatus.Text = String.Format("The folder where SStatesMan will look for the screnshots, usually the ""{0}"" folder inside PCSX2 user folder.", My.Settings.PCSX2_SnapsFolder)
+            Me.tlpPCSX2SnapsPath.BackColor = Color.Transparent
+            Me.cmdPCSX2SnapsPathOpen.Enabled = True
+
+            Me.imgPCSX2SnapsPathStatus.Visible = False
+        End If
+
         'SStatesMan cover pics path
         Me.txtSStatesManPicsPath.Text = Me.txtSStatesManPicsPath.Text.Trim(badChars)
         For i As Int32 = 0 To invalidChars.Length - 1
@@ -258,8 +283,9 @@ Public Class frmSettings
     End Sub
 
     Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click
-        If mdlMain.PCSX2_PathAll_Check Then
-            My.Settings.SStatesMan_FirstRun2 = True
+        mdlMain.PCSX2_PathAll_Check()
+        If My.Settings.SStatesMan_SettingFail Then
+            My.Settings.SStatesMan_FirstRun = True
             End
         End If
         Me.Close()
@@ -404,6 +430,12 @@ Public Class frmSettings
         End If
     End Sub
 
+    Private Sub txtPCSX2SnapsPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtPCSX2SnapsPath.Validating
+        If e.Cancel = False Then
+            Me.Settings_Check()
+        End If
+    End Sub
+
     Private Sub txtSStatesManPicsPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtSStatesManPicsPath.Validating
         If e.Cancel = False Then
             Me.Settings_Check()
@@ -413,28 +445,37 @@ Public Class frmSettings
 
 #Region "Folder panels - browser"
     Private Sub cmdPCSX2AppPathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2AppPathBrowse.Click
-        Dim tmpPath As String = Me.createFolderBrowser("Select your PCSX2 executable folder.", Me.txtSStatesManPicsPath.Text, Environment.SpecialFolder.ProgramFilesX86, False)
+        Dim tmpPath As String = Me.createFolderBrowser("Select your PCSX2 executable folder.", Me.txtPCSX2AppPath.Text, Environment.SpecialFolder.ProgramFilesX86, False)
 
         If Not (tmpPath = "") Then
-            Me.txtSStatesManPicsPath.Text = tmpPath
+            Me.txtPCSX2AppPath.Text = tmpPath
         End If
         Me.Settings_Check()
     End Sub
 
     Private Sub cmdPCSX2IniPathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2IniPathBrowse.Click
-        Dim tmpPath As String = Me.createFolderBrowser("Select your PCSX2 ""inis"" folder.", Me.txtSStatesManPicsPath.Text, Environment.SpecialFolder.MyDocuments, False)
+        Dim tmpPath As String = Me.createFolderBrowser("Select your PCSX2 ""inis"" folder.", Me.txtPCSX2IniPath.Text, Environment.SpecialFolder.MyDocuments, False)
 
         If Not (tmpPath = "") Then
-            Me.txtSStatesManPicsPath.Text = tmpPath
+            Me.txtPCSX2IniPath.Text = tmpPath
         End If
         Me.Settings_Check()
     End Sub
 
     Private Sub cmdPCSX2SStatePathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SStatePathBrowse.Click
-        Dim tmpPath As String = Me.createFolderBrowser("Select your PCSX2 savestates folder.", Me.txtSStatesManPicsPath.Text, Environment.SpecialFolder.MyDocuments, False)
+        Dim tmpPath As String = Me.createFolderBrowser("Select your PCSX2 savestates folder.", Me.txtPCSX2SStatePath.Text, Environment.SpecialFolder.MyDocuments, False)
 
         If Not (tmpPath = "") Then
-            Me.txtSStatesManPicsPath.Text = tmpPath
+            Me.txtPCSX2SStatePath.Text = tmpPath
+        End If
+        Me.Settings_Check()
+    End Sub
+
+    Private Sub cmdPCSX2SnapsPathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SnapsPathBrowse.Click
+        Dim tmpPath As String = Me.createFolderBrowser("Select your PCSX2 screenshots folder.", Me.txtPCSX2SnapsPath.Text, Environment.SpecialFolder.MyPictures, False)
+
+        If Not (tmpPath = "") Then
+            Me.txtPCSX2SnapsPath.Text = tmpPath
         End If
         Me.Settings_Check()
     End Sub
@@ -465,30 +506,27 @@ Public Class frmSettings
 
 #Region "Folder panels - detect"
     Private Sub cmdPCSX2AppPathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2AppPathDetect.Click
-        mdlMain.PCSX2_PathBin_Detect(Me.txtPCSX2AppPath.Text)
+        Me.txtPCSX2AppPath.Text = mdlMain.PCSX2_PathBin_Detect()
         Me.Settings_Check()
     End Sub
 
     Private Sub cmdPCSX2IniPathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2IniPathDetect.Click
-        mdlMain.PCSX2_PathInis_Detect(Me.txtPCSX2IniPath.Text)
+        Me.txtPCSX2IniPath.Text = mdlMain.PCSX2_PathInis_Detect(Me.txtPCSX2AppPath.Text)
         Me.Settings_Check()
     End Sub
 
     Private Sub cmdPCSX2SStatePathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SStatePathDetect.Click
-        mdlMain.PCSX2_PathSStates_Detect(Me.txtPCSX2SStatePath.Text)
+        mdlMain.PCSX2_PathSettings_Detect(Me.txtPCSX2AppPath.Text, Me.txtPCSX2SStatePath.Text, Nothing)
+        Me.Settings_Check()
+    End Sub
+
+    Private Sub cmdPCSX2SnapsPathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SnapsPathDetect.Click
+        mdlMain.PCSX2_PathSettings_Detect(Me.txtPCSX2AppPath.Text, Nothing, Me.txtPCSX2SnapsPath.Text)
         Me.Settings_Check()
     End Sub
 #End Region
 
 #Region "Folder panels - open"
-    Private Sub cmdSStatesManPicsPathOpen_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStatesManPicsPathOpen.Click
-        If Directory.Exists(My.Settings.SStatesMan_PathPics) Then
-            System.Diagnostics.Process.Start(My.Settings.SStatesMan_PathPics)
-        Else
-            Me.Settings_Check()
-        End If
-    End Sub
-
     Private Sub cmdPCSX2AppPathOpen_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2AppPathOpen.Click
         If Directory.Exists(My.Settings.PCSX2_PathBin) Then
             System.Diagnostics.Process.Start(My.Settings.PCSX2_PathBin)
@@ -508,6 +546,22 @@ Public Class frmSettings
     Private Sub cmdPCSX2SStatePathOpen_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SStatePathOpen.Click
         If Directory.Exists(My.Settings.PCSX2_PathSState) Then
             System.Diagnostics.Process.Start(My.Settings.PCSX2_PathSState)
+        Else
+            Me.Settings_Check()
+        End If
+    End Sub
+
+    Private Sub cmdPCSX2SnapsPathOpen_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SnapsPathOpen.Click
+        If Directory.Exists(My.Settings.PCSX2_PathSnaps) Then
+            System.Diagnostics.Process.Start(My.Settings.PCSX2_PathSnaps)
+        Else
+            Me.Settings_Check()
+        End If
+    End Sub
+
+    Private Sub cmdSStatesManPicsPathOpen_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStatesManPicsPathOpen.Click
+        If Directory.Exists(My.Settings.SStatesMan_PathPics) Then
+            System.Diagnostics.Process.Start(My.Settings.SStatesMan_PathPics)
         Else
             Me.Settings_Check()
         End If

@@ -18,14 +18,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
   <Profiles />
   <Settings>
-    <Setting Name="PCSX2_PathBin" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Not detected</Value>
-    </Setting>
     <Setting Name="PCSX2_PathInis" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Not detected</Value>
+      <Value Profile="(Default)"> </Value>
     </Setting>
     <Setting Name="PCSX2_PathSState" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Not detected</Value>
+      <Value Profile="(Default)"> </Value>
     </Setting>
     <Setting Name="PCSX2_SStateExt" Type="System.String" Scope="Application">
       <Value Profile="(Default)">.p2s</Value>
@@ -49,30 +46,21 @@
       <Value Profile="(Default)">SettingsFolder</Value>
     </Setting>
     <Setting Name="PCSX2_SStateFolder" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">SStates</Value>
+      <Value Profile="(Default)">sstates</Value>
     </Setting>
-    <Setting Name="SStatesMan_FirstRun2" Type="System.Boolean" Scope="User">
+    <Setting Name="SStatesMan_FirstRun" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="SStatesMan_SStateTrash" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="SStatesMan_PathPics" Type="System.String" Scope="User">
-      <Value Profile="(Default)">Not set</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="SStatesMan_PicsFolder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">coverpics</Value>
     </Setting>
     <Setting Name="SStatesMan_ThemeGradientEnabled" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="PCSX2_PathBinSet" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="PCSX2_PathInisSet" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="PCSX2_PathSStatesSet" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="PCSX2_PCSX2_uiFilename" Type="System.String" Scope="Application">
@@ -170,6 +158,18 @@
     </Setting>
     <Setting Name="frmDel_slvw_cLastWT" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="PCSX2_PathBin" Type="System.String" Scope="User">
+      <Value Profile="(Default)"> </Value>
+    </Setting>
+    <Setting Name="PCSX2_PathSnaps" Type="System.String" Scope="User">
+      <Value Profile="(Default)"> </Value>
+    </Setting>
+    <Setting Name="PCSX2_SnapsFolder" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">snaps</Value>
+    </Setting>
+    <Setting Name="SStatesMan_SettingFail" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>
