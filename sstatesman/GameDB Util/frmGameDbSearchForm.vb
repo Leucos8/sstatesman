@@ -13,90 +13,78 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Public Class frmGameDbSearchForm
-    Dim searchCkbStatus As System.Int32 = 0
     Dim ConvertedGameCompat As System.String = ""
 
-    Private Sub UICheck()
-        If searchCkbStatus > 0 Then
+    Private Sub UI_Check()
+        If Me.ckbSerial.Checked Or
+            Me.ckbGameTitle.Checked Or
+            Me.ckbGameRegion.Checked Or
+            Me.ckbGameCompat.Checked Then
+
             Me.cmdSearch.Enabled = True
+
         Else : Me.cmdSearch.Enabled = False
         End If
     End Sub
 
     Private Sub cmdSearch_Click(sender As System.Object, e As System.EventArgs) Handles cmdSearch.Click
-        If Me.ckbSerial.Checked And Me.txtSerial.Text = "" Then
-            Me.ckbSerial.Checked = False
-        End If
-        If Me.ckbGameTitle.Checked And Me.txtGameTitle.Text = "" Then
-            Me.ckbGameTitle.Checked = False
-        End If
-        If Me.ckbGameRegion.Checked And Me.txtGameRegion.Text = "" Then
-            Me.ckbGameRegion.Checked = False
-        End If
-        If searchCkbStatus > 0 Then
+        If Me.optSeatchTypeAND.Checked Then
             PCSX2GameDb.Search(frmGameDb.SearchResultRef,
-                               Me.txtSerial.Text, Me.ckbSerial.Checked,
-                               Me.txtGameTitle.Text, Me.ckbGameTitle.Checked,
-                               Me.txtGameRegion.Text, Me.ckbGameRegion.Checked,
-                               ConvertedGameCompat, Me.ckbGameCompat.Checked,
-                               0)
-            frmGameDb.SearchIsActive = True
-            Me.DialogResult = Windows.Forms.DialogResult.OK
-            Me.Close()
+                                   Me.txtSerial.Text,
+                                   Me.txtGameTitle.Text,
+                                   Me.txtGameRegion.Text,
+                                   ConvertedGameCompat,
+                                   0)
         Else
-            Me.UICheck()
+            PCSX2GameDb.Search(frmGameDb.SearchResultRef,
+                                   Me.txtSerial.Text,
+                                   Me.txtGameTitle.Text,
+                                   Me.txtGameRegion.Text,
+                                   ConvertedGameCompat,
+                                   1)
         End If
-
+        frmGameDb.SearchIsActive = True
+        Me.DialogResult = Windows.Forms.DialogResult.OK
+        Me.Close()
     End Sub
 
     Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click
         Me.Close()
     End Sub
-    Private Sub ckbSerial_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ckbSerial.CheckedChanged
-        If Me.ckbSerial.Checked Then
-            searchCkbStatus += 1
-            Me.txtSerial.Enabled = True
+
+    Private Sub txtSerial_Validated(sender As System.Object, e As System.EventArgs) Handles txtSerial.Validated
+        Me.txtSerial.Text = Me.txtSerial.Text.Trim
+        If Me.txtSerial.Text.Length > 0 Then
+            Me.ckbSerial.Checked = True
         Else
-            Me.txtSerial.Enabled = False
-            searchCkbStatus -= 1
+            Me.ckbSerial.Checked = False
         End If
-        Me.UICheck()
+        Me.UI_Check()
     End Sub
 
-    Private Sub ckbGameTitle_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ckbGameTitle.CheckedChanged
-        If Me.ckbGameTitle.Checked Then
-            searchCkbStatus += 1
-            Me.txtGameTitle.Enabled = True
+    Private Sub txtGameTitle_Validated(sender As System.Object, e As System.EventArgs) Handles txtGameTitle.Validated
+        Me.txtGameTitle.Text = Me.txtGameTitle.Text.Trim
+        If Me.txtGameTitle.Text.Length > 0 Then
+            Me.ckbGameTitle.Checked = True
         Else
-            Me.txtGameTitle.Enabled = False
-            searchCkbStatus -= 1
+            Me.ckbGameTitle.Checked = False
         End If
-        Me.UICheck()
+        Me.UI_Check()
     End Sub
 
-    Private Sub ckbGameRegion_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ckbGameRegion.CheckedChanged
-        If Me.ckbGameRegion.Checked Then
-            searchCkbStatus += 1
-            Me.txtGameRegion.Enabled = True
+    Private Sub txtGameRegion_Validated(sender As System.Object, e As System.EventArgs) Handles txtGameRegion.Validated
+        Me.txtGameRegion.Text = Me.txtGameRegion.Text.Trim
+        If Me.txtGameRegion.Text.Length > 0 Then
+            Me.ckbGameRegion.Checked = True
         Else
-            Me.txtGameRegion.Enabled = False
-            searchCkbStatus -= 1
+            Me.ckbGameRegion.Checked = False
         End If
-        Me.UICheck()
+        Me.UI_Check()
     End Sub
 
-    Private Sub ckbGameCompat_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles ckbGameCompat.CheckedChanged
-        If Me.ckbGameCompat.Checked Then
-            searchCkbStatus += 1
-            Me.cbGameCompat.Enabled = True
-        Else
-            Me.cbGameCompat.Enabled = False
-            searchCkbStatus -= 1
-        End If
-        Me.UICheck()
-    End Sub
-
-    Private Sub cbGameCompat_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cbGameCompat.Validating
+    Private Sub cbGameCompat_Validated(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cbGameCompat.Validated
+        Me.ckbGameCompat.Checked = True
+        Me.cbGameCompat.Text = Me.cbGameCompat.Text.Trim
         Select Case Me.cbGameCompat.Text.ToLower
             Case "0: unknown" : ConvertedGameCompat = "0"
             Case "1: nothing" : ConvertedGameCompat = "1"
@@ -106,17 +94,20 @@ Public Class frmGameDbSearchForm
             Case "5: playable" : ConvertedGameCompat = "5"
             Case "6: perfect" : ConvertedGameCompat = "6"
             Case "missing" : ConvertedGameCompat = ""
-            Case Else : ConvertedGameCompat = "0"
-                Me.cbGameCompat.Text = "0: Unknown"
+            Case Else : ConvertedGameCompat = ""
+                Me.cbGameCompat.Text = ""
+                Me.ckbGameCompat.Checked = False
         End Select
+        Me.UI_Check()
     End Sub
 
     Private Sub frmGameDbSearchForm_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
 
         Me.applyTheme()
 
-        Me.UICheck()
+        Me.UI_Check()
     End Sub
+
 #Region "UI Paint"
     Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
         Dim recToolbar As New Rectangle(CInt(8 * DPIxScale), 0, CInt(127 * DPIxScale) + 1, CInt(7 * DPIyScale) + 1)
@@ -160,4 +151,5 @@ Public Class frmGameDbSearchForm
         Me.Refresh()
     End Sub
 #End Region
+
 End Class

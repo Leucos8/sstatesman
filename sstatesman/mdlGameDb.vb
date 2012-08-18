@@ -16,10 +16,20 @@ Imports System.IO
 
 Module mdlGameDb
     Public Class GameInfo
-        Public Property Serial As String      'Executable code of the game, normally in the (4 letter)-(5 digits). There are exceptions, though (I'm looking at you GTA III)
-        Public Property Name As String        'Currently the longest one is 150 char or so...
-        Public Property Region As String      'Game Region, nuff said
-        Public Property Compat As String      'Compatibility status, it should be a byte, but CByte causes overhead and exceptions
+        ''' <summary>Executable code of the game.</summary>
+        ''' <value>normally in the (4 letter)-(5 digits). There are exceptions, though (I'm looking at you GTA III)</value>
+        Public Property Serial As String
+        ''' <summary>Name of the game.</summary>
+        ''' <value>Currently the longest one is 150 char or so...</value>
+        Public Property Name As String
+        ''' <summary>
+        ''' Game Region, nuff said
+        ''' </summary>
+        ''' <value>PAL, NTSC, etc.</value>
+        Public Property Region As String
+        ''' <summary>Compatibility status, it should be a byte, but CByte causes overhead and exceptions.</summary>
+        ''' <value>Hopefully values from 0 to 6, if not an empty string.</value>
+        Public Property Compat As String      '
 
         Public Overrides Function ToString() As String
             Return String.Format("{0} ({1}) [{2}]", Name, Region, Serial)
@@ -44,10 +54,9 @@ Module mdlGameDb
             Return tmpGameInfo.CompatToText()
         End Function
 
-
         Public Function CompatToColor(ByVal pBGcolor As Color) As Color
             Select Case Compat
-                Case "0" : Return pBGcolor  'Unknown
+                Case "0" : Return pBGcolor                              'Unknown
                 Case "1" : Return Color.FromArgb(255, 255, 192, 192)    'Nothing:    Red
                 Case "2" : Return Color.FromArgb(255, 255, 224, 192)    'Intro:      Orange
                 Case "3" : Return Color.FromArgb(255, 255, 255, 192)    'Menus:      Yellow
@@ -64,10 +73,19 @@ Module mdlGameDb
         End Function
     End Class
 
+    ''' <summary>Object that will be used to contain the PCSX2 GameDB used by SStatesMan.</summary>
     Public PCSX2GameDb As New GameDB
+
+    ''' <summary>Supplies the methods to access records contained in a PCSX2 GameDB.</summary>
     Public Class GameDB
+        ''' <summary>Dictionary of <c>GameInfo</c> records.</summary>
+        ''' <value>Contains all the records in the GameDB</value>
         Public Property Records As New Dictionary(Of String, GameInfo)
+        ''' <summary>Status of the GameDB.</summary>
+        ''' <value>Returns if the GameDB, is not loaded, empty or if an error has occurred.</value>
         Public Property Status As mdlMain.LoadStatus = mdlMain.LoadStatus.StatusNotLoaded
+        ''' <summary>Load time of the GameDB.</summary>
+        ''' <value>Load time in milliseconds.</value>
         Public Property LoadTime As Long = 0
 
         'Constants
@@ -81,18 +99,20 @@ Module mdlGameDb
         Const FileGameDb_FieldName3 As String = "Region" 'Database third field name
         Const FileGameDb_FieldName4 As String = "Compat" 'Database fourth field name
 
+        ''' <summary>Loads the GameDB from the given file.</summary>
+        ''' <param name="pFileGameDb_Loc">Path and file name of input database.</param>
         Public Sub Load(ByVal pFileGameDb_Loc As String)
-            'Loads the GameDB from the given file. Return Value: status
-            '   ByVal   pFileGameDb_Loc             Path and file name of input database.
 
             mdlMain.AppendToLog("GameDB", "Load", String.Format("Open DB: ""{0}"".", pFileGameDb_Loc))
             Try
                 Dim sw As New Stopwatch
                 sw.Start()
 
-                Unload()
+                If Not (Status = LoadStatus.StatusNotLoaded) Then
+                    Unload()
+                End If
 
-                Dim myCurrentSerial As String = ""
+                Dim tmpCurrentSerial As String = ""
 
                 Using FileGameDb_Reader As New StreamReader(pFileGameDb_Loc, System.Text.Encoding.Default)
                     While Not FileGameDb_Reader.EndOfStream
@@ -113,24 +133,24 @@ Module mdlGameDb
                                     Select Case mySplittedLine(0)
                                         Case FileGameDb_FieldName1
 
-                                            If Not (myCurrentSerial = mySplittedLine(1)) Then
-                                                myCurrentSerial = mySplittedLine(1)
-                                                If Not (Records.ContainsKey(myCurrentSerial)) Then
-                                                    Dim myCurrentRecord As New GameInfo With {.Serial = myCurrentSerial, .Name = "", .Region = "", .Compat = ""}
-                                                    Records.Add(myCurrentSerial, myCurrentRecord)
+                                            If Not (tmpCurrentSerial = mySplittedLine(1)) Then
+                                                tmpCurrentSerial = mySplittedLine(1)
+                                                If Not (Records.ContainsKey(tmpCurrentSerial)) Then
+                                                    Dim myCurrentRecord As New GameInfo With {.Serial = tmpCurrentSerial, .Name = "", .Region = "", .Compat = ""}
+                                                    Records.Add(tmpCurrentSerial, myCurrentRecord)
                                                 End If
                                             End If
                                         Case FileGameDb_FieldName2
-                                            If Records.ContainsKey(myCurrentSerial) Then
-                                                Records(myCurrentSerial).Name = mySplittedLine(1)
+                                            If Records.ContainsKey(tmpCurrentSerial) Then
+                                                Records(tmpCurrentSerial).Name = mySplittedLine(1)
                                             End If
                                         Case FileGameDb_FieldName3
-                                            If Records.ContainsKey(myCurrentSerial) Then
-                                                Records(myCurrentSerial).Region = mySplittedLine(1)
+                                            If Records.ContainsKey(tmpCurrentSerial) Then
+                                                Records(tmpCurrentSerial).Region = mySplittedLine(1)
                                             End If
                                         Case FileGameDb_FieldName4
-                                            If Records.ContainsKey(myCurrentSerial) Then
-                                                Records(myCurrentSerial).Compat = mySplittedLine(1).Substring(0, 1)
+                                            If Records.ContainsKey(tmpCurrentSerial) Then
+                                                Records(tmpCurrentSerial).Compat = mySplittedLine(1).Substring(0, 1)
                                             End If
                                     End Select
 
@@ -275,100 +295,86 @@ Module mdlGameDb
 
         End Function
 
-        Public Function Search(ByRef pGameDbSearch As List(Of String),
-                               ByVal pSerial As String, ByVal pSearchBySerial As Boolean,
-                               ByVal pGameTitle As String, ByVal pSearchByGameTitle As Boolean,
-                               ByVal pGameRegion As String, ByVal pSearchByGameRegion As Boolean,
-                               ByVal pGameCompat As String, ByVal pSearchByGameCompat As Boolean,
+        ''' <summary>Returns a list of strings which are the dictionary keys (serials) of the records found in the GameDb.</summary>
+        ''' <param name="pSearchResult">The string list where the serials will be stored.</param>
+        ''' <param name="pSerial">Serial to search.</param>
+        ''' <param name="pGameTitle">Game title to search.</param>
+        ''' <param name="pGameRegion">Game region to search.</param>
+        ''' <param name="pGameCompat">Game compat to search.</param>
+        ''' <param name="pSearchType">Determines if the search will use the <c>And</c> or <c>Or</c> criteria</param>
+        ''' <returns>LoadStatus (<c>MdlMain.LoadStatus</c>)</returns>
+        Public Function Search(ByRef pSearchResult As List(Of String),
+                               ByVal pSerial As String,
+                               ByVal pGameTitle As String,
+                               ByVal pGameRegion As String,
+                               ByVal pGameCompat As String,
                                ByVal pSearchType As Byte) As mdlMain.LoadStatus
-            'Returns an array of integers which are the position of the records found in the GameDb. Return value: Length of the integer array.
-            'ByRef  pGameDbSearch           The string array where the serials will be stored
-            'ByVal  pSerial                 Serial to search
-            'ByVal  pSearchBySerial         Determines if the search by serial will be performed
-            'ByVal  pGameTitle              Game title to search
-            'ByVal  pSearchByGameTitle      Determines if the search by game title will be performed
-            'ByVal  pGameRegion             Game region to search
-            'ByVal  pSearchByGameRegion     Determines if the search by game region will be performed
-            'ByVal  pGameCompat             Game compat to search
-            'ByVal  pSearchByGameCompat     Determines if the search by compat will be performed
-            'ByVal  pSearchType             Determines if the search will use the "And" or "Or" criteria
-            Dim SerialFound As System.Boolean = False
-            Dim GameTitleFound As System.Boolean = False
-            Dim GameRegionFound As System.Boolean = False
-            Dim GameCompatFound As System.Boolean = False
 
-            pGameDbSearch.Clear()
+            Dim sw As New Stopwatch
+            sw.Start()
 
-            For Each myTmpGame As KeyValuePair(Of System.String, GameInfo) In Records
+            pSearchResult.Clear()
+            Dim myRecords = Nothing
+            'And
+            If pSearchType = 0 Then
+                myRecords = From tmpGameInfo As KeyValuePair(Of String, GameInfo) In Records
+                    Where (tmpGameInfo.Key.ToUpper.Contains(pSerial) And
+                           tmpGameInfo.Value.Name.ToUpper.Contains(pGameTitle.ToUpper) And
+                           tmpGameInfo.Value.Region.ToUpper.Contains(pGameRegion.ToUpper) And
+                           tmpGameInfo.Value.Compat.Contains(pGameCompat)
+                           )
+                    Select tmpGameInfo
+                'Or
+            ElseIf pSearchType = 1 Then
+                myRecords = From tmpGameInfo As KeyValuePair(Of String, GameInfo) In Records
+                    Where ((Not (pSerial.Length = 0) And tmpGameInfo.Key.ToUpper.Contains(pSerial)) Or
+                           (Not (pGameTitle.Length = 0) And tmpGameInfo.Value.Name.ToUpper.Contains(pGameTitle.ToUpper)) Or
+                           (Not (pGameRegion.Length = 0) And tmpGameInfo.Value.Region.ToUpper.Contains(pGameRegion.ToUpper)) Or
+                           (Not (pGameCompat.Length = 0) And tmpGameInfo.Value.Compat.Contains(pGameCompat))
+                           )
+                    Select tmpGameInfo
+            End If
 
-                If pSearchBySerial Then
-                    If myTmpGame.Key.ToUpper.Contains(pSerial.ToUpper) Then
-                        SerialFound = True
-                    End If
-                End If
-
-                If pSearchByGameTitle Then
-                    If myTmpGame.Value.Name.ToUpper.Contains(pGameTitle.ToUpper) Then
-                        GameTitleFound = True
-                    End If
-                End If
-
-                If pSearchByGameRegion Then
-                    If myTmpGame.Value.Region.ToUpper.Contains(pGameRegion.ToUpper) Then
-                        GameRegionFound = True
-                    End If
-                End If
-
-                If pSearchByGameCompat Then
-                    If myTmpGame.Value.Compat = pGameCompat Then
-                        GameCompatFound = True
-                    End If
-                End If
-
-                If pSearchType = 0 Then
-                    If (SerialFound Or Not (pSearchBySerial)) And
-                       (GameTitleFound Or Not (pSearchByGameTitle)) And
-                       (GameRegionFound Or Not (pSearchByGameRegion)) And
-                       (GameCompatFound Or Not (pSearchByGameCompat)) Then
-                        pGameDbSearch.Add(myTmpGame.Key)
-                    End If
-                ElseIf pSearchType = 1 Then
-                    If SerialFound Or GameTitleFound Or GameRegionFound Or GameCompatFound Then
-                        pGameDbSearch.Add(myTmpGame.Key)
-                    End If
-                End If
-                SerialFound = False
-                GameTitleFound = False
-                GameRegionFound = False
-                GameCompatFound = False
-
-            Next
-            If pGameDbSearch.Count > 0 Then
+            If (myRecords IsNot Nothing) Then
+                For Each tmpGame In myRecords
+                    pSearchResult.Add(tmpGame.Key)
+                Next
+                sw.Stop()
+                mdlMain.AppendToLog("GameDB", "Search", String.Format("Found {0:N0} records.", pSearchResult.Count), sw.ElapsedMilliseconds)
                 Return LoadStatus.StatusLoadedOK
             Else
+                sw.Stop()
+                mdlMain.AppendToLog("GameDB", "Search", String.Format("No records found.", pSearchResult.Count), sw.ElapsedMilliseconds)
                 Return LoadStatus.StatusEmpty
             End If
         End Function
 
+        ''' <summary>Export the gamedb to a text file (it can be imported in Excel and Access).</summary>
+        ''' <param name="pGameDbExport_Loc">Path and file name of the saved file.</param>
+        ''' <param name="pSep">Separator character to be used in the exported file.</param>
         Public Sub ExporTxt(ByVal pGameDbExport_Loc As String, ByVal pSep As String)
             GameDB.ExportTxt(pGameDbExport_Loc, pSep, Records)
         End Sub
 
+        ''' <summary>Export the gamedb to a text file (it can be imported in Excel and Access). Shared method.</summary>
+        ''' <param name="pGameDbExport_Loc">Path and file name of the saved file.</param>
+        ''' <param name="pSep">Separator character to be used in the exported file.</param>
+        ''' <param name="pRecords">Records list that will be saved in the file.</param>
         Public Shared Sub ExportTxt(ByVal pGameDbExport_Loc As String,
                                     ByVal pSep As String,
-                                    ByVal pGameDb As Dictionary(Of String, GameInfo))
-            'Export the array to a text file (you could import in Excel and Access)
-            '   ByVal   pGameDbExport_Loc           Path and file name of the saved file
-            '   ByVal   pSepStyle                   Separator character to be use in the export
-            '   ByRef   pGameDb                     The dinamic array of the GameDB to search in
+                                    ByVal pRecords As Dictionary(Of String, GameInfo))
 
-            If pGameDb.Count > 0 Then
+            If pRecords.Count > 0 Then
                 Using FileGameDb_Tab_Writer As New StreamWriter(pGameDbExport_Loc, False)
+                    'Headers
                     FileGameDb_Tab_Writer.WriteLine(String.Concat("Serial", pSep, "Name", pSep, "Region", pSep, "Compat"))
-                    For Each myTmpGame As KeyValuePair(Of String, GameInfo) In pGameDb
 
-                        FileGameDb_Tab_Writer.WriteLine(String.Concat(myTmpGame.Key, pSep, myTmpGame.Value.Name, pSep,
-                                                                      myTmpGame.Value.Region, pSep, myTmpGame.Value.Compat))
+                    For Each myTmpGame As KeyValuePair(Of String, GameInfo) In pRecords
+
+                        FileGameDb_Tab_Writer.WriteLine(String.Concat(myTmpGame.Key, pSep,
+                                                                      myTmpGame.Value.Name, pSep,
+                                                                      myTmpGame.Value.Region, pSep,
+                                                                      myTmpGame.Value.Compat))
                     Next
                     FileGameDb_Tab_Writer.Close()
                 End Using
@@ -376,26 +382,5 @@ Module mdlGameDb
         End Sub
 
     End Class
-
-    'Public Sub GameDb_ExportTxt(ByVal pGameDbExport_Loc As System.String,
-    '                            ByVal pSep As System.String,
-    '                            ByVal pGameDb As Dictionary(Of System.String, GameInfo))
-    '    'Export the array to a text file (you could import in Excel and Access)
-    '    '   ByVal   pGameDbExport_Loc           Path and file name of the saved file
-    '    '   ByVal   pSepStyle                   Separator character to be use in the export
-    '    '   ByRef   pGameDb                     The dinamic array of the GameDB to search in
-
-    '    If pGameDb.Count > 0 Then
-    '        Using FileGameDb_Tab_Writer As New StreamWriter(pGameDbExport_Loc, False)
-    '            FileGameDb_Tab_Writer.WriteLine(System.String.Concat("Serial", pSep, "Name", pSep, "Region", pSep, "Compat"))
-    '            For Each myTmpGame As KeyValuePair(Of System.String, GameInfo) In pGameDb
-
-    '                FileGameDb_Tab_Writer.WriteLine(System.String.Concat(myTmpGame.Key, pSep, myTmpGame.Value.Name, pSep,
-    '                                                                     myTmpGame.Value.Region, pSep, myTmpGame.Value.Compat))
-    '            Next
-    '            FileGameDb_Tab_Writer.Close()
-    '        End Using
-    '    End If
-    'End Sub
 
 End Module
