@@ -57,6 +57,26 @@ Module mdlFileList
 
     End Class
 
+    Public Class Snapshot
+        Public Property Name As String
+
+        Public Function GetSerial() As String
+            Dim SpacePosition As Int32 = Name.IndexOf(" "c, 0)
+            If Name.ToLower.StartsWith("gsdx") Then
+                Return "GSdX"
+            ElseIf SpacePosition > 0 Then
+                Return Name.Remove(SpacePosition)
+            Else
+                Return "Screenshots"
+            End If
+        End Function
+
+        Public Shared Function GetSerial(ByVal pFilename As String) As String
+            Dim tmpSnapshot As New Snapshot With {.Name = pFilename}
+            Return tmpSnapshot.GetSerial
+        End Function
+    End Class
+
     Public Class GamesList_Item
         Public Property Savestates As New Dictionary(Of String, Savestate)
         'Public Property Savestates_Count As Int32 = 0
@@ -96,9 +116,9 @@ Module mdlFileList
             mdlMain.AppendToLog("FilesList", "LoadAll", "No games, the list is empty.", GameList_LoadTime)
             Return LoadStatus.StatusEmpty
         Else
-            Dim SStates_Count As Integer = GamesList.Sum(Function(aws) aws.Value.Savestates.Count)
-            Dim Snaps_Count As Integer = GamesList.Sum(Function(aws) aws.Value.Snapshots.Count)
-            mdlMain.AppendToLog("FilesList", "LoadAll", String.Format("Loaded {0:N0} games with {1:N0} savestates and {2:N0}.", pGamesList.Count, SStates_Count, Snaps_Count), GameList_LoadTime)
+            Dim SStates_Count As Integer = GamesList.Sum(Function(item) item.Value.Savestates.Count)
+            Dim Snaps_Count As Integer = GamesList.Sum(Function(item) item.Value.Snapshots.Count)
+            mdlMain.AppendToLog("FilesList", "LoadAll", String.Format("{0:N0} games > {1:N0} savestates - {2:N0} screenshots.", pGamesList.Count, SStates_Count, Snaps_Count), GameList_LoadTime)
             Return LoadStatus.StatusLoadedOK
         End If
     End Function
@@ -109,8 +129,8 @@ Module mdlFileList
         SStates_FolderLastModified = pDirectory.LastWriteTime
 
         Dim mySStates_GroupedBySerial = pDirectory.EnumerateFiles().Where(
-            Function(extfilter) {My.Settings.PCSX2_SStateExt, My.Settings.PCSX2_SStateExtBackup}.Contains(extfilter.Extension.ToLower)
-                ).GroupBy(Function(aws) Savestate.GetSerial(aws.Name))
+            Function(item) {My.Settings.PCSX2_SStateExt, My.Settings.PCSX2_SStateExtBackup}.Contains(item.Extension.ToLower)
+                ).GroupBy(Function(item) Savestate.GetSerial(item.Name))
 
         'Raggruppo le FileInfo sui savestates, che ottengo con GetFiles, per seriale utilizzando LINQ GroupBy
 
@@ -149,10 +169,8 @@ Module mdlFileList
 
             End If
             'Operazione comune ai due bracci dell'If precedente
-            'myCurrentGame.Savestates_Count = myCurrentGame.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count
-            myCurrentGame.Savestates_SizeTot = myCurrentGame.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Sum(Function(Lengthsum) Lengthsum.Value.Length)
-            'myCurrentGame.SavestatesBackup_Count = myCurrentGame.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Count
-            myCurrentGame.SavestatesBackup_SizeTot = myCurrentGame.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Sum(Function(Lengthsum) Lengthsum.Value.Length)
+            myCurrentGame.Savestates_SizeTot = myCurrentGame.Savestates.Where(Function(item) item.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Sum(Function(item) item.Value.Length)
+            myCurrentGame.SavestatesBackup_SizeTot = myCurrentGame.Savestates.Where(Function(item) item.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Sum(Function(item) item.Value.Length)
         Next
 
     End Sub
@@ -163,8 +181,8 @@ Module mdlFileList
         Snaps_FolderLastModified = pDirectory.LastWriteTime
 
         Dim mySnaps_GroupedBySerial = pDirectory.EnumerateFiles().Where(
-            Function(extfilter) {".bmp", ".jpg", ".png"}.Contains(extfilter.Extension.ToLower)
-                ).GroupBy(Function(aws) Savestate.GetSerial(aws.Name))
+            Function(item) {".bmp", ".jpg", ".png"}.Contains(item.Extension.ToLower)
+                ).GroupBy(Function(item) Snapshot.GetSerial(item.Name))
 
         'Raggruppo le FileInfo sui savestates, che ottengo con GetFiles, per seriale utilizzando LINQ GroupBy
 
@@ -172,6 +190,7 @@ Module mdlFileList
             'Creo una lista temporanea di FileInfo partendo dai FileInfo del gruppo, perché non posso fare conversione diretta
             Dim myTmpSStatesList As New Dictionary(Of String, FileInfo)
             For Each FileInformation As FileInfo In GroupedBySerial_Item
+                'Dim tmpPicture As Image = Image.FromStream(New FileStream(FileInformation.FullName, FileMode.Open, FileAccess.Read, FileShare.Read))
 
                 myTmpSStatesList.Add(FileInformation.Name, FileInformation)
 
@@ -192,7 +211,6 @@ Module mdlFileList
 
             End If
             'Operazione comune ai due bracci dell'If precedente
-            'myCurrentGame.Savestates_Count = myCurrentGame.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count
             myCurrentGame.Snapshots_SizeTot = myCurrentGame.Snapshots.Sum(Function(Lengthsum) Lengthsum.Value.Length)
         Next
 

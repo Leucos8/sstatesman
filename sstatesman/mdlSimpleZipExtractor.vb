@@ -15,6 +15,7 @@
 Imports System.IO
 Module mdlSimpleZipExtractor
 #Region "ZipHeader"
+    Private Const ZipH_Sign_Const As Integer = &H4034B50          'Signature at the start of a Zip File
     Private Const ZipH_Sign_Len As Byte = 4                 ' 0
     Private Const ZipH_Version_Len As Byte = 2              ' 4
     Private Const ZipH_GenFlag_Len As Byte = 2              ' 6
@@ -31,11 +32,13 @@ Module mdlSimpleZipExtractor
 
 
     Public Function ExtractFirstFile(ByVal pFile As FileInfo) As String
-        Dim ZipH_Sign() As Byte = {&H50, &H4B, &H3, &H4}    '0x04034b50   Signature at the start of a Zip File
-        Dim ZipH_ComprSize As UInteger = 0                  'Compressed size of the first file
-        'Private ZipH_UncomSize As UInteger = 0             'Uncomrpessed size of the first file
-        Dim ZipH_FileNameLength As UInteger = 0             'Length of the name of the compressed file
-        'Private ZipH_ExtraFieldLength As UInteger = 0
+
+        Dim ZipH_Sign As Integer = 0                        '0x04034b50   Signature at the start of a Zip File
+        Dim ZipH_ComprSize As Integer = 0                   'Compressed size of the first file
+        'Dim ZipH_ComprMethod As Short = 0S                 'Compression method flag
+        'Private ZipH_UncomSize As Integer = 0              'Uncomrpessed size of the first file
+        Dim ZipH_FileNameLength As Short = 0S               'Length of the name of the compressed file
+        'Private ZipH_ExtraFieldLength As Integer = 0
         Dim ZipH_Filename As String = ""                    'String name of the first file
 
         Try
@@ -44,61 +47,61 @@ Module mdlSimpleZipExtractor
                 '60 bytes is the minimun Length that of a file that contains only the savestate version information
                 Using FileReader As FileStream = pFile.OpenRead()
                     Dim ZipHeader(29) As Byte
-                    FileReader.Read(ZipHeader, FileReader.Position, ZipH_Sign_Len)
+                    FileReader.Read(ZipHeader, CInt(FileReader.Position), ZipH_Sign_Len)
                     'Check if the signature is present
-                    Dim IsAZip As Boolean = True
-                    For i As Byte = 0 To 3
-                        If Not (ZipH_Sign(i).Equals(ZipHeader(i))) Then
-                            IsAZip = False
-                            Exit For
-                        End If
-                    Next
-                    If IsAZip = True Then
+                    'ZipH_Sign = BitConverter.ToInt32(ZipHeader, 0)
+                    ZipH_Sign = CInt(ZipHeader(0)) Or (CInt(ZipHeader(1)) << 8) Or (CInt(ZipHeader(2)) << 16) Or (CInt(ZipHeader(3)) << 24)
+
+                    If ZipH_Sign_Const = ZipH_Sign Then
                         'We've got a zip! Maybe...
-                        FileReader.Read(ZipHeader, FileReader.Position, 26)
+                        FileReader.Read(ZipHeader, CInt(FileReader.Position), 26)
                         'check for the compression method
-                        If ZipHeader(8) = &H0 And ZipHeader(9) = &H0 Then
+                        If (CShort(ZipHeader(8)) Or (CShort(ZipHeader(9)) << 8)) = 0S Then
+                            'If BitConverter.ToInt16(ZipHeader, 8) = 0 Then
+                            'If (ZipHeader(8) Or ZipHeader(9) * 256) = 0 Then
                             'compressionmethod = 0 is "Store", so no compression
-                            ZipH_ComprSize = UInteger.Parse(String.Concat(ZipHeader(21).ToString("x2"),
-                                                                          ZipHeader(20).ToString("x2"),
-                                                                          ZipHeader(19).ToString("x2"),
-                                                                          ZipHeader(18).ToString("x2")
-                                                                          ), System.Globalization.NumberStyles.HexNumber)
+
+                            'ZipH_ComprSize = BitConverter.ToInt32(ZipHeader, 18)
+                            ZipH_ComprSize = CInt(ZipHeader(18)) Or (CInt(ZipHeader(19)) << 8) Or (CInt(ZipHeader(20)) << 16) Or (CInt(ZipHeader(21)) << 24)
+
                             'reads filename Length
-                            ZipH_FileNameLength = UInteger.Parse(String.Concat(ZipHeader(27).ToString("x2"),
-                                                                               ZipHeader(26).ToString("x2")
-                                                                               ), System.Globalization.NumberStyles.HexNumber)
+                            ZipH_FileNameLength = (CShort(ZipHeader(26)) Or (CShort(ZipHeader(27)) << 8))
+
                             'reads filename
                             Dim myFilename(ZipH_FileNameLength - 1) As Byte
                             FileReader.Read(myFilename, 0, ZipH_FileNameLength)
                             'convert filename to a meaningful string
-                            For i As UInteger = 0 To ZipH_FileNameLength - 1
-                                ZipH_Filename = String.Concat(ZipH_Filename, Convert.ToChar(myFilename(i)))
+                            For i As Integer = 0 To ZipH_FileNameLength - 1
+                                ZipH_Filename &= Convert.ToChar(myFilename(i))
                             Next
                             'check if it is the correct file
                             If ZipH_Filename = "PCSX2 Savestate Version.id" Then
                                 Dim ZipContent(ZipH_ComprSize - 1) As Byte
-                                FileReader.Read(ZipContent, 0, ZipH_ComprSize)
                                 'reads the content of the file
-                                Dim myString As String = ""
-                                'Converts the content to a meaningful string
-                                For i As UInteger = 0 To ZipH_ComprSize - 1
-                                    myString = String.Concat(ZipContent(i).ToString("x2"), myString)
+                                FileReader.Read(ZipContent, 0, ZipH_ComprSize)
+                                'converts the content to a meaningful string
+                                Dim tmpContent As Integer = ZipContent(0)
+                                For i As Integer = 1 To ZipH_ComprSize - 1
+                                    tmpContent = tmpContent Or (CInt(ZipContent(i)) << 8 * i)
                                 Next
-                                ExtractFirstFile = String.Concat("0x", myString)
-                            Else : ExtractFirstFile = "Version file not found!"
+                                Return "0x" & tmpContent.ToString("x")
+                            Else
+                                Return "Version file not found!"
                             End If
 
-                        Else : ExtractFirstFile = "Unsupported compression method!"
+                        Else
+                            Return "Unsupported compression method!"
                         End If
-                    Else : ExtractFirstFile = "PK signature not found. Not a valid zip file!"
+                    Else
+                        Return "PK signature not found. Not a valid zip file!"
                     End If
 
                 End Using
-            Else : ExtractFirstFile = "This file might be truncated"
+            Else
+                Return "This file might be truncated or corrupted."
             End If
         Catch ex As Exception
-            ExtractFirstFile = ex.Message
+            Return ex.Message
         End Try
     End Function
 
