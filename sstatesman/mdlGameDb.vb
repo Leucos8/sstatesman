@@ -160,7 +160,7 @@ Module mdlGameDb
                     End While
                     FileGameDb_Reader.Close()
                 End Using
-                LoadTime = sw.ElapsedMilliseconds
+                LoadTime = sw.ElapsedTicks
                 If Records.Count = 0 Then
                     mdlMain.AppendToLog("GameDB", "Load", "No records found.", LoadTime)
                     Status = LoadStatus.StatusEmpty
@@ -190,6 +190,20 @@ Module mdlGameDb
 
             If Status = LoadStatus.StatusEmpty Or Status = LoadStatus.StatusLoadedOK Then
                 Select Case pSerial
+                    Case "SCREENSHOTS"
+                        With myGameDb_RecordExtract
+                            .Serial = "Screenshots"
+                            .Name = "(Screenshots)"
+                            .Region = "unk"
+                            .Compat = "0"
+                        End With
+                    Case "GSDX"
+                        With myGameDb_RecordExtract
+                            .Serial = "GSdX"
+                            .Name = "(GSdX screenshots)"
+                            .Region = "unk"
+                            .Compat = "0"
+                        End With
                     Case "BIOS"
                         With myGameDb_RecordExtract
                             .Serial = "BIOS"
@@ -314,25 +328,27 @@ Module mdlGameDb
             sw.Start()
 
             pSearchResult.Clear()
-            Dim myRecords = Nothing
+            Dim myRecords As IEnumerable(Of KeyValuePair(Of String, GameInfo)) = Nothing
             'And
             If pSearchType = 0 Then
                 myRecords = From tmpGameInfo As KeyValuePair(Of String, GameInfo) In Records
-                    Where (tmpGameInfo.Key.ToUpper.Contains(pSerial) And
-                           tmpGameInfo.Value.Name.ToUpper.Contains(pGameTitle.ToUpper) And
-                           tmpGameInfo.Value.Region.ToUpper.Contains(pGameRegion.ToUpper) And
-                           tmpGameInfo.Value.Compat.Contains(pGameCompat)
-                           )
-                    Select tmpGameInfo
+                            Where (tmpGameInfo.Key.ToUpper.Contains(pSerial) And
+                                   tmpGameInfo.Value.Name.ToUpper.Contains(pGameTitle.ToUpper) And
+                                   tmpGameInfo.Value.Region.ToUpper.Contains(pGameRegion.ToUpper) And
+                                   tmpGameInfo.Value.Compat.Contains(pGameCompat)
+                                   )
+                            Select tmpGameInfo
+
+                MessageBox.Show(myRecords.GetType.ToString)
                 'Or
             ElseIf pSearchType = 1 Then
                 myRecords = From tmpGameInfo As KeyValuePair(Of String, GameInfo) In Records
-                    Where ((Not (pSerial.Length = 0) And tmpGameInfo.Key.ToUpper.Contains(pSerial)) Or
-                           (Not (pGameTitle.Length = 0) And tmpGameInfo.Value.Name.ToUpper.Contains(pGameTitle.ToUpper)) Or
-                           (Not (pGameRegion.Length = 0) And tmpGameInfo.Value.Region.ToUpper.Contains(pGameRegion.ToUpper)) Or
-                           (Not (pGameCompat.Length = 0) And tmpGameInfo.Value.Compat.Contains(pGameCompat))
-                           )
-                    Select tmpGameInfo
+                            Where ((Not (pSerial.Length = 0) And tmpGameInfo.Key.ToUpper.Contains(pSerial)) Or
+                                   (Not (pGameTitle.Length = 0) And tmpGameInfo.Value.Name.ToUpper.Contains(pGameTitle.ToUpper)) Or
+                                   (Not (pGameRegion.Length = 0) And tmpGameInfo.Value.Region.ToUpper.Contains(pGameRegion.ToUpper)) Or
+                                   (Not (pGameCompat.Length = 0) And tmpGameInfo.Value.Compat.Contains(pGameCompat))
+                                   )
+                            Select tmpGameInfo
             End If
 
             If (myRecords IsNot Nothing) Then
@@ -340,11 +356,11 @@ Module mdlGameDb
                     pSearchResult.Add(tmpGame.Key)
                 Next
                 sw.Stop()
-                mdlMain.AppendToLog("GameDB", "Search", String.Format("Found {0:N0} records.", pSearchResult.Count), sw.ElapsedMilliseconds)
+                mdlMain.AppendToLog("GameDB", "Search", String.Format("Found {0:N0} records.", pSearchResult.Count), sw.ElapsedTicks)
                 Return LoadStatus.StatusLoadedOK
             Else
                 sw.Stop()
-                mdlMain.AppendToLog("GameDB", "Search", String.Format("No records found.", pSearchResult.Count), sw.ElapsedMilliseconds)
+                mdlMain.AppendToLog("GameDB", "Search", String.Format("No records found.", pSearchResult.Count), sw.ElapsedTicks)
                 Return LoadStatus.StatusEmpty
             End If
         End Function

@@ -42,8 +42,8 @@ Public Class frmGameDb
         Select Case PCSX2GameDb.Status
             Case LoadStatus.StatusLoadedOK
                 Me.CurrentGame = PCSX2GameDb.RecordExtract(Me.CurrentSerial)
-                Me.ToolStripStatusLabel2.Text = System.String.Format("GameDB loaded in {0:N1}ms.", PCSX2GameDb.LoadTime)
-                Me.ToolStripStatusLabel3.Text = System.String.Format("List created in {0:N1}ms.", Me.populationTime)
+                Me.ToolStripStatusLabel2.Text = System.String.Format("GameDB loaded in {0:N4}ms.", PCSX2GameDb.LoadTime / Stopwatch.Frequency * 1000)
+                Me.ToolStripStatusLabel3.Text = System.String.Format("List created in {0:N4}ms.", Me.populationTime / Stopwatch.Frequency * 1000)
                 If Not (SearchIsActive) Then
                     Me.ToolStripStatusLabel1.Text = System.String.Format("{0} games.", PCSX2GameDb.Records.Count.ToString("N0"))
                 Else
@@ -118,7 +118,7 @@ Public Class frmGameDb
     End Sub
 
     Private Sub tsLoadFromFileTool_Click(sender As System.Object, e As System.EventArgs) Handles tsLoadFromFileTool.Click
-        Using openDialog As New System.Windows.Forms.OpenFileDialog
+        Using openDialog As New OpenFileDialog
             With openDialog
                 .AddExtension = True
                 .CheckFileExists = True
@@ -129,7 +129,7 @@ Public Class frmGameDb
                 .ValidateNames = True
                 .FileName = "GameIndex"
             End With
-            If openDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+            If openDialog.ShowDialog(Me) = DialogResult.OK Then
                 LoadGameDB(openDialog.FileName)
             End If
         End Using
@@ -137,7 +137,7 @@ Public Class frmGameDb
 
     Private Sub tsGameDbUnload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsGameDbUnload.Click
 
-        If System.Windows.Forms.MessageBox.Show("Warning, unloading the GameDB could lead to undesired effects." & System.Environment.NewLine & "Be sure to load it again before closing GameDB util." & System.Environment.NewLine & "Do you wish to continue?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
+        If MessageBox.Show("Warning, unloading the GameDB could lead to undesired effects." & Environment.NewLine & "Be sure to load it again before closing GameDB util." & Environment.NewLine & "Do you wish to continue?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
             Me.lvwGameDBList.Items.Clear()
 
             PCSX2GameDb.Unload()
@@ -287,7 +287,7 @@ Public Class frmGameDb
         Me.lvwGameDBList.Items.AddRange(myLvwItems.ToArray)
         mdlTheme.ListAlternateColors(Me.lvwGameDBList)
         sw.Stop()
-        Me.populationTime = sw.ElapsedMilliseconds
+        Me.populationTime = sw.ElapsedTicks
 
     End Sub
 

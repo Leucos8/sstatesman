@@ -19,8 +19,8 @@ Public Class frmSStateList
     Dim populationTime As Long
 
     Private Sub ShowStatus()
-        Me.ToolStripStatusLabel1.Text = String.Format("Savestates scanned in  {0:N1}ms.", mdlFileList.GameList_LoadTime)
-        Me.ToolStripStatusLabel2.Text = System.String.Format("List created in {0:N1}ms.", Me.populationTime)
+        Me.ToolStripStatusLabel1.Text = String.Format("Savestates scanned in {0:N4}ms.", mdlFileList.GameList_LoadTime / Stopwatch.Frequency * 1000)
+        Me.ToolStripStatusLabel2.Text = System.String.Format("List created in {0:N4}ms.", Me.populationTime / Stopwatch.Frequency * 1000)
     End Sub
 
     Private Sub AddHeader(ByVal Type As Byte)
@@ -66,7 +66,7 @@ Public Class frmSStateList
         Me.ListView1.EndUpdate()
 
         sw.Stop()
-        Me.populationTime = sw.ElapsedMilliseconds
+        Me.populationTime = sw.ElapsedTicks
 
         ShowStatus()
     End Sub
@@ -92,7 +92,7 @@ Public Class frmSStateList
         Me.ListView1.EndUpdate()
 
         sw.Stop()
-        Me.populationTime = sw.ElapsedMilliseconds
+        Me.populationTime = sw.ElapsedTicks
 
         ShowStatus()
     End Sub
@@ -122,7 +122,7 @@ Public Class frmSStateList
         Me.ListView1.EndUpdate()
 
         sw.Stop()
-        Me.populationTime = sw.ElapsedMilliseconds
+        Me.populationTime = sw.ElapsedTicks
 
         ShowStatus()
     End Sub
@@ -138,7 +138,7 @@ Public Class frmSStateList
             Dim tmpGame As GamesList_Item = mdlFileList.GamesList(tmpCheckedGame)
             For Each tmpSavestate As KeyValuePair(Of String, Savestate) In tmpGame.Savestates
                 Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestate.Key, .Name = tmpSavestate.Key, .BackColor = Color.FromArgb(215, 220, 255)}
-                tmpListViewItem.SubItems.AddRange({tmpSavestate.Value.Slot, tmpSavestate.Value.Extension, tmpSavestate.Value.Version, tmpSavestate.Value.LastWriteTime, (tmpSavestate.Value.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
+                tmpListViewItem.SubItems.AddRange({tmpSavestate.Value.Slot, tmpSavestate.Value.Extension, tmpSavestate.Value.Version, tmpSavestate.Value.LastWriteTime.ToString, (tmpSavestate.Value.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
                 If checkedSavestates.Contains(tmpSavestate.Key) Then
                     tmpListViewItem.BackColor = Color.FromArgb(130, 150, 200)
                 End If
@@ -149,7 +149,7 @@ Public Class frmSStateList
         Me.ListView1.EndUpdate()
 
         sw.Stop()
-        Me.populationTime = sw.ElapsedMilliseconds
+        Me.populationTime = sw.ElapsedTicks
 
         ShowStatus()
     End Sub
@@ -178,7 +178,7 @@ Public Class frmSStateList
         Me.ListView1.EndUpdate()
 
         sw.Stop()
-        Me.populationTime = sw.ElapsedMilliseconds
+        Me.populationTime = sw.ElapsedTicks
 
         ShowStatus()
     End Sub
@@ -212,7 +212,7 @@ Public Class frmSStateList
         Me.ListView1.EndUpdate()
 
         sw.Stop()
-        Me.populationTime = sw.ElapsedMilliseconds
+        Me.populationTime = sw.ElapsedTicks
 
         ShowStatus()
 

@@ -79,13 +79,13 @@ Module mdlFileList
 
     Public Class GamesList_Item
         Public Property Savestates As New Dictionary(Of String, Savestate)
-        'Public Property Savestates_Count As Int32 = 0
-        Public Property Savestates_SizeTot As UInt64 = 0
+        'Public Property Savestates_Count As Integer = 0
+        Public Property Savestates_SizeTot As Long = 0
         'Public Property Savestates_Backup As New Dictionary(Of String, Savestate)
-        'Public Property SavestatesBackup_Count As Int32 = 0
-        Public Property SavestatesBackup_SizeTot As UInt64 = 0
+        'Public Property SavestatesBackup_Count As Integer = 0
+        Public Property SavestatesBackup_SizeTot As Long = 0
         Public Property Snapshots As New Dictionary(Of String, FileInfo)
-        Public Property Snapshots_SizeTot As UInt64 = 0
+        Public Property Snapshots_SizeTot As Long = 0
     End Class
 
     Public GamesList As New Dictionary(Of String, GamesList_Item)
@@ -111,7 +111,7 @@ Module mdlFileList
         SnapsList_Load(tmpDirectoryInfo, pGamesList)
 
         sw.Stop()
-        GameList_LoadTime = sw.ElapsedMilliseconds
+        GameList_LoadTime = sw.ElapsedTicks
         If pGamesList.Count = 0 Then
             mdlMain.AppendToLog("FilesList", "LoadAll", "No games, the list is empty.", GameList_LoadTime)
             Return LoadStatus.StatusEmpty

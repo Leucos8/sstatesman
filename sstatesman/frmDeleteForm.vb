@@ -17,10 +17,10 @@ Imports System.IO
 Public Class frmDeleteForm
 
     Dim ListsAreCurrentlyRefreshed As Boolean = False
-    Dim SStateList_TotalSizeSelected As System.UInt64 = 0
-    Dim SStateList_TotalSizeBackupSelected As System.UInt64 = 0
-    Dim SStateList_TotalSize As System.UInt64 = 0
-    Dim SStateList_TotalSizeBackup As System.UInt64 = 0
+    Dim SStateList_TotalSizeSelected As Long = 0
+    Dim SStateList_TotalSizeBackupSelected As Long = 0
+    Dim SStateList_TotalSize As Long = 0
+    Dim SStateList_TotalSizeBackup As Long = 0
 
     Friend Enum frmDelSStatesLvwColumn
         FileName

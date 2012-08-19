@@ -88,7 +88,7 @@ Public Class frmSettings
         My.Settings.Save()
 
         'Getting things ready
-        currentTheme = mdlTheme.LoadTheme(My.Settings.SStatesMan_Theme)
+        currentTheme = mdlTheme.LoadTheme(CType(My.Settings.SStatesMan_Theme, eTheme))
 
         'Me.applyTheme()
 
@@ -270,6 +270,8 @@ Public Class frmSettings
 
         Me.Settings_Load()
         Me.Settings_Check()
+
+        Me.cmdLogRefresh_Click(Nothing, Nothing)
     End Sub
 
     Private Sub cmdOk_Click(sender As System.Object, e As System.EventArgs) Handles cmdOk.Click
@@ -701,7 +703,7 @@ Public Class frmSettings
             If AppLog(i).Duration = -1 Then
                 tmpListItem.SubItems.Add("-")
             Else
-                tmpListItem.SubItems.Add(String.Format("{0:N0}ms", AppLog(i).Duration))
+                tmpListItem.SubItems.Add(String.Format("{0:N4}ms", AppLog(i).Duration / Stopwatch.Frequency * 1000))
             End If
             tmpListItems.Add(tmpListItem)
         Next
@@ -733,7 +735,7 @@ Public Class frmSettings
             If tmpLogItem.Duration = -1 Then
                 tmpListItem.SubItems.Add("-")
             Else
-                tmpListItem.SubItems.Add(String.Format("{0:N0}ms", tmpLogItem.Duration))
+                tmpListItem.SubItems.Add(String.Format("{0:N4}ms", tmpLogItem.Duration / Stopwatch.Frequency * 1000))
             End If
             tmpListItems.Add(tmpListItem)
         Next

@@ -23,10 +23,10 @@ Public Class frmMain
 
     Dim currentGameInfo As New GameInfo
 
-    Dim lvwGamesList_SelectedSize As UInt64 = 0
-    Dim lvwGamesList_SelectedSizeBackup As UInt64 = 0
-    Dim lvwSStatesList_SelectedSize As UInt64 = 0
-    Dim lvwSStatesList_SelectedSizeBackup As UInt64 = 0
+    Dim lvwGamesList_SelectedSize As Long = 0
+    Dim lvwGamesList_SelectedSizeBackup As Long = 0
+    Dim lvwSStatesList_SelectedSize As Long = 0
+    Dim lvwSStatesList_SelectedSizeBackup As Long = 0
 
     Friend Enum frmMainGamesLvwColumn
         GameTitle
@@ -90,7 +90,7 @@ Public Class frmMain
             frmSettings.ShowDialog(Me)
         End If
 
-        mdlTheme.currentTheme = mdlTheme.LoadTheme(My.Settings.SStatesMan_Theme)
+        mdlTheme.currentTheme = mdlTheme.LoadTheme(CType(My.Settings.SStatesMan_Theme, eTheme))
 
         Me.applyTheme()
         Me.lblWindowVersion.Text = String.Concat(Me.lblWindowVersion.Text, _
@@ -212,7 +212,7 @@ Public Class frmMain
 
 
         sw.Stop()
-        Me.UIUpdate_Time = sw.ElapsedMilliseconds
+        Me.UIUpdate_Time = sw.ElapsedTicks
         mdlMain.AppendToLog("Main window", "UI_Updater", "Refreshed status.", Me.UIUpdate_Time)
 
     End Sub
@@ -309,7 +309,7 @@ Public Class frmMain
                     End If
                     'End cover image
 
-                    End If
+                End If
 
             Else
 
@@ -564,7 +564,7 @@ Public Class frmMain
 
         mdlTheme.ListAlternateColors(Me.lvwGamesList)
         sw.Stop()
-        Me.lvwGamesList_PopTime = sw.ElapsedMilliseconds
+        Me.lvwGamesList_PopTime = sw.ElapsedTicks
         mdlMain.AppendToLog("Main window", "populate game list", String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), Me.lvwGamesList_PopTime)
     End Sub
 
@@ -702,7 +702,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwSStatesList)
 
         sw.Stop()
-        Me.lvwSStatesList_PopTime = sw.ElapsedMilliseconds
+        Me.lvwSStatesList_PopTime = sw.ElapsedTicks
         mdlMain.AppendToLog("Main window", "populate savestates list ", String.Format("Listed {0:N0} savestates.", Me.lvwSStatesList.Items.Count), Me.lvwSStatesList_PopTime)
     End Sub
 

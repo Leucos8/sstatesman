@@ -34,7 +34,7 @@ Module mdlMain
         Friend OrClass As String
         Friend OrMethod As String
         Friend Description As String
-        Friend Duration As Double
+        Friend Duration As Long
     End Structure
     Public AppLog As New List(Of sLog)
     Const AppLog_MaxLenght As Integer = 31
@@ -226,7 +226,7 @@ Module mdlMain
         Return My.Resources.Flag_0Null_30x20
     End Function
 
-    Public Sub AppendToLog(ByVal pClass As String, ByVal pMethod As String, ByVal pMessage As String, Optional pDuration As Double = -1)
+    Public Sub AppendToLog(ByVal pClass As String, ByVal pMethod As String, ByVal pMessage As String, Optional pDuration As Long = -1)
         Const AppLog_MaxLenght As Integer = 31
         If AppLog.Count >= AppLog_MaxLenght Then
             AppLog.RemoveAt(0)

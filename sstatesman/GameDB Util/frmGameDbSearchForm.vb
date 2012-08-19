@@ -82,7 +82,7 @@ Public Class frmGameDbSearchForm
         Me.UI_Check()
     End Sub
 
-    Private Sub cbGameCompat_Validated(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cbGameCompat.Validated
+    Private Sub cbGameCompat_Validated(sender As Object, e As System.EventArgs) Handles cbGameCompat.Validated
         Me.ckbGameCompat.Checked = True
         Me.cbGameCompat.Text = Me.cbGameCompat.Text.Trim
         Select Case Me.cbGameCompat.Text.ToLower

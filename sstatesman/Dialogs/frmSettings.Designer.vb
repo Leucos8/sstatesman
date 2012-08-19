@@ -1409,7 +1409,7 @@ Partial Class frmSettings
         '
         Me.ColumnHeader4.Text = "Duration"
         Me.ColumnHeader4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.ColumnHeader4.Width = 50
+        Me.ColumnHeader4.Width = 70
         '
         'TableLayoutPanel4
         '

@@ -69,30 +69,6 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property PCSX2_PathInis() As String
-            Get
-                Return CType(Me("PCSX2_PathInis"),String)
-            End Get
-            Set
-                Me("PCSX2_PathInis") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
-        Public Property PCSX2_PathSState() As String
-            Get
-                Return CType(Me("PCSX2_PathSState"),String)
-            End Get
-            Set
-                Me("PCSX2_PathSState") = value
-            End Set
-        End Property
-        
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute(".p2s")>  _
@@ -603,6 +579,51 @@ Namespace My
             End Set
         End Property
         
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("snaps")>  _
+        Public ReadOnly Property PCSX2_SnapsFolder() As String
+            Get
+                Return CType(Me("PCSX2_SnapsFolder"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property SStatesMan_SettingFail() As Boolean
+            Get
+                Return CType(Me("SStatesMan_SettingFail"),Boolean)
+            End Get
+            Set
+                Me("SStatesMan_SettingFail") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PCSX2_PathInis() As String
+            Get
+                Return CType(Me("PCSX2_PathInis"),String)
+            End Get
+            Set
+                Me("PCSX2_PathInis") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PCSX2_PathSState() As String
+            Get
+                Return CType(Me("PCSX2_PathSState"),String)
+            End Get
+            Set
+                Me("PCSX2_PathSState") = value
+            End Set
+        End Property
+        
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("")>  _
@@ -624,27 +645,6 @@ Namespace My
             End Get
             Set
                 Me("PCSX2_PathSnaps") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("snaps")>  _
-        Public ReadOnly Property PCSX2_SnapsFolder() As String
-            Get
-                Return CType(Me("PCSX2_SnapsFolder"),String)
-            End Get
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property SStatesMan_SettingFail() As Boolean
-            Get
-                Return CType(Me("SStatesMan_SettingFail"),Boolean)
-            End Get
-            Set
-                Me("SStatesMan_SettingFail") = value
             End Set
         End Property
     End Class
