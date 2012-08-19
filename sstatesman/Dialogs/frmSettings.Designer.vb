@@ -1368,10 +1368,10 @@ Partial Class frmSettings
         Me.pnlTab4.AutoScroll = True
         Me.pnlTab4.Controls.Add(Me.ListView1)
         Me.pnlTab4.Controls.Add(Me.TableLayoutPanel4)
-        Me.pnlTab4.Location = New System.Drawing.Point(490, 61)
+        Me.pnlTab4.Location = New System.Drawing.Point(513, 61)
         Me.pnlTab4.Name = "pnlTab4"
         Me.pnlTab4.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
-        Me.pnlTab4.Size = New System.Drawing.Size(52, 269)
+        Me.pnlTab4.Size = New System.Drawing.Size(29, 269)
         Me.pnlTab4.TabIndex = 58
         '
         'ListView1
@@ -1386,7 +1386,7 @@ Partial Class frmSettings
         Me.ListView1.Location = New System.Drawing.Point(8, 23)
         Me.ListView1.Margin = New System.Windows.Forms.Padding(0)
         Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(36, 242)
+        Me.ListView1.Size = New System.Drawing.Size(13, 242)
         Me.ListView1.TabIndex = 0
         Me.ListView1.UseCompatibleStateImageBehavior = False
         Me.ListView1.View = System.Windows.Forms.View.Details
@@ -1428,7 +1428,7 @@ Partial Class frmSettings
         Me.TableLayoutPanel4.Padding = New System.Windows.Forms.Padding(16, 0, 16, 0)
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(36, 23)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(13, 23)
         Me.TableLayoutPanel4.TabIndex = 39
         '
         'cmdLogRefresh
@@ -1441,7 +1441,7 @@ Partial Class frmSettings
         Me.cmdLogRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdLogRefresh.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdLogRefresh.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Refresh
-        Me.cmdLogRefresh.Location = New System.Drawing.Point(-2, 0)
+        Me.cmdLogRefresh.Location = New System.Drawing.Point(-5, 0)
         Me.cmdLogRefresh.Margin = New System.Windows.Forms.Padding(0, 0, 0, 1)
         Me.cmdLogRefresh.Name = "cmdLogRefresh"
         Me.cmdLogRefresh.Size = New System.Drawing.Size(22, 22)

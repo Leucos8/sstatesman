@@ -46,11 +46,13 @@ Public Class frmSStateList
         Me.ListView1.EndUpdate()
     End Sub
 
-    Private Sub tsShowGameList_Click(sender As System.Object, e As System.EventArgs) Handles tsShowGameList.Click
+    Private Sub tsGamesAll_Click(sender As System.Object, e As System.EventArgs) Handles tsGames.ButtonClick, tsGamesAll.Click
         Dim sw As New Stopwatch
         sw.Start()
+
         Me.ListView1.BeginUpdate()
         AddHeader(0)
+
         For Each tmpGamesListKey As String In mdlFileList.GamesList.Keys
             Dim tmpGame As GameInfo = PCSX2GameDb.RecordExtract(tmpGamesListKey)
             Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Name, .Name = tmpGame.Serial}
@@ -60,17 +62,22 @@ Public Class frmSStateList
             End If
             Me.ListView1.Items.Add(tmpListViewItem)
         Next
+
         Me.ListView1.EndUpdate()
+
         sw.Stop()
         Me.populationTime = sw.ElapsedMilliseconds
+
         ShowStatus()
     End Sub
 
-    Private Sub tsShowGameChecked_Click(sender As System.Object, e As System.EventArgs) Handles tsShowGameChecked.Click
+    Private Sub tsGamesChecked_Click(sender As System.Object, e As System.EventArgs) Handles tsGamesChecked.Click
         Dim sw As New Stopwatch
         sw.Start()
+
         Me.ListView1.BeginUpdate()
         AddHeader(0)
+
         For Each tmpChGSerial As String In mdlMain.checkedGames
             Dim tmpGame As GameInfo = PCSX2GameDb.RecordExtract(tmpChGSerial)
             Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Name, .Name = tmpGame.Serial, .BackColor = Color.FromArgb(130, 150, 200)}
@@ -81,17 +88,22 @@ Public Class frmSStateList
             End If
             Me.ListView1.Items.Add(tmpListViewItem)
         Next
+
         Me.ListView1.EndUpdate()
+
         sw.Stop()
         Me.populationTime = sw.ElapsedMilliseconds
+
         ShowStatus()
     End Sub
 
-    Private Sub tsShowSavestatesAll_Click(sender As System.Object, e As System.EventArgs) Handles tsShowSavestatesAll.Click
+    Private Sub tsSavestatesAll_Click(sender As System.Object, e As System.EventArgs) Handles tsSavestates.ButtonClick, tsSavestatesAll.Click
         Dim sw As New Stopwatch
         sw.Start()
+
         Me.ListView1.BeginUpdate()
         AddHeader(1)
+
         For Each tmpGamesListItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In mdlFileList.GamesList
             For Each tmpSavestate As KeyValuePair(Of String, mdlFileList.Savestate) In tmpGamesListItem.Value.Savestates
                 Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestate.Value.Name, .Name = tmpSavestate.Value.Name}
@@ -106,17 +118,22 @@ Public Class frmSStateList
 
             Next
         Next
+
         Me.ListView1.EndUpdate()
+
         sw.Stop()
         Me.populationTime = sw.ElapsedMilliseconds
+
         ShowStatus()
     End Sub
 
-    Private Sub tsShowSavestatesCurrent_Click(sender As System.Object, e As System.EventArgs) Handles tsShowSavestatesCurrent.Click
+    Private Sub tsSavestatesCurrent_Click(sender As System.Object, e As System.EventArgs) Handles tsSavestatesCurrent.Click
         Dim sw As New Stopwatch
         sw.Start()
+
         Me.ListView1.BeginUpdate()
         AddHeader(1)
+
         For Each tmpCheckedGame As String In checkedGames
             Dim tmpGame As GamesList_Item = mdlFileList.GamesList(tmpCheckedGame)
             For Each tmpSavestate As KeyValuePair(Of String, Savestate) In tmpGame.Savestates
@@ -128,17 +145,22 @@ Public Class frmSStateList
                 Me.ListView1.Items.Add(tmpListViewItem)
             Next
         Next
+
         Me.ListView1.EndUpdate()
+
         sw.Stop()
         Me.populationTime = sw.ElapsedMilliseconds
+
         ShowStatus()
     End Sub
 
-    Private Sub tsShowSavestatesChecked_Click(sender As System.Object, e As System.EventArgs) Handles tsShowSavestatesChecked.Click
+    Private Sub tsSavestatesChecked_Click(sender As System.Object, e As System.EventArgs) Handles tsSavestatesChecked.Click
         Dim sw As New Stopwatch
         sw.Start()
+
         Me.ListView1.BeginUpdate()
         AddHeader(1)
+
         For Each tmpSavestateName As String In checkedSavestates
             Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestateName, .Name = tmpSavestateName, .BackColor = Color.FromArgb(130, 150, 200)}
             Dim tmpGamesListItem As New GamesList_Item
@@ -152,13 +174,47 @@ Public Class frmSStateList
             End If
             Me.ListView1.Items.Add(tmpListViewItem)
         Next
+
         Me.ListView1.EndUpdate()
+
         sw.Stop()
         Me.populationTime = sw.ElapsedMilliseconds
+
         ShowStatus()
     End Sub
 
     Private Sub frmSStateList_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         ShowStatus()
+    End Sub
+
+    Private Sub tsSnapsAll_Click(sender As System.Object, e As System.EventArgs) Handles tsSnapsAll.Click, tsSnaps.ButtonClick
+        Dim sw As New Stopwatch
+        sw.Start()
+
+        Me.ListView1.BeginUpdate()
+        AddHeader(1)
+
+        For Each tmpGamesListItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In mdlFileList.GamesList
+            For Each tmpSavestate As KeyValuePair(Of String, FileInfo) In tmpGamesListItem.Value.Snapshots
+                Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestate.Value.Name, .Name = tmpSavestate.Value.Name}
+                tmpListViewItem.SubItems.AddRange({"", tmpSavestate.Value.Extension, "", tmpSavestate.Value.LastWriteTime.ToString, (tmpSavestate.Value.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
+                If checkedGames.Contains(tmpGamesListItem.Key) Then
+                    tmpListViewItem.BackColor = Color.FromArgb(215, 220, 255)
+                End If
+                'If checkedSavestates.Contains(tmpSavestate.Value.Name) Then
+                '    tmpListViewItem.BackColor = Color.FromArgb(130, 150, 200)
+                'End If
+                Me.ListView1.Items.Add(tmpListViewItem)
+
+            Next
+        Next
+
+        Me.ListView1.EndUpdate()
+
+        sw.Stop()
+        Me.populationTime = sw.ElapsedMilliseconds
+
+        ShowStatus()
+
     End Sub
 End Class
