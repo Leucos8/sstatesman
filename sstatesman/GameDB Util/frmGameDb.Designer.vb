@@ -237,7 +237,7 @@ Partial Class frmGameDb
         '
         Me.txtGameList_Compat.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtGameList_Compat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtGameList_Compat.ForeColor = System.Drawing.Color.DimGray
+        Me.txtGameList_Compat.ForeColor = System.Drawing.Color.Black
         Me.txtGameList_Compat.Location = New System.Drawing.Point(400, 28)
         Me.txtGameList_Compat.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Compat.Name = "txtGameList_Compat"
@@ -261,7 +261,7 @@ Partial Class frmGameDb
         '
         Me.txtGameList_Serial.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtGameList_Serial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtGameList_Serial.ForeColor = System.Drawing.Color.DimGray
+        Me.txtGameList_Serial.ForeColor = System.Drawing.Color.Black
         Me.txtGameList_Serial.Location = New System.Drawing.Point(249, 28)
         Me.txtGameList_Serial.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Serial.Name = "txtGameList_Serial"
@@ -273,7 +273,7 @@ Partial Class frmGameDb
         '
         Me.txtGameList_Region.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtGameList_Region.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtGameList_Region.ForeColor = System.Drawing.Color.DimGray
+        Me.txtGameList_Region.ForeColor = System.Drawing.Color.Black
         Me.txtGameList_Region.Location = New System.Drawing.Point(73, 28)
         Me.txtGameList_Region.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Region.Name = "txtGameList_Region"
@@ -287,7 +287,7 @@ Partial Class frmGameDb
         Me.txtGameList_Title.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TableLayoutPanel1.SetColumnSpan(Me.txtGameList_Title, 6)
         Me.txtGameList_Title.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtGameList_Title.ForeColor = System.Drawing.Color.DimGray
+        Me.txtGameList_Title.ForeColor = System.Drawing.Color.Black
         Me.txtGameList_Title.Location = New System.Drawing.Point(73, 2)
         Me.txtGameList_Title.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Title.Name = "txtGameList_Title"
@@ -336,7 +336,7 @@ Partial Class frmGameDb
         Me.lvwGameDBList.BackColor = System.Drawing.Color.White
         Me.lvwGameDBList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.GameInfoName, Me.GameInfoSerial, Me.GameInfoRegion, Me.GameInfoCompat})
         Me.lvwGameDBList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lvwGameDBList.ForeColor = System.Drawing.Color.DimGray
+        Me.lvwGameDBList.ForeColor = System.Drawing.Color.Black
         Me.lvwGameDBList.FullRowSelect = True
         Me.lvwGameDBList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
         Me.lvwGameDBList.Location = New System.Drawing.Point(0, 77)
@@ -447,7 +447,7 @@ Partial Class frmGameDb
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ForeColor = System.Drawing.Color.DimGray
+        Me.ForeColor = System.Drawing.Color.Black
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "frmGameDb"
         Me.Text = "GameDB Explorer"

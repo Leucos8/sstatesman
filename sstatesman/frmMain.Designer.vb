@@ -606,7 +606,7 @@ Partial Class frmMain
         Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 9)
         Me.lvwGamesList.Cursor = System.Windows.Forms.Cursors.Default
         Me.lvwGamesList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lvwGamesList.ForeColor = System.Drawing.Color.DimGray
+        Me.lvwGamesList.ForeColor = System.Drawing.Color.Black
         Me.lvwGamesList.FullRowSelect = True
         Me.lvwGamesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
         Me.lvwGamesList.HideSelection = False
@@ -679,7 +679,7 @@ Partial Class frmMain
         Me.txtGameList_Title.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TableLayoutPanel3.SetColumnSpan(Me.txtGameList_Title, 7)
         Me.txtGameList_Title.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtGameList_Title.ForeColor = System.Drawing.Color.DimGray
+        Me.txtGameList_Title.ForeColor = System.Drawing.Color.Black
         Me.txtGameList_Title.Location = New System.Drawing.Point(126, 126)
         Me.txtGameList_Title.Margin = New System.Windows.Forms.Padding(0, 0, 0, 2)
         Me.txtGameList_Title.Name = "txtGameList_Title"
@@ -720,7 +720,7 @@ Partial Class frmMain
         Me.txtGameList_Compat.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtGameList_Compat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Compat.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtGameList_Compat.ForeColor = System.Drawing.Color.DimGray
+        Me.txtGameList_Compat.ForeColor = System.Drawing.Color.Black
         Me.txtGameList_Compat.Location = New System.Drawing.Point(473, 152)
         Me.txtGameList_Compat.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Compat.Name = "txtGameList_Compat"
@@ -734,7 +734,7 @@ Partial Class frmMain
         Me.txtGameList_Region.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtGameList_Region.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Region.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtGameList_Region.ForeColor = System.Drawing.Color.DimGray
+        Me.txtGameList_Region.ForeColor = System.Drawing.Color.Black
         Me.txtGameList_Region.Location = New System.Drawing.Point(126, 152)
         Me.txtGameList_Region.Margin = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.txtGameList_Region.Name = "txtGameList_Region"
@@ -774,7 +774,7 @@ Partial Class frmMain
         Me.txtGameList_Serial.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtGameList_Serial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Serial.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtGameList_Serial.ForeColor = System.Drawing.Color.DimGray
+        Me.txtGameList_Serial.ForeColor = System.Drawing.Color.Black
         Me.txtGameList_Serial.Location = New System.Drawing.Point(302, 152)
         Me.txtGameList_Serial.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Serial.Name = "txtGameList_Serial"
@@ -896,7 +896,7 @@ Partial Class frmMain
         Me.lvwSStatesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.SStatesLvw_FileName, Me.SStatesLvw_Slot, Me.SStatesLvw_Backup, Me.SStatesLvw_Version, Me.SStatesLvw_DateLastWrite, Me.SStatesLvw_Size})
         Me.lvwSStatesList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvwSStatesList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lvwSStatesList.ForeColor = System.Drawing.Color.DimGray
+        Me.lvwSStatesList.ForeColor = System.Drawing.Color.Black
         Me.lvwSStatesList.FullRowSelect = True
         Me.lvwSStatesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
         Me.lvwSStatesList.Location = New System.Drawing.Point(8, 22)
@@ -980,7 +980,7 @@ Partial Class frmMain
         Me.txtSStateListSelection.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtSStateListSelection.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtSStateListSelection.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSStateListSelection.ForeColor = System.Drawing.Color.DimGray
+        Me.txtSStateListSelection.ForeColor = System.Drawing.Color.Black
         Me.txtSStateListSelection.Location = New System.Drawing.Point(0, 15)
         Me.txtSStateListSelection.Margin = New System.Windows.Forms.Padding(0, 2, 2, 2)
         Me.txtSStateListSelection.Name = "txtSStateListSelection"
@@ -995,7 +995,7 @@ Partial Class frmMain
         Me.txtSizeBackup.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtSizeBackup.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtSizeBackup.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSizeBackup.ForeColor = System.Drawing.Color.DimGray
+        Me.txtSizeBackup.ForeColor = System.Drawing.Color.Black
         Me.txtSizeBackup.Location = New System.Drawing.Point(264, 15)
         Me.txtSizeBackup.Margin = New System.Windows.Forms.Padding(2)
         Me.txtSizeBackup.Name = "txtSizeBackup"
@@ -1030,7 +1030,7 @@ Partial Class frmMain
         Me.txtSize.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtSize.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSize.ForeColor = System.Drawing.Color.DimGray
+        Me.txtSize.ForeColor = System.Drawing.Color.Black
         Me.txtSize.Location = New System.Drawing.Point(132, 15)
         Me.txtSize.Margin = New System.Windows.Forms.Padding(2)
         Me.txtSize.Name = "txtSize"
@@ -1210,7 +1210,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.panelWindowTitle)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.ForeColor = System.Drawing.Color.DimGray
+        Me.ForeColor = System.Drawing.Color.Black
         Me.Icon = Global.sstatesman.My.Resources.Resources.SSM1
         Me.Location = New System.Drawing.Point(20, 20)
         Me.Margin = New System.Windows.Forms.Padding(2)

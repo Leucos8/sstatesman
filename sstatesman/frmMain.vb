@@ -894,7 +894,7 @@ Public Class frmMain
     End Sub
 
     Private Sub SplitContainer1_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles SplitContainer1.Paint
-        e.Graphics.DrawLine(Pens.DarkGray, 0, Me.SplitContainer1.SplitterDistance + 1, Me.SplitContainer1.Width, Me.SplitContainer1.SplitterDistance + 1)
+        e.Graphics.DrawLine(Pens.DimGray, 0, Me.SplitContainer1.SplitterDistance + 1, Me.SplitContainer1.Width, Me.SplitContainer1.SplitterDistance + 1)
     End Sub
 
     Private Sub applyTheme()
@@ -930,10 +930,10 @@ Public Class frmMain
 
     'Private Sub frmMain_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
     '    If Me.Width > 0 And Me.Height > 0 Then
-    '        e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.Width - 1, 0)
-    '        e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.Height - 1)
-    '        e.Graphics.DrawLine(Pens.DimGray, 0, Me.Height - 1, Me.Width - 1, Me.Height - 1)
-    '        e.Graphics.DrawLine(Pens.DimGray, Me.Width - 1, 0, Me.Width - 1, Me.Height - 1)
+    '        e.Graphics.DrawLine(Pens.Black, 0, 0, Me.Width - 1, 0)
+    '        e.Graphics.DrawLine(Pens.Black, 0, 0, 0, Me.Height - 1)
+    '        e.Graphics.DrawLine(Pens.Black, 0, Me.Height - 1, Me.Width - 1, Me.Height - 1)
+    '        e.Graphics.DrawLine(Pens.Black, Me.Width - 1, 0, Me.Width - 1, Me.Height - 1)
     '    End If
     'End Sub
 #End Region

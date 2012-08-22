@@ -119,6 +119,7 @@ Partial Class frmAbout
         Me.TextBoxDescription.BackColor = System.Drawing.Color.WhiteSmoke
         Me.TextBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.TextBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TextBoxDescription.ForeColor = System.Drawing.Color.Black
         Me.TextBoxDescription.Location = New System.Drawing.Point(6, 3)
         Me.TextBoxDescription.Margin = New System.Windows.Forms.Padding(2)
         Me.TextBoxDescription.Multiline = True
@@ -138,7 +139,7 @@ Partial Class frmAbout
         Me.OKButton.BackColor = System.Drawing.Color.White
         Me.OKButton.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
         Me.OKButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.OKButton.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.OKButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
         Me.OKButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.OKButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.OKButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -343,7 +344,7 @@ Partial Class frmAbout
         Me.Controls.Add(Me.flpWindowBottom)
         Me.Controls.Add(Me.panelWindowTitle)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ForeColor = System.Drawing.Color.DimGray
+        Me.ForeColor = System.Drawing.Color.Black
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.Icon = Global.sstatesman.My.Resources.Resources.SSM1
         Me.Margin = New System.Windows.Forms.Padding(2)
