@@ -518,12 +518,12 @@ Public Class frmSettings
     End Sub
 
     Private Sub cmdPCSX2SStatePathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SStatePathDetect.Click
-        mdlMain.PCSX2_PathSettings_Detect(Me.txtPCSX2AppPath.Text, Me.txtPCSX2SStatePath.Text, Nothing)
+        mdlMain.PCSX2_PathSettings_Detect(Me.txtPCSX2IniPath.Text, Me.txtPCSX2SStatePath.Text, Nothing)
         Me.Settings_Check()
     End Sub
 
     Private Sub cmdPCSX2SnapsPathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SnapsPathDetect.Click
-        mdlMain.PCSX2_PathSettings_Detect(Me.txtPCSX2AppPath.Text, Nothing, Me.txtPCSX2SnapsPath.Text)
+        mdlMain.PCSX2_PathSettings_Detect(Me.txtPCSX2IniPath.Text, Nothing, Me.txtPCSX2SnapsPath.Text)
         Me.Settings_Check()
     End Sub
 #End Region

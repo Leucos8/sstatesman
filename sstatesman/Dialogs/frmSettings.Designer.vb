@@ -285,7 +285,7 @@ Partial Class frmSettings
         Me.imgPCSX2IniPathStatus.Location = New System.Drawing.Point(8, 28)
         Me.imgPCSX2IniPathStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.imgPCSX2IniPathStatus.Name = "imgPCSX2IniPathStatus"
-        Me.imgPCSX2IniPathStatus.Size = New System.Drawing.Size(24, 78)
+        Me.imgPCSX2IniPathStatus.Size = New System.Drawing.Size(24, 28)
         Me.imgPCSX2IniPathStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.imgPCSX2IniPathStatus.TabIndex = 35
         Me.imgPCSX2IniPathStatus.TabStop = False
@@ -330,7 +330,7 @@ Partial Class frmSettings
         Me.txtPCSX2IniPath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2IniPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2IniPath.Name = "txtPCSX2IniPath"
-        Me.txtPCSX2IniPath.Size = New System.Drawing.Size(89, 22)
+        Me.txtPCSX2IniPath.Size = New System.Drawing.Size(106, 22)
         Me.txtPCSX2IniPath.TabIndex = 34
         '
         'cmdPCSX2AppPathOpen
@@ -378,7 +378,7 @@ Partial Class frmSettings
         Me.imgPCSX2AppPathStatus.Location = New System.Drawing.Point(8, 28)
         Me.imgPCSX2AppPathStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.imgPCSX2AppPathStatus.Name = "imgPCSX2AppPathStatus"
-        Me.imgPCSX2AppPathStatus.Size = New System.Drawing.Size(24, 78)
+        Me.imgPCSX2AppPathStatus.Size = New System.Drawing.Size(24, 28)
         Me.imgPCSX2AppPathStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.imgPCSX2AppPathStatus.TabIndex = 26
         Me.imgPCSX2AppPathStatus.TabStop = False
@@ -407,7 +407,7 @@ Partial Class frmSettings
         Me.lblPCSX2SStatePath.AutoSize = True
         Me.lblPCSX2SStatePath.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblPCSX2SStatePath.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.lblPCSX2SStatePath.Location = New System.Drawing.Point(8, 266)
+        Me.lblPCSX2SStatePath.Location = New System.Drawing.Point(8, 166)
         Me.lblPCSX2SStatePath.Name = "lblPCSX2SStatePath"
         Me.lblPCSX2SStatePath.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.lblPCSX2SStatePath.Size = New System.Drawing.Size(112, 23)
@@ -419,7 +419,7 @@ Partial Class frmSettings
         Me.lblPCSX2IniPath.AutoSize = True
         Me.lblPCSX2IniPath.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblPCSX2IniPath.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.lblPCSX2IniPath.Location = New System.Drawing.Point(8, 135)
+        Me.lblPCSX2IniPath.Location = New System.Drawing.Point(8, 85)
         Me.lblPCSX2IniPath.Name = "lblPCSX2IniPath"
         Me.lblPCSX2IniPath.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.lblPCSX2IniPath.Size = New System.Drawing.Size(90, 23)
@@ -450,7 +450,7 @@ Partial Class frmSettings
         Me.txtPCSX2AppPath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2AppPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2AppPath.Name = "txtPCSX2AppPath"
-        Me.txtPCSX2AppPath.Size = New System.Drawing.Size(89, 22)
+        Me.txtPCSX2AppPath.Size = New System.Drawing.Size(106, 22)
         Me.txtPCSX2AppPath.TabIndex = 27
         '
         'cmdSStatesManPicsPathOpen
@@ -558,7 +558,7 @@ Partial Class frmSettings
         Me.tlpPCSX2AppPath.RowCount = 2
         Me.tlpPCSX2AppPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2AppPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2AppPath.Size = New System.Drawing.Size(109, 108)
+        Me.tlpPCSX2AppPath.Size = New System.Drawing.Size(126, 58)
         Me.tlpPCSX2AppPath.TabIndex = 26
         '
         'flpPCSX2AppPath
@@ -568,7 +568,7 @@ Partial Class frmSettings
         Me.flpPCSX2AppPath.Controls.Add(Me.cmdPCSX2AppPathOpen)
         Me.flpPCSX2AppPath.Controls.Add(Me.cmdPCSX2AppPathDetect)
         Me.flpPCSX2AppPath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2AppPath.Location = New System.Drawing.Point(-76, 28)
+        Me.flpPCSX2AppPath.Location = New System.Drawing.Point(-59, 28)
         Me.flpPCSX2AppPath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpPCSX2AppPath.Name = "flpPCSX2AppPath"
         Me.flpPCSX2AppPath.Size = New System.Drawing.Size(177, 28)
@@ -597,14 +597,14 @@ Partial Class frmSettings
         Me.tlpPCSX2SStatePath.Controls.Add(Me.lblPCSX2SStatePathStatus, 1, 1)
         Me.tlpPCSX2SStatePath.Controls.Add(Me.imgPCSX2SStatePathStatus, 0, 1)
         Me.tlpPCSX2SStatePath.Dock = System.Windows.Forms.DockStyle.Top
-        Me.tlpPCSX2SStatePath.Location = New System.Drawing.Point(8, 289)
+        Me.tlpPCSX2SStatePath.Location = New System.Drawing.Point(8, 189)
         Me.tlpPCSX2SStatePath.Margin = New System.Windows.Forms.Padding(12, 3, 12, 3)
         Me.tlpPCSX2SStatePath.Name = "tlpPCSX2SStatePath"
         Me.tlpPCSX2SStatePath.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
         Me.tlpPCSX2SStatePath.RowCount = 2
         Me.tlpPCSX2SStatePath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2SStatePath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2SStatePath.Size = New System.Drawing.Size(109, 108)
+        Me.tlpPCSX2SStatePath.Size = New System.Drawing.Size(126, 58)
         Me.tlpPCSX2SStatePath.TabIndex = 41
         '
         'flpPCSX2SStatePath
@@ -614,7 +614,7 @@ Partial Class frmSettings
         Me.flpPCSX2SStatePath.Controls.Add(Me.cmdPCSX2SStatePathOpen)
         Me.flpPCSX2SStatePath.Controls.Add(Me.cmdPCSX2SStatePathDetect)
         Me.flpPCSX2SStatePath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2SStatePath.Location = New System.Drawing.Point(-76, 28)
+        Me.flpPCSX2SStatePath.Location = New System.Drawing.Point(-59, 28)
         Me.flpPCSX2SStatePath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpPCSX2SStatePath.Name = "flpPCSX2SStatePath"
         Me.flpPCSX2SStatePath.Size = New System.Drawing.Size(177, 28)
@@ -690,7 +690,7 @@ Partial Class frmSettings
         Me.txtPCSX2SStatePath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2SStatePath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2SStatePath.Name = "txtPCSX2SStatePath"
-        Me.txtPCSX2SStatePath.Size = New System.Drawing.Size(89, 22)
+        Me.txtPCSX2SStatePath.Size = New System.Drawing.Size(106, 22)
         Me.txtPCSX2SStatePath.TabIndex = 42
         '
         'lblPCSX2SStatePathStatus
@@ -709,7 +709,7 @@ Partial Class frmSettings
         Me.imgPCSX2SStatePathStatus.Location = New System.Drawing.Point(8, 28)
         Me.imgPCSX2SStatePathStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.imgPCSX2SStatePathStatus.Name = "imgPCSX2SStatePathStatus"
-        Me.imgPCSX2SStatePathStatus.Size = New System.Drawing.Size(24, 78)
+        Me.imgPCSX2SStatePathStatus.Size = New System.Drawing.Size(24, 28)
         Me.imgPCSX2SStatePathStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.imgPCSX2SStatePathStatus.TabIndex = 36
         Me.imgPCSX2SStatePathStatus.TabStop = False
@@ -727,14 +727,14 @@ Partial Class frmSettings
         Me.tlpPCSX2IniPath.Controls.Add(Me.imgPCSX2IniPathStatus, 0, 1)
         Me.tlpPCSX2IniPath.Controls.Add(Me.lblPCSX2IniPathStatus, 1, 1)
         Me.tlpPCSX2IniPath.Dock = System.Windows.Forms.DockStyle.Top
-        Me.tlpPCSX2IniPath.Location = New System.Drawing.Point(8, 158)
+        Me.tlpPCSX2IniPath.Location = New System.Drawing.Point(8, 108)
         Me.tlpPCSX2IniPath.Margin = New System.Windows.Forms.Padding(12, 3, 12, 3)
         Me.tlpPCSX2IniPath.Name = "tlpPCSX2IniPath"
         Me.tlpPCSX2IniPath.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
         Me.tlpPCSX2IniPath.RowCount = 2
         Me.tlpPCSX2IniPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2IniPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2IniPath.Size = New System.Drawing.Size(109, 108)
+        Me.tlpPCSX2IniPath.Size = New System.Drawing.Size(126, 58)
         Me.tlpPCSX2IniPath.TabIndex = 30
         '
         'flpPCSX2IniPath
@@ -744,7 +744,7 @@ Partial Class frmSettings
         Me.flpPCSX2IniPath.Controls.Add(Me.cmdPCSX2IniPathOpen)
         Me.flpPCSX2IniPath.Controls.Add(Me.cmdPCSX2IniPathDetect)
         Me.flpPCSX2IniPath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2IniPath.Location = New System.Drawing.Point(-76, 28)
+        Me.flpPCSX2IniPath.Location = New System.Drawing.Point(-59, 28)
         Me.flpPCSX2IniPath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpPCSX2IniPath.Name = "flpPCSX2IniPath"
         Me.flpPCSX2IniPath.Size = New System.Drawing.Size(177, 28)
@@ -1058,14 +1058,14 @@ Partial Class frmSettings
         Me.tlpPCSX2SnapsPath.Controls.Add(Me.lblPCSX2SnapsPathStatus, 1, 1)
         Me.tlpPCSX2SnapsPath.Controls.Add(Me.imgPCSX2SnapsPathStatus, 0, 1)
         Me.tlpPCSX2SnapsPath.Dock = System.Windows.Forms.DockStyle.Top
-        Me.tlpPCSX2SnapsPath.Location = New System.Drawing.Point(8, 420)
+        Me.tlpPCSX2SnapsPath.Location = New System.Drawing.Point(8, 270)
         Me.tlpPCSX2SnapsPath.Margin = New System.Windows.Forms.Padding(12, 3, 12, 3)
         Me.tlpPCSX2SnapsPath.Name = "tlpPCSX2SnapsPath"
         Me.tlpPCSX2SnapsPath.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
         Me.tlpPCSX2SnapsPath.RowCount = 2
         Me.tlpPCSX2SnapsPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2SnapsPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2SnapsPath.Size = New System.Drawing.Size(109, 108)
+        Me.tlpPCSX2SnapsPath.Size = New System.Drawing.Size(126, 58)
         Me.tlpPCSX2SnapsPath.TabIndex = 43
         '
         'FlowLayoutPanel1
@@ -1075,7 +1075,7 @@ Partial Class frmSettings
         Me.FlowLayoutPanel1.Controls.Add(Me.cmdPCSX2SnapsPathOpen)
         Me.FlowLayoutPanel1.Controls.Add(Me.cmdPCSX2SnapsPathDetect)
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(-76, 28)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(-59, 28)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(177, 28)
@@ -1151,7 +1151,7 @@ Partial Class frmSettings
         Me.txtPCSX2SnapsPath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2SnapsPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2SnapsPath.Name = "txtPCSX2SnapsPath"
-        Me.txtPCSX2SnapsPath.Size = New System.Drawing.Size(89, 22)
+        Me.txtPCSX2SnapsPath.Size = New System.Drawing.Size(106, 22)
         Me.txtPCSX2SnapsPath.TabIndex = 42
         '
         'lblPCSX2SnapsPathStatus
@@ -1170,7 +1170,7 @@ Partial Class frmSettings
         Me.imgPCSX2SnapsPathStatus.Location = New System.Drawing.Point(8, 28)
         Me.imgPCSX2SnapsPathStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.imgPCSX2SnapsPathStatus.Name = "imgPCSX2SnapsPathStatus"
-        Me.imgPCSX2SnapsPathStatus.Size = New System.Drawing.Size(24, 78)
+        Me.imgPCSX2SnapsPathStatus.Size = New System.Drawing.Size(24, 28)
         Me.imgPCSX2SnapsPathStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.imgPCSX2SnapsPathStatus.TabIndex = 36
         Me.imgPCSX2SnapsPathStatus.TabStop = False
@@ -1180,7 +1180,7 @@ Partial Class frmSettings
         Me.lblPCSX2SnapsPath.AutoSize = True
         Me.lblPCSX2SnapsPath.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblPCSX2SnapsPath.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.lblPCSX2SnapsPath.Location = New System.Drawing.Point(8, 397)
+        Me.lblPCSX2SnapsPath.Location = New System.Drawing.Point(8, 247)
         Me.lblPCSX2SnapsPath.Name = "lblPCSX2SnapsPath"
         Me.lblPCSX2SnapsPath.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.lblPCSX2SnapsPath.Size = New System.Drawing.Size(121, 23)

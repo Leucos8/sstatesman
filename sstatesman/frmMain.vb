@@ -339,11 +339,15 @@ Public Class frmMain
 
     Private Sub UI_UpdaterStInfo()
         'Savetates list
+        Me.txtSStateListSelection.Text = System.String.Format("{0:N0} | {1:N0} files", Me.lvwSStatesList.CheckedItems.Count, Me.lvwSStatesList.Items.Count)
+        Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.lvwSStatesList_SelectedSize / 1024 ^ 2, Me.lvwGamesList_SelectedSize / 1024 ^ 2)
+        Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.lvwSStatesList_SelectedSizeBackup / 1024 ^ 2, Me.lvwGamesList_SelectedSizeBackup / 1024 ^ 2)
+
         If Me.lvwSStatesList.Items.Count = 0 Then
             'No savestates in list
-            Me.txtSStateListSelection.Text = System.String.Format("{0:N0} | {1:N0}", 0, 0)
-            Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", 0, 0)
-            Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", 0, 0)
+            'Me.txtSStateListSelection.Text = System.String.Format("{0:N0} | {1:N0}", 0, 0)
+            'Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", 0, 0)
+            'Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", 0, 0)
 
             Me.cmdSStateSelectAll.Enabled = False
             Me.cmdSStateSelectInvert.Enabled = False
@@ -353,9 +357,6 @@ Public Class frmMain
 
         Else
 
-            Me.txtSStateListSelection.Text = System.String.Format("{0:N0} | {1:N0}", Me.lvwSStatesList.CheckedItems.Count, Me.lvwSStatesList.Items.Count)
-            Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.lvwSStatesList_SelectedSize / 1024 ^ 2, Me.lvwGamesList_SelectedSize / 1024 ^ 2)
-            Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.lvwSStatesList_SelectedSizeBackup / 1024 ^ 2, Me.lvwGamesList_SelectedSizeBackup / 1024 ^ 2)
 
             Me.cmdSStateSelectInvert.Enabled = True
             Me.cmdSStateSelectBackup.Enabled = True

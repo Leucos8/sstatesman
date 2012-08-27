@@ -164,16 +164,13 @@
                 </Value>
     </Setting>
     <Setting Name="PCSX2_PathSState" Type="System.String" Scope="User">
-      <Value Profile="(Default)">
-                </Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="PCSX2_PathBin" Type="System.String" Scope="User">
-      <Value Profile="(Default)">
-                </Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="PCSX2_PathSnaps" Type="System.String" Scope="User">
-      <Value Profile="(Default)">
-                </Value>
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
