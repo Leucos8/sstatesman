@@ -80,34 +80,30 @@ Partial Class frmGameDb
         'StatusStrip1
         '
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel3})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 298)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 300)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 11, 0)
-        Me.StatusStrip1.Size = New System.Drawing.Size(624, 24)
+        Me.StatusStrip1.Size = New System.Drawing.Size(624, 22)
         Me.StatusStrip1.TabIndex = 3
-        Me.StatusStrip1.Text = "StatusStrip1"
         '
         'ToolStripStatusLabel2
         '
-        Me.ToolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(14, 19)
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(10, 17)
         Me.ToolStripStatusLabel2.Text = " "
         Me.ToolStripStatusLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ToolStripStatusLabel1
         '
-        Me.ToolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(14, 19)
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(10, 17)
         Me.ToolStripStatusLabel1.Text = " "
         Me.ToolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'ToolStripStatusLabel3
         '
-        Me.ToolStripStatusLabel3.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right
         Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
-        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(14, 19)
+        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(10, 17)
         Me.ToolStripStatusLabel3.Text = " "
         '
         'ToolStrip1
@@ -137,7 +133,6 @@ Partial Class frmGameDb
         '
         Me.tsLoadDefaultGameDB.BackColor = System.Drawing.Color.WhiteSmoke
         Me.tsLoadDefaultGameDB.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tsLoadDefaultGameDB.ForeColor = System.Drawing.Color.DimGray
         Me.tsLoadDefaultGameDB.Name = "tsLoadDefaultGameDB"
         Me.tsLoadDefaultGameDB.Size = New System.Drawing.Size(199, 22)
         Me.tsLoadDefaultGameDB.Text = "Load default GameDB"
@@ -146,7 +141,6 @@ Partial Class frmGameDb
         '
         Me.tsLoadFromFileTool.BackColor = System.Drawing.Color.WhiteSmoke
         Me.tsLoadFromFileTool.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tsLoadFromFileTool.ForeColor = System.Drawing.Color.DimGray
         Me.tsLoadFromFileTool.Name = "tsLoadFromFileTool"
         Me.tsLoadFromFileTool.Size = New System.Drawing.Size(199, 22)
         Me.tsLoadFromFileTool.Text = "Load GameDB from file..."
@@ -209,7 +203,6 @@ Partial Class frmGameDb
         '
         Me.tsExportTSVTxt.BackColor = System.Drawing.Color.WhiteSmoke
         Me.tsExportTSVTxt.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tsExportTSVTxt.ForeColor = System.Drawing.Color.DimGray
         Me.tsExportTSVTxt.Name = "tsExportTSVTxt"
         Me.tsExportTSVTxt.Size = New System.Drawing.Size(223, 22)
         Me.tsExportTSVTxt.Text = "Tab-separated value file..."
@@ -218,7 +211,6 @@ Partial Class frmGameDb
         '
         Me.tsExportCSVTxt.BackColor = System.Drawing.Color.WhiteSmoke
         Me.tsExportCSVTxt.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.tsExportCSVTxt.ForeColor = System.Drawing.Color.DimGray
         Me.tsExportCSVTxt.Name = "tsExportCSVTxt"
         Me.tsExportCSVTxt.Size = New System.Drawing.Size(223, 22)
         Me.tsExportCSVTxt.Text = "Comma-separated value file..."
@@ -228,7 +220,6 @@ Partial Class frmGameDb
         Me.tsTxtSearchSerial.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
         Me.tsTxtSearchSerial.BackColor = System.Drawing.Color.White
         Me.tsTxtSearchSerial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tsTxtSearchSerial.ForeColor = System.Drawing.Color.DimGray
         Me.tsTxtSearchSerial.Name = "tsTxtSearchSerial"
         Me.tsTxtSearchSerial.Size = New System.Drawing.Size(105, 25)
         Me.tsTxtSearchSerial.Text = "Serial"
@@ -343,7 +334,7 @@ Partial Class frmGameDb
         Me.lvwGameDBList.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwGameDBList.MultiSelect = False
         Me.lvwGameDBList.Name = "lvwGameDBList"
-        Me.lvwGameDBList.Size = New System.Drawing.Size(624, 221)
+        Me.lvwGameDBList.Size = New System.Drawing.Size(624, 223)
         Me.lvwGameDBList.TabIndex = 0
         Me.lvwGameDBList.TileSize = New System.Drawing.Size(480, 64)
         Me.lvwGameDBList.UseCompatibleStateImageBehavior = False

@@ -87,7 +87,7 @@ Partial Class frmDeleteForm
         Me.cmdCancel.BackColor = System.Drawing.Color.White
         Me.cmdCancel.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
         Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat

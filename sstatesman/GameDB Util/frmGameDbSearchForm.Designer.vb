@@ -48,16 +48,16 @@ Partial Class frmGameDbSearchForm
         Me.cbGameCompat = New System.Windows.Forms.ComboBox()
         Me.flpWindowBottom = New System.Windows.Forms.FlowLayoutPanel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.panelWindowTitle = New System.Windows.Forms.Panel()
-        Me.lblWindowProgramName = New System.Windows.Forms.Label()
         Me.lblSeatchType = New System.Windows.Forms.Label()
+        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.optSeatchTypeAND = New System.Windows.Forms.RadioButton()
         Me.optSeatchTypeOR = New System.Windows.Forms.RadioButton()
-        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.panelWindowTitle = New System.Windows.Forms.Panel()
+        Me.lblWindowProgramName = New System.Windows.Forms.Label()
         Me.flpWindowBottom.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
-        Me.panelWindowTitle.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
+        Me.panelWindowTitle.SuspendLayout()
         Me.SuspendLayout()
         '
         'ckbSerial
@@ -159,7 +159,7 @@ Partial Class frmGameDbSearchForm
         Me.cmdSearch.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdSearch.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
         Me.cmdSearch.Enabled = False
-        Me.cmdSearch.FlatAppearance.BorderColor = System.Drawing.Color.Gray
+        Me.cmdSearch.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
         Me.cmdSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSearch.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdSearch.Location = New System.Drawing.Point(257, 7)
@@ -177,7 +177,7 @@ Partial Class frmGameDbSearchForm
         Me.cmdCancel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdCancel.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
         Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.DarkGray
+        Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdCancel.Location = New System.Drawing.Point(363, 7)
@@ -251,6 +251,54 @@ Partial Class frmGameDbSearchForm
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(474, 164)
         Me.TableLayoutPanel1.TabIndex = 5
         '
+        'lblSeatchType
+        '
+        Me.lblSeatchType.AutoSize = True
+        Me.lblSeatchType.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSeatchType.Location = New System.Drawing.Point(11, 123)
+        Me.lblSeatchType.Name = "lblSeatchType"
+        Me.lblSeatchType.Size = New System.Drawing.Size(78, 23)
+        Me.lblSeatchType.TabIndex = 14
+        Me.lblSeatchType.Text = "Search type"
+        Me.lblSeatchType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'FlowLayoutPanel1
+        '
+        Me.FlowLayoutPanel1.AutoSize = True
+        Me.FlowLayoutPanel1.Controls.Add(Me.optSeatchTypeAND)
+        Me.FlowLayoutPanel1.Controls.Add(Me.optSeatchTypeOR)
+        Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(92, 123)
+        Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
+        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(374, 23)
+        Me.FlowLayoutPanel1.TabIndex = 17
+        '
+        'optSeatchTypeAND
+        '
+        Me.optSeatchTypeAND.AutoSize = True
+        Me.optSeatchTypeAND.Checked = True
+        Me.optSeatchTypeAND.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.optSeatchTypeAND.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.optSeatchTypeAND.Location = New System.Drawing.Point(3, 3)
+        Me.optSeatchTypeAND.Name = "optSeatchTypeAND"
+        Me.optSeatchTypeAND.Size = New System.Drawing.Size(49, 17)
+        Me.optSeatchTypeAND.TabIndex = 15
+        Me.optSeatchTypeAND.TabStop = True
+        Me.optSeatchTypeAND.Text = "AND"
+        Me.optSeatchTypeAND.UseVisualStyleBackColor = True
+        '
+        'optSeatchTypeOR
+        '
+        Me.optSeatchTypeOR.AutoSize = True
+        Me.optSeatchTypeOR.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.optSeatchTypeOR.Location = New System.Drawing.Point(58, 3)
+        Me.optSeatchTypeOR.Name = "optSeatchTypeOR"
+        Me.optSeatchTypeOR.Size = New System.Drawing.Size(40, 17)
+        Me.optSeatchTypeOR.TabIndex = 16
+        Me.optSeatchTypeOR.Text = "OR"
+        Me.optSeatchTypeOR.UseVisualStyleBackColor = True
+        '
         'panelWindowTitle
         '
         Me.panelWindowTitle.AutoSize = True
@@ -280,54 +328,6 @@ Partial Class frmGameDbSearchForm
         Me.lblWindowProgramName.TabIndex = 1
         Me.lblWindowProgramName.Text = "search"
         '
-        'lblSeatchType
-        '
-        Me.lblSeatchType.AutoSize = True
-        Me.lblSeatchType.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSeatchType.Location = New System.Drawing.Point(11, 123)
-        Me.lblSeatchType.Name = "lblSeatchType"
-        Me.lblSeatchType.Size = New System.Drawing.Size(78, 23)
-        Me.lblSeatchType.TabIndex = 14
-        Me.lblSeatchType.Text = "Search type"
-        Me.lblSeatchType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
-        '
-        'optSeatchTypeAND
-        '
-        Me.optSeatchTypeAND.AutoSize = True
-        Me.optSeatchTypeAND.Checked = True
-        Me.optSeatchTypeAND.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSeatchTypeAND.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.optSeatchTypeAND.Location = New System.Drawing.Point(3, 3)
-        Me.optSeatchTypeAND.Name = "optSeatchTypeAND"
-        Me.optSeatchTypeAND.Size = New System.Drawing.Size(49, 17)
-        Me.optSeatchTypeAND.TabIndex = 15
-        Me.optSeatchTypeAND.TabStop = True
-        Me.optSeatchTypeAND.Text = "AND"
-        Me.optSeatchTypeAND.UseVisualStyleBackColor = True
-        '
-        'optSeatchTypeOR
-        '
-        Me.optSeatchTypeOR.AutoSize = True
-        Me.optSeatchTypeOR.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSeatchTypeOR.Location = New System.Drawing.Point(58, 3)
-        Me.optSeatchTypeOR.Name = "optSeatchTypeOR"
-        Me.optSeatchTypeOR.Size = New System.Drawing.Size(40, 17)
-        Me.optSeatchTypeOR.TabIndex = 16
-        Me.optSeatchTypeOR.Text = "OR"
-        Me.optSeatchTypeOR.UseVisualStyleBackColor = True
-        '
-        'FlowLayoutPanel1
-        '
-        Me.FlowLayoutPanel1.AutoSize = True
-        Me.FlowLayoutPanel1.Controls.Add(Me.optSeatchTypeAND)
-        Me.FlowLayoutPanel1.Controls.Add(Me.optSeatchTypeOR)
-        Me.FlowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(92, 123)
-        Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
-        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(374, 23)
-        Me.FlowLayoutPanel1.TabIndex = 17
-        '
         'frmGameDbSearchForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -351,10 +351,10 @@ Partial Class frmGameDbSearchForm
         Me.flpWindowBottom.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
-        Me.panelWindowTitle.ResumeLayout(False)
-        Me.panelWindowTitle.PerformLayout()
         Me.FlowLayoutPanel1.ResumeLayout(False)
         Me.FlowLayoutPanel1.PerformLayout()
+        Me.panelWindowTitle.ResumeLayout(False)
+        Me.panelWindowTitle.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

@@ -198,7 +198,7 @@ Partial Class frmSettings
         Me.cmdCancel.BackColor = System.Drawing.Color.White
         Me.cmdCancel.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
         Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -217,7 +217,7 @@ Partial Class frmSettings
         Me.cmdSStatesManPicsPathBrowse.AutoSize = True
         Me.cmdSStatesManPicsPathBrowse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdSStatesManPicsPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdSStatesManPicsPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdSStatesManPicsPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdSStatesManPicsPathBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSStatesManPicsPathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStatesManPicsPathBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -245,7 +245,7 @@ Partial Class frmSettings
         Me.cmdPCSX2IniPathOpen.AutoSize = True
         Me.cmdPCSX2IniPathOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdPCSX2IniPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdPCSX2IniPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdPCSX2IniPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2IniPathOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2IniPathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2IniPathOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -264,7 +264,7 @@ Partial Class frmSettings
         Me.cmdPCSX2IniPathDetect.AutoSize = True
         Me.cmdPCSX2IniPathDetect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdPCSX2IniPathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdPCSX2IniPathDetect.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdPCSX2IniPathDetect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2IniPathDetect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2IniPathDetect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2IniPathDetect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -304,7 +304,7 @@ Partial Class frmSettings
         Me.cmdPCSX2IniPathBrowse.AutoSize = True
         Me.cmdPCSX2IniPathBrowse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdPCSX2IniPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdPCSX2IniPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdPCSX2IniPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2IniPathBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2IniPathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2IniPathBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -330,7 +330,7 @@ Partial Class frmSettings
         Me.txtPCSX2IniPath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2IniPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2IniPath.Name = "txtPCSX2IniPath"
-        Me.txtPCSX2IniPath.Size = New System.Drawing.Size(106, 22)
+        Me.txtPCSX2IniPath.Size = New System.Drawing.Size(139, 22)
         Me.txtPCSX2IniPath.TabIndex = 34
         '
         'cmdPCSX2AppPathOpen
@@ -338,7 +338,7 @@ Partial Class frmSettings
         Me.cmdPCSX2AppPathOpen.AutoSize = True
         Me.cmdPCSX2AppPathOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdPCSX2AppPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdPCSX2AppPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdPCSX2AppPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2AppPathOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2AppPathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2AppPathOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -357,7 +357,7 @@ Partial Class frmSettings
         Me.cmdPCSX2AppPathDetect.AutoSize = True
         Me.cmdPCSX2AppPathDetect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdPCSX2AppPathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdPCSX2AppPathDetect.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdPCSX2AppPathDetect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2AppPathDetect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2AppPathDetect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2AppPathDetect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -388,7 +388,7 @@ Partial Class frmSettings
         Me.cmdPCSX2AppPathBrowse.AutoSize = True
         Me.cmdPCSX2AppPathBrowse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdPCSX2AppPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdPCSX2AppPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdPCSX2AppPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2AppPathBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2AppPathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2AppPathBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -450,7 +450,7 @@ Partial Class frmSettings
         Me.txtPCSX2AppPath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2AppPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2AppPath.Name = "txtPCSX2AppPath"
-        Me.txtPCSX2AppPath.Size = New System.Drawing.Size(106, 22)
+        Me.txtPCSX2AppPath.Size = New System.Drawing.Size(139, 22)
         Me.txtPCSX2AppPath.TabIndex = 27
         '
         'cmdSStatesManPicsPathOpen
@@ -458,7 +458,7 @@ Partial Class frmSettings
         Me.cmdSStatesManPicsPathOpen.AutoSize = True
         Me.cmdSStatesManPicsPathOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdSStatesManPicsPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdSStatesManPicsPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdSStatesManPicsPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdSStatesManPicsPathOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSStatesManPicsPathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSStatesManPicsPathOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -558,7 +558,7 @@ Partial Class frmSettings
         Me.tlpPCSX2AppPath.RowCount = 2
         Me.tlpPCSX2AppPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2AppPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2AppPath.Size = New System.Drawing.Size(126, 58)
+        Me.tlpPCSX2AppPath.Size = New System.Drawing.Size(159, 58)
         Me.tlpPCSX2AppPath.TabIndex = 26
         '
         'flpPCSX2AppPath
@@ -568,7 +568,7 @@ Partial Class frmSettings
         Me.flpPCSX2AppPath.Controls.Add(Me.cmdPCSX2AppPathOpen)
         Me.flpPCSX2AppPath.Controls.Add(Me.cmdPCSX2AppPathDetect)
         Me.flpPCSX2AppPath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2AppPath.Location = New System.Drawing.Point(-59, 28)
+        Me.flpPCSX2AppPath.Location = New System.Drawing.Point(-26, 28)
         Me.flpPCSX2AppPath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpPCSX2AppPath.Name = "flpPCSX2AppPath"
         Me.flpPCSX2AppPath.Size = New System.Drawing.Size(177, 28)
@@ -604,7 +604,7 @@ Partial Class frmSettings
         Me.tlpPCSX2SStatePath.RowCount = 2
         Me.tlpPCSX2SStatePath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2SStatePath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2SStatePath.Size = New System.Drawing.Size(126, 58)
+        Me.tlpPCSX2SStatePath.Size = New System.Drawing.Size(159, 58)
         Me.tlpPCSX2SStatePath.TabIndex = 41
         '
         'flpPCSX2SStatePath
@@ -614,7 +614,7 @@ Partial Class frmSettings
         Me.flpPCSX2SStatePath.Controls.Add(Me.cmdPCSX2SStatePathOpen)
         Me.flpPCSX2SStatePath.Controls.Add(Me.cmdPCSX2SStatePathDetect)
         Me.flpPCSX2SStatePath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2SStatePath.Location = New System.Drawing.Point(-59, 28)
+        Me.flpPCSX2SStatePath.Location = New System.Drawing.Point(-26, 28)
         Me.flpPCSX2SStatePath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpPCSX2SStatePath.Name = "flpPCSX2SStatePath"
         Me.flpPCSX2SStatePath.Size = New System.Drawing.Size(177, 28)
@@ -626,7 +626,7 @@ Partial Class frmSettings
         Me.cmdPCSX2SStatePathBrowse.AutoSize = True
         Me.cmdPCSX2SStatePathBrowse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdPCSX2SStatePathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdPCSX2SStatePathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdPCSX2SStatePathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2SStatePathBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2SStatePathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2SStatePathBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -645,7 +645,7 @@ Partial Class frmSettings
         Me.cmdPCSX2SStatePathOpen.AutoSize = True
         Me.cmdPCSX2SStatePathOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdPCSX2SStatePathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdPCSX2SStatePathOpen.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdPCSX2SStatePathOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2SStatePathOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2SStatePathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2SStatePathOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -664,7 +664,7 @@ Partial Class frmSettings
         Me.cmdPCSX2SStatePathDetect.AutoSize = True
         Me.cmdPCSX2SStatePathDetect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdPCSX2SStatePathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdPCSX2SStatePathDetect.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdPCSX2SStatePathDetect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2SStatePathDetect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2SStatePathDetect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2SStatePathDetect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -690,7 +690,7 @@ Partial Class frmSettings
         Me.txtPCSX2SStatePath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2SStatePath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2SStatePath.Name = "txtPCSX2SStatePath"
-        Me.txtPCSX2SStatePath.Size = New System.Drawing.Size(106, 22)
+        Me.txtPCSX2SStatePath.Size = New System.Drawing.Size(139, 22)
         Me.txtPCSX2SStatePath.TabIndex = 42
         '
         'lblPCSX2SStatePathStatus
@@ -734,7 +734,7 @@ Partial Class frmSettings
         Me.tlpPCSX2IniPath.RowCount = 2
         Me.tlpPCSX2IniPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2IniPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2IniPath.Size = New System.Drawing.Size(126, 58)
+        Me.tlpPCSX2IniPath.Size = New System.Drawing.Size(159, 58)
         Me.tlpPCSX2IniPath.TabIndex = 30
         '
         'flpPCSX2IniPath
@@ -744,7 +744,7 @@ Partial Class frmSettings
         Me.flpPCSX2IniPath.Controls.Add(Me.cmdPCSX2IniPathOpen)
         Me.flpPCSX2IniPath.Controls.Add(Me.cmdPCSX2IniPathDetect)
         Me.flpPCSX2IniPath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2IniPath.Location = New System.Drawing.Point(-59, 28)
+        Me.flpPCSX2IniPath.Location = New System.Drawing.Point(-26, 28)
         Me.flpPCSX2IniPath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpPCSX2IniPath.Name = "flpPCSX2IniPath"
         Me.flpPCSX2IniPath.Size = New System.Drawing.Size(177, 28)
@@ -797,7 +797,7 @@ Partial Class frmSettings
         Me.cmdApply.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdApply.BackColor = System.Drawing.Color.White
         Me.cmdApply.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdApply.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdApply.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdApply.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdApply.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -1042,7 +1042,7 @@ Partial Class frmSettings
         Me.pnlTab2.Location = New System.Drawing.Point(164, 61)
         Me.pnlTab2.Name = "pnlTab2"
         Me.pnlTab2.Padding = New System.Windows.Forms.Padding(8, 4, 8, 4)
-        Me.pnlTab2.Size = New System.Drawing.Size(142, 329)
+        Me.pnlTab2.Size = New System.Drawing.Size(175, 329)
         Me.pnlTab2.TabIndex = 24
         '
         'tlpPCSX2SnapsPath
@@ -1065,7 +1065,7 @@ Partial Class frmSettings
         Me.tlpPCSX2SnapsPath.RowCount = 2
         Me.tlpPCSX2SnapsPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2SnapsPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2SnapsPath.Size = New System.Drawing.Size(126, 58)
+        Me.tlpPCSX2SnapsPath.Size = New System.Drawing.Size(159, 58)
         Me.tlpPCSX2SnapsPath.TabIndex = 43
         '
         'FlowLayoutPanel1
@@ -1075,7 +1075,7 @@ Partial Class frmSettings
         Me.FlowLayoutPanel1.Controls.Add(Me.cmdPCSX2SnapsPathOpen)
         Me.FlowLayoutPanel1.Controls.Add(Me.cmdPCSX2SnapsPathDetect)
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(-59, 28)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(-26, 28)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(177, 28)
@@ -1087,7 +1087,7 @@ Partial Class frmSettings
         Me.cmdPCSX2SnapsPathBrowse.AutoSize = True
         Me.cmdPCSX2SnapsPathBrowse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdPCSX2SnapsPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdPCSX2SnapsPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdPCSX2SnapsPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2SnapsPathBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2SnapsPathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2SnapsPathBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -1106,7 +1106,7 @@ Partial Class frmSettings
         Me.cmdPCSX2SnapsPathOpen.AutoSize = True
         Me.cmdPCSX2SnapsPathOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdPCSX2SnapsPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdPCSX2SnapsPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdPCSX2SnapsPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2SnapsPathOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2SnapsPathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2SnapsPathOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -1125,7 +1125,7 @@ Partial Class frmSettings
         Me.cmdPCSX2SnapsPathDetect.AutoSize = True
         Me.cmdPCSX2SnapsPathDetect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdPCSX2SnapsPathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
-        Me.cmdPCSX2SnapsPathDetect.FlatAppearance.BorderColor = System.Drawing.Color.DimGray
+        Me.cmdPCSX2SnapsPathDetect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2SnapsPathDetect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2SnapsPathDetect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdPCSX2SnapsPathDetect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -1151,7 +1151,7 @@ Partial Class frmSettings
         Me.txtPCSX2SnapsPath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2SnapsPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2SnapsPath.Name = "txtPCSX2SnapsPath"
-        Me.txtPCSX2SnapsPath.Size = New System.Drawing.Size(106, 22)
+        Me.txtPCSX2SnapsPath.Size = New System.Drawing.Size(139, 22)
         Me.txtPCSX2SnapsPath.TabIndex = 42
         '
         'lblPCSX2SnapsPathStatus

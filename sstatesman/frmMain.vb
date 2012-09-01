@@ -231,6 +231,8 @@ Public Class frmMain
 
             If Me.lvwGamesList.CheckedItems.Count > 0 Or Me.lvwGamesList.SelectedItems.Count > 0 Then
 
+                Me.cmdGameSelectAll.Enabled = True
+
                 If Me.lvwGamesList.CheckedItems.Count > 0 Then
                     Me.cmdGameSelectNone.Enabled = True
                 Else
@@ -250,17 +252,10 @@ Public Class frmMain
                     Me.imgCover.Image = My.Resources.Nocover
 
                     Me.imgCover.Dock = DockStyle.Fill
-                    'If My.Settings.FrmMain_coverexpanded Then
-                    '    Me.imgCover.Size = New Size(CInt(122 * DPIxScale), CInt(162 * DPIyScale))
-                    'Else
-                    '    Me.imgCover.Size = New Size(CInt(48 * DPIxScale), CInt(48 * DPIyScale))
-                    'End If
 
                     'If all the games are checked
                     If Me.lvwGamesList.Items.Count = Me.lvwGamesList.CheckedItems.Count Then
                         Me.cmdGameSelectAll.Enabled = False
-                    Else
-                        Me.cmdGameSelectAll.Enabled = True
                     End If
                 Else
 
@@ -275,36 +270,33 @@ Public Class frmMain
                                                CInt(Me.imgFlag.Image.PhysicalDimension.Height + 2 * DPIyScale))
 
                     'Cover image
-                    If Not (My.Settings.SStatesMan_PathPics.ToLower = "not set") Then
+                    If Directory.Exists(My.Settings.SStatesMan_PathPics.ToLower) Then
                         Try
                             Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
-                            Me.imgCover.Load(IO.Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg"))
+                            Me.imgCover.Load(Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg"))
 
                             Me.imgCover.Dock = DockStyle.None
                             Me.imgCover.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
                             If My.Settings.frmMain_CoverExpanded Then
-                                Me.imgCover.Size = New Size(CInt(122 * DPIxScale),
-                                                            CInt((Me.imgCover.Image.PhysicalDimension.Height * 120 / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
+                                Me.imgCover.Size = Me.imgCover_SetSize(120, My.Settings.frmMain_CoverExpanded)
+                                'Me.imgCover.Size = New Size(CInt(122 * DPIxScale),
+                                '                            CInt((Me.imgCover.Image.PhysicalDimension.Height * 120 / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
                             Else
-                                If Me.imgCover.Image.PhysicalDimension.Height > Me.imgCover.Image.PhysicalDimension.Width Then
-                                    Me.imgCover.Size = New Size(CInt((Me.imgCover.Image.PhysicalDimension.Width * 46 / Me.imgCover.Image.PhysicalDimension.Height + 2) * DPIxScale),
-                                                                CInt(48 * DPIyScale))
-                                Else
-                                    Me.imgCover.Size = New Size(CInt(48 * DPIxScale),
-                                                                CInt((Me.imgCover.Image.PhysicalDimension.Height * 46 / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
-                                End If
+                                Me.imgCover.Size = Me.imgCover_SetSize(46, My.Settings.frmMain_CoverExpanded)
+                                'If Me.imgCover.Image.PhysicalDimension.Height > Me.imgCover.Image.PhysicalDimension.Width Then
+                                '    Me.imgCover.Size = New Size(CInt((Me.imgCover.Image.PhysicalDimension.Width * 46 / Me.imgCover.Image.PhysicalDimension.Height + 2) * DPIxScale),
+                                '                                CInt(48 * DPIyScale))
+                                'Else
+                                '    Me.imgCover.Size = New Size(CInt(48 * DPIxScale),
+                                '                                CInt((Me.imgCover.Image.PhysicalDimension.Height * 46 / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
+                                'End If
                             End If
                         Catch ex As Exception
                             'No cover image found or file is corrupted
                             mdlMain.AppendToLog("Main window", "UI_Updater", String.Concat("Cover image error: ", ex.Message))
-                            Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                             Me.imgCover.Image = My.Resources.Nocover
+                            Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                             Me.imgCover.Dock = DockStyle.Fill
-                            'If My.Settings.frmMain_CoverExpanded Then
-                            '    Me.imgCover.Size = New Size(CInt(122 * DPIxScale), CInt(162 * DPIyScale))
-                            'Else
-                            '    Me.imgCover.Size = New Size(CInt(48 * DPIxScale), CInt(48 * DPIyScale))
-                            'End If
                         End Try
                     End If
                     'End cover image
@@ -322,14 +314,9 @@ Public Class frmMain
                 Me.txtSizeBackup.Text = ""
                 Me.imgFlag.Image = My.Resources.Flag_0Null_30x20
 
-                Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                 Me.imgCover.Image = My.Resources.Flag_0Null_30x20
+                Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                 Me.imgCover.Dock = DockStyle.Fill
-                'If My.Settings.frmMain_CoverExpanded Then
-                '    Me.imgCover.Size = New Size(CInt(122 * DPIxScale), CInt(162 * DPIyScale))
-                'Else
-                '    Me.imgCover.Size = New Size(CInt(48 * DPIxScale), CInt(48 * DPIyScale))
-                'End If
 
                 Me.cmdGameSelectNone.Enabled = False
                 Me.cmdGameSelectAll.Enabled = True
@@ -484,13 +471,7 @@ Public Class frmMain
                 My.Settings.frmMain_CoverExpanded = False
                 Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 2)
                 Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 1)
-                If Me.imgCover.Image.PhysicalDimension.Height > Me.imgCover.Image.PhysicalDimension.Width Then
-                    Me.imgCover.Size = New Size(CInt((Me.imgCover.Image.PhysicalDimension.Width * 46 / Me.imgCover.Image.PhysicalDimension.Height + 2) * DPIxScale),
-                                                CInt(48 * DPIyScale))
-                Else
-                    Me.imgCover.Size = New Size(CInt(48 * DPIxScale),
-                                                CInt((Me.imgCover.Image.PhysicalDimension.Height * 46 / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
-                End If
+                Me.imgCover.Size = imgCover_SetSize(46, My.Settings.frmMain_CoverExpanded)
                 Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 1))
                 Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(0, 0))
                 Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 9)
@@ -503,13 +484,27 @@ Public Class frmMain
                 Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 7)
                 Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(2, 0))
                 Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 0))
-                Me.imgCover.Size = New Size(CInt(122 * DPIxScale),
-                                            CInt((Me.imgCover.Image.PhysicalDimension.Height * 120 / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
+                Me.imgCover.Size = imgCover_SetSize(120, My.Settings.frmMain_CoverExpanded)
                 Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 2)
                 Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 3)
             End If
         End If
     End Sub
+
+    Private Function imgCover_SetSize(ByVal pMaxSize As Integer, ByVal pMode As Boolean) As Size
+        If pMode Then
+            Return New Size(CInt((pMaxSize + 2) * DPIxScale),
+                            CInt((Me.imgCover.Image.PhysicalDimension.Height * pMaxSize / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
+        Else
+            If Me.imgCover.Image.PhysicalDimension.Height > Me.imgCover.Image.PhysicalDimension.Width Then
+                Return New Size(CInt((Me.imgCover.Image.PhysicalDimension.Width * pMaxSize / Me.imgCover.Image.PhysicalDimension.Height + 2) * DPIxScale),
+                                CInt((pMaxSize + 2) * DPIyScale))
+            Else
+                Return New Size(CInt((pMaxSize + 2) * DPIxScale),
+                                CInt((Me.imgCover.Image.PhysicalDimension.Height * pMaxSize / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
+            End If
+        End If
+    End Function
 #End Region
 
 #Region "UI - Gamelist management"
