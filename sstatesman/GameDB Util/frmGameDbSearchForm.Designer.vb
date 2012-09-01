@@ -79,7 +79,7 @@ Partial Class frmGameDbSearchForm
         Me.txtSerial.BackColor = System.Drawing.Color.White
         Me.txtSerial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtSerial.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSerial.ForeColor = System.Drawing.Color.DimGray
+        Me.txtSerial.ForeColor = System.Drawing.Color.Black
         Me.txtSerial.Location = New System.Drawing.Point(96, 8)
         Me.txtSerial.Margin = New System.Windows.Forms.Padding(4)
         Me.txtSerial.Name = "txtSerial"
@@ -91,7 +91,7 @@ Partial Class frmGameDbSearchForm
         Me.txtGameTitle.BackColor = System.Drawing.Color.White
         Me.txtGameTitle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameTitle.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtGameTitle.ForeColor = System.Drawing.Color.DimGray
+        Me.txtGameTitle.ForeColor = System.Drawing.Color.Black
         Me.txtGameTitle.Location = New System.Drawing.Point(96, 38)
         Me.txtGameTitle.Margin = New System.Windows.Forms.Padding(4)
         Me.txtGameTitle.Name = "txtGameTitle"
@@ -117,7 +117,7 @@ Partial Class frmGameDbSearchForm
         Me.txtGameRegion.BackColor = System.Drawing.Color.White
         Me.txtGameRegion.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameRegion.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtGameRegion.ForeColor = System.Drawing.Color.DimGray
+        Me.txtGameRegion.ForeColor = System.Drawing.Color.Black
         Me.txtGameRegion.Location = New System.Drawing.Point(96, 68)
         Me.txtGameRegion.Margin = New System.Windows.Forms.Padding(4)
         Me.txtGameRegion.Name = "txtGameRegion"
@@ -193,7 +193,7 @@ Partial Class frmGameDbSearchForm
         Me.cbGameCompat.BackColor = System.Drawing.Color.White
         Me.cbGameCompat.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cbGameCompat.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cbGameCompat.ForeColor = System.Drawing.Color.DimGray
+        Me.cbGameCompat.ForeColor = System.Drawing.Color.Black
         Me.cbGameCompat.FormattingEnabled = True
         Me.cbGameCompat.Items.AddRange(New Object() {"", "0: Unknown", "1: Nothing", "2: Intro", "3: Menus", "4: in-Game", "5: Playable", "6: Perfect", "Missing", "Undetected"})
         Me.cbGameCompat.Location = New System.Drawing.Point(96, 98)
@@ -339,7 +339,7 @@ Partial Class frmGameDbSearchForm
         Me.Controls.Add(Me.panelWindowTitle)
         Me.Controls.Add(Me.flpWindowBottom)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ForeColor = System.Drawing.Color.DimGray
+        Me.ForeColor = System.Drawing.Color.Black
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
         Me.MaximizeBox = False
         Me.MinimizeBox = False

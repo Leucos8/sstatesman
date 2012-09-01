@@ -339,7 +339,6 @@ Module mdlGameDb
                                    )
                             Select tmpGameInfo
 
-                MessageBox.Show(myRecords.GetType.ToString)
                 'Or
             ElseIf pSearchType = 1 Then
                 myRecords = From tmpGameInfo As KeyValuePair(Of String, GameInfo) In Records
