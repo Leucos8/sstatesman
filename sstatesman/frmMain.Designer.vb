@@ -39,15 +39,13 @@ Partial Class frmMain
         Me.components = New System.ComponentModel.Container()
         Me.panelWindowTitle = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.FlowLayoutPanel3 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.cmdSStateListUtil = New System.Windows.Forms.Button()
-        Me.cmdGameDbUtil = New System.Windows.Forms.Button()
         Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
         Me.lblWindowTitle = New System.Windows.Forms.Label()
         Me.blWindowDescription = New System.Windows.Forms.Label()
         Me.FlowPanelSettings = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdAbout = New System.Windows.Forms.Button()
         Me.cmdSettings = New System.Windows.Forms.Button()
+        Me.cmdTools = New System.Windows.Forms.Button()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdWindowMinimize = New System.Windows.Forms.Button()
         Me.cmdWindowMaximize = New System.Windows.Forms.Button()
@@ -55,11 +53,12 @@ Partial Class frmMain
         Me.imgWindowGradientIcon = New System.Windows.Forms.PictureBox()
         Me.lblWindowVersion = New System.Windows.Forms.Label()
         Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
-        Me.cmdRefresh = New System.Windows.Forms.Button()
         Me.flpTab = New System.Windows.Forms.FlowLayoutPanel()
         Me.optSettingTab1 = New System.Windows.Forms.RadioButton()
         Me.optSettingTab2 = New System.Windows.Forms.RadioButton()
         Me.optSettingTab3 = New System.Windows.Forms.RadioButton()
+        Me.FlowLayoutPanel3 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.cmdRefresh = New System.Windows.Forms.Button()
         Me.tmrSStatesListRefresh = New System.Windows.Forms.Timer(Me.components)
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
@@ -108,15 +107,24 @@ Partial Class frmMain
         Me.cmdSStateSelectAll = New System.Windows.Forms.Button()
         Me.cmdSStateSelectBackup = New System.Windows.Forms.Button()
         Me.lblSStateListCheck = New System.Windows.Forms.Label()
+        Me.cmPCSX2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmiPCSX2Launch = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmiPCSX2BinFolderOpen = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmiPCSX2SStatesFolderOpen = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmiPCSX2SnapsFolderOpen = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.GameDBExplorerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DeveloperToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.panelWindowTitle.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
-        Me.FlowLayoutPanel3.SuspendLayout()
         Me.FlowLayoutPanel2.SuspendLayout()
         Me.FlowPanelSettings.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel6.SuspendLayout()
         Me.flpTab.SuspendLayout()
+        Me.FlowLayoutPanel3.SuspendLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -129,6 +137,7 @@ Partial Class frmMain
         Me.TableLayoutPanel5.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.FlowPanelSStatesList.SuspendLayout()
+        Me.cmPCSX2.SuspendLayout()
         Me.SuspendLayout()
         '
         'panelWindowTitle
@@ -173,61 +182,6 @@ Partial Class frmMain
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(628, 55)
         Me.TableLayoutPanel1.TabIndex = 4
         '
-        'FlowLayoutPanel3
-        '
-        Me.FlowLayoutPanel3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.FlowLayoutPanel3.AutoSize = True
-        Me.FlowLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.FlowLayoutPanel3.Controls.Add(Me.cmdRefresh)
-        Me.FlowLayoutPanel3.Controls.Add(Me.cmdSStateListUtil)
-        Me.FlowLayoutPanel3.Controls.Add(Me.cmdGameDbUtil)
-        Me.FlowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowLayoutPanel3.Location = New System.Drawing.Point(421, 0)
-        Me.FlowLayoutPanel3.Margin = New System.Windows.Forms.Padding(0)
-        Me.FlowLayoutPanel3.Name = "FlowLayoutPanel3"
-        Me.FlowLayoutPanel3.Padding = New System.Windows.Forms.Padding(0, 1, 0, 0)
-        Me.FlowLayoutPanel3.Size = New System.Drawing.Size(191, 23)
-        Me.FlowLayoutPanel3.TabIndex = 11
-        Me.FlowLayoutPanel3.WrapContents = False
-        '
-        'cmdSStateListUtil
-        '
-        Me.cmdSStateListUtil.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdSStateListUtil.AutoSize = True
-        Me.cmdSStateListUtil.BackColor = System.Drawing.Color.Transparent
-        Me.cmdSStateListUtil.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdSStateListUtil.FlatAppearance.BorderSize = 0
-        Me.cmdSStateListUtil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateListUtil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdSStateListUtil.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateListUtil.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSStateListUtil.Location = New System.Drawing.Point(54, 1)
-        Me.cmdSStateListUtil.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdSStateListUtil.Name = "cmdSStateListUtil"
-        Me.cmdSStateListUtil.Size = New System.Drawing.Size(69, 22)
-        Me.cmdSStateListUtil.TabIndex = 13
-        Me.cmdSStateListUtil.Text = "SSTATESLIST"
-        Me.cmdSStateListUtil.UseVisualStyleBackColor = False
-        '
-        'cmdGameDbUtil
-        '
-        Me.cmdGameDbUtil.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdGameDbUtil.AutoSize = True
-        Me.cmdGameDbUtil.BackColor = System.Drawing.Color.Transparent
-        Me.cmdGameDbUtil.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdGameDbUtil.FlatAppearance.BorderSize = 0
-        Me.cmdGameDbUtil.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdGameDbUtil.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdGameDbUtil.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdGameDbUtil.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdGameDbUtil.Location = New System.Drawing.Point(0, 1)
-        Me.cmdGameDbUtil.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdGameDbUtil.Name = "cmdGameDbUtil"
-        Me.cmdGameDbUtil.Size = New System.Drawing.Size(54, 22)
-        Me.cmdGameDbUtil.TabIndex = 12
-        Me.cmdGameDbUtil.Text = "GAMEDB"
-        Me.cmdGameDbUtil.UseVisualStyleBackColor = False
-        '
         'FlowLayoutPanel2
         '
         Me.FlowLayoutPanel2.AutoSize = True
@@ -242,7 +196,7 @@ Partial Class frmMain
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
         Me.FlowLayoutPanel2.Padding = New System.Windows.Forms.Padding(24, 4, 0, 4)
         Me.TableLayoutPanel1.SetRowSpan(Me.FlowLayoutPanel2, 2)
-        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(402, 51)
+        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(360, 51)
         Me.FlowLayoutPanel2.TabIndex = 1
         Me.FlowLayoutPanel2.WrapContents = False
         '
@@ -277,11 +231,12 @@ Partial Class frmMain
         Me.FlowPanelSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.FlowPanelSettings.Controls.Add(Me.cmdAbout)
         Me.FlowPanelSettings.Controls.Add(Me.cmdSettings)
+        Me.FlowPanelSettings.Controls.Add(Me.cmdTools)
         Me.FlowPanelSettings.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowPanelSettings.Location = New System.Drawing.Point(406, 0)
+        Me.FlowPanelSettings.Location = New System.Drawing.Point(364, 0)
         Me.FlowPanelSettings.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowPanelSettings.Name = "FlowPanelSettings"
-        Me.FlowPanelSettings.Size = New System.Drawing.Size(104, 22)
+        Me.FlowPanelSettings.Size = New System.Drawing.Size(146, 22)
         Me.FlowPanelSettings.TabIndex = 5
         Me.FlowPanelSettings.WrapContents = False
         '
@@ -289,6 +244,7 @@ Partial Class frmMain
         '
         Me.cmdAbout.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdAbout.AutoSize = True
+        Me.cmdAbout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdAbout.BackColor = System.Drawing.Color.Transparent
         Me.cmdAbout.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdAbout.FlatAppearance.BorderSize = 0
@@ -296,7 +252,7 @@ Partial Class frmMain
         Me.cmdAbout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdAbout.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdAbout.Location = New System.Drawing.Point(58, 0)
+        Me.cmdAbout.Location = New System.Drawing.Point(100, 0)
         Me.cmdAbout.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdAbout.Name = "cmdAbout"
         Me.cmdAbout.Size = New System.Drawing.Size(46, 22)
@@ -308,6 +264,7 @@ Partial Class frmMain
         '
         Me.cmdSettings.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdSettings.AutoSize = True
+        Me.cmdSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdSettings.BackColor = System.Drawing.Color.Transparent
         Me.cmdSettings.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdSettings.FlatAppearance.BorderSize = 0
@@ -315,13 +272,33 @@ Partial Class frmMain
         Me.cmdSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSettings.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSettings.Location = New System.Drawing.Point(0, 0)
+        Me.cmdSettings.Location = New System.Drawing.Point(44, 0)
         Me.cmdSettings.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSettings.Name = "cmdSettings"
-        Me.cmdSettings.Size = New System.Drawing.Size(58, 22)
+        Me.cmdSettings.Size = New System.Drawing.Size(56, 22)
         Me.cmdSettings.TabIndex = 6
         Me.cmdSettings.Text = "&SETTINGS"
         Me.cmdSettings.UseVisualStyleBackColor = False
+        '
+        'cmdTools
+        '
+        Me.cmdTools.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdTools.AutoSize = True
+        Me.cmdTools.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdTools.BackColor = System.Drawing.Color.Transparent
+        Me.cmdTools.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdTools.FlatAppearance.BorderSize = 0
+        Me.cmdTools.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdTools.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdTools.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdTools.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdTools.Location = New System.Drawing.Point(0, 0)
+        Me.cmdTools.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdTools.Name = "cmdTools"
+        Me.cmdTools.Size = New System.Drawing.Size(44, 22)
+        Me.cmdTools.TabIndex = 12
+        Me.cmdTools.Text = "TOOLS"
+        Me.cmdTools.UseVisualStyleBackColor = False
         '
         'FlowLayoutPanel1
         '
@@ -431,29 +408,9 @@ Partial Class frmMain
         Me.TableLayoutPanel6.Padding = New System.Windows.Forms.Padding(16, 0, 16, 0)
         Me.TableLayoutPanel6.RowCount = 1
         Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel6.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24.0!))
         Me.TableLayoutPanel6.Size = New System.Drawing.Size(628, 24)
         Me.TableLayoutPanel6.TabIndex = 14
-        '
-        'cmdRefresh
-        '
-        Me.cmdRefresh.AutoSize = True
-        Me.cmdRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdRefresh.FlatAppearance.BorderSize = 0
-        Me.cmdRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdRefresh.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdRefresh.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Refresh
-        Me.cmdRefresh.Location = New System.Drawing.Point(123, 1)
-        Me.cmdRefresh.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdRefresh.Name = "cmdRefresh"
-        Me.cmdRefresh.Size = New System.Drawing.Size(68, 22)
-        Me.cmdRefresh.TabIndex = 19
-        Me.cmdRefresh.Text = "&REFRESH"
-        Me.cmdRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
-        Me.cmdRefresh.UseVisualStyleBackColor = False
         '
         'flpTab
         '
@@ -527,6 +484,41 @@ Partial Class frmMain
         Me.optSettingTab3.Text = "screenshots"
         Me.optSettingTab3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.optSettingTab3.UseVisualStyleBackColor = False
+        '
+        'FlowLayoutPanel3
+        '
+        Me.FlowLayoutPanel3.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.FlowLayoutPanel3.AutoSize = True
+        Me.FlowLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.FlowLayoutPanel3.Controls.Add(Me.cmdRefresh)
+        Me.FlowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.FlowLayoutPanel3.Location = New System.Drawing.Point(544, 0)
+        Me.FlowLayoutPanel3.Margin = New System.Windows.Forms.Padding(0)
+        Me.FlowLayoutPanel3.Name = "FlowLayoutPanel3"
+        Me.FlowLayoutPanel3.Padding = New System.Windows.Forms.Padding(0, 1, 0, 0)
+        Me.FlowLayoutPanel3.Size = New System.Drawing.Size(68, 23)
+        Me.FlowLayoutPanel3.TabIndex = 11
+        Me.FlowLayoutPanel3.WrapContents = False
+        '
+        'cmdRefresh
+        '
+        Me.cmdRefresh.AutoSize = True
+        Me.cmdRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdRefresh.FlatAppearance.BorderSize = 0
+        Me.cmdRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdRefresh.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdRefresh.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Refresh
+        Me.cmdRefresh.Location = New System.Drawing.Point(0, 1)
+        Me.cmdRefresh.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdRefresh.Name = "cmdRefresh"
+        Me.cmdRefresh.Size = New System.Drawing.Size(68, 22)
+        Me.cmdRefresh.TabIndex = 19
+        Me.cmdRefresh.Text = "&REFRESH"
+        Me.cmdRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
+        Me.cmdRefresh.UseVisualStyleBackColor = False
         '
         'tmrSStatesListRefresh
         '
@@ -1199,6 +1191,63 @@ Partial Class frmMain
         Me.lblSStateListCheck.Text = "check savestates:"
         Me.lblSStateListCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'cmPCSX2
+        '
+        Me.cmPCSX2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmPCSX2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiPCSX2Launch, Me.ToolStripSeparator1, Me.cmiPCSX2BinFolderOpen, Me.cmiPCSX2SStatesFolderOpen, Me.cmiPCSX2SnapsFolderOpen, Me.ToolStripSeparator2, Me.GameDBExplorerToolStripMenuItem, Me.DeveloperToolsToolStripMenuItem})
+        Me.cmPCSX2.Name = "cmPCSX2"
+        Me.cmPCSX2.Size = New System.Drawing.Size(201, 170)
+        '
+        'cmiPCSX2Launch
+        '
+        Me.cmiPCSX2Launch.Name = "cmiPCSX2Launch"
+        Me.cmiPCSX2Launch.Size = New System.Drawing.Size(200, 22)
+        Me.cmiPCSX2Launch.Text = "launch PCSX2"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(197, 6)
+        '
+        'cmiPCSX2BinFolderOpen
+        '
+        Me.cmiPCSX2BinFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Folder_16
+        Me.cmiPCSX2BinFolderOpen.Name = "cmiPCSX2BinFolderOpen"
+        Me.cmiPCSX2BinFolderOpen.Size = New System.Drawing.Size(200, 22)
+        Me.cmiPCSX2BinFolderOpen.Text = "open PCSX2 folder"
+        '
+        'cmiPCSX2SStatesFolderOpen
+        '
+        Me.cmiPCSX2SStatesFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Folder_16
+        Me.cmiPCSX2SStatesFolderOpen.Name = "cmiPCSX2SStatesFolderOpen"
+        Me.cmiPCSX2SStatesFolderOpen.Size = New System.Drawing.Size(200, 22)
+        Me.cmiPCSX2SStatesFolderOpen.Text = "open savestates folder"
+        '
+        'cmiPCSX2SnapsFolderOpen
+        '
+        Me.cmiPCSX2SnapsFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Folder_16
+        Me.cmiPCSX2SnapsFolderOpen.Name = "cmiPCSX2SnapsFolderOpen"
+        Me.cmiPCSX2SnapsFolderOpen.Size = New System.Drawing.Size(200, 22)
+        Me.cmiPCSX2SnapsFolderOpen.Text = "open screenshots folder"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(197, 6)
+        '
+        'GameDBExplorerToolStripMenuItem
+        '
+        Me.GameDBExplorerToolStripMenuItem.Image = Global.sstatesman.My.Resources.Resources.GDE_16
+        Me.GameDBExplorerToolStripMenuItem.Name = "GameDBExplorerToolStripMenuItem"
+        Me.GameDBExplorerToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
+        Me.GameDBExplorerToolStripMenuItem.Text = "GameDB Explorer"
+        '
+        'DeveloperToolsToolStripMenuItem
+        '
+        Me.DeveloperToolsToolStripMenuItem.Name = "DeveloperToolsToolStripMenuItem"
+        Me.DeveloperToolsToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
+        Me.DeveloperToolsToolStripMenuItem.Text = "Developer Tools"
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1220,8 +1269,6 @@ Partial Class frmMain
         Me.panelWindowTitle.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
-        Me.FlowLayoutPanel3.ResumeLayout(False)
-        Me.FlowLayoutPanel3.PerformLayout()
         Me.FlowLayoutPanel2.ResumeLayout(False)
         Me.FlowLayoutPanel2.PerformLayout()
         Me.FlowPanelSettings.ResumeLayout(False)
@@ -1232,6 +1279,8 @@ Partial Class frmMain
         Me.TableLayoutPanel6.PerformLayout()
         Me.flpTab.ResumeLayout(False)
         Me.flpTab.PerformLayout()
+        Me.FlowLayoutPanel3.ResumeLayout(False)
+        Me.FlowLayoutPanel3.PerformLayout()
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel1.PerformLayout()
         Me.SplitContainer1.Panel2.ResumeLayout(False)
@@ -1252,6 +1301,7 @@ Partial Class frmMain
         Me.TableLayoutPanel4.PerformLayout()
         Me.FlowPanelSStatesList.ResumeLayout(False)
         Me.FlowPanelSStatesList.PerformLayout()
+        Me.cmPCSX2.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1302,8 +1352,7 @@ Partial Class frmMain
     Friend WithEvents FlowPanelSettings As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdAbout As System.Windows.Forms.Button
     Private WithEvents cmdSettings As System.Windows.Forms.Button
-    Private WithEvents cmdSStateListUtil As System.Windows.Forms.Button
-    Private WithEvents cmdGameDbUtil As System.Windows.Forms.Button
+    Private WithEvents cmdTools As System.Windows.Forms.Button
     Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdWindowMinimize As System.Windows.Forms.Button
     Private WithEvents cmdWindowMaximize As System.Windows.Forms.Button
@@ -1327,4 +1376,13 @@ Partial Class frmMain
     Friend WithEvents panelWindowTitle As System.Windows.Forms.Panel
     Friend WithEvents FlowLayoutPanel3 As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents SStatesLvw_Version As System.Windows.Forms.ColumnHeader
+    Friend WithEvents cmPCSX2 As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents cmiPCSX2Launch As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmiPCSX2BinFolderOpen As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmiPCSX2SStatesFolderOpen As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmiPCSX2SnapsFolderOpen As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents GameDBExplorerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DeveloperToolsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

@@ -427,20 +427,8 @@ Public Class frmMain
         frmSettings.ShowDialog(Me)
     End Sub
 
-    Private Sub cmdGameDbUtil_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdGameDbUtil.Click
-        If Not frmGameDb.Visible Then
-            frmGameDb.Show(Me)
-        Else
-            frmGameDb.BringToFront()
-        End If
-    End Sub
-
-    Private Sub cmdSStateListUtil_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateListUtil.Click
-        If Not frmSStateList.Visible Then
-            frmSStateList.Show(Me)
-        Else
-            frmSStateList.BringToFront()
-        End If
+    Private Sub cmdTools_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdTools.Click
+        Me.cmPCSX2.Show(Point.Add(Me.cmdTools.PointToScreen(Me.cmdTools.Location), New Size(0, Me.cmdTools.Size.Height)))
     End Sub
 #End Region
 
@@ -933,4 +921,64 @@ Public Class frmMain
     '    End If
     'End Sub
 #End Region
+
+#Region "Form - Tools menu"
+    Private Sub cmTools_Check()
+        Me.cmiPCSX2Launch.Enabled = File.Exists(Path.Combine(My.Settings.PCSX2_PathBin, "PCSX2.exe"))
+        Me.cmiPCSX2BinFolderOpen.Enabled = Directory.Exists(My.Settings.PCSX2_PathBin)
+        Me.cmiPCSX2SStatesFolderOpen.Enabled = Directory.Exists(My.Settings.PCSX2_PathSState)
+        Me.cmiPCSX2SnapsFolderOpen.Enabled = Directory.Exists(My.Settings.PCSX2_PathSnaps)
+    End Sub
+
+    Private Sub cmiPCSX2Launch_Click(sender As System.Object, e As System.EventArgs) Handles cmiPCSX2Launch.Click
+        Dim tmpPath As String = Path.Combine(My.Settings.PCSX2_PathBin, "PCSX2.exe")
+        If File.Exists(tmpPath) Then
+            Diagnostics.Process.Start(tmpPath)
+        Else
+            MessageBox.Show("The file specified does not exist. " & tmpPath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+    End Sub
+
+    Private Sub cmiPCSX2BinFolderOpen_Click(sender As System.Object, e As System.EventArgs) Handles cmiPCSX2BinFolderOpen.Click
+        If Directory.Exists(My.Settings.PCSX2_PathBin) Then
+            Diagnostics.Process.Start(My.Settings.PCSX2_PathBin)
+        Else
+            MessageBox.Show("The file specified does not exist. " & My.Settings.PCSX2_PathBin, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+    End Sub
+
+    Private Sub cmiPCSX2SStatesFolderOpen_Click(sender As System.Object, e As System.EventArgs) Handles cmiPCSX2SStatesFolderOpen.Click
+        If Directory.Exists(My.Settings.PCSX2_PathSState) Then
+            Diagnostics.Process.Start(My.Settings.PCSX2_PathSState)
+        Else
+            MessageBox.Show("The file specified does not exist. " & My.Settings.PCSX2_PathSState, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+    End Sub
+
+    Private Sub cmiPCSX2SnapsFolderOpen_Click(sender As System.Object, e As System.EventArgs) Handles cmiPCSX2SnapsFolderOpen.Click
+        If Directory.Exists(My.Settings.PCSX2_PathSnaps) Then
+            Diagnostics.Process.Start(My.Settings.PCSX2_PathSnaps)
+        Else
+            MessageBox.Show("The file specified does not exist. " & My.Settings.PCSX2_PathSnaps, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+    End Sub
+
+    Private Sub GameDBExplorerToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles GameDBExplorerToolStripMenuItem.Click
+        If Not frmGameDb.Visible Then
+            frmGameDb.Show(Me)
+        Else
+            frmGameDb.BringToFront()
+        End If
+    End Sub
+
+    Private Sub DeveloperToolsToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles DeveloperToolsToolStripMenuItem.Click
+        If Not frmSStateList.Visible Then
+            frmSStateList.Show(Me)
+        Else
+            frmSStateList.BringToFront()
+        End If
+    End Sub
+
+#End Region
+
 End Class
