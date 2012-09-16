@@ -36,6 +36,7 @@ Partial Class frmGameDbSearchForm
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmGameDbSearchForm))
         Me.ckbSerial = New System.Windows.Forms.CheckBox()
         Me.txtSerial = New System.Windows.Forms.TextBox()
         Me.txtGameTitle = New System.Windows.Forms.TextBox()
@@ -341,12 +342,13 @@ Partial Class frmGameDbSearchForm
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.Black
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmGameDbSearchForm"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "GameDB util - Search"
+        Me.Text = "GameDB Explorer - Search"
         Me.flpWindowBottom.ResumeLayout(False)
         Me.flpWindowBottom.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)

@@ -245,6 +245,8 @@
     <None Include="Resources\Metro-ChecboxChecked.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Tools.png" />
+    <None Include="Resources\PCSX2_16.png" />
     <None Include="Resources\Nocover.png" />
     <None Include="Resources\PCSX2.png" />
     <None Include="Resources\Metro-Button-Refresh.png" />
@@ -256,6 +258,8 @@
     <None Include="Resources\BgHex.png" />
     <None Include="Resources\GDE_16.png" />
     <None Include="Resources\Folder_16.png" />
+    <None Include="Resources\GDE.ico" />
+    <None Include="Resources\Gear.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

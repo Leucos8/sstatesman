@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32"
+   height="32"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Metro-PCSX2.svg"
+   inkscape:export-filename="PCSX2_16.png"
+   inkscape:export-xdpi="45"
+   inkscape:export-ydpi="45">
+  <title
+     id="title3774">Metro PCSX2</title>
+  <sodipodi:namedview
+     id="base"
+     showgrid="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2996"
+       empspacing="4"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Metro PCSX2</dc:title>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
+		<dc:creator>
+          <cc:Agent>
+            <dc:title>Leucos</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:date>2012-09-16</dc:date>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:prohibits
+           rdf:resource="http://creativecommons.org/ns#CommercialUse" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <path
+       style="fill:#424242"
+       d="m 4,16 0,-6 8,0 0,-2 -8,0 0,-2 10,0 0,6 -8,0 0,4 z"
+       id="path3803" />
+    <path
+       style="fill:#424242"
+       d="m 16,16 0,-10 10,0 0,2 -8,0 0,6 8,0 0,2 z"
+       id="path3805" />
+    <path
+       style="fill:#424242"
+       d="m 0,26 0,2 10,0 0,-6 -8,0 0,-2 8,0 0,-2 -10,0 0,6 8,0 0,2 z"
+       id="path3803-1" />
+    <path
+       style="fill:#424242"
+       d="m 12,28 0,-2 3,-3 -3,-3 0,-2 2,0 3,3 3,-3 2,0 0,2 -3,3 3,3 0,2 -2,0 -3,-3 -3,3 z"
+       id="path3825" />
+    <path
+       style="fill:#8296c8"
+       d="m 24,28 0,-6 6,0 0,-2 -6,0 0,-2 8,0 0,6 -6,0 0,2 6,0 0,2 z"
+       id="path3803-7" />
+  </g>
+</svg>
