@@ -34,6 +34,7 @@ Public Class frmMain
         GameRegion
         SStateInfo
         SStateBackupInfo
+        SnapsInfo
     End Enum
 
     Friend Enum frmMainSStatesLvwColumn
@@ -116,18 +117,21 @@ Public Class frmMain
         Me.WindowState = My.Settings.frmMain_WindowState
         Me.SplitContainer1.SplitterDistance = My.Settings.frmMain_SplitterDistance
 
-        Me.GamesLvw_GameTitle.Width = My.Settings.frmMain_glvw_cGameTitle
-        Me.GameLvw_GameSerial.Width = My.Settings.frmMain_glvw_cSerial
-        Me.GameLvw_GameRegion.Width = My.Settings.frmMain_glvw_cRegion
-        Me.GameLvw_SStatesInfo.Width = My.Settings.frmMain_glvw_cStInfo
-        Me.GameLvw_BackupInfo.Width = My.Settings.frmMain_glvw_cSbInfo
+        If My.Settings.frmMain_glvw_columnwidth IsNot Nothing Then
+            If My.Settings.frmMain_glvw_columnwidth.Length = Me.lvwGamesList.Columns.Count Then
+                For i As Integer = 0 To Me.lvwGamesList.Columns.Count - 1
+                    Me.lvwGamesList.Columns(i).Width = My.Settings.frmMain_glvw_columnwidth(i)
+                Next
+            End If
+        End If
 
-        Me.SStatesLvw_FileName.Width = My.Settings.frmMain_slvw_cFileName
-        Me.SStatesLvw_Slot.Width = My.Settings.frmMain_slvw_cSlot
-        Me.SStatesLvw_Backup.Width = My.Settings.frmMain_slvw_cBackup
-        Me.SStatesLvw_Version.Width = My.Settings.frmMain_slvw_cVersion
-        Me.SStatesLvw_DateLastWrite.Width = My.Settings.frmMain_slvw_cDateLW
-        Me.SStatesLvw_Size.Width = My.Settings.frmMain_slvw_cSize
+        If My.Settings.frmMain_slvw_columnwidth IsNot Nothing Then
+            If My.Settings.frmMain_slvw_columnwidth.Length = Me.lvwSStatesList.Columns.Count Then
+                For i As Integer = 0 To Me.lvwSStatesList.Columns.Count - 1
+                    Me.lvwSStatesList.Columns(i).Width = My.Settings.frmMain_slvw_columnwidth(i)
+                Next
+            End If
+        End If
 
         If My.Settings.frmMain_CoverExpanded Then
             My.Settings.frmMain_CoverExpanded = True
@@ -166,18 +170,13 @@ Public Class frmMain
         End If
         My.Settings.frmMain_SplitterDistance = Me.SplitContainer1.SplitterDistance
 
-        My.Settings.frmMain_glvw_cGameTitle = Me.GamesLvw_GameTitle.Width
-        My.Settings.frmMain_glvw_cSerial = Me.GameLvw_GameSerial.Width
-        My.Settings.frmMain_glvw_cRegion = Me.GameLvw_GameRegion.Width
-        My.Settings.frmMain_glvw_cStInfo = Me.GameLvw_SStatesInfo.Width
-        My.Settings.frmMain_glvw_cSbInfo = Me.GameLvw_BackupInfo.Width
+        Dim columnwidtharray As Integer() = {Me.GamesLvw_GameTitle.Width, Me.GameLvw_GameSerial.Width, Me.GameLvw_GameRegion.Width,
+                                             Me.GameLvw_SStatesInfo.Width, Me.GameLvw_BackupInfo.Width, Me.GameLvw_SnapsInfo.Width}
+        My.Settings.frmMain_glvw_columnwidth = columnwidtharray
 
-        My.Settings.frmMain_slvw_cFileName = Me.SStatesLvw_FileName.Width
-        My.Settings.frmMain_slvw_cSlot = Me.SStatesLvw_Slot.Width
-        My.Settings.frmMain_slvw_cBackup = Me.SStatesLvw_Backup.Width
-        My.Settings.frmMain_slvw_cVersion = Me.SStatesLvw_Version.Width
-        My.Settings.frmMain_slvw_cDateLW = Me.SStatesLvw_DateLastWrite.Width
-        My.Settings.frmMain_slvw_cSize = Me.SStatesLvw_Size.Width
+        columnwidtharray = {Me.SStatesLvw_FileName.Width, Me.SStatesLvw_Slot.Width, Me.SStatesLvw_Backup.Width,
+                            Me.SStatesLvw_Version.Width, Me.SStatesLvw_DateLastWrite.Width, Me.SStatesLvw_Size.Width}
+        My.Settings.frmMain_slvw_columnwidth = columnwidtharray
 
         My.Settings.Save()
     End Sub
@@ -512,7 +511,7 @@ Public Class frmMain
             Dim tmpLvwGListItem As New ListViewItem With {.Text = currentGameInfo.Name, .Name = currentGameInfo.Serial}
             tmpLvwGListItem.SubItems.AddRange({currentGameInfo.Serial, currentGameInfo.Region})
             'Calculating savestates count and displaying size
-            If tmpGListItem.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Count > 0 Then
+            If tmpGListItem.Value.Savestates.Where(Function(filter) filter.Value.Extension.Equals(My.Settings.PCSX2_SStateExt)).Count > 0 Then
                 tmpLvwGListItem.SubItems.Add(String.Format("{0:N0} × {1:N2} MB",
                                                             tmpGListItem.Value.Savestates.Where(Function(extfilter) extfilter.Value.Extension.Equals(My.Settings.PCSX2_SStateExt)).Count,
                                                             tmpGListItem.Value.Savestates_SizeTot / 1024 ^ 2))
@@ -521,10 +520,19 @@ Public Class frmMain
             End If
 
             'Calculating backups count and displaying size
-            If tmpGListItem.Value.Savestates.Where(Function(filter) filter.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Count > 0 Then
+            If tmpGListItem.Value.Savestates.Where(Function(filter) filter.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Count > 0 Then
                 tmpLvwGListItem.SubItems.Add(String.Format("{0:N0} × {1:N2} MB",
                                                             tmpGListItem.Value.Savestates.Where(Function(extfilter) extfilter.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Count,
                                                             tmpGListItem.Value.SavestatesBackup_SizeTot / 1024 ^ 2))
+            Else
+                tmpLvwGListItem.SubItems.Add("None")
+            End If
+
+            'Calculating snapshots count and displaying size
+            If tmpGListItem.Value.Snapshots.Count > 0 Then
+                tmpLvwGListItem.SubItems.Add(String.Format("{0:N0} × {1:N2} MB",
+                                                            tmpGListItem.Value.Snapshots.Count,
+                                                            tmpGListItem.Value.Snapshots_SizeTot / 1024 ^ 2))
             Else
                 tmpLvwGListItem.SubItems.Add("None")
             End If

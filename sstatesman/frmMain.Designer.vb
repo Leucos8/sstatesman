@@ -116,6 +116,7 @@ Partial Class frmMain
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.GameDBExplorerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeveloperToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.GameLvw_SnapsInfo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.panelWindowTitle.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel2.SuspendLayout()
@@ -196,7 +197,7 @@ Partial Class frmMain
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
         Me.FlowLayoutPanel2.Padding = New System.Windows.Forms.Padding(24, 4, 0, 4)
         Me.TableLayoutPanel1.SetRowSpan(Me.FlowLayoutPanel2, 2)
-        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(326, 51)
+        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(352, 51)
         Me.FlowLayoutPanel2.TabIndex = 1
         Me.FlowLayoutPanel2.WrapContents = False
         '
@@ -233,10 +234,10 @@ Partial Class frmMain
         Me.FlowPanelSettings.Controls.Add(Me.cmdSettings)
         Me.FlowPanelSettings.Controls.Add(Me.cmdTools)
         Me.FlowPanelSettings.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowPanelSettings.Location = New System.Drawing.Point(330, 0)
+        Me.FlowPanelSettings.Location = New System.Drawing.Point(356, 0)
         Me.FlowPanelSettings.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowPanelSettings.Name = "FlowPanelSettings"
-        Me.FlowPanelSettings.Size = New System.Drawing.Size(180, 22)
+        Me.FlowPanelSettings.Size = New System.Drawing.Size(154, 22)
         Me.FlowPanelSettings.TabIndex = 5
         Me.FlowPanelSettings.WrapContents = False
         '
@@ -252,7 +253,7 @@ Partial Class frmMain
         Me.cmdAbout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdAbout.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdAbout.Location = New System.Drawing.Point(134, 0)
+        Me.cmdAbout.Location = New System.Drawing.Point(108, 0)
         Me.cmdAbout.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdAbout.Name = "cmdAbout"
         Me.cmdAbout.Size = New System.Drawing.Size(46, 22)
@@ -272,14 +273,12 @@ Partial Class frmMain
         Me.cmdSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSettings.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSettings.Image = Global.sstatesman.My.Resources.Resources.Gear
-        Me.cmdSettings.Location = New System.Drawing.Point(60, 0)
+        Me.cmdSettings.Location = New System.Drawing.Point(50, 0)
         Me.cmdSettings.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSettings.Name = "cmdSettings"
-        Me.cmdSettings.Size = New System.Drawing.Size(74, 22)
+        Me.cmdSettings.Size = New System.Drawing.Size(58, 22)
         Me.cmdSettings.TabIndex = 6
         Me.cmdSettings.Text = " &SETTINGS"
-        Me.cmdSettings.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdSettings.UseVisualStyleBackColor = False
         '
         'cmdTools
@@ -294,14 +293,14 @@ Partial Class frmMain
         Me.cmdTools.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdTools.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdTools.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdTools.Image = Global.sstatesman.My.Resources.Resources.Tools
+        Me.cmdTools.Image = Global.sstatesman.My.Resources.Resources.Metro_Toolbar_Dropdown
         Me.cmdTools.Location = New System.Drawing.Point(0, 0)
         Me.cmdTools.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdTools.Name = "cmdTools"
-        Me.cmdTools.Size = New System.Drawing.Size(60, 22)
+        Me.cmdTools.Size = New System.Drawing.Size(50, 22)
         Me.cmdTools.TabIndex = 12
         Me.cmdTools.Text = "&TOOLS"
-        Me.cmdTools.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.cmdTools.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         Me.cmdTools.UseVisualStyleBackColor = False
         '
         'FlowLayoutPanel1
@@ -439,7 +438,7 @@ Partial Class frmMain
         Me.optSettingTab1.FlatAppearance.BorderSize = 0
         Me.optSettingTab1.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
+        Me.optSettingTab1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optSettingTab1.Location = New System.Drawing.Point(0, 0)
         Me.optSettingTab1.Margin = New System.Windows.Forms.Padding(0)
@@ -459,7 +458,7 @@ Partial Class frmMain
         Me.optSettingTab2.FlatAppearance.BorderSize = 0
         Me.optSettingTab2.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
+        Me.optSettingTab2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optSettingTab2.Location = New System.Drawing.Point(69, 0)
         Me.optSettingTab2.Margin = New System.Windows.Forms.Padding(0)
@@ -478,7 +477,7 @@ Partial Class frmMain
         Me.optSettingTab3.FlatAppearance.BorderSize = 0
         Me.optSettingTab3.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
+        Me.optSettingTab3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optSettingTab3.Location = New System.Drawing.Point(125, 0)
         Me.optSettingTab3.Margin = New System.Windows.Forms.Padding(0)
@@ -597,7 +596,7 @@ Partial Class frmMain
         Me.lvwGamesList.BackColor = System.Drawing.Color.White
         Me.lvwGamesList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lvwGamesList.CheckBoxes = True
-        Me.lvwGamesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.GamesLvw_GameTitle, Me.GameLvw_GameSerial, Me.GameLvw_GameRegion, Me.GameLvw_SStatesInfo, Me.GameLvw_BackupInfo})
+        Me.lvwGamesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.GamesLvw_GameTitle, Me.GameLvw_GameSerial, Me.GameLvw_GameRegion, Me.GameLvw_SStatesInfo, Me.GameLvw_BackupInfo, Me.GameLvw_SnapsInfo})
         Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 9)
         Me.lvwGamesList.Cursor = System.Windows.Forms.Cursors.Default
         Me.lvwGamesList.Dock = System.Windows.Forms.DockStyle.Fill
@@ -619,7 +618,7 @@ Partial Class frmMain
         'GamesLvw_GameTitle
         '
         Me.GamesLvw_GameTitle.Text = "Game title"
-        Me.GamesLvw_GameTitle.Width = 220
+        Me.GamesLvw_GameTitle.Width = 200
         '
         'GameLvw_GameSerial
         '
@@ -634,13 +633,13 @@ Partial Class frmMain
         '
         Me.GameLvw_SStatesInfo.Text = "Savestates"
         Me.GameLvw_SStatesInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.GameLvw_SStatesInfo.Width = 110
+        Me.GameLvw_SStatesInfo.Width = 80
         '
         'GameLvw_BackupInfo
         '
         Me.GameLvw_BackupInfo.Text = "Backups"
         Me.GameLvw_BackupInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.GameLvw_BackupInfo.Width = 110
+        Me.GameLvw_BackupInfo.Width = 80
         '
         'imgCover
         '
@@ -1249,9 +1248,16 @@ Partial Class frmMain
         '
         'DeveloperToolsToolStripMenuItem
         '
+        Me.DeveloperToolsToolStripMenuItem.Image = Global.sstatesman.My.Resources.Resources.Tools
         Me.DeveloperToolsToolStripMenuItem.Name = "DeveloperToolsToolStripMenuItem"
         Me.DeveloperToolsToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
         Me.DeveloperToolsToolStripMenuItem.Text = "Developer Tools"
+        '
+        'GameLvw_SnapsInfo
+        '
+        Me.GameLvw_SnapsInfo.Text = "Screenshots"
+        Me.GameLvw_SnapsInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.GameLvw_SnapsInfo.Width = 80
         '
         'frmMain
         '
@@ -1367,7 +1373,6 @@ Partial Class frmMain
     Friend WithEvents TableLayoutPanel4 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents TableLayoutPanel5 As System.Windows.Forms.TableLayoutPanel
     Private WithEvents lblSStateListSelection As System.Windows.Forms.Label
-    Private WithEvents txtSStateListSelection As System.Windows.Forms.TextBox
     Private WithEvents txtSizeBackup As System.Windows.Forms.TextBox
     Private WithEvents lblSize As System.Windows.Forms.Label
     Private WithEvents lblSizeBackup As System.Windows.Forms.Label
@@ -1380,7 +1385,6 @@ Partial Class frmMain
     Private WithEvents cmdRefresh As System.Windows.Forms.Button
     Friend WithEvents panelWindowTitle As System.Windows.Forms.Panel
     Friend WithEvents FlowLayoutPanel3 As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents SStatesLvw_Version As System.Windows.Forms.ColumnHeader
     Friend WithEvents cmPCSX2 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents cmiPCSX2Launch As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmiPCSX2BinFolderOpen As System.Windows.Forms.ToolStripMenuItem
@@ -1390,4 +1394,7 @@ Partial Class frmMain
     Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents GameDBExplorerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DeveloperToolsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents txtSStateListSelection As System.Windows.Forms.TextBox
+    Private WithEvents SStatesLvw_Version As System.Windows.Forms.ColumnHeader
+    Private WithEvents GameLvw_SnapsInfo As System.Windows.Forms.ColumnHeader
 End Class

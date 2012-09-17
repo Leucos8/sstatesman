@@ -42,8 +42,8 @@ Public Class frmGameDb
         Select Case PCSX2GameDb.Status
             Case LoadStatus.StatusLoadedOK
                 Me.CurrentGame = PCSX2GameDb.RecordExtract(Me.CurrentSerial)
-                Me.ToolStripStatusLabel2.Text = System.String.Format("GameDB loaded in {0:N4}ms.", PCSX2GameDb.LoadTime / Stopwatch.Frequency * 1000)
-                Me.ToolStripStatusLabel3.Text = System.String.Format("List created in {0:N4}ms.", Me.populationTime / Stopwatch.Frequency * 1000)
+                Me.ToolStripStatusLabel2.Text = System.String.Format("GameDB loaded in {0:N2}ms.", PCSX2GameDb.LoadTime / Stopwatch.Frequency * 1000)
+                Me.ToolStripStatusLabel3.Text = System.String.Format("List created in {0:N2}ms.", Me.populationTime / Stopwatch.Frequency * 1000)
                 If Not (SearchIsActive) Then
                     Me.ToolStripStatusLabel1.Text = System.String.Format("{0} games.", PCSX2GameDb.Records.Count.ToString("N0"))
                 Else

@@ -140,14 +140,13 @@ Public Class frmDeleteForm
         End If
         Me.WindowState = My.Settings.frmDel_WindowState
 
-        Me.StDelLvw_FileName.Width = My.Settings.frmDel_slvw_cFileName
-        Me.StDelLvw_Slot.Width = My.Settings.frmDel_slvw_cSlot
-        Me.StDelLvw_Backup.Width = My.Settings.frmDel_slvw_cBackup
-        Me.StDelLvw_Version.Width = My.Settings.frmDel_slvw_cVersion
-        Me.StDelLvw_LastWT.Width = My.Settings.frmDel_slvw_cLastWT
-        Me.StDelLvw_Size.Width = My.Settings.frmDel_slvw_cSize
-        Me.StDelLvw_Status.Width = My.Settings.frmDel_slvw_cStatus
-
+        If My.Settings.frmDel_slvw_columnwidth IsNot Nothing Then
+            If My.Settings.frmDel_slvw_columnwidth.Length = Me.lvwSStatesListToDelete.Columns.Count Then
+                For i As Integer = 0 To Me.lvwSStatesListToDelete.Columns.Count - 1
+                    Me.lvwSStatesListToDelete.Columns(i).Width = My.Settings.frmDel_slvw_columnwidth(i)
+                Next
+            End If
+        End If
 
         Me.applyTheme()
 
@@ -172,13 +171,9 @@ Public Class frmDeleteForm
             My.Settings.frmDel_WindowSize = Me.Size
         End If
 
-        My.Settings.frmDel_slvw_cFileName = Me.StDelLvw_FileName.Width
-        My.Settings.frmDel_slvw_cSlot = Me.StDelLvw_Slot.Width
-        My.Settings.frmDel_slvw_cBackup = Me.StDelLvw_Backup.Width
-        My.Settings.frmDel_slvw_cVersion = Me.StDelLvw_Version.Width
-        My.Settings.frmDel_slvw_cLastWT = Me.StDelLvw_LastWT.Width
-        My.Settings.frmDel_slvw_cSize = Me.StDelLvw_Size.Width
-        My.Settings.frmDel_slvw_cStatus = Me.StDelLvw_Status.Width
+        Dim columnwidtharray As Integer() = {Me.StDelLvw_FileName.Width, Me.StDelLvw_Slot.Width, Me.StDelLvw_Backup.Width,
+                                             Me.StDelLvw_Version.Width, Me.StDelLvw_LastWT.Width, Me.StDelLvw_Size.Width, Me.StDelLvw_Status.Width}
+        My.Settings.frmDel_slvw_columnwidth = columnwidtharray
 
         frmMain.List_Refresher()
     End Sub

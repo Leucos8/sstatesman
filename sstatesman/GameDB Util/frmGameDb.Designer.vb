@@ -79,6 +79,7 @@ Partial Class frmGameDb
         '
         'StatusStrip1
         '
+        Me.StatusStrip1.BackColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel3})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 300)
         Me.StatusStrip1.Name = "StatusStrip1"
@@ -88,6 +89,7 @@ Partial Class frmGameDb
         '
         'ToolStripStatusLabel2
         '
+        Me.ToolStripStatusLabel2.ForeColor = System.Drawing.Color.White
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
         Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(10, 17)
         Me.ToolStripStatusLabel2.Text = " "
@@ -95,6 +97,7 @@ Partial Class frmGameDb
         '
         'ToolStripStatusLabel1
         '
+        Me.ToolStripStatusLabel1.ForeColor = System.Drawing.Color.White
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
         Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(10, 17)
         Me.ToolStripStatusLabel1.Text = " "
@@ -102,6 +105,7 @@ Partial Class frmGameDb
         '
         'ToolStripStatusLabel3
         '
+        Me.ToolStripStatusLabel3.ForeColor = System.Drawing.Color.White
         Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
         Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(10, 17)
         Me.ToolStripStatusLabel3.Text = " "

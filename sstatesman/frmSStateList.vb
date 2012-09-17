@@ -19,8 +19,8 @@ Public Class frmSStateList
     Dim populationTime As Long
 
     Private Sub ShowStatus()
-        Me.ToolStripStatusLabel1.Text = String.Format("Savestates scanned in {0:N4}ms.", mdlFileList.GameList_LoadTime / Stopwatch.Frequency * 1000)
-        Me.ToolStripStatusLabel2.Text = System.String.Format("List created in {0:N4}ms.", Me.populationTime / Stopwatch.Frequency * 1000)
+        Me.ToolStripStatusLabel1.Text = String.Format("Savestates scanned in {0:N2}ms.", mdlFileList.GameList_LoadTime / Stopwatch.Frequency * 1000)
+        Me.ToolStripStatusLabel2.Text = System.String.Format("List created in {0:N2}ms.", Me.populationTime / Stopwatch.Frequency * 1000)
     End Sub
 
     Private Sub AddHeader(ByVal Type As Byte)

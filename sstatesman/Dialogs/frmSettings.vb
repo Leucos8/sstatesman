@@ -703,7 +703,7 @@ Public Class frmSettings
             If AppLog(i).Duration = -1 Then
                 tmpListItem.SubItems.Add("-")
             Else
-                tmpListItem.SubItems.Add(String.Format("{0:N4}ms", AppLog(i).Duration / Stopwatch.Frequency * 1000))
+                tmpListItem.SubItems.Add(String.Format("{0:N2}ms", AppLog(i).Duration / Stopwatch.Frequency * 1000))
             End If
             tmpListItems.Add(tmpListItem)
         Next
@@ -735,7 +735,7 @@ Public Class frmSettings
             If tmpLogItem.Duration = -1 Then
                 tmpListItem.SubItems.Add("-")
             Else
-                tmpListItem.SubItems.Add(String.Format("{0:N4}ms", tmpLogItem.Duration / Stopwatch.Frequency * 1000))
+                tmpListItem.SubItems.Add(String.Format("{0:N2}ms", tmpLogItem.Duration / Stopwatch.Frequency * 1000))
             End If
             tmpListItems.Add(tmpListItem)
         Next

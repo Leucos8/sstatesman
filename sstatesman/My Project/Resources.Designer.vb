@@ -468,6 +468,16 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property Metro_Toolbar_Dropdown() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Metro_Toolbar_Dropdown", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property Metro_WindowButtonClose() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Metro_WindowButtonClose", resourceCulture)
