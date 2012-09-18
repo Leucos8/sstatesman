@@ -47,8 +47,6 @@ Partial Class frmSStateList
         Me.tsSavestatesAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsSavestatesCurrent = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsSavestatesChecked = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ListView1 = New System.Windows.Forms.ListView()
         Me.tsStored = New System.Windows.Forms.ToolStripSplitButton()
         Me.tsStoredAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsStoredCurrent = New System.Windows.Forms.ToolStripMenuItem()
@@ -57,12 +55,15 @@ Partial Class frmSStateList
         Me.tsSnapsAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsSnapsCurrent = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsSnapsSelected = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ListView1 = New System.Windows.Forms.ListView()
         Me.StatusStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'StatusStrip1
         '
+        Me.StatusStrip1.BackColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2})
         Me.StatusStrip1.Location = New System.Drawing.Point(0, 420)
         Me.StatusStrip1.Name = "StatusStrip1"
@@ -72,18 +73,22 @@ Partial Class frmSStateList
         '
         'ToolStripStatusLabel1
         '
+        Me.ToolStripStatusLabel1.ForeColor = System.Drawing.Color.White
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
         Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(12, 17)
         Me.ToolStripStatusLabel1.Text = "_"
         '
         'ToolStripStatusLabel2
         '
+        Me.ToolStripStatusLabel2.ForeColor = System.Drawing.Color.White
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
         Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(10, 17)
         Me.ToolStripStatusLabel2.Text = " "
         '
         'ToolStrip1
         '
+        Me.ToolStrip1.BackColor = System.Drawing.Color.Gainsboro
+        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
         Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsGames, Me.tsSavestates, Me.tsStored, Me.tsSnaps})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
@@ -97,20 +102,20 @@ Partial Class frmSStateList
         Me.tsGames.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsGamesAll, Me.tsGamesChecked})
         Me.tsGames.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsGames.Name = "tsGames"
-        Me.tsGames.Size = New System.Drawing.Size(80, 22)
-        Me.tsGames.Text = "Games List"
+        Me.tsGames.Size = New System.Drawing.Size(59, 22)
+        Me.tsGames.Text = "Games"
         '
         'tsGamesAll
         '
         Me.tsGamesAll.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tsGamesAll.Name = "tsGamesAll"
-        Me.tsGamesAll.Size = New System.Drawing.Size(152, 22)
+        Me.tsGamesAll.Size = New System.Drawing.Size(120, 22)
         Me.tsGamesAll.Text = "All"
         '
         'tsGamesChecked
         '
         Me.tsGamesChecked.Name = "tsGamesChecked"
-        Me.tsGamesChecked.Size = New System.Drawing.Size(152, 22)
+        Me.tsGamesChecked.Size = New System.Drawing.Size(120, 22)
         Me.tsGamesChecked.Text = "Checked"
         '
         'tsSavestates
@@ -127,35 +132,20 @@ Partial Class frmSStateList
         '
         Me.tsSavestatesAll.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tsSavestatesAll.Name = "tsSavestatesAll"
-        Me.tsSavestatesAll.Size = New System.Drawing.Size(152, 22)
+        Me.tsSavestatesAll.Size = New System.Drawing.Size(120, 22)
         Me.tsSavestatesAll.Text = "All"
         '
         'tsSavestatesCurrent
         '
         Me.tsSavestatesCurrent.Name = "tsSavestatesCurrent"
-        Me.tsSavestatesCurrent.Size = New System.Drawing.Size(152, 22)
+        Me.tsSavestatesCurrent.Size = New System.Drawing.Size(120, 22)
         Me.tsSavestatesCurrent.Text = "Current"
         '
         'tsSavestatesChecked
         '
         Me.tsSavestatesChecked.Name = "tsSavestatesChecked"
-        Me.tsSavestatesChecked.Size = New System.Drawing.Size(152, 22)
+        Me.tsSavestatesChecked.Size = New System.Drawing.Size(120, 22)
         Me.tsSavestatesChecked.Text = "Checked"
-        '
-        'ToolStripSeparator3
-        '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 6)
-        '
-        'ListView1
-        '
-        Me.ListView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ListView1.Location = New System.Drawing.Point(0, 25)
-        Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(744, 395)
-        Me.ListView1.TabIndex = 18
-        Me.ListView1.UseCompatibleStateImageBehavior = False
-        Me.ListView1.View = System.Windows.Forms.View.Details
         '
         'tsStored
         '
@@ -172,21 +162,21 @@ Partial Class frmSStateList
         Me.tsStoredAll.Enabled = False
         Me.tsStoredAll.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tsStoredAll.Name = "tsStoredAll"
-        Me.tsStoredAll.Size = New System.Drawing.Size(152, 22)
+        Me.tsStoredAll.Size = New System.Drawing.Size(120, 22)
         Me.tsStoredAll.Text = "All"
         '
         'tsStoredCurrent
         '
         Me.tsStoredCurrent.Enabled = False
         Me.tsStoredCurrent.Name = "tsStoredCurrent"
-        Me.tsStoredCurrent.Size = New System.Drawing.Size(152, 22)
+        Me.tsStoredCurrent.Size = New System.Drawing.Size(120, 22)
         Me.tsStoredCurrent.Text = "Current"
         '
         'tsStoredChecked
         '
         Me.tsStoredChecked.Enabled = False
         Me.tsStoredChecked.Name = "tsStoredChecked"
-        Me.tsStoredChecked.Size = New System.Drawing.Size(152, 22)
+        Me.tsStoredChecked.Size = New System.Drawing.Size(120, 22)
         Me.tsStoredChecked.Text = "Checked"
         '
         'tsSnaps
@@ -202,33 +192,52 @@ Partial Class frmSStateList
         '
         Me.tsSnapsAll.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tsSnapsAll.Name = "tsSnapsAll"
-        Me.tsSnapsAll.Size = New System.Drawing.Size(152, 22)
+        Me.tsSnapsAll.Size = New System.Drawing.Size(118, 22)
         Me.tsSnapsAll.Text = "All"
         '
         'tsSnapsCurrent
         '
         Me.tsSnapsCurrent.Enabled = False
         Me.tsSnapsCurrent.Name = "tsSnapsCurrent"
-        Me.tsSnapsCurrent.Size = New System.Drawing.Size(152, 22)
+        Me.tsSnapsCurrent.Size = New System.Drawing.Size(118, 22)
         Me.tsSnapsCurrent.Text = "Current"
         '
         'tsSnapsSelected
         '
         Me.tsSnapsSelected.Enabled = False
         Me.tsSnapsSelected.Name = "tsSnapsSelected"
-        Me.tsSnapsSelected.Size = New System.Drawing.Size(152, 22)
+        Me.tsSnapsSelected.Size = New System.Drawing.Size(118, 22)
         Me.tsSnapsSelected.Text = "Selected"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 6)
+        '
+        'ListView1
+        '
+        Me.ListView1.BackColor = System.Drawing.Color.White
+        Me.ListView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ListView1.Location = New System.Drawing.Point(0, 25)
+        Me.ListView1.Name = "ListView1"
+        Me.ListView1.Size = New System.Drawing.Size(744, 395)
+        Me.ListView1.TabIndex = 18
+        Me.ListView1.UseCompatibleStateImageBehavior = False
+        Me.ListView1.View = System.Windows.Forms.View.Details
         '
         'frmSStateList
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
+        Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(744, 442)
         Me.Controls.Add(Me.ListView1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.StatusStrip1)
+        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ForeColor = System.Drawing.Color.Black
         Me.Name = "frmSStateList"
-        Me.Text = "SStateList Util - For developer only"
+        Me.Text = "Developer Tools"
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.ToolStrip1.ResumeLayout(False)
