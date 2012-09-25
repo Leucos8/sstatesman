@@ -190,62 +190,42 @@ Module mdlGameDb
 
             If Status = LoadStatus.StatusEmpty Or Status = LoadStatus.StatusLoadedOK Then
                 Select Case pSerial
-                    Case "SCREENSHOTS"
-                        With myGameDb_RecordExtract
-                            .Serial = "Screenshots"
-                            .Name = "(Screenshots)"
-                            .Region = "unk"
-                            .Compat = "0"
-                        End With
-                    Case "GSDX"
-                        With myGameDb_RecordExtract
-                            .Serial = "GSdX"
-                            .Name = "(GSdX screenshots)"
-                            .Region = "unk"
-                            .Compat = "0"
-                        End With
+                    'Case "SCREENSHOTS"
+                    '    myGameDb_RecordExtract.Serial = "Screenshots"
+                    '    myGameDb_RecordExtract.Name = "(Screenshots)"
+                    '    myGameDb_RecordExtract.Region = "unk"
+                    '    myGameDb_RecordExtract.Compat = "0"
+                    'Case "GSDX"
+                    '    myGameDb_RecordExtract.Serial = "GSdX"
+                    '    myGameDb_RecordExtract.Name = "(GSdX screenshots)"
+                    '    myGameDb_RecordExtract.Region = "unk"
+                    '    myGameDb_RecordExtract.Compat = "0"
                     Case "BIOS"
-                        With myGameDb_RecordExtract
-                            .Serial = "BIOS"
-                            .Name = "(PS2 BIOS)"
-                            .Region = "unk"
-                            .Compat = "5"
-                        End With
-                    Case ""
-                        With myGameDb_RecordExtract
-                            .Serial = pSerial
-                            .Name = ""
-                            .Region = ""
-                            .Compat = "0"
-                        End With
+                        myGameDb_RecordExtract.Serial = "BIOS"
+                        myGameDb_RecordExtract.Name = "(PS2 BIOS)"
+                        myGameDb_RecordExtract.Region = "unk"
+                        myGameDb_RecordExtract.Compat = "5"
                     Case Else
 
                         If Not (Records.TryGetValue(pSerial, myGameDb_RecordExtract)) Then
-                            myGameDb_RecordExtract = New GameInfo
-                            With myGameDb_RecordExtract
-                                .Serial = pSerial
-                                .Name = "(Not found in GameDB)"
-                                .Region = "unk"
-                                .Compat = "0"
-                            End With
+                            myGameDb_RecordExtract = New GameInfo With {.Serial = pSerial,
+                                                                        .Name = "(Not found in GameDB)",
+                                                                        .Region = "unk",
+                                                                        .Compat = "0"}
                         End If
                 End Select
                 'mdlMain.WriteToConsole("GameDB", "RecordExtract", System.String.Format("from serial ""{0}"" > ""{1}"".", pSerial, myGameDb_RecordExtract.Name))
             ElseIf Status = LoadStatus.StatusNotLoaded Then
-                With myGameDb_RecordExtract
-                    .Serial = pSerial
-                    .Name = "(GameDB not loaded)"
-                    .Region = ""
-                    .Compat = "0"
-                End With
+                myGameDb_RecordExtract.Serial = pSerial
+                myGameDb_RecordExtract.Name = "(GameDB not loaded)"
+                myGameDb_RecordExtract.Region = ""
+                myGameDb_RecordExtract.Compat = "0"
                 mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB is not loaded.")
             ElseIf Status = LoadStatus.StatusError Then
-                With myGameDb_RecordExtract
-                    .Serial = pSerial
-                    .Name = "(GameDB error)"
-                    .Region = ""
-                    .Compat = "0"
-                End With
+                myGameDb_RecordExtract.Serial = pSerial
+                myGameDb_RecordExtract.Name = "(GameDB error)"
+                myGameDb_RecordExtract.Region = ""
+                myGameDb_RecordExtract.Compat = "0"
                 mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB is not loaded because an error occurred.")
             Else
                 mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, Status is set to " & Status.ToString)
@@ -261,31 +241,30 @@ Module mdlGameDb
 
                 pExtractedGameDb.Clear()
 
-                For Each myTmpSerial As System.String In pSerial
+                For Each tmpSerial As System.String In pSerial
 
-                    myTmpSerial = myTmpSerial.ToUpper
+                    'tmpSerial = tmpSerial.ToUpper
 
-                    Dim myRecordExtract As New GameInfo With {.Serial = myTmpSerial, .Name = "(Not found in GameDB)", .Region = "unk", .Compat = "0"}
+                    'Dim tmpRecordExtract As New GameInfo With {.Serial = tmpSerial, .Name = "(Not found in GameDB)", .Region = "unk", .Compat = "0"}
 
-                    Select Case myTmpSerial
-                        Case "BIOS"
-                            With myRecordExtract
-                                .Serial = "BIOS"
-                                .Name = "(PS2 BIOS)"
-                                .Region = "unk"
-                                .Compat = "5"
-                            End With
-                        Case Else
-                            If Not (Records.TryGetValue(myTmpSerial, myRecordExtract)) Then
-                                With myRecordExtract
-                                    .Serial = myTmpSerial
-                                    .Name = "(Not found in GameDB)"
-                                    .Region = "unk"
-                                    .Compat = "0"
-                                End With
-                            End If
-                    End Select
-                    pExtractedGameDb.Add(myRecordExtract.Serial, myRecordExtract)
+                    'Select Case tmpSerial
+                    '    Case "BIOS"
+                    '        tmpRecordExtract.Serial = "BIOS"
+                    '        tmpRecordExtract.Name = "(PS2 BIOS)"
+                    '        tmpRecordExtract.Region = "unk"
+                    '        tmpRecordExtract.Compat = "5"
+                    '    Case Else
+                    '        If Not (Records.TryGetValue(tmpSerial, tmpRecordExtract)) Then
+                    '            With tmpRecordExtract
+                    '                .Serial = tmpSerial
+                    '                .Name = "(Not found in GameDB)"
+                    '                .Region = "unk"
+                    '                .Compat = "0"
+                    '            End With
+                    '        End If
+                    'End Select
+
+                    pExtractedGameDb.Add(RecordExtract(tmpSerial).Serial, RecordExtract(tmpSerial))
 
                 Next
 
