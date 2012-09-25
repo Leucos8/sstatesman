@@ -647,12 +647,14 @@ Public Class frmMain
 
         Dim tmpSListGroups As New List(Of ListViewGroup)
         Dim tmpSListItems As New List(Of ListViewItem)
+        Dim lastSState As Integer = -1
+        Dim lastSStateDate As Date = Date.MinValue
 
 
         For Each tmpSerial As System.String In mdlMain.checkedGames
 
             Dim tmpGamesListItem As New GamesList_Item
-            If mdlFileList.GamesList.TryGetValue(tmpSerial, tmpGamesListItem) Then
+            If (mdlFileList.GamesList.TryGetValue(tmpSerial, tmpGamesListItem)) Then
 
                 'Creation of the header
                 currentGameInfo = PCSX2GameDb.RecordExtract(tmpSerial)
@@ -667,7 +669,7 @@ Public Class frmMain
                 lvwGamesList_SelectedSize += mdlFileList.GamesList(currentGameInfo.Serial).Savestates_SizeTot
                 lvwGamesList_SelectedSizeBackup += mdlFileList.GamesList(currentGameInfo.Serial).SavestatesBackup_SizeTot
 
-                If mdlFileList.GamesList(tmpSerial).Savestates.Values.Count > 0 Then
+                If (mdlFileList.GamesList(tmpSerial).Savestates.Values.Count > 0) Then
                     For Each tmpSavestate As KeyValuePair(Of String, Savestate) In mdlFileList.GamesList(tmpSerial).Savestates
 
                         Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key,
@@ -678,17 +680,26 @@ Public Class frmMain
                                                            tmpSavestate.Value.Version,
                                                            tmpSavestate.Value.LastWriteTime.ToString,
                                                            System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2)})
-                        If checkedSavestates.Contains(tmpSavestate.Key) Then
+                        If (checkedSavestates.Contains(tmpSavestate.Key)) Then
                             tmpLvwSListItem.Checked = True
                         End If
 
                         tmpSListItems.Add(tmpLvwSListItem)
+
+                        If (tmpSavestate.Value.LastWriteTime > lastSStateDate) Then
+                            lastSState = tmpSListItems.Count - 1
+                        End If
                     Next
                 End If
 
             End If
 
+            If (lastSState > -1) Then
+                tmpSListItems.Item(lastSState).SubItems(0).ForeColor = Color.FromArgb(255, 65, 74, 100)
+            End If
         Next
+
+
         Me.lvwSStatesList.Groups.AddRange(tmpSListGroups.ToArray)
         Me.lvwSStatesList.Items.AddRange(tmpSListItems.ToArray)
         mdlTheme.ListAlternateColors(Me.lvwSStatesList)

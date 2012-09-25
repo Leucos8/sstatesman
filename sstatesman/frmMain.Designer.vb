@@ -68,6 +68,7 @@ Partial Class frmMain
         Me.GameLvw_GameRegion = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GameLvw_SStatesInfo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.GameLvw_BackupInfo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.GameLvw_SnapsInfo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.imgCover = New System.Windows.Forms.PictureBox()
         Me.lblGameList_Title = New System.Windows.Forms.Label()
         Me.txtGameList_Title = New System.Windows.Forms.TextBox()
@@ -116,7 +117,6 @@ Partial Class frmMain
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.GameDBExplorerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeveloperToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.GameLvw_SnapsInfo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.panelWindowTitle.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel2.SuspendLayout()
@@ -532,7 +532,7 @@ Partial Class frmMain
         Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SplitContainer1.Location = New System.Drawing.Point(0, 79)
         Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(2)
-        Me.SplitContainer1.MinimumSize = New System.Drawing.Size(0, 160)
+        Me.SplitContainer1.MinimumSize = New System.Drawing.Size(400, 360)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
