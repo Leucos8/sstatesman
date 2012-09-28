@@ -196,7 +196,7 @@ Public Class frmSStateList
         AddHeader(1)
 
         For Each tmpGamesListItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In mdlFileList.GamesList
-            For Each tmpSnaps As KeyValuePair(Of String, FileInfo) In tmpGamesListItem.Value.Snapshots
+            For Each tmpSnaps As KeyValuePair(Of String, Snapshot) In tmpGamesListItem.Value.Snapshots
                 Dim tmpListViewItem As New ListViewItem With {.Text = Snapshot.GetSerial(tmpSnaps.Value.Name), .Name = tmpSnaps.Value.Name}
                 tmpListViewItem.SubItems.AddRange({tmpSnaps.Key, "", tmpSnaps.Value.Extension, "", tmpSnaps.Value.LastWriteTime.ToString, (tmpSnaps.Value.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
                 If checkedGames.Contains(tmpGamesListItem.Key) Then

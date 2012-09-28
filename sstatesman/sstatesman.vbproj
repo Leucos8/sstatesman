@@ -245,6 +245,9 @@
     <None Include="Resources\Metro-ChecboxChecked.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="savestates version.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\Tools.png" />
     <None Include="Resources\PCSX2_16.png" />
     <None Include="Resources\Nocover.png" />
