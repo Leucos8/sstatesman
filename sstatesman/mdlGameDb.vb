@@ -123,7 +123,7 @@ Module mdlGameDb
                             If Not ((myLine.Substring(0, FileGameDb_CommentStyle1.Length) = FileGameDb_CommentStyle1) Or
                                     (myLine.Substring(0, 1) = vbTab)) Then
 
-                                Dim mySplittedLine As System.String() = myLine.Split({FileGameDb_FieldSep})
+                                Dim mySplittedLine As String() = myLine.Split({FileGameDb_FieldSep})
 
                                 If mySplittedLine.Length > 1 Then
 
@@ -171,18 +171,22 @@ Module mdlGameDb
 
             Catch ex As Exception
                 mdlMain.AppendToLog("GameDB", "Load", String.Concat("Some kinda GameDB loading failure. ", ex.Message))
-                Records.Clear()
+                Unload()
                 Status = LoadStatus.StatusError
             End Try
         End Sub
 
         Public Sub Unload()
-            Records.Clear()
+            If Records IsNot Nothing Then
+                If Not (Records.Count = 0) Then
+                    Records.Clear()
+                End If
+            End If
             Status = LoadStatus.StatusNotLoaded
             LoadTime = 0
         End Sub
 
-        Public Function RecordExtract(ByVal pSerial As System.String) As GameInfo
+        Public Function RecordExtract(ByVal pSerial As String) As GameInfo
             pSerial = pSerial.ToUpper
 
             Dim myGameDb_RecordExtract As New GameInfo With {.Serial = pSerial, .Name = "", .Region = "", .Compat = "0"}
@@ -214,7 +218,7 @@ Module mdlGameDb
                                                                         .Compat = "0"}
                         End If
                 End Select
-                'mdlMain.WriteToConsole("GameDB", "RecordExtract", System.String.Format("from serial ""{0}"" > ""{1}"".", pSerial, myGameDb_RecordExtract.Name))
+                'mdlMain.WriteToConsole("GameDB", "RecordExtract", String.Format("from serial ""{0}"" > ""{1}"".", pSerial, myGameDb_RecordExtract.Name))
             ElseIf Status = LoadStatus.StatusNotLoaded Then
                 myGameDb_RecordExtract.Serial = pSerial
                 myGameDb_RecordExtract.Name = "(GameDB not loaded)"
@@ -233,39 +237,16 @@ Module mdlGameDb
             Return myGameDb_RecordExtract
         End Function
 
-        Public Function RecordExtract(ByVal pSerial As List(Of System.String),
-                                      ByRef pExtractedGameDb As Dictionary(Of System.String, GameInfo)
+        Public Function RecordExtract(ByVal pSerial As List(Of String),
+                                      ByRef pExtractedGameDb As Dictionary(Of String, GameInfo)
                                       ) As mdlMain.LoadStatus
 
             If Status = LoadStatus.StatusLoadedOK Or Status = LoadStatus.StatusEmpty Then
 
                 pExtractedGameDb.Clear()
 
-                For Each tmpSerial As System.String In pSerial
-
-                    'tmpSerial = tmpSerial.ToUpper
-
-                    'Dim tmpRecordExtract As New GameInfo With {.Serial = tmpSerial, .Name = "(Not found in GameDB)", .Region = "unk", .Compat = "0"}
-
-                    'Select Case tmpSerial
-                    '    Case "BIOS"
-                    '        tmpRecordExtract.Serial = "BIOS"
-                    '        tmpRecordExtract.Name = "(PS2 BIOS)"
-                    '        tmpRecordExtract.Region = "unk"
-                    '        tmpRecordExtract.Compat = "5"
-                    '    Case Else
-                    '        If Not (Records.TryGetValue(tmpSerial, tmpRecordExtract)) Then
-                    '            With tmpRecordExtract
-                    '                .Serial = tmpSerial
-                    '                .Name = "(Not found in GameDB)"
-                    '                .Region = "unk"
-                    '                .Compat = "0"
-                    '            End With
-                    '        End If
-                    'End Select
-
+                For Each tmpSerial As String In pSerial
                     pExtractedGameDb.Add(RecordExtract(tmpSerial).Serial, RecordExtract(tmpSerial))
-
                 Next
 
                 If pExtractedGameDb.Count > 0 Then
@@ -346,7 +327,7 @@ Module mdlGameDb
         ''' <summary>Export the gamedb to a text file (it can be imported in Excel and Access).</summary>
         ''' <param name="pGameDbExport_Loc">Path and file name of the saved file.</param>
         ''' <param name="pSep">Separator character to be used in the exported file.</param>
-        Public Sub ExporTxt(ByVal pGameDbExport_Loc As String, ByVal pSep As String)
+        Public Sub ExportTxt(ByVal pGameDbExport_Loc As String, ByVal pSep As String)
             GameDB.ExportTxt(pGameDbExport_Loc, pSep, Records)
         End Sub
 

@@ -193,7 +193,7 @@ Public Class frmGameDb
                     .Title = "Save records to..."
                 End With
                 If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                    PCSX2GameDb.ExporTxt(SaveDialog.FileName, vbTab)
+                    PCSX2GameDb.ExportTxt(SaveDialog.FileName, vbTab)
                 End If
             End If
         End Using
@@ -232,7 +232,7 @@ Public Class frmGameDb
                     .Title = "Save records to..."
                 End With
                 If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                    PCSX2GameDb.ExporTxt(SaveDialog.FileName, ";")
+                    PCSX2GameDb.ExportTxt(SaveDialog.FileName, ";")
                 End If
             End If
         End Using
