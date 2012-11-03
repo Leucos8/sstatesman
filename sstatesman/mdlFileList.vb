@@ -161,9 +161,9 @@ Module mdlFileList
                     For i As Integer = 0 To PCSX2_VersionDB.DB.Count - 1
                         If PCSX2_VersionDB.DB(i).version.ToUpper = tmpItem.Version.ToUpper Then
                             If i > 0 Then
-                                tmpItem.Version &= " (r" & PCSX2_VersionDB.DB(i).minrevision.ToString & " > r" & (PCSX2_VersionDB.DB(i - 1).minrevision - 1).ToString & ")"
+                                tmpItem.Version &= " (r" & PCSX2_VersionDB.DB(i).minrevision.ToString & ">" & (PCSX2_VersionDB.DB(i - 1).minrevision - 1).ToString & ")"
                             Else
-                                tmpItem.Version &= " (r" & PCSX2_VersionDB.DB(i).minrevision.ToString & " > current)"
+                                tmpItem.Version &= " (r" & PCSX2_VersionDB.DB(i).minrevision.ToString & ">current)"
                             End If
                         End If
                     Next

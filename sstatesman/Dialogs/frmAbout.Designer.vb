@@ -196,12 +196,12 @@ Partial Class frmAbout
         Me.optSettingTab1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optSettingTab1.Location = New System.Drawing.Point(16, 0)
         Me.optSettingTab1.Margin = New System.Windows.Forms.Padding(0)
+        Me.optSettingTab1.MinimumSize = New System.Drawing.Size(80, 0)
         Me.optSettingTab1.Name = "optSettingTab1"
-        Me.optSettingTab1.Size = New System.Drawing.Size(74, 23)
+        Me.optSettingTab1.Size = New System.Drawing.Size(80, 23)
         Me.optSettingTab1.TabIndex = 3
         Me.optSettingTab1.TabStop = True
         Me.optSettingTab1.Text = "sstatesman"
-        Me.optSettingTab1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.optSettingTab1.UseVisualStyleBackColor = False
         '
         'optSettingTab2
@@ -214,13 +214,13 @@ Partial Class frmAbout
         Me.optSettingTab2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.optSettingTab2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
         Me.optSettingTab2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSettingTab2.Location = New System.Drawing.Point(90, 0)
+        Me.optSettingTab2.Location = New System.Drawing.Point(96, 0)
         Me.optSettingTab2.Margin = New System.Windows.Forms.Padding(0)
+        Me.optSettingTab2.MinimumSize = New System.Drawing.Size(80, 0)
         Me.optSettingTab2.Name = "optSettingTab2"
-        Me.optSettingTab2.Size = New System.Drawing.Size(52, 23)
+        Me.optSettingTab2.Size = New System.Drawing.Size(80, 23)
         Me.optSettingTab2.TabIndex = 4
         Me.optSettingTab2.Text = "licence"
-        Me.optSettingTab2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.optSettingTab2.UseVisualStyleBackColor = False
         '
         'lblWindowProgramName

@@ -495,13 +495,13 @@ Partial Class frmSettings
         Me.optSettingTab2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSettingTab2.Location = New System.Drawing.Point(93, 0)
+        Me.optSettingTab2.Location = New System.Drawing.Point(96, 0)
         Me.optSettingTab2.Margin = New System.Windows.Forms.Padding(0)
+        Me.optSettingTab2.MinimumSize = New System.Drawing.Size(80, 0)
         Me.optSettingTab2.Name = "optSettingTab2"
         Me.optSettingTab2.Size = New System.Drawing.Size(87, 23)
         Me.optSettingTab2.TabIndex = 7
         Me.optSettingTab2.Text = "PCSX2 folders"
-        Me.optSettingTab2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.optSettingTab2.UseVisualStyleBackColor = False
         '
         'optSettingTab1
@@ -517,12 +517,12 @@ Partial Class frmSettings
         Me.optSettingTab1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optSettingTab1.Location = New System.Drawing.Point(16, 0)
         Me.optSettingTab1.Margin = New System.Windows.Forms.Padding(0)
+        Me.optSettingTab1.MinimumSize = New System.Drawing.Size(80, 0)
         Me.optSettingTab1.Name = "optSettingTab1"
-        Me.optSettingTab1.Size = New System.Drawing.Size(77, 23)
+        Me.optSettingTab1.Size = New System.Drawing.Size(80, 23)
         Me.optSettingTab1.TabIndex = 6
         Me.optSettingTab1.TabStop = True
         Me.optSettingTab1.Text = "SStatesMan"
-        Me.optSettingTab1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.optSettingTab1.UseVisualStyleBackColor = False
         '
         'flpSStatesManPicsPath
@@ -840,13 +840,13 @@ Partial Class frmSettings
         Me.optSettingTab3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSettingTab3.Location = New System.Drawing.Point(180, 0)
+        Me.optSettingTab3.Location = New System.Drawing.Point(183, 0)
         Me.optSettingTab3.Margin = New System.Windows.Forms.Padding(0)
+        Me.optSettingTab3.MinimumSize = New System.Drawing.Size(80, 0)
         Me.optSettingTab3.Name = "optSettingTab3"
-        Me.optSettingTab3.Size = New System.Drawing.Size(50, 23)
+        Me.optSettingTab3.Size = New System.Drawing.Size(80, 23)
         Me.optSettingTab3.TabIndex = 8
         Me.optSettingTab3.Text = "Theme"
-        Me.optSettingTab3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.optSettingTab3.UseVisualStyleBackColor = False
         '
         'optSettingTab4
@@ -860,13 +860,13 @@ Partial Class frmSettings
         Me.optSettingTab4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSettingTab4.Location = New System.Drawing.Point(230, 0)
+        Me.optSettingTab4.Location = New System.Drawing.Point(263, 0)
         Me.optSettingTab4.Margin = New System.Windows.Forms.Padding(0)
+        Me.optSettingTab4.MinimumSize = New System.Drawing.Size(80, 0)
         Me.optSettingTab4.Name = "optSettingTab4"
-        Me.optSettingTab4.Size = New System.Drawing.Size(36, 23)
+        Me.optSettingTab4.Size = New System.Drawing.Size(80, 23)
         Me.optSettingTab4.TabIndex = 9
         Me.optSettingTab4.Text = "Log"
-        Me.optSettingTab4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.optSettingTab4.UseVisualStyleBackColor = False
         '
         'panelWindowTitle

@@ -425,7 +425,7 @@ Partial Class frmMain
         Me.flpTab.Location = New System.Drawing.Point(16, 1)
         Me.flpTab.Margin = New System.Windows.Forms.Padding(0, 1, 0, 0)
         Me.flpTab.Name = "flpTab"
-        Me.flpTab.Size = New System.Drawing.Size(203, 23)
+        Me.flpTab.Size = New System.Drawing.Size(240, 23)
         Me.flpTab.TabIndex = 15
         Me.flpTab.WrapContents = False
         '
@@ -442,8 +442,9 @@ Partial Class frmMain
         Me.optSettingTab1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optSettingTab1.Location = New System.Drawing.Point(0, 0)
         Me.optSettingTab1.Margin = New System.Windows.Forms.Padding(0)
+        Me.optSettingTab1.MinimumSize = New System.Drawing.Size(80, 0)
         Me.optSettingTab1.Name = "optSettingTab1"
-        Me.optSettingTab1.Size = New System.Drawing.Size(69, 23)
+        Me.optSettingTab1.Size = New System.Drawing.Size(80, 23)
         Me.optSettingTab1.TabIndex = 16
         Me.optSettingTab1.TabStop = True
         Me.optSettingTab1.Text = "savestates"
@@ -460,10 +461,11 @@ Partial Class frmMain
         Me.optSettingTab2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSettingTab2.Location = New System.Drawing.Point(69, 0)
+        Me.optSettingTab2.Location = New System.Drawing.Point(80, 0)
         Me.optSettingTab2.Margin = New System.Windows.Forms.Padding(0)
+        Me.optSettingTab2.MinimumSize = New System.Drawing.Size(80, 0)
         Me.optSettingTab2.Name = "optSettingTab2"
-        Me.optSettingTab2.Size = New System.Drawing.Size(56, 23)
+        Me.optSettingTab2.Size = New System.Drawing.Size(80, 23)
         Me.optSettingTab2.TabIndex = 17
         Me.optSettingTab2.Text = "storage"
         Me.optSettingTab2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -479,10 +481,11 @@ Partial Class frmMain
         Me.optSettingTab3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSettingTab3.Location = New System.Drawing.Point(125, 0)
+        Me.optSettingTab3.Location = New System.Drawing.Point(160, 0)
         Me.optSettingTab3.Margin = New System.Windows.Forms.Padding(0)
+        Me.optSettingTab3.MinimumSize = New System.Drawing.Size(80, 0)
         Me.optSettingTab3.Name = "optSettingTab3"
-        Me.optSettingTab3.Size = New System.Drawing.Size(78, 23)
+        Me.optSettingTab3.Size = New System.Drawing.Size(80, 23)
         Me.optSettingTab3.TabIndex = 18
         Me.optSettingTab3.Text = "screenshots"
         Me.optSettingTab3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter

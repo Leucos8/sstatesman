@@ -688,6 +688,7 @@ Public Class frmMain
 
                         If (tmpSavestate.Value.LastWriteTime > lastSStateDate) Then
                             lastSState = tmpSListItems.Count - 1
+                            lastSStateDate = tmpSavestate.Value.LastWriteTime
                         End If
                     Next
                 End If
