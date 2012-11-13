@@ -128,7 +128,11 @@ Module mdlGameDb
                                 If mySplittedLine.Length > 1 Then
 
                                     mySplittedLine(0) = mySplittedLine(0).Trim
+                                    'If mySplittedLine(1).Contains(FileGameDb_CommentStyle2) Then
+                                    '    mySplittedLine(1) = mySplittedLine(1).Remove(mySplittedLine(1).IndexOf(FileGameDb_CommentStyle2.Chars(0)))
+                                    'Else
                                     mySplittedLine(1) = mySplittedLine(1).Trim
+                                    'End If
 
                                     Select Case mySplittedLine(0)
                                         Case FileGameDb_FieldName1

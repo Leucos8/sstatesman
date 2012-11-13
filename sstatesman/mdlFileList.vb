@@ -65,9 +65,9 @@ Module mdlFileList
 
         Public Function GetSerial() As String
             'Dim SpacePosition As Int32 = Name.IndexOf(" "c, 0)
-            If Name.ToLower.StartsWith("gsdx") Then
-                Return "GSdX"
-            ElseIf PCSX2GameDb.Records.ContainsKey(Name) Then
+            'If Name.ToLower.StartsWith("gsdx") Then
+            '    Return "GSdX"
+            If PCSX2GameDb.Records.ContainsKey(Name) Then
                 Return Name
             Else
                 Return "Screenshots"

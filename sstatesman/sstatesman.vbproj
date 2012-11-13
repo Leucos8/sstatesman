@@ -258,6 +258,9 @@
     <None Include="Data\ssversion.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Icon_FolderSStates_16x16.png" />
+    <None Include="Resources\Icon_FolderScreenshots_16x16.png" />
+    <None Include="Resources\Icon_FolderPCSX2_16x16.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

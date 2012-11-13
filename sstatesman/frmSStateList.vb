@@ -185,6 +185,8 @@ Public Class frmSStateList
     End Sub
 
     Private Sub frmSStateList_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Dim ico As Icon = Icon.FromHandle(My.Resources.Icon_Tools_16x16.GetHicon())
+        Me.Icon = ico
         ShowStatus()
     End Sub
 
