@@ -64,11 +64,11 @@ Module mdlFileList
         Public Property LastWriteTime As DateTime
 
         Public Function GetSerial() As String
-            Dim SpacePosition As Int32 = Name.IndexOf(" "c, 0)
+            'Dim SpacePosition As Int32 = Name.IndexOf(" "c, 0)
             If Name.ToLower.StartsWith("gsdx") Then
                 Return "GSdX"
-            ElseIf SpacePosition > 0 Then
-                Return Name.Remove(SpacePosition)
+            ElseIf PCSX2GameDb.Records.ContainsKey(Name) Then
+                Return Name
             Else
                 Return "Screenshots"
             End If
@@ -209,7 +209,6 @@ Module mdlFileList
             'Creo una lista temporanea di FileInfo partendo dai FileInfo del gruppo, perché non posso fare conversione diretta
             Dim tmpSnapsList As New Dictionary(Of String, Snapshot)
             For Each tmpFileInfo As FileInfo In GroupedBySerial_Item
-                'Dim tmpPicture As Image = Image.FromStream(New FileStream(FileInformation.FullName, FileMode.Open, FileAccess.Read, FileShare.Read))
                 Dim tmpItem As New Snapshot With {.Name = tmpFileInfo.Name, .Extension = tmpFileInfo.Extension, .Length = tmpFileInfo.Length, .LastWriteTime = tmpFileInfo.LastWriteTime}
                 tmpSnapsList.Add(tmpFileInfo.Name, tmpItem)
 

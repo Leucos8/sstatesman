@@ -187,13 +187,12 @@ Module mdlGameDb
         End Sub
 
         Public Function RecordExtract(ByVal pSerial As String) As GameInfo
-            pSerial = pSerial.ToUpper
 
             Dim myGameDb_RecordExtract As New GameInfo With {.Serial = pSerial, .Name = "", .Region = "", .Compat = "0"}
 
 
             If Status = LoadStatus.StatusEmpty Or Status = LoadStatus.StatusLoadedOK Then
-                Select Case pSerial
+                Select Case pSerial.ToUpper
                     'Case "SCREENSHOTS"
                     '    myGameDb_RecordExtract.Serial = "Screenshots"
                     '    myGameDb_RecordExtract.Name = "(Screenshots)"
