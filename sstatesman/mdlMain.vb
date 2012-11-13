@@ -198,7 +198,7 @@ Module mdlMain
                 Else
                     If System.Globalization.CultureInfo.CurrentCulture.ThreeLetterISOLanguageName = "AUS" Then
                         Return My.Resources.Flag_Australia_30x20
-                    Else : Return My.Resources.Flag_Europe_Union_30x20
+                    Else : Return My.Resources.Flag_EU_30x20
                     End If
                 End If
             ElseIf pRegionToCheck.StartsWith("NTSC") Then

@@ -14,12 +14,12 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="Metro-Database.svg"
-   inkscape:export-filename="GDE_16.png"
+   sodipodi:docname="Icon_Folder.svg"
+   inkscape:export-filename="Icon_Folder_16x16.png"
    inkscape:export-xdpi="45"
    inkscape:export-ydpi="45">
   <title
-     id="title3774">Metro Database</title>
+     id="title3774">Icon Folder</title>
   <sodipodi:namedview
      id="base"
      showgrid="true">
@@ -39,7 +39,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title>Metro Database</dc:title>
+        <dc:title>Icon Folder</dc:title>
         <cc:license
            rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
         <dc:creator>
@@ -71,8 +71,12 @@
   <g
      id="layer1">
     <path
-       id="path3789"
+       id="path3000"
        style="fill:#424242"
-       d="m 7,7 c 0,-2 4,-3 9,-3 5,0 9,1 9,3 0,2 -4,3 -9,3 -5,0 -9,-1 -9,-3 z m -3,0 0,18 c 0,2 4,5 12,5 8,0 12,-3 12,-5 l 0,-18 c 0,-2 -4,-5 -12,-5 -8,0 -12,3 -12,5 z" />
+       d="m 4,14 24,0 0,-8 -8,0 -3,4 -13,0 z m -2,16 0,-22 14,0 3,-4 11,0 0,26 z" />
+    <path
+       style="fill:#424242"
+       d="m 22,8 4,0 0,2 -4,0 z"
+       id="path3002" />
   </g>
 </svg>

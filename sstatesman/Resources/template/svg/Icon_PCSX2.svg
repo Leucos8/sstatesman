@@ -14,12 +14,12 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="Metro-PCSX2.svg"
-   inkscape:export-filename="PCSX2_16.png"
+   sodipodi:docname="Icon_PCSX2.svg"
+   inkscape:export-filename="Icon_PCSX2_16x16.png"
    inkscape:export-xdpi="45"
    inkscape:export-ydpi="45">
   <title
-     id="title3774">Metro PCSX2</title>
+     id="title3774">Icon PCSX2</title>
   <sodipodi:namedview
      id="base"
      showgrid="true">
@@ -39,7 +39,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title>Metro PCSX2</dc:title>
+        <dc:title>Icon PCSX2</dc:title>
         <cc:license
            rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
 		<dc:creator>

@@ -128,8 +128,8 @@ Public Class frmDeleteForm
 
         Dim imlLvwCheckboxes As New System.Windows.Forms.ImageList
         imlLvwCheckboxes.ImageSize = New System.Drawing.Size(CInt(10 * DPIxScale + 1), CInt(10 * DPIyScale) + 1)
-        imlLvwCheckboxes.Images.Add(My.Resources.Metro_ChecboxUnchecked)
-        imlLvwCheckboxes.Images.Add(My.Resources.Metro_ChecboxChecked)
+        imlLvwCheckboxes.Images.Add(My.Resources.Checkbox_Unchecked_22x22)
+        imlLvwCheckboxes.Images.Add(My.Resources.Checkbox_Checked_22x22)
         Me.lvwSStatesListToDelete.StateImageList = imlLvwCheckboxes
 
 
@@ -191,10 +191,10 @@ Public Class frmDeleteForm
     Private Sub cmdWindowMaximize_Click(sender As System.Object, e As System.EventArgs) Handles cmdWindowMaximize.Click
         If Me.WindowState = FormWindowState.Normal Then
             Me.WindowState = FormWindowState.Maximized
-            Me.cmdWindowMaximize.Image = My.Resources.Metro_WindowButtonRestore
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
         ElseIf Me.WindowState = FormWindowState.Maximized Then
             Me.WindowState = FormWindowState.Normal
-            Me.cmdWindowMaximize.Image = My.Resources.Metro_WindowButtonMaximize
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
         End If
     End Sub
 
@@ -204,9 +204,9 @@ Public Class frmDeleteForm
 
     Private Sub frmDeleteForm_SizeChanged(sender As Object, e As System.EventArgs) Handles Me.SizeChanged
         If Me.WindowState = FormWindowState.Normal Then
-            Me.cmdWindowMaximize.Image = My.Resources.Metro_WindowButtonMaximize
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
         ElseIf Me.WindowState = FormWindowState.Maximized Then
-            Me.cmdWindowMaximize.Image = My.Resources.Metro_WindowButtonRestore
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
         End If
     End Sub
 #End Region

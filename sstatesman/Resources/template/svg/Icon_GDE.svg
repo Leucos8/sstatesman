@@ -9,45 +9,45 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="12"
+   width="32"
    height="32"
-   id="svg3810"
+   id="svg2"
    version="1.1"
-   inkscape:version="0.48.2 r9819"
-   sodipodi:docname="Metro-ToolbarDropdown.svg"
-   inkscape:export-filename="Metro-ToolbarDropdown.png"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Icon_GDE_16x16.svg"
+   inkscape:export-filename="Icon_GDE.png"
    inkscape:export-xdpi="45"
    inkscape:export-ydpi="45">
   <title
-     id="title4332">Toolbar dropdown</title>
+     id="title3774">Icon GameDB Explorer</title>
   <sodipodi:namedview
      id="base"
      showgrid="true">
     <inkscape:grid
        type="xygrid"
-       id="grid3818"
+       id="grid2996"
        empspacing="4"
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="true" />
   </sodipodi:namedview>
   <metadata
-     id="metadata3815">
+     id="metadata7">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title>Toolbar dropdown</dc:title>
-         <cc:license
+        <dc:title>Icon GameDB Explorer</dc:title>
+        <cc:license
            rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
         <dc:creator>
           <cc:Agent>
             <dc:title>Leucos</dc:title>
           </cc:Agent>
         </dc:creator>
-        <dc:date>2012-09-17</dc:date>
+        <dc:date>2012-09-16</dc:date>
       </cc:Work>
       <cc:License
          rdf:about="http://creativecommons.org/licenses/by-nc-sa/3.0/">
@@ -71,12 +71,8 @@
   <g
      id="layer1">
     <path
+       id="path3789"
        style="fill:#424242"
-       d="M 5,28 0,23 0,22 12,22 12,23 7,28 z"
-       id="path3820" />
-    <path
-       style="fill:#424242"
-       d="m 0,20 12,0 0,-2 -12,0 z"
-       id="path3822" />
+       d="m 7,7 c 0,-2 4,-3 9,-3 5,0 9,1 9,3 0,2 -4,3 -9,3 -5,0 -9,-1 -9,-3 z m -3,0 0,18 c 0,2 4,5 12,5 8,0 12,-3 12,-5 l 0,-18 c 0,-2 -4,-5 -12,-5 -8,0 -12,3 -12,5 z" />
   </g>
 </svg>

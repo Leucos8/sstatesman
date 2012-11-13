@@ -159,7 +159,7 @@ Partial Class frmSettings
         Me.cmdOk.AutoSize = True
         Me.cmdOk.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdOk.BackColor = System.Drawing.Color.White
-        Me.cmdOk.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdOk.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdOk.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.cmdOk.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
         Me.cmdOk.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -196,7 +196,7 @@ Partial Class frmSettings
         Me.cmdCancel.AutoSize = True
         Me.cmdCancel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdCancel.BackColor = System.Drawing.Color.White
-        Me.cmdCancel.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdCancel.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -216,7 +216,7 @@ Partial Class frmSettings
         '
         Me.cmdSStatesManPicsPathBrowse.AutoSize = True
         Me.cmdSStatesManPicsPathBrowse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdSStatesManPicsPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdSStatesManPicsPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdSStatesManPicsPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdSStatesManPicsPathBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSStatesManPicsPathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -244,7 +244,7 @@ Partial Class frmSettings
         '
         Me.cmdPCSX2IniPathOpen.AutoSize = True
         Me.cmdPCSX2IniPathOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2IniPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdPCSX2IniPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdPCSX2IniPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2IniPathOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2IniPathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -263,7 +263,7 @@ Partial Class frmSettings
         '
         Me.cmdPCSX2IniPathDetect.AutoSize = True
         Me.cmdPCSX2IniPathDetect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2IniPathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdPCSX2IniPathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdPCSX2IniPathDetect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2IniPathDetect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2IniPathDetect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -281,7 +281,7 @@ Partial Class frmSettings
         'imgPCSX2IniPathStatus
         '
         Me.imgPCSX2IniPathStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgPCSX2IniPathStatus.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Exclamation
+        Me.imgPCSX2IniPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation_16x16
         Me.imgPCSX2IniPathStatus.Location = New System.Drawing.Point(8, 28)
         Me.imgPCSX2IniPathStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.imgPCSX2IniPathStatus.Name = "imgPCSX2IniPathStatus"
@@ -303,7 +303,7 @@ Partial Class frmSettings
         '
         Me.cmdPCSX2IniPathBrowse.AutoSize = True
         Me.cmdPCSX2IniPathBrowse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2IniPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdPCSX2IniPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdPCSX2IniPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2IniPathBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2IniPathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -337,7 +337,7 @@ Partial Class frmSettings
         '
         Me.cmdPCSX2AppPathOpen.AutoSize = True
         Me.cmdPCSX2AppPathOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2AppPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdPCSX2AppPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdPCSX2AppPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2AppPathOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2AppPathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -356,7 +356,7 @@ Partial Class frmSettings
         '
         Me.cmdPCSX2AppPathDetect.AutoSize = True
         Me.cmdPCSX2AppPathDetect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2AppPathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdPCSX2AppPathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdPCSX2AppPathDetect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2AppPathDetect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2AppPathDetect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -374,7 +374,7 @@ Partial Class frmSettings
         'imgPCSX2AppPathStatus
         '
         Me.imgPCSX2AppPathStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgPCSX2AppPathStatus.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Exclamation
+        Me.imgPCSX2AppPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation_16x16
         Me.imgPCSX2AppPathStatus.Location = New System.Drawing.Point(8, 28)
         Me.imgPCSX2AppPathStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.imgPCSX2AppPathStatus.Name = "imgPCSX2AppPathStatus"
@@ -387,7 +387,7 @@ Partial Class frmSettings
         '
         Me.cmdPCSX2AppPathBrowse.AutoSize = True
         Me.cmdPCSX2AppPathBrowse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2AppPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdPCSX2AppPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdPCSX2AppPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2AppPathBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2AppPathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -457,7 +457,7 @@ Partial Class frmSettings
         '
         Me.cmdSStatesManPicsPathOpen.AutoSize = True
         Me.cmdSStatesManPicsPathOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdSStatesManPicsPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdSStatesManPicsPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdSStatesManPicsPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdSStatesManPicsPathOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdSStatesManPicsPathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -475,7 +475,7 @@ Partial Class frmSettings
         'imgSStatesManPicsPathStatus
         '
         Me.imgSStatesManPicsPathStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgSStatesManPicsPathStatus.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Exclamation
+        Me.imgSStatesManPicsPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation_16x16
         Me.imgSStatesManPicsPathStatus.Location = New System.Drawing.Point(8, 28)
         Me.imgSStatesManPicsPathStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.imgSStatesManPicsPathStatus.Name = "imgSStatesManPicsPathStatus"
@@ -625,7 +625,7 @@ Partial Class frmSettings
         '
         Me.cmdPCSX2SStatePathBrowse.AutoSize = True
         Me.cmdPCSX2SStatePathBrowse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2SStatePathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdPCSX2SStatePathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdPCSX2SStatePathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2SStatePathBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2SStatePathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -644,7 +644,7 @@ Partial Class frmSettings
         '
         Me.cmdPCSX2SStatePathOpen.AutoSize = True
         Me.cmdPCSX2SStatePathOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2SStatePathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdPCSX2SStatePathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdPCSX2SStatePathOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2SStatePathOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2SStatePathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -663,7 +663,7 @@ Partial Class frmSettings
         '
         Me.cmdPCSX2SStatePathDetect.AutoSize = True
         Me.cmdPCSX2SStatePathDetect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2SStatePathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdPCSX2SStatePathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdPCSX2SStatePathDetect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2SStatePathDetect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2SStatePathDetect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -705,7 +705,7 @@ Partial Class frmSettings
         'imgPCSX2SStatePathStatus
         '
         Me.imgPCSX2SStatePathStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgPCSX2SStatePathStatus.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Exclamation
+        Me.imgPCSX2SStatePathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation_16x16
         Me.imgPCSX2SStatePathStatus.Location = New System.Drawing.Point(8, 28)
         Me.imgPCSX2SStatePathStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.imgPCSX2SStatePathStatus.Name = "imgPCSX2SStatePathStatus"
@@ -796,7 +796,7 @@ Partial Class frmSettings
         Me.cmdApply.AutoSize = True
         Me.cmdApply.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdApply.BackColor = System.Drawing.Color.White
-        Me.cmdApply.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdApply.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdApply.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdApply.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdApply.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -1086,7 +1086,7 @@ Partial Class frmSettings
         '
         Me.cmdPCSX2SnapsPathBrowse.AutoSize = True
         Me.cmdPCSX2SnapsPathBrowse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2SnapsPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdPCSX2SnapsPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdPCSX2SnapsPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2SnapsPathBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2SnapsPathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -1105,7 +1105,7 @@ Partial Class frmSettings
         '
         Me.cmdPCSX2SnapsPathOpen.AutoSize = True
         Me.cmdPCSX2SnapsPathOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2SnapsPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdPCSX2SnapsPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdPCSX2SnapsPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2SnapsPathOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2SnapsPathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -1124,7 +1124,7 @@ Partial Class frmSettings
         '
         Me.cmdPCSX2SnapsPathDetect.AutoSize = True
         Me.cmdPCSX2SnapsPathDetect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2SnapsPathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdPCSX2SnapsPathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdPCSX2SnapsPathDetect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdPCSX2SnapsPathDetect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdPCSX2SnapsPathDetect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -1166,7 +1166,7 @@ Partial Class frmSettings
         'imgPCSX2SnapsPathStatus
         '
         Me.imgPCSX2SnapsPathStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgPCSX2SnapsPathStatus.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Exclamation
+        Me.imgPCSX2SnapsPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation_16x16
         Me.imgPCSX2SnapsPathStatus.Location = New System.Drawing.Point(8, 28)
         Me.imgPCSX2SnapsPathStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.imgPCSX2SnapsPathStatus.Name = "imgPCSX2SnapsPathStatus"
@@ -1440,7 +1440,7 @@ Partial Class frmSettings
         Me.cmdLogRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdLogRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdLogRefresh.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdLogRefresh.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Refresh
+        Me.cmdLogRefresh.Image = Global.sstatesman.My.Resources.Resources.Icon_Refresh_14x14
         Me.cmdLogRefresh.Location = New System.Drawing.Point(57, 0)
         Me.cmdLogRefresh.Margin = New System.Windows.Forms.Padding(0, 0, 0, 1)
         Me.cmdLogRefresh.Name = "cmdLogRefresh"
@@ -1547,7 +1547,7 @@ Partial Class frmSettings
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.Black
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Icon = Global.sstatesman.My.Resources.Resources.SSM1
+        Me.Icon = Global.sstatesman.My.Resources.Resources.SSMico_v1_256x256
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmSettings"

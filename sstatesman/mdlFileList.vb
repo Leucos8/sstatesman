@@ -243,8 +243,8 @@ Module mdlFileList
         Public Property DB As New List(Of rVersion)
 
         Public Sub Load()
-            If File.Exists(Path.Combine(Application.StartupPath, "savestates version.txt")) Then
-                Using tmpStreamReader As New StreamReader(Path.Combine(Application.StartupPath, "savestates version.txt"), System.Text.Encoding.Default)
+            If File.Exists(Path.Combine(Application.StartupPath, "Data\ssversion.txt")) Then
+                Using tmpStreamReader As New StreamReader(Path.Combine(Application.StartupPath, "Data\ssversion.txt"), System.Text.Encoding.Default)
                     While Not tmpStreamReader.EndOfStream
                         Dim tmpLine As String = tmpStreamReader.ReadLine
                         If Not (tmpLine.StartsWith("'"c)) Then

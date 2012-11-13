@@ -137,7 +137,7 @@ Partial Class frmAbout
         Me.OKButton.AutoSize = True
         Me.OKButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.OKButton.BackColor = System.Drawing.Color.White
-        Me.OKButton.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.OKButton.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.OKButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.OKButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
         Me.OKButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -346,7 +346,7 @@ Partial Class frmAbout
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.Black
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Icon = Global.sstatesman.My.Resources.Resources.SSM1
+        Me.Icon = Global.sstatesman.My.Resources.Resources.SSMico_v1_256x256
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MaximizeBox = False
         Me.MinimizeBox = False

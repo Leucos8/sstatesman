@@ -102,8 +102,8 @@ Public Class frmMain
         Dim imlLvwCheckboxes As New ImageList                       'Listviews checkboxes (stateimagelist)
         With imlLvwCheckboxes
             .ImageSize = New Size(CInt(10 * DPIxScale) + 1, CInt(10 * DPIyScale) + 1)   'Setting the size
-            .Images.Add(My.Resources.Metro_ChecboxUnchecked)        'Unchecked state image
-            .Images.Add(My.Resources.Metro_ChecboxChecked)          'Checked state image
+            .Images.Add(My.Resources.Checkbox_Unchecked_22x22)      'Unchecked state image
+            .Images.Add(My.Resources.Checkbox_Checked_22x22)          'Checked state image
         End With
         Me.lvwGamesList.StateImageList = imlLvwCheckboxes           'Assigning the imagelist to the Games listview
         Me.lvwSStatesList.StateImageList = imlLvwCheckboxes         'Assigning the imagelist to the Savestates listview
@@ -248,7 +248,7 @@ Public Class frmMain
                     Me.imgFlag.Image = My.Resources.Flag_0Null_30x20
                     'Cover
                     Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
-                    Me.imgCover.Image = My.Resources.Nocover
+                    Me.imgCover.Image = My.Resources.Extra_Nocover_40x40
 
                     Me.imgCover.Dock = DockStyle.Fill
 
@@ -293,7 +293,7 @@ Public Class frmMain
                         Catch ex As Exception
                             'No cover image found or file is corrupted
                             mdlMain.AppendToLog("Main window", "UI_Updater", String.Concat("Cover image error: ", ex.Message))
-                            Me.imgCover.Image = My.Resources.Nocover
+                            Me.imgCover.Image = My.Resources.Extra_Nocover_40x40
                             Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
                             Me.imgCover.Dock = DockStyle.Fill
                         End Try
@@ -390,11 +390,11 @@ Public Class frmMain
         If Me.WindowState = FormWindowState.Normal Then
             Me.WindowState = FormWindowState.Maximized
             'Me.Padding = New Padding(Math.Abs(Me.Top))
-            Me.cmdWindowMaximize.Image = My.Resources.Metro_WindowButtonRestore
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
         ElseIf Me.WindowState = FormWindowState.Maximized Then
             Me.WindowState = FormWindowState.Normal
             'Me.Padding = New Padding(1)
-            Me.cmdWindowMaximize.Image = My.Resources.Metro_WindowButtonMaximize
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
         End If
     End Sub
 
@@ -410,9 +410,9 @@ Public Class frmMain
 
     Private Sub frmMain_SizeChanged(sender As Object, e As System.EventArgs) Handles Me.SizeChanged
         If Me.WindowState = FormWindowState.Normal Then
-            Me.cmdWindowMaximize.Image = My.Resources.Metro_WindowButtonMaximize
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
         ElseIf Me.WindowState = FormWindowState.Maximized Then
-            Me.cmdWindowMaximize.Image = My.Resources.Metro_WindowButtonRestore
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
         End If
     End Sub
 #End Region
@@ -443,10 +443,10 @@ Public Class frmMain
     Private Sub cmdSStatesLvwExpand_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStatesLvwExpand.Click
         If Me.SplitContainer1.Panel1Collapsed Then
             Me.SplitContainer1.Panel1Collapsed = False
-            Me.cmdSStatesLvwExpand.Image = My.Resources.Metro_ExpandTop
+            Me.cmdSStatesLvwExpand.Image = My.Resources.Icon_ExpandTop_12x12
         Else
             Me.SplitContainer1.Panel1Collapsed = True
-            Me.cmdSStatesLvwExpand.Image = My.Resources.Metro_ExpandBottom
+            Me.cmdSStatesLvwExpand.Image = My.Resources.Icon_ExpandBottom_12x12
 
             Me.cmdGameSelectAll_Click(Nothing, Nothing)
         End If

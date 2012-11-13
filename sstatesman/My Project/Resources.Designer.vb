@@ -148,6 +148,56 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property Button_Bg() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Button_Bg", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Button_Dropdown_6x3() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Button_Dropdown_6x3", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Checkbox_Checked_22x22() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Checkbox_Checked_22x22", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Checkbox_Unchecked_22x22() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Checkbox_Unchecked_22x22", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Extra_Nocover_40x40() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Extra_Nocover_40x40", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property Flag_0Null_30x20() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Flag_0Null_30x20", resourceCulture)
@@ -198,9 +248,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Flag_Europe_Union_30x20() As System.Drawing.Bitmap
+        Friend ReadOnly Property Flag_EU_30x20() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Flag_Europe_Union_30x20", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Flag_EU_30x20", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -326,21 +376,11 @@ Namespace My.Resources
         End Property
         
         '''<summary>
-        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property Folder_16() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("Folder_16", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Icon simile a (Icona).
         '''</summary>
-        Friend ReadOnly Property GDE() As System.Drawing.Icon
+        Friend ReadOnly Property GDE_256x256() As System.Drawing.Icon
             Get
-                Dim obj As Object = ResourceManager.GetObject("GDE", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("GDE_256x256", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
@@ -348,9 +388,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property GDE_16() As System.Drawing.Bitmap
+        Friend ReadOnly Property Icon_ExpandBottom_12x12() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("GDE_16", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Icon_ExpandBottom_12x12", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -358,9 +398,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Gear() As System.Drawing.Bitmap
+        Friend ReadOnly Property Icon_ExpandLeft_12x12() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Gear", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Icon_ExpandLeft_12x12", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -368,9 +408,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Metro_Button_Error() As System.Drawing.Bitmap
+        Friend ReadOnly Property Icon_ExpandRight_12x12() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Metro_Button_Error", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Icon_ExpandRight_12x12", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -378,9 +418,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Metro_Button_Exclamation() As System.Drawing.Bitmap
+        Friend ReadOnly Property Icon_ExpandTop_12x12() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Metro_Button_Exclamation", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Icon_ExpandTop_12x12", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -388,9 +428,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Metro_Button_Refresh() As System.Drawing.Bitmap
+        Friend ReadOnly Property Icon_Folder_16x16() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Metro_Button_Refresh", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Icon_Folder_16x16", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -398,9 +438,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Metro_ButtonNormal() As System.Drawing.Bitmap
+        Friend ReadOnly Property Icon_GDE_16x16() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Metro_ButtonNormal", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Icon_GDE_16x16", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -408,9 +448,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Metro_ChecboxChecked() As System.Drawing.Bitmap
+        Friend ReadOnly Property Icon_Gear_16x16() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Metro_ChecboxChecked", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Icon_Gear_16x16", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -418,9 +458,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Metro_ChecboxUnchecked() As System.Drawing.Bitmap
+        Friend ReadOnly Property Icon_PCSX2_16x16() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Metro_ChecboxUnchecked", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Icon_PCSX2_16x16", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -428,9 +468,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Metro_ExpandBottom() As System.Drawing.Bitmap
+        Friend ReadOnly Property Icon_Refresh_14x14() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Metro_ExpandBottom", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Icon_Refresh_14x14", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -438,9 +478,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Metro_ExpandLeft() As System.Drawing.Bitmap
+        Friend ReadOnly Property Icon_SSM1ico_24x24() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Metro_ExpandLeft", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Icon_SSM1ico_24x24", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -448,9 +488,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Metro_ExpandRight() As System.Drawing.Bitmap
+        Friend ReadOnly Property Icon_Tools_16x16() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Metro_ExpandRight", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Icon_Tools_16x16", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -458,9 +498,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Metro_ExpandTop() As System.Drawing.Bitmap
+        Friend ReadOnly Property InfoIcon_Error_16x16() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Metro_ExpandTop", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("InfoIcon_Error_16x16", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -468,69 +508,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Metro_Toolbar_Dropdown() As System.Drawing.Bitmap
+        Friend ReadOnly Property InfoIcon_Exclamation_16x16() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Metro_Toolbar_Dropdown", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property Metro_WindowButtonClose() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("Metro_WindowButtonClose", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property Metro_WindowButtonMaximize() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("Metro_WindowButtonMaximize", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property Metro_WindowButtonMinimize() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("Metro_WindowButtonMinimize", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property Metro_WindowButtonRestore() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("Metro_WindowButtonRestore", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property Nocover() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("Nocover", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property PCSX2_16() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("PCSX2_16", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("InfoIcon_Exclamation_16x16", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -538,9 +518,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Icon simile a (Icona).
         '''</summary>
-        Friend ReadOnly Property SSM1() As System.Drawing.Icon
+        Friend ReadOnly Property SSMico_v1_256x256() As System.Drawing.Icon
             Get
-                Dim obj As Object = ResourceManager.GetObject("SSM1", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("SSMico_v1_256x256", resourceCulture)
                 Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
@@ -548,9 +528,9 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property SSM1ico24() As System.Drawing.Bitmap
+        Friend ReadOnly Property Window_ButtonClose_12x12() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("SSM1ico24", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Window_ButtonClose_12x12", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -558,9 +538,29 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property Tools() As System.Drawing.Bitmap
+        Friend ReadOnly Property Window_ButtonMaximize_12x12() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("Tools", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("Window_ButtonMaximize_12x12", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Window_ButtonMinimize_12x12() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Window_ButtonMinimize_12x12", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Window_ButtonRestore_12x12() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Window_ButtonRestore_12x12", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

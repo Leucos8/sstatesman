@@ -158,7 +158,7 @@ Partial Class frmGameDbSearchForm
         Me.cmdSearch.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdSearch.AutoSize = True
         Me.cmdSearch.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdSearch.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdSearch.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdSearch.Enabled = False
         Me.cmdSearch.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
         Me.cmdSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
@@ -176,7 +176,7 @@ Partial Class frmGameDbSearchForm
         Me.cmdCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdCancel.AutoSize = True
         Me.cmdCancel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdCancel.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdCancel.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat

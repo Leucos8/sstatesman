@@ -85,7 +85,7 @@ Partial Class frmDeleteForm
         Me.cmdCancel.AutoSize = True
         Me.cmdCancel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdCancel.BackColor = System.Drawing.Color.White
-        Me.cmdCancel.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdCancel.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdCancel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -107,7 +107,7 @@ Partial Class frmDeleteForm
         Me.cmdDeleteSStateSelected.AutoSize = True
         Me.cmdDeleteSStateSelected.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdDeleteSStateSelected.BackColor = System.Drawing.Color.White
-        Me.cmdDeleteSStateSelected.BackgroundImage = Global.sstatesman.My.Resources.Resources.Metro_ButtonNormal
+        Me.cmdDeleteSStateSelected.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
         Me.cmdDeleteSStateSelected.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
         Me.cmdDeleteSStateSelected.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdDeleteSStateSelected.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -431,7 +431,7 @@ Partial Class frmDeleteForm
         Me.cmdWindowMaximize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdWindowMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdWindowMaximize.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.cmdWindowMaximize.Image = Global.sstatesman.My.Resources.Resources.Metro_WindowButtonMaximize
+        Me.cmdWindowMaximize.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonMaximize_12x12
         Me.cmdWindowMaximize.Location = New System.Drawing.Point(0, 0)
         Me.cmdWindowMaximize.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowMaximize.Name = "cmdWindowMaximize"
@@ -448,7 +448,7 @@ Partial Class frmDeleteForm
         Me.cmdWindowClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdWindowClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdWindowClose.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.cmdWindowClose.Image = Global.sstatesman.My.Resources.Resources.Metro_WindowButtonClose
+        Me.cmdWindowClose.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonClose_12x12
         Me.cmdWindowClose.Location = New System.Drawing.Point(24, 0)
         Me.cmdWindowClose.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowClose.Name = "cmdWindowClose"
@@ -459,7 +459,7 @@ Partial Class frmDeleteForm
         'imgWindowGradientIcon
         '
         Me.imgWindowGradientIcon.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgWindowGradientIcon.Image = Global.sstatesman.My.Resources.Resources.SSM1ico24
+        Me.imgWindowGradientIcon.Image = Global.sstatesman.My.Resources.Resources.Icon_SSM1ico_24x24
         Me.imgWindowGradientIcon.Location = New System.Drawing.Point(539, 0)
         Me.imgWindowGradientIcon.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
         Me.imgWindowGradientIcon.Name = "imgWindowGradientIcon"
@@ -557,7 +557,7 @@ Partial Class frmDeleteForm
         Me.Controls.Add(Me.panelWindowTitle)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.ForeColor = System.Drawing.Color.Black
-        Me.Icon = Global.sstatesman.My.Resources.Resources.SSM1
+        Me.Icon = Global.sstatesman.My.Resources.Resources.SSMico_v1_256x256
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(640, 360)

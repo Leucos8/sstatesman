@@ -13,13 +13,13 @@
    height="32"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="Metro-Tools.svg"
-   inkscape:export-filename="Tools.png"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="Window_ButtonClose.svg"
+   inkscape:export-filename="Window_ButtonClose.png"
    inkscape:export-xdpi="45"
    inkscape:export-ydpi="45">
   <title
-     id="title3774">Metro Tools</title>
+     id="title3000">Window Close Button</title>
   <sodipodi:namedview
      id="base"
      showgrid="true">
@@ -39,15 +39,15 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title>Metro Tools</dc:title>
-        <cc:license
+        <dc:title>Window Close Button</dc:title>
+         <cc:license
            rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
         <dc:creator>
           <cc:Agent>
             <dc:title>Leucos</dc:title>
           </cc:Agent>
         </dc:creator>
-        <dc:date>2012-09-16</dc:date>
+        <dc:date>2012-09-17</dc:date>
       </cc:Work>
       <cc:License
          rdf:about="http://creativecommons.org/licenses/by-nc-sa/3.0/">
@@ -71,12 +71,8 @@
   <g
      id="layer1">
     <path
-       style="fill:#666666"
-       d="m 31,26 0,2 -3,3 -2,0 -5,-5 0,-2 -9,-9 -3,0 -8,-8 0,-3 3,-3 3,0 8,8 0,3 9,9 2,0 z"
-       id="path3879" />
-    <path
-       style="fill:#424242"
-       d="m 0,26 0,-3 4,-4 5,0 10,-10 0,-5 4,-4 3,0 0,2 -3,3 0,4 4,0 3,-3 2,0 0,3 -4,4 -5,0 -10,10 0,5 -4,4 -3,0 0,-2 3,-3 0,-4 -4,0 -3,3 z"
-       id="path3877" />
+       style="fill:#000000"
+       d="m 11,24 5,-6 5,6 4,0 -7,-8 7,-8 -4,0 -5,6 -5,-6 -4,0 7,8 -7,8 z"
+       id="path2998" />
   </g>
 </svg>

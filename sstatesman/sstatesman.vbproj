@@ -68,8 +68,9 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+
   <PropertyGroup>
-    <ApplicationIcon>Resources\SSM1.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\ico\SSMicov1_256x256.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -178,9 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -196,15 +197,41 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\SSM1ico24.png" />
-    <None Include="Resources\SStatesMan-Badge3.png" />
-    <None Include="Resources\SSM1.ico" />
+    <None Include="Resources\ico\SSMicov1_256x256.ico" />
+    <None Include="Resources\ico\GDE_256x256.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Metro-WindowButtonClose.png" />
-    <None Include="Resources\Metro-WindowButtonMaximize.png" />
-    <None Include="Resources\Metro-WindowButtonMinimize.png" />
-    <None Include="Resources\Metro-WindowButtonRestore.png" />
+    <None Include="Resources\Button_Bg.png" />
+    <None Include="Resources\Button_Dropdown_6x3.png" />
+    <None Include="Resources\Window_ButtonClose_12x12.png" />
+    <None Include="Resources\Window_ButtonMaximize_12x12.png" />
+    <None Include="Resources\Window_ButtonMinimize_12x12.png" />
+    <None Include="Resources\Window_ButtonRestore_12x12.png" />
+    <None Include="Resources\Checkbox_Unchecked_22x22.png" />
+    <None Include="Resources\Checkbox_Checked_22x22.png" />
+    <None Include="Resources\Icon_SSM1ico_24x24.png" />
+    <None Include="Resources\Icon_ExpandLeft_12x12.png" />
+    <None Include="Resources\Icon_ExpandRight_12x12.png" />
+    <None Include="Resources\Icon_ExpandTop_12x12.png" />
+    <None Include="Resources\Icon_ExpandBottom_12x12.png" />
+    <None Include="Resources\Icon_GDE_16x16.png" />
+    <None Include="Resources\Icon_Tools_16x16.png" />
+    <None Include="Resources\Icon_PCSX2_16x16.png" />
+    <None Include="Resources\Icon_Refresh_14x14.png" />
+    <None Include="Resources\Icon_Folder_16x16.png" />
+    <None Include="Resources\Icon_Gear_16x16.png" />
+    <None Include="Resources\InfoIcon_Exclamation_16x16.png" />
+    <None Include="Resources\InfoIcon_Error_16x16.png" />
+    <None Include="Resources\Extra_Nocover_40x40.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\themes\BgSquares.png" />
+    <None Include="Resources\themes\BgNoise.png" />
+    <None Include="Resources\themes\BgMetalBrush.png" />
+    <None Include="Resources\themes\BgStripesDark.png" />
+    <None Include="Resources\themes\BgStripesLight.png" />
+    <None Include="Resources\themes\BgHex.png" />
+    <None Include="Resources\themes\BgPCSX2.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\flags\Flag_US_30x20.png" />
@@ -220,49 +247,17 @@
     <None Include="Resources\flags\Flag_Greece_30x20.png" />
     <None Include="Resources\flags\Flag_Germany_30x20.png" />
     <None Include="Resources\flags\Flag_France_30x20.png" />
-    <None Include="Resources\flags\Flag_Europe_Union_30x20.png" />
+    <None Include="Resources\flags\Flag_EU_30x20.png" />
     <None Include="Resources\flags\Flag_China_30x20.png" />
+    <None Include="Resources\flags\Flag_0Null_30x20.png" />
     <None Include="Resources\flags\Flag_Canada_30x20.png" />
     <None Include="Resources\flags\Flag_Australia_30x20.png" />
     <None Include="Resources\flags\Flag_Austria_30x20.png" />
-    <None Include="Resources\flags\Flag_0Null_30x20.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Metro-ExpandLeft.png" />
-    <None Include="Resources\Metro-ExpandRight.png" />
-    <None Include="Resources\Metro-ExpandTop.png" />
-    <None Include="Resources\Metro-ExpandBottom.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Metro-Button-Exclamation.png" />
-    <None Include="Resources\Metro-Button-Error.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Metro-ButtonNormal.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Metro-ChecboxUnchecked.png" />
-    <None Include="Resources\Metro-ChecboxChecked.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="savestates version.txt">
+    <None Include="Data\ssversion.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Resources\Tools.png" />
-    <None Include="Resources\PCSX2_16.png" />
-    <None Include="Resources\Nocover.png" />
-    <None Include="Resources\PCSX2.png" />
-    <None Include="Resources\Metro-Button-Refresh.png" />
-    <None Include="Resources\BgNoise.png" />
-    <None Include="Resources\BgStripes.png" />
-    <None Include="Resources\Bg.png" />
-    <None Include="Resources\BgMetalBrush.png" />
-    <None Include="Resources\BgStripesLight.png" />
-    <None Include="Resources\BgHex.png" />
-    <None Include="Resources\GDE_16.png" />
-    <None Include="Resources\Folder_16.png" />
-    <None Include="Resources\GDE.ico" />
-    <None Include="Resources\Gear.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

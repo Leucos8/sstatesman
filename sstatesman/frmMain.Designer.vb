@@ -293,7 +293,7 @@ Partial Class frmMain
         Me.cmdTools.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdTools.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdTools.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdTools.Image = Global.sstatesman.My.Resources.Resources.Metro_Toolbar_Dropdown
+        Me.cmdTools.Image = Global.sstatesman.My.Resources.Resources.Button_Dropdown_6x3
         Me.cmdTools.Location = New System.Drawing.Point(0, 0)
         Me.cmdTools.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdTools.Name = "cmdTools"
@@ -325,7 +325,7 @@ Partial Class frmMain
         Me.cmdWindowMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdWindowMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdWindowMinimize.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.cmdWindowMinimize.Image = Global.sstatesman.My.Resources.Resources.Metro_WindowButtonMinimize
+        Me.cmdWindowMinimize.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonMinimize_12x12
         Me.cmdWindowMinimize.Location = New System.Drawing.Point(0, 0)
         Me.cmdWindowMinimize.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowMinimize.Name = "cmdWindowMinimize"
@@ -342,7 +342,7 @@ Partial Class frmMain
         Me.cmdWindowMaximize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdWindowMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdWindowMaximize.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.cmdWindowMaximize.Image = Global.sstatesman.My.Resources.Resources.Metro_WindowButtonMaximize
+        Me.cmdWindowMaximize.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonMaximize_12x12
         Me.cmdWindowMaximize.Location = New System.Drawing.Point(24, 0)
         Me.cmdWindowMaximize.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowMaximize.Name = "cmdWindowMaximize"
@@ -359,7 +359,7 @@ Partial Class frmMain
         Me.cmdWindowClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdWindowClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdWindowClose.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.cmdWindowClose.Image = Global.sstatesman.My.Resources.Resources.Metro_WindowButtonClose
+        Me.cmdWindowClose.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonClose_12x12
         Me.cmdWindowClose.Location = New System.Drawing.Point(48, 0)
         Me.cmdWindowClose.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowClose.Name = "cmdWindowClose"
@@ -369,7 +369,7 @@ Partial Class frmMain
         '
         'imgWindowGradientIcon
         '
-        Me.imgWindowGradientIcon.Image = Global.sstatesman.My.Resources.Resources.SSM1ico24
+        Me.imgWindowGradientIcon.Image = Global.sstatesman.My.Resources.Resources.Icon_SSM1ico_24x24
         Me.imgWindowGradientIcon.Location = New System.Drawing.Point(514, 0)
         Me.imgWindowGradientIcon.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.imgWindowGradientIcon.Name = "imgWindowGradientIcon"
@@ -516,7 +516,7 @@ Partial Class frmMain
         Me.cmdRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdRefresh.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdRefresh.Image = Global.sstatesman.My.Resources.Resources.Metro_Button_Refresh
+        Me.cmdRefresh.Image = Global.sstatesman.My.Resources.Resources.Icon_Refresh_14x14
         Me.cmdRefresh.Location = New System.Drawing.Point(0, 1)
         Me.cmdRefresh.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdRefresh.Name = "cmdRefresh"
@@ -648,7 +648,7 @@ Partial Class frmMain
         '
         Me.imgCover.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.imgCover.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.imgCover.Image = Global.sstatesman.My.Resources.Resources.Nocover
+        Me.imgCover.Image = Global.sstatesman.My.Resources.Resources.Extra_Nocover_40x40
         Me.imgCover.Location = New System.Drawing.Point(0, 137)
         Me.imgCover.Margin = New System.Windows.Forms.Padding(0, 0, 4, 2)
         Me.imgCover.Name = "imgCover"
@@ -1070,7 +1070,7 @@ Partial Class frmMain
         Me.cmdSStatesLvwExpand.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdSStatesLvwExpand.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSStatesLvwExpand.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.cmdSStatesLvwExpand.Image = Global.sstatesman.My.Resources.Resources.Metro_ExpandTop
+        Me.cmdSStatesLvwExpand.Image = Global.sstatesman.My.Resources.Resources.Icon_ExpandTop_12x12
         Me.cmdSStatesLvwExpand.Location = New System.Drawing.Point(594, 0)
         Me.cmdSStatesLvwExpand.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdSStatesLvwExpand.Name = "cmdSStatesLvwExpand"
@@ -1206,7 +1206,7 @@ Partial Class frmMain
         '
         'cmiPCSX2Launch
         '
-        Me.cmiPCSX2Launch.Image = Global.sstatesman.My.Resources.Resources.PCSX2_16
+        Me.cmiPCSX2Launch.Image = Global.sstatesman.My.Resources.Resources.Icon_PCSX2_16x16
         Me.cmiPCSX2Launch.Name = "cmiPCSX2Launch"
         Me.cmiPCSX2Launch.Size = New System.Drawing.Size(200, 22)
         Me.cmiPCSX2Launch.Text = " launch PCSX2"
@@ -1218,21 +1218,21 @@ Partial Class frmMain
         '
         'cmiPCSX2BinFolderOpen
         '
-        Me.cmiPCSX2BinFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Folder_16
+        Me.cmiPCSX2BinFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_Folder_16x16
         Me.cmiPCSX2BinFolderOpen.Name = "cmiPCSX2BinFolderOpen"
         Me.cmiPCSX2BinFolderOpen.Size = New System.Drawing.Size(200, 22)
         Me.cmiPCSX2BinFolderOpen.Text = "open PCSX2 folder"
         '
         'cmiPCSX2SStatesFolderOpen
         '
-        Me.cmiPCSX2SStatesFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Folder_16
+        Me.cmiPCSX2SStatesFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_Folder_16x16
         Me.cmiPCSX2SStatesFolderOpen.Name = "cmiPCSX2SStatesFolderOpen"
         Me.cmiPCSX2SStatesFolderOpen.Size = New System.Drawing.Size(200, 22)
         Me.cmiPCSX2SStatesFolderOpen.Text = "open savestates folder"
         '
         'cmiPCSX2SnapsFolderOpen
         '
-        Me.cmiPCSX2SnapsFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Folder_16
+        Me.cmiPCSX2SnapsFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_Folder_16x16
         Me.cmiPCSX2SnapsFolderOpen.Name = "cmiPCSX2SnapsFolderOpen"
         Me.cmiPCSX2SnapsFolderOpen.Size = New System.Drawing.Size(200, 22)
         Me.cmiPCSX2SnapsFolderOpen.Text = "open screenshots folder"
@@ -1244,14 +1244,14 @@ Partial Class frmMain
         '
         'GameDBExplorerToolStripMenuItem
         '
-        Me.GameDBExplorerToolStripMenuItem.Image = Global.sstatesman.My.Resources.Resources.GDE_16
+        Me.GameDBExplorerToolStripMenuItem.Image = Global.sstatesman.My.Resources.Resources.Icon_GDE_16x16
         Me.GameDBExplorerToolStripMenuItem.Name = "GameDBExplorerToolStripMenuItem"
         Me.GameDBExplorerToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
         Me.GameDBExplorerToolStripMenuItem.Text = "GameDB Explorer"
         '
         'DeveloperToolsToolStripMenuItem
         '
-        Me.DeveloperToolsToolStripMenuItem.Image = Global.sstatesman.My.Resources.Resources.Tools
+        Me.DeveloperToolsToolStripMenuItem.Image = Global.sstatesman.My.Resources.Resources.Icon_Tools_16x16
         Me.DeveloperToolsToolStripMenuItem.Name = "DeveloperToolsToolStripMenuItem"
         Me.DeveloperToolsToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
         Me.DeveloperToolsToolStripMenuItem.Text = "Developer Tools"
@@ -1273,7 +1273,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.panelWindowTitle)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.ForeColor = System.Drawing.Color.Black
-        Me.Icon = Global.sstatesman.My.Resources.Resources.SSM1
+        Me.Icon = Global.sstatesman.My.Resources.Resources.SSMico_v1_256x256
         Me.Location = New System.Drawing.Point(20, 20)
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(640, 480)

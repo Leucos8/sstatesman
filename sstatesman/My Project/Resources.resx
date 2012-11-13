@@ -134,29 +134,59 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Metro_ExpandLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-ExpandLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BgHex" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\themes\bghex.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metro_WindowButtonClose" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-WindowButtonClose.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BgMetalBrush" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\themes\bgmetalbrush.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metro_WindowButtonMaximize" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-WindowButtonMaximize.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BgNoise" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\themes\bgnoise.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metro_WindowButtonMinimize" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-WindowButtonMinimize.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BgPCSX2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\themes\bgpcsx2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metro_WindowButtonRestore" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-WindowButtonRestore.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="BgSquares" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\themes\bgsquares.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BgStripesDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\themes\bgstripesdark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BgStripesLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\themes\bgstripeslight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Button_Bg" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\button_bg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Button_Dropdown_6x3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\button_dropdown_6x3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Checkbox_Checked_22x22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\checkbox_checked_22x22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Checkbox_Unchecked_22x22" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\checkbox_unchecked_22x22.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Extra_Nocover_40x40" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\extra_nocover_40x40.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Flag_0Null_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flags\Flag_0Null_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Flag_Australia_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\flags\Flag_Australia_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Austria_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\flags\Flag_Austria_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Flag_Canada_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\flags\Flag_Canada_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="Flag_China_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flags\Flag_China_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Flag_Europe_Union_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flags\Flag_Europe_Union_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Flag_EU_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\flags\Flag_EU_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Flag_France_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flags\Flag_France_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -194,91 +224,61 @@
   <data name="Flag_US_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\flags\Flag_US_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Flag_Canada_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flags\Flag_Canada_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="GDE_256x256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\ico\gde_256x256.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Flag_Australia_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flags\Flag_Australia_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icon_ExpandBottom_12x12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\icon_expandbottom_12x12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Flag_Austria_30x20" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\flags\Flag_Austria_30x20.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icon_ExpandLeft_12x12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\icon_expandleft_12x12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metro_ExpandRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-ExpandRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icon_ExpandRight_12x12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\icon_expandright_12x12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metro_Button_Exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-Button-Exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icon_ExpandTop_12x12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\icon_expandtop_12x12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metro_ChecboxChecked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-ChecboxChecked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icon_Folder_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\icon_folder_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metro_ChecboxUnchecked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-ChecboxUnchecked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icon_GDE_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\icon_gde_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metro_ExpandBottom" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-ExpandBottom.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icon_Gear_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\icon_gear_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metro_ExpandTop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-ExpandTop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icon_PCSX2_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\icon_pcsx2_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SSM1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SSM1.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icon_Refresh_14x14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\icon_refresh_14x14.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metro_ButtonNormal" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-ButtonNormal.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icon_SSM1ico_24x24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\icon_ssm1ico_24x24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BgSquares" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Bg.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Icon_Tools_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\icon_tools_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metro_Button_Error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-Button-Error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="InfoIcon_Error_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\infoicon_error_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="SSM1ico24" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SSM1ico24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="InfoIcon_Exclamation_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\infoicon_exclamation_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BgNoise" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BgNoise.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="SSMico_v1_256x256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\ico\ssmicov1_256x256.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BgStripesDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BgStripes.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Window_ButtonClose_12x12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\window_buttonclose_12x12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Metro_Button_Refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-Button-Refresh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Window_ButtonMaximize_12x12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\window_buttonmaximize_12x12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="BgPCSX2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PCSX2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Window_ButtonMinimize_12x12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\window_buttonminimize_12x12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Nocover" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Nocover.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BgMetalBrush" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BgMetalBrush.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BgStripesLight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BgStripesLight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="BgHex" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\BgHex.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Folder_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Folder_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GDE_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GDE_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GDE" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\GDE.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gear" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gear.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="PCSX2_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\PCSX2_16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Tools" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Tools.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Metro_Toolbar_Dropdown" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Metro-Toolbar_Dropdown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Window_ButtonRestore_12x12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\window_buttonrestore_12x12.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>
