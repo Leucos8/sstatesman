@@ -951,19 +951,20 @@ Public Class frmMain
     End Sub
 
     Private Sub cmiPCSX2Launch_Click(sender As System.Object, e As System.EventArgs) Handles cmiPCSX2Launch.Click
-        Dim tmpPath As String = Path.Combine(My.Settings.PCSX2_PathBin, "PCSX2.exe")
-        If File.Exists(tmpPath) Then
-            Diagnostics.Process.Start(tmpPath)
-        Else
-            MessageBox.Show("The file specified does not exist. " & tmpPath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End If
+        'Dim tmpPath As String = Path.Combine(My.Settings.PCSX2_PathBin, "PCSX2.exe")
+        'If File.Exists(tmpPath) Then
+        '    Diagnostics.Process.Start(tmpPath)
+        'Else
+        '    MessageBox.Show("The file specified does not exist. " & tmpPath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        'End If
+        frmChooseVersion.ShowDialog(Me)
     End Sub
 
     Private Sub cmiPCSX2BinFolderOpen_Click(sender As System.Object, e As System.EventArgs) Handles cmiPCSX2BinFolderOpen.Click
         If Directory.Exists(My.Settings.PCSX2_PathBin) Then
             Diagnostics.Process.Start(My.Settings.PCSX2_PathBin)
         Else
-            MessageBox.Show("The file specified does not exist. " & My.Settings.PCSX2_PathBin, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("The folder specified does not exist. " & My.Settings.PCSX2_PathBin, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 
@@ -971,7 +972,7 @@ Public Class frmMain
         If Directory.Exists(My.Settings.PCSX2_PathSState) Then
             Diagnostics.Process.Start(My.Settings.PCSX2_PathSState)
         Else
-            MessageBox.Show("The file specified does not exist. " & My.Settings.PCSX2_PathSState, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("The folder specified does not exist. " & My.Settings.PCSX2_PathSState, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 
@@ -979,7 +980,7 @@ Public Class frmMain
         If Directory.Exists(My.Settings.PCSX2_PathSnaps) Then
             Diagnostics.Process.Start(My.Settings.PCSX2_PathSnaps)
         Else
-            MessageBox.Show("The file specified does not exist. " & My.Settings.PCSX2_PathSnaps, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("The folder specified does not exist. " & My.Settings.PCSX2_PathSnaps, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 

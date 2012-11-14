@@ -98,6 +98,12 @@
     <Compile Include="Dialogs\frmAbout.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmChooseVersion.Designer.vb">
+      <DependentUpon>frmChooseVersion.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmChooseVersion.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmDeleteForm.Designer.vb">
       <DependentUpon>frmDeleteForm.vb</DependentUpon>
     </Compile>
@@ -158,6 +164,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Dialogs\frmAbout.resx">
       <DependentUpon>frmAbout.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmChooseVersion.resx">
+      <DependentUpon>frmChooseVersion.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDeleteForm.resx">
       <DependentUpon>frmDeleteForm.vb</DependentUpon>

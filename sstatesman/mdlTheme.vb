@@ -55,7 +55,7 @@ Module mdlTheme
             Case eTheme.squares
                 With LoadTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
-                    .AccentColorLight = Color.WhiteSmoke
+                    .AccentColorLight = Color.FromArgb(215, 220, 255)
                     .AccentColorDark = Color.FromArgb(255, 65, 74, 100)
                     .BgColor = Color.WhiteSmoke
                     .BgColorTop = Color.Gainsboro
@@ -68,7 +68,7 @@ Module mdlTheme
             Case eTheme.noise
                 With LoadTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
-                    .AccentColorLight = Color.WhiteSmoke
+                    .AccentColorLight = Color.FromArgb(215, 220, 255)
                     .AccentColorDark = Color.FromArgb(255, 65, 74, 100)
                     .BgColor = Color.WhiteSmoke
                     .BgColorTop = Color.Gainsboro
@@ -81,7 +81,7 @@ Module mdlTheme
             Case eTheme.stripes_dark
                 With LoadTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
-                    .AccentColorLight = Color.WhiteSmoke
+                    .AccentColorLight = Color.FromArgb(215, 220, 255)
                     .AccentColorDark = Color.FromArgb(255, 65, 74, 100)
                     .BgColor = Color.WhiteSmoke
                     .BgColorTop = Color.Gainsboro
@@ -94,7 +94,7 @@ Module mdlTheme
             Case eTheme.stripes_light
                 With LoadTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
-                    .AccentColorLight = Color.WhiteSmoke
+                    .AccentColorLight = Color.FromArgb(215, 220, 255)
                     .AccentColorDark = Color.FromArgb(255, 65, 74, 100)
                     .BgColor = Color.WhiteSmoke
                     .BgColorTop = Color.Gainsboro
@@ -107,7 +107,7 @@ Module mdlTheme
             Case eTheme.brushedmetal
                 With LoadTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
-                    .AccentColorLight = Color.WhiteSmoke
+                    .AccentColorLight = Color.FromArgb(215, 220, 255)
                     .AccentColorDark = Color.FromArgb(255, 65, 74, 100)
                     .BgColor = Color.WhiteSmoke
                     .BgColorTop = Color.Gainsboro
@@ -120,7 +120,7 @@ Module mdlTheme
             Case eTheme.hexagons
                 With LoadTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
-                    .AccentColorLight = Color.WhiteSmoke
+                    .AccentColorLight = Color.FromArgb(215, 220, 255)
                     .AccentColorDark = Color.FromArgb(255, 65, 74, 100)
                     .BgColor = Color.WhiteSmoke
                     .BgColorTop = Color.Silver
