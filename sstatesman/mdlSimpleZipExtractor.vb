@@ -13,6 +13,7 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
+
 Module mdlSimpleZipExtractor
 #Region "ZipHeader"
     Private Const ZipH_Sign_Const As Integer = &H4034B50          'Signature at the start of a Zip File

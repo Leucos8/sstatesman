@@ -13,7 +13,6 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
-
 Public Class frmSettings
 
     Dim tmpTab2SettingsFail As Boolean = False

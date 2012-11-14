@@ -14,7 +14,6 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
 
-
 Public Class frmSStateList
     Dim populationTime As Long
 
