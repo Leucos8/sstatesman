@@ -14,51 +14,63 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
 Public Class frmChooseVersion
+    Dim PCSX2exe_files As List(Of FileInfo)
 
-
-    Private Sub PCSX2EXE_list()
-        ListBox1.BeginUpdate()
-        ListBox1.Items.Clear()
-        If Directory.Exists(My.Settings.PCSX2_PathBin) Then
+    Private Sub PCSX2EXE_ListCreate(ByVal pPCSX2_PathBin As String)
+        lbPCSX2exe.BeginUpdate()
+        lbPCSX2exe.Items.Clear()
+        If Directory.Exists(pPCSX2_PathBin) Then
             Dim tmpDirectory As New DirectoryInfo(My.Settings.PCSX2_PathBin)
-            Dim PCSX2_files As FileInfo() = tmpDirectory.GetFiles("PCSX2*.exe")
-            If PCSX2_files.Length > 0 Then
-                For i = 0 To PCSX2_files.Length - 1
-                    ListBox1.Items.Add(PCSX2_files(i).Name)
+            Dim PCSX2exe_files As FileInfo() = tmpDirectory.GetFiles("PCSX2*.exe")
+            If PCSX2exe_files.Length > 0 Then
+                For i = 0 To PCSX2exe_files.Length - 1
+                    lbPCSX2exe.Items.Add(PCSX2exe_files(i).Name)
                 Next
-                Me.ListBox1.SetSelected(0, True)
-                If PCSX2_files.Length = 1 Then
-                    Me.OKButton_Click(Nothing, Nothing)
+                Me.lbPCSX2exe.SetSelected(0, True)
+                If PCSX2exe_files.Count = 1 Then
+                    PCSX2EXE_start(pPCSX2_PathBin, Me.lbPCSX2exe.Text)
+                    Me.Close()
+                Else
+                    Me.cmdOk.Enabled = False
                 End If
             Else
-                ListBox1.Items.Add("No PCSX2 executables found")
-                Me.OKButton.Enabled = False
+                lbPCSX2exe.Items.Add("No PCSX2 executables found")
+                Me.cmdOk.Enabled = False
             End If
         Else
-            ListBox1.Items.Add("The specified path does not exist")
-            Me.OKButton.Enabled = False
+            lbPCSX2exe.Items.Add("The specified path does not exist")
+            Me.cmdOk.Enabled = False
         End If
-        ListBox1.EndUpdate()
+        lbPCSX2exe.EndUpdate()
+    End Sub
+
+    Private Sub PCSX2EXE_start(ByVal pPCSX2_PathBin As String, ByVal pPCSX2_ExeName As String)
+        Dim tmpPath As String = Path.Combine(pPCSX2_PathBin, pPCSX2_ExeName)
+        If File.Exists(tmpPath) Then
+            Diagnostics.Process.Start(tmpPath)
+        Else
+            MessageBox.Show("The file specified does not exist. " & tmpPath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
     End Sub
 
     Private Sub frmChooseVersion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.applyTheme()
-        Me.PCSX2EXE_list()
+        Me.PCSX2EXE_ListCreate(My.Settings.PCSX2_PathBin)
     End Sub
 
 #Region "UI paint"
-    Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
+    Private Sub pnlWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlWindowTitle.Paint
         Dim recToolbar As New Rectangle(CInt(8 * DPIxScale), 0, CInt(127 * DPIxScale) + 1, CInt(7 * DPIyScale) + 1)
         Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 0)
         e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-        If (panelWindowTitle.Height > 4 * CInt(DPIyScale) + 1) And (panelWindowTitle.Width > 0) Then
+        If (pnlWindowTitle.Height > 4 * CInt(DPIyScale) + 1) And (pnlWindowTitle.Width > 0) Then
             If My.Settings.SStatesMan_ThemeGradientEnabled Then
-                recToolbar = New Rectangle(0, panelWindowTitle.Height - CInt(4 * DPIyScale), panelWindowTitle.Width, CInt(3 * DPIyScale) + 1)
+                recToolbar = New Rectangle(0, pnlWindowTitle.Height - CInt(4 * DPIyScale), pnlWindowTitle.Width, CInt(3 * DPIyScale) + 1)
                 linGrBrushToolbar = New Drawing2D.LinearGradientBrush(recToolbar, Color.Transparent, Color.DarkGray, 90)
                 recToolbar.Y += 1
                 e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
             End If
-            e.Graphics.DrawLine(Pens.DimGray, 0, panelWindowTitle.Height - 1, panelWindowTitle.Width, panelWindowTitle.Height - 1)
+            e.Graphics.DrawLine(Pens.DimGray, 0, pnlWindowTitle.Height - 1, pnlWindowTitle.Width, pnlWindowTitle.Height - 1)
         End If
     End Sub
 
@@ -75,15 +87,15 @@ Public Class frmChooseVersion
 
     Private Sub applyTheme()
         Me.BackColor = currentTheme.BgColor
-        Me.panelWindowTitle.BackColor = currentTheme.BgColorTop
+        Me.pnlWindowTitle.BackColor = currentTheme.BgColorTop
         Me.flpWindowBottom.BackColor = currentTheme.BgColorBottom
         If My.Settings.SStatesMan_ThemeImageEnabled Then
-            Me.panelWindowTitle.BackgroundImage = currentTheme.BgImageTop
-            Me.panelWindowTitle.BackgroundImageLayout = currentTheme.BgImageTopStyle
+            Me.pnlWindowTitle.BackgroundImage = currentTheme.BgImageTop
+            Me.pnlWindowTitle.BackgroundImageLayout = currentTheme.BgImageTopStyle
             Me.flpWindowBottom.BackgroundImage = currentTheme.BgImageBottom
             Me.flpWindowBottom.BackgroundImageLayout = currentTheme.BgImageBottomStyle
         Else
-            Me.panelWindowTitle.BackgroundImage = Nothing
+            Me.pnlWindowTitle.BackgroundImage = Nothing
             Me.flpWindowBottom.BackgroundImage = Nothing
         End If
         Me.Refresh()
@@ -94,19 +106,8 @@ Public Class frmChooseVersion
         Me.Close()
     End Sub
 
-    Private Sub OKButton_Click(sender As Object, e As EventArgs) Handles OKButton.Click
-        Dim tmpPath As String = Path.Combine(My.Settings.PCSX2_PathBin, Me.ListBox1.Text)
-        If File.Exists(tmpPath) Then
-            Diagnostics.Process.Start(tmpPath)
-            Me.Close()
-        Else
-            MessageBox.Show("The file specified does not exist. " & tmpPath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End If
-
+    Private Sub cmdOk_Click(sender As Object, e As EventArgs) Handles cmdOk.Click
+        Me.PCSX2EXE_start(My.Settings.PCSX2_PathBin, Me.lbPCSX2exe.Text)
+        Me.Close()
     End Sub
-
-    Private Sub PCSX2EXE_scan()
-        Throw New NotImplementedException
-    End Sub
-
 End Class
