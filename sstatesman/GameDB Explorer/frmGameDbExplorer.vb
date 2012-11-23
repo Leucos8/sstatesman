@@ -12,7 +12,7 @@
 '
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
-Public Class frmGameDb
+Public Class frmGameDbExplorer
     Dim CurrentSerial As String = ""
     Dim CurrentGame As New GameInfo With {.Serial = "", .Name = "", .Region = "", .Compat = "0"}
     Dim populationTime As Long
@@ -23,7 +23,6 @@ Public Class frmGameDb
 
     Private Sub UI_Updater()
 
-        Me.tsGameDbUnload.Enabled = False
         Me.tsListShow.Enabled = False
         Me.tsListShow.Visible = False
         Me.tsCmdSearch.Enabled = False
@@ -59,7 +58,6 @@ Public Class frmGameDb
                     End Select
                 End If
 
-                Me.tsGameDbUnload.Enabled = True
                 Me.tsCmdSearch.Enabled = True
                 Me.tsTxtSearchSerial.Enabled = True
                 Me.tsExport.Enabled = True
@@ -110,7 +108,7 @@ Public Class frmGameDb
     End Sub
 
     Private Sub tsGameDbLoad_ButtonClick(sender As System.Object, e As System.EventArgs) Handles tsGameDbLoad.ButtonClick
-        LoadGameDB(IO.Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
+        Me.tsLoadFromFileTool_Click(sender, e)
     End Sub
 
     Private Sub tsLoadDefaultGameDB_Click(sender As System.Object, e As System.EventArgs) Handles tsLoadDefaultGameDB.Click
@@ -133,22 +131,6 @@ Public Class frmGameDb
                 LoadGameDB(openDialog.FileName)
             End If
         End Using
-    End Sub
-
-    Private Sub tsGameDbUnload_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsGameDbUnload.Click
-
-        If MessageBox.Show("Warning, unloading the GameDB could lead to undesired effects." & Environment.NewLine & "Be sure to load it again before closing GameDB util." & Environment.NewLine & "Do you wish to continue?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) = Windows.Forms.DialogResult.Yes Then
-            Me.lvwGameDBList.Items.Clear()
-
-            PCSX2GameDb.Unload()
-
-            Me.CurrentSerial = ""
-            Me.SearchResultRef.Clear()
-            Me.SearchIsActive = False
-
-            Me.UI_Updater()
-        End If
-
     End Sub
 
     Private Sub tsListShow_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsListShow.Click
@@ -263,7 +245,7 @@ Public Class frmGameDb
     End Sub
 
     Private Sub tsCmdSearch_Click(sender As System.Object, e As System.EventArgs) Handles tsCmdSearch.Click
-        If frmGameDbSearchForm.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+        If frmGDESearch.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             Dim SearchGameDb As New Dictionary(Of System.String, GameInfo)
             PCSX2GameDb.RecordExtract(Me.SearchResultRef, SearchGameDb)
             Me.PopulateList(SearchGameDb)

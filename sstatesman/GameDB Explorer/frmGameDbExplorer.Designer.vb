@@ -13,7 +13,7 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmGameDb
+Partial Class frmGameDbExplorer
     Inherits System.Windows.Forms.Form
 
     'Form esegue l'override del metodo Dispose per pulire l'elenco dei componenti.
@@ -36,7 +36,7 @@ Partial Class frmGameDb
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmGameDb))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmGameDbExplorer))
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
@@ -45,7 +45,6 @@ Partial Class frmGameDb
         Me.tsGameDbLoad = New System.Windows.Forms.ToolStripSplitButton()
         Me.tsLoadDefaultGameDB = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsLoadFromFileTool = New System.Windows.Forms.ToolStripMenuItem()
-        Me.tsGameDbUnload = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.tsCmdSearch = New System.Windows.Forms.ToolStripButton()
         Me.tsListShow = New System.Windows.Forms.ToolStripButton()
@@ -115,7 +114,7 @@ Partial Class frmGameDb
         Me.ToolStrip1.BackColor = System.Drawing.Color.Gainsboro
         Me.ToolStrip1.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsGameDbLoad, Me.tsGameDbUnload, Me.ToolStripSeparator1, Me.tsCmdSearch, Me.tsListShow, Me.ToolStripSeparator2, Me.tsExport, Me.tsTxtSearchSerial})
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsGameDbLoad, Me.ToolStripSeparator1, Me.tsCmdSearch, Me.tsListShow, Me.ToolStripSeparator2, Me.tsExport, Me.tsTxtSearchSerial})
         Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
         Me.ToolStrip1.Name = "ToolStrip1"
         Me.ToolStrip1.Size = New System.Drawing.Size(624, 25)
@@ -136,28 +135,18 @@ Partial Class frmGameDb
         'tsLoadDefaultGameDB
         '
         Me.tsLoadDefaultGameDB.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.tsLoadDefaultGameDB.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tsLoadDefaultGameDB.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsLoadDefaultGameDB.Name = "tsLoadDefaultGameDB"
-        Me.tsLoadDefaultGameDB.Size = New System.Drawing.Size(199, 22)
+        Me.tsLoadDefaultGameDB.Size = New System.Drawing.Size(202, 22)
         Me.tsLoadDefaultGameDB.Text = "Load default GameDB"
         '
         'tsLoadFromFileTool
         '
         Me.tsLoadFromFileTool.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.tsLoadFromFileTool.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.tsLoadFromFileTool.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tsLoadFromFileTool.Name = "tsLoadFromFileTool"
-        Me.tsLoadFromFileTool.Size = New System.Drawing.Size(199, 22)
+        Me.tsLoadFromFileTool.Size = New System.Drawing.Size(202, 22)
         Me.tsLoadFromFileTool.Text = "Load GameDB from file..."
-        '
-        'tsGameDbUnload
-        '
-        Me.tsGameDbUnload.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.tsGameDbUnload.Enabled = False
-        Me.tsGameDbUnload.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.tsGameDbUnload.Name = "tsGameDbUnload"
-        Me.tsGameDbUnload.Size = New System.Drawing.Size(37, 22)
-        Me.tsGameDbUnload.Text = "&CLOSE"
-        Me.tsGameDbUnload.ToolTipText = "Unload the Game Database. For debugging purpose only"
         '
         'ToolStripSeparator1
         '
@@ -429,7 +418,7 @@ Partial Class frmGameDb
         Me.TableLayoutPanel1.Size = New System.Drawing.Size(624, 52)
         Me.TableLayoutPanel1.TabIndex = 4
         '
-        'frmGameDb
+        'frmGameDbExplorer
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
@@ -445,7 +434,7 @@ Partial Class frmGameDb
         Me.ForeColor = System.Drawing.Color.Black
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Margin = New System.Windows.Forms.Padding(2)
-        Me.Name = "frmGameDb"
+        Me.Name = "frmGameDbExplorer"
         Me.Text = "GameDB Explorer"
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
@@ -476,7 +465,6 @@ Partial Class frmGameDb
     Private WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
     Private WithEvents tsExport As System.Windows.Forms.ToolStripDropDownButton
     Private WithEvents tsExportTSVTxt As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents tsGameDbUnload As System.Windows.Forms.ToolStripButton
     Private WithEvents tsTxtSearchSerial As System.Windows.Forms.ToolStripTextBox
     Private WithEvents tsExportCSVTxt As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents tsCmdSearch As System.Windows.Forms.ToolStripButton

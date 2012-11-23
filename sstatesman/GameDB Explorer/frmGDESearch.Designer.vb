@@ -13,7 +13,7 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmGameDbSearchForm
+Partial Class frmGDESearch
     Inherits System.Windows.Forms.Form
 
     'Form esegue l'override del metodo Dispose per pulire l'elenco dei componenti.
@@ -36,7 +36,7 @@ Partial Class frmGameDbSearchForm
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmGameDbSearchForm))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmGDESearch))
         Me.ckbSerial = New System.Windows.Forms.CheckBox()
         Me.txtSerial = New System.Windows.Forms.TextBox()
         Me.txtGameTitle = New System.Windows.Forms.TextBox()
@@ -329,7 +329,7 @@ Partial Class frmGameDbSearchForm
         Me.lblWindowProgramName.TabIndex = 1
         Me.lblWindowProgramName.Text = "search"
         '
-        'frmGameDbSearchForm
+        'frmGDESearch
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
@@ -345,7 +345,7 @@ Partial Class frmGameDbSearchForm
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.Name = "frmGameDbSearchForm"
+        Me.Name = "frmGDESearch"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "GameDB Explorer - Search"

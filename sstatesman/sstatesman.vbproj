@@ -110,10 +110,10 @@
     <Compile Include="frmDeleteForm.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GameDB Util\frmGameDbSearchForm.Designer.vb">
-      <DependentUpon>frmGameDbSearchForm.vb</DependentUpon>
+    <Compile Include="GameDB Explorer\frmGDESearch.Designer.vb">
+      <DependentUpon>frmGDESearch.vb</DependentUpon>
     </Compile>
-    <Compile Include="GameDB Util\frmGameDbSearchForm.vb">
+    <Compile Include="GameDB Explorer\frmGDESearch.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.Designer.vb">
@@ -122,10 +122,10 @@
     <Compile Include="frmMain.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GameDB Util\frmGameDb.Designer.vb">
-      <DependentUpon>frmGameDb.vb</DependentUpon>
+    <Compile Include="GameDB Explorer\frmGameDbExplorer.Designer.vb">
+      <DependentUpon>frmGameDbExplorer.vb</DependentUpon>
     </Compile>
-    <Compile Include="GameDB Util\frmGameDb.vb">
+    <Compile Include="GameDB Explorer\frmGameDbExplorer.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Dialogs\frmSettings.Designer.vb">
@@ -171,14 +171,14 @@
     <EmbeddedResource Include="frmDeleteForm.resx">
       <DependentUpon>frmDeleteForm.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GameDB Util\frmGameDbSearchForm.resx">
-      <DependentUpon>frmGameDbSearchForm.vb</DependentUpon>
+    <EmbeddedResource Include="GameDB Explorer\frmGDESearch.resx">
+      <DependentUpon>frmGDESearch.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GameDB Util\frmGameDb.resx">
-      <DependentUpon>frmGameDb.vb</DependentUpon>
+    <EmbeddedResource Include="GameDB Explorer\frmGameDbExplorer.resx">
+      <DependentUpon>frmGameDbExplorer.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\frmSettings.resx">
       <DependentUpon>frmSettings.vb</DependentUpon>

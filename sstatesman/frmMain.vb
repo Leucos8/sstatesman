@@ -985,10 +985,10 @@ Public Class frmMain
     End Sub
 
     Private Sub GameDBExplorerToolStripMenuItem_Click(sender As System.Object, e As System.EventArgs) Handles GameDBExplorerToolStripMenuItem.Click
-        If Not frmGameDb.Visible Then
-            frmGameDb.Show(Me)
+        If Not frmGameDbExplorer.Visible Then
+            frmGameDbExplorer.Show(Me)
         Else
-            frmGameDb.BringToFront()
+            frmGameDbExplorer.BringToFront()
         End If
     End Sub
 

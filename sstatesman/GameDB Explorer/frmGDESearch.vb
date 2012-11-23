@@ -12,7 +12,7 @@
 '
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
-Public Class frmGameDbSearchForm
+Public Class frmGDESearch
     Dim ConvertedGameCompat As System.String = ""
 
     Private Sub UI_Check()
@@ -29,21 +29,21 @@ Public Class frmGameDbSearchForm
 
     Private Sub cmdSearch_Click(sender As System.Object, e As System.EventArgs) Handles cmdSearch.Click
         If Me.optSeatchTypeAND.Checked Then
-            PCSX2GameDb.Search(frmGameDb.SearchResultRef,
+            PCSX2GameDb.Search(frmGameDbExplorer.SearchResultRef,
                                    Me.txtSerial.Text,
                                    Me.txtGameTitle.Text,
                                    Me.txtGameRegion.Text,
                                    ConvertedGameCompat,
                                    0)
         Else
-            PCSX2GameDb.Search(frmGameDb.SearchResultRef,
+            PCSX2GameDb.Search(frmGameDbExplorer.SearchResultRef,
                                    Me.txtSerial.Text,
                                    Me.txtGameTitle.Text,
                                    Me.txtGameRegion.Text,
                                    ConvertedGameCompat,
                                    1)
         End If
-        frmGameDb.SearchIsActive = True
+        frmGameDbExplorer.SearchIsActive = True
         Me.DialogResult = Windows.Forms.DialogResult.OK
         Me.Close()
     End Sub
@@ -52,8 +52,8 @@ Public Class frmGameDbSearchForm
         Me.Close()
     End Sub
 
-    Private Sub txtSerial_Validated(sender As System.Object, e As System.EventArgs) Handles txtSerial.Validated
-        Me.txtSerial.Text = Me.txtSerial.Text.Trim
+    Private Sub txtSerial_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtSerial.TextChanged
+        'Me.txtSerial.Text = Me.txtSerial.Text.Trim
         If Me.txtSerial.Text.Length > 0 Then
             Me.ckbSerial.Checked = True
         Else
@@ -62,8 +62,8 @@ Public Class frmGameDbSearchForm
         Me.UI_Check()
     End Sub
 
-    Private Sub txtGameTitle_Validated(sender As System.Object, e As System.EventArgs) Handles txtGameTitle.Validated
-        Me.txtGameTitle.Text = Me.txtGameTitle.Text.Trim
+    Private Sub txtGameTitle_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtGameTitle.TextChanged
+        'Me.txtGameTitle.Text = Me.txtGameTitle.Text.Trim
         If Me.txtGameTitle.Text.Length > 0 Then
             Me.ckbGameTitle.Checked = True
         Else
@@ -72,12 +72,22 @@ Public Class frmGameDbSearchForm
         Me.UI_Check()
     End Sub
 
-    Private Sub txtGameRegion_Validated(sender As System.Object, e As System.EventArgs) Handles txtGameRegion.Validated
-        Me.txtGameRegion.Text = Me.txtGameRegion.Text.Trim
+    Private Sub txtGameRegion_TextChanged(sender As System.Object, e As System.EventArgs) Handles txtGameRegion.TextChanged
+        'Me.txtGameRegion.Text = Me.txtGameRegion.Text.Trim
         If Me.txtGameRegion.Text.Length > 0 Then
             Me.ckbGameRegion.Checked = True
         Else
             Me.ckbGameRegion.Checked = False
+        End If
+        Me.UI_Check()
+    End Sub
+
+    Private Sub cbGameCompat_TextChanged(sender As System.Object, e As System.EventArgs) Handles cbGameCompat.TextChanged
+        'Me.cbGameCompat.Text = Me.txtGameRegion.Text.Trim
+        If Me.cbGameCompat.Text.Length > 0 Then
+            Me.ckbGameCompat.Checked = True
+        Else
+            Me.ckbGameCompat.Checked = False
         End If
         Me.UI_Check()
     End Sub
