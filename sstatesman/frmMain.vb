@@ -103,7 +103,7 @@ Public Class frmMain
         With imlLvwCheckboxes
             .ImageSize = New Size(CInt(10 * DPIxScale) + 1, CInt(10 * DPIyScale) + 1)   'Setting the size
             .Images.Add(My.Resources.Checkbox_Unchecked_22x22)      'Unchecked state image
-            .Images.Add(My.Resources.Checkbox_Checked_22x22)          'Checked state image
+            .Images.Add(My.Resources.Checkbox_Checked_22x22)        'Checked state image
         End With
         Me.lvwGamesList.StateImageList = imlLvwCheckboxes           'Assigning the imagelist to the Games listview
         Me.lvwSStatesList.StateImageList = imlLvwCheckboxes         'Assigning the imagelist to the Savestates listview
@@ -248,9 +248,18 @@ Public Class frmMain
                     Me.imgFlag.Image = My.Resources.Flag_0Null_30x20
                     'Cover
                     Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
-                    Me.imgCover.Image = My.Resources.Extra_Nocover_40x40
 
-                    Me.imgCover.Dock = DockStyle.Fill
+                    If My.Settings.frmMain_CoverExpanded Then
+                        Me.imgCover.Image = Cover_MultipleThumbnail(My.Settings.SStatesMan_PathPics, CInt(120 * DPIxScale), CInt(170 * DPIyScale), CInt(16 * DPIxScale))
+                        Me.imgCover.Width = CInt(122 * DPIxScale)
+                        Me.imgCover.Height = CInt(172 * DPIxScale)
+                        Me.imgCover.Dock = DockStyle.Bottom
+                    Else
+                        Me.imgCover.Image = Cover_MultipleThumbnail(My.Settings.SStatesMan_PathPics, CInt(46 * DPIxScale), CInt(46 * DPIyScale), CInt(12 * DPIxScale))
+                        Me.imgCover.Width = CInt(48 * DPIyScale)
+                        Me.imgCover.Height = CInt(48 * DPIyScale)
+                        Me.imgCover.Dock = DockStyle.None
+                    End If
 
                     'If all the games are checked
                     If Me.lvwGamesList.Items.Count = Me.lvwGamesList.CheckedItems.Count Then
@@ -269,37 +278,27 @@ Public Class frmMain
                                                CInt(Me.imgFlag.Image.PhysicalDimension.Height + 2 * DPIyScale))
 
                     'Cover image
-                    If Directory.Exists(My.Settings.SStatesMan_PathPics.ToLower) Then
-                        Try
-                            Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
-                            Me.imgCover.Load(Path.Combine(My.Settings.SStatesMan_PathPics, currentGameInfo.Serial & ".jpg"))
+                    Dim tmpSize As Integer = 0
+                    Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
+                    If My.Settings.frmMain_CoverExpanded Then
+                        Me.imgCover.Image = Me.Cover_GetCover(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, CInt(120 * DPIxScale), tmpSize)
+                        If tmpSize = 0 Then
+                            tmpSize = CInt(170 * DPIxScale)
+                        End If
+                        Me.imgCover.Width = CInt(122 * DPIxScale)
+                        Me.imgCover.Height = tmpSize + 2
+                        Me.imgCover.Dock = DockStyle.Bottom
+                    Else
+                        Dim tmpHeight As Integer = CInt(46 * DPIyScale)
+                        Me.imgCover.Image = Me.Cover_GetCover(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, tmpSize, tmpHeight)
 
-                            Me.imgCover.Dock = DockStyle.None
-                            Me.imgCover.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left
-                            If My.Settings.frmMain_CoverExpanded Then
-                                Me.imgCover.Size = Me.imgCover_SetSize(120, My.Settings.frmMain_CoverExpanded)
-                                'Me.imgCover.Size = New Size(CInt(122 * DPIxScale),
-                                '                            CInt((Me.imgCover.Image.PhysicalDimension.Height * 120 / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
-                            Else
-                                Me.imgCover.Size = Me.imgCover_SetSize(46, My.Settings.frmMain_CoverExpanded)
-                                'If Me.imgCover.Image.PhysicalDimension.Height > Me.imgCover.Image.PhysicalDimension.Width Then
-                                '    Me.imgCover.Size = New Size(CInt((Me.imgCover.Image.PhysicalDimension.Width * 46 / Me.imgCover.Image.PhysicalDimension.Height + 2) * DPIxScale),
-                                '                                CInt(48 * DPIyScale))
-                                'Else
-                                '    Me.imgCover.Size = New Size(CInt(48 * DPIxScale),
-                                '                                CInt((Me.imgCover.Image.PhysicalDimension.Height * 46 / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
-                                'End If
-                            End If
-                        Catch ex As Exception
-                            'No cover image found or file is corrupted
-                            mdlMain.AppendToLog("Main window", "UI_Updater", String.Concat("Cover image error: ", ex.Message))
-                            Me.imgCover.Image = My.Resources.Extra_Nocover_40x40
-                            Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
-                            Me.imgCover.Dock = DockStyle.Fill
-                        End Try
+                        If tmpSize = 0 Then
+                            tmpSize = CInt(46 * DPIxScale)
+                        End If
+                        Me.imgCover.Width = tmpSize + 2
+                        Me.imgCover.Height = tmpHeight
+                        Me.imgCover.Dock = DockStyle.None
                     End If
-                    'End cover image
-
                 End If
 
             Else
@@ -315,7 +314,15 @@ Public Class frmMain
 
                 Me.imgCover.Image = My.Resources.Flag_0Null_30x20
                 Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
-                Me.imgCover.Dock = DockStyle.Fill
+                If My.Settings.frmMain_CoverExpanded Then
+                    Me.imgCover.Width = CInt(122 * DPIxScale)
+                    Me.imgCover.Height = CInt(172 * DPIxScale)
+                    Me.imgCover.Dock = DockStyle.Bottom
+                Else
+                    Me.imgCover.Width = CInt(48 * DPIyScale)
+                    Me.imgCover.Height = CInt(48 * DPIyScale)
+                    Me.imgCover.Dock = DockStyle.None
+                End If
 
                 Me.cmdGameSelectNone.Enabled = False
                 Me.cmdGameSelectAll.Enabled = True
@@ -481,43 +488,24 @@ Public Class frmMain
     Private Sub imgCover_MouseClick(sender As System.Object, e As MouseEventArgs) Handles imgCover.MouseClick
         If e.Button = Windows.Forms.MouseButtons.Left Then
             If My.Settings.frmMain_CoverExpanded Then
-                My.Settings.frmMain_CoverExpanded = False
                 Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 2)
                 Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 1)
-                Me.imgCover.Size = imgCover_SetSize(46, My.Settings.frmMain_CoverExpanded)
                 Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 1))
                 Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(0, 0))
                 Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 9)
-                Me.lblGameList_Title.Visible = True
-                Me.lblGameList_Region.Visible = True
             Else
-                My.Settings.frmMain_CoverExpanded = True
-                Me.lblGameList_Title.Visible = False
-                Me.lblGameList_Region.Visible = False
                 Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 7)
                 Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(2, 0))
                 Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 0))
-                Me.imgCover.Size = imgCover_SetSize(120, My.Settings.frmMain_CoverExpanded)
                 Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 2)
                 Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 3)
             End If
+            Me.lblGameList_Title.Visible = Not (Me.lblGameList_Title.Visible)
+            Me.lblGameList_Region.Visible = Not (Me.lblGameList_Region.Visible)
+            My.Settings.frmMain_CoverExpanded = Not (My.Settings.frmMain_CoverExpanded)
+            Me.UI_UpdaterGameInfo()
         End If
     End Sub
-
-    Private Function imgCover_SetSize(ByVal pMaxSize As Integer, ByVal pMode As Boolean) As Size
-        If pMode Then
-            Return New Size(CInt((pMaxSize + 2) * DPIxScale),
-                            CInt((Me.imgCover.Image.PhysicalDimension.Height * pMaxSize / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
-        Else
-            If Me.imgCover.Image.PhysicalDimension.Height > Me.imgCover.Image.PhysicalDimension.Width Then
-                Return New Size(CInt((Me.imgCover.Image.PhysicalDimension.Width * pMaxSize / Me.imgCover.Image.PhysicalDimension.Height + 2) * DPIxScale),
-                                CInt((pMaxSize + 2) * DPIyScale))
-            Else
-                Return New Size(CInt((pMaxSize + 2) * DPIxScale),
-                                CInt((Me.imgCover.Image.PhysicalDimension.Height * pMaxSize / Me.imgCover.Image.PhysicalDimension.Width + 2) * DPIyScale))
-            End If
-        End If
-    End Function
 #End Region
 
 #Region "UI - Gamelist management"
@@ -1027,4 +1015,77 @@ Public Class frmMain
     End Sub
 
 #End Region
+
+    Private Function Cover_MultipleThumbnail(ByVal pPath As String, ByVal pDestWidth As Integer, ByVal pDestHeight As Integer, ByVal pStepWidth As Integer) As Image
+        'Dim stepWidth As Integer = CInt(destWidth / maxThumbnail)
+
+        'Maximum number of cover thumbnail that will be added to the result image
+        Dim maxThumbnail As Integer = 4
+        'Adjusting maximum thumbnail number
+        If checkedGames.Count < maxThumbnail Then
+            maxThumbnail = checkedGames.Count
+        End If
+
+        Cover_MultipleThumbnail = My.Resources.Extra_Nocover_40x40.GetThumbnailImage(pDestWidth, pDestHeight, Nothing, Nothing)
+        Dim endCover As Graphics = Graphics.FromImage(Cover_MultipleThumbnail)
+
+
+        For i As Integer = 0 To maxThumbnail - 1
+            Try
+                Dim tmpImage As Image = Cover_GetCover(checkedGames(i), My.Settings.SStatesMan_PathPics, 0, pDestHeight, True)
+
+                endCover.DrawImage(tmpImage, i * pStepWidth, 0)
+                endCover.DrawLine(Pens.DimGray, i * pStepWidth - 1, 0, i * pStepWidth - 1, pDestHeight)
+            Catch ex As Exception
+                'No cover image found or file is corrupted
+                mdlMain.AppendToLog("Main window", "MultipleCover", String.Concat("Error: ", ex.Message))
+            End Try
+        Next
+        endCover.DrawImage(Cover_MultipleThumbnail, pDestWidth, pDestHeight)
+        'MultipleCover.Save(My.Settings.SStatesMan_PathPics.ToLower & "\ thumbnails.png", Imaging.ImageFormat.Png)
+        Return Cover_MultipleThumbnail
+    End Function
+
+    Private Function Cover_GetCover(ByVal pSerial As String, ByVal pPath As String, ByRef pDestWidth As Integer, ByRef pDestHeight As Integer, Optional ByVal forced As Boolean = False) As Image
+        If pSerial.ToLower = "screenshots" Then
+            Dim tmpImage As Image = My.Resources.Icon_Screenshot_256x192
+            If forced Then
+                pDestWidth = CInt(pDestHeight * tmpImage.Width / tmpImage.Height)
+            Else
+                If (pDestWidth = 0) And Not (forced) Then
+                    pDestWidth = pDestHeight
+                End If
+                pDestHeight = CInt(pDestWidth * tmpImage.Height / tmpImage.Width)
+            End If
+            tmpImage = tmpImage.GetThumbnailImage(pDestWidth, pDestHeight, Nothing, Nothing)
+            Return tmpImage
+        Else
+            If Directory.Exists(pPath) Then
+                Try
+                    Dim tmpImage As Image = Image.FromFile(Path.Combine(pPath, pSerial & ".jpg"))
+                    Dim tmpThumbnail As Image = My.Resources.Extra_Nocover_40x40
+                    If pDestWidth = 0 Then
+                        If (tmpImage.Height > tmpImage.Width) Or forced Then
+                            tmpThumbnail = tmpImage.GetThumbnailImage(CInt(pDestHeight * tmpImage.Width / tmpImage.Height), pDestHeight, Nothing, Nothing)
+                            pDestWidth = CInt(pDestHeight * tmpImage.Width / tmpImage.Height)
+                        Else
+                            pDestWidth = pDestHeight
+                            pDestHeight = CInt(pDestWidth * tmpImage.Height / tmpImage.Width)
+                            tmpThumbnail = tmpImage.GetThumbnailImage(pDestWidth, CInt(pDestWidth * tmpImage.Height / tmpImage.Width), Nothing, Nothing)
+                        End If
+                    ElseIf pDestHeight = 0 Then
+                        tmpThumbnail = tmpImage.GetThumbnailImage(pDestWidth, CInt(pDestWidth * tmpImage.Height / tmpImage.Width), Nothing, Nothing)
+                        pDestHeight = CInt(pDestWidth * tmpImage.Height / tmpImage.Width)
+                    End If
+                    Return tmpThumbnail
+                Catch ex As Exception
+                    'No cover image found or file is corrupted
+                    mdlMain.AppendToLog("Main window", "GetCover", String.Concat("Error: ", ex.Message))
+                    Return My.Resources.Extra_Nocover_40x40
+                End Try
+            Else
+                Return My.Resources.Extra_Nocover_40x40
+            End If
+        End If
+    End Function
 End Class
