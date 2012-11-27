@@ -84,8 +84,11 @@ Module mdlGameDb
         ''' <value>Returns if the GameDB, is not loaded, empty or if an error has occurred.</value>
         Public Property Status As mdlMain.LoadStatus = mdlMain.LoadStatus.StatusNotLoaded
         ''' <summary>Load time of the GameDB.</summary>
-        ''' <value>Load time in milliseconds.</value>
+        ''' <value>Load time in ticks.</value>
         Public Property LoadTime As Long = 0
+        ''' <summary>Path of the file loaded.</summary>
+        ''' <value>Path of the file loaded.</value>
+        Public Property Path As String = ""
 
         'Constants
         Const FileGameDb_FieldSep As Char = "="c         'Field separator in the database
@@ -133,29 +136,27 @@ Module mdlGameDb
                                     mySplittedLine(1) = mySplittedLine(1).Trim
                                     'End If
 
-                                    Select Case mySplittedLine(0)
-                                        Case FileGameDb_FieldName1
+                                    If mySplittedLine(0) = FileGameDb_FieldName1 Then
 
-                                            If Not (tmpCurrentSerial = mySplittedLine(1)) Then
-                                                tmpCurrentSerial = mySplittedLine(1)
-                                                If Not (Records.ContainsKey(tmpCurrentSerial)) Then
-                                                    Dim myCurrentRecord As New GameInfo With {.Serial = tmpCurrentSerial, .Name = "", .Region = "", .Compat = ""}
-                                                    Records.Add(tmpCurrentSerial, myCurrentRecord)
-                                                End If
+                                        If Not (tmpCurrentSerial = mySplittedLine(1)) Then
+                                            tmpCurrentSerial = mySplittedLine(1)
+                                            If Not (Records.ContainsKey(tmpCurrentSerial)) Then
+                                                Dim myCurrentRecord As New GameInfo With {.Serial = tmpCurrentSerial, .Name = "", .Region = "", .Compat = ""}
+                                                Records.Add(tmpCurrentSerial, myCurrentRecord)
                                             End If
-                                        Case FileGameDb_FieldName2
-                                            If Records.ContainsKey(tmpCurrentSerial) Then
-                                                Records(tmpCurrentSerial).Name = mySplittedLine(1)
-                                            End If
-                                        Case FileGameDb_FieldName3
-                                            If Records.ContainsKey(tmpCurrentSerial) Then
-                                                Records(tmpCurrentSerial).Region = mySplittedLine(1)
-                                            End If
-                                        Case FileGameDb_FieldName4
-                                            If Records.ContainsKey(tmpCurrentSerial) Then
-                                                Records(tmpCurrentSerial).Compat = mySplittedLine(1).Substring(0, 1)
-                                            End If
-                                    End Select
+                                        End If
+                                    Else
+                                        If Records.ContainsKey(tmpCurrentSerial) Then
+                                            Select Case mySplittedLine(0)
+                                                Case FileGameDb_FieldName2
+                                                    Records(tmpCurrentSerial).Name = mySplittedLine(1)
+                                                Case FileGameDb_FieldName3
+                                                    Records(tmpCurrentSerial).Region = mySplittedLine(1)
+                                                Case FileGameDb_FieldName4
+                                                    Records(tmpCurrentSerial).Compat = mySplittedLine(1).Substring(0, 1)
+                                            End Select
+                                        End If
+                                    End If
 
                                 End If
                             End If
@@ -164,6 +165,7 @@ Module mdlGameDb
                     FileGameDb_Reader.Close()
                 End Using
                 LoadTime = sw.ElapsedTicks
+                Path = pFileGameDb_Loc
                 If Records.Count = 0 Then
                     mdlMain.AppendToLog("GameDB", "Load", "No records found.", LoadTime)
                     Status = LoadStatus.StatusEmpty
@@ -187,6 +189,7 @@ Module mdlGameDb
             End If
             Status = LoadStatus.StatusNotLoaded
             LoadTime = 0
+            Path = ""
         End Sub
 
         Public Function RecordExtract(ByVal pSerial As String) As GameInfo
