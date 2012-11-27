@@ -187,6 +187,22 @@ Public Class frmDeleteForm
 #End Region
 
 #Region "Windows state buttons"
+    Private Sub cmdWindowMaximize_MouseEnter(sender As Object, e As EventArgs) Handles cmdWindowMaximize.MouseEnter
+        If Me.WindowState = FormWindowState.Normal Then
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximizeW_12x12
+        ElseIf Me.WindowState = FormWindowState.Maximized Then
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestoreW_12x12
+        End If
+    End Sub
+
+    Private Sub cmdWindowMaximize_MouseLeave(sender As Object, e As EventArgs) Handles cmdWindowMaximize.MouseLeave
+        If Me.WindowState = FormWindowState.Normal Then
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
+        ElseIf Me.WindowState = FormWindowState.Maximized Then
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
+        End If
+    End Sub
+
     Private Sub cmdWindowMaximize_Click(sender As System.Object, e As System.EventArgs) Handles cmdWindowMaximize.Click
         If Me.WindowState = FormWindowState.Normal Then
             Me.WindowState = FormWindowState.Maximized
@@ -204,8 +220,12 @@ Public Class frmDeleteForm
     Private Sub frmDeleteForm_SizeChanged(sender As Object, e As System.EventArgs) Handles Me.SizeChanged
         If Me.WindowState = FormWindowState.Normal Then
             Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
+            Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0, 0, CInt(6 * DPIxScale), 0)
+            'Me.Padding = New Padding(Math.Abs(Me.Top))
         ElseIf Me.WindowState = FormWindowState.Maximized Then
             Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
+            Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
+            'Me.Padding = New Padding(1)
         End If
     End Sub
 #End Region

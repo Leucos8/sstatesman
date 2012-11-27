@@ -382,6 +382,30 @@ Public Class frmMain
 #End Region
 
 #Region "Form - Windowstate command buttons"
+    Private Sub cmdWindowMaximize_MouseEnter(sender As Object, e As EventArgs) Handles cmdWindowMaximize.MouseEnter
+        If Me.WindowState = FormWindowState.Normal Then
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximizeW_12x12
+        ElseIf Me.WindowState = FormWindowState.Maximized Then
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestoreW_12x12
+        End If
+    End Sub
+
+    Private Sub cmdWindowMaximize_MouseLeave(sender As Object, e As EventArgs) Handles cmdWindowMaximize.MouseLeave
+        If Me.WindowState = FormWindowState.Normal Then
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
+        ElseIf Me.WindowState = FormWindowState.Maximized Then
+            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
+        End If
+    End Sub
+
+    Private Sub cmdWindowMinimize_MouseEnter(sender As Object, e As EventArgs) Handles cmdWindowMinimize.MouseEnter
+        Me.cmdWindowMinimize.Image = My.Resources.Window_ButtonMinimizeW_12x12
+    End Sub
+
+    Private Sub cmdWindowClose_MouseLeave(sender As Object, e As EventArgs) Handles cmdWindowMinimize.MouseLeave
+        Me.cmdWindowMinimize.Image = My.Resources.Window_ButtonMinimize_12x12
+    End Sub
+
     Private Sub cmdWindowMinimize_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdWindowMinimize.Click
         Me.WindowState = FormWindowState.Minimized
     End Sub
@@ -389,11 +413,9 @@ Public Class frmMain
     Private Sub cmdWindowMaximize_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdWindowMaximize.Click
         If Me.WindowState = FormWindowState.Normal Then
             Me.WindowState = FormWindowState.Maximized
-            'Me.Padding = New Padding(Math.Abs(Me.Top))
             Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
         ElseIf Me.WindowState = FormWindowState.Maximized Then
             Me.WindowState = FormWindowState.Normal
-            'Me.Padding = New Padding(1)
             Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
         End If
     End Sub
@@ -411,8 +433,12 @@ Public Class frmMain
     Private Sub frmMain_SizeChanged(sender As Object, e As System.EventArgs) Handles Me.SizeChanged
         If Me.WindowState = FormWindowState.Normal Then
             Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
+            Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0, 0, CInt(6 * DPIxScale), 0)
+            'Me.Padding = New Padding(Math.Abs(Me.Top))
         ElseIf Me.WindowState = FormWindowState.Maximized Then
             Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
+            Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
+            'Me.Padding = New Padding(1)
         End If
     End Sub
 #End Region
@@ -437,7 +463,7 @@ Public Class frmMain
     End Sub
 
     Private Sub cmdSStateDelete_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStateDelete.Click
-        frmDeleteForm.ShowDialog(Me)
+        frmDeleteForm.Show(Me)
     End Sub
 
     Private Sub cmdSStatesLvwExpand_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStatesLvwExpand.Click
@@ -1001,5 +1027,4 @@ Public Class frmMain
     End Sub
 
 #End Region
-
 End Class

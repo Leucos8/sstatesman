@@ -568,9 +568,29 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property Window_ButtonCloseW_12x12() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Window_ButtonCloseW_12x12", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property Window_ButtonMaximize_12x12() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Window_ButtonMaximize_12x12", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Window_ButtonMaximizeW_12x12() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Window_ButtonMaximizeW_12x12", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -588,9 +608,29 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property Window_ButtonMinimizeW_12x12() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Window_ButtonMinimizeW_12x12", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property Window_ButtonRestore_12x12() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Window_ButtonRestore_12x12", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property Window_ButtonRestoreW_12x12() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Window_ButtonRestoreW_12x12", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

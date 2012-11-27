@@ -394,7 +394,7 @@ Partial Class frmDeleteForm
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
         Me.FlowLayoutPanel2.Padding = New System.Windows.Forms.Padding(24, 4, 0, 4)
         Me.TableLayoutPanel1.SetRowSpan(Me.FlowLayoutPanel2, 3)
-        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(532, 52)
+        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(509, 52)
         Me.FlowLayoutPanel2.TabIndex = 1
         Me.FlowLayoutPanel2.WrapContents = False
         '
@@ -415,10 +415,10 @@ Partial Class frmDeleteForm
         Me.FlowLayoutPanel1.AutoSize = True
         Me.FlowLayoutPanel1.Controls.Add(Me.cmdWindowMaximize)
         Me.FlowLayoutPanel1.Controls.Add(Me.cmdWindowClose)
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(574, 0)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(551, 0)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0, 0, 6, 0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(48, 16)
+        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(71, 20)
         Me.FlowLayoutPanel1.TabIndex = 4
         Me.FlowLayoutPanel1.WrapContents = False
         '
@@ -427,32 +427,32 @@ Partial Class frmDeleteForm
         Me.cmdWindowMaximize.BackColor = System.Drawing.Color.Transparent
         Me.cmdWindowMaximize.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdWindowMaximize.FlatAppearance.BorderSize = 0
-        Me.cmdWindowMaximize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdWindowMaximize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdWindowMaximize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
+        Me.cmdWindowMaximize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdWindowMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdWindowMaximize.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.cmdWindowMaximize.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonMaximize_12x12
         Me.cmdWindowMaximize.Location = New System.Drawing.Point(0, 0)
         Me.cmdWindowMaximize.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowMaximize.Name = "cmdWindowMaximize"
-        Me.cmdWindowMaximize.Size = New System.Drawing.Size(24, 16)
+        Me.cmdWindowMaximize.Size = New System.Drawing.Size(26, 20)
         Me.cmdWindowMaximize.TabIndex = 5
         Me.cmdWindowMaximize.UseVisualStyleBackColor = False
         '
         'cmdWindowClose
         '
-        Me.cmdWindowClose.BackColor = System.Drawing.Color.Transparent
+        Me.cmdWindowClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(199, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(80, Byte), Integer))
         Me.cmdWindowClose.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdWindowClose.FlatAppearance.BorderSize = 0
-        Me.cmdWindowClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdWindowClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdWindowClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(153, Byte), Integer), CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer))
+        Me.cmdWindowClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(67, Byte), Integer), CType(CType(67, Byte), Integer))
         Me.cmdWindowClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdWindowClose.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.cmdWindowClose.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonClose_12x12
-        Me.cmdWindowClose.Location = New System.Drawing.Point(24, 0)
+        Me.cmdWindowClose.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonCloseW_12x12
+        Me.cmdWindowClose.Location = New System.Drawing.Point(26, 0)
         Me.cmdWindowClose.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowClose.Name = "cmdWindowClose"
-        Me.cmdWindowClose.Size = New System.Drawing.Size(24, 16)
+        Me.cmdWindowClose.Size = New System.Drawing.Size(45, 20)
         Me.cmdWindowClose.TabIndex = 6
         Me.cmdWindowClose.UseVisualStyleBackColor = False
         '
@@ -460,7 +460,7 @@ Partial Class frmDeleteForm
         '
         Me.imgWindowGradientIcon.Dock = System.Windows.Forms.DockStyle.Fill
         Me.imgWindowGradientIcon.Image = Global.sstatesman.My.Resources.Resources.Icon_SSM1ico_24x24
-        Me.imgWindowGradientIcon.Location = New System.Drawing.Point(539, 0)
+        Me.imgWindowGradientIcon.Location = New System.Drawing.Point(516, 0)
         Me.imgWindowGradientIcon.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
         Me.imgWindowGradientIcon.Name = "imgWindowGradientIcon"
         Me.TableLayoutPanel1.SetRowSpan(Me.imgWindowGradientIcon, 2)
