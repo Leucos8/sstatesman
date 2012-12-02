@@ -119,6 +119,9 @@ Partial Class frmMain
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.GameDBExplorerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeveloperToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmCover = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmiCoverAdd = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmiCoverOpenPicsFolder = New System.Windows.Forms.ToolStripMenuItem()
         Me.panelWindowTitle.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel2.SuspendLayout()
@@ -142,6 +145,7 @@ Partial Class frmMain
         Me.FlowLayoutPanel4.SuspendLayout()
         Me.FlowPanelSStatesList.SuspendLayout()
         Me.cmPCSX2.SuspendLayout()
+        Me.cmCover.SuspendLayout()
         Me.SuspendLayout()
         '
         'panelWindowTitle
@@ -1240,59 +1244,82 @@ Partial Class frmMain
         Me.cmPCSX2.BackColor = System.Drawing.Color.WhiteSmoke
         Me.cmPCSX2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiPCSX2Launch, Me.ToolStripSeparator1, Me.cmiPCSX2BinFolderOpen, Me.cmiPCSX2SStatesFolderOpen, Me.cmiPCSX2SnapsFolderOpen, Me.ToolStripSeparator2, Me.GameDBExplorerToolStripMenuItem, Me.DeveloperToolsToolStripMenuItem})
         Me.cmPCSX2.Name = "cmPCSX2"
-        Me.cmPCSX2.Size = New System.Drawing.Size(201, 148)
+        Me.cmPCSX2.Size = New System.Drawing.Size(210, 148)
+        Me.cmPCSX2.Text = "Tools menu"
         '
         'cmiPCSX2Launch
         '
         Me.cmiPCSX2Launch.Image = Global.sstatesman.My.Resources.Resources.Icon_PCSX2_16x16
         Me.cmiPCSX2Launch.Name = "cmiPCSX2Launch"
-        Me.cmiPCSX2Launch.Size = New System.Drawing.Size(200, 22)
-        Me.cmiPCSX2Launch.Text = " launch PCSX2"
+        Me.cmiPCSX2Launch.Size = New System.Drawing.Size(209, 22)
+        Me.cmiPCSX2Launch.Text = " launch PCSX2..."
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(197, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(206, 6)
         '
         'cmiPCSX2BinFolderOpen
         '
         Me.cmiPCSX2BinFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderPCSX2_16x16
         Me.cmiPCSX2BinFolderOpen.Name = "cmiPCSX2BinFolderOpen"
-        Me.cmiPCSX2BinFolderOpen.Size = New System.Drawing.Size(200, 22)
-        Me.cmiPCSX2BinFolderOpen.Text = "open PCSX2 folder"
+        Me.cmiPCSX2BinFolderOpen.Size = New System.Drawing.Size(209, 22)
+        Me.cmiPCSX2BinFolderOpen.Text = "open PCSX2 folder..."
         '
         'cmiPCSX2SStatesFolderOpen
         '
         Me.cmiPCSX2SStatesFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderSStates_16x16
         Me.cmiPCSX2SStatesFolderOpen.Name = "cmiPCSX2SStatesFolderOpen"
-        Me.cmiPCSX2SStatesFolderOpen.Size = New System.Drawing.Size(200, 22)
-        Me.cmiPCSX2SStatesFolderOpen.Text = "open savestates folder"
+        Me.cmiPCSX2SStatesFolderOpen.Size = New System.Drawing.Size(209, 22)
+        Me.cmiPCSX2SStatesFolderOpen.Text = "open savestates folder..."
         '
         'cmiPCSX2SnapsFolderOpen
         '
         Me.cmiPCSX2SnapsFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderScreenshots_16x16
         Me.cmiPCSX2SnapsFolderOpen.Name = "cmiPCSX2SnapsFolderOpen"
-        Me.cmiPCSX2SnapsFolderOpen.Size = New System.Drawing.Size(200, 22)
-        Me.cmiPCSX2SnapsFolderOpen.Text = "open screenshots folder"
+        Me.cmiPCSX2SnapsFolderOpen.Size = New System.Drawing.Size(209, 22)
+        Me.cmiPCSX2SnapsFolderOpen.Text = "open screenshots folder..."
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(197, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(206, 6)
         '
         'GameDBExplorerToolStripMenuItem
         '
         Me.GameDBExplorerToolStripMenuItem.Image = Global.sstatesman.My.Resources.Resources.Icon_GDE_16x16
         Me.GameDBExplorerToolStripMenuItem.Name = "GameDBExplorerToolStripMenuItem"
-        Me.GameDBExplorerToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
-        Me.GameDBExplorerToolStripMenuItem.Text = "GameDB Explorer"
+        Me.GameDBExplorerToolStripMenuItem.Size = New System.Drawing.Size(209, 22)
+        Me.GameDBExplorerToolStripMenuItem.Text = "GameDB Explorer..."
         '
         'DeveloperToolsToolStripMenuItem
         '
         Me.DeveloperToolsToolStripMenuItem.Image = Global.sstatesman.My.Resources.Resources.Icon_Tools_16x16
         Me.DeveloperToolsToolStripMenuItem.Name = "DeveloperToolsToolStripMenuItem"
-        Me.DeveloperToolsToolStripMenuItem.Size = New System.Drawing.Size(200, 22)
-        Me.DeveloperToolsToolStripMenuItem.Text = "Developer Tools"
+        Me.DeveloperToolsToolStripMenuItem.Size = New System.Drawing.Size(209, 22)
+        Me.DeveloperToolsToolStripMenuItem.Text = "Developer Tools..."
+        '
+        'cmCover
+        '
+        Me.cmCover.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmCover.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiCoverAdd, Me.cmiCoverOpenPicsFolder})
+        Me.cmCover.Name = "cmCover"
+        Me.cmCover.Size = New System.Drawing.Size(215, 48)
+        Me.cmCover.Text = "Cover menu"
+        '
+        'cmiCoverAdd
+        '
+        Me.cmiCoverAdd.Image = Global.sstatesman.My.Resources.Resources.Icon_Cover_16x16
+        Me.cmiCoverAdd.Name = "cmiCoverAdd"
+        Me.cmiCoverAdd.Size = New System.Drawing.Size(214, 22)
+        Me.cmiCoverAdd.Text = "Select cover image..."
+        '
+        'cmiCoverOpenPicsFolder
+        '
+        Me.cmiCoverOpenPicsFolder.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderCover_16x16
+        Me.cmiCoverOpenPicsFolder.Name = "cmiCoverOpenPicsFolder"
+        Me.cmiCoverOpenPicsFolder.Size = New System.Drawing.Size(214, 22)
+        Me.cmiCoverOpenPicsFolder.Text = "Open cover image folder..."
         '
         'frmMain
         '
@@ -1350,6 +1377,7 @@ Partial Class frmMain
         Me.FlowPanelSStatesList.ResumeLayout(False)
         Me.FlowPanelSStatesList.PerformLayout()
         Me.cmPCSX2.ResumeLayout(False)
+        Me.cmCover.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1436,4 +1464,7 @@ Partial Class frmMain
     Private WithEvents GameLvw_SnapsInfo As System.Windows.Forms.ColumnHeader
     Friend WithEvents FlowLayoutPanel4 As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents x As System.Windows.Forms.Button
+    Friend WithEvents cmCover As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents cmiCoverAdd As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents cmiCoverOpenPicsFolder As System.Windows.Forms.ToolStripMenuItem
 End Class

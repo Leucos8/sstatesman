@@ -293,10 +293,10 @@ Public Class frmMain
                         Me.imgCover.Image = Me.Cover_GetCover(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, tmpSize, tmpHeight)
 
                         If tmpSize = 0 Then
-                            tmpSize = CInt(46 * DPIxScale)
+                            tmpSize = CInt(33 * DPIxScale)
                         End If
                         Me.imgCover.Width = tmpSize + 2
-                        Me.imgCover.Height = tmpHeight
+                        Me.imgCover.Height = tmpHeight + 2
                         Me.imgCover.Dock = DockStyle.None
                     End If
                 End If
@@ -470,7 +470,7 @@ Public Class frmMain
     End Sub
 
     Private Sub cmdSStateDelete_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStateDelete.Click
-        frmDeleteForm.Show(Me)
+        frmDeleteForm.ShowDialog(Me)
     End Sub
 
     Private Sub cmdSStatesLvwExpand_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStatesLvwExpand.Click
@@ -484,7 +484,9 @@ Public Class frmMain
             Me.cmdGameSelectAll_Click(Nothing, Nothing)
         End If
     End Sub
+#End Region
 
+#Region "UI - Cover image"
     Private Sub imgCover_MouseClick(sender As System.Object, e As MouseEventArgs) Handles imgCover.MouseClick
         If e.Button = Windows.Forms.MouseButtons.Left Then
             If My.Settings.frmMain_CoverExpanded Then
@@ -504,8 +506,148 @@ Public Class frmMain
             Me.lblGameList_Region.Visible = Not (Me.lblGameList_Region.Visible)
             My.Settings.frmMain_CoverExpanded = Not (My.Settings.frmMain_CoverExpanded)
             Me.UI_UpdaterGameInfo()
+        ElseIf e.Button = Windows.Forms.MouseButtons.Right Then
+            If (checkedGames.Count() = 1) And Directory.Exists(My.Settings.SStatesMan_PathPics) Then
+                If Not (checkedGames(0).ToLower = "screenshots") Then
+                    Me.cmiCoverAdd.Enabled = True
+                Else
+                    Me.cmiCoverAdd.Enabled = False
+                End If
+            Else
+                Me.cmiCoverAdd.Enabled = False
+            End If
+        Me.cmCover.Show(CType(sender, Control), e.Location)
         End If
     End Sub
+
+    Private Sub cmiCoverAdd_Click(sender As Object, e As EventArgs) Handles cmiCoverAdd.Click
+        Using openDialog As New OpenFileDialog
+            With openDialog
+                .AddExtension = True
+                .CheckFileExists = True
+                .CheckPathExists = True
+                .DefaultExt = ".jpg"
+                .Filter = "JPEG image file|*.jpg|PNG image file|*.png|BMP image file|*.bmp"
+                .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures)
+                .ValidateNames = True
+            End With
+            If openDialog.ShowDialog(Me) = DialogResult.OK Then
+                Try
+                    Dim tmpImage As Image = Image.FromFile(openDialog.FileName)
+                    tmpImage = Me.Cover_ResizeCover(tmpImage, 256, 0, True)
+                    tmpImage.Save(Path.Combine(My.Settings.SStatesMan_PathPics, checkedGames(0) & ".jpg"), Imaging.ImageFormat.Jpeg)
+                    Me.UI_UpdaterGameInfo()
+                Catch ex As Exception
+                    MessageBox.Show("An error has occurred while trying to convert the specified file. " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                End Try
+            End If
+        End Using
+
+    End Sub
+
+    Private Sub cmiCoverOpenPicsFolder_Click(sender As Object, e As EventArgs) Handles cmiCoverOpenPicsFolder.Click
+        If Directory.Exists(My.Settings.SStatesMan_PathPics) Then
+            Diagnostics.Process.Start(My.Settings.SStatesMan_PathPics)
+        Else
+            MessageBox.Show("The specified folder does not exist. " & My.Settings.SStatesMan_PathPics, "Error" & vbCrLf & "Please use the Settings dialog to set a valid path.", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            frmSettings.ShowDialog(Me)
+        End If
+    End Sub
+
+    Private Function Cover_MultipleThumbnail(ByVal pPath As String, ByVal pDestWidth As Integer, ByVal pDestHeight As Integer, ByVal pStepWidth As Integer) As Image
+        'Dim stepWidth As Integer = CInt(destWidth / maxThumbnail)
+
+        'Maximum number of cover thumbnail that will be added to the result image
+        Dim maxThumbnail As Integer = 4
+        'Adjusting maximum thumbnail number
+        If checkedGames.Count < maxThumbnail Then
+            maxThumbnail = checkedGames.Count
+        End If
+
+        'The drawing surface will be based on an image, Extra_Nocover
+        Cover_MultipleThumbnail = My.Resources.Flag_0Null_30x20.GetThumbnailImage(pDestWidth, pDestHeight, Nothing, Nothing)
+        'The image is referenced to a graphics object for editing
+        Dim endCover As Graphics = Graphics.FromImage(Cover_MultipleThumbnail)
+
+
+        For i As Integer = 0 To maxThumbnail - 1
+            Try
+                'The cover will be added to the graphic object using DrawImage
+                endCover.DrawImage(Cover_GetCover(checkedGames(i), My.Settings.SStatesMan_PathPics, 0, pDestHeight, True), i * pStepWidth, 0)
+                'Adds a line for the next cover
+                endCover.DrawLine(Pens.DimGray, i * pStepWidth - 1, 0, i * pStepWidth - 1, pDestHeight)
+                'Adds a shade for the next cover
+                Dim tmpShade As New Drawing2D.LinearGradientBrush(New Rectangle(i * pStepWidth - 4, 0, 6, pDestHeight), Color.Transparent, Color.Black, 0)
+                endCover.FillRectangle(tmpShade, i * pStepWidth - 4, 0, 3, pDestHeight)
+            Catch ex As Exception
+                'No cover image found or file is corrupted
+                mdlMain.AppendToLog("Main window", "MultipleCover", String.Concat("Error: ", ex.Message))
+            End Try
+        Next
+        'The graphics object update the image object
+        endCover.DrawImage(Cover_MultipleThumbnail, pDestWidth, pDestHeight)
+        'MultipleCover.Save(My.Settings.SStatesMan_PathPics.ToLower & "\ thumbnails.png", Imaging.ImageFormat.Png)
+        Return Cover_MultipleThumbnail
+    End Function
+
+    Private Function Cover_GetCover(ByVal pSerial As String, ByVal pPath As String, ByRef pDestWidth As Integer, ByRef pDestHeight As Integer, Optional ByVal forced As Boolean = False) As Image
+        If pSerial.ToLower = "screenshots" Then
+            'Screenshots group gets a special (embedded) image
+            Dim tmpImage As Image = My.Resources.Icon_Screenshot_256x192
+            If forced Then
+                pDestWidth = CInt(pDestHeight * tmpImage.Width / tmpImage.Height)
+            Else
+                If (pDestWidth = 0) And Not (forced) Then
+                    pDestWidth = pDestHeight
+                End If
+                pDestHeight = CInt(pDestWidth * tmpImage.Height / tmpImage.Width)
+            End If
+            tmpImage = tmpImage.GetThumbnailImage(pDestWidth, pDestHeight, Nothing, Nothing)
+            Return tmpImage
+        Else
+            If Directory.Exists(pPath) Then
+                Try
+                    Dim tmpImage As Image = Image.FromFile(Path.Combine(pPath, pSerial & ".jpg"))
+                    Return Cover_ResizeCover(tmpImage, pDestWidth, pDestHeight, forced)
+                Catch ex As Exception
+                    'No cover image found or file is corrupted
+                    mdlMain.AppendToLog("Main window", "GetCover", String.Concat("Error: ", ex.Message))
+                    Return Cover_ResizeCover(My.Resources.Extra_Nocover_120x170, pDestWidth, pDestHeight, forced)
+                End Try
+            Else
+                Return Cover_ResizeCover(My.Resources.Extra_Nocover_120x170, pDestWidth, pDestHeight, forced)
+            End If
+        End If
+    End Function
+
+    Private Function Cover_ResizeCover(ByVal pImage As Image, ByRef pDestWidth As Integer, ByRef pDestHeight As Integer, Optional ByVal forced As Boolean = False) As Image
+        Try
+            Dim tmpThumbnail As Image = My.Resources.Extra_Nocover_120x170
+            If pDestWidth = 0 Then
+                'destWidth must be computed
+                If (pImage.Height > pImage.Width) Or forced Then
+                    'If it's a vertical (tall) image or destHeight must be respected (forced = true) then destWidth will be computed
+                    tmpThumbnail = pImage.GetThumbnailImage(CInt(pDestHeight * pImage.Width / pImage.Height), pDestHeight, Nothing, Nothing)
+                    pDestWidth = CInt(pDestHeight * pImage.Width / pImage.Height)
+                Else
+                    'Else destHeight will be considered as the maximum width applicable and thus destHeight will be re-computed
+                    pDestWidth = pDestHeight
+                    pDestHeight = CInt(pDestWidth * pImage.Height / pImage.Width)
+                    tmpThumbnail = pImage.GetThumbnailImage(pDestWidth, CInt(pDestWidth * pImage.Height / pImage.Width), Nothing, Nothing)
+                End If
+            ElseIf pDestHeight = 0 Then
+                'destHeight must be computed
+                tmpThumbnail = pImage.GetThumbnailImage(pDestWidth, CInt(pDestWidth * pImage.Height / pImage.Width), Nothing, Nothing)
+                pDestHeight = CInt(pDestWidth * pImage.Height / pImage.Width)
+            End If
+            Return tmpThumbnail
+        Catch ex As Exception
+            'No cover image found or file is corrupted
+            mdlMain.AppendToLog("Main window", "GetCover", String.Concat("Error: ", ex.Message))
+            Return My.Resources.Extra_Nocover_120x170
+        End Try
+
+    End Function
 #End Region
 
 #Region "UI - Gamelist management"
@@ -958,7 +1100,7 @@ Public Class frmMain
 
 #Region "Form - Tools menu"
     Private Sub cmTools_Check()
-        Me.cmiPCSX2Launch.Enabled = File.Exists(Path.Combine(My.Settings.PCSX2_PathBin, "PCSX2.exe"))
+        'Me.cmiPCSX2Launch.Enabled = File.Exists(Path.Combine(My.Settings.PCSX2_PathBin, "PCSX2.exe"))
         Me.cmiPCSX2BinFolderOpen.Enabled = Directory.Exists(My.Settings.PCSX2_PathBin)
         Me.cmiPCSX2SStatesFolderOpen.Enabled = Directory.Exists(My.Settings.PCSX2_PathSState)
         Me.cmiPCSX2SnapsFolderOpen.Enabled = Directory.Exists(My.Settings.PCSX2_PathSnaps)
@@ -1015,77 +1157,4 @@ Public Class frmMain
     End Sub
 
 #End Region
-
-    Private Function Cover_MultipleThumbnail(ByVal pPath As String, ByVal pDestWidth As Integer, ByVal pDestHeight As Integer, ByVal pStepWidth As Integer) As Image
-        'Dim stepWidth As Integer = CInt(destWidth / maxThumbnail)
-
-        'Maximum number of cover thumbnail that will be added to the result image
-        Dim maxThumbnail As Integer = 4
-        'Adjusting maximum thumbnail number
-        If checkedGames.Count < maxThumbnail Then
-            maxThumbnail = checkedGames.Count
-        End If
-
-        Cover_MultipleThumbnail = My.Resources.Extra_Nocover_40x40.GetThumbnailImage(pDestWidth, pDestHeight, Nothing, Nothing)
-        Dim endCover As Graphics = Graphics.FromImage(Cover_MultipleThumbnail)
-
-
-        For i As Integer = 0 To maxThumbnail - 1
-            Try
-                Dim tmpImage As Image = Cover_GetCover(checkedGames(i), My.Settings.SStatesMan_PathPics, 0, pDestHeight, True)
-
-                endCover.DrawImage(tmpImage, i * pStepWidth, 0)
-                endCover.DrawLine(Pens.DimGray, i * pStepWidth - 1, 0, i * pStepWidth - 1, pDestHeight)
-            Catch ex As Exception
-                'No cover image found or file is corrupted
-                mdlMain.AppendToLog("Main window", "MultipleCover", String.Concat("Error: ", ex.Message))
-            End Try
-        Next
-        endCover.DrawImage(Cover_MultipleThumbnail, pDestWidth, pDestHeight)
-        'MultipleCover.Save(My.Settings.SStatesMan_PathPics.ToLower & "\ thumbnails.png", Imaging.ImageFormat.Png)
-        Return Cover_MultipleThumbnail
-    End Function
-
-    Private Function Cover_GetCover(ByVal pSerial As String, ByVal pPath As String, ByRef pDestWidth As Integer, ByRef pDestHeight As Integer, Optional ByVal forced As Boolean = False) As Image
-        If pSerial.ToLower = "screenshots" Then
-            Dim tmpImage As Image = My.Resources.Icon_Screenshot_256x192
-            If forced Then
-                pDestWidth = CInt(pDestHeight * tmpImage.Width / tmpImage.Height)
-            Else
-                If (pDestWidth = 0) And Not (forced) Then
-                    pDestWidth = pDestHeight
-                End If
-                pDestHeight = CInt(pDestWidth * tmpImage.Height / tmpImage.Width)
-            End If
-            tmpImage = tmpImage.GetThumbnailImage(pDestWidth, pDestHeight, Nothing, Nothing)
-            Return tmpImage
-        Else
-            If Directory.Exists(pPath) Then
-                Try
-                    Dim tmpImage As Image = Image.FromFile(Path.Combine(pPath, pSerial & ".jpg"))
-                    Dim tmpThumbnail As Image = My.Resources.Extra_Nocover_40x40
-                    If pDestWidth = 0 Then
-                        If (tmpImage.Height > tmpImage.Width) Or forced Then
-                            tmpThumbnail = tmpImage.GetThumbnailImage(CInt(pDestHeight * tmpImage.Width / tmpImage.Height), pDestHeight, Nothing, Nothing)
-                            pDestWidth = CInt(pDestHeight * tmpImage.Width / tmpImage.Height)
-                        Else
-                            pDestWidth = pDestHeight
-                            pDestHeight = CInt(pDestWidth * tmpImage.Height / tmpImage.Width)
-                            tmpThumbnail = tmpImage.GetThumbnailImage(pDestWidth, CInt(pDestWidth * tmpImage.Height / tmpImage.Width), Nothing, Nothing)
-                        End If
-                    ElseIf pDestHeight = 0 Then
-                        tmpThumbnail = tmpImage.GetThumbnailImage(pDestWidth, CInt(pDestWidth * tmpImage.Height / tmpImage.Width), Nothing, Nothing)
-                        pDestHeight = CInt(pDestWidth * tmpImage.Height / tmpImage.Width)
-                    End If
-                    Return tmpThumbnail
-                Catch ex As Exception
-                    'No cover image found or file is corrupted
-                    mdlMain.AppendToLog("Main window", "GetCover", String.Concat("Error: ", ex.Message))
-                    Return My.Resources.Extra_Nocover_40x40
-                End Try
-            Else
-                Return My.Resources.Extra_Nocover_40x40
-            End If
-        End If
-    End Function
 End Class

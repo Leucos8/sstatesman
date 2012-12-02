@@ -267,6 +267,10 @@
     <None Include="Data\ssversion.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Icon_Cover_16x16.png" />
+    <None Include="Resources\Icon_FolderCover_16x16.png" />
+    <None Include="Resources\Extra_Nocover_120x170.png" />
+    <None Include="Resources\Icon_Screenshot_16x16.png" />
     <None Include="Resources\Icon_Screenshot_256x192.png" />
     <None Include="Resources\Window_ButtonRestoreW_12x12.png" />
     <None Include="Resources\Window_ButtonMinimizeW_12x12.png" />

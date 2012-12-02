@@ -13,13 +13,13 @@
    height="32"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
-   sodipodi:docname="Icon_FolderPCSX2.svg"
-   inkscape:export-filename="Icon_FolderPCSX2_16x16.png"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="Icon_FolderCover.svg"
+   inkscape:export-filename="Icon_FolderCover_16x16.png"
    inkscape:export-xdpi="45"
    inkscape:export-ydpi="45">
   <title
-     id="title3774">Icon Folder PCSX2</title>
+     id="title3000">Icon FolderCover</title>
   <sodipodi:namedview
      id="base"
      showgrid="true">
@@ -39,15 +39,15 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title>Icon Folder PCSX2</dc:title>
-        <cc:license
+        <dc:title>Icon FolderCover</dc:title>
+		<cc:license
            rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
         <dc:creator>
           <cc:Agent>
             <dc:title>Leucos</dc:title>
           </cc:Agent>
         </dc:creator>
-        <dc:date>2012-11-13</dc:date>
+        <dc:date>2012-12-02</dc:date>
       </cc:Work>
       <cc:License
          rdf:about="http://creativecommons.org/licenses/by-nc-sa/3.0/">
@@ -67,20 +67,35 @@
            rdf:resource="http://creativecommons.org/ns#ShareAlike" />
       </cc:License>
     </rdf:RDF>
+
   </metadata>
   <g
      id="layer1">
     <path
        id="path3000"
        style="fill:#424242"
-       d="m 4,14 24,0 0,-8 -8,0 -3,4 -13,0 z m -2,16 0,-22 14,0 3,-4 11,0 0,12 -21,0 -2,2 0,12 z" />
+       d="m 4,14 24,0 0,-8 -8,0 -3,4 -13,0 z m -2,16 0,-22 14,0 3,-4 11,0 0,10 -13.996,0 -0.004,16 z" />
     <path
        style="fill:#424242"
        d="m 22,8 4,0 0,2 -4,0 z"
        id="path3002" />
     <path
-       id="path3073-7"
-       style="fill:#8296c8"
-       d="m 21,27 c 0.59272,1.45098 1.65962,1.69283 2.48944,1.69283 1.30404,0 1.77821,-0.96732 1.77821,-0.96732 0.58962,1.01782 1.18547,2.41831 2.01528,3.26472 0.57995,0.59151 1.61866,0.87803 2.40092,0.57059 1.0117,-0.39763 1.81577,-1.1201 1.62967,-2.50526 -0.33294,-2.47862 -0.53584,-5.30115 -1.06691,-7.73858 -0.23708,-1.08823 -1.42254,-1.81373 -1.65965,-2.05556 -0.0479,-0.29406 0,-1.20913 -0.35562,-1.33006 -0.2371,-0.36276 -0.66954,-0.72551 -1.30404,-0.72551 -0.71127,0 -1.5411,0 -1.77818,0.72551 -0.35564,0.12103 -0.59272,1.45096 -0.59272,1.45096 l -9.00958,0 c 0,0 -0.2371,-1.33003 -0.59272,-1.45096 -0.23711,-0.72551 -1.06693,-0.72551 -1.7782,-0.72551 -0.6345,0 -1.06692,0.36275 -1.30403,0.72551 -0.35564,0.12103 -0.30759,1.036 -0.35564,1.33006 -0.23708,0.24177 -1.42255,0.96733 -1.65964,2.05556 -0.53103,2.43743 -0.73396,5.25996 -1.06692,7.73858 -0.18609,1.38516 0.618,2.10763 1.6297,2.50526 0.78226,0.30744 1.82095,0.022 2.40089,-0.57059 0.82983,-0.84641 1.42566,-2.2469 2.01529,-3.26472 0,0 0.47417,0.96732 1.77822,0.96732 0.82981,0 1.89673,-0.24177 2.48945,-1.69283 z m -4.38623,-7.37584 2.96364,0 m -0.11855,-0.24178 c -0.47419,-1.20913 -2.01528,-0.84639 -2.96365,0 l -1.18549,0 c 1.06694,-1.33005 4.03059,-2.53921 5.09753,0 z" />
+       style="fill:#424242"
+       d="m 18,16 0,16 14,0 0,-16 z m 2,2 10,0 0,12 -10,0 z"
+       id="path2997" />
+    <rect
+       style="fill:#000000"
+       id="rect3019"
+       width="10"
+       height="2"
+       x="20"
+       y="18" />
+    <rect
+       style="fill:#dcdcdc"
+       id="rect3021"
+       width="10"
+       height="10"
+       x="20"
+       y="20" />
   </g>
 </svg>
