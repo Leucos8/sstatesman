@@ -224,10 +224,32 @@ Public Class frmMain
             Me.cmdGameSelectInvert.Enabled = False
             Me.cmdGameSelectNone.Enabled = False
 
+            Me.txtGameList_Title.Text = ""
+            Me.txtGameList_Serial.Text = ""
+            Me.txtGameList_Region.Text = ""
+            Me.txtGameList_Compat.Text = ""
+            Me.txtGameList_Compat.BackColor = Color.WhiteSmoke
+            Me.txtSize.Text = ""
+            Me.txtSizeBackup.Text = ""
+            Me.imgFlag.Image = My.Resources.Flag_0Null_30x20
+
+            Me.imgCover.Image = My.Resources.Flag_0Null_30x20
+            Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
+            If My.Settings.frmMain_CoverExpanded Then
+                Me.imgCover.Width = CInt(122 * DPIxScale)
+                Me.imgCover.Height = CInt(172 * DPIxScale)
+                Me.imgCover.Dock = DockStyle.Bottom
+            Else
+                Me.imgCover.Width = CInt(48 * DPIyScale)
+                Me.imgCover.Height = CInt(48 * DPIyScale)
+                Me.imgCover.Dock = DockStyle.None
+            End If
+
         Else
-            'If there are games invert is always enabled
+            'If there are games, invert is always enabled
             Me.cmdGameSelectInvert.Enabled = True
 
+            'A game is checked or selected
             If Me.lvwGamesList.CheckedItems.Count > 0 Or Me.lvwGamesList.SelectedItems.Count > 0 Then
 
                 Me.cmdGameSelectAll.Enabled = True
