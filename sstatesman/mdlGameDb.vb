@@ -43,8 +43,8 @@ Module mdlGameDb
                 Case "4" : Return "in-Game"
                 Case "5" : Return "Playable"
                 Case "6" : Return "Perfect"
-                Case "" : Return "Missing"
-                Case Else : Return "Undetected"
+                    'Case "" : Return "Missing"
+                Case Else : Return "Missing"
             End Select
         End Function
 
@@ -138,13 +138,13 @@ Module mdlGameDb
 
                                     If mySplittedLine(0) = FileGameDb_FieldName1 Then
 
-                                        If Not (tmpCurrentSerial = mySplittedLine(1)) Then
-                                            tmpCurrentSerial = mySplittedLine(1)
-                                            If Not (Records.ContainsKey(tmpCurrentSerial)) Then
-                                                Dim myCurrentRecord As New GameInfo With {.Serial = tmpCurrentSerial, .Name = "", .Region = "", .Compat = ""}
-                                                Records.Add(tmpCurrentSerial, myCurrentRecord)
-                                            End If
+                                        'If Not (tmpCurrentSerial = mySplittedLine(1)) Then
+                                        tmpCurrentSerial = mySplittedLine(1)
+                                        If Not (Records.ContainsKey(tmpCurrentSerial)) Then
+                                            Dim myCurrentRecord As New GameInfo With {.Serial = tmpCurrentSerial, .Name = "", .Region = "", .Compat = ""}
+                                            Records.Add(tmpCurrentSerial, myCurrentRecord)
                                         End If
+                                        'End If
                                     Else
                                         If Records.ContainsKey(tmpCurrentSerial) Then
                                             Select Case mySplittedLine(0)
@@ -153,7 +153,7 @@ Module mdlGameDb
                                                 Case FileGameDb_FieldName3
                                                     Records(tmpCurrentSerial).Region = mySplittedLine(1)
                                                 Case FileGameDb_FieldName4
-                                                    Records(tmpCurrentSerial).Compat = mySplittedLine(1).Substring(0, 1)
+                                                    Records(tmpCurrentSerial).Compat = mySplittedLine(1)
                                             End Select
                                         End If
                                     End If
@@ -300,7 +300,7 @@ Module mdlGameDb
                             Where (tmpGameInfo.Key.ToUpper.Contains(pSerial) And
                                    tmpGameInfo.Value.Name.ToUpper.Contains(pGameTitle.ToUpper) And
                                    tmpGameInfo.Value.Region.ToUpper.Contains(pGameRegion.ToUpper) And
-                                   tmpGameInfo.Value.Compat.Contains(pGameCompat)
+                                   tmpGameInfo.Value.Compat = (pGameCompat)
                                    )
                             Select tmpGameInfo
 
@@ -310,7 +310,7 @@ Module mdlGameDb
                             Where ((Not (pSerial.Length = 0) And tmpGameInfo.Key.ToUpper.Contains(pSerial)) Or
                                    (Not (pGameTitle.Length = 0) And tmpGameInfo.Value.Name.ToUpper.Contains(pGameTitle.ToUpper)) Or
                                    (Not (pGameRegion.Length = 0) And tmpGameInfo.Value.Region.ToUpper.Contains(pGameRegion.ToUpper)) Or
-                                   (Not (pGameCompat.Length = 0) And tmpGameInfo.Value.Compat.Contains(pGameCompat))
+                                   (Not (pGameCompat.Length = 0) And tmpGameInfo.Value.Compat = (pGameCompat))
                                    )
                             Select tmpGameInfo
             End If

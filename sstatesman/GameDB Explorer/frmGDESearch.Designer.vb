@@ -196,7 +196,7 @@ Partial Class frmGDESearch
         Me.cbGameCompat.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cbGameCompat.ForeColor = System.Drawing.Color.Black
         Me.cbGameCompat.FormattingEnabled = True
-        Me.cbGameCompat.Items.AddRange(New Object() {"", "0: Unknown", "1: Nothing", "2: Intro", "3: Menus", "4: in-Game", "5: Playable", "6: Perfect", "Missing", "Undetected"})
+        Me.cbGameCompat.Items.AddRange(New Object() {"", "0: Unknown", "1: Nothing", "2: Intro", "3: Menus", "4: in-Game", "5: Playable", "6: Perfect", "Missing"})
         Me.cbGameCompat.Location = New System.Drawing.Point(96, 98)
         Me.cbGameCompat.Margin = New System.Windows.Forms.Padding(4)
         Me.cbGameCompat.Name = "cbGameCompat"
