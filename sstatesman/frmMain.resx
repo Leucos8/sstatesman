@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
     SStatesMan - a savestate managing tool for PCSX2
-    Copyright (C) 2011-2012 - Leucos
+    Copyright (C) 2011-2013 - Leucos
 
     SStatesMan is free software: you can redistribute it and/or modify it under
     the terms of the GNU Lesser General Public License as published by the Free
@@ -142,7 +142,7 @@
   <metadata name="cmCover.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>289, 17</value>
   </metadata>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>59</value>
   </metadata>
 </root>

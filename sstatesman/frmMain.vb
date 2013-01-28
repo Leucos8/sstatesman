@@ -1,5 +1,5 @@
 ﻿'   SStatesMan - a savestate managing tool for PCSX2
-'   Copyright (C) 2011-2012 - Leucos
+'   Copyright (C) 2011-2013 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
 '   the terms of the GNU Lesser General Public License as published by the Free
@@ -582,7 +582,7 @@ Public Class frmMain
         If Directory.Exists(My.Settings.SStatesMan_PathPics) Then
             Diagnostics.Process.Start(My.Settings.SStatesMan_PathPics)
         Else
-            MessageBox.Show("The specified folder does not exist. " & My.Settings.SStatesMan_PathPics, "Error" & vbCrLf & "Please use the Settings dialog to set a valid path.", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("The specified folder does not exist. " & My.Settings.SStatesMan_PathPics & vbCrLf & "Please use the Settings dialog to set a valid path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             frmSettings.ShowDialog(Me)
         End If
     End Sub
