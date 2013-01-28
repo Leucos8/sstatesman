@@ -101,7 +101,7 @@ Partial Class frmMain
         Me.txtSize = New System.Windows.Forms.TextBox()
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.FlowLayoutPanel4 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.x = New System.Windows.Forms.Button()
+        Me.cmdSStateReorder = New System.Windows.Forms.Button()
         Me.cmdSStateDelete = New System.Windows.Forms.Button()
         Me.cmdSStatesLvwExpand = New System.Windows.Forms.Button()
         Me.FlowPanelSStatesList = New System.Windows.Forms.FlowLayoutPanel()
@@ -1073,7 +1073,7 @@ Partial Class frmMain
         '
         Me.FlowLayoutPanel4.AutoSize = True
         Me.FlowLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.FlowLayoutPanel4.Controls.Add(Me.x)
+        Me.FlowLayoutPanel4.Controls.Add(Me.cmdSStateReorder)
         Me.FlowLayoutPanel4.Controls.Add(Me.cmdSStateDelete)
         Me.FlowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.FlowLayoutPanel4.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
@@ -1084,22 +1084,22 @@ Partial Class frmMain
         Me.FlowLayoutPanel4.TabIndex = 50
         Me.FlowLayoutPanel4.WrapContents = False
         '
-        'x
+        'cmdSStateReorder
         '
-        Me.x.AutoSize = True
-        Me.x.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.x.FlatAppearance.BorderSize = 0
-        Me.x.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.x.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.x.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.x.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.x.Location = New System.Drawing.Point(91, 0)
-        Me.x.Margin = New System.Windows.Forms.Padding(0)
-        Me.x.Name = "x"
-        Me.x.Size = New System.Drawing.Size(57, 22)
-        Me.x.TabIndex = 49
-        Me.x.Text = "RE&ORDER"
-        Me.x.UseVisualStyleBackColor = False
+        Me.cmdSStateReorder.AutoSize = True
+        Me.cmdSStateReorder.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdSStateReorder.FlatAppearance.BorderSize = 0
+        Me.cmdSStateReorder.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdSStateReorder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdSStateReorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdSStateReorder.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdSStateReorder.Location = New System.Drawing.Point(91, 0)
+        Me.cmdSStateReorder.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdSStateReorder.Name = "cmdSStateReorder"
+        Me.cmdSStateReorder.Size = New System.Drawing.Size(57, 22)
+        Me.cmdSStateReorder.TabIndex = 49
+        Me.cmdSStateReorder.Text = "RE&ORDER"
+        Me.cmdSStateReorder.UseVisualStyleBackColor = False
         '
         'cmdSStateDelete
         '
@@ -1463,7 +1463,7 @@ Partial Class frmMain
     Private WithEvents SStatesLvw_Version As System.Windows.Forms.ColumnHeader
     Private WithEvents GameLvw_SnapsInfo As System.Windows.Forms.ColumnHeader
     Friend WithEvents FlowLayoutPanel4 As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents x As System.Windows.Forms.Button
+    Private WithEvents cmdSStateReorder As System.Windows.Forms.Button
     Friend WithEvents cmCover As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents cmiCoverAdd As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmiCoverOpenPicsFolder As System.Windows.Forms.ToolStripMenuItem

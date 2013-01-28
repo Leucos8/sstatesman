@@ -369,12 +369,18 @@ Public Class frmMain
             Me.cmdSStateSelectNone.Enabled = False
             Me.cmdSStateSelectBackup.Enabled = False
             Me.cmdSStateDelete.Enabled = False
+            Me.cmdSStateReorder.Enabled = False
 
         Else
 
 
             Me.cmdSStateSelectInvert.Enabled = True
             Me.cmdSStateSelectBackup.Enabled = True
+            If Me.lvwGamesList.CheckedItems.Count > 1 Then
+                Me.cmdSStateReorder.Enabled = False
+            Else
+                Me.cmdSStateReorder.Enabled = True
+            End If
 
             If Me.lvwSStatesList.CheckedItems.Count > 0 Then
 
@@ -386,6 +392,7 @@ Public Class frmMain
                 Else
                     Me.cmdSStateSelectAll.Enabled = True
                 End If
+
 
             Else
                 Me.cmdSStateSelectNone.Enabled = False
@@ -493,6 +500,10 @@ Public Class frmMain
 
     Private Sub cmdSStateDelete_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStateDelete.Click
         frmDeleteForm.ShowDialog(Me)
+    End Sub
+
+    Private Sub cmdSStateReorder_Click(sender As Object, e As EventArgs) Handles cmdSStateReorder.Click
+        frmReorderForm.ShowDialog(Me)
     End Sub
 
     Private Sub cmdSStatesLvwExpand_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStatesLvwExpand.Click
@@ -1179,4 +1190,5 @@ Public Class frmMain
     End Sub
 
 #End Region
+
 End Class

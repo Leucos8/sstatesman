@@ -126,5 +126,8 @@
     <Setting Name="frmDel_slvw_columnwidth" Type="System.Int32[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="SStatesMan_SStateReorderBackup" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
