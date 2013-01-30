@@ -134,9 +134,9 @@ Partial Class frmChooseVersion
         Me.pnlWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.pnlWindowTitle.Location = New System.Drawing.Point(0, 0)
         Me.pnlWindowTitle.Margin = New System.Windows.Forms.Padding(2)
-        Me.pnlWindowTitle.MinimumSize = New System.Drawing.Size(0, 26)
+        Me.pnlWindowTitle.MinimumSize = New System.Drawing.Size(0, 48)
         Me.pnlWindowTitle.Name = "pnlWindowTitle"
-        Me.pnlWindowTitle.Size = New System.Drawing.Size(308, 30)
+        Me.pnlWindowTitle.Size = New System.Drawing.Size(308, 48)
         Me.pnlWindowTitle.TabIndex = 8
         '
         'lbPCSX2exe
@@ -145,15 +145,15 @@ Partial Class frmChooseVersion
         Me.lbPCSX2exe.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lbPCSX2exe.ForeColor = System.Drawing.Color.Black
         Me.lbPCSX2exe.FormattingEnabled = True
-        Me.lbPCSX2exe.Location = New System.Drawing.Point(7, 24)
+        Me.lbPCSX2exe.Location = New System.Drawing.Point(9, 26)
         Me.lbPCSX2exe.Name = "lbPCSX2exe"
-        Me.lbPCSX2exe.Size = New System.Drawing.Size(294, 124)
+        Me.lbPCSX2exe.Size = New System.Drawing.Size(290, 102)
         Me.lbPCSX2exe.TabIndex = 10
         '
         'lblPlease
         '
         Me.lblPlease.AutoSize = True
-        Me.lblPlease.Location = New System.Drawing.Point(7, 4)
+        Me.lblPlease.Location = New System.Drawing.Point(9, 6)
         Me.lblPlease.Name = "lblPlease"
         Me.lblPlease.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.lblPlease.Size = New System.Drawing.Size(253, 17)
@@ -165,9 +165,9 @@ Partial Class frmChooseVersion
         Me.lblTroubleshoot.AutoSize = True
         Me.lblTroubleshoot.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblTroubleshoot.ForeColor = System.Drawing.Color.DimGray
-        Me.lblTroubleshoot.Location = New System.Drawing.Point(7, 151)
+        Me.lblTroubleshoot.Location = New System.Drawing.Point(9, 131)
         Me.lblTroubleshoot.Name = "lblTroubleshoot"
-        Me.lblTroubleshoot.Size = New System.Drawing.Size(294, 65)
+        Me.lblTroubleshoot.Size = New System.Drawing.Size(290, 65)
         Me.lblTroubleshoot.TabIndex = 13
         Me.lblTroubleshoot.Text = "If your current PCSX2 version is not listed here then:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "1. check you currently co" & _
     "nfigured PCSX2 path in Settings > PCSX2 paths," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2. make sure the PCSX2 executabl" & _
@@ -182,14 +182,14 @@ Partial Class frmChooseVersion
         Me.pnlWindowContent.Controls.Add(Me.lbPCSX2exe, 0, 1)
         Me.pnlWindowContent.Controls.Add(Me.lblPlease, 0, 0)
         Me.pnlWindowContent.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlWindowContent.Location = New System.Drawing.Point(0, 30)
+        Me.pnlWindowContent.Location = New System.Drawing.Point(0, 48)
         Me.pnlWindowContent.Name = "pnlWindowContent"
-        Me.pnlWindowContent.Padding = New System.Windows.Forms.Padding(4)
+        Me.pnlWindowContent.Padding = New System.Windows.Forms.Padding(6)
         Me.pnlWindowContent.RowCount = 3
         Me.pnlWindowContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.pnlWindowContent.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.pnlWindowContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pnlWindowContent.Size = New System.Drawing.Size(308, 220)
+        Me.pnlWindowContent.Size = New System.Drawing.Size(308, 202)
         Me.pnlWindowContent.TabIndex = 13
         '
         'frmChooseVersion

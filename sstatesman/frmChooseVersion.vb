@@ -31,7 +31,7 @@ Public Class frmChooseVersion
                     PCSX2EXE_start(pPCSX2_PathBin, Me.lbPCSX2exe.Text)
                     Me.Close()
                 Else
-                    Me.cmdOk.Enabled = False
+                    Me.cmdOk.Enabled = True
                 End If
             Else
                 lbPCSX2exe.Items.Add("No PCSX2 executables found")
@@ -49,7 +49,7 @@ Public Class frmChooseVersion
         If File.Exists(tmpPath) Then
             Diagnostics.Process.Start(tmpPath)
         Else
-            MessageBox.Show("The file specified does not exist. " & tmpPath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("The specified executable does not exist. Please close this window and try again to refresh the list." & tmpPath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 
