@@ -18,7 +18,7 @@ Public Class frmGameDbExplorer
     Dim populationTime As Long
 
 
-    Friend SearchResultRef As New List(Of System.String)
+    Friend SearchResultRef As New List(Of String)
     Friend SearchIsActive As Boolean = False
 
     Private Sub UI_Updater()
@@ -41,18 +41,18 @@ Public Class frmGameDbExplorer
         Select Case PCSX2GameDb.Status
             Case LoadStatus.StatusLoadedOK
                 Me.CurrentGame = PCSX2GameDb.RecordExtract(Me.CurrentSerial)
-                Me.ToolStripStatusLabel2.Text = System.String.Format("GameDB loaded in {0:N2}ms.", PCSX2GameDb.LoadTime / Stopwatch.Frequency * 1000)
-                Me.ToolStripStatusLabel3.Text = System.String.Format("List created in {0:N2}ms.", Me.populationTime / Stopwatch.Frequency * 1000)
+                Me.ToolStripStatusLabel2.Text = String.Format("GameDB loaded in {0:N2}ms.", PCSX2GameDb.LoadTime / Stopwatch.Frequency * 1000)
+                Me.ToolStripStatusLabel3.Text = String.Format("List created in {0:N2}ms.", Me.populationTime / Stopwatch.Frequency * 1000)
                 If Not (SearchIsActive) Then
-                    Me.ToolStripStatusLabel1.Text = System.String.Format("{0} games.", PCSX2GameDb.Records.Count.ToString("N0"))
+                    Me.ToolStripStatusLabel1.Text = String.Format("{0} games.", PCSX2GameDb.Records.Count.ToString("N0"))
                 Else
                     Select Case Me.SearchResultRef.Count
                         Case Is > 0
-                            Me.ToolStripStatusLabel1.Text = System.String.Format("Found {0:N0} in {1:N0} games.", Me.SearchResultRef.Count, PCSX2GameDb.Records.Count.ToString)
+                            Me.ToolStripStatusLabel1.Text = String.Format("Found {0:N0} in {1:N0} games.", Me.SearchResultRef.Count, PCSX2GameDb.Records.Count.ToString)
                             Me.tsListShow.Enabled = True
                             Me.tsListShow.Visible = True
                         Case 0
-                            Me.ToolStripStatusLabel1.Text = System.String.Format("No result found in {1:N0} games.", Me.SearchResultRef.Count, PCSX2GameDb.Records.Count.ToString)
+                            Me.ToolStripStatusLabel1.Text = String.Format("No result found in {1:N0} games.", Me.SearchResultRef.Count, PCSX2GameDb.Records.Count.ToString)
                             Me.tsListShow.Enabled = True
                             Me.tsListShow.Visible = True
                     End Select
@@ -152,7 +152,7 @@ Public Class frmGameDbExplorer
                 .CheckPathExists = True
                 .DefaultExt = ".txt"
                 .Filter = "Text file|*.txt|All files|*.*"
-                .InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+                .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
                 .OverwritePrompt = True
                 .ValidateNames = True
             End With
@@ -163,8 +163,8 @@ Public Class frmGameDbExplorer
                     .Title = "Save found records to..."
                 End With
                 If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                    Dim GameDbExtract As New Dictionary(Of System.String, GameInfo)
-                    Dim GameDbExtract_ArrayStatus As System.Byte = LoadStatus.StatusNotLoaded
+                    Dim GameDbExtract As New Dictionary(Of String, GameInfo)
+                    Dim GameDbExtract_ArrayStatus As Byte = LoadStatus.StatusNotLoaded
 
                     GameDbExtract_ArrayStatus = PCSX2GameDb.RecordExtract(SearchResultRef, GameDbExtract)
                     GameDB.ExportTxt(SaveDialog.FileName, vbTab, GameDbExtract)
@@ -189,7 +189,7 @@ Public Class frmGameDbExplorer
                 .CheckPathExists = True
                 .Filter = "Comma-separated value file|*.csv|Text file|*.txt|All files|*.*"
                 .DefaultExt = ".csv"
-                .InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+                .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
                 .OverwritePrompt = True
                 .ValidateNames = True
             End With
@@ -201,11 +201,11 @@ Public Class frmGameDbExplorer
                 End With
                 If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
                     If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                        Dim GameDbExtract As New Dictionary(Of System.String, GameInfo)
-                        Dim GameDbExtract_ArrayStatus As System.Byte = LoadStatus.StatusNotLoaded
+                        Dim GameDbExtract As New Dictionary(Of String, GameInfo)
+                        Dim GameDbExtract_ArrayStatus As Byte = LoadStatus.StatusNotLoaded
 
                         GameDbExtract_ArrayStatus = PCSX2GameDb.RecordExtract(SearchResultRef, GameDbExtract)
-                        GameDB.ExportTxt(SaveDialog.FileName, ";", GameDbExtract)
+                        GameDB.ExportTxt(SaveDialog.FileName, Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator, GameDbExtract)
                     End If
                 End If
             Else
@@ -220,13 +220,13 @@ Public Class frmGameDbExplorer
         End Using
     End Sub
 
-    Private Sub tsTxtSearchSerial_GotFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles tsTxtSearchSerial.GotFocus
+    Private Sub tsTxtSearchSerial_GotFocus(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsTxtSearchSerial.GotFocus
         If Me.tsTxtSearchSerial.Text = "Serial" Then
             Me.tsTxtSearchSerial.Text = ""
         End If
     End Sub
 
-    Private Sub tsTxtSearchSerial_LostFocus(ByVal sender As Object, ByVal e As System.EventArgs) Handles tsTxtSearchSerial.LostFocus
+    Private Sub tsTxtSearchSerial_LostFocus(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsTxtSearchSerial.LostFocus
         If Me.tsTxtSearchSerial.Text = "" Then
             Me.tsTxtSearchSerial.Text = "Serial"
         End If
@@ -246,7 +246,7 @@ Public Class frmGameDbExplorer
 
     Private Sub tsCmdSearch_Click(sender As System.Object, e As System.EventArgs) Handles tsCmdSearch.Click
         If frmGDESearch.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-            Dim SearchGameDb As New Dictionary(Of System.String, GameInfo)
+            Dim SearchGameDb As New Dictionary(Of String, GameInfo)
             PCSX2GameDb.RecordExtract(Me.SearchResultRef, SearchGameDb)
             Me.PopulateList(SearchGameDb)
 
@@ -254,13 +254,13 @@ Public Class frmGameDbExplorer
         End If
     End Sub
 
-    Private Sub PopulateList(ByVal pList As Dictionary(Of System.String, GameInfo))
+    Private Sub PopulateList(ByVal pList As Dictionary(Of String, GameInfo))
         Dim sw As New Stopwatch
         sw.Start()
         Me.lvwGameDBList.Items.Clear()
-        Dim myLvwItems As New List(Of System.Windows.Forms.ListViewItem)
-        For Each myTmpGame As KeyValuePair(Of System.String, GameInfo) In pList
-            Dim myTmpItem As New System.Windows.Forms.ListViewItem With {.Text = myTmpGame.Value.Name}
+        Dim myLvwItems As New List(Of ListViewItem)
+        For Each myTmpGame As KeyValuePair(Of String, GameInfo) In pList
+            Dim myTmpItem As New ListViewItem With {.Text = myTmpGame.Value.Name}
             myTmpItem.SubItems.AddRange({myTmpGame.Key,
                                          myTmpGame.Value.Region,
                                          myTmpGame.Value.CompatToText})
