@@ -434,7 +434,6 @@ Partial Class frmMain
         Me.flpTab.Name = "flpTab"
         Me.flpTab.Size = New System.Drawing.Size(240, 23)
         Me.flpTab.TabIndex = 15
-        Me.flpTab.Visible = False
         Me.flpTab.WrapContents = False
         '
         'optSettingTab1
@@ -642,19 +641,19 @@ Partial Class frmMain
         '
         Me.GameLvw_SStatesInfo.Text = "Savestates"
         Me.GameLvw_SStatesInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.GameLvw_SStatesInfo.Width = 120
+        Me.GameLvw_SStatesInfo.Width = 80
         '
         'GameLvw_BackupInfo
         '
         Me.GameLvw_BackupInfo.Text = "Backups"
         Me.GameLvw_BackupInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.GameLvw_BackupInfo.Width = 120
+        Me.GameLvw_BackupInfo.Width = 80
         '
         'GameLvw_SnapsInfo
         '
         Me.GameLvw_SnapsInfo.Text = "Screenshots"
         Me.GameLvw_SnapsInfo.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.GameLvw_SnapsInfo.Width = 0
+        Me.GameLvw_SnapsInfo.Width = 80
         '
         'imgCover
         '
@@ -1101,7 +1100,6 @@ Partial Class frmMain
         Me.cmdSStateReorder.TabIndex = 49
         Me.cmdSStateReorder.Text = "RE&ORDER"
         Me.cmdSStateReorder.UseVisualStyleBackColor = False
-        Me.cmdSStateReorder.Visible = False
         '
         'cmdSStateDelete
         '

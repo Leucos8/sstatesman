@@ -111,8 +111,8 @@ Module mdlFileList
 
         Dim tmpDirectoryInfo As New DirectoryInfo(pSStatesPath)
         SStatesList_Load(tmpDirectoryInfo, pGamesList)
-        'tmpDirectoryInfo = New DirectoryInfo(pSnapsPath)
-        'SnapsList_Load(tmpDirectoryInfo, pGamesList)
+        tmpDirectoryInfo = New DirectoryInfo(pSnapsPath)
+        SnapsList_Load(tmpDirectoryInfo, pGamesList)
 
         sw.Stop()
         GameList_LoadTime = sw.ElapsedTicks
