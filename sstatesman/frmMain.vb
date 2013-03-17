@@ -598,7 +598,7 @@ Public Class frmMain
         End If
 
         'The drawing surface will be based on an image, Extra_Nocover
-        Cover_MultipleThumbnail = My.Resources.Flag_0Null_30x20.GetThumbnailImage(pDestWidth, pDestHeight, Nothing, Nothing)
+        Cover_MultipleThumbnail = New Bitmap(pDestHeight, pDestHeight)
         'The image is referenced to a graphics object for editing
         Dim endCover As Graphics = Graphics.FromImage(Cover_MultipleThumbnail)
 
@@ -619,24 +619,22 @@ Public Class frmMain
         Next
         'The graphics object update the image object
         endCover.DrawImage(Cover_MultipleThumbnail, pDestWidth, pDestHeight)
-        'MultipleCover.Save(My.Settings.SStatesMan_PathPics.ToLower & "\ thumbnails.png", Imaging.ImageFormat.Png)
         Return Cover_MultipleThumbnail
     End Function
 
     Private Function Cover_GetCover(ByVal pSerial As String, ByVal pPath As String, ByRef pDestWidth As Integer, ByRef pDestHeight As Integer, Optional ByVal forced As Boolean = False) As Image
         If pSerial.ToLower = "screenshots" Then
             'Screenshots group gets a special (embedded) image
-            Dim tmpImage As Image = My.Resources.Icon_Screenshot_256x192
             If forced Then
-                pDestWidth = CInt(pDestHeight * tmpImage.Width / tmpImage.Height)
+                pDestWidth = pDestHeight * My.Resources.Icon_Screenshot_256x192.Width \ My.Resources.Icon_Screenshot_256x192.Height
             Else
                 If (pDestWidth = 0) And Not (forced) Then
                     pDestWidth = pDestHeight
                 End If
-                pDestHeight = CInt(pDestWidth * tmpImage.Height / tmpImage.Width)
+                pDestHeight = pDestWidth * My.Resources.Icon_Screenshot_256x192.Height \ My.Resources.Icon_Screenshot_256x192.Width
             End If
-            tmpImage = tmpImage.GetThumbnailImage(pDestWidth, pDestHeight, Nothing, Nothing)
-            Return tmpImage
+            Cover_GetCover = My.Resources.Icon_Screenshot_256x192.GetThumbnailImage(pDestWidth, pDestHeight, Nothing, Nothing)
+            Return Cover_GetCover
         Else
             If Directory.Exists(pPath) Then
                 Try
@@ -655,23 +653,23 @@ Public Class frmMain
 
     Private Function Cover_ResizeCover(ByVal pImage As Image, ByRef pDestWidth As Integer, ByRef pDestHeight As Integer, Optional ByVal forced As Boolean = False) As Image
         Try
-            Dim tmpThumbnail As Image = My.Resources.Extra_Nocover_120x170
+            Dim tmpThumbnail As Image = New Bitmap(120, 170)
             If pDestWidth = 0 Then
                 'destWidth must be computed
                 If (pImage.Height > pImage.Width) Or forced Then
                     'If it's a vertical (tall) image or destHeight must be respected (forced = true) then destWidth will be computed
-                    tmpThumbnail = pImage.GetThumbnailImage(CInt(pDestHeight * pImage.Width / pImage.Height), pDestHeight, Nothing, Nothing)
-                    pDestWidth = CInt(pDestHeight * pImage.Width / pImage.Height)
+                    tmpThumbnail = pImage.GetThumbnailImage(pDestHeight * pImage.Width \ pImage.Height, pDestHeight, Nothing, Nothing)
+                    pDestWidth = pDestHeight * pImage.Width \ pImage.Height
                 Else
                     'Else destHeight will be considered as the maximum width applicable and thus destHeight will be re-computed
                     pDestWidth = pDestHeight
-                    pDestHeight = CInt(pDestWidth * pImage.Height / pImage.Width)
-                    tmpThumbnail = pImage.GetThumbnailImage(pDestWidth, CInt(pDestWidth * pImage.Height / pImage.Width), Nothing, Nothing)
+                    pDestHeight = pDestWidth * pImage.Height \ pImage.Width
+                    tmpThumbnail = pImage.GetThumbnailImage(pDestWidth, pDestWidth * pImage.Height \ pImage.Width, Nothing, Nothing)
                 End If
             ElseIf pDestHeight = 0 Then
                 'destHeight must be computed
-                tmpThumbnail = pImage.GetThumbnailImage(pDestWidth, CInt(pDestWidth * pImage.Height / pImage.Width), Nothing, Nothing)
-                pDestHeight = CInt(pDestWidth * pImage.Height / pImage.Width)
+                tmpThumbnail = pImage.GetThumbnailImage(pDestWidth, pDestWidth * pImage.Height \ pImage.Width, Nothing, Nothing)
+                pDestHeight = pDestWidth * pImage.Height \ pImage.Width
             End If
             Return tmpThumbnail
         Catch ex As Exception
