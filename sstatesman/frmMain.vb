@@ -99,14 +99,16 @@ Public Class frmMain
                                                  My.Settings.SStatesMan_Channel) 'Add version information to the main window
 
 
-        Dim imlLvwCheckboxes As New ImageList                       'Listviews checkboxes (stateimagelist)
-        With imlLvwCheckboxes
-            .ImageSize = New Size(CInt(10 * DPIxScale) + 1, CInt(10 * DPIyScale) + 1)   'Setting the size
-            .Images.Add(My.Resources.Checkbox_Unchecked_22x22)      'Unchecked state image
-            .Images.Add(My.Resources.Checkbox_Checked_22x22)        'Checked state image
-        End With
+        Dim imlLvwCheckboxes As New System.Windows.Forms.ImageList With {.ImageSize = New System.Drawing.Size(CInt(10 * DPIxScale + 1), CInt(10 * DPIyScale) + 1)}
+        imlLvwCheckboxes.Images.Add(My.Resources.Checkbox_Unchecked_22x22)      'Unchecked state image
+        imlLvwCheckboxes.Images.Add(My.Resources.Checkbox_Checked_22x22)        'Checked state image
         Me.lvwGamesList.StateImageList = imlLvwCheckboxes           'Assigning the imagelist to the Games listview
         Me.lvwSStatesList.StateImageList = imlLvwCheckboxes         'Assigning the imagelist to the Savestates listview
+
+        Dim imlLvwSStatesIcons As New ImageList With {.ImageSize = New Size(CInt(15 * DPIxScale) + 1, CInt(15 * DPIyScale) + 1)}
+        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_Savestate_16x16)
+        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_SavestateBackup_16x16)
+        Me.lvwSStatesList.SmallImageList = imlLvwSStatesIcons
 
 
         Me.Location = My.Settings.frmMain_WindowPosition
@@ -870,6 +872,12 @@ Public Class frmMain
                                                            tmpSavestate.Value.Version,
                                                            tmpSavestate.Value.LastWriteTime.ToString,
                                                            System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2)})
+                        If Not (tmpSavestate.Value.Backup) Then
+                            tmpLvwSListItem.ImageIndex = 0
+                        Else
+                            tmpLvwSListItem.ImageIndex = 1
+                        End If
+
                         If (checkedSavestates.Contains(tmpSavestate.Key)) Then
                             tmpLvwSListItem.Checked = True
                         End If

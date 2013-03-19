@@ -929,12 +929,12 @@ Partial Class frmMain
         'SStatesLvw_Backup
         '
         Me.SStatesLvw_Backup.Text = "Backup"
-        Me.SStatesLvw_Backup.Width = 40
+        Me.SStatesLvw_Backup.Width = 0
         '
         'SStatesLvw_Version
         '
         Me.SStatesLvw_Version.Text = "Version"
-        Me.SStatesLvw_Version.Width = 80
+        Me.SStatesLvw_Version.Width = 120
         '
         'SStatesLvw_DateLastWrite
         '

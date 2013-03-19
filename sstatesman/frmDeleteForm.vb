@@ -125,12 +125,15 @@ Public Class frmDeleteForm
 
     Private Sub frmDeleteForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        Dim imlLvwCheckboxes As New System.Windows.Forms.ImageList
-        imlLvwCheckboxes.ImageSize = New System.Drawing.Size(CInt(10 * DPIxScale + 1), CInt(10 * DPIyScale) + 1)
+        Dim imlLvwCheckboxes As New System.Windows.Forms.ImageList With {.ImageSize = New System.Drawing.Size(CInt(10 * DPIxScale + 1), CInt(10 * DPIyScale) + 1)}
         imlLvwCheckboxes.Images.Add(My.Resources.Checkbox_Unchecked_22x22)
         imlLvwCheckboxes.Images.Add(My.Resources.Checkbox_Checked_22x22)
         Me.lvwSStatesListToDelete.StateImageList = imlLvwCheckboxes
 
+        Dim imlLvwSStatesIcons As New ImageList With {.ImageSize = New Size(CInt(15 * DPIxScale) + 1, CInt(15 * DPIyScale) + 1)}
+        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_Savestate_16x16)
+        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_SavestateBackup_16x16)
+        Me.lvwSStatesListToDelete.SmallImageList = imlLvwSStatesIcons
 
         Me.Location = My.Settings.frmDel_WindowLocation
         Me.Size = My.Settings.frmDel_WindowSize
@@ -269,9 +272,11 @@ Public Class frmDeleteForm
                             If IO.File.Exists(IO.Path.Combine(My.Settings.PCSX2_PathSState, tmpSavestate.Key)) Then
                                 tmpLvwSListItem.SubItems.Add("")
                                 tmpLvwSListItem.Checked = True
-                                If tmpSavestate.Value.Backup = False Then
+                                If Not (tmpSavestate.Value.Backup) Then
+                                    tmpLvwSListItem.ImageIndex = 0
                                     SStateList_TotalSize += tmpSavestate.Value.Length
                                 Else
+                                    tmpLvwSListItem.ImageIndex = 1
                                     SStateList_TotalSizeBackup += tmpSavestate.Value.Length
                                 End If
                             Else
