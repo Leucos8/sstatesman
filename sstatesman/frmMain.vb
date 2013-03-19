@@ -857,6 +857,9 @@ Public Class frmMain
                 lvwGamesList_SelectedSizeBackup += mdlFileList.GamesList(currentGameInfo.Serial).SavestatesBackup_SizeTot
 
                 If (mdlFileList.GamesList(tmpSerial).Savestates.Values.Count > 0) Then
+
+                    lastSStateDate = Date.MinValue
+
                     For Each tmpSavestate As KeyValuePair(Of String, Savestate) In mdlFileList.GamesList(tmpSerial).Savestates
 
                         Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key,
