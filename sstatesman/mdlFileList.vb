@@ -19,12 +19,12 @@ Module mdlFileList
         Public Property Extension As String
         Public Property Length As Long
         Public Property LastWriteTime As DateTime
-        Public Property Slot As String
+        Public Property Slot As Integer
         Public Property Backup As Boolean
         Public Property Version As String
 
         Public Function GetSerial() As String
-            Dim SpacePosition As Int32 = Name.IndexOf(" "c, 0)
+            Dim SpacePosition As Integer = Name.IndexOf(" "c, 0)
             If SpacePosition > 0 Then
                 Return Name.Remove(SpacePosition)
             Else
@@ -33,6 +33,22 @@ Module mdlFileList
         End Function
 
         Public Shared Function GetSerial(ByVal pFilename As String) As String
+            Dim tmpSavestate As New Savestate With {.Name = pFilename}
+            Return tmpSavestate.GetSerial
+        End Function
+
+
+        Public Function GetCRC() As String
+            Dim ParOPosition As Integer = Name.IndexOf("("c, 0)
+            Dim ParCPosition As Integer = Name.IndexOf(")"c, 0)
+            If (ParOPosition > 0) And (ParCPosition > ParOPosition) Then
+                Return Name.Substring(ParOPosition + 1, ParCPosition - ParOPosition - 1)
+            Else
+                Return "NOCRC"
+            End If
+        End Function
+
+        Public Shared Function GetCRC(ByVal pFilename As String) As String
             Dim tmpSavestate As New Savestate With {.Name = pFilename}
             Return tmpSavestate.GetSerial
         End Function
@@ -88,6 +104,7 @@ Module mdlFileList
         Public Property SavestatesBackup_SizeTot As Long = 0
         Public Property Snapshots As New Dictionary(Of String, Snapshot)
         Public Property Snapshots_SizeTot As Long = 0
+        Public Property CRC As String
     End Class
 
     Public GamesList As New Dictionary(Of String, GamesList_Item)
@@ -130,7 +147,7 @@ Module mdlFileList
     Public Sub SStatesList_Load(ByVal pDirectory As DirectoryInfo,
                                 ByRef pGamesList As Dictionary(Of String, GamesList_Item))
 
-
+        'Version DB
         Dim PCSX2_VersionDB As New VersionDB
         PCSX2_VersionDB.Load()
 
@@ -139,56 +156,61 @@ Module mdlFileList
         Dim tmpSStates_GroupedBySerial As IEnumerable(Of IGrouping(Of String, FileInfo)) = pDirectory.EnumerateFiles().Where(
             Function(item) {My.Settings.PCSX2_SStateExt, My.Settings.PCSX2_SStateExtBackup}.Contains(item.Extension.ToLower)
                 ).GroupBy(Function(item) Savestate.GetSerial(item.Name))
+        'FileInfos, obtained by EnumerateFiles(), are grouped by Savestate.GetSerial using LINQ GroupBy
 
-
-        'Raggruppo le FileInfo sui savestates, che ottengo con GetFiles, per seriale utilizzando LINQ GroupBy
-
+        'For each game (serial) found
         For Each GroupedBySerial_Item In tmpSStates_GroupedBySerial
-            'Creo una lista temporanea di FileInfo partendo dai FileInfo del gruppo, perché non posso fare conversione diretta
+            'A temporary of Savestates is created
             Dim tmpSStatesList As New Dictionary(Of String, Savestate)
+            Dim tmpCRC As String = ""
+            'Each FileInfo is "converted" to the Savestate class
             For Each tmpFileInfo As FileInfo In GroupedBySerial_Item
                 Dim tmpItem As New Savestate With {
                     .Name = tmpFileInfo.Name,
                     .Extension = tmpFileInfo.Extension,
                     .Length = tmpFileInfo.Length,
                     .LastWriteTime = tmpFileInfo.LastWriteTime}
-                tmpItem.Slot = tmpItem.GetSlot().ToString
+                tmpItem.Slot = tmpItem.GetSlot()
                 tmpItem.Backup = tmpItem.GetTypeB()
-
+                tmpCRC = tmpItem.GetCRC
+                'Version extraction, if enabled
                 If My.Settings.SStatesMan_SStatesVersionExtract Then
                     tmpItem.Version = mdlSimpleZipExtractor.ExtractFirstFile(tmpFileInfo)
                     For i As Integer = 0 To PCSX2_VersionDB.DB.Count - 1
                         If PCSX2_VersionDB.DB(i).version.ToUpper = tmpItem.Version.ToUpper Then
+                            'Not the latest
                             If i > 0 Then
                                 tmpItem.Version &= " (r" & PCSX2_VersionDB.DB(i).minrevision.ToString & ">" & (PCSX2_VersionDB.DB(i - 1).minrevision - 1).ToString & ")"
                             Else
+                                'The latest
                                 tmpItem.Version &= " (r" & PCSX2_VersionDB.DB(i).minrevision.ToString & ">current)"
                             End If
                         End If
                     Next
                 Else : tmpItem.Version = "-"
                 End If
+
                 tmpSStatesList.Add(tmpFileInfo.Name, tmpItem)
 
             Next
 
             Dim tmpCurrentGame As New GamesList_Item
-            'Per ogni oggetto nel gruppo devo controllare se il seriale è già presente nella GamesList
+            'Check if the serial is already in the GamesList
             If pGamesList.TryGetValue(GroupedBySerial_Item.Key, tmpCurrentGame) Then
-                'Se la FileList per quel tipo di file è già presente allora posso assegnare direttamente la lista di FileInfo temporanea creata precedentemente
                 tmpCurrentGame.Savestates = tmpSStatesList
 
 
             Else
-                'Se il seriale non è presente significa che devo creare una nuova voce ed assegnarla alla gameslist
+                'A new game must be added
                 tmpCurrentGame = New GamesList_Item
                 tmpCurrentGame.Savestates = tmpSStatesList
                 pGamesList.Add(GroupedBySerial_Item.Key, tmpCurrentGame)
 
             End If
-            'Operazione comune ai due bracci dell'If precedente
+            'Common operations
             tmpCurrentGame.Savestates_SizeTot = tmpCurrentGame.Savestates.Where(Function(item) item.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Sum(Function(item) item.Value.Length)
             tmpCurrentGame.SavestatesBackup_SizeTot = tmpCurrentGame.Savestates.Where(Function(item) item.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Sum(Function(item) item.Value.Length)
+            tmpCurrentGame.CRC = tmpCRC
         Next
 
     End Sub

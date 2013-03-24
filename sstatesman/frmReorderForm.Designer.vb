@@ -39,13 +39,9 @@ Partial Class frmReorderForm
         Me.cmdCancel = New System.Windows.Forms.Button()
         Me.cmdReorder = New System.Windows.Forms.Button()
         Me.lvwSStatesListToReorder = New System.Windows.Forms.ListView()
-        Me.StDelLvw_FileName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.StDelLvw_Slot = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.StDelLvw_Backup = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.StDelLvw_Version = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.StDelLvw_LastWT = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.StDelLvw_Size = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.StDelLvw_Status = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.StROLvw_Slot = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.StROLvw_OldName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.StROLvw_NewName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmdSStateMoveLast = New System.Windows.Forms.Button()
         Me.cmdSStateMoveFirst = New System.Windows.Forms.Button()
         Me.cmdSStateMoveUp = New System.Windows.Forms.Button()
@@ -118,12 +114,13 @@ Partial Class frmReorderForm
         '
         Me.lvwSStatesListToReorder.BackColor = System.Drawing.Color.White
         Me.lvwSStatesListToReorder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lvwSStatesListToReorder.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StDelLvw_FileName, Me.StDelLvw_Slot, Me.StDelLvw_Backup, Me.StDelLvw_Version, Me.StDelLvw_LastWT, Me.StDelLvw_Size, Me.StDelLvw_Status})
+        Me.lvwSStatesListToReorder.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StROLvw_Slot, Me.StROLvw_OldName, Me.StROLvw_NewName})
         Me.lvwSStatesListToReorder.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvwSStatesListToReorder.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lvwSStatesListToReorder.ForeColor = System.Drawing.Color.Black
         Me.lvwSStatesListToReorder.FullRowSelect = True
         Me.lvwSStatesListToReorder.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.lvwSStatesListToReorder.HideSelection = False
         Me.lvwSStatesListToReorder.Location = New System.Drawing.Point(0, 78)
         Me.lvwSStatesListToReorder.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwSStatesListToReorder.MultiSelect = False
@@ -133,42 +130,20 @@ Partial Class frmReorderForm
         Me.lvwSStatesListToReorder.UseCompatibleStateImageBehavior = False
         Me.lvwSStatesListToReorder.View = System.Windows.Forms.View.Details
         '
-        'StDelLvw_FileName
+        'StROLvw_Slot
         '
-        Me.StDelLvw_FileName.Text = "Savestate file name"
-        Me.StDelLvw_FileName.Width = 240
+        Me.StROLvw_Slot.Text = "Slot"
+        Me.StROLvw_Slot.Width = 80
         '
-        'StDelLvw_Slot
+        'StROLvw_OldName
         '
-        Me.StDelLvw_Slot.Text = "Slot"
-        Me.StDelLvw_Slot.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.StDelLvw_Slot.Width = 40
+        Me.StROLvw_OldName.Text = "Old name"
+        Me.StROLvw_OldName.Width = 240
         '
-        'StDelLvw_Backup
+        'StROLvw_NewName
         '
-        Me.StDelLvw_Backup.Text = "Backup"
-        Me.StDelLvw_Backup.Width = 0
-        '
-        'StDelLvw_Version
-        '
-        Me.StDelLvw_Version.Text = "Version"
-        Me.StDelLvw_Version.Width = 80
-        '
-        'StDelLvw_LastWT
-        '
-        Me.StDelLvw_LastWT.Text = "Modified"
-        Me.StDelLvw_LastWT.Width = 0
-        '
-        'StDelLvw_Size
-        '
-        Me.StDelLvw_Size.Text = "Size"
-        Me.StDelLvw_Size.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.StDelLvw_Size.Width = 80
-        '
-        'StDelLvw_Status
-        '
-        Me.StDelLvw_Status.Text = "Status"
-        Me.StDelLvw_Status.Width = 140
+        Me.StROLvw_NewName.Text = "New name"
+        Me.StROLvw_NewName.Width = 240
         '
         'cmdSStateMoveLast
         '
@@ -322,9 +297,9 @@ Partial Class frmReorderForm
         Me.lblWindowTitle.Location = New System.Drawing.Point(26, 4)
         Me.lblWindowTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblWindowTitle.Name = "lblWindowTitle"
-        Me.lblWindowTitle.Size = New System.Drawing.Size(187, 30)
+        Me.lblWindowTitle.Size = New System.Drawing.Size(86, 30)
         Me.lblWindowTitle.TabIndex = 2
-        Me.lblWindowTitle.Text = "Reorder savestates"
+        Me.lblWindowTitle.Text = "Reorder"
         '
         'blWindowDescription
         '
@@ -455,7 +430,7 @@ Partial Class frmReorderForm
         Me.ShowInTaskbar = False
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Delete confirmation"
+        Me.Text = "Reorder"
         Me.panelWindowTitle.ResumeLayout(False)
         Me.panelWindowTitle.PerformLayout()
         Me.TableLayoutPanel1.ResumeLayout(False)
@@ -476,11 +451,8 @@ Partial Class frmReorderForm
     Private WithEvents cmdCancel As System.Windows.Forms.Button
     Private WithEvents cmdReorder As System.Windows.Forms.Button
     Private WithEvents lvwSStatesListToReorder As System.Windows.Forms.ListView
-    Private WithEvents StDelLvw_FileName As System.Windows.Forms.ColumnHeader
-    Private WithEvents StDelLvw_Slot As System.Windows.Forms.ColumnHeader
-    Private WithEvents StDelLvw_Version As System.Windows.Forms.ColumnHeader
-    Private WithEvents StDelLvw_Size As System.Windows.Forms.ColumnHeader
-    Private WithEvents StDelLvw_Status As System.Windows.Forms.ColumnHeader
+    Private WithEvents StROLvw_Slot As System.Windows.Forms.ColumnHeader
+    Private WithEvents StROLvw_OldName As System.Windows.Forms.ColumnHeader
     Private WithEvents cmdSStateMoveLast As System.Windows.Forms.Button
     Private WithEvents cmdSStateMoveFirst As System.Windows.Forms.Button
     Private WithEvents cmdSStateMoveUp As System.Windows.Forms.Button
@@ -495,7 +467,6 @@ Partial Class frmReorderForm
     Private WithEvents lblWindowTitle As System.Windows.Forms.Label
     Friend WithEvents flpWindowBottom As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents FlowPanelGameList As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents StDelLvw_Backup As System.Windows.Forms.ColumnHeader
-    Private WithEvents StDelLvw_LastWT As System.Windows.Forms.ColumnHeader
+    Private WithEvents StROLvw_NewName As System.Windows.Forms.ColumnHeader
     Private WithEvents blWindowDescription As System.Windows.Forms.Label
 End Class

@@ -22,14 +22,10 @@ Public Class frmReorderForm
     'Dim SStateList_TotalSize As Long = 0
     'Dim SStateList_TotalSizeBackup As Long = 0
 
-    Friend Enum frmDelSStatesLvwColumn
-        FileName
+    Friend Enum frmReorderLvwColumn
         Slot
-        Backup
-        Version
-        LastWriteDate
-        Size
-        Status
+        OldName
+        NewName
     End Enum
 
 #Region "Form - General"
@@ -99,11 +95,10 @@ Public Class frmReorderForm
 
     Private Sub frmReorderForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        'Dim imlLvwCheckboxes As New System.Windows.Forms.ImageList
-        'imlLvwCheckboxes.ImageSize = New System.Drawing.Size(CInt(10 * DPIxScale + 1), CInt(10 * DPIyScale) + 1)
-        'imlLvwCheckboxes.Images.Add(My.Resources.Checkbox_Unchecked_22x22)
-        'imlLvwCheckboxes.Images.Add(My.Resources.Checkbox_Checked_22x22)
-        'Me.lvwSStatesListToDelete.StateImageList = imlLvwCheckboxes
+        Dim imlLvwSStatesIcons As New ImageList With {.ImageSize = New Size(CInt(15 * DPIxScale) + 1, CInt(15 * DPIyScale) + 1)}
+        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_Savestates_16x16)
+        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_SavestatesBackup_16x16)
+        Me.lvwSStatesListToReorder.SmallImageList = imlLvwSStatesIcons
 
 
         'Me.Location = My.Settings.frmDel_WindowLocation
@@ -206,62 +201,45 @@ Public Class frmReorderForm
         Me.lvwSStatesListToReorder.Items.Clear()
         Me.lvwSStatesListToReorder.Groups.Clear()
 
-        If mdlMain.checkedGames.Count > 0 Then
-            Dim tmpGameInfo As New mdlGameDb.GameInfo
-            'Dim tmpSListGroups As New List(Of ListViewGroup)
-            Dim tmpSListGroup As New ListViewGroup
+        If (mdlMain.checkedGames.Count = 1) Then
+            'Dim tmpGameInfo As New mdlGameDb.GameInfo
             Dim tmpSListItems As New List(Of ListViewItem)
 
+            'Creation of the available slots, 10 x 2 = 20
+            For i As Integer = 0 To 19
+                Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = (i \ 2).ToString}
+                If (Not ((i Mod 2) > 0)) Then
+                    tmpLvwSListItem.ImageIndex = 0
+                    'tmpLvwSListItem.Text &= " Standard"
+                Else
+                    tmpLvwSListItem.ImageIndex = 1
+                    'tmpLvwSListItem.Text &= " Backup"
+                End If
+                tmpLvwSListItem.SubItems.Add("-")
+                tmpLvwSListItem.SubItems.Add("Free slot")
+                tmpSListItems.Add(tmpLvwSListItem)
+            Next
 
+            For Each tmpSavestate As KeyValuePair(Of String, Savestate) In mdlFileList.GamesList(mdlMain.checkedGames(0)).Savestates
+                If ((tmpSavestate.Value.Slot >= 0) And (tmpSavestate.Value.Slot <= 9)) Then
+                    If (Not (tmpSavestate.Value.Backup)) Then
+                        tmpSListItems.Item(tmpSavestate.Value.Slot * 2).SubItems(frmReorderLvwColumn.OldName).Text = tmpSavestate.Value.Name
+                        tmpSListItems.Item(tmpSavestate.Value.Slot * 2).SubItems(frmReorderLvwColumn.NewName).Text = tmpSavestate.Value.Name
+                    Else
+                        tmpSListItems.Item(tmpSavestate.Value.Slot * 2 + 1).SubItems(frmReorderLvwColumn.OldName).Text = tmpSavestate.Value.Name
+                        tmpSListItems.Item(tmpSavestate.Value.Slot * 2 + 1).SubItems(frmReorderLvwColumn.NewName).Text = tmpSavestate.Value.Name
+                    End If
+                Else
+                    Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = "Other"}
+                    tmpLvwSListItem.SubItems.Add(tmpSavestate.Value.Name)
+                    tmpLvwSListItem.SubItems.Add(tmpSavestate.Value.Name)
+                    tmpSListItems.Add(tmpLvwSListItem)
+                End If
+            Next
+
+            Me.lvwSStatesListToReorder.Items.AddRange(tmpSListItems.ToArray)
+            mdlTheme.ListAlternateColors(Me.lvwSStatesListToReorder)
         End If
-        'For Each tmpSerial As System.String In mdlMain.checkedGames
-
-        '    Dim tmpGamesListItem As New GamesList_Item
-        '    If mdlFileList.GamesList.TryGetValue(tmpSerial, tmpGamesListItem) Then
-
-        '        'Creation of the header
-        '        tmpGameInfo = PCSX2GameDb.RecordExtract(tmpSerial)
-        '        Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With {
-        '            .Header = tmpGameInfo.ToString(),
-        '            .HeaderAlignment = HorizontalAlignment.Left,
-        '            .Name = tmpGameInfo.Serial}
-
-        '        tmpSListGroups.Add(tmpLvwSListGroup)
-
-
-        '        If mdlFileList.GamesList(tmpSerial).Savestates.Values.Count > 0 Then
-        '            For Each tmpSavestate As KeyValuePair(Of String, Savestate) In mdlFileList.GamesList(tmpSerial).Savestates
-
-        '                Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key,
-        '                                                                                       .Group = tmpLvwSListGroup,
-        '                                                                                       .Name = tmpSavestate.Key}
-        '                tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Slot.ToString,
-        '                                                   tmpSavestate.Value.Backup.ToString,
-        '                                                   tmpSavestate.Value.Version,
-        '                                                   tmpSavestate.Value.LastWriteTime.ToString,
-        '                                                   System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2)})
-        '                If IO.File.Exists(IO.Path.Combine(My.Settings.PCSX2_PathSState, tmpSavestate.Key)) Then
-        '                    tmpLvwSListItem.SubItems.Add("")
-        '                    tmpLvwSListItem.Checked = True
-        '                    'If tmpSavestate.Value.Backup = False Then
-        '                    '    SStateList_TotalSize += tmpSavestate.Value.Length
-        '                    'Else
-        '                    '    SStateList_TotalSizeBackup += tmpSavestate.Value.Length
-        '                    'End If
-        '                Else
-        '                    tmpLvwSListItem.SubItems.Add("Error: file not found or inaccessible.")
-        '                    tmpLvwSListItem.Checked = False
-        '                    tmpLvwSListItem.BackColor = Color.FromArgb(255, 255, 192, 192)
-        '                End If
-
-        '                tmpSListItems.Add(tmpLvwSListItem)
-        '            Next
-        '        End If
-        '    End If
-        'Next
-        'Me.lvwSStatesListToReorder.Groups.AddRange(tmpSListGroups.ToArray)
-        'Me.lvwSStatesListToReorder.Items.AddRange(tmpSListItems.ToArray)
-        mdlTheme.ListAlternateColors(Me.lvwSStatesListToReorder)
     End Sub
 
     Private Sub lvwSStatesListToReorder_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvwSStatesListToReorder.SelectedIndexChanged
@@ -319,4 +297,84 @@ Public Class frmReorderForm
     End Sub
 #End Region
 
+    Private Sub cmdSStateMoveUp_Click(sender As Object, e As EventArgs) Handles cmdSStateMoveUp.Click
+        UI_Enabler(False)
+        If Me.lvwSStatesListToReorder.SelectedItems.Count > 0 Then
+            Dim tmpPosition As Integer = Me.lvwSStatesListToReorder.SelectedItems(0).Index
+            Dim tmpOldName As String = Me.lvwSStatesListToReorder.SelectedItems(0).SubItems(frmReorderLvwColumn.OldName).Text
+            Me.lvwSStatesListToReorder.SelectedItems(0).SubItems(frmReorderLvwColumn.OldName).Text = Me.lvwSStatesListToReorder.Items(tmpPosition - 1).SubItems(frmReorderLvwColumn.OldName).Text
+            Me.lvwSStatesListToReorder.Items(tmpPosition - 1).SubItems(frmReorderLvwColumn.OldName).Text = tmpOldName
+            Me.lvwSStatesListToReorder.SelectedItems(0).Selected = False
+            Me.lvwSStatesListToReorder.Items(tmpPosition - 1).Selected = True
+            Me.lvwSStatesListToReorder.Items(tmpPosition - 1).EnsureVisible()
+        End If
+        Renamer_Preview()
+        UI_Enabler(True)
+    End Sub
+
+    Private Sub cmdSStateMoveDown_Click(sender As Object, e As EventArgs) Handles cmdSStateMoveDown.Click
+        UI_Enabler(False)
+        If Me.lvwSStatesListToReorder.SelectedItems.Count > 0 Then
+            Dim tmpPosition As Integer = Me.lvwSStatesListToReorder.SelectedItems(0).Index
+            Dim tmpOldName As String = Me.lvwSStatesListToReorder.SelectedItems(0).SubItems(frmReorderLvwColumn.OldName).Text
+            Me.lvwSStatesListToReorder.SelectedItems(0).SubItems(frmReorderLvwColumn.OldName).Text = Me.lvwSStatesListToReorder.Items(tmpPosition + 1).SubItems(frmReorderLvwColumn.OldName).Text
+            Me.lvwSStatesListToReorder.Items(tmpPosition + 1).SubItems(frmReorderLvwColumn.OldName).Text = tmpOldName
+            Me.lvwSStatesListToReorder.SelectedItems(0).Selected = False
+            Me.lvwSStatesListToReorder.Items(tmpPosition + 1).Selected = True
+            Me.lvwSStatesListToReorder.Items(tmpPosition + 1).EnsureVisible()
+        End If
+        Renamer_Preview()
+        UI_Enabler(True)
+    End Sub
+
+    Private Sub cmdSStateMoveFirst_Click(sender As Object, e As EventArgs) Handles cmdSStateMoveFirst.Click
+        UI_Enabler(False)
+        If Me.lvwSStatesListToReorder.SelectedItems.Count > 0 Then
+            Dim tmpPosition As Integer = Me.lvwSStatesListToReorder.SelectedItems(0).Index
+            Dim tmpOldName As String = Me.lvwSStatesListToReorder.SelectedItems(0).SubItems(frmReorderLvwColumn.OldName).Text
+            For i = tmpPosition To 1 Step -1
+                Me.lvwSStatesListToReorder.Items(i).SubItems(frmReorderLvwColumn.OldName).Text = Me.lvwSStatesListToReorder.Items(i - 1).SubItems(frmReorderLvwColumn.OldName).Text
+            Next
+            Me.lvwSStatesListToReorder.Items(tmpPosition).Selected = False
+            Me.lvwSStatesListToReorder.Items(0).SubItems(frmReorderLvwColumn.OldName).Text = tmpOldName
+            Me.lvwSStatesListToReorder.Items(0).Selected = True
+            Me.lvwSStatesListToReorder.Items(0).EnsureVisible()
+        End If
+        Renamer_Preview()
+        UI_Enabler(True)
+    End Sub
+
+    Private Sub cmdSStateMoveLast_Click(sender As Object, e As EventArgs) Handles cmdSStateMoveLast.Click
+        UI_Enabler(False)
+        If Me.lvwSStatesListToReorder.SelectedItems.Count > 0 Then
+            Dim tmpPosition As Integer = Me.lvwSStatesListToReorder.SelectedItems(0).Index
+            Dim tmpOldName As String = Me.lvwSStatesListToReorder.SelectedItems(0).SubItems(frmReorderLvwColumn.OldName).Text
+            For i = tmpPosition + 1 To Me.lvwSStatesListToReorder.Items.Count - 1
+                Me.lvwSStatesListToReorder.Items(i - 1).SubItems(frmReorderLvwColumn.OldName).Text = Me.lvwSStatesListToReorder.Items(i).SubItems(frmReorderLvwColumn.OldName).Text
+            Next
+            Me.lvwSStatesListToReorder.Items(tmpPosition).Selected = False
+            Me.lvwSStatesListToReorder.Items(Me.lvwSStatesListToReorder.Items.Count - 1).SubItems(frmReorderLvwColumn.OldName).Text = tmpOldName
+            Me.lvwSStatesListToReorder.Items(Me.lvwSStatesListToReorder.Items.Count - 1).Selected = True
+            Me.lvwSStatesListToReorder.Items(Me.lvwSStatesListToReorder.Items.Count - 1).EnsureVisible()
+        End If
+        Renamer_Preview()
+        UI_Enabler(True)
+    End Sub
+
+    Private Sub Renamer_Preview()
+        If Me.lvwSStatesListToReorder.Items.Count > 0 Then
+            For Each tmpListItem As ListViewItem In Me.lvwSStatesListToReorder.Items
+                If (tmpListItem.SubItems(frmReorderLvwColumn.OldName).Text = "-") Then
+                    tmpListItem.SubItems(frmReorderLvwColumn.NewName).Text = "Free slot"
+                ElseIf (Not (tmpListItem.SubItems(frmReorderLvwColumn.OldName).Text = tmpListItem.SubItems(frmReorderLvwColumn.NewName).Text)) Then
+                    tmpListItem.SubItems(frmReorderLvwColumn.NewName).Text = mdlMain.checkedGames(0) & " (" & mdlFileList.GamesList(mdlMain.checkedGames(0)).CRC & ")." & (tmpListItem.Index \ 2).ToString("00") & My.Settings.PCSX2_SStateExt
+                    If (Not (((tmpListItem.Index \ 2) >= 0) And ((tmpListItem.Index \ 2) <= 9))) Then
+                        tmpListItem.SubItems(frmReorderLvwColumn.NewName).Text = tmpListItem.SubItems(frmReorderLvwColumn.NewName).Text.Insert(tmpListItem.SubItems(frmReorderLvwColumn.NewName).Text.IndexOf("."c) + 1, "X")
+                    ElseIf ((tmpListItem.Index Mod 2) > 0) Then
+                        tmpListItem.SubItems(frmReorderLvwColumn.NewName).Text &= My.Settings.PCSX2_SStateExtBackup
+                    End If
+                End If
+            Next
+        End If
+    End Sub
 End Class
