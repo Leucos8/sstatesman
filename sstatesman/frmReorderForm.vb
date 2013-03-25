@@ -77,8 +77,8 @@ Public Class frmReorderForm
     Private Sub frmReorderForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
         Dim imlLvwSStatesIcons As New ImageList With {.ImageSize = New Size(CInt(15 * DPIxScale) + 1, CInt(15 * DPIyScale) + 1)}
-        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_Savestates_16x16)
-        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_SavestatesBackup_16x16)
+        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_Savestate_16x16)
+        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_SavestateBackup_16x16)
         Me.lvwReorderList.SmallImageList = imlLvwSStatesIcons
 
 

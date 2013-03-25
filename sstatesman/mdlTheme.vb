@@ -168,7 +168,7 @@ Module mdlTheme
                     If colorswitch Then
                         pListView.Items(i).BackColor = Color.Transparent
                     Else
-                        pListView.Items(i).BackColor = currentTheme.AccentColorLight
+                        pListView.Items(i).BackColor = Color.Gainsboro
                     End If
                 End If
                 colorswitch = Not colorswitch
