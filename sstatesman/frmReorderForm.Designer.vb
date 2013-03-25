@@ -38,15 +38,15 @@ Partial Class frmReorderForm
     Private Sub InitializeComponent()
         Me.cmdCancel = New System.Windows.Forms.Button()
         Me.cmdReorder = New System.Windows.Forms.Button()
-        Me.lvwSStatesListToReorder = New System.Windows.Forms.ListView()
+        Me.lvwReorderList = New System.Windows.Forms.ListView()
         Me.StROLvw_Slot = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StROLvw_OldName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StROLvw_NewName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.cmdSStateMoveLast = New System.Windows.Forms.Button()
-        Me.cmdSStateMoveFirst = New System.Windows.Forms.Button()
-        Me.cmdSStateMoveUp = New System.Windows.Forms.Button()
-        Me.cmdSStateMoveDown = New System.Windows.Forms.Button()
-        Me.lblSaveListMove = New System.Windows.Forms.Label()
+        Me.cmdMoveLast = New System.Windows.Forms.Button()
+        Me.cmdMoveFirst = New System.Windows.Forms.Button()
+        Me.cmdMoveUp = New System.Windows.Forms.Button()
+        Me.cmdMoveDown = New System.Windows.Forms.Button()
+        Me.lblMove = New System.Windows.Forms.Label()
         Me.panelWindowTitle = New System.Windows.Forms.Panel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
@@ -57,14 +57,14 @@ Partial Class frmReorderForm
         Me.cmdWindowClose = New System.Windows.Forms.Button()
         Me.imgWindowGradientIcon = New System.Windows.Forms.PictureBox()
         Me.flpWindowBottom = New System.Windows.Forms.FlowLayoutPanel()
-        Me.FlowPanelGameList = New System.Windows.Forms.FlowLayoutPanel()
+        Me.flpMainListCommands = New System.Windows.Forms.FlowLayoutPanel()
         Me.panelWindowTitle.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel2.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.flpWindowBottom.SuspendLayout()
-        Me.FlowPanelGameList.SuspendLayout()
+        Me.flpMainListCommands.SuspendLayout()
         Me.SuspendLayout()
         '
         'cmdCancel
@@ -110,30 +110,29 @@ Partial Class frmReorderForm
         Me.cmdReorder.Text = "REORDER"
         Me.cmdReorder.UseVisualStyleBackColor = False
         '
-        'lvwSStatesListToReorder
+        'lvwReorderList
         '
-        Me.lvwSStatesListToReorder.BackColor = System.Drawing.Color.White
-        Me.lvwSStatesListToReorder.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lvwSStatesListToReorder.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StROLvw_Slot, Me.StROLvw_OldName, Me.StROLvw_NewName})
-        Me.lvwSStatesListToReorder.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lvwSStatesListToReorder.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lvwSStatesListToReorder.ForeColor = System.Drawing.Color.Black
-        Me.lvwSStatesListToReorder.FullRowSelect = True
-        Me.lvwSStatesListToReorder.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.lvwSStatesListToReorder.HideSelection = False
-        Me.lvwSStatesListToReorder.Location = New System.Drawing.Point(0, 78)
-        Me.lvwSStatesListToReorder.Margin = New System.Windows.Forms.Padding(2)
-        Me.lvwSStatesListToReorder.MultiSelect = False
-        Me.lvwSStatesListToReorder.Name = "lvwSStatesListToReorder"
-        Me.lvwSStatesListToReorder.Size = New System.Drawing.Size(628, 234)
-        Me.lvwSStatesListToReorder.TabIndex = 10
-        Me.lvwSStatesListToReorder.UseCompatibleStateImageBehavior = False
-        Me.lvwSStatesListToReorder.View = System.Windows.Forms.View.Details
+        Me.lvwReorderList.BackColor = System.Drawing.Color.White
+        Me.lvwReorderList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lvwReorderList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StROLvw_Slot, Me.StROLvw_OldName, Me.StROLvw_NewName})
+        Me.lvwReorderList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lvwReorderList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+        Me.lvwReorderList.ForeColor = System.Drawing.Color.Black
+        Me.lvwReorderList.FullRowSelect = True
+        Me.lvwReorderList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.lvwReorderList.HideSelection = False
+        Me.lvwReorderList.Location = New System.Drawing.Point(0, 78)
+        Me.lvwReorderList.Margin = New System.Windows.Forms.Padding(2)
+        Me.lvwReorderList.MultiSelect = False
+        Me.lvwReorderList.Name = "lvwReorderList"
+        Me.lvwReorderList.Size = New System.Drawing.Size(628, 234)
+        Me.lvwReorderList.TabIndex = 10
+        Me.lvwReorderList.UseCompatibleStateImageBehavior = False
+        Me.lvwReorderList.View = System.Windows.Forms.View.Details
         '
         'StROLvw_Slot
         '
         Me.StROLvw_Slot.Text = "Slot"
-        Me.StROLvw_Slot.Width = 80
         '
         'StROLvw_OldName
         '
@@ -145,93 +144,93 @@ Partial Class frmReorderForm
         Me.StROLvw_NewName.Text = "New name"
         Me.StROLvw_NewName.Width = 240
         '
-        'cmdSStateMoveLast
+        'cmdMoveLast
         '
-        Me.cmdSStateMoveLast.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdSStateMoveLast.AutoSize = True
-        Me.cmdSStateMoveLast.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdSStateMoveLast.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdSStateMoveLast.FlatAppearance.BorderSize = 0
-        Me.cmdSStateMoveLast.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateMoveLast.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdSStateMoveLast.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateMoveLast.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSStateMoveLast.Location = New System.Drawing.Point(568, 0)
-        Me.cmdSStateMoveLast.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdSStateMoveLast.Name = "cmdSStateMoveLast"
-        Me.cmdSStateMoveLast.Size = New System.Drawing.Size(36, 22)
-        Me.cmdSStateMoveLast.TabIndex = 16
-        Me.cmdSStateMoveLast.Text = "LAST"
-        Me.cmdSStateMoveLast.UseVisualStyleBackColor = False
+        Me.cmdMoveLast.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdMoveLast.AutoSize = True
+        Me.cmdMoveLast.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdMoveLast.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdMoveLast.FlatAppearance.BorderSize = 0
+        Me.cmdMoveLast.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdMoveLast.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdMoveLast.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdMoveLast.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdMoveLast.Location = New System.Drawing.Point(568, 0)
+        Me.cmdMoveLast.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdMoveLast.Name = "cmdMoveLast"
+        Me.cmdMoveLast.Size = New System.Drawing.Size(36, 22)
+        Me.cmdMoveLast.TabIndex = 16
+        Me.cmdMoveLast.Text = "LAST"
+        Me.cmdMoveLast.UseVisualStyleBackColor = False
         '
-        'cmdSStateMoveFirst
+        'cmdMoveFirst
         '
-        Me.cmdSStateMoveFirst.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdSStateMoveFirst.AutoSize = True
-        Me.cmdSStateMoveFirst.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdSStateMoveFirst.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdSStateMoveFirst.FlatAppearance.BorderSize = 0
-        Me.cmdSStateMoveFirst.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateMoveFirst.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdSStateMoveFirst.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateMoveFirst.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSStateMoveFirst.Location = New System.Drawing.Point(456, 0)
-        Me.cmdSStateMoveFirst.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdSStateMoveFirst.Name = "cmdSStateMoveFirst"
-        Me.cmdSStateMoveFirst.Size = New System.Drawing.Size(39, 22)
-        Me.cmdSStateMoveFirst.TabIndex = 13
-        Me.cmdSStateMoveFirst.Text = "FIRST"
-        Me.cmdSStateMoveFirst.UseVisualStyleBackColor = False
+        Me.cmdMoveFirst.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdMoveFirst.AutoSize = True
+        Me.cmdMoveFirst.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdMoveFirst.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdMoveFirst.FlatAppearance.BorderSize = 0
+        Me.cmdMoveFirst.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdMoveFirst.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdMoveFirst.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdMoveFirst.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdMoveFirst.Location = New System.Drawing.Point(456, 0)
+        Me.cmdMoveFirst.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdMoveFirst.Name = "cmdMoveFirst"
+        Me.cmdMoveFirst.Size = New System.Drawing.Size(39, 22)
+        Me.cmdMoveFirst.TabIndex = 13
+        Me.cmdMoveFirst.Text = "FIRST"
+        Me.cmdMoveFirst.UseVisualStyleBackColor = False
         '
-        'cmdSStateMoveUp
+        'cmdMoveUp
         '
-        Me.cmdSStateMoveUp.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdSStateMoveUp.AutoSize = True
-        Me.cmdSStateMoveUp.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdSStateMoveUp.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdSStateMoveUp.FlatAppearance.BorderSize = 0
-        Me.cmdSStateMoveUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateMoveUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdSStateMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateMoveUp.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSStateMoveUp.Location = New System.Drawing.Point(495, 0)
-        Me.cmdSStateMoveUp.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdSStateMoveUp.Name = "cmdSStateMoveUp"
-        Me.cmdSStateMoveUp.Size = New System.Drawing.Size(28, 22)
-        Me.cmdSStateMoveUp.TabIndex = 14
-        Me.cmdSStateMoveUp.Text = "UP"
-        Me.cmdSStateMoveUp.UseVisualStyleBackColor = False
+        Me.cmdMoveUp.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdMoveUp.AutoSize = True
+        Me.cmdMoveUp.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdMoveUp.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdMoveUp.FlatAppearance.BorderSize = 0
+        Me.cmdMoveUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdMoveUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdMoveUp.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdMoveUp.Location = New System.Drawing.Point(495, 0)
+        Me.cmdMoveUp.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdMoveUp.Name = "cmdMoveUp"
+        Me.cmdMoveUp.Size = New System.Drawing.Size(28, 22)
+        Me.cmdMoveUp.TabIndex = 14
+        Me.cmdMoveUp.Text = "UP"
+        Me.cmdMoveUp.UseVisualStyleBackColor = False
         '
-        'cmdSStateMoveDown
+        'cmdMoveDown
         '
-        Me.cmdSStateMoveDown.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdSStateMoveDown.AutoSize = True
-        Me.cmdSStateMoveDown.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdSStateMoveDown.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdSStateMoveDown.FlatAppearance.BorderSize = 0
-        Me.cmdSStateMoveDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateMoveDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdSStateMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateMoveDown.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSStateMoveDown.Location = New System.Drawing.Point(523, 0)
-        Me.cmdSStateMoveDown.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdSStateMoveDown.Name = "cmdSStateMoveDown"
-        Me.cmdSStateMoveDown.Size = New System.Drawing.Size(45, 22)
-        Me.cmdSStateMoveDown.TabIndex = 15
-        Me.cmdSStateMoveDown.Text = "DOWN"
-        Me.cmdSStateMoveDown.UseVisualStyleBackColor = False
+        Me.cmdMoveDown.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdMoveDown.AutoSize = True
+        Me.cmdMoveDown.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdMoveDown.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdMoveDown.FlatAppearance.BorderSize = 0
+        Me.cmdMoveDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdMoveDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdMoveDown.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdMoveDown.Location = New System.Drawing.Point(523, 0)
+        Me.cmdMoveDown.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdMoveDown.Name = "cmdMoveDown"
+        Me.cmdMoveDown.Size = New System.Drawing.Size(45, 22)
+        Me.cmdMoveDown.TabIndex = 15
+        Me.cmdMoveDown.Text = "DOWN"
+        Me.cmdMoveDown.UseVisualStyleBackColor = False
         '
-        'lblSaveListMove
+        'lblMove
         '
-        Me.lblSaveListMove.AutoSize = True
-        Me.lblSaveListMove.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSaveListMove.Location = New System.Drawing.Point(322, 0)
-        Me.lblSaveListMove.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblSaveListMove.Name = "lblSaveListMove"
-        Me.lblSaveListMove.Size = New System.Drawing.Size(132, 22)
-        Me.lblSaveListMove.TabIndex = 32
-        Me.lblSaveListMove.Text = "move selected savestate:"
-        Me.lblSaveListMove.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblMove.AutoSize = True
+        Me.lblMove.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblMove.Location = New System.Drawing.Point(322, 0)
+        Me.lblMove.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblMove.Name = "lblMove"
+        Me.lblMove.Size = New System.Drawing.Size(132, 22)
+        Me.lblMove.TabIndex = 32
+        Me.lblMove.Text = "move selected savestate:"
+        Me.lblMove.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'panelWindowTitle
         '
@@ -388,24 +387,24 @@ Partial Class frmReorderForm
         Me.flpWindowBottom.Size = New System.Drawing.Size(628, 36)
         Me.flpWindowBottom.TabIndex = 7
         '
-        'FlowPanelGameList
+        'flpMainListCommands
         '
-        Me.FlowPanelGameList.AutoSize = True
-        Me.FlowPanelGameList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.FlowPanelGameList.Controls.Add(Me.cmdSStateMoveLast)
-        Me.FlowPanelGameList.Controls.Add(Me.cmdSStateMoveDown)
-        Me.FlowPanelGameList.Controls.Add(Me.cmdSStateMoveUp)
-        Me.FlowPanelGameList.Controls.Add(Me.cmdSStateMoveFirst)
-        Me.FlowPanelGameList.Controls.Add(Me.lblSaveListMove)
-        Me.FlowPanelGameList.Dock = System.Windows.Forms.DockStyle.Top
-        Me.FlowPanelGameList.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowPanelGameList.Location = New System.Drawing.Point(0, 56)
-        Me.FlowPanelGameList.Margin = New System.Windows.Forms.Padding(0)
-        Me.FlowPanelGameList.Name = "FlowPanelGameList"
-        Me.FlowPanelGameList.Padding = New System.Windows.Forms.Padding(12, 0, 12, 0)
-        Me.FlowPanelGameList.Size = New System.Drawing.Size(628, 22)
-        Me.FlowPanelGameList.TabIndex = 12
-        Me.FlowPanelGameList.WrapContents = False
+        Me.flpMainListCommands.AutoSize = True
+        Me.flpMainListCommands.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpMainListCommands.Controls.Add(Me.cmdMoveLast)
+        Me.flpMainListCommands.Controls.Add(Me.cmdMoveDown)
+        Me.flpMainListCommands.Controls.Add(Me.cmdMoveUp)
+        Me.flpMainListCommands.Controls.Add(Me.cmdMoveFirst)
+        Me.flpMainListCommands.Controls.Add(Me.lblMove)
+        Me.flpMainListCommands.Dock = System.Windows.Forms.DockStyle.Top
+        Me.flpMainListCommands.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.flpMainListCommands.Location = New System.Drawing.Point(0, 56)
+        Me.flpMainListCommands.Margin = New System.Windows.Forms.Padding(0)
+        Me.flpMainListCommands.Name = "flpMainListCommands"
+        Me.flpMainListCommands.Padding = New System.Windows.Forms.Padding(12, 0, 12, 0)
+        Me.flpMainListCommands.Size = New System.Drawing.Size(628, 22)
+        Me.flpMainListCommands.TabIndex = 12
+        Me.flpMainListCommands.WrapContents = False
         '
         'frmReorderForm
         '
@@ -416,8 +415,8 @@ Partial Class frmReorderForm
         Me.CancelButton = Me.cmdCancel
         Me.ClientSize = New System.Drawing.Size(628, 348)
         Me.ControlBox = False
-        Me.Controls.Add(Me.lvwSStatesListToReorder)
-        Me.Controls.Add(Me.FlowPanelGameList)
+        Me.Controls.Add(Me.lvwReorderList)
+        Me.Controls.Add(Me.flpMainListCommands)
         Me.Controls.Add(Me.flpWindowBottom)
         Me.Controls.Add(Me.panelWindowTitle)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -441,22 +440,22 @@ Partial Class frmReorderForm
         CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.flpWindowBottom.ResumeLayout(False)
         Me.flpWindowBottom.PerformLayout()
-        Me.FlowPanelGameList.ResumeLayout(False)
-        Me.FlowPanelGameList.PerformLayout()
+        Me.flpMainListCommands.ResumeLayout(False)
+        Me.flpMainListCommands.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Private WithEvents lblSaveListMove As System.Windows.Forms.Label
+    Private WithEvents lblMove As System.Windows.Forms.Label
     Private WithEvents cmdCancel As System.Windows.Forms.Button
     Private WithEvents cmdReorder As System.Windows.Forms.Button
-    Private WithEvents lvwSStatesListToReorder As System.Windows.Forms.ListView
+    Private WithEvents lvwReorderList As System.Windows.Forms.ListView
     Private WithEvents StROLvw_Slot As System.Windows.Forms.ColumnHeader
     Private WithEvents StROLvw_OldName As System.Windows.Forms.ColumnHeader
-    Private WithEvents cmdSStateMoveLast As System.Windows.Forms.Button
-    Private WithEvents cmdSStateMoveFirst As System.Windows.Forms.Button
-    Private WithEvents cmdSStateMoveUp As System.Windows.Forms.Button
-    Private WithEvents cmdSStateMoveDown As System.Windows.Forms.Button
+    Private WithEvents cmdMoveLast As System.Windows.Forms.Button
+    Private WithEvents cmdMoveFirst As System.Windows.Forms.Button
+    Private WithEvents cmdMoveUp As System.Windows.Forms.Button
+    Private WithEvents cmdMoveDown As System.Windows.Forms.Button
     Private WithEvents panelWindowTitle As System.Windows.Forms.Panel
     Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
@@ -466,7 +465,7 @@ Partial Class frmReorderForm
     Friend WithEvents FlowLayoutPanel2 As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents lblWindowTitle As System.Windows.Forms.Label
     Friend WithEvents flpWindowBottom As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents FlowPanelGameList As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents flpMainListCommands As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents StROLvw_NewName As System.Windows.Forms.ColumnHeader
     Private WithEvents blWindowDescription As System.Windows.Forms.Label
 End Class

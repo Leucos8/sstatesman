@@ -44,7 +44,7 @@ Module mdlFileList
             If (ParOPosition > 0) And (ParCPosition > ParOPosition) Then
                 Return Name.Substring(ParOPosition + 1, ParCPosition - ParOPosition - 1)
             Else
-                Return "NOCRC"
+                Return "00000000"
             End If
         End Function
 
