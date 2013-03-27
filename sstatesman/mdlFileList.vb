@@ -88,19 +88,11 @@ Module mdlFileList
                     .Name = tmpFileInfo.Name,
                     .Length = tmpFileInfo.Length,
                     .LastWriteTime = tmpFileInfo.LastWriteTime}
-                '.Extension = tmpFileInfo.Extension,
-                'tmpItem.Slot = tmpItem.GetSlot()
-                'tmpItem.Backup = tmpItem.GetTypeB()
                 tmpCRC = tmpItem.GetCRC
                 'Version extraction, if enabled
                 If My.Settings.SStatesMan_SStatesVersionExtract Then
                     tmpItem.Version = mdlSimpleZipExtractor.ExtractFirstFile(tmpFileInfo)
-                    Dim minRevision As String = ""
-                    Dim maxRevision As String = ""
-                    PCSX2_VersionDB.GetRevisions(tmpItem.Version, minRevision, maxRevision)
-                    If Not (minRevision = "" And maxRevision = "") Then
-                        tmpItem.Version &= " (r" & minRevision & ">" & maxRevision & ")"
-                    End If
+                    tmpItem.Version &= " " & PCSX2_VersionDB.GetRevisions(tmpItem.Version)
                 Else : tmpItem.Version = "-"
                 End If
 

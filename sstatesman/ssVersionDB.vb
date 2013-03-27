@@ -41,23 +41,35 @@ Public Class ssVersionDB
         End Using
     End Sub
 
-    Public Sub GetRevisions(ByRef pVersion As String, ByVal pMinRevision As String, ByVal pMaxRevision As String)
+    Public Sub GetRevisions(ByVal pVersion As String, ByRef pMinRevision As Integer, ByRef pMaxRevision As Integer)
         If DB.Count > 0 Then
             For i As Integer = 0 To DB.Count - 1
                 If DB(i).ssVersion.ToUpper = pVersion.ToUpper Then
                     If i = 0 Then
                         'The latest
-                        pMinRevision = DB(i).minRevision.ToString
-                        pMaxRevision = "current"
+                        pMinRevision = DB(i).minRevision
+                        pMaxRevision = 0
                         Exit For
                     Else
                         'Not the latest
-                        pMinRevision = DB(i).minRevision.ToString
-                        pMaxRevision = (DB(i - 1).minRevision - 1).ToString
+                        pMinRevision = DB(i).minRevision
+                        pMaxRevision = (DB(i - 1).minRevision - 1)
                         Exit For
                     End If
                 End If
             Next
         End If
     End Sub
+
+    Public Function GetRevisions(ByVal pVersion As String) As String
+        Dim minRevision As Integer = 0
+        Dim maxRevision As Integer = 0
+        GetRevisions(pVersion, minRevision, maxRevision)
+        If (minRevision > 0) And (maxRevision > 0) Then
+            Return "(r" & minRevision & ">" & maxRevision & ")"
+        ElseIf (minRevision > 0) And (maxRevision = 0) Then
+            Return "(r" & minRevision & ">Latest)"
+        Else : Return ""
+        End If
+    End Function
 End Class

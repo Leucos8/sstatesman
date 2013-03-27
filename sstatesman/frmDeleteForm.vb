@@ -24,7 +24,6 @@ Public Class frmDeleteForm
     Friend Enum frmDelSStatesLvwColumn
         FileName
         Slot
-        Backup
         Version
         LastWriteDate
         Size
@@ -173,7 +172,7 @@ Public Class frmDeleteForm
             My.Settings.frmDel_WindowSize = Me.Size
         End If
 
-        Dim columnwidtharray As Integer() = {Me.StDelLvw_FileName.Width, Me.StDelLvw_Slot.Width, Me.StDelLvw_Backup.Width,
+        Dim columnwidtharray As Integer() = {Me.StDelLvw_FileName.Width, Me.StDelLvw_Slot.Width,
                                              Me.StDelLvw_Version.Width, Me.StDelLvw_LastWT.Width, Me.StDelLvw_Size.Width, Me.StDelLvw_Status.Width}
         My.Settings.frmDel_slvw_columnwidth = columnwidtharray
 
@@ -265,14 +264,13 @@ Public Class frmDeleteForm
                                                                                                .Group = tmpLvwSListGroup,
                                                                                                .Name = tmpSavestate.Key}
                             tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Slot.ToString,
-                                                               tmpSavestate.Value.Backup.ToString,
                                                                tmpSavestate.Value.Version,
                                                                tmpSavestate.Value.LastWriteTime.ToString,
                                                                System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2)})
                             If IO.File.Exists(IO.Path.Combine(My.Settings.PCSX2_PathSState, tmpSavestate.Key)) Then
                                 tmpLvwSListItem.SubItems.Add("")
                                 tmpLvwSListItem.Checked = True
-                                If Not (tmpSavestate.Value.Backup) Then
+                                If Not (tmpSavestate.Value.isBackup) Then
                                     tmpLvwSListItem.ImageIndex = 0
                                     SStateList_TotalSize += tmpSavestate.Value.Length
                                 Else
@@ -307,7 +305,7 @@ Public Class frmDeleteForm
                 If mdlFileList.GamesList.TryGetValue(Savestate.GetSerial(tmpLvwSListItemChecked.Name), tmpGamesListItem) Then
                     Dim tmpSavestate As New Savestate
                     If tmpGamesListItem.Savestates.TryGetValue(tmpLvwSListItemChecked.Name, tmpSavestate) Then
-                        If tmpSavestate.Backup Then
+                        If tmpSavestate.isBackup Then
                             SStateList_TotalSizeBackupSelected += tmpSavestate.Length
                         Else
                             SStateList_TotalSizeSelected += tmpSavestate.Length
@@ -361,7 +359,7 @@ Public Class frmDeleteForm
     Private Sub cmdSStateSelectBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectBackup.Click
         Me.UI_Enabler(False)
         For lvwItemIndex = 0 To Me.lvwSStatesListToDelete.Items.Count - 1
-            If Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn.FileName).Text.EndsWith(My.Settings.PCSX2_SStateExtBackup) Then
+            If Savestate.isBackup(Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Name) Then
                 If Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).SubItems(frmDelSStatesLvwColumn.Status).Text = "" Then
                     Me.lvwSStatesListToDelete.Items.Item(lvwItemIndex).Checked = True
                 End If

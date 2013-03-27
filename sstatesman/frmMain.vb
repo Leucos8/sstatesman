@@ -40,7 +40,6 @@ Public Class frmMain
     Friend Enum frmMainSStatesLvwColumn
         FileName
         Slot
-        Backup
         Version
         LastWriteDate
         Size
@@ -176,7 +175,7 @@ Public Class frmMain
                                              Me.GameLvw_SStatesInfo.Width, Me.GameLvw_BackupInfo.Width, Me.GameLvw_SnapsInfo.Width}
         My.Settings.frmMain_glvw_columnwidth = columnwidtharray
 
-        columnwidtharray = {Me.SStatesLvw_FileName.Width, Me.SStatesLvw_Slot.Width, Me.SStatesLvw_Backup.Width,
+        columnwidtharray = {Me.SStatesLvw_FileName.Width, Me.SStatesLvw_Slot.Width,
                             Me.SStatesLvw_Version.Width, Me.SStatesLvw_DateLastWrite.Width, Me.SStatesLvw_Size.Width}
         My.Settings.frmMain_slvw_columnwidth = columnwidtharray
 
@@ -868,11 +867,10 @@ Public Class frmMain
                                                                                            .Group = tmpLvwSListGroup,
                                                                                            .Name = tmpSavestate.Key}
                         tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Slot.ToString,
-                                                           tmpSavestate.Value.Backup.ToString,
                                                            tmpSavestate.Value.Version,
                                                            tmpSavestate.Value.LastWriteTime.ToString,
                                                            System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2)})
-                        If Not (tmpSavestate.Value.Backup) Then
+                        If Not (tmpSavestate.Value.isBackup) Then
                             tmpLvwSListItem.ImageIndex = 0
                         Else
                             tmpLvwSListItem.ImageIndex = 1
@@ -920,7 +918,7 @@ Public Class frmMain
                 Dim tmpSavestate As Savestate = mdlFileList.GamesList(tmpGameSerial).Savestates(tmpLvwSListItemChecked.Name)
                 checkedSavestates.Add(tmpSavestate.Name)
 
-                If tmpSavestate.Backup Then
+                If tmpSavestate.isBackup Then
                     lvwSStatesList_SelectedSizeBackup += tmpSavestate.Length
                 Else
                     lvwSStatesList_SelectedSize += tmpSavestate.Length
@@ -966,7 +964,7 @@ Public Class frmMain
     Private Sub cmdSStateSelectBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectBackup.Click
         Me.UI_Enabler(False, False, True)
         For lvwItemIndex = 0 To Me.lvwSStatesList.Items.Count - 1
-            If Me.lvwSStatesList.Items.Item(lvwItemIndex).SubItems(frmMainSStatesLvwColumn.Backup).Text = "True" Then
+            If Savestate.isBackup(Me.lvwSStatesList.Items.Item(lvwItemIndex).Name) Then
                 Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = True
             Else
                 Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = False

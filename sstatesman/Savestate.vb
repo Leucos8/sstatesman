@@ -43,17 +43,17 @@ Public Class Savestate
     End Property
 
     'Public Property Backup As Boolean
-    Private _backup As Boolean
-    Public ReadOnly Property Backup() As Boolean
-        Get
-            If Extension = My.Settings.PCSX2_SStateExtBackup Then
-                _backup = True
-            Else
-                _backup = False
-            End If
-            Return _backup
-        End Get
-    End Property
+    'Private _backup As Boolean
+    'Public ReadOnly Property Backup() As Boolean
+    '    Get
+    '        If Extension = My.Settings.PCSX2_SStateExtBackup Then
+    '            _backup = True
+    '        Else
+    '            _backup = False
+    '        End If
+    '        Return _backup
+    '    End Get
+    'End Property
 
     Public Property Version As String
 
@@ -85,5 +85,18 @@ Public Class Savestate
     Public Shared Function GetCRC(ByVal pFilename As String) As String
         Dim tmpSavestate As New Savestate With {.Name = pFilename}
         Return tmpSavestate.GetCRC
+    End Function
+
+    Public Function isBackup() As Boolean
+        If Extension = My.Settings.PCSX2_SStateExtBackup Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    Public Shared Function isBackup(ByVal pFilename As String) As Boolean
+        Dim tmpSavestate As New Savestate With {.Name = pFilename}
+        Return tmpSavestate.isBackup
     End Function
 End Class

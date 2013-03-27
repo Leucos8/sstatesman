@@ -211,7 +211,7 @@ Public Class frmReorderForm
 
             For Each tmpSavestate As KeyValuePair(Of String, Savestate) In mdlFileList.GamesList(mdlMain.checkedGames(0)).Savestates
                 If ((tmpSavestate.Value.Slot >= 0) And (tmpSavestate.Value.Slot <= 9)) Then
-                    If (Not (tmpSavestate.Value.Backup)) Then
+                    If (Not (tmpSavestate.Value.isBackup)) Then
                         tmpSListItems.Item(tmpSavestate.Value.Slot * 2).SubItems(ReorderListColumns.OldName).Text = tmpSavestate.Value.Name
                         tmpSListItems.Item(tmpSavestate.Value.Slot * 2).SubItems(ReorderListColumns.NewName).Text = tmpSavestate.Value.Name
                     Else
