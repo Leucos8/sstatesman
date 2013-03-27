@@ -166,6 +166,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ssVersionDB.vb" />
+    <Compile Include="Savestate.vb" />
+    <Compile Include="Snapshot.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmReorderForm.resx">
@@ -273,9 +276,7 @@
     <None Include="Resources\flags\Flag_Austria_30x20.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\ssversion.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="Data\ssversion.txt" />
     <None Include="Resources\Icon_SavestateBackup_16x16.png" />
     <None Include="Resources\Icon_Savestate_16x16.png" />
     <None Include="Resources\Icon_Cover_16x16.png" />

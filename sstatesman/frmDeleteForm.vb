@@ -87,7 +87,7 @@ Public Class frmDeleteForm
         Me.UI_Enabler(False)
         For Each tmpItem As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
             Dim tmpGamesListItem As New mdlFileList.GamesList_Item
-            Dim tmpSavestate As New mdlFileList.Savestate
+            Dim tmpSavestate As New Savestate
             If mdlFileList.GamesList.TryGetValue(tmpItem.Group.Name, tmpGamesListItem) Then
                 If tmpGamesListItem.Savestates.TryGetValue(tmpItem.Name, tmpSavestate) Then
                     Try

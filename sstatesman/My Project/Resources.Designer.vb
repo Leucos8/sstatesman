@@ -626,6 +626,35 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Cerca una stringa localizzata simile a &apos;Savestate version is found in /PCSX2/SaveState.h, it&apos;s a const named g_saveversion
+        '''&apos;The code responsible for the header is /PCSX2/gui/SysState.cpp
+        '''&apos;WxSavestates implemented in r4132
+        '''&apos;savestate version	min pcsx2 revision
+        '''0x9A0A0000	5404
+        '''0x9A090000	5380
+        '''0x9A080000	5224
+        '''0x9A070000	5149
+        '''0x9A060000	4962
+        '''0x9A050000	4942
+        '''0x9A040000	4941
+        '''0x9A030000	4865
+        '''0x9A020000	4821
+        '''0x9A010000	4132
+        '''0x8B4C0000	3833
+        '''0x8B4B0000	3788
+        '''0x8B4A0000	3764
+        '''0x8B490000	3726
+        '''0x8B480000	3587
+        '''0x8B470000	3578
+        '''0x8B460001	3331 [stringa troncata]&quot;;.
+        '''</summary>
+        Friend ReadOnly Property ssversion() As String
+            Get
+                Return ResourceManager.GetString("ssversion", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
         Friend ReadOnly Property Window_ButtonClose_12x12() As System.Drawing.Bitmap

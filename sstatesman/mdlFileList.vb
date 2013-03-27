@@ -14,87 +14,6 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
 Module mdlFileList
-    Public Class Savestate
-        Public Property Name As String
-        Public Property Extension As String
-        Public Property Length As Long
-        Public Property LastWriteTime As DateTime
-        Public Property Slot As Integer
-        Public Property Backup As Boolean
-        Public Property Version As String
-
-        Public Function GetSerial() As String
-            Dim SpacePosition As Integer = Name.IndexOf(" "c, 0)
-            If SpacePosition > 0 Then
-                Return Name.Remove(SpacePosition)
-            Else
-                Return Name
-            End If
-        End Function
-
-        Public Shared Function GetSerial(ByVal pFilename As String) As String
-            Dim tmpSavestate As New Savestate With {.Name = pFilename}
-            Return tmpSavestate.GetSerial
-        End Function
-
-
-        Public Function GetCRC() As String
-            Dim ParOPosition As Integer = Name.IndexOf("("c, 0)
-            Dim ParCPosition As Integer = Name.IndexOf(")"c, 0)
-            If (ParOPosition > 0) And (ParCPosition > ParOPosition) Then
-                Return Name.Substring(ParOPosition + 1, ParCPosition - ParOPosition - 1)
-            Else
-                Return "00000000"
-            End If
-        End Function
-
-        Public Shared Function GetCRC(ByVal pFilename As String) As String
-            Dim tmpSavestate As New Savestate With {.Name = pFilename}
-            Return tmpSavestate.GetSerial
-        End Function
-
-
-        Public Function GetSlot() As Integer
-            GetSlot = -1
-            If Integer.TryParse(Name.Substring(Name.IndexOf("."c, 0) + 1, 2), GetSlot) Then
-                Return GetSlot
-            End If
-            Return -1
-        End Function
-
-        Public Function GetTypeB() As Boolean
-            If Extension = My.Settings.PCSX2_SStateExtBackup Then
-                Return True
-            Else
-                Return False
-            End If
-        End Function
-
-    End Class
-
-    Public Class Snapshot
-        Public Property Name As String
-        Public Property Extension As String
-        Public Property Length As Long
-        Public Property LastWriteTime As DateTime
-
-        Public Function GetSerial() As String
-            'Dim SpacePosition As Int32 = Name.IndexOf(" "c, 0)
-            'If Name.ToLower.StartsWith("gsdx") Then
-            '    Return "GSdX"
-            If PCSX2GameDb.Records.ContainsKey(Name) Then
-                Return Name
-            Else
-                Return "Screenshots"
-            End If
-        End Function
-
-        Public Shared Function GetSerial(ByVal pFilename As String) As String
-            Dim tmpSnapshot As New Snapshot With {.Name = pFilename}
-            Return tmpSnapshot.GetSerial
-        End Function
-    End Class
-
     Public Class GamesList_Item
         Public Property Savestates As New Dictionary(Of String, Savestate)
         'Public Property Savestates_Count As Integer = 0
@@ -148,8 +67,8 @@ Module mdlFileList
                                 ByRef pGamesList As Dictionary(Of String, GamesList_Item))
 
         'Version DB
-        Dim PCSX2_VersionDB As New VersionDB
-        PCSX2_VersionDB.Load()
+        Dim PCSX2_VersionDB As New ssVersionDB
+        PCSX2_VersionDB.Load(My.Resources.ssversion)
 
         SStates_FolderLastModified = pDirectory.LastWriteTime
 
@@ -167,26 +86,21 @@ Module mdlFileList
             For Each tmpFileInfo As FileInfo In GroupedBySerial_Item
                 Dim tmpItem As New Savestate With {
                     .Name = tmpFileInfo.Name,
-                    .Extension = tmpFileInfo.Extension,
                     .Length = tmpFileInfo.Length,
                     .LastWriteTime = tmpFileInfo.LastWriteTime}
-                tmpItem.Slot = tmpItem.GetSlot()
-                tmpItem.Backup = tmpItem.GetTypeB()
+                '.Extension = tmpFileInfo.Extension,
+                'tmpItem.Slot = tmpItem.GetSlot()
+                'tmpItem.Backup = tmpItem.GetTypeB()
                 tmpCRC = tmpItem.GetCRC
                 'Version extraction, if enabled
                 If My.Settings.SStatesMan_SStatesVersionExtract Then
                     tmpItem.Version = mdlSimpleZipExtractor.ExtractFirstFile(tmpFileInfo)
-                    For i As Integer = 0 To PCSX2_VersionDB.DB.Count - 1
-                        If PCSX2_VersionDB.DB(i).version.ToUpper = tmpItem.Version.ToUpper Then
-                            'Not the latest
-                            If i > 0 Then
-                                tmpItem.Version &= " (r" & PCSX2_VersionDB.DB(i).minrevision.ToString & ">" & (PCSX2_VersionDB.DB(i - 1).minrevision - 1).ToString & ")"
-                            Else
-                                'The latest
-                                tmpItem.Version &= " (r" & PCSX2_VersionDB.DB(i).minrevision.ToString & ">current)"
-                            End If
-                        End If
-                    Next
+                    Dim minRevision As String = ""
+                    Dim maxRevision As String = ""
+                    PCSX2_VersionDB.GetRevisions(tmpItem.Version, minRevision, maxRevision)
+                    If Not (minRevision = "" And maxRevision = "") Then
+                        tmpItem.Version &= " (r" & minRevision & ">" & maxRevision & ")"
+                    End If
                 Else : tmpItem.Version = "-"
                 End If
 
@@ -254,34 +168,5 @@ Module mdlFileList
         Next
 
     End Sub
-
-    Private Class VersionDB
-
-        Friend Structure rVersion
-            Friend version As String
-            Friend minrevision As Integer
-        End Structure
-        Public Property DB As New List(Of rVersion)
-
-        Public Sub Load()
-            If File.Exists(Path.Combine(Application.StartupPath, "Data\ssversion.txt")) Then
-                Using tmpStreamReader As New StreamReader(Path.Combine(Application.StartupPath, "Data\ssversion.txt"), System.Text.Encoding.Default)
-                    While Not tmpStreamReader.EndOfStream
-                        Dim tmpLine As String = tmpStreamReader.ReadLine
-                        If Not (tmpLine.StartsWith("'"c)) Then
-                            Dim tmpSplittedString As String() = tmpLine.Split(Char.Parse(vbTab))
-                            If tmpSplittedString.Count > 1 Then
-                                Dim tmpItem As New rVersion With {.version = tmpSplittedString(0)}
-                                If Integer.TryParse(tmpSplittedString(1), tmpItem.minrevision) Then
-                                    DB.Add(tmpItem)
-                                End If
-                            End If
-                        End If
-                    End While
-
-                End Using
-            End If
-        End Sub
-    End Class
 
 End Module
