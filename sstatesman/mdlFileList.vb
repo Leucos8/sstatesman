@@ -16,149 +16,142 @@ Imports System.IO
 Module mdlFileList
     Public Class GamesList_Item
         Public Property Savestates As New Dictionary(Of String, Savestate)
-        'Public Property Savestates_Count As Integer = 0
-        Public Property Savestates_SizeTot As Long = 0
-        'Public Property Savestates_Backup As New Dictionary(Of String, Savestate)
-        'Public Property SavestatesBackup_Count As Integer = 0
-        Public Property SavestatesBackup_SizeTot As Long = 0
+        Private _savestates_sizetot As Long
+        Public ReadOnly Property Savestates_SizeTot() As Long
+            Get
+                If Not (IsNothing(Savestates)) Then
+                    If Savestates.Count > 0 Then
+                        _savestates_sizetot = Savestates.Where(Function(item) item.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Sum(Function(item) item.Value.Length)
+                    Else
+                        _savestates_sizetot = 0
+                    End If
+                Else
+                    _savestates_sizetot = 0
+                End If
+                Return _savestates_sizetot
+            End Get
+        End Property
+        Private _savestatebackup_sizetot As Long
+        Public ReadOnly Property SavestatesBackup_SizeTot() As Long
+            Get
+                If Not (IsNothing(Savestates)) Then
+                    If Savestates.Count > 0 Then
+                        _savestatebackup_sizetot = Savestates.Where(Function(item) item.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Sum(Function(item) item.Value.Length)
+                    Else
+                        _savestatebackup_sizetot = 0
+                    End If
+                Else
+                    _savestatebackup_sizetot = 0
+                End If
+                Return _savestates_sizetot
+            End Get
+        End Property
         Public Property Snapshots As New Dictionary(Of String, Snapshot)
-        Public Property Snapshots_SizeTot As Long = 0
+        Private _snapshots_sizetot As Long
+        Public ReadOnly Property Snapshots_SizeTot() As Long
+            Get
+                If Not (IsNothing(Snapshots)) Then
+                    If Snapshots.Count > 0 Then
+                        _snapshots_sizetot = Snapshots.Sum(Function(item) item.Value.Length)
+                    Else
+                        _snapshots_sizetot = 0
+                    End If
+                Else
+                    _snapshots_sizetot = 0
+                End If
+                Return _snapshots_sizetot
+            End Get
+        End Property
+        'Public Property Snapshots_SizeTot As Long = 0
         Public Property CRC As String
     End Class
 
-    Public GamesList As New Dictionary(Of String, GamesList_Item)
-    Public GamesList_Status As mdlMain.LoadStatus = LoadStatus.StatusNotLoaded
-    Public GameList_LoadTime As Long
-    Public SStates_FolderLastModified As DateTime
-    'Public SStatesStored_FolderLastModified As DateTime
-    Public Snaps_FolderLastModified As DateTime
+    Public Class GamesList
+        Public Property Games As New Dictionary(Of String, GamesList_Item)
+        Public Property Status As mdlMain.LoadStatus = LoadStatus.StatusNotLoaded
+        Public Property LoadTime As Long
+        Public Property SStatesFolder_LastModified As DateTime
+        'Public Property SStatesStored_FolderLastModified As DateTime
+        Public Property SnapsFolder_LastModified As DateTime
 
-    Public Function GamesList_LoadAll(ByVal pSStatesPath As String,
-                                      ByVal pSnapsPath As String,
-                                      ByRef pGamesList As Dictionary(Of String, GamesList_Item)
-                                      ) As LoadStatus
+        Public Sub LoadAll(ByVal pSStatesPath As String,
+                           ByVal pSnapsPath As String
+                           )
 
-        Dim sw As New Stopwatch
-        sw.Start()
+            Dim sw As New Stopwatch
+            sw.Start()
 
-        pGamesList.Clear()
-
+            Games.Clear()
 
 
-        Dim tmpDirectoryInfo As New DirectoryInfo(pSStatesPath)
-        SStatesList_Load(tmpDirectoryInfo, pGamesList)
-        tmpDirectoryInfo = New DirectoryInfo(pSnapsPath)
-        SnapsList_Load(tmpDirectoryInfo, pGamesList)
 
-        sw.Stop()
-        GameList_LoadTime = sw.ElapsedTicks
-        If pGamesList.Count = 0 Then
-            mdlMain.AppendToLog("FilesList", "LoadAll", "No games, the list is empty.", GameList_LoadTime)
-            Return LoadStatus.StatusEmpty
-        Else
-            Dim SStates_Count As Integer = GamesList.Sum(Function(item) item.Value.Savestates.Count)
-            Dim Snaps_Count As Integer = GamesList.Sum(Function(item) item.Value.Snapshots.Count)
-            mdlMain.AppendToLog("FilesList", "LoadAll", String.Format("{0:N0} games > {1:N0} savestates - {2:N0} screenshots.", pGamesList.Count, SStates_Count, Snaps_Count), GameList_LoadTime)
-            Return LoadStatus.StatusLoadedOK
-        End If
-    End Function
+            Dim tmpDirectoryInfo As New DirectoryInfo(pSStatesPath)
+            LoadSavestates(tmpDirectoryInfo)
+            tmpDirectoryInfo = New DirectoryInfo(pSnapsPath)
+            SnapsList_Load(tmpDirectoryInfo)
 
-    Public Sub SStatesList_Load(ByVal pDirectory As DirectoryInfo,
-                                ByRef pGamesList As Dictionary(Of String, GamesList_Item))
+            sw.Stop()
+            LoadTime = sw.ElapsedTicks
+            If Games.Count = 0 Then
+                mdlApplicationLog.AppendToLog("FilesList", "LoadAll", "No games, the list is empty.", LoadTime)
+                Status = LoadStatus.StatusEmpty
+            Else
+                Dim SStates_Count As Integer = Games.Sum(Function(item) item.Value.Savestates.Count)
+                Dim Snaps_Count As Integer = Games.Sum(Function(item) item.Value.Snapshots.Count)
+                mdlApplicationLog.AppendToLog("FilesList", "LoadAll", String.Format("{0:N0} games > {1:N0} savestates - {2:N0} screenshots.", Games.Count, SStates_Count, Snaps_Count), LoadTime)
+                Status = LoadStatus.StatusLoadedOK
+            End If
+        End Sub
 
-        'Version DB
-        Dim PCSX2_VersionDB As New ssVersionDB
-        PCSX2_VersionDB.Load(My.Resources.ssversion)
+        Public Sub LoadSavestates(ByVal pDirectory As DirectoryInfo)
 
-        SStates_FolderLastModified = pDirectory.LastWriteTime
+            'Version DB
+            Dim PCSX2_VersionDB As New ssVersionDB
+            PCSX2_VersionDB.Load(My.Resources.ssversion)
 
-        Dim tmpSStates_GroupedBySerial As IEnumerable(Of IGrouping(Of String, FileInfo)) = pDirectory.EnumerateFiles().Where(
-            Function(item) {My.Settings.PCSX2_SStateExt, My.Settings.PCSX2_SStateExtBackup}.Contains(item.Extension.ToLower)
-                ).GroupBy(Function(item) Savestate.GetSerial(item.Name))
-        'FileInfos, obtained by EnumerateFiles(), are grouped by Savestate.GetSerial using LINQ GroupBy
+            SStatesFolder_LastModified = pDirectory.LastWriteTime
 
-        'For each game (serial) found
-        For Each GroupedBySerial_Item In tmpSStates_GroupedBySerial
-            'A temporary of Savestates is created
-            Dim tmpSStatesList As New Dictionary(Of String, Savestate)
-            Dim tmpCRC As String = ""
-            'Each FileInfo is "converted" to the Savestate class
-            For Each tmpFileInfo As FileInfo In GroupedBySerial_Item
-                Dim tmpItem As New Savestate With {
-                    .Name = tmpFileInfo.Name,
-                    .Length = tmpFileInfo.Length,
-                    .LastWriteTime = tmpFileInfo.LastWriteTime}
-                tmpCRC = tmpItem.GetCRC
-                'Version extraction, if enabled
+            Dim tmpSStateFileInfos As IEnumerable(Of FileInfo) = pDirectory.EnumerateFiles().Where(Function(item) {My.Settings.PCSX2_SStateExt, My.Settings.PCSX2_SStateExtBackup}.Contains(item.Extension.ToLower))
+
+            For Each tmpFileInfo As FileInfo In tmpSStateFileInfos
+                'A temporary of Savestates is created
+                Dim tmpSavestate As New Savestate With {.Name = tmpFileInfo.Name, .Length = tmpFileInfo.Length, .LastWriteTime = tmpFileInfo.LastWriteTime}
                 If My.Settings.SStatesMan_SStatesVersionExtract Then
-                    tmpItem.Version = mdlSimpleZipExtractor.ExtractFirstFile(tmpFileInfo)
-                    tmpItem.Version &= " " & PCSX2_VersionDB.GetRevisions(tmpItem.Version)
-                Else : tmpItem.Version = "-"
+                    tmpSavestate.Version = mdlSimpleZipExtractor.ExtractFirstFile(tmpFileInfo)
+                    tmpSavestate.Version &= " " & PCSX2_VersionDB.GetRevisions(tmpSavestate.Version)
+                Else : tmpSavestate.Version = "-"
                 End If
-
-                tmpSStatesList.Add(tmpFileInfo.Name, tmpItem)
-
+                Dim tmpSerial As String = tmpSavestate.GetSerial()
+                If Games.ContainsKey(tmpSerial) Then
+                    Games(tmpSerial).Savestates.Add(tmpSavestate.Name, tmpSavestate)
+                Else
+                    Dim tmpNewGame As New GamesList_Item With {.CRC = tmpSavestate.GetCRC}
+                    tmpNewGame.Savestates.Add(tmpSavestate.Name, tmpSavestate)
+                    Games.Add(tmpSerial, tmpNewGame)
+                End If
             Next
+        End Sub
 
-            Dim tmpCurrentGame As New GamesList_Item
-            'Check if the serial is already in the GamesList
-            If pGamesList.TryGetValue(GroupedBySerial_Item.Key, tmpCurrentGame) Then
-                tmpCurrentGame.Savestates = tmpSStatesList
+        Public Sub SnapsList_Load(ByVal pDirectory As DirectoryInfo)
+
+            SnapsFolder_LastModified = pDirectory.LastWriteTime
+
+            Dim tmpSnapsFileInfos As IEnumerable(Of FileInfo) = pDirectory.EnumerateFiles().Where(Function(item) {".bmp", ".jpg", ".png"}.Contains(item.Extension.ToLower))
 
 
-            Else
-                'A new game must be added
-                tmpCurrentGame = New GamesList_Item
-                tmpCurrentGame.Savestates = tmpSStatesList
-                pGamesList.Add(GroupedBySerial_Item.Key, tmpCurrentGame)
-
-            End If
-            'Common operations
-            tmpCurrentGame.Savestates_SizeTot = tmpCurrentGame.Savestates.Where(Function(item) item.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Sum(Function(item) item.Value.Length)
-            tmpCurrentGame.SavestatesBackup_SizeTot = tmpCurrentGame.Savestates.Where(Function(item) item.Value.Extension.Contains(My.Settings.PCSX2_SStateExtBackup)).Sum(Function(item) item.Value.Length)
-            tmpCurrentGame.CRC = tmpCRC
-        Next
-
-    End Sub
-
-    Public Sub SnapsList_Load(ByVal pDirectory As DirectoryInfo,
-                              ByRef pGamesList As Dictionary(Of String, GamesList_Item))
-
-        Snaps_FolderLastModified = pDirectory.LastWriteTime
-
-        Dim tmpSnaps_GroupedBySerial As IEnumerable(Of IGrouping(Of String, FileInfo)) = pDirectory.EnumerateFiles().Where(
-            Function(item) {".bmp", ".jpg", ".png"}.Contains(item.Extension.ToLower)
-                ).GroupBy(Function(item) Snapshot.GetSerial(item.Name))
-
-        'Raggruppo le FileInfo sui savestates, che ottengo con GetFiles, per seriale utilizzando LINQ GroupBy
-
-        For Each GroupedBySerial_Item In tmpSnaps_GroupedBySerial
-            'Creo una lista temporanea di FileInfo partendo dai FileInfo del gruppo, perché non posso fare conversione diretta
-            Dim tmpSnapsList As New Dictionary(Of String, Snapshot)
-            For Each tmpFileInfo As FileInfo In GroupedBySerial_Item
-                Dim tmpItem As New Snapshot With {.Name = tmpFileInfo.Name, .Extension = tmpFileInfo.Extension, .Length = tmpFileInfo.Length, .LastWriteTime = tmpFileInfo.LastWriteTime}
-                tmpSnapsList.Add(tmpFileInfo.Name, tmpItem)
-
+            For Each tmpFileInfo As FileInfo In tmpSnapsFileInfos
+                'Creo una lista temporanea di FileInfo partendo dai FileInfo del gruppo, perché non posso fare conversione diretta
+                Dim tmpSnap As New Snapshot With {.Name = tmpFileInfo.Name, .Extension = tmpFileInfo.Extension, .Length = tmpFileInfo.Length, .LastWriteTime = tmpFileInfo.LastWriteTime}
+                Dim tmpSerial As String = tmpSnap.GetSerial()
+                If Games.ContainsKey(tmpSerial) Then
+                    Games(tmpSerial).Snapshots.Add(tmpSnap.Name, tmpSnap)
+                Else
+                    Dim tmpNewGame As New GamesList_Item
+                    tmpNewGame.Snapshots.Add(tmpSnap.Name, tmpSnap)
+                    Games.Add(tmpSerial, tmpNewGame)
+                End If
             Next
+        End Sub
 
-            Dim tmpCurrentGame As New GamesList_Item
-            'Per ogni oggetto nel gruppo devo controllare se il seriale è già presente nella GamesList
-            If pGamesList.TryGetValue(GroupedBySerial_Item.Key, tmpCurrentGame) Then
-                'Se la FileList per quel tipo di file è già presente allora posso assegnare direttamente la lista di FileInfo temporanea creata precedentemente
-                tmpCurrentGame.Snapshots = tmpSnapsList
-
-
-            Else
-                'Se il seriale non è presente significa che devo creare una nuova voce ed assegnarla alla gameslist
-                tmpCurrentGame = New GamesList_Item
-                tmpCurrentGame.Snapshots = tmpSnapsList
-                pGamesList.Add(GroupedBySerial_Item.Key, tmpCurrentGame)
-
-            End If
-            'Operazione comune ai due bracci dell'If precedente
-            tmpCurrentGame.Snapshots_SizeTot = tmpCurrentGame.Snapshots.Sum(Function(Lengthsum) Lengthsum.Value.Length)
-        Next
-
-    End Sub
-
+    End Class
 End Module

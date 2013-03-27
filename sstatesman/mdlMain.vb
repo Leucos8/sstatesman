@@ -16,11 +16,12 @@ Imports System.IO
 Imports Microsoft.Win32
 
 Module mdlMain
+    ''' <summary>Object that will be used to contain the PCSX2 GameDB used by SStatesMan.</summary>
+    Public PCSX2GameDb As New mdlGameDb.GameDB
+    Public SSMGameList As New mdlFileList.GamesList
 
-    Friend checkedGames As New List(Of String)
-    Friend checkedSavestates As New List(Of String)
-    Public DPIxScale As Single = 1.0F
-    Public DPIyScale As Single = 1.0F
+    Friend DPIxScale As Single = 1.0F
+    Friend DPIyScale As Single = 1.0F
 
     Public Enum LoadStatus As Byte
         StatusEmpty
@@ -28,16 +29,6 @@ Module mdlMain
         StatusNotLoaded
         StatusError
     End Enum
-
-    Friend Structure sLog
-        Friend Time As DateTime
-        Friend OrClass As String
-        Friend OrMethod As String
-        Friend Description As String
-        Friend Duration As Long
-    End Structure
-    Public AppLog As New List(Of sLog)
-    Const AppLog_MaxLenght As Integer = 31
 
     Public Sub FirstRun()
         My.Settings.Reset()
@@ -225,15 +216,4 @@ Module mdlMain
         End If
         Return My.Resources.Flag_0Null_30x20
     End Function
-
-    Public Sub AppendToLog(ByVal pClass As String, ByVal pMethod As String, ByVal pMessage As String, Optional pDuration As Long = -1)
-        Const AppLog_MaxLenght As Integer = 31
-        If AppLog.Count >= AppLog_MaxLenght Then
-            AppLog.RemoveAt(0)
-        End If
-        AppLog.Add(New sLog With {.Time = Now, .OrClass = pClass, .OrMethod = pMethod, .Description = pMessage, .Duration = pDuration})
-
-        'Console.WriteLine(String.Format("[{0:HH.mm.ss}] {1}: {2} {3} {4:N1}ms.", Now, pClass, pMethod, pMessage, pDuration))
-    End Sub
-
 End Module

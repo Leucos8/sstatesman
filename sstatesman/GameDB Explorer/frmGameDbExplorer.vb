@@ -79,7 +79,7 @@ Public Class frmGameDbExplorer
                 Me.ToolStripStatusLabel2.Text = "GameDB has no records."
         End Select
 
-        mdlMain.AppendToLog("GameDB explorer", "UI_Updater", "Refreshed status.")
+        mdlApplicationLog.AppendToLog("GameDB explorer", "UI_Updater", "Refreshed status.")
 
 
     End Sub
@@ -138,7 +138,7 @@ Public Class frmGameDbExplorer
         Me.SearchResultRef.Clear()
         Me.SearchIsActive = False
 
-        Me.PopulateList(mdlGameDb.PCSX2GameDb.Records)
+        Me.PopulateList(PCSX2GameDb.Records)
 
         Me.UI_Updater()
 

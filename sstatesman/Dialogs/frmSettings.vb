@@ -694,7 +694,7 @@ Public Class frmSettings
         Me.ListView1.BeginUpdate()
         Me.ListView1.Items.Clear()
         Dim tmpListItems As New List(Of ListViewItem)
-        For i As Int32 = 0 To mdlMain.AppLog.Count - 1
+        For i As Int32 = 0 To mdlApplicationLog.AppLog.Count - 1
             Dim tmpListItem As New ListViewItem With {.Text = AppLog(i).Time.ToString("H.mm.ss")}
             tmpListItem.SubItems.AddRange({String.Concat(AppLog(i).OrClass, ": ", AppLog(i).OrMethod),
                                            AppLog(i).Description
@@ -726,7 +726,7 @@ Public Class frmSettings
         Me.ListView1.BeginUpdate()
         Me.ListView1.Items.Clear()
         Dim tmpListItems As New List(Of ListViewItem)
-        For Each tmpLogItem As mdlMain.sLog In mdlMain.AppLog.Where(Function(tmp) tmp.OrClass.ToLower = pKeyword.ToLower)
+        For Each tmpLogItem As mdlApplicationLog.sLog In mdlApplicationLog.AppLog.Where(Function(tmp) tmp.OrClass.ToLower = pKeyword.ToLower)
             Dim tmpListItem As New ListViewItem With {.Text = tmpLogItem.Time.ToString("H.mm.ss")}
             tmpListItem.SubItems.AddRange({String.Concat(tmpLogItem.OrClass, ": ", tmpLogItem.OrMethod),
                                            tmpLogItem.Description

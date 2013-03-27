@@ -72,9 +72,6 @@ Module mdlGameDb
         End Function
     End Class
 
-    ''' <summary>Object that will be used to contain the PCSX2 GameDB used by SStatesMan.</summary>
-    Public PCSX2GameDb As New GameDB
-
     ''' <summary>Supplies the methods to access records contained in a PCSX2 GameDB.</summary>
     Public Class GameDB
         ''' <summary>Dictionary of <c>GameInfo</c> records.</summary>
@@ -105,7 +102,7 @@ Module mdlGameDb
         ''' <param name="pFileGameDb_Loc">Path and file name of input database.</param>
         Public Sub Load(ByVal pFileGameDb_Loc As String)
 
-            mdlMain.AppendToLog("GameDB", "Load", String.Format("Open DB: ""{0}"".", pFileGameDb_Loc))
+            mdlApplicationLog.AppendToLog("GameDB", "Load", String.Format("Open DB: ""{0}"".", pFileGameDb_Loc))
             Try
                 Dim sw As New Stopwatch
                 sw.Start()
@@ -167,15 +164,15 @@ Module mdlGameDb
                 LoadTime = sw.ElapsedTicks
                 Path = pFileGameDb_Loc
                 If Records.Count = 0 Then
-                    mdlMain.AppendToLog("GameDB", "Load", "No records found.", LoadTime)
+                    mdlApplicationLog.AppendToLog("GameDB", "Load", "No records found.", LoadTime)
                     Status = LoadStatus.StatusEmpty
                 Else
-                    mdlMain.AppendToLog("GameDB", "Load", String.Format("Loaded {0:N0} records.", Records.Count), LoadTime)
+                    mdlApplicationLog.AppendToLog("GameDB", "Load", String.Format("Loaded {0:N0} records.", Records.Count), LoadTime)
                     Status = LoadStatus.StatusLoadedOK
                 End If
 
             Catch ex As Exception
-                mdlMain.AppendToLog("GameDB", "Load", String.Concat("Some kinda GameDB loading failure. ", ex.Message))
+                mdlApplicationLog.AppendToLog("GameDB", "Load", String.Concat("Some kinda GameDB loading failure. ", ex.Message))
                 Unload()
                 Status = LoadStatus.StatusError
             End Try
@@ -229,15 +226,15 @@ Module mdlGameDb
                 myGameDb_RecordExtract.Name = "(GameDB not loaded)"
                 myGameDb_RecordExtract.Region = ""
                 myGameDb_RecordExtract.Compat = "0"
-                mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB is not loaded.")
+                mdlApplicationLog.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB is not loaded.")
             ElseIf Status = LoadStatus.StatusError Then
                 myGameDb_RecordExtract.Serial = pSerial
                 myGameDb_RecordExtract.Name = "(GameDB error)"
                 myGameDb_RecordExtract.Region = ""
                 myGameDb_RecordExtract.Compat = "0"
-                mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB is not loaded because an error occurred.")
+                mdlApplicationLog.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB is not loaded because an error occurred.")
             Else
-                mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, Status is set to " & Status.ToString)
+                mdlApplicationLog.AppendToLog("GameDB", "RecordExtract", "Failed, Status is set to " & Status.ToString)
             End If
             Return myGameDb_RecordExtract
         End Function
@@ -260,16 +257,16 @@ Module mdlGameDb
                     Return LoadStatus.StatusEmpty
                 End If
 
-                mdlMain.AppendToLog("GameDB", "RecordExtract", "From multiple serials.")
+                mdlApplicationLog.AppendToLog("GameDB", "RecordExtract", "From multiple serials.")
             ElseIf Status = LoadStatus.StatusNotLoaded Then
                 Return LoadStatus.StatusNotLoaded
-                mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB was not loaded.")
+                mdlApplicationLog.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB was not loaded.")
             ElseIf Status = LoadStatus.StatusError Then
                 Return LoadStatus.StatusNotLoaded
-                mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB was not loaded because an error occurred.")
+                mdlApplicationLog.AppendToLog("GameDB", "RecordExtract", "Failed, GameDB was not loaded because an error occurred.")
             Else
                 Return LoadStatus.StatusError
-                mdlMain.AppendToLog("GameDB", "RecordExtract", "Failed, Status is set to " & Status.ToString)
+                mdlApplicationLog.AppendToLog("GameDB", "RecordExtract", "Failed, Status is set to " & Status.ToString)
             End If
 
         End Function
@@ -320,11 +317,11 @@ Module mdlGameDb
                     pSearchResult.Add(tmpGame.Key)
                 Next
                 sw.Stop()
-                mdlMain.AppendToLog("GameDB", "Search", String.Format("Found {0:N0} records.", pSearchResult.Count), sw.ElapsedTicks)
+                mdlApplicationLog.AppendToLog("GameDB", "Search", String.Format("Found {0:N0} records.", pSearchResult.Count), sw.ElapsedTicks)
                 Return LoadStatus.StatusLoadedOK
             Else
                 sw.Stop()
-                mdlMain.AppendToLog("GameDB", "Search", String.Format("No records found.", pSearchResult.Count), sw.ElapsedTicks)
+                mdlApplicationLog.AppendToLog("GameDB", "Search", String.Format("No records found.", pSearchResult.Count), sw.ElapsedTicks)
                 Return LoadStatus.StatusEmpty
             End If
         End Function

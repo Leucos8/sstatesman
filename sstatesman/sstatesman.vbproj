@@ -146,6 +146,7 @@
     <Compile Include="frmSStateList.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="mdlApplicationLog.vb" />
     <Compile Include="mdlFileList.vb" />
     <Compile Include="mdlGameDb.vb" />
     <Compile Include="mdlMain.vb" />

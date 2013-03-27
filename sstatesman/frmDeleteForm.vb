@@ -87,7 +87,7 @@ Public Class frmDeleteForm
         For Each tmpItem As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
             Dim tmpGamesListItem As New mdlFileList.GamesList_Item
             Dim tmpSavestate As New Savestate
-            If mdlFileList.GamesList.TryGetValue(tmpItem.Group.Name, tmpGamesListItem) Then
+            If SSMGameList.Games.TryGetValue(tmpItem.Group.Name, tmpGamesListItem) Then
                 If tmpGamesListItem.Savestates.TryGetValue(tmpItem.Name, tmpSavestate) Then
                     Try
                         If My.Settings.SStatesMan_SStateTrash = True Then
@@ -237,14 +237,14 @@ Public Class frmDeleteForm
         Me.lvwSStatesListToDelete.Items.Clear()
         Me.lvwSStatesListToDelete.Groups.Clear()
 
-        Dim tmpGameInfo As New mdlGameDb.GameInfo
+        Dim tmpGameInfo As New GameInfo
         Dim tmpSListGroups As New List(Of ListViewGroup)
         Dim tmpSListItems As New List(Of ListViewItem)
 
-        For Each tmpSerial As System.String In mdlMain.checkedGames
+        For Each tmpSerial As System.String In frmmain.checkedGames
 
             Dim tmpGamesListItem As New GamesList_Item
-            If mdlFileList.GamesList.TryGetValue(tmpSerial, tmpGamesListItem) Then
+            If SSMGameList.Games.TryGetValue(tmpSerial, tmpGamesListItem) Then
 
                 'Creation of the header
                 tmpGameInfo = PCSX2GameDb.RecordExtract(tmpSerial)
@@ -256,10 +256,10 @@ Public Class frmDeleteForm
                 tmpSListGroups.Add(tmpLvwSListGroup)
 
 
-                If mdlFileList.GamesList(tmpSerial).Savestates.Values.Count > 0 Then
-                    For Each tmpSavestate As KeyValuePair(Of String, Savestate) In mdlFileList.GamesList(tmpSerial).Savestates
+                If SSMGameList.Games(tmpSerial).Savestates.Values.Count > 0 Then
+                    For Each tmpSavestate As KeyValuePair(Of String, Savestate) In SSMGameList.Games(tmpSerial).Savestates
 
-                        If checkedSavestates.Contains(tmpSavestate.Key) Then
+                        If frmMain.checkedSavestates.Contains(tmpSavestate.Key) Then
                             Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key,
                                                                                                .Group = tmpLvwSListGroup,
                                                                                                .Name = tmpSavestate.Key}
@@ -302,7 +302,7 @@ Public Class frmDeleteForm
             For Each tmpLvwSListItemChecked As ListViewItem In Me.lvwSStatesListToDelete.CheckedItems
 
                 Dim tmpGamesListItem As New GamesList_Item
-                If mdlFileList.GamesList.TryGetValue(Savestate.GetSerial(tmpLvwSListItemChecked.Name), tmpGamesListItem) Then
+                If SSMGameList.Games.TryGetValue(Savestate.GetSerial(tmpLvwSListItemChecked.Name), tmpGamesListItem) Then
                     Dim tmpSavestate As New Savestate
                     If tmpGamesListItem.Savestates.TryGetValue(tmpLvwSListItemChecked.Name, tmpSavestate) Then
                         If tmpSavestate.isBackup Then

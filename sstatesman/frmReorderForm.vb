@@ -190,7 +190,7 @@ Public Class frmReorderForm
         Me.lvwReorderList.Items.Clear()
         Me.lvwReorderList.Groups.Clear()
 
-        If (mdlMain.checkedGames.Count = 1) Then
+        If (frmMain.checkedGames.Count = 1) Then
             'Dim tmpGameInfo As New mdlGameDb.GameInfo
             Dim tmpSListItems As New List(Of ListViewItem)
 
@@ -209,7 +209,7 @@ Public Class frmReorderForm
                 tmpSListItems.Add(tmpLvwSListItem)
             Next
 
-            For Each tmpSavestate As KeyValuePair(Of String, Savestate) In mdlFileList.GamesList(mdlMain.checkedGames(0)).Savestates
+            For Each tmpSavestate As KeyValuePair(Of String, Savestate) In SSMGameList.Games(frmMain.checkedGames(0)).Savestates
                 If ((tmpSavestate.Value.Slot >= 0) And (tmpSavestate.Value.Slot <= 9)) Then
                     If (Not (tmpSavestate.Value.isBackup)) Then
                         tmpSListItems.Item(tmpSavestate.Value.Slot * 2).SubItems(ReorderListColumns.OldName).Text = tmpSavestate.Value.Name
@@ -359,7 +359,7 @@ Public Class frmReorderForm
                 ElseIf Not ((tmpListItem.SubItems(ReorderListColumns.OldName).Text = tmpListItem.SubItems(ReorderListColumns.NewName).Text)) Or _
                             (tmpListItem.Text = "Other") Then
                     'Creating the new name
-                    tmpListItem.SubItems(ReorderListColumns.NewName).Text = mdlMain.checkedGames(0) & " (" & mdlFileList.GamesList(mdlMain.checkedGames(0)).CRC & ")." & (tmpListItem.Index \ 2).ToString("00") & My.Settings.PCSX2_SStateExt
+                    tmpListItem.SubItems(ReorderListColumns.NewName).Text = frmMain.checkedGames(0) & " (" & SSMGameList.Games(frmMain.checkedGames(0)).CRC & ")." & (tmpListItem.Index \ 2).ToString("00") & My.Settings.PCSX2_SStateExt
                     If Not (((tmpListItem.Index \ 2) >= 0) And ((tmpListItem.Index \ 2) <= 9)) Then
                         'if it is an incorrect slot
                         tmpListItem.SubItems(ReorderListColumns.NewName).Text = tmpListItem.SubItems(ReorderListColumns.NewName).Text.Insert(tmpListItem.SubItems(ReorderListColumns.NewName).Text.IndexOf("."c) + 1, "X")

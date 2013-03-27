@@ -16,6 +16,11 @@ Imports System.IO
 
 Public Class frmMain
 
+    'Main window checked objects list
+    Friend checkedGames As New List(Of String)
+    Friend checkedSavestates As New List(Of String)
+
+
     Dim ListsAreCurrentlyRefreshed As Boolean = False
     Dim lvwGamesList_PopTime As Long
     Dim lvwSStatesList_PopTime As Long
@@ -47,9 +52,9 @@ Public Class frmMain
 
     Friend Sub List_Refresher()
         Me.UI_Enabler(False, True, True)
-        mdlFileList.GamesList_Status = GamesList_LoadAll(My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps, mdlFileList.GamesList)
+        SSMGameList.LoadAll(My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
         Me.lvwGamesList_Populate()
-        Me.lvwGamesList_indexCheckedGames()
+        Me.lvwGamesList_indexcheckedGames()
         Me.lvwSStatesList_Populate()
         Me.lvwSStatesList_indexCheckedFiles()
         Me.UI_Updater()
@@ -57,7 +62,7 @@ Public Class frmMain
     End Sub
 
     Private Sub List_RefresherGames()
-        Me.lvwGamesList_indexCheckedGames()
+        Me.lvwGamesList_indexcheckedGames()
         Me.lvwSStatesList_Populate()
         Me.lvwSStatesList_indexCheckedFiles()
         Me.UI_Updater()
@@ -213,7 +218,7 @@ Public Class frmMain
 
         sw.Stop()
         Me.UIUpdate_Time = sw.ElapsedTicks
-        mdlMain.AppendToLog("Main window", "UI_Updater", "Refreshed status.", Me.UIUpdate_Time)
+        mdlApplicationLog.AppendToLog("Main window", "UI_Updater", "Refreshed status.", Me.UIUpdate_Time)
 
     End Sub
 
@@ -407,8 +412,8 @@ Public Class frmMain
         If My.Settings.SStatesMan_SStatesListAutoRefresh Then
             If Directory.Exists(My.Settings.PCSX2_PathSState) And Not frmDeleteForm.Visible And Not frmSettings.Visible And Not Me.WindowState = FormWindowState.Minimized Then
                 Dim tmpDate As DateTime = Directory.GetLastWriteTime(My.Settings.PCSX2_PathSState)
-                If Not tmpDate = mdlFileList.SStates_FolderLastModified Then
-                    mdlMain.AppendToLog("Main window", "Timer", "Refreshed lists.")
+                If Not tmpDate = SSMGameList.SStatesFolder_LastModified Then
+                    mdlApplicationLog.AppendToLog("Main window", "Timer", "Refreshed lists.")
                     Me.List_Refresher()
                 End If
             End If
@@ -541,8 +546,8 @@ Public Class frmMain
             My.Settings.frmMain_CoverExpanded = Not (My.Settings.frmMain_CoverExpanded)
             Me.UI_UpdaterGameInfo()
         ElseIf e.Button = Windows.Forms.MouseButtons.Right Then
-            If (checkedGames.Count() = 1) And Directory.Exists(My.Settings.SStatesMan_PathPics) Then
-                If Not (checkedGames(0).ToLower = "screenshots") Then
+            If (Me.checkedGames.Count() = 1) And Directory.Exists(My.Settings.SStatesMan_PathPics) Then
+                If Not (Me.checkedGames(0).ToLower = "screenshots") Then
                     Me.cmiCoverAdd.Enabled = True
                 Else
                     Me.cmiCoverAdd.Enabled = False
@@ -550,7 +555,7 @@ Public Class frmMain
             Else
                 Me.cmiCoverAdd.Enabled = False
             End If
-        Me.cmCover.Show(CType(sender, Control), e.Location)
+            Me.cmCover.Show(CType(sender, Control), e.Location)
         End If
     End Sub
 
@@ -569,7 +574,7 @@ Public Class frmMain
                 Try
                     Dim tmpImage As Image = Image.FromFile(openDialog.FileName)
                     tmpImage = Me.Cover_ResizeCover(tmpImage, 256, 0, True)
-                    tmpImage.Save(Path.Combine(My.Settings.SStatesMan_PathPics, checkedGames(0) & ".jpg"), Imaging.ImageFormat.Jpeg)
+                    tmpImage.Save(Path.Combine(My.Settings.SStatesMan_PathPics, Me.checkedGames(0) & ".jpg"), Imaging.ImageFormat.Jpeg)
                     Me.UI_UpdaterGameInfo()
                 Catch ex As Exception
                     MessageBox.Show("An error has occurred while trying to convert the specified file. " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -594,8 +599,8 @@ Public Class frmMain
         'Maximum number of cover thumbnail that will be added to the result image
         Dim maxThumbnail As Integer = 4
         'Adjusting maximum thumbnail number
-        If checkedGames.Count < maxThumbnail Then
-            maxThumbnail = checkedGames.Count
+        If Me.checkedGames.Count < maxThumbnail Then
+            maxThumbnail = Me.checkedGames.Count
         End If
 
         'The drawing surface will be based on an image, Extra_Nocover
@@ -607,7 +612,7 @@ Public Class frmMain
         For i As Integer = 0 To maxThumbnail - 1
             Try
                 'The cover will be added to the graphic object using DrawImage
-                endCover.DrawImage(Cover_GetCover(checkedGames(i), My.Settings.SStatesMan_PathPics, 0, pDestHeight, True), i * pStepWidth, 0)
+                endCover.DrawImage(Cover_GetCover(Me.checkedGames(i), My.Settings.SStatesMan_PathPics, 0, pDestHeight, True), i * pStepWidth, 0)
                 'Adds a line for the next cover
                 endCover.DrawLine(Pens.DimGray, i * pStepWidth - 1, 0, i * pStepWidth - 1, pDestHeight)
                 'Adds a shade for the next cover
@@ -615,7 +620,7 @@ Public Class frmMain
                 endCover.FillRectangle(tmpShade, i * pStepWidth - 4, 0, 3, pDestHeight)
             Catch ex As Exception
                 'No cover image found or file is corrupted
-                mdlMain.AppendToLog("Main window", "MultipleCover", String.Concat("Error: ", ex.Message))
+                mdlApplicationLog.AppendToLog("Main window", "MultipleCover", String.Concat("Error: ", ex.Message))
             End Try
         Next
         'The graphics object update the image object
@@ -643,7 +648,7 @@ Public Class frmMain
                     Return Cover_ResizeCover(tmpImage, pDestWidth, pDestHeight, forced)
                 Catch ex As Exception
                     'No cover image found or file is corrupted
-                    mdlMain.AppendToLog("Main window", "GetCover", String.Concat("Error: ", ex.Message))
+                    mdlApplicationLog.AppendToLog("Main window", "GetCover", String.Concat("Error: ", ex.Message))
                     Return Cover_ResizeCover(My.Resources.Extra_Nocover_120x170, pDestWidth, pDestHeight, forced)
                 End Try
             Else
@@ -675,7 +680,7 @@ Public Class frmMain
             Return tmpThumbnail
         Catch ex As Exception
             'No cover image found or file is corrupted
-            mdlMain.AppendToLog("Main window", "GetCover", String.Concat("Error: ", ex.Message))
+            mdlApplicationLog.AppendToLog("Main window", "GetCover", String.Concat("Error: ", ex.Message))
             Return My.Resources.Extra_Nocover_120x170
         End Try
 
@@ -692,7 +697,7 @@ Public Class frmMain
         Me.lvwSStatesList.Groups.Clear()
 
         Dim tmpGListItems As New List(Of ListViewItem)
-        For Each tmpGListItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In mdlFileList.GamesList
+        For Each tmpGListItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In SSMGameList.Games
             currentGameInfo = PCSX2GameDb.RecordExtract(tmpGListItem.Key)
 
             'Creating the listviewitem
@@ -726,8 +731,8 @@ Public Class frmMain
             End If
 
             'If it was previously checked/selected the check/select it again
-            If checkedGames.Contains(currentGameInfo.Serial) Then
-                If checkedGames.Count = 1 Then
+            If Me.checkedGames.Contains(currentGameInfo.Serial) Then
+                If Me.checkedGames.Count = 1 Then
                     tmpLvwGListItem.Selected = True
                 Else
                     tmpLvwGListItem.Checked = True
@@ -745,19 +750,19 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwGamesList)
         sw.Stop()
         Me.lvwGamesList_PopTime = sw.ElapsedTicks
-        mdlMain.AppendToLog("Main window", "populate game list", String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), Me.lvwGamesList_PopTime)
+        mdlApplicationLog.AppendToLog("Main window", "populate game list", String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), Me.lvwGamesList_PopTime)
     End Sub
 
-    Private Sub lvwGamesList_indexCheckedGames()
+    Private Sub lvwGamesList_indexcheckedGames()
         'checked games are cleared
-        mdlMain.checkedGames.Clear()
+        Me.checkedGames.Clear()
         'reindexing checked games
         If Me.lvwGamesList.CheckedItems.Count > 0 Then
             For Each tmpGamesList_ItemChecked As System.Windows.Forms.ListViewItem In Me.lvwGamesList.CheckedItems
-                mdlMain.checkedGames.Add(tmpGamesList_ItemChecked.Name)
+                Me.checkedGames.Add(tmpGamesList_ItemChecked.Name)
             Next
         ElseIf Me.lvwGamesList.SelectedItems.Count > 0 Then
-            mdlMain.checkedGames.Add(Me.lvwGamesList.SelectedItems.Item(0).Name)
+            Me.checkedGames.Add(Me.lvwGamesList.SelectedItems.Item(0).Name)
         End If
     End Sub
 
@@ -839,10 +844,10 @@ Public Class frmMain
         Dim lastSStateDate As Date = Date.MinValue
 
 
-        For Each tmpSerial As System.String In mdlMain.checkedGames
+        For Each tmpSerial As System.String In Me.checkedGames
 
             Dim tmpGamesListItem As New GamesList_Item
-            If (mdlFileList.GamesList.TryGetValue(tmpSerial, tmpGamesListItem)) Then
+            If (SSMGameList.Games.TryGetValue(tmpSerial, tmpGamesListItem)) Then
 
                 'Creation of the header
                 currentGameInfo = PCSX2GameDb.RecordExtract(tmpSerial)
@@ -854,14 +859,14 @@ Public Class frmMain
                 tmpSListGroups.Add(tmpLvwSListGroup)
 
 
-                lvwGamesList_SelectedSize += mdlFileList.GamesList(currentGameInfo.Serial).Savestates_SizeTot
-                lvwGamesList_SelectedSizeBackup += mdlFileList.GamesList(currentGameInfo.Serial).SavestatesBackup_SizeTot
+                lvwGamesList_SelectedSize += SSMGameList.Games(currentGameInfo.Serial).Savestates_SizeTot
+                lvwGamesList_SelectedSizeBackup += SSMGameList.Games(currentGameInfo.Serial).SavestatesBackup_SizeTot
 
-                If (mdlFileList.GamesList(tmpSerial).Savestates.Values.Count > 0) Then
+                If (SSMGameList.Games(tmpSerial).Savestates.Values.Count > 0) Then
 
                     lastSStateDate = Date.MinValue
 
-                    For Each tmpSavestate As KeyValuePair(Of String, Savestate) In mdlFileList.GamesList(tmpSerial).Savestates
+                    For Each tmpSavestate As KeyValuePair(Of String, Savestate) In SSMGameList.Games(tmpSerial).Savestates
 
                         Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key,
                                                                                            .Group = tmpLvwSListGroup,
@@ -903,7 +908,7 @@ Public Class frmMain
 
         sw.Stop()
         Me.lvwSStatesList_PopTime = sw.ElapsedTicks
-        mdlMain.AppendToLog("Main window", "populate savestates list ", String.Format("Listed {0:N0} savestates.", Me.lvwSStatesList.Items.Count), Me.lvwSStatesList_PopTime)
+        mdlApplicationLog.AppendToLog("Main window", "populate savestates list ", String.Format("Listed {0:N0} savestates.", Me.lvwSStatesList.Items.Count), Me.lvwSStatesList_PopTime)
     End Sub
 
     Private Sub lvwSStatesList_indexCheckedFiles()
@@ -915,7 +920,7 @@ Public Class frmMain
             For Each tmpLvwSListItemChecked As ListViewItem In Me.lvwSStatesList.CheckedItems
 
                 Dim tmpGameSerial As String = Savestate.GetSerial(tmpLvwSListItemChecked.Name)
-                Dim tmpSavestate As Savestate = mdlFileList.GamesList(tmpGameSerial).Savestates(tmpLvwSListItemChecked.Name)
+                Dim tmpSavestate As Savestate = SSMGameList.Games(tmpGameSerial).Savestates(tmpLvwSListItemChecked.Name)
                 checkedSavestates.Add(tmpSavestate.Name)
 
                 If tmpSavestate.isBackup Then
