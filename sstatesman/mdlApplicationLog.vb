@@ -20,15 +20,44 @@ Module mdlApplicationLog
         Friend Description As String
         Friend Duration As Long
     End Structure
-    Public AppLog As New List(Of sLog)
-    Const AppLog_MaxLenght As Integer = 31
+    Public Class AppLog
+        Public Events As New List(Of sLog)
+        Const MaxLenght As Integer = 31
 
-    Public Sub AppendToLog(ByVal pClass As String, ByVal pMethod As String, ByVal pMessage As String, Optional pDuration As Long = -1)
-        Const AppLog_MaxLenght As Integer = 31
-        If AppLog.Count >= AppLog_MaxLenght Then
-            AppLog.RemoveAt(0)
-        End If
-        AppLog.Add(New sLog With {.Time = Now, .OrClass = pClass, .OrMethod = pMethod, .Description = pMessage, .Duration = pDuration})
-        'Console.WriteLine(String.Format("[{0:HH.mm.ss}] {1}: {2} {3} {4:N1}ms.", Now, pClass, pMethod, pMessage, pDuration))
-    End Sub
+        Public Sub Append(ByVal pClass As String, ByVal pMethod As String, ByVal pMessage As String, Optional pDuration As Long = -1)
+            If Events.Count >= AppLog.MaxLenght Then
+                Events.RemoveAt(0)
+            End If
+            Events.Add(New sLog With {.Time = Now, .OrClass = pClass, .OrMethod = pMethod, .Description = pMessage, .Duration = pDuration})
+        End Sub
+
+        Public Sub ExportConsole()
+            If Events.Count > 0 Then
+                For Each tmpLogItem As sLog In Events
+                    Console.WriteLine(String.Format("[{0:HH.mm.ss}] {1}: {2} {3} {4:N1}ms.", tmpLogItem.Time, tmpLogItem.OrClass, tmpLogItem.OrMethod, tmpLogItem.Description, tmpLogItem.Duration))
+                Next
+            End If
+        End Sub
+
+        Public Sub ExportFile(ByVal pPath As String)
+            If Events.Count > 0 Then
+                Using tmpStreamWriter As IO.StreamWriter = New IO.StreamWriter(pPath)
+                    tmpStreamWriter.WriteLine(String.Concat("Timestamp", vbTab, "Origin", vbTab, "Action", vbTab, "Description", vbTab, "Duration"))
+                    For Each tmpLogItem As sLog In Events
+                        tmpStreamWriter.WriteLine(String.Concat(tmpLogItem.Time.ToString, vbTab,
+                                                                tmpLogItem.OrClass, vbTab,
+                                                                tmpLogItem.OrMethod, vbTab,
+                                                                tmpLogItem.Description, vbTab,
+                                                                tmpLogItem.Duration))
+                    Next
+                End Using
+            End If
+        End Sub
+
+        Public Sub FilterByClass(ByVal pPattern As String, ByRef pResults As List(Of sLog))
+            If Events.Count > 0 Then
+                pResults = Events.Where(Function(item) item.OrClass.ToLower.Contains(pPattern.ToLower)).ToList
+            End If
+        End Sub
+    End Class
 End Module

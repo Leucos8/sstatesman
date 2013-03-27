@@ -126,6 +126,8 @@ Partial Class frmSettings
         Me.cmdLogFilter_Files = New System.Windows.Forms.Button()
         Me.cmdLogFilter_GameDB = New System.Windows.Forms.Button()
         Me.lblSStateListCheck = New System.Windows.Forms.Label()
+        Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.cmdLogExport = New System.Windows.Forms.Button()
         CType(Me.imgPCSX2IniPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgPCSX2AppPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgSStatesManPicsPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -151,6 +153,7 @@ Partial Class frmSettings
         Me.pnlTab4.SuspendLayout()
         Me.TableLayoutPanel4.SuspendLayout()
         Me.FlowPanelSStatesList.SuspendLayout()
+        Me.FlowLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
         '
         'cmdOk
@@ -1371,7 +1374,7 @@ Partial Class frmSettings
         Me.pnlTab4.Location = New System.Drawing.Point(431, 61)
         Me.pnlTab4.Name = "pnlTab4"
         Me.pnlTab4.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
-        Me.pnlTab4.Size = New System.Drawing.Size(111, 269)
+        Me.pnlTab4.Size = New System.Drawing.Size(111, 324)
         Me.pnlTab4.TabIndex = 58
         '
         'ListView1
@@ -1386,7 +1389,7 @@ Partial Class frmSettings
         Me.ListView1.Location = New System.Drawing.Point(8, 23)
         Me.ListView1.Margin = New System.Windows.Forms.Padding(0)
         Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(95, 242)
+        Me.ListView1.Size = New System.Drawing.Size(95, 297)
         Me.ListView1.TabIndex = 0
         Me.ListView1.UseCompatibleStateImageBehavior = False
         Me.ListView1.View = System.Windows.Forms.View.Details
@@ -1419,8 +1422,8 @@ Partial Class frmSettings
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel4.Controls.Add(Me.cmdLogRefresh, 2, 0)
-        Me.TableLayoutPanel4.Controls.Add(Me.FlowPanelSStatesList, 0, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.FlowPanelSStatesList, 2, 0)
+        Me.TableLayoutPanel4.Controls.Add(Me.FlowLayoutPanel2, 0, 0)
         Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top
         Me.TableLayoutPanel4.Location = New System.Drawing.Point(8, 0)
         Me.TableLayoutPanel4.Margin = New System.Windows.Forms.Padding(0)
@@ -1428,11 +1431,13 @@ Partial Class frmSettings
         Me.TableLayoutPanel4.Padding = New System.Windows.Forms.Padding(16, 0, 16, 0)
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.TableLayoutPanel4.Size = New System.Drawing.Size(95, 23)
         Me.TableLayoutPanel4.TabIndex = 39
         '
         'cmdLogRefresh
         '
+        Me.cmdLogRefresh.AutoSize = True
         Me.cmdLogRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdLogRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdLogRefresh.FlatAppearance.BorderSize = 0
@@ -1441,11 +1446,13 @@ Partial Class frmSettings
         Me.cmdLogRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdLogRefresh.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdLogRefresh.Image = Global.sstatesman.My.Resources.Resources.Icon_Refresh_14x14
-        Me.cmdLogRefresh.Location = New System.Drawing.Point(57, 0)
+        Me.cmdLogRefresh.Location = New System.Drawing.Point(0, 0)
         Me.cmdLogRefresh.Margin = New System.Windows.Forms.Padding(0, 0, 0, 1)
         Me.cmdLogRefresh.Name = "cmdLogRefresh"
-        Me.cmdLogRefresh.Size = New System.Drawing.Size(22, 22)
+        Me.cmdLogRefresh.Size = New System.Drawing.Size(68, 22)
         Me.cmdLogRefresh.TabIndex = 20
+        Me.cmdLogRefresh.Text = "REFERSH"
+        Me.cmdLogRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdLogRefresh.UseVisualStyleBackColor = False
         '
         'FlowPanelSStatesList
@@ -1457,7 +1464,7 @@ Partial Class frmSettings
         Me.FlowPanelSStatesList.Controls.Add(Me.cmdLogFilter_GameDB)
         Me.FlowPanelSStatesList.Controls.Add(Me.lblSStateListCheck)
         Me.FlowPanelSStatesList.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowPanelSStatesList.Location = New System.Drawing.Point(16, 0)
+        Me.FlowPanelSStatesList.Location = New System.Drawing.Point(-138, 0)
         Me.FlowPanelSStatesList.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowPanelSStatesList.Name = "FlowPanelSStatesList"
         Me.FlowPanelSStatesList.Size = New System.Drawing.Size(217, 22)
@@ -1530,6 +1537,37 @@ Partial Class frmSettings
         Me.lblSStateListCheck.Text = "filter:"
         Me.lblSStateListCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'FlowLayoutPanel2
+        '
+        Me.FlowLayoutPanel2.AutoSize = True
+        Me.FlowLayoutPanel2.Controls.Add(Me.cmdLogRefresh)
+        Me.FlowLayoutPanel2.Controls.Add(Me.cmdLogExport)
+        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(16, 0)
+        Me.FlowLayoutPanel2.Margin = New System.Windows.Forms.Padding(0)
+        Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
+        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(118, 23)
+        Me.FlowLayoutPanel2.TabIndex = 49
+        Me.FlowLayoutPanel2.WrapContents = False
+        '
+        'cmdLogExport
+        '
+        Me.cmdLogExport.AutoSize = True
+        Me.cmdLogExport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdLogExport.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdLogExport.FlatAppearance.BorderSize = 0
+        Me.cmdLogExport.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdLogExport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdLogExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdLogExport.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdLogExport.Location = New System.Drawing.Point(68, 0)
+        Me.cmdLogExport.Margin = New System.Windows.Forms.Padding(0, 0, 0, 1)
+        Me.cmdLogExport.Name = "cmdLogExport"
+        Me.cmdLogExport.Size = New System.Drawing.Size(50, 22)
+        Me.cmdLogExport.TabIndex = 21
+        Me.cmdLogExport.Text = "EXPORT"
+        Me.cmdLogExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.cmdLogExport.UseVisualStyleBackColor = False
+        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1599,6 +1637,8 @@ Partial Class frmSettings
         Me.TableLayoutPanel4.PerformLayout()
         Me.FlowPanelSStatesList.ResumeLayout(False)
         Me.FlowPanelSStatesList.PerformLayout()
+        Me.FlowLayoutPanel2.ResumeLayout(False)
+        Me.FlowLayoutPanel2.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1693,4 +1733,6 @@ Partial Class frmSettings
     Private WithEvents lblPCSX2SnapsPathStatus As System.Windows.Forms.Label
     Private WithEvents imgPCSX2SnapsPathStatus As System.Windows.Forms.PictureBox
     Private WithEvents lblPCSX2SnapsPath As System.Windows.Forms.Label
+    Friend WithEvents FlowLayoutPanel2 As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents cmdLogExport As System.Windows.Forms.Button
 End Class

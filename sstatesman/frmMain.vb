@@ -218,7 +218,7 @@ Public Class frmMain
 
         sw.Stop()
         Me.UIUpdate_Time = sw.ElapsedTicks
-        mdlApplicationLog.AppendToLog("Main window", "UI_Updater", "Refreshed status.", Me.UIUpdate_Time)
+        SSMAppLog.Append("Main window", "UI_Updater", "Refreshed status.", Me.UIUpdate_Time)
 
     End Sub
 
@@ -413,7 +413,7 @@ Public Class frmMain
             If Directory.Exists(My.Settings.PCSX2_PathSState) And Not frmDeleteForm.Visible And Not frmSettings.Visible And Not Me.WindowState = FormWindowState.Minimized Then
                 Dim tmpDate As DateTime = Directory.GetLastWriteTime(My.Settings.PCSX2_PathSState)
                 If Not tmpDate = SSMGameList.SStatesFolder_LastModified Then
-                    mdlApplicationLog.AppendToLog("Main window", "Timer", "Refreshed lists.")
+                    SSMAppLog.Append("Main window", "Timer", "Refreshed lists.")
                     Me.List_Refresher()
                 End If
             End If
@@ -620,7 +620,7 @@ Public Class frmMain
                 endCover.FillRectangle(tmpShade, i * pStepWidth - 4, 0, 3, pDestHeight)
             Catch ex As Exception
                 'No cover image found or file is corrupted
-                mdlApplicationLog.AppendToLog("Main window", "MultipleCover", String.Concat("Error: ", ex.Message))
+                SSMAppLog.Append("Main window", "MultipleCover", String.Concat("Error: ", ex.Message))
             End Try
         Next
         'The graphics object update the image object
@@ -648,7 +648,7 @@ Public Class frmMain
                     Return Cover_ResizeCover(tmpImage, pDestWidth, pDestHeight, forced)
                 Catch ex As Exception
                     'No cover image found or file is corrupted
-                    mdlApplicationLog.AppendToLog("Main window", "GetCover", String.Concat("Error: ", ex.Message))
+                    SSMAppLog.Append("Main window", "GetCover", String.Concat("Error: ", ex.Message))
                     Return Cover_ResizeCover(My.Resources.Extra_Nocover_120x170, pDestWidth, pDestHeight, forced)
                 End Try
             Else
@@ -680,7 +680,7 @@ Public Class frmMain
             Return tmpThumbnail
         Catch ex As Exception
             'No cover image found or file is corrupted
-            mdlApplicationLog.AppendToLog("Main window", "GetCover", String.Concat("Error: ", ex.Message))
+            SSMAppLog.Append("Main window", "GetCover", String.Concat("Error: ", ex.Message))
             Return My.Resources.Extra_Nocover_120x170
         End Try
 
@@ -750,7 +750,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwGamesList)
         sw.Stop()
         Me.lvwGamesList_PopTime = sw.ElapsedTicks
-        mdlApplicationLog.AppendToLog("Main window", "populate game list", String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), Me.lvwGamesList_PopTime)
+        SSMAppLog.Append("Main window", "populate game list", String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), Me.lvwGamesList_PopTime)
     End Sub
 
     Private Sub lvwGamesList_indexcheckedGames()
@@ -908,7 +908,7 @@ Public Class frmMain
 
         sw.Stop()
         Me.lvwSStatesList_PopTime = sw.ElapsedTicks
-        mdlApplicationLog.AppendToLog("Main window", "populate savestates list ", String.Format("Listed {0:N0} savestates.", Me.lvwSStatesList.Items.Count), Me.lvwSStatesList_PopTime)
+        SSMAppLog.Append("Main window", "populate savestates list ", String.Format("Listed {0:N0} savestates.", Me.lvwSStatesList.Items.Count), Me.lvwSStatesList_PopTime)
     End Sub
 
     Private Sub lvwSStatesList_indexCheckedFiles()

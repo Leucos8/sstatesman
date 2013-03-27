@@ -20,6 +20,8 @@ Module mdlMain
     Public PCSX2GameDb As New mdlGameDb.GameDB
     Public SSMGameList As New mdlFileList.GamesList
 
+    Public SSMAppLog As New mdlApplicationLog.AppLog
+
     Friend DPIxScale As Single = 1.0F
     Friend DPIyScale As Single = 1.0F
 

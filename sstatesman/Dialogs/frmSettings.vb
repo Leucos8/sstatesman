@@ -691,46 +691,55 @@ Public Class frmSettings
 
 #Region "Log"
     Private Sub cmdLogRefresh_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogRefresh.Click
-        Me.ListView1.BeginUpdate()
-        Me.ListView1.Items.Clear()
-        Dim tmpListItems As New List(Of ListViewItem)
-        For i As Int32 = 0 To mdlApplicationLog.AppLog.Count - 1
-            Dim tmpListItem As New ListViewItem With {.Text = AppLog(i).Time.ToString("H.mm.ss")}
-            tmpListItem.SubItems.AddRange({String.Concat(AppLog(i).OrClass, ": ", AppLog(i).OrMethod),
-                                           AppLog(i).Description
-                                           })
-            If AppLog(i).Duration = -1 Then
-                tmpListItem.SubItems.Add("-")
-            Else
-                tmpListItem.SubItems.Add(String.Format("{0:N2}ms", AppLog(i).Duration / Stopwatch.Frequency * 1000))
+        Me.Log_Populate(SSMAppLog.Events)
+    End Sub
+
+    Private Sub cmdLogExport_Click(sender As Object, e As EventArgs) Handles cmdLogExport.Click
+        Using SaveDialog As New SaveFileDialog
+            With SaveDialog
+                .AddExtension = True
+                .CheckFileExists = False
+                .CheckPathExists = True
+                .DefaultExt = ".txt"
+                .Filter = "Text file|*.txt|All files|*.*"
+                .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+                .OverwritePrompt = True
+                .ValidateNames = True
+                .FileName = "SStatesMan Log"
+                .Title = "Save application log..."
+            End With
+            If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
+                SSMAppLog.ExportFile(SaveDialog.FileName)
             End If
-            tmpListItems.Add(tmpListItem)
-        Next
-        Me.ListView1.Items.AddRange(tmpListItems.ToArray)
-        Me.ListView1.EndUpdate()
+
+        End Using
     End Sub
 
     Private Sub cmdLogFilter_GameDB_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogFilter_GameDB.Click
-        Me.ApplyLogFilter("GameDB")
+        Dim tmpLog As New List(Of sLog)
+        SSMAppLog.FilterByClass("GameDB", tmpLog)
+        Me.Log_Populate(tmpLog)
     End Sub
 
     Private Sub cmdLogFilter_Files_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogFilter_Files.Click
-        Me.ApplyLogFilter("FilesList")
+        Dim tmpLog As New List(Of sLog)
+        SSMAppLog.FilterByClass("FilesList", tmpLog)
+        Me.Log_Populate(tmpLog)
     End Sub
 
     Private Sub cmdLogFilter_frmMain_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogFilter_frmMain.Click
-        Me.ApplyLogFilter("Main window")
+        Dim tmpLog As New List(Of sLog)
+        SSMAppLog.FilterByClass("Main Window", tmpLog)
+        Me.Log_Populate(tmpLog)
     End Sub
 
-    Private Sub ApplyLogFilter(ByVal pKeyword As String)
+    Private Sub Log_Populate(ByVal pLog As List(Of sLog))
         Me.ListView1.BeginUpdate()
         Me.ListView1.Items.Clear()
         Dim tmpListItems As New List(Of ListViewItem)
-        For Each tmpLogItem As mdlApplicationLog.sLog In mdlApplicationLog.AppLog.Where(Function(tmp) tmp.OrClass.ToLower = pKeyword.ToLower)
+        For Each tmpLogItem As sLog In pLog
             Dim tmpListItem As New ListViewItem With {.Text = tmpLogItem.Time.ToString("H.mm.ss")}
-            tmpListItem.SubItems.AddRange({String.Concat(tmpLogItem.OrClass, ": ", tmpLogItem.OrMethod),
-                                           tmpLogItem.Description
-                                           })
+            tmpListItem.SubItems.AddRange({String.Concat(tmpLogItem.OrClass, ": ", tmpLogItem.OrMethod), tmpLogItem.Description})
             If tmpLogItem.Duration = -1 Then
                 tmpListItem.SubItems.Add("-")
             Else
@@ -742,5 +751,4 @@ Public Class frmSettings
         Me.ListView1.EndUpdate()
     End Sub
 #End Region
-
 End Class
