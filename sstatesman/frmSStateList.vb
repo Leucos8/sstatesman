@@ -54,7 +54,7 @@ Public Class frmSStateList
         AddHeader(0)
 
         For Each tmpGamesListKey As String In SSMGameList.Games.Keys
-            Dim tmpGame As GameInfo = PCSX2GameDb.RecordExtract(tmpGamesListKey)
+            Dim tmpGame As GameInfo = PCSX2GameDb.Extract(tmpGamesListKey)
             Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Name, .Name = tmpGame.Serial}
             tmpListViewItem.SubItems.AddRange({tmpGame.Serial, tmpGame.Region, tmpGame.CompatToText})
             If frmMain.checkedGames.Contains(tmpGame.Serial) Then
@@ -79,7 +79,7 @@ Public Class frmSStateList
         AddHeader(0)
 
         For Each tmpChGSerial As String In frmmain.checkedGames
-            Dim tmpGame As GameInfo = PCSX2GameDb.RecordExtract(tmpChGSerial)
+            Dim tmpGame As GameInfo = PCSX2GameDb.Extract(tmpChGSerial)
             Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Name, .Name = tmpGame.Serial, .BackColor = Color.FromArgb(130, 150, 200)}
             tmpListViewItem.SubItems.AddRange({tmpGame.Serial, tmpGame.Region, tmpGame.CompatToText})
             Dim tmpGamesListItem As New mdlFileList.GamesList_Item

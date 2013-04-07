@@ -120,13 +120,13 @@ Partial Class frmSettings
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
-        Me.cmdLogRefresh = New System.Windows.Forms.Button()
         Me.FlowPanelSStatesList = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdLogFilter_frmMain = New System.Windows.Forms.Button()
         Me.cmdLogFilter_Files = New System.Windows.Forms.Button()
         Me.cmdLogFilter_GameDB = New System.Windows.Forms.Button()
         Me.lblSStateListCheck = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.cmdLogRefresh = New System.Windows.Forms.Button()
         Me.cmdLogExport = New System.Windows.Forms.Button()
         CType(Me.imgPCSX2IniPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgPCSX2AppPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1431,29 +1431,9 @@ Partial Class frmSettings
         Me.TableLayoutPanel4.Padding = New System.Windows.Forms.Padding(16, 0, 16, 0)
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23.0!))
         Me.TableLayoutPanel4.Size = New System.Drawing.Size(95, 23)
         Me.TableLayoutPanel4.TabIndex = 39
-        '
-        'cmdLogRefresh
-        '
-        Me.cmdLogRefresh.AutoSize = True
-        Me.cmdLogRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdLogRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdLogRefresh.FlatAppearance.BorderSize = 0
-        Me.cmdLogRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdLogRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdLogRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdLogRefresh.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdLogRefresh.Image = Global.sstatesman.My.Resources.Resources.Icon_Refresh_14x14
-        Me.cmdLogRefresh.Location = New System.Drawing.Point(0, 0)
-        Me.cmdLogRefresh.Margin = New System.Windows.Forms.Padding(0, 0, 0, 1)
-        Me.cmdLogRefresh.Name = "cmdLogRefresh"
-        Me.cmdLogRefresh.Size = New System.Drawing.Size(68, 22)
-        Me.cmdLogRefresh.TabIndex = 20
-        Me.cmdLogRefresh.Text = "REFERSH"
-        Me.cmdLogRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.cmdLogRefresh.UseVisualStyleBackColor = False
         '
         'FlowPanelSStatesList
         '
@@ -1548,6 +1528,26 @@ Partial Class frmSettings
         Me.FlowLayoutPanel2.Size = New System.Drawing.Size(118, 23)
         Me.FlowLayoutPanel2.TabIndex = 49
         Me.FlowLayoutPanel2.WrapContents = False
+        '
+        'cmdLogRefresh
+        '
+        Me.cmdLogRefresh.AutoSize = True
+        Me.cmdLogRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdLogRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdLogRefresh.FlatAppearance.BorderSize = 0
+        Me.cmdLogRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdLogRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdLogRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdLogRefresh.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdLogRefresh.Image = Global.sstatesman.My.Resources.Resources.Icon_Refresh_14x14
+        Me.cmdLogRefresh.Location = New System.Drawing.Point(0, 0)
+        Me.cmdLogRefresh.Margin = New System.Windows.Forms.Padding(0, 0, 0, 1)
+        Me.cmdLogRefresh.Name = "cmdLogRefresh"
+        Me.cmdLogRefresh.Size = New System.Drawing.Size(68, 22)
+        Me.cmdLogRefresh.TabIndex = 20
+        Me.cmdLogRefresh.Text = "REFERSH"
+        Me.cmdLogRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.cmdLogRefresh.UseVisualStyleBackColor = False
         '
         'cmdLogExport
         '

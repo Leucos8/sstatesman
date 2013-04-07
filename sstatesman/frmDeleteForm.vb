@@ -247,7 +247,7 @@ Public Class frmDeleteForm
             If SSMGameList.Games.TryGetValue(tmpSerial, tmpGamesListItem) Then
 
                 'Creation of the header
-                tmpGameInfo = PCSX2GameDb.RecordExtract(tmpSerial)
+                tmpGameInfo = PCSX2GameDb.Extract(tmpSerial)
                 Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With {
                     .Header = tmpGameInfo.ToString(),
                     .HeaderAlignment = HorizontalAlignment.Left,

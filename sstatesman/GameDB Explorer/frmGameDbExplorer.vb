@@ -40,7 +40,7 @@ Public Class frmGameDbExplorer
 
         Select Case PCSX2GameDb.Status
             Case LoadStatus.StatusLoadedOK
-                Me.CurrentGame = PCSX2GameDb.RecordExtract(Me.CurrentSerial)
+                Me.CurrentGame = PCSX2GameDb.Extract(Me.CurrentSerial)
                 Me.ToolStripStatusLabel2.Text = String.Format("GameDB loaded in {0:N2}ms.", PCSX2GameDb.LoadTime / Stopwatch.Frequency * 1000)
                 Me.ToolStripStatusLabel3.Text = String.Format("List created in {0:N2}ms.", Me.populationTime / Stopwatch.Frequency * 1000)
                 If Not (SearchIsActive) Then
@@ -166,7 +166,7 @@ Public Class frmGameDbExplorer
                     Dim GameDbExtract As New Dictionary(Of String, GameInfo)
                     Dim GameDbExtract_ArrayStatus As Byte = LoadStatus.StatusNotLoaded
 
-                    GameDbExtract_ArrayStatus = PCSX2GameDb.RecordExtract(SearchResultRef, GameDbExtract)
+                    GameDbExtract_ArrayStatus = PCSX2GameDb.Extract(SearchResultRef, GameDbExtract)
                     GameDB.ExportTxt(SaveDialog.FileName, vbTab, GameDbExtract)
                 End If
             Else
@@ -204,7 +204,7 @@ Public Class frmGameDbExplorer
                         Dim GameDbExtract As New Dictionary(Of String, GameInfo)
                         Dim GameDbExtract_ArrayStatus As Byte = LoadStatus.StatusNotLoaded
 
-                        GameDbExtract_ArrayStatus = PCSX2GameDb.RecordExtract(SearchResultRef, GameDbExtract)
+                        GameDbExtract_ArrayStatus = PCSX2GameDb.Extract(SearchResultRef, GameDbExtract)
                         GameDB.ExportTxt(SaveDialog.FileName, Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator, GameDbExtract)
                     End If
                 End If
@@ -247,7 +247,7 @@ Public Class frmGameDbExplorer
     Private Sub tsCmdSearch_Click(sender As System.Object, e As System.EventArgs) Handles tsCmdSearch.Click
         If frmGDESearch.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
             Dim SearchGameDb As New Dictionary(Of String, GameInfo)
-            PCSX2GameDb.RecordExtract(Me.SearchResultRef, SearchGameDb)
+            PCSX2GameDb.Extract(Me.SearchResultRef, SearchGameDb)
             Me.PopulateList(SearchGameDb)
 
             Me.UI_Updater()

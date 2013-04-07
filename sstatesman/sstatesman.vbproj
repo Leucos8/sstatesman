@@ -150,6 +150,7 @@
     <Compile Include="mdlFileList.vb" />
     <Compile Include="mdlGameDb.vb" />
     <Compile Include="mdlMain.vb" />
+    <Compile Include="mdlPCSX2Settings.vb" />
     <Compile Include="mdlSimpleZipExtractor.vb" />
     <Compile Include="mdlTheme.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
@@ -167,9 +168,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="ssVersionDB.vb" />
-    <Compile Include="Savestate.vb" />
-    <Compile Include="Snapshot.vb" />
+    <Compile Include="strVersionDB.vb" />
+    <Compile Include="clsSavestate.vb" />
+    <Compile Include="clsSnapshot.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmReorderForm.resx">

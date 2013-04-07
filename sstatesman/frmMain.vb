@@ -88,7 +88,7 @@ Public Class frmMain
             mdlMain.FirstRun()
         Else
             'Checks if there are some invalid settings
-            mdlMain.PCSX2_PathAll_Check()
+            PCSX2_PathAll_Check()
         End If
 
         If My.Settings.SStatesMan_SettingFail Then
@@ -698,7 +698,7 @@ Public Class frmMain
 
         Dim tmpGListItems As New List(Of ListViewItem)
         For Each tmpGListItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In SSMGameList.Games
-            currentGameInfo = PCSX2GameDb.RecordExtract(tmpGListItem.Key)
+            currentGameInfo = PCSX2GameDb.Extract(tmpGListItem.Key)
 
             'Creating the listviewitem
             Dim tmpLvwGListItem As New ListViewItem With {.Text = currentGameInfo.Name, .Name = currentGameInfo.Serial}
@@ -850,7 +850,7 @@ Public Class frmMain
             If (SSMGameList.Games.TryGetValue(tmpSerial, tmpGamesListItem)) Then
 
                 'Creation of the header
-                currentGameInfo = PCSX2GameDb.RecordExtract(tmpSerial)
+                currentGameInfo = PCSX2GameDb.Extract(tmpSerial)
                 Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With {
                     .Header = currentGameInfo.ToString,
                     .HeaderAlignment = HorizontalAlignment.Left,

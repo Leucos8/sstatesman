@@ -13,17 +13,18 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
-Public Class ssVersionDB
+Public Structure ssVersionDB
     Public Structure rVersion
         Friend ssVersion As String
         Friend minRevision As Integer
     End Structure
-    Public Property DB As New List(Of rVersion)
+    Public Property DB As List(Of rVersion)
 
     Public Sub Load(ByVal pVDB As String)
         If String.IsNullOrEmpty(pVDB) Then Exit Sub
         Using tmpStream As Stream = New MemoryStream(System.Text.UTF8Encoding.Default.GetBytes(pVDB.ToCharArray))
             Using tmpStreamReader As New StreamReader(tmpStream)
+                DB = New List(Of rVersion)
                 While Not tmpStreamReader.EndOfStream
                     Dim tmpLine As String = tmpStreamReader.ReadLine
                     If Not (tmpLine.StartsWith("'"c)) Then
@@ -72,4 +73,4 @@ Public Class ssVersionDB
         Else : Return ""
         End If
     End Function
-End Class
+End Structure

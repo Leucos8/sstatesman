@@ -63,7 +63,7 @@ Module mdlFileList
             End Get
         End Property
         'Public Property Snapshots_SizeTot As Long = 0
-        Public Property CRC As String
+        Public Property CRC As String = ""
     End Class
 
     Public Class GamesList

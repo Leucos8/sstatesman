@@ -284,7 +284,7 @@ Public Class frmSettings
     End Sub
 
     Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click
-        mdlMain.PCSX2_PathAll_Check()
+        PCSX2_PathAll_Check()
         If My.Settings.SStatesMan_SettingFail Then
             My.Settings.SStatesMan_FirstRun = True
             End
@@ -507,22 +507,22 @@ Public Class frmSettings
 
 #Region "Folder panels - detect"
     Private Sub cmdPCSX2AppPathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2AppPathDetect.Click
-        Me.txtPCSX2AppPath.Text = mdlMain.PCSX2_PathBin_Detect()
+        Me.txtPCSX2AppPath.Text = PCSX2_PathBin_Detect()
         Me.Settings_Check()
     End Sub
 
     Private Sub cmdPCSX2IniPathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2IniPathDetect.Click
-        Me.txtPCSX2IniPath.Text = mdlMain.PCSX2_PathInis_Detect(Me.txtPCSX2AppPath.Text)
+        Me.txtPCSX2IniPath.Text = PCSX2_PathInis_Detect(Me.txtPCSX2AppPath.Text)
         Me.Settings_Check()
     End Sub
 
     Private Sub cmdPCSX2SStatePathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SStatePathDetect.Click
-        mdlMain.PCSX2_PathSettings_Detect(Me.txtPCSX2IniPath.Text, Me.txtPCSX2SStatePath.Text, Nothing)
+        PCSX2_PathSettings_Detect(Me.txtPCSX2IniPath.Text, Me.txtPCSX2SStatePath.Text, Nothing)
         Me.Settings_Check()
     End Sub
 
     Private Sub cmdPCSX2SnapsPathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SnapsPathDetect.Click
-        mdlMain.PCSX2_PathSettings_Detect(Me.txtPCSX2IniPath.Text, Nothing, Me.txtPCSX2SnapsPath.Text)
+        PCSX2_PathSettings_Detect(Me.txtPCSX2IniPath.Text, Nothing, Me.txtPCSX2SnapsPath.Text)
         Me.Settings_Check()
     End Sub
 #End Region
