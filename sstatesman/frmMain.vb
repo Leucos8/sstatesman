@@ -53,6 +53,8 @@ Public Class frmMain
     Private ReadOnly imgCover_SizeExpanded As New Size(120, 170)
 
     Private Sub ListMode_Switch(ByVal pListMode As ListMode)
+        Me.UI_Enable(False)
+
         Select Case pListMode
             Case ListMode.Savestates
                 Me.lblSStateListCheck.Text = "check savestates:"
@@ -61,10 +63,6 @@ Public Class frmMain
                 Me.lblSizeBackup.Visible = True
                 Me.txtSizeBackup.Visible = True
 
-                Me.UI_Enable(False)
-                Me.lvwFilesList_AddSavestatesColumn()
-                Me.List_RefreshFiles()
-                Me.UI_Enable(True)
                 SSMAppLog.Append("Main window", "ListMode", "Switched to savestates.")
             Case ListMode.Stored
                 Me.lblSStateListCheck.Text = "check savestates:"
@@ -72,11 +70,6 @@ Public Class frmMain
                 Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
-
-                Me.UI_Enable(False)
-                Me.lvwFilesList_AddSavestatesColumn()
-                Me.List_RefreshFiles()
-                Me.UI_Enable(True)
 
                 SSMAppLog.Append("Main window", "ListMode", "Switched to stored.")
             Case ListMode.Snapshots
@@ -86,14 +79,14 @@ Public Class frmMain
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
 
-                Me.UI_Enable(False)
-                Me.lvwFilesList_AddSnapshotsColumn()
-                Me.List_RefreshFiles()
-                Me.UI_Enable(True)
-
                 SSMAppLog.Append("Main window", "ListMode", "Switched to screenshots.")
         End Select
+
         Me.WindowListMode = pListMode
+
+        Me.lvwFilesList_AddColumns(pListMode)
+        Me.List_RefreshFiles()
+        Me.UI_Enable(True)
     End Sub
 
     Friend Sub List_RefreshAll()
@@ -932,101 +925,6 @@ Public Class frmMain
 #End Region
 
 #Region "UI - FilesList management"
-    Private Sub lvwFileList_IndexChecked()
-        Select Case Me.WindowListMode
-            Case ListMode.Savestates
-                Me.lvwFiles_SelectedSizeSStates = 0
-                Me.lvwFiles_SelectedSizeBackup = 0
-                checkedSavestates.Clear()
-
-                If Me.lvwFilesList.CheckedItems.Count > 0 Then
-                    For Each tmpCheckedItem As ListViewItem In Me.lvwFilesList.CheckedItems
-
-                        Dim tmpSerial As String = Savestate.GetSerial(tmpCheckedItem.Name)
-                        Dim tmpSavestate As Savestate = SSMGameList.Games(tmpSerial).Savestates(tmpCheckedItem.Name)
-                        checkedSavestates.Add(tmpSavestate.Name)
-
-                        If tmpSavestate.isBackup Then
-                            lvwFiles_SelectedSizeBackup += tmpSavestate.Length
-                        Else
-                            lvwFiles_SelectedSizeSStates += tmpSavestate.Length
-                        End If
-                    Next
-                End If
-            Case ListMode.Snapshots
-                Me.lvwFiles_SelectedSizeSnaps = 0
-                checkedSnapshots.Clear()
-
-                If Me.lvwFilesList.CheckedItems.Count > 0 Then
-                    For Each tmpCheckedItem As ListViewItem In Me.lvwFilesList.CheckedItems
-
-                        Dim tmpSerial As String = Snapshot.GetSerial(tmpCheckedItem.Name)
-                        Dim tmpSnapshot As Snapshot = SSMGameList.Games(tmpSerial).Snapshots(tmpCheckedItem.Name)
-                        checkedSnapshots.Add(tmpSnapshot.Name)
-
-                        lvwFiles_SelectedSizeSnaps += tmpSnapshot.Length
-                    Next
-                End If
-        End Select
-    End Sub
-
-    Private Sub cmdFilesCheckAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFilesCheckAll.Click
-        Me.UI_Enable(False)
-        For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
-            Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = True
-        Next
-        Me.lvwFileList_IndexChecked()
-        Me.UI_UpdateFileInfo()
-        Me.UI_Enable(True)
-    End Sub
-
-    Private Sub cmdFilesCheckNone_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFilesCheckNone.Click
-        Me.UI_Enable(False)
-        For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
-            Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = False
-        Next
-        Me.lvwFileList_IndexChecked()
-        Me.UI_UpdateFileInfo()
-        Me.UI_Enable(True)
-    End Sub
-
-    Private Sub cmdFilesCheckInvert_Click(sender As System.Object, e As System.EventArgs) Handles cmdFilesCheckInvert.Click
-        Me.UI_Enable(False)
-        For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
-            If Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = True Then
-                Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = False
-            Else
-                Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = True
-            End If
-        Next
-        Me.lvwFileList_IndexChecked()
-        Me.UI_UpdateFileInfo()
-        Me.UI_Enable(True)
-    End Sub
-
-    Private Sub cmdFilesCheckBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFilesCheckBackup.Click
-        Me.UI_Enable(False)
-        For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
-            If Savestate.isBackup(Me.lvwFilesList.Items.Item(lvwItemIndex).Name) Then
-                Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = True
-            Else
-                Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = False
-            End If
-        Next
-        Me.lvwFileList_IndexChecked()
-        Me.UI_UpdateFileInfo()
-        Me.UI_Enable(True)
-    End Sub
-
-    Private Sub lvwFilesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwFilesList.ItemChecked
-        If ListsAreRefreshed = False Then
-            Me.lvwFileList_IndexChecked()
-            Me.UI_UpdateFileInfo()
-        End If
-    End Sub
-#End Region
-
-#Region "UI - FilesList Savestates"
     Private Sub lvwFilesList_AddSavestates()
         Dim sw As New Stopwatch
         sw.Start()
@@ -1119,34 +1017,6 @@ Public Class frmMain
         SSMAppLog.Append("Main window", "Add savestates", String.Format("Listed {0:N0} savestates.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
-    Private Sub lvwFilesList_AddSavestatesColumn()
-        Dim sw As Stopwatch = Stopwatch.StartNew
-
-        Dim tmpColumnHeaders As New List(Of ColumnHeader)
-        tmpColumnHeaders.AddRange({New ColumnHeader With {.Name = "SStatesCH_FileName", .Text = "Savestate file name", .Width = 240}, _
-                                   New ColumnHeader With {.Name = "SStatesCH_Slot", .Text = "Slot", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
-                                   New ColumnHeader With {.Name = "SStatesCH_Version", .Text = "Version", .Width = 120}, _
-                                   New ColumnHeader With {.Name = "SStatesCH_Modified", .Text = "Modified", .Width = 120}, _
-                                   New ColumnHeader With {.Name = "SStatesCH_Size", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
-                                   })
-
-        If My.Settings.frmMain_slvw_columnwidth IsNot Nothing Then
-            If My.Settings.frmMain_slvw_columnwidth.Length = tmpColumnHeaders.Count Then
-                For i As Integer = 0 To tmpColumnHeaders.Count - 1
-                    tmpColumnHeaders(i).Width = My.Settings.frmMain_slvw_columnwidth(i)
-                Next
-            End If
-        End If
-
-        Me.lvwFilesList.Columns.Clear()
-        Me.lvwFilesList.Columns.AddRange(tmpColumnHeaders.ToArray)
-
-        sw.Stop()
-        SSMAppLog.Append("Main window", "AddSavestateColumn", "Added column to files listview for savestates", sw.ElapsedTicks)
-    End Sub
-#End Region
-
-#Region "UI - FilesList Snapshots"
     Private Sub lvwFilesList_AddSnapshots()
         Dim sw As New Stopwatch
         sw.Start()
@@ -1232,30 +1102,137 @@ Public Class frmMain
         SSMAppLog.Append("Main window", "Add snapshots", String.Format("Listed {0:N0} snapshots.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
-    Private Sub lvwFilesList_AddSnapshotsColumn()
-        Dim sw As Stopwatch = Stopwatch.StartNew
+    Private Sub lvwFilesList_AddColumns(ByVal pListMode As ListMode)
+        'Dim sw As Stopwatch = Stopwatch.StartNew
 
         Dim tmpColumnHeaders As New List(Of ColumnHeader)
-        tmpColumnHeaders.AddRange({New ColumnHeader With {.Name = "SnapsCH_FileName", .Text = "Snapshot file name", .Width = 240}, _
-                                   New ColumnHeader With {.Name = "SnapsCH_Number", .Text = "Number", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
-                                   New ColumnHeader With {.Name = "SnapsCH_Resolution", .Text = "Resolution", .Width = 120}, _
-                                   New ColumnHeader With {.Name = "SnapsCH_Modified", .Text = "Modified", .Width = 120}, _
-                                   New ColumnHeader With {.Name = "SnapsCH_Size", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
-                                  })
+        Dim tmpColumnWidths() As Integer = {0}
+        Select Case pListMode
+            Case ListMode.Savestates, ListMode.Stored
+                tmpColumnHeaders.AddRange({New ColumnHeader With {.Name = "SStatesCH_FileName", .Text = "Savestate file name", .Width = 240}, _
+                                           New ColumnHeader With {.Name = "SStatesCH_Slot", .Text = "Slot", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
+                                           New ColumnHeader With {.Name = "SStatesCH_Version", .Text = "Version", .Width = 120}, _
+                                           New ColumnHeader With {.Name = "SStatesCH_Modified", .Text = "Modified", .Width = 120}, _
+                                           New ColumnHeader With {.Name = "SStatesCH_Size", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
+                                           })
 
-        'If My.Settings.frmMain_slvw_columnwidth IsNot Nothing Then
-        '    If My.Settings.frmMain_slvw_columnwidth.Length = tmpColumnHeaders.Count Then
-        '        For i As Integer = 0 To tmpColumnHeaders.Count - 1
-        '            tmpColumnHeaders(i).Width = My.Settings.frmMain_slvw_columnwidth(i)
-        '        Next
-        '    End If
-        'End If
+                If My.Settings.frmMain_slvw_columnwidth IsNot Nothing Then
+                    tmpColumnWidths = My.Settings.frmMain_slvw_columnwidth
+                End If
+            Case ListMode.Snapshots
+                tmpColumnHeaders.AddRange({New ColumnHeader With {.Name = "SnapsCH_FileName", .Text = "Snapshot file name", .Width = 240}, _
+                                           New ColumnHeader With {.Name = "SnapsCH_Number", .Text = "Number", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
+                                           New ColumnHeader With {.Name = "SnapsCH_Resolution", .Text = "Resolution", .Width = 120}, _
+                                           New ColumnHeader With {.Name = "SnapsCH_Modified", .Text = "Modified", .Width = 120}, _
+                                           New ColumnHeader With {.Name = "SnapsCH_Size", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
+                                          })
+                'tmpColumnWidths = {0}
+        End Select
+
+        If tmpColumnWidths.Length = tmpColumnHeaders.Count Then
+            For i As Integer = 0 To tmpColumnHeaders.Count - 1
+                tmpColumnHeaders(i).Width = tmpColumnWidths(i)
+            Next
+        End If
 
         Me.lvwFilesList.Columns.Clear()
         Me.lvwFilesList.Columns.AddRange(tmpColumnHeaders.ToArray)
 
-        sw.Stop()
-        SSMAppLog.Append("Main window", "AddSnapshotsColumn", "Added column to files listview for snapshots", sw.ElapsedTicks)
+        'sw.Stop()
+        'SSMAppLog.Append("Main window", "AddColumns", "Added column to files listview", sw.ElapsedTicks)
+    End Sub
+
+    Private Sub lvwFileList_IndexChecked()
+        Select Case Me.WindowListMode
+            Case ListMode.Savestates
+                Me.lvwFiles_SelectedSizeSStates = 0
+                Me.lvwFiles_SelectedSizeBackup = 0
+                checkedSavestates.Clear()
+
+                If Me.lvwFilesList.CheckedItems.Count > 0 Then
+                    For Each tmpCheckedItem As ListViewItem In Me.lvwFilesList.CheckedItems
+
+                        Dim tmpSerial As String = Savestate.GetSerial(tmpCheckedItem.Name)
+                        Dim tmpSavestate As Savestate = SSMGameList.Games(tmpSerial).Savestates(tmpCheckedItem.Name)
+                        checkedSavestates.Add(tmpSavestate.Name)
+
+                        If tmpSavestate.isBackup Then
+                            lvwFiles_SelectedSizeBackup += tmpSavestate.Length
+                        Else
+                            lvwFiles_SelectedSizeSStates += tmpSavestate.Length
+                        End If
+                    Next
+                End If
+            Case ListMode.Snapshots
+                Me.lvwFiles_SelectedSizeSnaps = 0
+                checkedSnapshots.Clear()
+
+                If Me.lvwFilesList.CheckedItems.Count > 0 Then
+                    For Each tmpCheckedItem As ListViewItem In Me.lvwFilesList.CheckedItems
+
+                        Dim tmpSerial As String = Snapshot.GetSerial(tmpCheckedItem.Name)
+                        Dim tmpSnapshot As Snapshot = SSMGameList.Games(tmpSerial).Snapshots(tmpCheckedItem.Name)
+                        checkedSnapshots.Add(tmpSnapshot.Name)
+
+                        lvwFiles_SelectedSizeSnaps += tmpSnapshot.Length
+                    Next
+                End If
+        End Select
+    End Sub
+
+    Private Sub cmdFilesCheckAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFilesCheckAll.Click
+        Me.UI_Enable(False)
+        For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
+            Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = True
+        Next
+        Me.lvwFileList_IndexChecked()
+        Me.UI_UpdateFileInfo()
+        Me.UI_Enable(True)
+    End Sub
+
+    Private Sub cmdFilesCheckNone_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFilesCheckNone.Click
+        Me.UI_Enable(False)
+        For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
+            Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = False
+        Next
+        Me.lvwFileList_IndexChecked()
+        Me.UI_UpdateFileInfo()
+        Me.UI_Enable(True)
+    End Sub
+
+    Private Sub cmdFilesCheckInvert_Click(sender As System.Object, e As System.EventArgs) Handles cmdFilesCheckInvert.Click
+        Me.UI_Enable(False)
+        For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
+            If Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = True Then
+                Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = False
+            Else
+                Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = True
+            End If
+        Next
+        Me.lvwFileList_IndexChecked()
+        Me.UI_UpdateFileInfo()
+        Me.UI_Enable(True)
+    End Sub
+
+    Private Sub cmdFilesCheckBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFilesCheckBackup.Click
+        Me.UI_Enable(False)
+        For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
+            If Savestate.isBackup(Me.lvwFilesList.Items.Item(lvwItemIndex).Name) Then
+                Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = True
+            Else
+                Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = False
+            End If
+        Next
+        Me.lvwFileList_IndexChecked()
+        Me.UI_UpdateFileInfo()
+        Me.UI_Enable(True)
+    End Sub
+
+    Private Sub lvwFilesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwFilesList.ItemChecked
+        If ListsAreRefreshed = False Then
+            Me.lvwFileList_IndexChecked()
+            Me.UI_UpdateFileInfo()
+        End If
     End Sub
 #End Region
 
