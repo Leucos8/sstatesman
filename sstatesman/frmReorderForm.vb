@@ -122,12 +122,12 @@ Public Class frmReorderForm
         '                                     Me.StDelLvw_Version.Width, Me.StDelLvw_LastWT.Width, Me.StDelLvw_Size.Width, Me.StDelLvw_Status.Width}
         'My.Settings.frmDel_slvw_columnwidth = columnwidtharray
 
-        frmMain.List_Refresher()
+        frmMain.List_RefreshAll()
     End Sub
 
     Private Sub cmdReorder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdReorder.Click
         Rename_Execute()
-        frmMain.List_Refresher()
+        frmMain.List_RefreshAll()
         UI_Enabler(False)
         Me.ReorderList_Populate()
         Me.Rename_Preview()

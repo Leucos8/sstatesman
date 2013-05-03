@@ -15,25 +15,33 @@
 Imports System.IO
 
 Public Class frmMain
+    Dim lastWindowState As FormWindowState
 
     'Main window checked objects list
     Friend checkedGames As New List(Of String)
     Friend checkedSavestates As New List(Of String)
+    Friend checkedSnapshots As New List(Of String)
 
+    'To avoid refreshing the lists when an operation is running, set by UI_Enabled
+    Dim ListsAreRefreshed As Boolean = False
 
-    Dim ListsAreCurrentlyRefreshed As Boolean = False
-    Dim lvwGamesList_PopTime As Long
-    Dim lvwSStatesList_PopTime As Long
-    Dim UIUpdate_Time As Long
+    'Dim lvwGamesList_PopTime As Long
+    'Dim lvwSStatesList_PopTime As Long
 
+    'Stores the current game information displayed in the game information section
     Dim currentGameInfo As New GameInfo
 
-    Dim lvwGamesList_SelectedSize As Long = 0
-    Dim lvwGamesList_SelectedSizeBackup As Long = 0
-    Dim lvwSStatesList_SelectedSize As Long = 0
-    Dim lvwSStatesList_SelectedSizeBackup As Long = 0
+    'Current size in bytes of the selected items
+    Dim lvwGames_SelectedSize As Long = 0
+    Dim lvwGames_SelectedSizeBackup As Long = 0
+    Dim lvwSStates_SelectedSize As Long = 0
+    Dim lvwSStates_SelectedSizeBackup As Long = 0
 
-    Friend Enum frmMainGamesLvwColumn
+    'Default sizes for the cover image
+    Private ReadOnly imgCover_SizeReduced As New Size(32, 46)
+    Private ReadOnly imgCover_SizeExpanded As New Size(120, 170)
+
+    Friend Enum LvwGamesColumn
         GameTitle
         GameSerial
         GameRegion
@@ -42,7 +50,7 @@ Public Class frmMain
         SnapsInfo
     End Enum
 
-    Friend Enum frmMainSStatesLvwColumn
+    Friend Enum LvwSStatesColumn
         FileName
         Slot
         Version
@@ -50,42 +58,45 @@ Public Class frmMain
         Size
     End Enum
 
-    Friend Sub List_Refresher()
-        Me.UI_Enabler(False, True, True)
+    Friend Sub List_RefreshAll()
+        Me.UI_Enable(False, True)
+
         SSMGameList.LoadAll(My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
+
         Me.lvwGamesList_Populate()
-        Me.lvwGamesList_indexcheckedGames()
+        Me.GamesList_IndexCheckedGames()
+
         Me.lvwSStatesList_Populate()
         Me.lvwSStatesList_indexCheckedFiles()
-        Me.UI_Updater()
-        Me.UI_Enabler(True, True, True)
+
+        Me.UI_Update()
+        Me.UI_Enable(True, True)
     End Sub
 
-    Private Sub List_RefresherGames()
-        Me.lvwGamesList_indexcheckedGames()
+    Private Sub List_RefreshSavestates()
+
+        Me.GamesList_IndexCheckedGames()
         Me.lvwSStatesList_Populate()
         Me.lvwSStatesList_indexCheckedFiles()
-        Me.UI_Updater()
+        Me.UI_Update()
     End Sub
 
 #Region "Form - General"
     Private Sub frmMain_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        '==========================
+        'General loading procedures
+        '==========================
 
         'Getting DPI information
+        'It has to be here because I need a form
         Using gfx As Graphics = Me.CreateGraphics()
-            mdlMain.DPIxScale = gfx.DpiX / 96
-            If mdlMain.DPIxScale <= 0.2 Then
-                mdlMain.DPIxScale = 1
-            End If
-            mdlMain.DPIyScale = gfx.DpiY / 96
-            If mdlMain.DPIyScale <= 0.2 Then
-                mdlMain.DPIyScale = 1
-            End If
+            DPIxScale = gfx.DpiX / 96
+            DPIyScale = gfx.DpiY / 96
         End Using
 
-        'Executes the FirstRun procedure (it tries to detect PCSX2 folders)
         If My.Settings.SStatesMan_FirstRun = True Then
-            mdlMain.FirstRun()
+            'Executes the FirstRun procedure (detects PCSX2 folders configuration)
+            FirstRun()
         Else
             'Checks if there are some invalid settings
             PCSX2_PathAll_Check()
@@ -97,32 +108,51 @@ Public Class frmMain
 
         mdlTheme.currentTheme = mdlTheme.LoadTheme(CType(My.Settings.SStatesMan_Theme, eTheme))
 
+        '=====================
+        'Main form preparation
+        '=====================
         Me.applyTheme()
+
+        'Add version information to the main window
         Me.lblWindowVersion.Text = String.Concat(Me.lblWindowVersion.Text, _
                                                  My.Application.Info.Version.ToString, " ", _
-                                                 My.Settings.SStatesMan_Channel) 'Add version information to the main window
+                                                 My.Settings.SStatesMan_Channel)
 
+        'ImageList for custom checkboxes (listview statelist)
+        Dim imlLvwCheckboxes As New ImageList With {.ImageSize = New Size( _
+                CInt((My.Resources.Checkbox_Unchecked_22x22.Width \ 2 - 1) * DPIxScale + 1), _
+                CInt((My.Resources.Checkbox_Unchecked_22x22.Height \ 2 - 1) * DPIyScale) + 1)}
+        'List view items icons
+        Dim imlLvwSStatesIcons As New ImageList With {.ImageSize = New Size( _
+                      CInt((My.Resources.Icon_Savestate_16x16.Width - 1) * DPIxScale) + 1, _
+                      CInt((My.Resources.Icon_Savestate_16x16.Height - 1) * DPIyScale) + 1)}
 
-        Dim imlLvwCheckboxes As New System.Windows.Forms.ImageList With {.ImageSize = New System.Drawing.Size(CInt(10 * DPIxScale + 1), CInt(10 * DPIyScale) + 1)}
         imlLvwCheckboxes.Images.Add(My.Resources.Checkbox_Unchecked_22x22)      'Unchecked state image
         imlLvwCheckboxes.Images.Add(My.Resources.Checkbox_Checked_22x22)        'Checked state image
         Me.lvwGamesList.StateImageList = imlLvwCheckboxes           'Assigning the imagelist to the Games listview
         Me.lvwSStatesList.StateImageList = imlLvwCheckboxes         'Assigning the imagelist to the Savestates listview
 
-        Dim imlLvwSStatesIcons As New ImageList With {.ImageSize = New Size(CInt(15 * DPIxScale) + 1, CInt(15 * DPIyScale) + 1)}
-        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_Savestate_16x16)
-        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_SavestateBackup_16x16)
-        Me.lvwSStatesList.SmallImageList = imlLvwSStatesIcons
+        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_Savestate_16x16)       'Savestate standard image
+        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_SavestateBackup_16x16) 'Backup standard image
+        Me.lvwSStatesList.SmallImageList = imlLvwSStatesIcons       'Assigning the imagelist to the Savestates listview
 
+        '---------------
+        'Window settings
+        '---------------
 
+        'Main window location, size and state
         Me.Location = My.Settings.frmMain_WindowPosition
         Me.Size = My.Settings.frmMain_WindowSize
         If My.Settings.frmMain_WindowState = FormWindowState.Minimized Then
             My.Settings.frmMain_WindowState = FormWindowState.Normal
         End If
         Me.WindowState = My.Settings.frmMain_WindowState
+        Me.lastWindowState = Me.WindowState
+        'Splitter distance
         Me.SplitContainer1.SplitterDistance = My.Settings.frmMain_SplitterDistance
 
+
+        'Games list columns size
         If My.Settings.frmMain_glvw_columnwidth IsNot Nothing Then
             If My.Settings.frmMain_glvw_columnwidth.Length = Me.lvwGamesList.Columns.Count Then
                 For i As Integer = 0 To Me.lvwGamesList.Columns.Count - 1
@@ -131,6 +161,7 @@ Public Class frmMain
             End If
         End If
 
+        'Savestate list column size
         If My.Settings.frmMain_slvw_columnwidth IsNot Nothing Then
             If My.Settings.frmMain_slvw_columnwidth.Length = Me.lvwSStatesList.Columns.Count Then
                 For i As Integer = 0 To Me.lvwSStatesList.Columns.Count - 1
@@ -139,24 +170,20 @@ Public Class frmMain
             End If
         End If
 
+        'Cover image state
         If My.Settings.frmMain_CoverExpanded Then
-            My.Settings.frmMain_CoverExpanded = True
-            Me.lblGameList_Title.Visible = False
-            Me.lblGameList_Region.Visible = False
-            Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 7)
-            Me.TableLayoutPanel3.SetCellPosition(Me.lvwGamesList, New TableLayoutPanelCellPosition(2, 0))
-            Me.TableLayoutPanel3.SetCellPosition(Me.imgCover, New TableLayoutPanelCellPosition(0, 0))
-            Me.imgCover.Size = New Size(CInt(122 * DPIxScale),
-                                        CInt(122 * DPIyScale))
-            Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 2)
-            Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 3)
+            My.Settings.frmMain_CoverExpanded = Not (My.Settings.frmMain_CoverExpanded)
+            Me.imgCover_MouseClick(Me, New MouseEventArgs(Windows.Forms.MouseButtons.Left, 1, 0, 0, 0))
         End If
 
+        '==============
+        'Loading things
+        '==============
 
         'Loading the Game database (from PCSX2 directory)
         PCSX2GameDb.Load(Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
         'Refreshing the games list
-        Me.List_Refresher()
+        Me.List_RefreshAll()
 
         'Timer auto refresh
         Me.tmrSStatesListRefresh.Enabled = My.Settings.SStatesMan_SStatesListAutoRefresh
@@ -169,238 +196,239 @@ Public Class frmMain
     End Sub
 
     Private Sub frmMain_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        '======================
+        'Saving window settings
+        '======================
+
+        'State, location, and size
         My.Settings.frmMain_WindowState = Me.WindowState
-        If Not (Me.WindowState = FormWindowState.Maximized Or Me.WindowState = FormWindowState.Minimized) Then
+        If Me.WindowState = FormWindowState.Normal Then
+            'Location and size saved only when windowstate is normal
             My.Settings.frmMain_WindowPosition = Me.Location
             My.Settings.frmMain_WindowSize = Me.Size
         End If
+        'Splitter distance
         My.Settings.frmMain_SplitterDistance = Me.SplitContainer1.SplitterDistance
 
-        Dim columnwidtharray As Integer() = {Me.GamesLvw_GameTitle.Width, Me.GameLvw_GameSerial.Width, Me.GameLvw_GameRegion.Width,
-                                             Me.GameLvw_SStatesInfo.Width, Me.GameLvw_BackupInfo.Width, Me.GameLvw_SnapsInfo.Width}
-        My.Settings.frmMain_glvw_columnwidth = columnwidtharray
-
-        columnwidtharray = {Me.SStatesLvw_FileName.Width, Me.SStatesLvw_Slot.Width,
-                            Me.SStatesLvw_Version.Width, Me.SStatesLvw_DateLastWrite.Width, Me.SStatesLvw_Size.Width}
-        My.Settings.frmMain_slvw_columnwidth = columnwidtharray
-
-        My.Settings.Save()
+        'Column widths
+        My.Settings.frmMain_glvw_columnwidth = New Integer() {Me.GamesLvw_GameTitle.Width, Me.GameLvw_GameSerial.Width, Me.GameLvw_GameRegion.Width, _
+                                                              Me.GameLvw_SStatesInfo.Width, Me.GameLvw_BackupInfo.Width, Me.GameLvw_SnapsInfo.Width}
+        My.Settings.frmMain_slvw_columnwidth = New Integer() {Me.SStatesLvw_FileName.Width, Me.SStatesLvw_Slot.Width, Me.SStatesLvw_Version.Width, _
+                                                              Me.SStatesLvw_DateLastWrite.Width, Me.SStatesLvw_Size.Width}
     End Sub
 
-    Private Sub UI_Enabler(ByVal pGlobal_Switch As Boolean, ByVal pGamesList_included As Boolean, ByVal pSavestatesList_included As Boolean)
-        If pGlobal_Switch = True Then
-            Me.ListsAreCurrentlyRefreshed = False
+    ''' <summary>Handles the gamelist and savestate list beginupdate and endupdate methods</summary>
+    ''' <param name="pSwitch">True to end the update, False to begin the update</param>
+    ''' <remarks></remarks>
+    Private Sub UI_Enable(ByVal pSwitch As Boolean, Optional ByVal pGamesList_included As Boolean = False)
+        If pSwitch Then
+            Me.ListsAreRefreshed = False
             If pGamesList_included Then
                 Me.lvwGamesList.EndUpdate()
             End If
-            If pSavestatesList_included Then
-                Me.lvwSStatesList.EndUpdate()
-            End If
+            Me.lvwSStatesList.EndUpdate()
         Else
-            Me.ListsAreCurrentlyRefreshed = True
+            Me.ListsAreRefreshed = True
             If pGamesList_included Then
                 Me.lvwGamesList.BeginUpdate()
             End If
-            If pSavestatesList_included Then
-                Me.lvwSStatesList.BeginUpdate()
-            End If
+            Me.lvwSStatesList.BeginUpdate()
         End If
-        'mdlMain.WriteToConsole("frmMain", "UI_Enabler", String.Format("UI is {0}, GameList is {1}, SavesList is {2}.", pGlobal_Switch.ToString, pGamesList_Switch.ToString, pSavestatesList_Switch.ToString))
     End Sub
 
-    Private Sub UI_Updater()
-        Dim sw As New Stopwatch
-        sw.Start()
+    ''' <summary>Updates the UI status, game info and savestate info</summary>
+    Private Sub UI_Update()
+        Dim sw As Stopwatch = Stopwatch.StartNew
 
-        Me.UI_UpdaterGameInfo()
-        Me.UI_UpdaterStInfo()
-
+        Me.UI_UpdateGameInfo()
+        Me.UI_UpdateStInfo()
 
         sw.Stop()
-        Me.UIUpdate_Time = sw.ElapsedTicks
-        SSMAppLog.Append("Main window", "UI_Updater", "Refreshed status.", Me.UIUpdate_Time)
-
+        SSMAppLog.Append("Main window", "UI_Update", "Refreshed status.", sw.ElapsedTicks)
     End Sub
 
-    Private Sub UI_UpdaterGameInfo()
-        'Games List
-        If Me.lvwGamesList.Items.Count = 0 Then
-            'If there are no games these three buttons get disabled
-            Me.cmdGameSelectAll.Enabled = False
-            Me.cmdGameSelectInvert.Enabled = False
-            Me.cmdGameSelectNone.Enabled = False
+    ''' <summary>Updates the UI game info: title, region, image cover, etc.</summary>
+    Private Sub UI_UpdateGameInfo()
 
+        If Me.lvwGamesList.Items.Count > 0 And (Me.lvwGamesList.CheckedItems.Count > 0 Or Me.lvwGamesList.SelectedItems.Count > 0) Then
+            '========================
+            'Game checked or selected
+            '========================
+
+            If Me.lvwGamesList.CheckedItems.Count > 0 Then
+                'At least one game is checked
+                Me.cmdGameSelectNone.Enabled = True
+            Else
+                'No games are checked
+                Me.cmdGameSelectNone.Enabled = False
+            End If
+
+            If Me.lvwGamesList.Items.Count = Me.lvwGamesList.CheckedItems.Count Then
+                'All the games are checked
+                Me.cmdGameSelectAll.Enabled = False
+            Else
+                Me.cmdGameSelectAll.Enabled = True
+            End If
+
+            If Me.lvwGamesList.CheckedItems.Count > 1 Then
+                '--------------------------
+                'More than one game checked
+                '--------------------------
+
+                'Game info
+                Me.txtGameList_Title.Text = "(multiple games selected)"
+                Me.txtGameList_Serial.Text = ""
+                Me.txtGameList_Region.Text = ""
+                Me.txtGameList_Compat.Text = ""
+                Me.txtGameList_Compat.BackColor = Color.WhiteSmoke
+                Me.imgFlag.Image = My.Resources.Flag_0Null_30x20
+
+                'Cover image
+                Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
+
+                If My.Settings.frmMain_CoverExpanded Then
+                    Me.imgCover.Image = Cover_MultipleThumbnail(My.Settings.SStatesMan_PathPics, _
+                                                                CInt(Me.imgCover_SizeExpanded.Width * DPIxScale), _
+                                                                CInt(Me.imgCover_SizeExpanded.Height * DPIyScale))
+                    Me.imgCover.Width = CInt(Me.imgCover_SizeExpanded.Width * DPIxScale) + 2
+                    Me.imgCover.Height = CInt(Me.imgCover_SizeExpanded.Height * DPIxScale) + 2
+                    Me.imgCover.Dock = DockStyle.Bottom
+                Else
+                    Me.imgCover.Image = Cover_MultipleThumbnail(My.Settings.SStatesMan_PathPics, _
+                                                                CInt(Me.imgCover_SizeReduced.Height * DPIxScale), _
+                                                                CInt(Me.imgCover_SizeReduced.Height * DPIyScale))
+                    Me.imgCover.Width = CInt(Me.imgCover_SizeReduced.Height * DPIyScale) + 2
+                    Me.imgCover.Height = CInt(Me.imgCover_SizeReduced.Height * DPIyScale) + 2
+                    Me.imgCover.Dock = DockStyle.None
+                End If
+
+            Else
+                '---------------------------------
+                'No more than one game is selected/checked
+                '---------------------------------
+
+                'Game info
+                Me.txtGameList_Title.Text = currentGameInfo.Name
+                Me.txtGameList_Serial.Text = currentGameInfo.Serial
+                Me.txtGameList_Region.Text = currentGameInfo.Region
+                Me.txtGameList_Compat.Text = currentGameInfo.CompatToText
+                Me.txtGameList_Compat.BackColor = currentGameInfo.CompatToColor(Color.WhiteSmoke)
+                Me.imgFlag.Image = mdlMain.assignFlag(currentGameInfo.Region, currentGameInfo.Serial)
+                Me.imgFlag.Size = New Size(CInt(Me.imgFlag.Image.PhysicalDimension.Width * DPIxScale) + 2, _
+                                           CInt(Me.imgFlag.Image.PhysicalDimension.Height * DPIyScale) + 2)
+
+                'Cover image
+                Dim tmpHeight As Integer = 0
+                Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
+                If My.Settings.frmMain_CoverExpanded Then
+                    Me.imgCover.Image = Me.Cover_Get(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, _
+                                                          CInt(Me.imgCover_SizeExpanded.Width * DPIxScale), tmpHeight)
+                    If tmpHeight = 0 Then
+                        tmpHeight = CInt(Me.imgCover_SizeExpanded.Height * DPIxScale)
+                    End If
+                    Me.imgCover.Width = CInt(Me.imgCover_SizeExpanded.Width * DPIxScale) + 2
+                    Me.imgCover.Height = tmpHeight + 2
+                    Me.imgCover.Dock = DockStyle.Bottom
+                Else
+                    Dim tmpWidth As Integer = 0
+                    tmpHeight = CInt(Me.imgCover_SizeReduced.Height * DPIyScale)
+                    Me.imgCover.Image = Me.Cover_Get(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, tmpWidth, tmpHeight)
+
+                    If tmpWidth = 0 Then
+                        tmpWidth = CInt(Me.imgCover_SizeReduced.Width * DPIxScale)
+                    End If
+                    Me.imgCover.Width = tmpWidth + 2
+                    Me.imgCover.Height = tmpHeight + 2
+                    Me.imgCover.Dock = DockStyle.None
+                End If
+            End If
+
+        Else
+            '=========================
+            'No games selected/checked
+            '=========================
+
+            'Game info cleared
             Me.txtGameList_Title.Text = ""
             Me.txtGameList_Serial.Text = ""
             Me.txtGameList_Region.Text = ""
             Me.txtGameList_Compat.Text = ""
             Me.txtGameList_Compat.BackColor = Color.WhiteSmoke
-            Me.txtSize.Text = ""
-            Me.txtSizeBackup.Text = ""
             Me.imgFlag.Image = My.Resources.Flag_0Null_30x20
 
+            'Cover image
             Me.imgCover.Image = My.Resources.Flag_0Null_30x20
             Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
             If My.Settings.frmMain_CoverExpanded Then
-                Me.imgCover.Width = CInt(122 * DPIxScale)
-                Me.imgCover.Height = CInt(172 * DPIxScale)
+                Me.imgCover.Width = CInt(Me.imgCover_SizeExpanded.Width * DPIxScale) + 2
+                Me.imgCover.Height = CInt(Me.imgCover_SizeExpanded.Height * DPIxScale) + 2
                 Me.imgCover.Dock = DockStyle.Bottom
             Else
-                Me.imgCover.Width = CInt(48 * DPIyScale)
-                Me.imgCover.Height = CInt(48 * DPIyScale)
+                Me.imgCover.Width = CInt(Me.imgCover_SizeReduced.Width * DPIyScale) + 2
+                Me.imgCover.Height = CInt(Me.imgCover_SizeReduced.Height * DPIyScale) + 2
                 Me.imgCover.Dock = DockStyle.None
             End If
 
-        Else
-            'If there are games, invert is always enabled
-            Me.cmdGameSelectInvert.Enabled = True
+            Me.cmdGameSelectNone.Enabled = False
 
-            'A game is checked or selected
-            If Me.lvwGamesList.CheckedItems.Count > 0 Or Me.lvwGamesList.SelectedItems.Count > 0 Then
-
-                Me.cmdGameSelectAll.Enabled = True
-
-                If Me.lvwGamesList.CheckedItems.Count > 0 Then
-                    Me.cmdGameSelectNone.Enabled = True
-                Else
-                    Me.cmdGameSelectNone.Enabled = False
-                End If
-                'If more than one game is checked
-                If Me.lvwGamesList.CheckedItems.Count > 1 Then
-                    'Game info
-                    Me.txtGameList_Title.Text = "(multiple games selected)"
-                    Me.txtGameList_Serial.Text = ""
-                    Me.txtGameList_Region.Text = ""
-                    Me.txtGameList_Compat.Text = ""
-                    Me.txtGameList_Compat.BackColor = Color.WhiteSmoke
-                    Me.imgFlag.Image = My.Resources.Flag_0Null_30x20
-                    'Cover
-                    Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
-
-                    If My.Settings.frmMain_CoverExpanded Then
-                        Me.imgCover.Image = Cover_MultipleThumbnail(My.Settings.SStatesMan_PathPics, CInt(120 * DPIxScale), CInt(170 * DPIyScale), CInt(16 * DPIxScale))
-                        Me.imgCover.Width = CInt(122 * DPIxScale)
-                        Me.imgCover.Height = CInt(172 * DPIxScale)
-                        Me.imgCover.Dock = DockStyle.Bottom
-                    Else
-                        Me.imgCover.Image = Cover_MultipleThumbnail(My.Settings.SStatesMan_PathPics, CInt(46 * DPIxScale), CInt(46 * DPIyScale), CInt(12 * DPIxScale))
-                        Me.imgCover.Width = CInt(48 * DPIyScale)
-                        Me.imgCover.Height = CInt(48 * DPIyScale)
-                        Me.imgCover.Dock = DockStyle.None
-                    End If
-
-                    'If all the games are checked
-                    If Me.lvwGamesList.Items.Count = Me.lvwGamesList.CheckedItems.Count Then
-                        Me.cmdGameSelectAll.Enabled = False
-                    End If
-                Else
-
-                    'Game info
-                    Me.txtGameList_Title.Text = currentGameInfo.Name
-                    Me.txtGameList_Serial.Text = currentGameInfo.Serial
-                    Me.txtGameList_Region.Text = currentGameInfo.Region
-                    Me.txtGameList_Compat.Text = currentGameInfo.CompatToText
-                    Me.txtGameList_Compat.BackColor = currentGameInfo.CompatToColor(Color.WhiteSmoke)
-                    Me.imgFlag.Image = mdlMain.assignFlag(currentGameInfo.Region, currentGameInfo.Serial)
-                    Me.imgFlag.Size = New Size(CInt(Me.imgFlag.Image.PhysicalDimension.Width + 2 * DPIxScale),
-                                               CInt(Me.imgFlag.Image.PhysicalDimension.Height + 2 * DPIyScale))
-
-                    'Cover image
-                    Dim tmpSize As Integer = 0
-                    Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
-                    If My.Settings.frmMain_CoverExpanded Then
-                        Me.imgCover.Image = Me.Cover_GetCover(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, CInt(120 * DPIxScale), tmpSize)
-                        If tmpSize = 0 Then
-                            tmpSize = CInt(170 * DPIxScale)
-                        End If
-                        Me.imgCover.Width = CInt(122 * DPIxScale)
-                        Me.imgCover.Height = tmpSize + 2
-                        Me.imgCover.Dock = DockStyle.Bottom
-                    Else
-                        Dim tmpHeight As Integer = CInt(46 * DPIyScale)
-                        Me.imgCover.Image = Me.Cover_GetCover(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, tmpSize, tmpHeight)
-
-                        If tmpSize = 0 Then
-                            tmpSize = CInt(33 * DPIxScale)
-                        End If
-                        Me.imgCover.Width = tmpSize + 2
-                        Me.imgCover.Height = tmpHeight + 2
-                        Me.imgCover.Dock = DockStyle.None
-                    End If
-                End If
-
+            If Me.lvwGamesList.Items.Count = 0 Then
+                '================
+                'No games in list
+                '================
+                Me.cmdGameSelectAll.Enabled = False
+                Me.cmdGameSelectInvert.Enabled = False
             Else
-
-                Me.txtGameList_Title.Text = ""
-                Me.txtGameList_Serial.Text = ""
-                Me.txtGameList_Region.Text = ""
-                Me.txtGameList_Compat.Text = ""
-                Me.txtGameList_Compat.BackColor = Color.WhiteSmoke
-                Me.txtSize.Text = ""
-                Me.txtSizeBackup.Text = ""
-                Me.imgFlag.Image = My.Resources.Flag_0Null_30x20
-
-                Me.imgCover.Image = My.Resources.Flag_0Null_30x20
-                Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
-                If My.Settings.frmMain_CoverExpanded Then
-                    Me.imgCover.Width = CInt(122 * DPIxScale)
-                    Me.imgCover.Height = CInt(172 * DPIxScale)
-                    Me.imgCover.Dock = DockStyle.Bottom
-                Else
-                    Me.imgCover.Width = CInt(48 * DPIyScale)
-                    Me.imgCover.Height = CInt(48 * DPIyScale)
-                    Me.imgCover.Dock = DockStyle.None
-                End If
-
-                Me.cmdGameSelectNone.Enabled = False
                 Me.cmdGameSelectAll.Enabled = True
+                Me.cmdGameSelectInvert.Enabled = True
             End If
         End If
     End Sub
 
-    Private Sub UI_UpdaterStInfo()
-        'Savetates list
+    ''' <summary>Updates the UI savestate info: items selected, size.</summary>
+    Private Sub UI_UpdateStInfo()
         Me.txtSStateListSelection.Text = System.String.Format("{0:N0} | {1:N0} files", Me.lvwSStatesList.CheckedItems.Count, Me.lvwSStatesList.Items.Count)
-        Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.lvwSStatesList_SelectedSize / 1024 ^ 2, Me.lvwGamesList_SelectedSize / 1024 ^ 2)
-        Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.lvwSStatesList_SelectedSizeBackup / 1024 ^ 2, Me.lvwGamesList_SelectedSizeBackup / 1024 ^ 2)
+        Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.lvwSStates_SelectedSize / 1024 ^ 2, Me.lvwGames_SelectedSize / 1024 ^ 2)
+        Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.lvwSStates_SelectedSizeBackup / 1024 ^ 2, Me.lvwGames_SelectedSizeBackup / 1024 ^ 2)
 
         If Me.lvwSStatesList.Items.Count = 0 Then
+            '=====================
             'No savestates in list
-            'Me.txtSStateListSelection.Text = System.String.Format("{0:N0} | {1:N0}", 0, 0)
-            'Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", 0, 0)
-            'Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", 0, 0)
-
+            '=====================
             Me.cmdSStateSelectAll.Enabled = False
             Me.cmdSStateSelectInvert.Enabled = False
             Me.cmdSStateSelectNone.Enabled = False
             Me.cmdSStateSelectBackup.Enabled = False
             Me.cmdSStateDelete.Enabled = False
             Me.cmdSStateReorder.Enabled = False
-
         Else
-
-
+            '======================
+            'Savestates are present
+            '======================
             Me.cmdSStateSelectInvert.Enabled = True
             Me.cmdSStateSelectBackup.Enabled = True
+
             If Me.lvwGamesList.CheckedItems.Count > 1 Then
+                'More than one game is checked
                 Me.cmdSStateReorder.Enabled = False
             Else
+                'A single game is checked/selected
                 Me.cmdSStateReorder.Enabled = True
             End If
 
             If Me.lvwSStatesList.CheckedItems.Count > 0 Then
-
+                'At least one savestate is checked
                 Me.cmdSStateSelectNone.Enabled = True
                 Me.cmdSStateDelete.Enabled = True
 
                 If Me.lvwSStatesList.Items.Count = Me.lvwSStatesList.CheckedItems.Count Then
+                    'All savestates are checked
                     Me.cmdSStateSelectAll.Enabled = False
                 Else
                     Me.cmdSStateSelectAll.Enabled = True
                 End If
 
-
             Else
+                'No savestates are checked
                 Me.cmdSStateSelectNone.Enabled = False
                 Me.cmdSStateSelectAll.Enabled = True
                 Me.cmdSStateDelete.Enabled = False
@@ -409,12 +437,18 @@ Public Class frmMain
     End Sub
 
     Private Sub tmrSStatesListRefresh_Tick(sender As System.Object, e As System.EventArgs) Handles tmrSStatesListRefresh.Tick
-        If My.Settings.SStatesMan_SStatesListAutoRefresh Then
-            If Directory.Exists(My.Settings.PCSX2_PathSState) And Not frmDeleteForm.Visible And Not frmSettings.Visible And Not Me.WindowState = FormWindowState.Minimized Then
-                Dim tmpDate As DateTime = Directory.GetLastWriteTime(My.Settings.PCSX2_PathSState)
-                If Not tmpDate = SSMGameList.SStatesFolder_LastModified Then
+        If My.Settings.SStatesMan_SStatesListAutoRefresh Then   'Setting check
+            If Directory.Exists(My.Settings.PCSX2_PathSState) And _
+                Not frmDeleteForm.Visible And _
+                Not frmSettings.Visible And _
+                Not (Me.WindowState = FormWindowState.Minimized) Then   'Directory and windows check
+
+                If Not (Directory.GetLastWriteTime(My.Settings.PCSX2_PathSState) = SSMGameList.SStatesFolder_LastModified) Then 'Different time
+
                     SSMAppLog.Append("Main window", "Timer", "Refreshed lists.")
-                    Me.List_Refresher()
+
+                    Me.List_RefreshAll()
+
                 End If
             End If
         Else
@@ -455,32 +489,29 @@ Public Class frmMain
     Private Sub cmdWindowMaximize_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdWindowMaximize.Click
         If Me.WindowState = FormWindowState.Normal Then
             Me.WindowState = FormWindowState.Maximized
-            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
         ElseIf Me.WindowState = FormWindowState.Maximized Then
             Me.WindowState = FormWindowState.Normal
-            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
         End If
     End Sub
 
     Private Sub cmdWindowClose_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdWindowClose.Click
         Me.Close()    'Needed for firing the FormClosing event, wich saves some settings.
-        End
-    End Sub
-
-    Private Sub frmMain_ResizeBegin(sender As Object, e As System.EventArgs) Handles Me.ResizeBegin
-        My.Settings.frmMain_WindowPosition = Me.Location
-        My.Settings.frmMain_WindowSize = Me.Size
+        'End
     End Sub
 
     Private Sub frmMain_SizeChanged(sender As Object, e As System.EventArgs) Handles Me.SizeChanged
-        If Me.WindowState = FormWindowState.Normal Then
-            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
-            Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0, 0, CInt(6 * DPIxScale), 0)
-            'Me.Padding = New Padding(Math.Abs(Me.Top))
-        ElseIf Me.WindowState = FormWindowState.Maximized Then
-            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
-            Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
-            'Me.Padding = New Padding(1)
+        If Not (Me.lastWindowState = Me.WindowState) Then
+            If Me.WindowState = FormWindowState.Normal Then
+                Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
+                Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0, 0, CInt(6 * DPIxScale), 0)
+                'Me.Padding = New Padding(1)
+            ElseIf Me.WindowState = FormWindowState.Maximized Then
+                Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
+                Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0, 0, CInt(3 * DPIxScale), 0)
+                'Me.Padding = New Padding(0)
+            End If
+            Me.lastWindowState = Me.WindowState
+            Me.UI_Enable(True, True)
         End If
     End Sub
 #End Region
@@ -501,7 +532,7 @@ Public Class frmMain
 
 #Region "Form - Commands"
     Private Sub cmdRefresh_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdRefresh.Click
-        Me.List_Refresher()
+        Me.List_RefreshAll()
     End Sub
 
     Private Sub cmdSStateDelete_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStateDelete.Click
@@ -528,6 +559,15 @@ Public Class frmMain
 #Region "UI - Cover image"
     Private Sub imgCover_MouseClick(sender As System.Object, e As MouseEventArgs) Handles imgCover.MouseClick
         If e.Button = Windows.Forms.MouseButtons.Left Then
+
+            'Move and resize the cover image
+
+            Me.TableLayoutPanel3.SuspendLayout()
+            Me.imgCover.SuspendLayout()
+            Me.lvwGamesList.SuspendLayout()
+            Me.lblGameList_Title.SuspendLayout()
+            Me.lblGameList_Region.SuspendLayout()
+
             If My.Settings.frmMain_CoverExpanded Then
                 Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 2)
                 Me.TableLayoutPanel3.SetColumnSpan(Me.imgCover, 1)
@@ -543,11 +583,23 @@ Public Class frmMain
             End If
             Me.lblGameList_Title.Visible = Not (Me.lblGameList_Title.Visible)
             Me.lblGameList_Region.Visible = Not (Me.lblGameList_Region.Visible)
+
             My.Settings.frmMain_CoverExpanded = Not (My.Settings.frmMain_CoverExpanded)
-            Me.UI_UpdaterGameInfo()
+
+            Me.lblGameList_Region.ResumeLayout()
+            Me.lblGameList_Title.ResumeLayout()
+            Me.lvwGamesList.ResumeLayout()
+            Me.imgCover.ResumeLayout()
+            Me.TableLayoutPanel3.ResumeLayout()
+
+            Me.UI_UpdateGameInfo()
         ElseIf e.Button = Windows.Forms.MouseButtons.Right Then
+
+            'Show the menu
+
             If (Me.checkedGames.Count() = 1) And Directory.Exists(My.Settings.SStatesMan_PathPics) Then
                 If Not (Me.checkedGames(0).ToLower = "screenshots") Then
+                    'If screenshot "game" is selected, then disable the add cover menu item
                     Me.cmiCoverAdd.Enabled = True
                 Else
                     Me.cmiCoverAdd.Enabled = False
@@ -566,16 +618,16 @@ Public Class frmMain
                 .CheckFileExists = True
                 .CheckPathExists = True
                 .DefaultExt = ".jpg"
-                .Filter = "JPEG image file|*.jpg|PNG image file|*.png|BMP image file|*.bmp"
+                .Filter = "JPEG image file|*.jpg;*.jpeg;*.jpe|PNG image file|*.png|BMP image file|*.bmp"
                 .InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures)
                 .ValidateNames = True
             End With
             If openDialog.ShowDialog(Me) = DialogResult.OK Then
                 Try
                     Dim tmpImage As Image = Image.FromFile(openDialog.FileName)
-                    tmpImage = Me.Cover_ResizeCover(tmpImage, 256, 0, True)
+                    tmpImage = Me.Cover_Resize(tmpImage, 256, 0, True)
                     tmpImage.Save(Path.Combine(My.Settings.SStatesMan_PathPics, Me.checkedGames(0) & ".jpg"), Imaging.ImageFormat.Jpeg)
-                    Me.UI_UpdaterGameInfo()
+                    Me.UI_UpdateGameInfo()
                 Catch ex As Exception
                     MessageBox.Show("An error has occurred while trying to convert the specified file. " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 End Try
@@ -593,17 +645,25 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Function Cover_MultipleThumbnail(ByVal pPath As String, ByVal pDestWidth As Integer, ByVal pDestHeight As Integer, ByVal pStepWidth As Integer) As Image
-        'Dim stepWidth As Integer = CInt(destWidth / maxThumbnail)
+    ''' <summary>
+    ''' Creates a collage Image from multiple files
+    ''' </summary>
+    ''' <param name="pPath">Folder containing the image files.</param>
+    ''' <param name="pDestWidth">Width of the resulting image.</param>
+    ''' <param name="pDestHeight">Height of the resulting image.</param>
+    ''' <returns>Collage image from multiple files</returns>
+    Private Function Cover_MultipleThumbnail(ByVal pPath As String, ByVal pDestWidth As Integer, ByVal pDestHeight As Integer) As Image
 
         'Maximum number of cover thumbnail that will be added to the result image
         Dim maxThumbnail As Integer = 4
+        'Distance between the images
+        Dim pStepWidth As Integer = pDestWidth \ (maxThumbnail + 1)
         'Adjusting maximum thumbnail number
-        If Me.checkedGames.Count < maxThumbnail Then
-            maxThumbnail = Me.checkedGames.Count
+        If Me.lvwGamesList.CheckedItems.Count < maxThumbnail Then
+            maxThumbnail = Me.lvwGamesList.CheckedItems.Count
         End If
 
-        'The drawing surface will be based on an image, Extra_Nocover
+        'The drawing surface will be based on an empty image
         Cover_MultipleThumbnail = New Bitmap(pDestHeight, pDestHeight)
         'The image is referenced to a graphics object for editing
         Dim endCover As Graphics = Graphics.FromImage(Cover_MultipleThumbnail)
@@ -612,7 +672,7 @@ Public Class frmMain
         For i As Integer = 0 To maxThumbnail - 1
             Try
                 'The cover will be added to the graphic object using DrawImage
-                endCover.DrawImage(Cover_GetCover(Me.checkedGames(i), My.Settings.SStatesMan_PathPics, 0, pDestHeight, True), i * pStepWidth, 0)
+                endCover.DrawImage(Cover_Get(Me.lvwGamesList.CheckedItems(i).Name, My.Settings.SStatesMan_PathPics, 0, pDestHeight, True), i * pStepWidth, 0)
                 'Adds a line for the next cover
                 endCover.DrawLine(Pens.DimGray, i * pStepWidth - 1, 0, i * pStepWidth - 1, pDestHeight)
                 'Adds a shade for the next cover
@@ -628,59 +688,68 @@ Public Class frmMain
         Return Cover_MultipleThumbnail
     End Function
 
-    Private Function Cover_GetCover(ByVal pSerial As String, ByVal pPath As String, ByRef pDestWidth As Integer, ByRef pDestHeight As Integer, Optional ByVal forced As Boolean = False) As Image
+    ''' <summary>
+    ''' Retrieves a cover image from the specified serial and resize it.
+    ''' </summary>
+    ''' <param name="pSerial">The serial (name) used to get the image name.</param>
+    ''' <param name="pCoverPath">Folder containing the image file.</param>
+    ''' <param name="pThumbWidth">Width of the resulting image.</param>
+    ''' <param name="pThumbHeight">Height of the resulting image.</param>
+    ''' <param name="pForced">Specifies if the height must be respected.</param>
+    ''' <returns>Cover thumbnail</returns>
+    ''' <remarks></remarks>
+    Private Function Cover_Get(ByVal pSerial As String, ByVal pCoverPath As String, ByRef pThumbWidth As Integer, ByRef pThumbHeight As Integer, Optional ByVal pForced As Boolean = False) As Image
         If pSerial.ToLower = "screenshots" Then
-            'Screenshots group gets a special (embedded) image
-            If forced Then
-                pDestWidth = pDestHeight * My.Resources.Icon_Screenshot_256x192.Width \ My.Resources.Icon_Screenshot_256x192.Height
-            Else
-                If (pDestWidth = 0) And Not (forced) Then
-                    pDestWidth = pDestHeight
-                End If
-                pDestHeight = pDestWidth * My.Resources.Icon_Screenshot_256x192.Height \ My.Resources.Icon_Screenshot_256x192.Width
-            End If
-            Cover_GetCover = My.Resources.Icon_Screenshot_256x192.GetThumbnailImage(pDestWidth, pDestHeight, Nothing, Nothing)
-            Return Cover_GetCover
+            Return Cover_Resize(My.Resources.Icon_Screenshot_256x192, pThumbWidth, pThumbHeight, pForced)
         Else
-            If Directory.Exists(pPath) Then
+            If Directory.Exists(pCoverPath) Then
                 Try
-                    Dim tmpImage As Image = Image.FromFile(Path.Combine(pPath, pSerial & ".jpg"))
-                    Return Cover_ResizeCover(tmpImage, pDestWidth, pDestHeight, forced)
+                    Dim tmpImage As Image = Image.FromFile(Path.Combine(pCoverPath, pSerial & ".jpg"))
+                    Return Cover_Resize(tmpImage, pThumbWidth, pThumbHeight, pForced)
                 Catch ex As Exception
                     'No cover image found or file is corrupted
                     SSMAppLog.Append("Main window", "GetCover", String.Concat("Error: ", ex.Message))
-                    Return Cover_ResizeCover(My.Resources.Extra_Nocover_120x170, pDestWidth, pDestHeight, forced)
+                    Return Cover_Resize(My.Resources.Extra_Nocover_120x170, pThumbWidth, pThumbHeight, pForced)
                 End Try
             Else
-                Return Cover_ResizeCover(My.Resources.Extra_Nocover_120x170, pDestWidth, pDestHeight, forced)
+                Return Cover_Resize(My.Resources.Extra_Nocover_120x170, pThumbWidth, pThumbHeight, pForced)
             End If
         End If
     End Function
 
-    Private Function Cover_ResizeCover(ByVal pImage As Image, ByRef pDestWidth As Integer, ByRef pDestHeight As Integer, Optional ByVal forced As Boolean = False) As Image
+    ''' <summary>
+    ''' Resize the input image using the specified parameters.
+    ''' </summary>
+    ''' <param name="pInputImage"></param>
+    ''' <param name="pThumbWidth">Width of the resulting image.</param>
+    ''' <param name="pThumbHeight">Height of the resulting image.</param>
+    ''' <param name="pForced">Specifies if the height must be respected.</param>
+    ''' <returns>Cover thumbnail</returns>
+    ''' <remarks></remarks>
+    Private Function Cover_Resize(ByVal pInputImage As Image, ByRef pThumbWidth As Integer, ByRef pThumbHeight As Integer, Optional ByVal pForced As Boolean = False) As Image
         Try
-            Dim tmpThumbnail As Image = New Bitmap(120, 170)
-            If pDestWidth = 0 Then
-                'destWidth must be computed
-                If (pImage.Height > pImage.Width) Or forced Then
-                    'If it's a vertical (tall) image or destHeight must be respected (forced = true) then destWidth will be computed
-                    tmpThumbnail = pImage.GetThumbnailImage(pDestHeight * pImage.Width \ pImage.Height, pDestHeight, Nothing, Nothing)
-                    pDestWidth = pDestHeight * pImage.Width \ pImage.Height
+            If pThumbWidth = 0 Then
+                'ThumbWidth must be computed
+                If (pInputImage.Height > pInputImage.Width) Or pForced Then
+                    'If it's a vertical (tall) image or ThumbHeight must be respected (HeightEnforced = true) then ThumbWidth will be computed
+                    pThumbWidth = pThumbHeight * pInputImage.Width \ pInputImage.Height
                 Else
-                    'Else destHeight will be considered as the maximum width applicable and thus destHeight will be re-computed
-                    pDestWidth = pDestHeight
-                    pDestHeight = pDestWidth * pImage.Height \ pImage.Width
-                    tmpThumbnail = pImage.GetThumbnailImage(pDestWidth, pDestWidth * pImage.Height \ pImage.Width, Nothing, Nothing)
+                    'Else it's a wide image, then ThumbHeight will be considered as the maximum width applicable and thus ThumbHeight will be re-computed
+                    pThumbWidth = pThumbHeight
+                    pThumbHeight = pThumbWidth * pInputImage.Height \ pInputImage.Width
                 End If
-            ElseIf pDestHeight = 0 Then
-                'destHeight must be computed
-                tmpThumbnail = pImage.GetThumbnailImage(pDestWidth, pDestWidth * pImage.Height \ pImage.Width, Nothing, Nothing)
-                pDestHeight = pDestWidth * pImage.Height \ pImage.Width
+            ElseIf pThumbHeight = 0 Then
+                'ThumbHeight must be computed
+                pThumbHeight = pThumbWidth * pInputImage.Height \ pInputImage.Width
+            Else
+                pThumbWidth = 16
+                pThumbHeight = 16
             End If
+            Dim tmpThumbnail As Image = New Bitmap(pInputImage.GetThumbnailImage(pThumbWidth, pThumbHeight, Nothing, Nothing))
             Return tmpThumbnail
         Catch ex As Exception
             'No cover image found or file is corrupted
-            SSMAppLog.Append("Main window", "GetCover", String.Concat("Error: ", ex.Message))
+            SSMAppLog.Append("Main window", "ResizeCover", String.Concat("Error: ", ex.Message))
             Return My.Resources.Extra_Nocover_120x170
         End Try
 
@@ -689,71 +758,71 @@ Public Class frmMain
 
 #Region "UI - Gamelist management"
     Private Sub lvwGamesList_Populate()
-        Dim sw As New Stopwatch
-        sw.Start()
+        Dim sw As Stopwatch = Stopwatch.StartNew
 
+        Me.GamesList_IndexCheckedGames()
         Me.lvwGamesList.Items.Clear()
-        Me.lvwSStatesList.Items.Clear()
-        Me.lvwSStatesList.Groups.Clear()
+        'Me.lvwSStatesList.Items.Clear()
+        'Me.lvwSStatesList.Groups.Clear()
 
-        Dim tmpGListItems As New List(Of ListViewItem)
-        For Each tmpGListItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In SSMGameList.Games
-            currentGameInfo = PCSX2GameDb.Extract(tmpGListItem.Key)
+        Dim tmpLvwItems As New List(Of ListViewItem)
+
+        For Each tmpGameListItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In SSMGameList.Games
+            currentGameInfo = PCSX2GameDb.Extract(tmpGameListItem.Key)
 
             'Creating the listviewitem
-            Dim tmpLvwGListItem As New ListViewItem With {.Text = currentGameInfo.Name, .Name = currentGameInfo.Serial}
-            tmpLvwGListItem.SubItems.AddRange({currentGameInfo.Serial, currentGameInfo.Region})
+            Dim newLvwItem As New ListViewItem With {.Text = currentGameInfo.Name, .Name = currentGameInfo.Serial}
+            newLvwItem.SubItems.AddRange({currentGameInfo.Serial, currentGameInfo.Region})
             'Calculating savestates count and displaying size
-            If tmpGListItem.Value.Savestates.Where(Function(filter) filter.Value.Extension.Equals(My.Settings.PCSX2_SStateExt)).Count > 0 Then
-                tmpLvwGListItem.SubItems.Add(String.Format("{0:N0} × {1:N2} MB",
-                                                            tmpGListItem.Value.Savestates.Where(Function(extfilter) extfilter.Value.Extension.Equals(My.Settings.PCSX2_SStateExt)).Count,
-                                                            tmpGListItem.Value.Savestates_SizeTot / 1024 ^ 2))
+            If tmpGameListItem.Value.Savestates_SizeTot > 0 Then
+                newLvwItem.SubItems.Add(String.Format("{0:N0} × {1:N2} MB", _
+                                                      tmpGameListItem.Value.Savestates.Where(Function(extfilter) extfilter.Value.Extension.Equals(My.Settings.PCSX2_SStateExt)).Count, _
+                                                      tmpGameListItem.Value.Savestates_SizeTot / 1024 ^ 2))
             Else
-                tmpLvwGListItem.SubItems.Add("None")
+                newLvwItem.SubItems.Add("None")
             End If
 
             'Calculating backups count and displaying size
-            If tmpGListItem.Value.Savestates.Where(Function(filter) filter.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Count > 0 Then
-                tmpLvwGListItem.SubItems.Add(String.Format("{0:N0} × {1:N2} MB",
-                                                            tmpGListItem.Value.Savestates.Where(Function(extfilter) extfilter.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Count,
-                                                            tmpGListItem.Value.SavestatesBackup_SizeTot / 1024 ^ 2))
+            If tmpGameListItem.Value.SavestatesBackup_SizeTot > 0 Then
+                newLvwItem.SubItems.Add(String.Format("{0:N0} × {1:N2} MB", _
+                                                      tmpGameListItem.Value.Savestates.Where(Function(extfilter) extfilter.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Count, _
+                                                      tmpGameListItem.Value.SavestatesBackup_SizeTot / 1024 ^ 2))
             Else
-                tmpLvwGListItem.SubItems.Add("None")
+                newLvwItem.SubItems.Add("None")
             End If
 
             'Calculating snapshots count and displaying size
-            If tmpGListItem.Value.Snapshots.Count > 0 Then
-                tmpLvwGListItem.SubItems.Add(String.Format("{0:N0} × {1:N2} MB",
-                                                            tmpGListItem.Value.Snapshots.Count,
-                                                            tmpGListItem.Value.Snapshots_SizeTot / 1024 ^ 2))
+            If tmpGameListItem.Value.Snapshots_SizeTot > 0 Then
+                newLvwItem.SubItems.Add(String.Format("{0:N0} × {1:N2} MB", _
+                                                      tmpGameListItem.Value.Snapshots.Count, _
+                                                      tmpGameListItem.Value.Snapshots_SizeTot / 1024 ^ 2))
             Else
-                tmpLvwGListItem.SubItems.Add("None")
+                newLvwItem.SubItems.Add("None")
             End If
 
             'If it was previously checked/selected the check/select it again
             If Me.checkedGames.Contains(currentGameInfo.Serial) Then
                 If Me.checkedGames.Count = 1 Then
-                    tmpLvwGListItem.Selected = True
+                    newLvwItem.Selected = True
                 Else
-                    tmpLvwGListItem.Checked = True
+                    newLvwItem.Checked = True
                 End If
             End If
 
             'All done, the item is added
-            tmpGListItems.Add(tmpLvwGListItem)
+            tmpLvwItems.Add(newLvwItem)
 
         Next
-
+        'Alternating back colors
+        Me.lvwGamesList.Items.AddRange(tmpLvwItems.ToArray)
         'Addrange is faster than adding each item, even with begin/endupdate
-        Me.lvwGamesList.Items.AddRange(tmpGListItems.ToArray)
-
         mdlTheme.ListAlternateColors(Me.lvwGamesList)
+
         sw.Stop()
-        Me.lvwGamesList_PopTime = sw.ElapsedTicks
-        SSMAppLog.Append("Main window", "populate game list", String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), Me.lvwGamesList_PopTime)
+        SSMAppLog.Append("Main window", "populate game list", String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
-    Private Sub lvwGamesList_indexcheckedGames()
+    Private Sub GamesList_IndexCheckedGames()
         'checked games are cleared
         Me.checkedGames.Clear()
         'reindexing checked games
@@ -767,50 +836,50 @@ Public Class frmMain
     End Sub
 
     Private Sub cmdGameSelectAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdGameSelectAll.Click
-        Me.UI_Enabler(False, True, True)
-        For lvwItemIndex = 0 To Me.lvwGamesList.Items.Count - 1
-            Me.lvwGamesList.Items.Item(lvwItemIndex).Checked = True
+        Me.UI_Enable(False, True)
+        For i = 0 To Me.lvwGamesList.Items.Count - 1
+            Me.lvwGamesList.Items.Item(i).Checked = True
         Next
-        Me.List_RefresherGames()
-        Me.UI_Enabler(True, True, True)
+        Me.List_RefreshSavestates()
+        Me.UI_Enable(True, True)
     End Sub
 
     Private Sub cmdGameSelectNone_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdGameSelectNone.Click
-        Me.UI_Enabler(False, True, True)
-        For lvwItemIndex = 0 To Me.lvwGamesList.Items.Count - 1
-            Me.lvwGamesList.Items.Item(lvwItemIndex).Checked = False
+        Me.UI_Enable(False, True)
+        For i = 0 To Me.lvwGamesList.Items.Count - 1
+            Me.lvwGamesList.Items.Item(i).Checked = False
         Next
-        Me.List_RefresherGames()
-        Me.UI_Enabler(True, True, True)
+        Me.List_RefreshSavestates()
+        Me.UI_Enable(True, True)
     End Sub
 
     Private Sub cmdGameSelectInvert_Click(sender As System.Object, e As System.EventArgs) Handles cmdGameSelectInvert.Click
-        Me.UI_Enabler(False, True, True)
-        For lvwItemIndex = 0 To Me.lvwGamesList.Items.Count - 1
-            If Me.lvwGamesList.Items.Item(lvwItemIndex).Checked Then
-                Me.lvwGamesList.Items.Item(lvwItemIndex).Checked = False
+        Me.UI_Enable(False, True)
+        For i = 0 To Me.lvwGamesList.Items.Count - 1
+            If Me.lvwGamesList.Items.Item(i).Checked Then
+                Me.lvwGamesList.Items.Item(i).Checked = False
             Else
-                Me.lvwGamesList.Items.Item(lvwItemIndex).Checked = True
+                Me.lvwGamesList.Items.Item(i).Checked = True
             End If
         Next
-        Me.List_RefresherGames()
-        Me.UI_Enabler(True, True, True)
+        Me.List_RefreshSavestates()
+        Me.UI_Enable(True, True)
     End Sub
 
     Private Sub lvwGamesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwGamesList.ItemChecked
-        If ListsAreCurrentlyRefreshed = False Then
-            Me.UI_Enabler(False, False, True)
-            Me.List_RefresherGames()
-            Me.UI_Enabler(True, False, True)
+        If ListsAreRefreshed = False Then
+            Me.UI_Enable(False)
+            Me.List_RefreshSavestates()
+            Me.UI_Enable(True)
         End If
     End Sub
 
     Private Sub lvwGamesList_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lvwGamesList.SelectedIndexChanged
-        If Me.lvwGamesList.CheckedItems.Count = 0 And Not (Me.lvwGamesList.SelectedItems.Count = 0) Then
-            If ListsAreCurrentlyRefreshed = False Then
-                Me.UI_Enabler(False, False, True)
-                Me.List_RefresherGames()
-                Me.UI_Enabler(True, False, True)
+        If Me.lvwGamesList.CheckedItems.Count = 0 Then
+            If ListsAreRefreshed = False Then
+                Me.UI_Enable(False)
+                Me.List_RefreshSavestates()
+                Me.UI_Enable(True)
             End If
         End If
     End Sub
@@ -822,11 +891,12 @@ Public Class frmMain
         sw.Start()
 
         'Preparation for the update
-        Me.lvwGamesList_SelectedSize = 0
-        Me.lvwGamesList_SelectedSizeBackup = 0
-        Me.lvwSStatesList_SelectedSize = 0
-        Me.lvwSStatesList_SelectedSizeBackup = 0
+        Me.lvwGames_SelectedSize = 0
+        Me.lvwGames_SelectedSizeBackup = 0
+        Me.lvwSStates_SelectedSize = 0
+        Me.lvwSStates_SelectedSizeBackup = 0
 
+        Me.lvwSStatesList_indexCheckedFiles()
         'clear items and group, lvwSStatesList refresh in fact begins here
         Me.lvwSStatesList.Items.Clear()
         Me.lvwSStatesList.Groups.Clear()
@@ -838,29 +908,28 @@ Public Class frmMain
             Me.lvwSStatesList.ShowGroups = False
         End If
 
-        Dim tmpSListGroups As New List(Of ListViewGroup)
-        Dim tmpSListItems As New List(Of ListViewItem)
-        Dim lastSState As Integer = -1
+        Dim tmpGroups As New List(Of ListViewGroup)
+        Dim tmpLvwItems As New List(Of ListViewItem)
+        Dim lastSStateIndex As Integer = -1
         Dim lastSStateDate As Date = Date.MinValue
 
-
-        For Each tmpSerial As System.String In Me.checkedGames
+        For Each tmpSerial As String In Me.checkedGames
 
             Dim tmpGamesListItem As New GamesList_Item
             If (SSMGameList.Games.TryGetValue(tmpSerial, tmpGamesListItem)) Then
 
-                'Creation of the header
+                'Creation of the header group
                 currentGameInfo = PCSX2GameDb.Extract(tmpSerial)
-                Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With {
-                    .Header = currentGameInfo.ToString,
-                    .HeaderAlignment = HorizontalAlignment.Left,
+                Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With { _
+                    .Header = currentGameInfo.ToString, _
+                    .HeaderAlignment = HorizontalAlignment.Left, _
                     .Name = currentGameInfo.Serial}
 
-                tmpSListGroups.Add(tmpLvwSListGroup)
+                tmpGroups.Add(tmpLvwSListGroup)
 
-
-                lvwGamesList_SelectedSize += SSMGameList.Games(currentGameInfo.Serial).Savestates_SizeTot
-                lvwGamesList_SelectedSizeBackup += SSMGameList.Games(currentGameInfo.Serial).SavestatesBackup_SizeTot
+                'Calculating checked games savestate size
+                lvwGames_SelectedSize += SSMGameList.Games(currentGameInfo.Serial).Savestates_SizeTot
+                lvwGames_SelectedSizeBackup += SSMGameList.Games(currentGameInfo.Serial).SavestatesBackup_SizeTot
 
                 If (SSMGameList.Games(tmpSerial).Savestates.Values.Count > 0) Then
 
@@ -885,10 +954,10 @@ Public Class frmMain
                             tmpLvwSListItem.Checked = True
                         End If
 
-                        tmpSListItems.Add(tmpLvwSListItem)
+                        tmpLvwItems.Add(tmpLvwSListItem)
 
                         If (tmpSavestate.Value.LastWriteTime > lastSStateDate) Then
-                            lastSState = tmpSListItems.Count - 1
+                            lastSStateIndex = tmpLvwItems.Count - 1
                             lastSStateDate = tmpSavestate.Value.LastWriteTime
                         End If
                     Next
@@ -896,64 +965,63 @@ Public Class frmMain
 
             End If
 
-            If (lastSState > -1) Then
-                tmpSListItems.Item(lastSState).SubItems(0).ForeColor = Color.FromArgb(255, 65, 74, 100)
+            If (lastSStateIndex > -1) Then
+                tmpLvwItems.Item(lastSStateIndex).SubItems(0).ForeColor = Color.FromArgb(255, 65, 74, 100)
             End If
         Next
 
 
-        Me.lvwSStatesList.Groups.AddRange(tmpSListGroups.ToArray)
-        Me.lvwSStatesList.Items.AddRange(tmpSListItems.ToArray)
+        Me.lvwSStatesList.Groups.AddRange(tmpGroups.ToArray)
+        Me.lvwSStatesList.Items.AddRange(tmpLvwItems.ToArray)
         mdlTheme.ListAlternateColors(Me.lvwSStatesList)
 
         sw.Stop()
-        Me.lvwSStatesList_PopTime = sw.ElapsedTicks
-        SSMAppLog.Append("Main window", "populate savestates list ", String.Format("Listed {0:N0} savestates.", Me.lvwSStatesList.Items.Count), Me.lvwSStatesList_PopTime)
+        SSMAppLog.Append("Main window", "populate savestates list", String.Format("Listed {0:N0} savestates.", Me.lvwSStatesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
     Private Sub lvwSStatesList_indexCheckedFiles()
-        Me.lvwSStatesList_SelectedSize = 0
-        Me.lvwSStatesList_SelectedSizeBackup = 0
+        Me.lvwSStates_SelectedSize = 0
+        Me.lvwSStates_SelectedSizeBackup = 0
         checkedSavestates.Clear()
 
         If Me.lvwSStatesList.CheckedItems.Count > 0 Then
-            For Each tmpLvwSListItemChecked As ListViewItem In Me.lvwSStatesList.CheckedItems
+            For Each tmpCheckedItem As ListViewItem In Me.lvwSStatesList.CheckedItems
 
-                Dim tmpGameSerial As String = Savestate.GetSerial(tmpLvwSListItemChecked.Name)
-                Dim tmpSavestate As Savestate = SSMGameList.Games(tmpGameSerial).Savestates(tmpLvwSListItemChecked.Name)
+                Dim tmpSerial As String = Savestate.GetSerial(tmpCheckedItem.Name)
+                Dim tmpSavestate As Savestate = SSMGameList.Games(tmpSerial).Savestates(tmpCheckedItem.Name)
                 checkedSavestates.Add(tmpSavestate.Name)
 
                 If tmpSavestate.isBackup Then
-                    lvwSStatesList_SelectedSizeBackup += tmpSavestate.Length
+                    lvwSStates_SelectedSizeBackup += tmpSavestate.Length
                 Else
-                    lvwSStatesList_SelectedSize += tmpSavestate.Length
+                    lvwSStates_SelectedSize += tmpSavestate.Length
                 End If
             Next
         End If
     End Sub
 
     Private Sub cmdSStateSelectAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectAll.Click
-        Me.UI_Enabler(False, False, True)
+        Me.UI_Enable(False)
         For lvwItemIndex = 0 To Me.lvwSStatesList.Items.Count - 1
             Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = True
         Next
         Me.lvwSStatesList_indexCheckedFiles()
-        Me.UI_UpdaterStInfo()
-        Me.UI_Enabler(True, False, True)
+        Me.UI_UpdateStInfo()
+        Me.UI_Enable(True)
     End Sub
 
     Private Sub cmdSStateSelectNone_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectNone.Click
-        Me.UI_Enabler(False, False, True)
+        Me.UI_Enable(False)
         For lvwItemIndex = 0 To Me.lvwSStatesList.Items.Count - 1
             Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = False
         Next
         Me.lvwSStatesList_indexCheckedFiles()
-        Me.UI_UpdaterStInfo()
-        Me.UI_Enabler(True, False, True)
+        Me.UI_UpdateStInfo()
+        Me.UI_Enable(True)
     End Sub
 
     Private Sub cmdSStateSelectInvert_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStateSelectInvert.Click
-        Me.UI_Enabler(False, False, True)
+        Me.UI_Enable(False)
         For lvwItemIndex = 0 To Me.lvwSStatesList.Items.Count - 1
             If Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = True Then
                 Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = False
@@ -962,12 +1030,12 @@ Public Class frmMain
             End If
         Next
         Me.lvwSStatesList_indexCheckedFiles()
-        Me.UI_UpdaterStInfo()
-        Me.UI_Enabler(True, False, True)
+        Me.UI_UpdateStInfo()
+        Me.UI_Enable(True)
     End Sub
 
     Private Sub cmdSStateSelectBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectBackup.Click
-        Me.UI_Enabler(False, False, True)
+        Me.UI_Enable(False)
         For lvwItemIndex = 0 To Me.lvwSStatesList.Items.Count - 1
             If Savestate.isBackup(Me.lvwSStatesList.Items.Item(lvwItemIndex).Name) Then
                 Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = True
@@ -976,14 +1044,14 @@ Public Class frmMain
             End If
         Next
         Me.lvwSStatesList_indexCheckedFiles()
-        Me.UI_UpdaterStInfo()
-        Me.UI_Enabler(True, False, True)
+        Me.UI_UpdateStInfo()
+        Me.UI_Enable(True)
     End Sub
 
     Private Sub lvwSStatesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwSStatesList.ItemChecked
-        If ListsAreCurrentlyRefreshed = False Then
+        If ListsAreRefreshed = False Then
             Me.lvwSStatesList_indexCheckedFiles()
-            Me.UI_UpdaterStInfo()
+            Me.UI_UpdateStInfo()
         End If
     End Sub
 #End Region

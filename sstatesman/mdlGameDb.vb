@@ -117,11 +117,10 @@ Module mdlGameDb
                                 If tmpCurLineSplitted.Length > 1 Then
 
                                     tmpCurLineSplitted(0) = tmpCurLineSplitted(0).Trim
-                                    'If mySplittedLine(1).Contains(FileGameDb_CommentStyle2) Then
-                                    '    mySplittedLine(1) = mySplittedLine(1).Remove(mySplittedLine(1).IndexOf(FileGameDb_CommentStyle2.Chars(0)))
-                                    'Else
+                                    If tmpCurLineSplitted(1).Contains(FileGameDb_CommentStyle2) Then
+                                        tmpCurLineSplitted(1) = tmpCurLineSplitted(1).Remove(tmpCurLineSplitted(1).IndexOf(FileGameDb_CommentStyle2))
+                                    End If
                                     tmpCurLineSplitted(1) = tmpCurLineSplitted(1).Trim
-                                    'End If
 
                                     If tmpCurLineSplitted(0) = FileGameDb_FieldName1 Then
                                         If Not (Records.ContainsKey(tmpCurLineSplitted(1))) Then
@@ -193,17 +192,11 @@ Module mdlGameDb
             Return Extract
         End Function
 
-        Public Function Extract(ByVal pSerial As List(Of String), _
+        Friend Function Extract(ByVal pSerial As List(Of String), _
                                 ByRef pExtractedGameDb As Dictionary(Of String, GameInfo) _
                                 ) As mdlMain.LoadStatus
 
             If Status = LoadStatus.StatusLoadedOK Or Status = LoadStatus.StatusEmpty Then
-
-                'Initialization
-                Records = New Dictionary(Of String, GameInfo)
-                Status = LoadStatus.StatusNotLoaded
-                LoadTime = 0
-                Path = ""
 
                 For Each tmpSerial As String In pSerial
                     pExtractedGameDb.Add(Extract(tmpSerial).Serial, Extract(tmpSerial))
@@ -255,7 +248,7 @@ Module mdlGameDb
                             Where (tmpGameInfo.Key.ToUpper.Contains(pSerial) And _
                                    tmpGameInfo.Value.Name.ToUpper.Contains(pGameTitle.ToUpper) And _
                                    tmpGameInfo.Value.Region.ToUpper.Contains(pGameRegion.ToUpper) And _
-                                   tmpGameInfo.Value.Compat = (pGameCompat)) _
+                                   tmpGameInfo.Value.Compat.Contains(pGameCompat)) _
                             Select tmpGameInfo
 
             ElseIf pSearchType = 1 Then
@@ -264,7 +257,7 @@ Module mdlGameDb
                             Where ((Not (pSerial.Length = 0) And tmpGameInfo.Key.ToUpper.Contains(pSerial)) Or _
                                    (Not (pGameTitle.Length = 0) And tmpGameInfo.Value.Name.ToUpper.Contains(pGameTitle.ToUpper)) Or _
                                    (Not (pGameRegion.Length = 0) And tmpGameInfo.Value.Region.ToUpper.Contains(pGameRegion.ToUpper)) Or _
-                                   (Not (pGameCompat.Length = 0) And tmpGameInfo.Value.Compat = (pGameCompat))) _
+                                   (Not (pGameCompat.Length = 0) And tmpGameInfo.Value.Compat.Contains(pGameCompat))) _
                             Select tmpGameInfo
             End If
 

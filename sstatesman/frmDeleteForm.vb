@@ -13,6 +13,7 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
+
 Public Class frmDeleteForm
 
     Dim ListsAreCurrentlyRefreshed As Boolean = False
@@ -176,7 +177,7 @@ Public Class frmDeleteForm
                                              Me.StDelLvw_Version.Width, Me.StDelLvw_LastWT.Width, Me.StDelLvw_Size.Width, Me.StDelLvw_Status.Width}
         My.Settings.frmDel_slvw_columnwidth = columnwidtharray
 
-        frmMain.List_Refresher()
+        frmMain.List_RefreshAll()
     End Sub
 
     Private Sub cmdDeleteSStateSelected_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdDeleteSStateSelected.Click

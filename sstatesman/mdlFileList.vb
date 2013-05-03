@@ -13,6 +13,7 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
+
 Module mdlFileList
     Public Class GamesList_Item
         Public Property Savestates As New Dictionary(Of String, Savestate)
@@ -21,7 +22,7 @@ Module mdlFileList
             Get
                 If Not (IsNothing(Savestates)) Then
                     If Savestates.Count > 0 Then
-                        _savestates_sizetot = Savestates.Where(Function(item) item.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Sum(Function(item) item.Value.Length)
+                        _savestates_sizetot = Savestates.Where(Function(item) item.Value.Extension.Equals(My.Settings.PCSX2_SStateExt)).Sum(Function(item) item.Value.Length)
                     Else
                         _savestates_sizetot = 0
                     End If
@@ -31,19 +32,19 @@ Module mdlFileList
                 Return _savestates_sizetot
             End Get
         End Property
-        Private _savestatebackup_sizetot As Long
+        Private _savestatesbackup_sizetot As Long
         Public ReadOnly Property SavestatesBackup_SizeTot() As Long
             Get
                 If Not (IsNothing(Savestates)) Then
                     If Savestates.Count > 0 Then
-                        _savestatebackup_sizetot = Savestates.Where(Function(item) item.Value.Extension.Contains(My.Settings.PCSX2_SStateExt)).Sum(Function(item) item.Value.Length)
+                        _savestatesbackup_sizetot = Savestates.Where(Function(item) item.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Sum(Function(item) item.Value.Length)
                     Else
-                        _savestatebackup_sizetot = 0
+                        _savestatesbackup_sizetot = 0
                     End If
                 Else
-                    _savestatebackup_sizetot = 0
+                    _savestatesbackup_sizetot = 0
                 End If
-                Return _savestates_sizetot
+                Return _savestatesbackup_sizetot
             End Get
         End Property
         Public Property Snapshots As New Dictionary(Of String, Snapshot)
@@ -74,16 +75,13 @@ Module mdlFileList
         'Public Property SStatesStored_FolderLastModified As DateTime
         Public Property SnapsFolder_LastModified As DateTime
 
-        Public Sub LoadAll(ByVal pSStatesPath As String,
-                           ByVal pSnapsPath As String
-                           )
+        Public Sub LoadAll(ByVal pSStatesPath As String, _
+                           ByVal pSnapsPath As String)
 
             Dim sw As New Stopwatch
             sw.Start()
 
             Games.Clear()
-
-
 
             Dim tmpDirectoryInfo As New DirectoryInfo(pSStatesPath)
             LoadSavestates(tmpDirectoryInfo)

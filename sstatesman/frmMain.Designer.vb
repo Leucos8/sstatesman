@@ -545,6 +545,7 @@ Partial Class frmMain
         '
         'SplitContainer1.Panel1
         '
+        Me.SplitContainer1.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.SplitContainer1.Panel1.Controls.Add(Me.TableLayoutPanel3)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TableLayoutPanel2)
         Me.SplitContainer1.Panel1.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
@@ -567,7 +568,7 @@ Partial Class frmMain
         Me.TableLayoutPanel3.AutoSize = true
         Me.TableLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.TableLayoutPanel3.ColumnCount = 9
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 54!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56.0!))
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
@@ -575,7 +576,7 @@ Partial Class frmMain
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100!))
+        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel3.Controls.Add(Me.lvwGamesList, 0, 0)
         Me.TableLayoutPanel3.Controls.Add(Me.imgCover, 0, 1)
         Me.TableLayoutPanel3.Controls.Add(Me.lblGameList_Title, 1, 1)
@@ -592,7 +593,7 @@ Partial Class frmMain
         Me.TableLayoutPanel3.Margin = New System.Windows.Forms.Padding(2)
         Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
         Me.TableLayoutPanel3.RowCount = 3
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100!))
+        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel3.Size = New System.Drawing.Size(616, 176)
@@ -602,24 +603,24 @@ Partial Class frmMain
         '
         Me.lvwGamesList.BackColor = System.Drawing.Color.White
         Me.lvwGamesList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lvwGamesList.CheckBoxes = true
+        Me.lvwGamesList.CheckBoxes = True
         Me.lvwGamesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.GamesLvw_GameTitle, Me.GameLvw_GameSerial, Me.GameLvw_GameRegion, Me.GameLvw_SStatesInfo, Me.GameLvw_BackupInfo, Me.GameLvw_SnapsInfo})
         Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 9)
         Me.lvwGamesList.Cursor = System.Windows.Forms.Cursors.Default
         Me.lvwGamesList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvwGamesList.ForeColor = System.Drawing.Color.Black
-        Me.lvwGamesList.FullRowSelect = true
+        Me.lvwGamesList.FullRowSelect = True
         Me.lvwGamesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.lvwGamesList.HideSelection = false
+        Me.lvwGamesList.HideSelection = False
         Me.lvwGamesList.Location = New System.Drawing.Point(0, 0)
         Me.lvwGamesList.Margin = New System.Windows.Forms.Padding(0, 0, 0, 4)
-        Me.lvwGamesList.MultiSelect = false
+        Me.lvwGamesList.MultiSelect = False
         Me.lvwGamesList.Name = "lvwGamesList"
         Me.lvwGamesList.Size = New System.Drawing.Size(616, 122)
         Me.lvwGamesList.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.lvwGamesList.TabIndex = 22
         Me.lvwGamesList.TileSize = New System.Drawing.Size(480, 96)
-        Me.lvwGamesList.UseCompatibleStateImageBehavior = false
+        Me.lvwGamesList.UseCompatibleStateImageBehavior = False
         Me.lvwGamesList.View = System.Windows.Forms.View.Details
         '
         'GamesLvw_GameTitle
@@ -664,14 +665,14 @@ Partial Class frmMain
         Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 2)
         Me.imgCover.Size = New System.Drawing.Size(48, 48)
         Me.imgCover.TabIndex = 26
-        Me.imgCover.TabStop = false
+        Me.imgCover.TabStop = False
         '
         'lblGameList_Title
         '
-        Me.lblGameList_Title.AutoSize = true
+        Me.lblGameList_Title.AutoSize = True
         Me.lblGameList_Title.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGameList_Title.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Title.Location = New System.Drawing.Point(64, 126)
+        Me.lblGameList_Title.Location = New System.Drawing.Point(66, 126)
         Me.lblGameList_Title.Margin = New System.Windows.Forms.Padding(10, 0, 4, 0)
         Me.lblGameList_Title.Name = "lblGameList_Title"
         Me.lblGameList_Title.Size = New System.Drawing.Size(58, 24)
@@ -686,20 +687,20 @@ Partial Class frmMain
         Me.TableLayoutPanel3.SetColumnSpan(Me.txtGameList_Title, 7)
         Me.txtGameList_Title.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameList_Title.ForeColor = System.Drawing.Color.Black
-        Me.txtGameList_Title.Location = New System.Drawing.Point(126, 126)
+        Me.txtGameList_Title.Location = New System.Drawing.Point(128, 126)
         Me.txtGameList_Title.Margin = New System.Windows.Forms.Padding(0, 0, 0, 2)
         Me.txtGameList_Title.Name = "txtGameList_Title"
-        Me.txtGameList_Title.ReadOnly = true
-        Me.txtGameList_Title.Size = New System.Drawing.Size(490, 22)
+        Me.txtGameList_Title.ReadOnly = True
+        Me.txtGameList_Title.Size = New System.Drawing.Size(488, 22)
         Me.txtGameList_Title.TabIndex = 24
-        Me.txtGameList_Title.TabStop = false
+        Me.txtGameList_Title.TabStop = False
         '
         'lblGameList_Region
         '
-        Me.lblGameList_Region.AutoSize = true
+        Me.lblGameList_Region.AutoSize = True
         Me.lblGameList_Region.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGameList_Region.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Region.Location = New System.Drawing.Point(64, 150)
+        Me.lblGameList_Region.Location = New System.Drawing.Point(66, 150)
         Me.lblGameList_Region.Margin = New System.Windows.Forms.Padding(10, 0, 4, 0)
         Me.lblGameList_Region.Name = "lblGameList_Region"
         Me.lblGameList_Region.Size = New System.Drawing.Size(58, 26)
@@ -713,13 +714,13 @@ Partial Class frmMain
         Me.imgFlag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.imgFlag.Dock = System.Windows.Forms.DockStyle.Top
         Me.imgFlag.Image = Global.sstatesman.My.Resources.Resources.Flag_0Null_30x20
-        Me.imgFlag.Location = New System.Drawing.Point(228, 152)
+        Me.imgFlag.Location = New System.Drawing.Point(230, 152)
         Me.imgFlag.Margin = New System.Windows.Forms.Padding(2)
         Me.imgFlag.Name = "imgFlag"
         Me.imgFlag.Size = New System.Drawing.Size(32, 22)
         Me.imgFlag.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.imgFlag.TabIndex = 23
-        Me.imgFlag.TabStop = false
+        Me.imgFlag.TabStop = False
         '
         'txtGameList_Compat
         '
@@ -727,13 +728,13 @@ Partial Class frmMain
         Me.txtGameList_Compat.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Compat.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameList_Compat.ForeColor = System.Drawing.Color.Black
-        Me.txtGameList_Compat.Location = New System.Drawing.Point(473, 152)
+        Me.txtGameList_Compat.Location = New System.Drawing.Point(475, 152)
         Me.txtGameList_Compat.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Compat.Name = "txtGameList_Compat"
-        Me.txtGameList_Compat.ReadOnly = true
+        Me.txtGameList_Compat.ReadOnly = True
         Me.txtGameList_Compat.Size = New System.Drawing.Size(100, 22)
         Me.txtGameList_Compat.TabIndex = 30
-        Me.txtGameList_Compat.TabStop = false
+        Me.txtGameList_Compat.TabStop = False
         '
         'txtGameList_Region
         '
@@ -741,20 +742,20 @@ Partial Class frmMain
         Me.txtGameList_Region.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Region.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameList_Region.ForeColor = System.Drawing.Color.Black
-        Me.txtGameList_Region.Location = New System.Drawing.Point(126, 152)
+        Me.txtGameList_Region.Location = New System.Drawing.Point(128, 152)
         Me.txtGameList_Region.Margin = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.txtGameList_Region.Name = "txtGameList_Region"
-        Me.txtGameList_Region.ReadOnly = true
+        Me.txtGameList_Region.ReadOnly = True
         Me.txtGameList_Region.Size = New System.Drawing.Size(100, 22)
         Me.txtGameList_Region.TabIndex = 26
-        Me.txtGameList_Region.TabStop = false
+        Me.txtGameList_Region.TabStop = False
         '
         'lblGameList_Compat
         '
-        Me.lblGameList_Compat.AutoSize = true
+        Me.lblGameList_Compat.AutoSize = True
         Me.lblGameList_Compat.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGameList_Compat.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Compat.Location = New System.Drawing.Point(406, 150)
+        Me.lblGameList_Compat.Location = New System.Drawing.Point(408, 150)
         Me.lblGameList_Compat.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Compat.Name = "lblGameList_Compat"
         Me.lblGameList_Compat.Size = New System.Drawing.Size(63, 26)
@@ -764,10 +765,10 @@ Partial Class frmMain
         '
         'lblGameList_Serial
         '
-        Me.lblGameList_Serial.AutoSize = true
+        Me.lblGameList_Serial.AutoSize = True
         Me.lblGameList_Serial.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblGameList_Serial.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblGameList_Serial.Location = New System.Drawing.Point(264, 150)
+        Me.lblGameList_Serial.Location = New System.Drawing.Point(266, 150)
         Me.lblGameList_Serial.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblGameList_Serial.Name = "lblGameList_Serial"
         Me.lblGameList_Serial.Size = New System.Drawing.Size(34, 26)
@@ -781,7 +782,7 @@ Partial Class frmMain
         Me.txtGameList_Serial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtGameList_Serial.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameList_Serial.ForeColor = System.Drawing.Color.Black
-        Me.txtGameList_Serial.Location = New System.Drawing.Point(302, 152)
+        Me.txtGameList_Serial.Location = New System.Drawing.Point(304, 152)
         Me.txtGameList_Serial.Margin = New System.Windows.Forms.Padding(2)
         Me.txtGameList_Serial.Name = "txtGameList_Serial"
         Me.txtGameList_Serial.ReadOnly = true
