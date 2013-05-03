@@ -38,14 +38,9 @@ Public NotInheritable Class frmAbout
 #Region "Tab management"
     Private Sub optSettingTab1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab1.CheckedChanged
         If Me.optSettingTab1.Checked = True Then
-            With Me.optSettingTab1
-                .FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-            End With
-            With Me.optSettingTab2
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
+            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
+
             Me.SplitContainer1.Panel2Collapsed = True
             Me.SplitContainer1.Panel1Collapsed = False
         End If
@@ -53,14 +48,9 @@ Public NotInheritable Class frmAbout
 
     Private Sub optSettingTab2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab2.CheckedChanged
         If Me.optSettingTab2.Checked = True Then
-            With Me.optSettingTab2
-                .FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-            End With
-            With Me.optSettingTab1
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
+            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
+
             Me.SplitContainer1.Panel1Collapsed = True
             Me.SplitContainer1.Panel2Collapsed = False
         End If

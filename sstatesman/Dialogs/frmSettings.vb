@@ -296,26 +296,11 @@ Public Class frmSettings
 #Region "Form - Tab management"
     Private Sub optSettingTab1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab1.CheckedChanged
         If Me.optSettingTab1.Checked = True Then
-            With Me.optSettingTab1
-                '.ForeColor = Me.flpTab.ForeColor
-                .FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-            End With
-            With Me.optSettingTab2
-                '.ForeColor = Color.DarkGray
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
-            With Me.optSettingTab3
-                '.ForeColor = Color.DarkGray
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
-            With Me.optSettingTab4
-                '.ForeColor = Color.DarkGray
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
+            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
+            Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
+            Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.White
+
             Me.pnlTab1.Visible = True
             Me.pnlTab2.Visible = False
             Me.pnlTab3.Visible = False
@@ -325,26 +310,11 @@ Public Class frmSettings
 
     Private Sub optSettingTab2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab2.CheckedChanged
         If Me.optSettingTab2.Checked = True Then
-            With Me.optSettingTab2
-                '.ForeColor = Me.flpTab.ForeColor
-                .FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-            End With
-            With Me.optSettingTab1
-                '.ForeColor = Color.DarkGray
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
-            With Me.optSettingTab3
-                '.ForeColor = Color.DarkGray
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
-            With Me.optSettingTab4
-                '.ForeColor = Color.DarkGray
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
+            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
+            Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
+            Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.White
+
             Me.pnlTab2.Visible = True
             Me.pnlTab1.Visible = False
             Me.pnlTab3.Visible = False
@@ -354,26 +324,11 @@ Public Class frmSettings
 
     Private Sub optSettingTab3_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab3.CheckedChanged
         If Me.optSettingTab3.Checked = True Then
-            With Me.optSettingTab3
-                '.ForeColor = Me.flpTab.ForeColor
-                .FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-            End With
-            With Me.optSettingTab1
-                '.ForeColor = Color.DarkGray
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
-            With Me.optSettingTab2
-                '.ForeColor = Color.DarkGray
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
-            With Me.optSettingTab4
-                '.ForeColor = Color.DarkGray
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
+            Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
+            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
+            Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.White
+
             Me.pnlTab3.Visible = True
             Me.pnlTab1.Visible = False
             Me.pnlTab2.Visible = False
@@ -383,26 +338,11 @@ Public Class frmSettings
 
     Private Sub optSettingTab4_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab4.CheckedChanged
         If Me.optSettingTab4.Checked = True Then
-            With Me.optSettingTab4
-                '.ForeColor = Me.flpTab.ForeColor
-                .FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-            End With
-            With Me.optSettingTab1
-                '.ForeColor = Color.DarkGray
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
-            With Me.optSettingTab2
-                '.ForeColor = Color.DarkGray
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
-            With Me.optSettingTab3
-                '.ForeColor = Color.DarkGray
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
+            Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
+            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
+            Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
+
             Me.pnlTab4.Visible = True
             Me.pnlTab1.Visible = False
             Me.pnlTab2.Visible = False
