@@ -16,6 +16,13 @@ Imports System.IO
 
 Public Class frmMain
     Dim lastWindowState As FormWindowState
+    Friend WindowListMode As ListMode = ListMode.Savestates
+    Friend Enum ListMode
+        'Iso
+        Savestates
+        Stored
+        Snapshots
+    End Enum
 
     'Main window checked objects list
     Friend checkedGames As New List(Of String)
@@ -32,52 +39,83 @@ Public Class frmMain
     Dim currentGameInfo As New GameInfo
 
     'Current size in bytes of the selected items
-    Dim lvwGames_SelectedSize As Long = 0
+    Dim lvwGames_SelectedSizeSStates As Long = 0
     Dim lvwGames_SelectedSizeBackup As Long = 0
-    Dim lvwSStates_SelectedSize As Long = 0
-    Dim lvwSStates_SelectedSizeBackup As Long = 0
+    Dim lvwGames_SelectedSizeStored As Long = 0
+    Dim lvwGames_SelectedSizeSnaps As Long = 0
+    Dim lvwFiles_SelectedSizeSStates As Long = 0
+    Dim lvwFiles_SelectedSizeBackup As Long = 0
+    'Dim lvwFiles_SelectedSizeStored As Long = 0
+    Dim lvwFiles_SelectedSizeSnaps As Long = 0
 
     'Default sizes for the cover image
     Private ReadOnly imgCover_SizeReduced As New Size(32, 46)
     Private ReadOnly imgCover_SizeExpanded As New Size(120, 170)
 
-    Friend Enum LvwGamesColumn
-        GameTitle
-        GameSerial
-        GameRegion
-        SStateInfo
-        SStateBackupInfo
-        SnapsInfo
-    End Enum
+    Private Sub ListMode_Switch(ByVal pListMode As ListMode)
+        Select Case pListMode
+            Case ListMode.Savestates
+                Me.lblSStateListCheck.Text = "check savestates:"
+                Me.cmdFilesCheckBackup.Visible = True
+                Me.lblSize.Text = "savestates size"
+                Me.lblSizeBackup.Visible = True
+                Me.txtSizeBackup.Visible = True
 
-    Friend Enum LvwSStatesColumn
-        FileName
-        Slot
-        Version
-        LastWriteDate
-        Size
-    End Enum
+                Me.UI_Enable(False)
+                Me.lvwFilesList_AddSavestatesColumn()
+                Me.List_RefreshFiles()
+                Me.UI_Enable(True)
+                SSMAppLog.Append("Main window", "ListMode", "Switched to savestates.")
+            Case ListMode.Stored
+                Me.lblSStateListCheck.Text = "check savestates:"
+                Me.cmdFilesCheckBackup.Visible = False
+                Me.lblSize.Text = "savestates size"
+                Me.lblSizeBackup.Visible = False
+                Me.txtSizeBackup.Visible = False
+
+                Me.UI_Enable(False)
+                Me.lvwFilesList_AddSavestatesColumn()
+                Me.List_RefreshFiles()
+                Me.UI_Enable(True)
+
+                SSMAppLog.Append("Main window", "ListMode", "Switched to stored.")
+            Case ListMode.Snapshots
+                Me.lblSStateListCheck.Text = "check screnshots:"
+                Me.cmdFilesCheckBackup.Visible = False
+                Me.lblSize.Text = "screenshots size"
+                Me.lblSizeBackup.Visible = False
+                Me.txtSizeBackup.Visible = False
+
+                Me.UI_Enable(False)
+                Me.lvwFilesList_AddSnapshotsColumn()
+                Me.List_RefreshFiles()
+                Me.UI_Enable(True)
+
+                SSMAppLog.Append("Main window", "ListMode", "Switched to screenshots.")
+        End Select
+        Me.WindowListMode = pListMode
+    End Sub
 
     Friend Sub List_RefreshAll()
         Me.UI_Enable(False, True)
 
         SSMGameList.LoadAll(My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
 
-        Me.lvwGamesList_Populate()
-        Me.GamesList_IndexCheckedGames()
-
-        Me.lvwSStatesList_Populate()
-        Me.lvwSStatesList_indexCheckedFiles()
-
-        Me.UI_Update()
+        Me.lvwGamesList_AddGames()
+        Me.List_RefreshFiles()
         Me.UI_Enable(True, True)
     End Sub
 
-    Private Sub List_RefreshSavestates()
+    Private Sub List_RefreshFiles()
 
         Me.GamesList_IndexCheckedGames()
-        Me.lvwSStatesList_Populate()
-        Me.lvwSStatesList_indexCheckedFiles()
+        Select Case Me.WindowListMode
+            Case ListMode.Savestates
+                Me.lvwFilesList_AddSavestates()
+            Case ListMode.Snapshots
+                Me.lvwFilesList_AddSnapshots()
+        End Select
+        Me.lvwFileList_IndexChecked()
         Me.UI_Update()
     End Sub
 
@@ -127,14 +165,17 @@ Public Class frmMain
                       CInt((My.Resources.Icon_Savestate_16x16.Width - 1) * DPIxScale) + 1, _
                       CInt((My.Resources.Icon_Savestate_16x16.Height - 1) * DPIyScale) + 1)}
 
-        imlLvwCheckboxes.Images.Add(My.Resources.Checkbox_Unchecked_22x22)      'Unchecked state image
-        imlLvwCheckboxes.Images.Add(My.Resources.Checkbox_Checked_22x22)        'Checked state image
-        Me.lvwGamesList.StateImageList = imlLvwCheckboxes           'Assigning the imagelist to the Games listview
-        Me.lvwSStatesList.StateImageList = imlLvwCheckboxes         'Assigning the imagelist to the Savestates listview
+        'Checked state icons
+        imlLvwCheckboxes.Images.AddRange({My.Resources.Checkbox_Unchecked_22x22, _
+                                          My.Resources.Checkbox_Checked_22x22})
+        Me.lvwGamesList.StateImageList = imlLvwCheckboxes       'Assigning the imagelist to the Games listview
+        Me.lvwFilesList.StateImageList = imlLvwCheckboxes       'Assigning the imagelist to the Savestates listview
 
-        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_Savestate_16x16)       'Savestate standard image
-        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_SavestateBackup_16x16) 'Backup standard image
-        Me.lvwSStatesList.SmallImageList = imlLvwSStatesIcons       'Assigning the imagelist to the Savestates listview
+        'Savestates, backup, and screenshot icons
+        imlLvwSStatesIcons.Images.AddRange({My.Resources.Icon_Savestate_16x16, _
+                                            My.Resources.Icon_SavestateBackup_16x16, _
+                                            My.Resources.Icon_Screenshot_16x16})
+        Me.lvwFilesList.SmallImageList = imlLvwSStatesIcons     'Assigning the imagelist to the Savestates listview
 
         '---------------
         'Window settings
@@ -163,9 +204,9 @@ Public Class frmMain
 
         'Savestate list column size
         If My.Settings.frmMain_slvw_columnwidth IsNot Nothing Then
-            If My.Settings.frmMain_slvw_columnwidth.Length = Me.lvwSStatesList.Columns.Count Then
-                For i As Integer = 0 To Me.lvwSStatesList.Columns.Count - 1
-                    Me.lvwSStatesList.Columns(i).Width = My.Settings.frmMain_slvw_columnwidth(i)
+            If My.Settings.frmMain_slvw_columnwidth.Length = Me.lvwFilesList.Columns.Count Then
+                For i As Integer = 0 To Me.lvwFilesList.Columns.Count - 1
+                    Me.lvwFilesList.Columns(i).Width = My.Settings.frmMain_slvw_columnwidth(i)
                 Next
             End If
         End If
@@ -182,6 +223,8 @@ Public Class frmMain
 
         'Loading the Game database (from PCSX2 directory)
         PCSX2GameDb.Load(Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
+
+        Me.ListMode_Switch(ListMode.Savestates)
         'Refreshing the games list
         Me.List_RefreshAll()
 
@@ -213,8 +256,8 @@ Public Class frmMain
         'Column widths
         My.Settings.frmMain_glvw_columnwidth = New Integer() {Me.GamesLvw_GameTitle.Width, Me.GameLvw_GameSerial.Width, Me.GameLvw_GameRegion.Width, _
                                                               Me.GameLvw_SStatesInfo.Width, Me.GameLvw_BackupInfo.Width, Me.GameLvw_SnapsInfo.Width}
-        My.Settings.frmMain_slvw_columnwidth = New Integer() {Me.SStatesLvw_FileName.Width, Me.SStatesLvw_Slot.Width, Me.SStatesLvw_Version.Width, _
-                                                              Me.SStatesLvw_DateLastWrite.Width, Me.SStatesLvw_Size.Width}
+        'My.Settings.frmMain_slvw_columnwidth = New Integer() {Me.SStatesLvw_FileName.Width, Me.SStatesLvw_Slot.Width, Me.SStatesLvw_Version.Width, _
+        '                                                      Me.SStatesLvw_DateLastWrite.Width, Me.SStatesLvw_Size.Width}
     End Sub
 
     ''' <summary>Handles the gamelist and savestate list beginupdate and endupdate methods</summary>
@@ -226,13 +269,13 @@ Public Class frmMain
             If pGamesList_included Then
                 Me.lvwGamesList.EndUpdate()
             End If
-            Me.lvwSStatesList.EndUpdate()
+            Me.lvwFilesList.EndUpdate()
         Else
             Me.ListsAreRefreshed = True
             If pGamesList_included Then
                 Me.lvwGamesList.BeginUpdate()
             End If
-            Me.lvwSStatesList.BeginUpdate()
+            Me.lvwFilesList.BeginUpdate()
         End If
     End Sub
 
@@ -241,7 +284,7 @@ Public Class frmMain
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         Me.UI_UpdateGameInfo()
-        Me.UI_UpdateStInfo()
+        Me.UI_UpdateFileInfo()
 
         sw.Stop()
         SSMAppLog.Append("Main window", "UI_Update", "Refreshed status.", sw.ElapsedTicks)
@@ -385,53 +428,58 @@ Public Class frmMain
     End Sub
 
     ''' <summary>Updates the UI savestate info: items selected, size.</summary>
-    Private Sub UI_UpdateStInfo()
-        Me.txtSStateListSelection.Text = System.String.Format("{0:N0} | {1:N0} files", Me.lvwSStatesList.CheckedItems.Count, Me.lvwSStatesList.Items.Count)
-        Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.lvwSStates_SelectedSize / 1024 ^ 2, Me.lvwGames_SelectedSize / 1024 ^ 2)
-        Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.lvwSStates_SelectedSizeBackup / 1024 ^ 2, Me.lvwGames_SelectedSizeBackup / 1024 ^ 2)
+    Private Sub UI_UpdateFileInfo()
+        Me.txtSelected.Text = System.String.Format("{0:N0} | {1:N0} files", Me.lvwFilesList.CheckedItems.Count, Me.lvwFilesList.Items.Count)
+        Select Case Me.WindowListMode
+            Case ListMode.Savestates
+                Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.lvwFiles_SelectedSizeSStates / 1024 ^ 2, Me.lvwGames_SelectedSizeSStates / 1024 ^ 2)
+                Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.lvwFiles_SelectedSizeBackup / 1024 ^ 2, Me.lvwGames_SelectedSizeBackup / 1024 ^ 2)
+            Case ListMode.Snapshots
+                Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.lvwFiles_SelectedSizeSnaps / 1024 ^ 2, Me.lvwGames_SelectedSizeSnaps / 1024 ^ 2)
+        End Select
 
-        If Me.lvwSStatesList.Items.Count = 0 Then
+        If Me.lvwFilesList.Items.Count = 0 Then
             '=====================
             'No savestates in list
             '=====================
-            Me.cmdSStateSelectAll.Enabled = False
-            Me.cmdSStateSelectInvert.Enabled = False
-            Me.cmdSStateSelectNone.Enabled = False
-            Me.cmdSStateSelectBackup.Enabled = False
-            Me.cmdSStateDelete.Enabled = False
-            Me.cmdSStateReorder.Enabled = False
+            Me.cmdFilesCheckAll.Enabled = False
+            Me.cmdFilesCheckInvert.Enabled = False
+            Me.cmdFilesCheckNone.Enabled = False
+            Me.cmdFilesCheckBackup.Enabled = False
+            Me.cmdFilesDelete.Enabled = False
+            Me.cmdFilesReorder.Enabled = False
         Else
             '======================
             'Savestates are present
             '======================
-            Me.cmdSStateSelectInvert.Enabled = True
-            Me.cmdSStateSelectBackup.Enabled = True
+            Me.cmdFilesCheckInvert.Enabled = True
+            Me.cmdFilesCheckBackup.Enabled = True
 
             If Me.lvwGamesList.CheckedItems.Count > 1 Then
                 'More than one game is checked
-                Me.cmdSStateReorder.Enabled = False
+                Me.cmdFilesReorder.Enabled = False
             Else
                 'A single game is checked/selected
-                Me.cmdSStateReorder.Enabled = True
+                Me.cmdFilesReorder.Enabled = True
             End If
 
-            If Me.lvwSStatesList.CheckedItems.Count > 0 Then
+            If Me.lvwFilesList.CheckedItems.Count > 0 Then
                 'At least one savestate is checked
-                Me.cmdSStateSelectNone.Enabled = True
-                Me.cmdSStateDelete.Enabled = True
+                Me.cmdFilesCheckNone.Enabled = True
+                Me.cmdFilesDelete.Enabled = True
 
-                If Me.lvwSStatesList.Items.Count = Me.lvwSStatesList.CheckedItems.Count Then
+                If Me.lvwFilesList.Items.Count = Me.lvwFilesList.CheckedItems.Count Then
                     'All savestates are checked
-                    Me.cmdSStateSelectAll.Enabled = False
+                    Me.cmdFilesCheckAll.Enabled = False
                 Else
-                    Me.cmdSStateSelectAll.Enabled = True
+                    Me.cmdFilesCheckAll.Enabled = True
                 End If
 
             Else
                 'No savestates are checked
-                Me.cmdSStateSelectNone.Enabled = False
-                Me.cmdSStateSelectAll.Enabled = True
-                Me.cmdSStateDelete.Enabled = False
+                Me.cmdFilesCheckNone.Enabled = False
+                Me.cmdFilesCheckAll.Enabled = True
+                Me.cmdFilesDelete.Enabled = False
             End If
         End If
     End Sub
@@ -535,21 +583,21 @@ Public Class frmMain
         Me.List_RefreshAll()
     End Sub
 
-    Private Sub cmdSStateDelete_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStateDelete.Click
+    Private Sub cmdSStateDelete_Click(sender As System.Object, e As System.EventArgs) Handles cmdFilesDelete.Click
         frmDeleteForm.ShowDialog(Me)
     End Sub
 
-    Private Sub cmdSStateReorder_Click(sender As Object, e As EventArgs) Handles cmdSStateReorder.Click
+    Private Sub cmdSStateReorder_Click(sender As Object, e As EventArgs) Handles cmdFilesReorder.Click
         frmReorderForm.ShowDialog(Me)
     End Sub
 
-    Private Sub cmdSStatesLvwExpand_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStatesLvwExpand.Click
+    Private Sub cmdSStatesLvwExpand_Click(sender As System.Object, e As System.EventArgs) Handles cmdExpandFilesList.Click
         If Me.SplitContainer1.Panel1Collapsed Then
             Me.SplitContainer1.Panel1Collapsed = False
-            Me.cmdSStatesLvwExpand.Image = My.Resources.Icon_ExpandTop_12x12
+            Me.cmdExpandFilesList.Image = My.Resources.Icon_ExpandTop_12x12
         Else
             Me.SplitContainer1.Panel1Collapsed = True
-            Me.cmdSStatesLvwExpand.Image = My.Resources.Icon_ExpandBottom_12x12
+            Me.cmdExpandFilesList.Image = My.Resources.Icon_ExpandBottom_12x12
 
             Me.cmdGameSelectAll_Click(Nothing, Nothing)
         End If
@@ -593,21 +641,19 @@ Public Class frmMain
             Me.TableLayoutPanel3.ResumeLayout()
 
             Me.UI_UpdateGameInfo()
-        ElseIf e.Button = Windows.Forms.MouseButtons.Right Then
+        End If
+    End Sub
 
-            'Show the menu
-
-            If (Me.checkedGames.Count() = 1) And Directory.Exists(My.Settings.SStatesMan_PathPics) Then
-                If Not (Me.checkedGames(0).ToLower = "screenshots") Then
-                    'If screenshot "game" is selected, then disable the add cover menu item
-                    Me.cmiCoverAdd.Enabled = True
-                Else
-                    Me.cmiCoverAdd.Enabled = False
-                End If
+    Private Sub cmCover_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmCover.Opening
+        If (Me.checkedGames.Count() = 1) And Directory.Exists(My.Settings.SStatesMan_PathPics) Then
+            If Not (Me.checkedGames(0).ToLower = "screenshots") Then
+                'If screenshot "game" is selected, then disable the add cover menu item
+                Me.cmiCoverAdd.Enabled = True
             Else
                 Me.cmiCoverAdd.Enabled = False
             End If
-            Me.cmCover.Show(CType(sender, Control), e.Location)
+        Else
+            Me.cmiCoverAdd.Enabled = False
         End If
     End Sub
 
@@ -757,7 +803,7 @@ Public Class frmMain
 #End Region
 
 #Region "UI - Gamelist management"
-    Private Sub lvwGamesList_Populate()
+    Private Sub lvwGamesList_AddGames()
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         Me.GamesList_IndexCheckedGames()
@@ -819,7 +865,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwGamesList)
 
         sw.Stop()
-        SSMAppLog.Append("Main window", "populate game list", String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), sw.ElapsedTicks)
+        SSMAppLog.Append("Main window", "Add games", String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
     Private Sub GamesList_IndexCheckedGames()
@@ -840,7 +886,7 @@ Public Class frmMain
         For i = 0 To Me.lvwGamesList.Items.Count - 1
             Me.lvwGamesList.Items.Item(i).Checked = True
         Next
-        Me.List_RefreshSavestates()
+        Me.List_RefreshFiles()
         Me.UI_Enable(True, True)
     End Sub
 
@@ -849,7 +895,7 @@ Public Class frmMain
         For i = 0 To Me.lvwGamesList.Items.Count - 1
             Me.lvwGamesList.Items.Item(i).Checked = False
         Next
-        Me.List_RefreshSavestates()
+        Me.List_RefreshFiles()
         Me.UI_Enable(True, True)
     End Sub
 
@@ -862,14 +908,14 @@ Public Class frmMain
                 Me.lvwGamesList.Items.Item(i).Checked = True
             End If
         Next
-        Me.List_RefreshSavestates()
+        Me.List_RefreshFiles()
         Me.UI_Enable(True, True)
     End Sub
 
     Private Sub lvwGamesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwGamesList.ItemChecked
         If ListsAreRefreshed = False Then
             Me.UI_Enable(False)
-            Me.List_RefreshSavestates()
+            Me.List_RefreshFiles()
             Me.UI_Enable(True)
         End If
     End Sub
@@ -878,34 +924,128 @@ Public Class frmMain
         If Me.lvwGamesList.CheckedItems.Count = 0 Then
             If ListsAreRefreshed = False Then
                 Me.UI_Enable(False)
-                Me.List_RefreshSavestates()
+                Me.List_RefreshFiles()
                 Me.UI_Enable(True)
             End If
         End If
     End Sub
 #End Region
 
-#Region "UI - SStatesList management"
-    Private Sub lvwSStatesList_Populate()
+#Region "UI - FilesList management"
+    Private Sub lvwFileList_IndexChecked()
+        Select Case Me.WindowListMode
+            Case ListMode.Savestates
+                Me.lvwFiles_SelectedSizeSStates = 0
+                Me.lvwFiles_SelectedSizeBackup = 0
+                checkedSavestates.Clear()
+
+                If Me.lvwFilesList.CheckedItems.Count > 0 Then
+                    For Each tmpCheckedItem As ListViewItem In Me.lvwFilesList.CheckedItems
+
+                        Dim tmpSerial As String = Savestate.GetSerial(tmpCheckedItem.Name)
+                        Dim tmpSavestate As Savestate = SSMGameList.Games(tmpSerial).Savestates(tmpCheckedItem.Name)
+                        checkedSavestates.Add(tmpSavestate.Name)
+
+                        If tmpSavestate.isBackup Then
+                            lvwFiles_SelectedSizeBackup += tmpSavestate.Length
+                        Else
+                            lvwFiles_SelectedSizeSStates += tmpSavestate.Length
+                        End If
+                    Next
+                End If
+            Case ListMode.Snapshots
+                Me.lvwFiles_SelectedSizeSnaps = 0
+                checkedSnapshots.Clear()
+
+                If Me.lvwFilesList.CheckedItems.Count > 0 Then
+                    For Each tmpCheckedItem As ListViewItem In Me.lvwFilesList.CheckedItems
+
+                        Dim tmpSerial As String = Snapshot.GetSerial(tmpCheckedItem.Name)
+                        Dim tmpSnapshot As Snapshot = SSMGameList.Games(tmpSerial).Snapshots(tmpCheckedItem.Name)
+                        checkedSnapshots.Add(tmpSnapshot.Name)
+
+                        lvwFiles_SelectedSizeSnaps += tmpSnapshot.Length
+                    Next
+                End If
+        End Select
+    End Sub
+
+    Private Sub cmdFilesCheckAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFilesCheckAll.Click
+        Me.UI_Enable(False)
+        For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
+            Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = True
+        Next
+        Me.lvwFileList_IndexChecked()
+        Me.UI_UpdateFileInfo()
+        Me.UI_Enable(True)
+    End Sub
+
+    Private Sub cmdFilesCheckNone_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFilesCheckNone.Click
+        Me.UI_Enable(False)
+        For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
+            Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = False
+        Next
+        Me.lvwFileList_IndexChecked()
+        Me.UI_UpdateFileInfo()
+        Me.UI_Enable(True)
+    End Sub
+
+    Private Sub cmdFilesCheckInvert_Click(sender As System.Object, e As System.EventArgs) Handles cmdFilesCheckInvert.Click
+        Me.UI_Enable(False)
+        For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
+            If Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = True Then
+                Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = False
+            Else
+                Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = True
+            End If
+        Next
+        Me.lvwFileList_IndexChecked()
+        Me.UI_UpdateFileInfo()
+        Me.UI_Enable(True)
+    End Sub
+
+    Private Sub cmdFilesCheckBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdFilesCheckBackup.Click
+        Me.UI_Enable(False)
+        For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
+            If Savestate.isBackup(Me.lvwFilesList.Items.Item(lvwItemIndex).Name) Then
+                Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = True
+            Else
+                Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = False
+            End If
+        Next
+        Me.lvwFileList_IndexChecked()
+        Me.UI_UpdateFileInfo()
+        Me.UI_Enable(True)
+    End Sub
+
+    Private Sub lvwFilesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwFilesList.ItemChecked
+        If ListsAreRefreshed = False Then
+            Me.lvwFileList_IndexChecked()
+            Me.UI_UpdateFileInfo()
+        End If
+    End Sub
+#End Region
+
+#Region "UI - FilesList Savestates"
+    Private Sub lvwFilesList_AddSavestates()
         Dim sw As New Stopwatch
         sw.Start()
 
         'Preparation for the update
-        Me.lvwGames_SelectedSize = 0
+        Me.lvwGames_SelectedSizeSStates = 0
         Me.lvwGames_SelectedSizeBackup = 0
-        Me.lvwSStates_SelectedSize = 0
-        Me.lvwSStates_SelectedSizeBackup = 0
+        Me.lvwFiles_SelectedSizeSStates = 0
+        Me.lvwFiles_SelectedSizeBackup = 0
 
-        Me.lvwSStatesList_indexCheckedFiles()
         'clear items and group, lvwSStatesList refresh in fact begins here
-        Me.lvwSStatesList.Items.Clear()
-        Me.lvwSStatesList.Groups.Clear()
+        Me.lvwFilesList.Items.Clear()
+        Me.lvwFilesList.Groups.Clear()
 
         'if more than one game is checked groups are shown
-        If Me.lvwGamesList.CheckedItems.Count > 1 Then
-            Me.lvwSStatesList.ShowGroups = True
+        If Me.checkedGames.Count > 1 Then
+            Me.lvwFilesList.ShowGroups = True
         Else
-            Me.lvwSStatesList.ShowGroups = False
+            Me.lvwFilesList.ShowGroups = False
         End If
 
         Dim tmpGroups As New List(Of ListViewGroup)
@@ -928,7 +1068,7 @@ Public Class frmMain
                 tmpGroups.Add(tmpLvwSListGroup)
 
                 'Calculating checked games savestate size
-                lvwGames_SelectedSize += SSMGameList.Games(currentGameInfo.Serial).Savestates_SizeTot
+                lvwGames_SelectedSizeSStates += SSMGameList.Games(currentGameInfo.Serial).Savestates_SizeTot
                 lvwGames_SelectedSizeBackup += SSMGameList.Games(currentGameInfo.Serial).SavestatesBackup_SizeTot
 
                 If (SSMGameList.Games(tmpSerial).Savestates.Values.Count > 0) Then
@@ -937,12 +1077,12 @@ Public Class frmMain
 
                     For Each tmpSavestate As KeyValuePair(Of String, Savestate) In SSMGameList.Games(tmpSerial).Savestates
 
-                        Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key,
-                                                                                           .Group = tmpLvwSListGroup,
+                        Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key, _
+                                                                                           .Group = tmpLvwSListGroup, _
                                                                                            .Name = tmpSavestate.Key}
-                        tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Slot.ToString,
-                                                           tmpSavestate.Value.Version,
-                                                           tmpSavestate.Value.LastWriteTime.ToString,
+                        tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Slot.ToString, _
+                                                           tmpSavestate.Value.Version, _
+                                                           tmpSavestate.Value.LastWriteTime.ToString, _
                                                            System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2)})
                         If Not (tmpSavestate.Value.isBackup) Then
                             tmpLvwSListItem.ImageIndex = 0
@@ -971,152 +1111,182 @@ Public Class frmMain
         Next
 
 
-        Me.lvwSStatesList.Groups.AddRange(tmpGroups.ToArray)
-        Me.lvwSStatesList.Items.AddRange(tmpLvwItems.ToArray)
-        mdlTheme.ListAlternateColors(Me.lvwSStatesList)
+        Me.lvwFilesList.Groups.AddRange(tmpGroups.ToArray)
+        Me.lvwFilesList.Items.AddRange(tmpLvwItems.ToArray)
+        mdlTheme.ListAlternateColors(Me.lvwFilesList)
 
         sw.Stop()
-        SSMAppLog.Append("Main window", "populate savestates list", String.Format("Listed {0:N0} savestates.", Me.lvwSStatesList.Items.Count), sw.ElapsedTicks)
+        SSMAppLog.Append("Main window", "Add savestates", String.Format("Listed {0:N0} savestates.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
-    Private Sub lvwSStatesList_indexCheckedFiles()
-        Me.lvwSStates_SelectedSize = 0
-        Me.lvwSStates_SelectedSizeBackup = 0
-        checkedSavestates.Clear()
+    Private Sub lvwFilesList_AddSavestatesColumn()
+        Dim sw As Stopwatch = Stopwatch.StartNew
 
-        If Me.lvwSStatesList.CheckedItems.Count > 0 Then
-            For Each tmpCheckedItem As ListViewItem In Me.lvwSStatesList.CheckedItems
+        Dim tmpColumnHeaders As New List(Of ColumnHeader)
+        tmpColumnHeaders.AddRange({New ColumnHeader With {.Name = "SStatesCH_FileName", .Text = "Savestate file name", .Width = 240}, _
+                                   New ColumnHeader With {.Name = "SStatesCH_Slot", .Text = "Slot", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
+                                   New ColumnHeader With {.Name = "SStatesCH_Version", .Text = "Version", .Width = 120}, _
+                                   New ColumnHeader With {.Name = "SStatesCH_Modified", .Text = "Modified", .Width = 120}, _
+                                   New ColumnHeader With {.Name = "SStatesCH_Size", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
+                                   })
 
-                Dim tmpSerial As String = Savestate.GetSerial(tmpCheckedItem.Name)
-                Dim tmpSavestate As Savestate = SSMGameList.Games(tmpSerial).Savestates(tmpCheckedItem.Name)
-                checkedSavestates.Add(tmpSavestate.Name)
+        If My.Settings.frmMain_slvw_columnwidth IsNot Nothing Then
+            If My.Settings.frmMain_slvw_columnwidth.Length = tmpColumnHeaders.Count Then
+                For i As Integer = 0 To tmpColumnHeaders.Count - 1
+                    tmpColumnHeaders(i).Width = My.Settings.frmMain_slvw_columnwidth(i)
+                Next
+            End If
+        End If
 
-                If tmpSavestate.isBackup Then
-                    lvwSStates_SelectedSizeBackup += tmpSavestate.Length
-                Else
-                    lvwSStates_SelectedSize += tmpSavestate.Length
+        Me.lvwFilesList.Columns.Clear()
+        Me.lvwFilesList.Columns.AddRange(tmpColumnHeaders.ToArray)
+
+        sw.Stop()
+        SSMAppLog.Append("Main window", "AddSavestateColumn", "Added column to files listview for savestates", sw.ElapsedTicks)
+    End Sub
+#End Region
+
+#Region "UI - FilesList Snapshots"
+    Private Sub lvwFilesList_AddSnapshots()
+        Dim sw As New Stopwatch
+        sw.Start()
+
+        'Preparation for the update
+        Me.lvwGames_SelectedSizeSnaps = 0
+        Me.lvwFiles_SelectedSizeSnaps = 0
+
+        'clear items and group, lvwSStatesList refresh in fact begins here
+        Me.lvwFilesList.Items.Clear()
+        Me.lvwFilesList.Groups.Clear()
+
+        'if more than one game is checked groups are shown
+        If Me.checkedGames.Count > 1 Then
+            Me.lvwFilesList.ShowGroups = True
+        Else
+            Me.lvwFilesList.ShowGroups = False
+        End If
+
+        Dim tmpGroups As New List(Of ListViewGroup)
+        Dim tmpLvwItems As New List(Of ListViewItem)
+        Dim lastSnapsIndex As Integer = -1
+        Dim lastSnapsDate As Date = Date.MinValue
+
+        For Each tmpSerial As String In Me.checkedGames
+
+            Dim tmpGamesListItem As New GamesList_Item
+            If (SSMGameList.Games.TryGetValue(tmpSerial, tmpGamesListItem)) Then
+
+                'Creation of the header group
+                currentGameInfo = PCSX2GameDb.Extract(tmpSerial)
+                Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With { _
+                    .Header = currentGameInfo.ToString, _
+                    .HeaderAlignment = HorizontalAlignment.Left, _
+                    .Name = currentGameInfo.Serial}
+
+                tmpGroups.Add(tmpLvwSListGroup)
+
+                'Calculating checked games snapshots size
+                lvwGames_SelectedSizeSnaps += SSMGameList.Games(currentGameInfo.Serial).Snapshots_SizeTot
+
+                If (SSMGameList.Games(tmpSerial).Snapshots.Values.Count > 0) Then
+
+                    lastSnapsDate = Date.MinValue
+
+                    For Each tmpSnaps As KeyValuePair(Of String, Snapshot) In SSMGameList.Games(tmpSerial).Snapshots
+
+                        Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSnaps.Key, _
+                                                                                           .Group = tmpLvwSListGroup, _
+                                                                                           .Name = tmpSnaps.Key}
+                        tmpLvwSListItem.SubItems.AddRange({"00", _
+                                                           "Resolution", _
+                                                           tmpSnaps.Value.LastWriteTime.ToString, _
+                                                           System.String.Format("{0:N2} MB", tmpSnaps.Value.Length / 1024 ^ 2)})
+                        tmpLvwSListItem.ImageIndex = 2
+
+                        If (checkedSnapshots.Contains(tmpSnaps.Key)) Then
+                            tmpLvwSListItem.Checked = True
+                        End If
+
+                        tmpLvwItems.Add(tmpLvwSListItem)
+
+                        If (tmpSnaps.Value.LastWriteTime > lastSnapsDate) Then
+                            lastSnapsIndex = tmpLvwItems.Count - 1
+                            lastSnapsDate = tmpSnaps.Value.LastWriteTime
+                        End If
+                    Next
                 End If
-            Next
-        End If
-    End Sub
 
-    Private Sub cmdSStateSelectAll_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectAll.Click
-        Me.UI_Enable(False)
-        For lvwItemIndex = 0 To Me.lvwSStatesList.Items.Count - 1
-            Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = True
-        Next
-        Me.lvwSStatesList_indexCheckedFiles()
-        Me.UI_UpdateStInfo()
-        Me.UI_Enable(True)
-    End Sub
+            End If
 
-    Private Sub cmdSStateSelectNone_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectNone.Click
-        Me.UI_Enable(False)
-        For lvwItemIndex = 0 To Me.lvwSStatesList.Items.Count - 1
-            Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = False
-        Next
-        Me.lvwSStatesList_indexCheckedFiles()
-        Me.UI_UpdateStInfo()
-        Me.UI_Enable(True)
-    End Sub
-
-    Private Sub cmdSStateSelectInvert_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStateSelectInvert.Click
-        Me.UI_Enable(False)
-        For lvwItemIndex = 0 To Me.lvwSStatesList.Items.Count - 1
-            If Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = True Then
-                Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = False
-            Else
-                Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = True
+            If (lastSnapsIndex > -1) Then
+                tmpLvwItems.Item(lastSnapsIndex).SubItems(0).ForeColor = Color.FromArgb(255, 65, 74, 100)
             End If
         Next
-        Me.lvwSStatesList_indexCheckedFiles()
-        Me.UI_UpdateStInfo()
-        Me.UI_Enable(True)
+
+
+        Me.lvwFilesList.Groups.AddRange(tmpGroups.ToArray)
+        Me.lvwFilesList.Items.AddRange(tmpLvwItems.ToArray)
+        mdlTheme.ListAlternateColors(Me.lvwFilesList)
+
+        sw.Stop()
+        SSMAppLog.Append("Main window", "Add snapshots", String.Format("Listed {0:N0} snapshots.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
-    Private Sub cmdSStateSelectBackup_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdSStateSelectBackup.Click
-        Me.UI_Enable(False)
-        For lvwItemIndex = 0 To Me.lvwSStatesList.Items.Count - 1
-            If Savestate.isBackup(Me.lvwSStatesList.Items.Item(lvwItemIndex).Name) Then
-                Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = True
-            Else
-                Me.lvwSStatesList.Items.Item(lvwItemIndex).Checked = False
-            End If
-        Next
-        Me.lvwSStatesList_indexCheckedFiles()
-        Me.UI_UpdateStInfo()
-        Me.UI_Enable(True)
-    End Sub
+    Private Sub lvwFilesList_AddSnapshotsColumn()
+        Dim sw As Stopwatch = Stopwatch.StartNew
 
-    Private Sub lvwSStatesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwSStatesList.ItemChecked
-        If ListsAreRefreshed = False Then
-            Me.lvwSStatesList_indexCheckedFiles()
-            Me.UI_UpdateStInfo()
-        End If
+        Dim tmpColumnHeaders As New List(Of ColumnHeader)
+        tmpColumnHeaders.AddRange({New ColumnHeader With {.Name = "SnapsCH_FileName", .Text = "Snapshot file name", .Width = 240}, _
+                                   New ColumnHeader With {.Name = "SnapsCH_Number", .Text = "Number", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
+                                   New ColumnHeader With {.Name = "SnapsCH_Resolution", .Text = "Resolution", .Width = 120}, _
+                                   New ColumnHeader With {.Name = "SnapsCH_Modified", .Text = "Modified", .Width = 120}, _
+                                   New ColumnHeader With {.Name = "SnapsCH_Size", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
+                                  })
+
+        'If My.Settings.frmMain_slvw_columnwidth IsNot Nothing Then
+        '    If My.Settings.frmMain_slvw_columnwidth.Length = tmpColumnHeaders.Count Then
+        '        For i As Integer = 0 To tmpColumnHeaders.Count - 1
+        '            tmpColumnHeaders(i).Width = My.Settings.frmMain_slvw_columnwidth(i)
+        '        Next
+        '    End If
+        'End If
+
+        Me.lvwFilesList.Columns.Clear()
+        Me.lvwFilesList.Columns.AddRange(tmpColumnHeaders.ToArray)
+
+        sw.Stop()
+        SSMAppLog.Append("Main window", "AddSnapshotsColumn", "Added column to files listview for snapshots", sw.ElapsedTicks)
     End Sub
 #End Region
 
 #Region "Form - Tabs management"
     Private Sub optSettingTab1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab1.CheckedChanged
         If Me.optSettingTab1.Checked = True Then
-            With Me.optSettingTab1
-                .FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-            End With
-            With Me.optSettingTab2
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
-            With Me.optSettingTab3
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
-            'Me.pnlTab1.Visible = True
-            'Me.pnlTab2.Visible = False
-            'Me.pnlTab3.Visible = False
+            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
+            Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
+
+            Me.ListMode_Switch(ListMode.Savestates)
         End If
     End Sub
 
     Private Sub optSettingTab2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab2.CheckedChanged
         If Me.optSettingTab2.Checked = True Then
-            With Me.optSettingTab2
-                .FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-            End With
-            With Me.optSettingTab1
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
-            With Me.optSettingTab3
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
-            'Me.pnlTab2.Visible = True
-            'Me.pnlTab1.Visible = False
-            'Me.pnlTab3.Visible = False
+            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
+            Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
+
+            Me.ListMode_Switch(ListMode.Stored)
         End If
     End Sub
 
     Private Sub optSettingTab3_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab3.CheckedChanged
         If Me.optSettingTab3.Checked = True Then
-            With Me.optSettingTab3
-                '.ForeColor = Me.flpTab.ForeColor
-                .FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-            End With
-            With Me.optSettingTab1
-                '.ForeColor = Color.DarkGray
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
-            With Me.optSettingTab2
-                '.ForeColor = Color.DarkGray
-                .FlatAppearance.MouseOverBackColor = Color.WhiteSmoke
-                .FlatAppearance.MouseDownBackColor = Color.White
-            End With
-            'Me.pnlTab3.Visible = True
-            'Me.pnlTab1.Visible = False
-            'Me.pnlTab2.Visible = False
+            Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
+            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
+
+            Me.ListMode_Switch(ListMode.Snapshots)
         End If
     End Sub
 #End Region

@@ -42,6 +42,16 @@ Public Class frmSStateList
                                                New ColumnHeader With {.Text = "Modify Date", .Width = 120},
                                                New ColumnHeader With {.Text = "Size", .Width = 80, .TextAlign = HorizontalAlignment.Right}
                                               })
+            Case 2
+                Me.ListView1.Columns.AddRange({New ColumnHeader With {.Text = "Serial", .Width = 80},
+                               New ColumnHeader With {.Text = "File name", .Width = 240},
+                               New ColumnHeader With {.Text = "Number", .Width = 40, .TextAlign = HorizontalAlignment.Left},
+                               New ColumnHeader With {.Text = "Extension", .Width = 60},
+                               New ColumnHeader With {.Text = "Resolution", .Width = 80},
+                               New ColumnHeader With {.Text = "Modify Date", .Width = 120},
+                               New ColumnHeader With {.Text = "Size", .Width = 80, .TextAlign = HorizontalAlignment.Right}
+                              })
+
         End Select
         Me.ListView1.EndUpdate()
     End Sub
@@ -194,7 +204,7 @@ Public Class frmSStateList
         sw.Start()
 
         Me.ListView1.BeginUpdate()
-        AddHeader(1)
+        AddHeader(2)
 
         For Each tmpGamesListItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In SSMGameList.Games
             For Each tmpSnaps As KeyValuePair(Of String, Snapshot) In tmpGamesListItem.Value.Snapshots
@@ -203,9 +213,9 @@ Public Class frmSStateList
                 If frmMain.checkedGames.Contains(tmpGamesListItem.Key) Then
                     tmpListViewItem.BackColor = Color.FromArgb(215, 220, 255)
                 End If
-                'If checkedSavestates.Contains(tmpSavestate.Value.Name) Then
-                '    tmpListViewItem.BackColor = Color.FromArgb(130, 150, 200)
-                'End If
+                If frmMain.checkedSnapshots.Contains(tmpSnaps.Value.Name) Then
+                    tmpListViewItem.BackColor = Color.FromArgb(130, 150, 200)
+                End If
                 Me.ListView1.Items.Add(tmpListViewItem)
 
             Next
