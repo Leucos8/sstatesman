@@ -92,6 +92,7 @@
     <Import Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="mdlCoverCache.vb" />
     <Compile Include="frmReorderForm.Designer.vb">
       <DependentUpon>frmReorderForm.vb</DependentUpon>
     </Compile>

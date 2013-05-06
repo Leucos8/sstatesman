@@ -25,9 +25,9 @@ Public Class frmMain
     End Enum
 
     'Main window checked objects list
-    Friend checkedGames As New List(Of String)
-    Friend checkedSavestates As New List(Of String)
-    Friend checkedSnapshots As New List(Of String)
+    Public checkedGames As New List(Of String)
+    Public checkedSavestates As New List(Of String)
+    Public checkedSnapshots As New List(Of String)
 
     'To avoid refreshing the lists when an operation is running, set by UI_Enabled
     Dim ListsAreRefreshed As Boolean = False
@@ -48,11 +48,7 @@ Public Class frmMain
     'Dim lvwFiles_SelectedSizeStored As Long = 0
     Dim lvwFiles_SelectedSizeSnaps As Long = 0
 
-    'Default sizes for the cover image
-    Private ReadOnly imgCover_SizeReduced As New Size(32, 46)
-    Private ReadOnly imgCover_SizeExpanded As New Size(120, 170)
-
-    Private Sub ListMode_Switch(ByVal pListMode As ListMode)
+    Private Sub UI_SwitchMode(ByVal pListMode As ListMode)
         Me.UI_Enable(False)
 
         Select Case pListMode
@@ -217,7 +213,7 @@ Public Class frmMain
         'Loading the Game database (from PCSX2 directory)
         PCSX2GameDb.Load(Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
 
-        Me.ListMode_Switch(ListMode.Savestates)
+        Me.UI_SwitchMode(ListMode.Savestates)
         'Refreshing the games list
         Me.List_RefreshAll()
 
@@ -323,18 +319,18 @@ Public Class frmMain
                 Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
 
                 If My.Settings.frmMain_CoverExpanded Then
-                    Me.imgCover.Image = Cover_MultipleThumbnail(My.Settings.SStatesMan_PathPics, _
-                                                                CInt(Me.imgCover_SizeExpanded.Width * DPIxScale), _
-                                                                CInt(Me.imgCover_SizeExpanded.Height * DPIyScale))
-                    Me.imgCover.Width = CInt(Me.imgCover_SizeExpanded.Width * DPIxScale) + 2
-                    Me.imgCover.Height = CInt(Me.imgCover_SizeExpanded.Height * DPIxScale) + 2
+                    Me.imgCover.Image = Cover_Get(checkedGames, My.Settings.SStatesMan_PathPics, _
+                                                  CInt(imgCover_SizeExpanded.Width * DPIxScale), _
+                                                  CInt(imgCover_SizeExpanded.Height * DPIyScale))
+                    Me.imgCover.Width = CInt(imgCover_SizeExpanded.Width * DPIxScale) + 2
+                    Me.imgCover.Height = CInt(imgCover_SizeExpanded.Height * DPIxScale) + 2
                     Me.imgCover.Dock = DockStyle.Bottom
                 Else
-                    Me.imgCover.Image = Cover_MultipleThumbnail(My.Settings.SStatesMan_PathPics, _
-                                                                CInt(Me.imgCover_SizeReduced.Height * DPIxScale), _
-                                                                CInt(Me.imgCover_SizeReduced.Height * DPIyScale))
-                    Me.imgCover.Width = CInt(Me.imgCover_SizeReduced.Height * DPIyScale) + 2
-                    Me.imgCover.Height = CInt(Me.imgCover_SizeReduced.Height * DPIyScale) + 2
+                    Me.imgCover.Image = Cover_Get(checkedGames, My.Settings.SStatesMan_PathPics, _
+                                                  CInt(imgCover_SizeReduced.Height * DPIxScale), _
+                                                  CInt(imgCover_SizeReduced.Height * DPIyScale))
+                    Me.imgCover.Width = CInt(imgCover_SizeReduced.Height * DPIyScale) + 2
+                    Me.imgCover.Height = CInt(imgCover_SizeReduced.Height * DPIyScale) + 2
                     Me.imgCover.Dock = DockStyle.None
                 End If
 
@@ -357,21 +353,21 @@ Public Class frmMain
                 Dim tmpHeight As Integer = 0
                 Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
                 If My.Settings.frmMain_CoverExpanded Then
-                    Me.imgCover.Image = Me.Cover_Get(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, _
-                                                          CInt(Me.imgCover_SizeExpanded.Width * DPIxScale), tmpHeight)
+                    Me.imgCover.Image = mdlCoverCache.Cover_Get(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, _
+                                                          CInt(imgCover_SizeExpanded.Width * DPIxScale), tmpHeight)
                     If tmpHeight = 0 Then
-                        tmpHeight = CInt(Me.imgCover_SizeExpanded.Height * DPIxScale)
+                        tmpHeight = CInt(imgCover_SizeExpanded.Height * DPIxScale)
                     End If
-                    Me.imgCover.Width = CInt(Me.imgCover_SizeExpanded.Width * DPIxScale) + 2
+                    Me.imgCover.Width = CInt(imgCover_SizeExpanded.Width * DPIxScale) + 2
                     Me.imgCover.Height = tmpHeight + 2
                     Me.imgCover.Dock = DockStyle.Bottom
                 Else
                     Dim tmpWidth As Integer = 0
-                    tmpHeight = CInt(Me.imgCover_SizeReduced.Height * DPIyScale)
-                    Me.imgCover.Image = Me.Cover_Get(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, tmpWidth, tmpHeight)
+                    tmpHeight = CInt(imgCover_SizeReduced.Height * DPIyScale)
+                    Me.imgCover.Image = mdlCoverCache.Cover_Get(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, tmpWidth, tmpHeight)
 
                     If tmpWidth = 0 Then
-                        tmpWidth = CInt(Me.imgCover_SizeReduced.Width * DPIxScale)
+                        tmpWidth = CInt(imgCover_SizeReduced.Width * DPIxScale)
                     End If
                     Me.imgCover.Width = tmpWidth + 2
                     Me.imgCover.Height = tmpHeight + 2
@@ -396,12 +392,12 @@ Public Class frmMain
             Me.imgCover.Image = My.Resources.Flag_0Null_30x20
             Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
             If My.Settings.frmMain_CoverExpanded Then
-                Me.imgCover.Width = CInt(Me.imgCover_SizeExpanded.Width * DPIxScale) + 2
-                Me.imgCover.Height = CInt(Me.imgCover_SizeExpanded.Height * DPIxScale) + 2
+                Me.imgCover.Width = CInt(imgCover_SizeExpanded.Width * DPIxScale) + 2
+                Me.imgCover.Height = CInt(imgCover_SizeExpanded.Height * DPIxScale) + 2
                 Me.imgCover.Dock = DockStyle.Bottom
             Else
-                Me.imgCover.Width = CInt(Me.imgCover_SizeReduced.Width * DPIyScale) + 2
-                Me.imgCover.Height = CInt(Me.imgCover_SizeReduced.Height * DPIyScale) + 2
+                Me.imgCover.Width = CInt(imgCover_SizeReduced.Width * DPIyScale) + 2
+                Me.imgCover.Height = CInt(imgCover_SizeReduced.Height * DPIyScale) + 2
                 Me.imgCover.Dock = DockStyle.None
             End If
 
@@ -664,7 +660,7 @@ Public Class frmMain
             If openDialog.ShowDialog(Me) = DialogResult.OK Then
                 Try
                     Dim tmpImage As Image = Image.FromFile(openDialog.FileName)
-                    tmpImage = Me.Cover_Resize(tmpImage, 256, 0, True)
+                    tmpImage = mdlCoverCache.Cover_Resize(tmpImage, 256, 0, True)
                     tmpImage.Save(Path.Combine(My.Settings.SStatesMan_PathPics, Me.checkedGames(0) & ".jpg"), Imaging.ImageFormat.Jpeg)
                     Me.UI_UpdateGameInfo()
                 Catch ex As Exception
@@ -684,115 +680,6 @@ Public Class frmMain
         End If
     End Sub
 
-    ''' <summary>
-    ''' Creates a collage Image from multiple files
-    ''' </summary>
-    ''' <param name="pPath">Folder containing the image files.</param>
-    ''' <param name="pDestWidth">Width of the resulting image.</param>
-    ''' <param name="pDestHeight">Height of the resulting image.</param>
-    ''' <returns>Collage image from multiple files</returns>
-    Private Function Cover_MultipleThumbnail(ByVal pPath As String, ByVal pDestWidth As Integer, ByVal pDestHeight As Integer) As Image
-
-        'Maximum number of cover thumbnail that will be added to the result image
-        Dim maxThumbnail As Integer = 4
-        'Distance between the images
-        Dim pStepWidth As Integer = pDestWidth \ (maxThumbnail + 1)
-        'Adjusting maximum thumbnail number
-        If Me.lvwGamesList.CheckedItems.Count < maxThumbnail Then
-            maxThumbnail = Me.lvwGamesList.CheckedItems.Count
-        End If
-
-        'The drawing surface will be based on an empty image
-        Cover_MultipleThumbnail = New Bitmap(pDestHeight, pDestHeight)
-        'The image is referenced to a graphics object for editing
-        Dim endCover As Graphics = Graphics.FromImage(Cover_MultipleThumbnail)
-
-
-        For i As Integer = 0 To maxThumbnail - 1
-            Try
-                'The cover will be added to the graphic object using DrawImage
-                endCover.DrawImage(Cover_Get(Me.lvwGamesList.CheckedItems(i).Name, My.Settings.SStatesMan_PathPics, 0, pDestHeight, True), i * pStepWidth, 0)
-                'Adds a line for the next cover
-                endCover.DrawLine(Pens.DimGray, i * pStepWidth - 1, 0, i * pStepWidth - 1, pDestHeight)
-                'Adds a shade for the next cover
-                Dim tmpShade As New Drawing2D.LinearGradientBrush(New Rectangle(i * pStepWidth - 4, 0, 6, pDestHeight), Color.Transparent, Color.Black, 0)
-                endCover.FillRectangle(tmpShade, i * pStepWidth - 4, 0, 3, pDestHeight)
-            Catch ex As Exception
-                'No cover image found or file is corrupted
-                SSMAppLog.Append("Main window", "MultipleCover", String.Concat("Error: ", ex.Message))
-            End Try
-        Next
-        'The graphics object update the image object
-        endCover.DrawImage(Cover_MultipleThumbnail, pDestWidth, pDestHeight)
-        Return Cover_MultipleThumbnail
-    End Function
-
-    ''' <summary>
-    ''' Retrieves a cover image from the specified serial and resize it.
-    ''' </summary>
-    ''' <param name="pSerial">The serial (name) used to get the image name.</param>
-    ''' <param name="pCoverPath">Folder containing the image file.</param>
-    ''' <param name="pThumbWidth">Width of the resulting image.</param>
-    ''' <param name="pThumbHeight">Height of the resulting image.</param>
-    ''' <param name="pForced">Specifies if the height must be respected.</param>
-    ''' <returns>Cover thumbnail</returns>
-    ''' <remarks></remarks>
-    Private Function Cover_Get(ByVal pSerial As String, ByVal pCoverPath As String, ByRef pThumbWidth As Integer, ByRef pThumbHeight As Integer, Optional ByVal pForced As Boolean = False) As Image
-        If pSerial.ToLower = "screenshots" Then
-            Return Cover_Resize(My.Resources.Icon_Screenshot_256x192, pThumbWidth, pThumbHeight, pForced)
-        Else
-            If Directory.Exists(pCoverPath) Then
-                Try
-                    Dim tmpImage As Image = Image.FromFile(Path.Combine(pCoverPath, pSerial & ".jpg"))
-                    Return Cover_Resize(tmpImage, pThumbWidth, pThumbHeight, pForced)
-                Catch ex As Exception
-                    'No cover image found or file is corrupted
-                    SSMAppLog.Append("Main window", "GetCover", String.Concat("Error: ", ex.Message))
-                    Return Cover_Resize(My.Resources.Extra_Nocover_120x170, pThumbWidth, pThumbHeight, pForced)
-                End Try
-            Else
-                Return Cover_Resize(My.Resources.Extra_Nocover_120x170, pThumbWidth, pThumbHeight, pForced)
-            End If
-        End If
-    End Function
-
-    ''' <summary>
-    ''' Resize the input image using the specified parameters.
-    ''' </summary>
-    ''' <param name="pInputImage"></param>
-    ''' <param name="pThumbWidth">Width of the resulting image.</param>
-    ''' <param name="pThumbHeight">Height of the resulting image.</param>
-    ''' <param name="pForced">Specifies if the height must be respected.</param>
-    ''' <returns>Cover thumbnail</returns>
-    ''' <remarks></remarks>
-    Private Function Cover_Resize(ByVal pInputImage As Image, ByRef pThumbWidth As Integer, ByRef pThumbHeight As Integer, Optional ByVal pForced As Boolean = False) As Image
-        Try
-            If pThumbWidth = 0 Then
-                'ThumbWidth must be computed
-                If (pInputImage.Height > pInputImage.Width) Or pForced Then
-                    'If it's a vertical (tall) image or ThumbHeight must be respected (HeightEnforced = true) then ThumbWidth will be computed
-                    pThumbWidth = pThumbHeight * pInputImage.Width \ pInputImage.Height
-                Else
-                    'Else it's a wide image, then ThumbHeight will be considered as the maximum width applicable and thus ThumbHeight will be re-computed
-                    pThumbWidth = pThumbHeight
-                    pThumbHeight = pThumbWidth * pInputImage.Height \ pInputImage.Width
-                End If
-            ElseIf pThumbHeight = 0 Then
-                'ThumbHeight must be computed
-                pThumbHeight = pThumbWidth * pInputImage.Height \ pInputImage.Width
-            Else
-                pThumbWidth = 16
-                pThumbHeight = 16
-            End If
-            Dim tmpThumbnail As Image = New Bitmap(pInputImage.GetThumbnailImage(pThumbWidth, pThumbHeight, Nothing, Nothing))
-            Return tmpThumbnail
-        Catch ex As Exception
-            'No cover image found or file is corrupted
-            SSMAppLog.Append("Main window", "ResizeCover", String.Concat("Error: ", ex.Message))
-            Return My.Resources.Extra_Nocover_120x170
-        End Try
-
-    End Function
 #End Region
 
 #Region "UI - Gamelist management"
@@ -1243,7 +1130,7 @@ Public Class frmMain
             Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
             Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
 
-            Me.ListMode_Switch(ListMode.Savestates)
+            Me.UI_SwitchMode(ListMode.Savestates)
         End If
     End Sub
 
@@ -1253,7 +1140,7 @@ Public Class frmMain
             Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
             Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
 
-            Me.ListMode_Switch(ListMode.Stored)
+            Me.UI_SwitchMode(ListMode.Stored)
         End If
     End Sub
 
@@ -1263,7 +1150,7 @@ Public Class frmMain
             Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
             Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
 
-            Me.ListMode_Switch(ListMode.Snapshots)
+            Me.UI_SwitchMode(ListMode.Snapshots)
         End If
     End Sub
 #End Region
