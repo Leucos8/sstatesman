@@ -124,7 +124,7 @@ Module mdlFileList
                     Games(tmpSerial).Savestates.Add(tmpSavestate.Name, tmpSavestate)
                 Else
                     'Savestates are loaded first, so we get the CRC here. If a game is added during screenshots loading it means there are no savestates (and no crc)
-                    Dim tmpNewGame As New GamesList_Item With {.CRC = tmpSavestate.GetCRC, .HasCoverFile = GetCover(tmpSerial, My.Settings.SStatesMan_PathPics)}
+                    Dim tmpNewGame As New GamesList_Item With {.CRC = tmpSavestate.GetCRC, .HasCoverFile = HasCover(tmpSerial, My.Settings.SStatesMan_PathPics)}
                     tmpNewGame.Savestates.Add(tmpSavestate.Name, tmpSavestate)
                     Games.Add(tmpSerial, tmpNewGame)
                 End If
@@ -145,14 +145,14 @@ Module mdlFileList
                 If Games.ContainsKey(tmpSerial) Then
                     Games(tmpSerial).Snapshots.Add(tmpSnap.Name, tmpSnap)
                 Else
-                    Dim tmpNewGame As New GamesList_Item With {.HasCoverFile = GetCover(tmpSerial, My.Settings.SStatesMan_PathPics)}
+                    Dim tmpNewGame As New GamesList_Item With {.HasCoverFile = HasCover(tmpSerial, My.Settings.SStatesMan_PathPics)}
                     tmpNewGame.Snapshots.Add(tmpSnap.Name, tmpSnap)
                     Games.Add(tmpSerial, tmpNewGame)
                 End If
             Next
         End Sub
 
-        Public Function GetCover(ByVal pSerial As String, ByVal pDirectory As String) As Boolean
+        Public Function HasCover(ByVal pSerial As String, ByVal pDirectory As String) As Boolean
             If File.Exists(Path.Combine(pDirectory, pSerial & ".jpg")) Then
                 Return True
             Else

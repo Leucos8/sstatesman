@@ -48,6 +48,10 @@ Public Class frmMain
     'Dim lvwFiles_SelectedSizeStored As Long = 0
     Dim lvwFiles_SelectedSizeSnaps As Long = 0
 
+    'Default sizes for the cover image
+    Friend ReadOnly imgCover_SizeExpanded As New Size(120, 170)
+    Friend ReadOnly imgCover_SizeReduced As New Size(32, 46)
+
     Private Sub UI_SwitchMode(ByVal pListMode As ListMode)
         Me.UI_Enable(False)
 
@@ -276,13 +280,25 @@ Public Class frmMain
         Me.UI_UpdateFileInfo()
 
         sw.Stop()
-        SSMAppLog.Append("Main window", "UI_Update", "Refreshed status.", sw.ElapsedTicks)
+        SSMAppLog.Append("Main window", "UI_Update", "Update done.", sw.ElapsedTicks)
     End Sub
 
     ''' <summary>Updates the UI game info: title, region, image cover, etc.</summary>
     Private Sub UI_UpdateGameInfo()
+        Dim sw As Stopwatch = Stopwatch.StartNew
 
-        If Me.lvwGamesList.Items.Count > 0 And (Me.lvwGamesList.CheckedItems.Count > 0 Or Me.lvwGamesList.SelectedItems.Count > 0) Then
+        Me.txtGameList_Title.SuspendLayout()
+        Me.txtGameList_Serial.SuspendLayout()
+        Me.txtGameList_Region.SuspendLayout()
+        Me.txtGameList_Compat.SuspendLayout()
+        Me.txtGameList_Compat.SuspendLayout()
+        Me.imgFlag.SuspendLayout()
+        Me.imgCover.SuspendLayout()
+        Me.cmdGameSelectAll.SuspendLayout()
+        Me.cmdGameSelectInvert.SuspendLayout()
+        Me.cmdGameSelectNone.SuspendLayout()
+
+        If SSMGameList.Games.Count > 0 And checkedGames.Count > 0 Then
             '========================
             'Game checked or selected
             '========================
@@ -295,14 +311,14 @@ Public Class frmMain
                 Me.cmdGameSelectNone.Enabled = False
             End If
 
-            If Me.lvwGamesList.Items.Count = Me.lvwGamesList.CheckedItems.Count Then
+            If SSMGameList.Games.Count = checkedGames.Count Then
                 'All the games are checked
                 Me.cmdGameSelectAll.Enabled = False
             Else
                 Me.cmdGameSelectAll.Enabled = True
             End If
 
-            If Me.lvwGamesList.CheckedItems.Count > 1 Then
+            If checkedGames.Count > 1 Then
                 '--------------------------
                 'More than one game checked
                 '--------------------------
@@ -319,16 +335,18 @@ Public Class frmMain
                 Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
 
                 If My.Settings.frmMain_CoverExpanded Then
-                    Me.imgCover.Image = Cover_Get(checkedGames, My.Settings.SStatesMan_PathPics, _
-                                                  CInt(imgCover_SizeExpanded.Width * DPIxScale), _
-                                                  CInt(imgCover_SizeExpanded.Height * DPIyScale))
+                    Me.imgCover.Image = GetCover(checkedGames, My.Settings.SStatesMan_PathPics, _
+                                                 CInt(imgCover_SizeExpanded.Width * DPIxScale), _
+                                                 CInt(imgCover_SizeExpanded.Height * DPIyScale), _
+                                                 My.Settings.frmMain_CoverExpanded)
                     Me.imgCover.Width = CInt(imgCover_SizeExpanded.Width * DPIxScale) + 2
                     Me.imgCover.Height = CInt(imgCover_SizeExpanded.Height * DPIxScale) + 2
                     Me.imgCover.Dock = DockStyle.Bottom
                 Else
-                    Me.imgCover.Image = Cover_Get(checkedGames, My.Settings.SStatesMan_PathPics, _
-                                                  CInt(imgCover_SizeReduced.Height * DPIxScale), _
-                                                  CInt(imgCover_SizeReduced.Height * DPIyScale))
+                    Me.imgCover.Image = GetCover(checkedGames, My.Settings.SStatesMan_PathPics, _
+                                                 CInt(imgCover_SizeReduced.Height * DPIxScale), _
+                                                 CInt(imgCover_SizeReduced.Height * DPIyScale), _
+                                                 My.Settings.frmMain_CoverExpanded)
                     Me.imgCover.Width = CInt(imgCover_SizeReduced.Height * DPIyScale) + 2
                     Me.imgCover.Height = CInt(imgCover_SizeReduced.Height * DPIyScale) + 2
                     Me.imgCover.Dock = DockStyle.None
@@ -350,27 +368,21 @@ Public Class frmMain
                                            CInt(Me.imgFlag.Image.PhysicalDimension.Height * DPIyScale) + 2)
 
                 'Cover image
-                Dim tmpHeight As Integer = 0
                 Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
+
                 If My.Settings.frmMain_CoverExpanded Then
-                    Me.imgCover.Image = mdlCoverCache.Cover_Get(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, _
-                                                          CInt(imgCover_SizeExpanded.Width * DPIxScale), tmpHeight)
-                    If tmpHeight = 0 Then
-                        tmpHeight = CInt(imgCover_SizeExpanded.Height * DPIxScale)
-                    End If
+                    Me.imgCover.Image = mdlCoverCache.GetCover(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, My.Settings.frmMain_CoverExpanded)
                     Me.imgCover.Width = CInt(imgCover_SizeExpanded.Width * DPIxScale) + 2
-                    Me.imgCover.Height = tmpHeight + 2
+                    Me.imgCover.Height = CInt((imgCover_SizeExpanded.Width * Me.imgCover.Image.PhysicalDimension.Height / Me.imgCover.Image.PhysicalDimension.Width) * DPIyScale) + 2
                     Me.imgCover.Dock = DockStyle.Bottom
                 Else
-                    Dim tmpWidth As Integer = 0
-                    tmpHeight = CInt(imgCover_SizeReduced.Height * DPIyScale)
-                    Me.imgCover.Image = mdlCoverCache.Cover_Get(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, tmpWidth, tmpHeight)
-
-                    If tmpWidth = 0 Then
-                        tmpWidth = CInt(imgCover_SizeReduced.Width * DPIxScale)
+                    Me.imgCover.Image = mdlCoverCache.GetCover(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, My.Settings.frmMain_CoverExpanded)
+                    Me.imgCover.Width = CInt((imgCover_SizeReduced.Height * Me.imgCover.Image.PhysicalDimension.Width / Me.imgCover.Image.PhysicalDimension.Height) * DPIxScale) + 2
+                    If Me.imgCover.Image.PhysicalDimension.Width < Me.imgCover.Image.PhysicalDimension.Height Then
+                        Me.imgCover.Height = CInt(imgCover_SizeReduced.Height * DPIxScale) + 2
+                    Else
+                        Me.imgCover.Height = CInt((imgCover_SizeReduced.Height * Me.imgCover.Image.PhysicalDimension.Height / Me.imgCover.Image.PhysicalDimension.Width) * DPIyScale) + 2
                     End If
-                    Me.imgCover.Width = tmpWidth + 2
-                    Me.imgCover.Height = tmpHeight + 2
                     Me.imgCover.Dock = DockStyle.None
                 End If
             End If
@@ -403,7 +415,7 @@ Public Class frmMain
 
             Me.cmdGameSelectNone.Enabled = False
 
-            If Me.lvwGamesList.Items.Count = 0 Then
+            If SSMGameList.Games.Count = 0 Then
                 '================
                 'No games in list
                 '================
@@ -414,6 +426,20 @@ Public Class frmMain
                 Me.cmdGameSelectInvert.Enabled = True
             End If
         End If
+
+        Me.txtGameList_Title.ResumeLayout()
+        Me.txtGameList_Serial.ResumeLayout()
+        Me.txtGameList_Region.ResumeLayout()
+        Me.txtGameList_Compat.ResumeLayout()
+        Me.txtGameList_Compat.ResumeLayout()
+        Me.imgFlag.ResumeLayout()
+        Me.imgCover.ResumeLayout()
+        Me.cmdGameSelectAll.ResumeLayout()
+        Me.cmdGameSelectInvert.ResumeLayout()
+        Me.cmdGameSelectNone.ResumeLayout()
+
+        sw.Stop()
+        SSMAppLog.Append("Main window", "UI_Update", "Updated game info.", sw.ElapsedTicks)
     End Sub
 
     ''' <summary>Updates the UI savestate info: items selected, size.</summary>
@@ -623,13 +649,14 @@ Public Class frmMain
 
             My.Settings.frmMain_CoverExpanded = Not (My.Settings.frmMain_CoverExpanded)
 
+            Me.UI_UpdateGameInfo()
+
             Me.lblGameList_Region.ResumeLayout()
             Me.lblGameList_Title.ResumeLayout()
             Me.lvwGamesList.ResumeLayout()
             Me.imgCover.ResumeLayout()
             Me.TableLayoutPanel3.ResumeLayout()
 
-            Me.UI_UpdateGameInfo()
         End If
     End Sub
 
@@ -660,7 +687,7 @@ Public Class frmMain
             If openDialog.ShowDialog(Me) = DialogResult.OK Then
                 Try
                     Dim tmpImage As Image = Image.FromFile(openDialog.FileName)
-                    tmpImage = mdlCoverCache.Cover_Resize(tmpImage, 256, 0, True)
+                    tmpImage = mdlCoverCache.ResizeCover(tmpImage, CoverThumb_SizeLarge.Width, CoverThumb_SizeLarge.Height)
                     tmpImage.Save(Path.Combine(My.Settings.SStatesMan_PathPics, Me.checkedGames(0) & ".jpg"), Imaging.ImageFormat.Jpeg)
                     Me.UI_UpdateGameInfo()
                 Catch ex As Exception

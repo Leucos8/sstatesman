@@ -15,17 +15,53 @@
 Imports System.IO
 
 Module mdlCoverCache
+    'Maximum number of cover that will be cache, after that the oldest cover will be discarded.
+    Const maxCachedCover As Integer = 8
+    'Maximum number of cover thumbnail that will be added to the result image
+    Const maxThumbnail As Integer = 4
 
-    'Default sizes for the cover image
-    Friend ReadOnly imgCover_SizeReduced As New Size(32, 46)
-    Friend ReadOnly imgCover_SizeExpanded As New Size(120, 170)
-    'Cover image collection
+    'Constant for the sizes of small cover and large cover.
+    Friend ReadOnly CoverThumb_SizeLarge As New Size(256, 256)
+    Friend ReadOnly CoverThumb_SizeSmall As New Size(48, 48)
+
+    ''' <summary>
+    ''' Cover cache structure, two images object and a date.
+    ''' </summary>
     Friend Structure sCoverInfo
-        Friend CacheTime As Date
-        Friend CoverLarge As Image
-        Friend CoverSmall As Image
+        Friend CacheDate As Date
+        Friend CoverThumb_Large As Image
+        Friend CoverThumb_Small As Image
     End Structure
-    Friend CoverInfoCache As New Dictionary(Of String, sCoverInfo)
+    ''' <summary>
+    ''' Dictionary of the cover cache.
+    ''' </summary>
+    Friend CoverCache As New Dictionary(Of String, sCoverInfo)
+
+    ''' <summary>
+    ''' Add a cover to the cache and checks if a cleanup of older covers is needed
+    ''' </summary>
+    ''' <param name="pSerial">Serial of the game to add.</param>
+    ''' <param name="pCoverInfo">Cover to add to the cache.</param>
+    Friend Sub AddCover(ByVal pSerial As String, ByVal pCoverInfo As sCoverInfo)
+        If CoverCache.Count >= maxCachedCover Then
+            Dim tmpSerial As String = ""
+            Dim tmpDate As Date = Now
+            For Each tmpCoverInfo As KeyValuePair(Of String, sCoverInfo) In CoverCache
+                If tmpDate > tmpCoverInfo.Value.CacheDate Then
+                    tmpSerial = tmpCoverInfo.Key
+                End If
+            Next
+            If CoverCache.ContainsKey(tmpSerial) Then
+                CoverCache.Remove(tmpSerial)
+                SSMAppLog.Append("CoverCache", "AddCover", String.Format("Cover for {0} removed from cache.", tmpSerial))
+            Else
+                SSMAppLog.Append("CoverCache", "AddCover", String.Format("Error: Cover for {0} not removed from cache.", tmpSerial))
+            End If
+        End If
+        CoverCache.Add(pSerial, pCoverInfo)
+        SSMAppLog.Append("CoverCache", "AddCover", String.Format("Cover for {0} cached.", pSerial))
+    End Sub
+
 
     ''' <summary>
     ''' Creates a collage Image from multiple files
@@ -34,29 +70,32 @@ Module mdlCoverCache
     ''' <param name="pPath">Folder containing the image files.</param>
     ''' <param name="pDestWidth">Width of the resulting image.</param>
     ''' <param name="pDestHeight">Height of the resulting image.</param>
+    ''' <param name="pExpanded">Specifies if the height must be respected.</param>
     ''' <returns>Collage image from multiple files</returns>
-    Friend Function Cover_Get(ByVal pSerial As List(Of String), ByVal pPath As String, _
-                              ByVal pDestWidth As Integer, ByVal pDestHeight As Integer) As Image
+    Friend Function GetCover(ByVal pSerial As List(Of String), ByVal pPath As String, _
+                             ByVal pDestWidth As Integer, pDestHeight As Integer, _
+                             ByVal pExpanded As Boolean) As Image
+        Dim sw As Stopwatch = Stopwatch.StartNew
 
-        'Maximum number of cover thumbnail that will be added to the result image
-        Dim maxThumbnail As Integer = 4
         'Distance between the images
-        Dim pStepWidth As Integer = pDestWidth \ 7
+        Dim pStepWidth As Integer = pDestWidth \ (maxThumbnail * 2 - 1)
         'Adjusting maximum thumbnail number
+        Dim tmpMaxThumbnail As Integer = maxThumbnail
         If pSerial.Count < maxThumbnail Then
-            maxThumbnail = pSerial.Count
+            tmpMaxThumbnail = pSerial.Count
         End If
 
         'The drawing surface will be based on an empty image
-        Cover_Get = New Bitmap(pDestHeight, pDestHeight)
+        GetCover = New Bitmap(pDestWidth, pDestHeight)
         'The image is referenced to a graphics object for editing
-        Dim endCover As Graphics = Graphics.FromImage(Cover_Get)
+        Dim endCover As Graphics = Graphics.FromImage(GetCover)
 
 
-        For i As Integer = 0 To maxThumbnail - 1
+        For i As Integer = 0 To tmpMaxThumbnail - 1
             Try
                 'The cover will be added to the graphic object using DrawImage
-                endCover.DrawImage(Cover_Get(pSerial(i), pPath, 0, pDestHeight, True), i * pStepWidth, 0)
+                Dim tmpCover As Image = GetCover(pSerial(i), pPath, pExpanded)
+                endCover.DrawImage(tmpCover, i * pStepWidth, 0, tmpCover.Width * pDestHeight \ tmpCover.Height, pDestHeight)
                 'Adds a line for the next cover
                 endCover.DrawLine(Pens.DimGray, i * pStepWidth - 1, 0, i * pStepWidth - 1, pDestHeight)
                 'Adds a shade for the next cover
@@ -68,41 +107,53 @@ Module mdlCoverCache
             End Try
         Next
         'The graphics object update the image object
-        endCover.DrawImage(Cover_Get, pDestWidth, pDestHeight)
-        Return Cover_Get
+        endCover.DrawImage(GetCover, pDestWidth, pDestHeight)
+
+        sw.Stop()
+        SSMAppLog.Append("CoverCache", "GetCover", "Cover served for multiple games.", sw.ElapsedTicks)
+
+        Return GetCover
     End Function
 
     ''' <summary>
-    ''' Retrieves a cover image from the specified serial and resize it.
+    ''' Retrieves a cover image from the specified serial from the cache, if it's not in the cache the cover is loaded from file.
     ''' </summary>
     ''' <param name="pSerial">The serial (name) used to get the image name.</param>
     ''' <param name="pPath">Folder containing the image file.</param>
-    ''' <param name="pThumbWidth">Width of the resulting image.</param>
-    ''' <param name="pThumbHeight">Height of the resulting image.</param>
-    ''' <param name="pForced">Specifies if the height must be respected.</param>
+    ''' <param name="pExpanded">Specifies if the height must be respected.</param>
     ''' <returns>Cover thumbnail</returns>
     ''' <remarks></remarks>
-    Friend Function Cover_Get(ByVal pSerial As String, ByVal pPath As String, _
-                              ByRef pThumbWidth As Integer, ByRef pThumbHeight As Integer, _
-                              Optional ByVal pForced As Boolean = False) As Image
-        If pSerial.ToLower = "screenshots" Then
-            Return Cover_Resize(My.Resources.Icon_Screenshot_256x192, pThumbWidth, pThumbHeight, pForced)
-        Else
-            If SSMGameList.Games(pSerial).HasCoverFile Then
+    Friend Function GetCover(ByVal pSerial As String, ByVal pPath As String, ByVal pExpanded As Boolean) As Image
+        Dim sw As Stopwatch = Stopwatch.StartNew
+
+        Dim tmpImage As Image = My.Resources.Extra_Nocover_120x170
+        If Not (CoverCache.ContainsKey(pSerial)) Then
+            If pSerial.ToLower = "screenshots" Then
+                tmpImage = My.Resources.Icon_Screenshot_256x192
+            ElseIf SSMGameList.Games(pSerial).HasCoverFile Then
                 Try
-                    If Not (CoverInfoCache.ContainsKey(pSerial)) Then
-                        Dim tmpImage As Image = Image.FromFile(Path.Combine(pPath, pSerial & ".jpg"))
-                        CoverInfoCache.Add(pSerial, New sCoverInfo With {.CoverLarge = Cover_Resize(tmpImage, pThumbWidth, pThumbHeight, pForced), .CacheTime = Now})
-                    End If
-                    Return CoverInfoCache(pSerial).CoverLarge
+                    tmpImage = Image.FromFile(Path.Combine(pPath, pSerial & ".jpg"))
                 Catch ex As Exception
                     'No cover image found or file is corrupted
-                    SSMAppLog.Append("Cover", "GetCover", String.Concat("Error: ", ex.Message))
-                    Return Cover_Resize(My.Resources.Extra_Nocover_120x170, pThumbWidth, pThumbHeight, pForced)
+                    SSMAppLog.Append("CoverCache", "GetCover", String.Format("Error for {0}: {1}", pSerial, ex.Message))
+                    SSMGameList.Games(pSerial).HasCoverFile = False
+                    tmpImage = My.Resources.Extra_Nocover_120x170
                 End Try
-            Else
-                Return Cover_Resize(My.Resources.Extra_Nocover_120x170, pThumbWidth, pThumbHeight, pForced)
+
             End If
+
+            AddCover(pSerial, New sCoverInfo With {.CoverThumb_Large = ResizeCover(tmpImage, CoverThumb_SizeLarge.Width, CoverThumb_SizeLarge.Height),
+                                                   .CoverThumb_Small = ResizeCover(tmpImage, CoverThumb_SizeSmall.Width, CoverThumb_SizeSmall.Height),
+                                                   .CacheDate = Now})
+        End If
+
+        sw.Stop()
+        SSMAppLog.Append("CoverCache", "GetCover", String.Format("Cover for {0} served.", pSerial), sw.ElapsedTicks)
+
+        If pExpanded Then
+            Return CoverCache(pSerial).CoverThumb_Large
+        Else
+            Return CoverCache(pSerial).CoverThumb_Small
         End If
     End Function
 
@@ -112,35 +163,23 @@ Module mdlCoverCache
     ''' <param name="pInputImage"></param>
     ''' <param name="pThumbWidth">Width of the resulting image.</param>
     ''' <param name="pThumbHeight">Height of the resulting image.</param>
-    ''' <param name="pForced">Specifies if the height must be respected.</param>
     ''' <returns>Cover thumbnail</returns>
     ''' <remarks></remarks>
-    Friend Function Cover_Resize(ByVal pInputImage As Image, _
-                                 ByRef pThumbWidth As Integer, ByRef pThumbHeight As Integer, _
-                                 Optional ByVal pForced As Boolean = False) As Image
+    Friend Function ResizeCover(ByVal pInputImage As Image, _
+                                ByVal pThumbWidth As Integer, pThumbHeight As Integer) As Image
         Try
-            If pThumbWidth = 0 Then
-                'ThumbWidth must be computed
-                If (pInputImage.Height > pInputImage.Width) Or pForced Then
-                    'If it's a vertical (tall) image or ThumbHeight must be respected (HeightEnforced = true) then ThumbWidth will be computed
-                    pThumbWidth = pThumbHeight * pInputImage.Width \ pInputImage.Height
-                Else
-                    'Else it's a wide image, then ThumbHeight will be considered as the maximum width applicable and thus ThumbHeight will be re-computed
-                    pThumbWidth = pThumbHeight
-                    pThumbHeight = pThumbWidth * pInputImage.Height \ pInputImage.Width
-                End If
-            ElseIf pThumbHeight = 0 Then
-                'ThumbHeight must be computed
-                pThumbHeight = pThumbWidth * pInputImage.Height \ pInputImage.Width
+            If (pInputImage.Height > pInputImage.Width) Then
+                'If it's a vertical (tall) image then ThumbWidth will be computed
+                pThumbWidth = pThumbHeight * pInputImage.Width \ pInputImage.Height
             Else
-                pThumbWidth = 16
-                pThumbHeight = 16
+                'Else it's a wide image, then ThumbHeight will be considered as the maximum width applicable and thus ThumbHeight will be re-computed
+                pThumbHeight = pThumbWidth * pInputImage.Height \ pInputImage.Width
             End If
             Dim tmpThumbnail As Image = New Bitmap(pInputImage.GetThumbnailImage(pThumbWidth, pThumbHeight, Nothing, Nothing))
             Return tmpThumbnail
         Catch ex As Exception
             'No cover image found or file is corrupted
-            SSMAppLog.Append("Main window", "ResizeCover", String.Concat("Error: ", ex.Message))
+            SSMAppLog.Append("CoverCache", "ResizeCover", String.Concat("Error: ", ex.Message))
             Return My.Resources.Extra_Nocover_120x170
         End Try
 

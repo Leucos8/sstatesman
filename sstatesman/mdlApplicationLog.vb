@@ -22,7 +22,7 @@ Module mdlApplicationLog
     End Structure
     Public Class AppLog
         Public Events As New List(Of sLog)
-        Const MaxLenght As Integer = 31
+        Const MaxLenght As Integer = 255
 
         Public Sub Append(ByVal pClass As String, ByVal pMethod As String, ByVal pMessage As String, Optional pDuration As Long = -1)
             If Events.Count >= AppLog.MaxLenght Then
