@@ -24,12 +24,45 @@ Module mdlGameDb
         ''' <summary>Compatibility status, it should be a byte, but CByte causes overhead and exceptions.</summary>
         Friend Compat As String = ""
 
+        ''' <summary>Converts GameInfo to string.</summary>
+        ''' <returns>Return GameInfo as string using the format "Name (Region) [Serial].</returns>
+        ''' <remarks></remarks>
         Public Overrides Function ToString() As String
             Return String.Format("{0} ({1}) [{2}]", Name, Region, Serial)
         End Function
 
+        ''' <summary>Converts Compat to a meaningful string.</summary>
+        ''' <returns>
+        ''' Return the following values:
+        ''' "Unknwon" for 0
+        ''' "Nothing" for 1
+        ''' "Intro" for 2
+        ''' "Menus" for 3
+        ''' "in-Game" for 4
+        ''' "Playable" for 5
+        ''' "Perfect" for 6
+        ''' "Missing" for everything else.
+        ''' </returns>
+        ''' <remarks>This is the class function.</remarks>
         Friend Function CompatToText() As String
-            Select Case Compat
+            Return CompatToText(Compat)
+        End Function
+        ''' <summary>Converts Compat to a meaningful string.</summary>
+        ''' <param name="pCompat">The input compat value.</param>
+        ''' <returns>
+        ''' Return the following values:
+        ''' "Unknwon" for 0
+        ''' "Nothing" for 1
+        ''' "Intro" for 2
+        ''' "Menus" for 3
+        ''' "in-Game" for 4
+        ''' "Playable" for 5
+        ''' "Perfect" for 6
+        ''' "Missing" for everything else.
+        ''' </returns>
+        ''' <remarks>This is the shared function.</remarks>
+        Friend Shared Function CompatToText(ByVal pCompat As String) As String
+            Select Case pCompat
                 Case "0" : Return "Unknown"
                 Case "1" : Return "Nothing"
                 Case "2" : Return "Intro"
@@ -41,13 +74,40 @@ Module mdlGameDb
             End Select
         End Function
 
-        Friend Shared Function CompatToText(ByVal pCompat As String) As String
-            Dim tmpGameInfo As New GameInfo With {.Compat = pCompat}
-            Return tmpGameInfo.CompatToText()
-        End Function
-
+        ''' <summary>Converts Compat to a color.</summary>
+        ''' <param name="pBGcolor">Default returned color if a match is not found.</param>
+        ''' <returns>
+        ''' Return the following values:
+        ''' BgColor for 0
+        ''' Red for 1
+        ''' Orange for 2
+        ''' Yellow for 3
+        ''' Purple for 4
+        ''' Green for 5
+        ''' Blue for 6
+        ''' BgColor for everything else.
+        ''' </returns>
+        ''' <remarks>This is the class function.</remarks>
         Friend Function CompatToColor(ByVal pBGcolor As Color) As Color
-            Select Case Compat
+            CompatToColor(pBGcolor, Compat)
+        End Function
+        ''' <summary>Converts Compat to a color.</summary>
+        ''' <param name="pBGcolor">Default returned color if a match is not found.</param>
+        ''' <param name="pCompat">Input Compat value.</param>
+        ''' <returns>
+        ''' Return the following values:
+        ''' BgColor for 0
+        ''' Red for 1
+        ''' Orange for 2
+        ''' Yellow for 3
+        ''' Purple for 4
+        ''' Green for 5
+        ''' Blue for 6
+        ''' BgColor for everything else.
+        ''' </returns>
+        ''' <remarks>This is the shared function.</remarks>
+        Friend Shared Function CompatToColor(ByVal pBGcolor As Color, ByVal pCompat As String) As Color
+            Select Case pCompat
                 Case "0" : Return pBGcolor                              'Unknown
                 Case "1" : Return Color.FromArgb(255, 255, 192, 192)    'Nothing:    Red
                 Case "2" : Return Color.FromArgb(255, 255, 224, 192)    'Intro:      Orange
@@ -57,11 +117,6 @@ Module mdlGameDb
                 Case "6" : Return Color.FromArgb(255, 192, 192, 255)    'Perfect:    Blue
                 Case Else : Return pBGcolor
             End Select
-        End Function
-
-        Friend Shared Function CompatToColor(ByVal pBGcolor As Color, ByVal pCompat As String) As Color
-            Dim tmpGameInfo As New GameInfo With {.Compat = pCompat}
-            Return tmpGameInfo.CompatToColor(pBGcolor)
         End Function
     End Class
 
@@ -91,7 +146,7 @@ Module mdlGameDb
         ''' <param name="pLocation">Path and file name of input database.</param>
         Friend Sub Load(ByVal pLocation As String)
 
-            SSMAppLog.Append("GameDB", "Load", String.Format("Open DB: ""{0}"".", pLocation))
+            SSMAppLog.Append(LogEventType.tInformation, "GameDB", "Load", String.Format("Opening DB from ""{0}"".", pLocation))
             Try
                 Dim sw As New Stopwatch
                 sw.Start()
@@ -150,24 +205,29 @@ Module mdlGameDb
                 LoadTime = sw.ElapsedTicks
                 Path = pLocation
                 If Records.Count = 0 Then
-                    SSMAppLog.Append("GameDB", "Load", "No records found.", LoadTime)
+                    SSMAppLog.Append(LogEventType.tWarning, "GameDB", "Load", "No records found.", LoadTime)
                     Status = LoadStatus.StatusEmpty
                 Else
-                    SSMAppLog.Append("GameDB", "Load", String.Format("Loaded {0:N0} records.", Records.Count), LoadTime)
+                    SSMAppLog.Append(LogEventType.tInformation, "GameDB", "Load", String.Format("Loaded {0:N0} records.", Records.Count), LoadTime)
                     Status = LoadStatus.StatusLoadedOK
                 End If
 
             Catch ex As Exception
-                SSMAppLog.Append("GameDB", "Load", String.Concat("Some GameDB loading failure. ", ex.Message), LoadTime)
-                'Unload()
+                SSMAppLog.Append(LogEventType.tCritical, "GameDB", "Load", String.Concat("Some GameDB loading failure. ", ex.Message), LoadTime)
                 Status = LoadStatus.StatusError
             End Try
         End Sub
 
+        ''' <summary>Extract a record from the database.</summary>
+        ''' <param name="pSerial">The input serial.</param>
+        ''' <returns>A GameInfo of the requested serial.</returns>
+        ''' <remarks>
+        ''' Please note that:
+        ''' BIOS is a virtual record.
+        ''' Error records are returned if the record is not found or the GameDB is not loaded.
+        ''' </remarks>
         Friend Function Extract(ByVal pSerial As String) As GameInfo
-
             Dim myGameDb_RecordExtract As New GameInfo With {.Serial = pSerial, .Name = "", .Region = "", .Compat = "0"}
-
 
             If Status = LoadStatus.StatusEmpty Or Status = LoadStatus.StatusLoadedOK Then
                 If pSerial.ToUpper = "BIOS" Then
@@ -177,24 +237,28 @@ Module mdlGameDb
                 Else
                     Extract = New GameInfo With {.Serial = pSerial, .Name = "(Not found in GameDB)", .Region = "unk", .Compat = "0"}
                 End If
-                'SSMAppLog.Append("GameDB", "RecordExtract", String.Format("from serial ""{0}"" > ""{1}"".", pSerial, Extract.Name))
-                Return Extract
+                'SSMAppLog.Append(LogEventType.tInformation, "GameDB", "RecordExtract", String.Format("{0} > ""{1}"".", pSerial, Extract.Name))
             ElseIf Status = LoadStatus.StatusNotLoaded Then
                 Extract = New GameInfo With {.Serial = pSerial, .Name = "(GameDB not loaded)", .Region = "", .Compat = "0"}
-                SSMAppLog.Append("GameDB", "RecordExtract", "Failed, GameDB is not loaded.")
+                SSMAppLog.Append(LogEventType.tWarning, "GameDB", "RecordExtract", String.Format("Failed for {0}, GameDB is not loaded.", pSerial))
             ElseIf Status = LoadStatus.StatusError Then
                 Extract = New GameInfo With {.Serial = pSerial, .Name = "(GameDB error)", .Region = "", .Compat = "0"}
-                SSMAppLog.Append("GameDB", "RecordExtract", "Failed, GameDB is not loaded because an error has occurred.")
+                SSMAppLog.Append(LogEventType.tWarning, "GameDB", "RecordExtract", String.Format("Failed for {0}, GameDB was not loaded because of an error.", pSerial))
             Else
                 Extract = New GameInfo With {.Serial = pSerial, .Name = "(GameDB error)", .Region = "", .Compat = "0"}
-                SSMAppLog.Append("GameDB", "RecordExtract", "Failed, Status is set to " & Status.ToString)
+                SSMAppLog.Append(LogEventType.tCritical, "GameDB", "RecordExtract", String.Format("Failed for {0}, DB status is {1}", pSerial, Status.ToString))
             End If
+
             Return Extract
         End Function
-
+        ''' <summary>Extract multiple records based on a list of serials (strings).</summary>
+        ''' <param name="pSerial">The list of serials.</param>
+        ''' <param name="pExtractedGameDb">The GameDB structure that will contain the extracted records.</param>
+        ''' <returns>The LoadStatus of pExtractedGameDb.</returns>
         Friend Function Extract(ByVal pSerial As List(Of String), _
                                 ByRef pExtractedGameDb As Dictionary(Of String, GameInfo) _
                                 ) As mdlMain.LoadStatus
+            Dim sw As Stopwatch = Stopwatch.StartNew
 
             If Status = LoadStatus.StatusLoadedOK Or Status = LoadStatus.StatusEmpty Then
 
@@ -208,16 +272,20 @@ Module mdlGameDb
                     Return LoadStatus.StatusEmpty
                 End If
 
-                SSMAppLog.Append("GameDB", "RecordExtract", "From multiple serials.")
+                sw.Stop()
+                SSMAppLog.Append(LogEventType.tInformation, "GameDB", "RecordExtract", "From multiple serials.", sw.ElapsedTicks)
             ElseIf Status = LoadStatus.StatusNotLoaded Then
+                sw.Stop()
+                SSMAppLog.Append(LogEventType.tWarning, "GameDB", "RecordExtract", "Failed for multiple serials, GameDB was not loaded.", sw.ElapsedTicks)
                 Return LoadStatus.StatusNotLoaded
-                SSMAppLog.Append("GameDB", "RecordExtract", "Failed, GameDB was not loaded.")
             ElseIf Status = LoadStatus.StatusError Then
+                sw.Stop()
+                SSMAppLog.Append(LogEventType.tWarning, "GameDB", "RecordExtract", "Failed for multiple serials, GameDB was not loaded because of an error.", sw.ElapsedTicks)
                 Return LoadStatus.StatusNotLoaded
-                SSMAppLog.Append("GameDB", "RecordExtract", "Failed, GameDB was not loaded because an error occurred.")
             Else
+                sw.Stop()
+                SSMAppLog.Append(LogEventType.tCritical, "GameDB", "RecordExtract", "Failed for multiple serials, Status is set to " & Status.ToString, sw.ElapsedTicks)
                 Return LoadStatus.StatusError
-                SSMAppLog.Append("GameDB", "RecordExtract", "Failed, Status is set to " & Status.ToString)
             End If
 
         End Function
@@ -266,11 +334,11 @@ Module mdlGameDb
                     pSearchResult.Add(tmpGame.Key)
                 Next
                 sw.Stop()
-                SSMAppLog.Append("GameDB", "Search", String.Format("Found {0:N0} records.", pSearchResult.Count), sw.ElapsedTicks)
+                SSMAppLog.Append(LogEventType.tInformation, "GameDB", "Search", String.Format("Found {0:N0} records.", pSearchResult.Count), sw.ElapsedTicks)
                 Return LoadStatus.StatusLoadedOK
             Else
                 sw.Stop()
-                SSMAppLog.Append("GameDB", "Search", String.Format("No records found.", pSearchResult.Count), sw.ElapsedTicks)
+                SSMAppLog.Append(LogEventType.tInformation, "GameDB", "Search", String.Format("No records found.", pSearchResult.Count), sw.ElapsedTicks)
                 Return LoadStatus.StatusEmpty
             End If
         End Function

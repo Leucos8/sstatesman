@@ -91,12 +91,12 @@ Module mdlFileList
             sw.Stop()
             LoadTime = sw.ElapsedTicks
             If Games.Count = 0 Then
-                SSMAppLog.Append("FilesList", "LoadAll", "No games, the list is empty.", LoadTime)
+                SSMAppLog.Append(LogEventType.tWarning, "FilesList", "LoadAll", "No games, the list is empty.", LoadTime)
                 Status = LoadStatus.StatusEmpty
             Else
                 Dim SStates_Count As Integer = Games.Sum(Function(item) item.Value.Savestates.Count)
                 Dim Snaps_Count As Integer = Games.Sum(Function(item) item.Value.Snapshots.Count)
-                SSMAppLog.Append("FilesList", "LoadAll", String.Format("{0:N0} games > {1:N0} savestates - {2:N0} screenshots.", Games.Count, SStates_Count, Snaps_Count), LoadTime)
+                SSMAppLog.Append(LogEventType.tInformation, "FilesList", "LoadAll", String.Format("{0:N0} games > {1:N0} savestates - {2:N0} screenshots.", Games.Count, SStates_Count, Snaps_Count), LoadTime)
                 Status = LoadStatus.StatusLoadedOK
             End If
         End Sub

@@ -1397,6 +1397,7 @@ Partial Class frmSettings
         'ColumnHeader1
         '
         Me.ColumnHeader1.Text = "Time"
+        Me.ColumnHeader1.Width = 90
         '
         'ColumnHeader2
         '
@@ -1406,7 +1407,7 @@ Partial Class frmSettings
         'ColumnHeader3
         '
         Me.ColumnHeader3.Text = "Decription"
-        Me.ColumnHeader3.Width = 220
+        Me.ColumnHeader3.Width = 190
         '
         'ColumnHeader4
         '

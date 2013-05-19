@@ -295,6 +295,10 @@
     <None Include="Resources\Icon_FolderScreenshots_16x16.png" />
     <None Include="Resources\Icon_FolderPCSX2_16x16.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\InfoIcon_Warning_16x16.png" />
+    <None Include="Resources\InfoIcon_Information_16x16.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

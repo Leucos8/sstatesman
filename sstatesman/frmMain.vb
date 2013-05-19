@@ -63,7 +63,7 @@ Public Class frmMain
                 Me.lblSizeBackup.Visible = True
                 Me.txtSizeBackup.Visible = True
 
-                SSMAppLog.Append("Main window", "ListMode", "Switched to savestates.")
+                SSMAppLog.Append(LogEventType.tInformation, "Main window", "ListMode", "Switched to savestates.")
             Case ListMode.Stored
                 Me.lblSStateListCheck.Text = "check savestates:"
                 Me.cmdFilesCheckBackup.Visible = False
@@ -71,7 +71,7 @@ Public Class frmMain
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
 
-                SSMAppLog.Append("Main window", "ListMode", "Switched to stored.")
+                SSMAppLog.Append(LogEventType.tInformation, "Main window", "ListMode", "Switched to stored.")
             Case ListMode.Snapshots
                 Me.lblSStateListCheck.Text = "check screnshots:"
                 Me.cmdFilesCheckBackup.Visible = False
@@ -79,7 +79,7 @@ Public Class frmMain
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
 
-                SSMAppLog.Append("Main window", "ListMode", "Switched to screenshots.")
+                SSMAppLog.Append(LogEventType.tInformation, "Main window", "ListMode", "Switched to screenshots.")
         End Select
 
         Me.WindowListMode = pListMode
@@ -149,26 +149,13 @@ Public Class frmMain
                                                  My.Application.Info.Version.ToString, " ", _
                                                  My.Settings.SStatesMan_Channel)
 
-        'ImageList for custom checkboxes (listview statelist)
-        Dim imlLvwCheckboxes As New ImageList With {.ImageSize = New Size( _
-                CInt((My.Resources.Checkbox_Unchecked_22x22.Width \ 2 - 1) * DPIxScale + 1), _
-                CInt((My.Resources.Checkbox_Unchecked_22x22.Height \ 2 - 1) * DPIyScale) + 1)}
-        'List view items icons
-        Dim imlLvwSStatesIcons As New ImageList With {.ImageSize = New Size( _
-                      CInt((My.Resources.Icon_Savestate_16x16.Width - 1) * DPIxScale) + 1, _
-                      CInt((My.Resources.Icon_Savestate_16x16.Height - 1) * DPIyScale) + 1)}
 
         'Checked state icons
-        imlLvwCheckboxes.Images.AddRange({My.Resources.Checkbox_Unchecked_22x22, _
-                                          My.Resources.Checkbox_Checked_22x22})
         Me.lvwGamesList.StateImageList = imlLvwCheckboxes       'Assigning the imagelist to the Games listview
         Me.lvwFilesList.StateImageList = imlLvwCheckboxes       'Assigning the imagelist to the Savestates listview
 
         'Savestates, backup, and screenshot icons
-        imlLvwSStatesIcons.Images.AddRange({My.Resources.Icon_Savestate_16x16, _
-                                            My.Resources.Icon_SavestateBackup_16x16, _
-                                            My.Resources.Icon_Screenshot_16x16})
-        Me.lvwFilesList.SmallImageList = imlLvwSStatesIcons     'Assigning the imagelist to the Savestates listview
+        Me.lvwFilesList.SmallImageList = imlLvwItemIcons        'Assigning the imagelist to the Savestates listview
 
         '---------------
         'Window settings
@@ -274,29 +261,19 @@ Public Class frmMain
 
     ''' <summary>Updates the UI status, game info and savestate info</summary>
     Private Sub UI_Update()
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "UI_Update", "Update start.")
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         Me.UI_UpdateGameInfo()
         Me.UI_UpdateFileInfo()
 
         sw.Stop()
-        SSMAppLog.Append("Main window", "UI_Update", "Update done.", sw.ElapsedTicks)
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "UI_Update", "Update done.", sw.ElapsedTicks)
     End Sub
 
     ''' <summary>Updates the UI game info: title, region, image cover, etc.</summary>
     Private Sub UI_UpdateGameInfo()
         Dim sw As Stopwatch = Stopwatch.StartNew
-
-        Me.txtGameList_Title.SuspendLayout()
-        Me.txtGameList_Serial.SuspendLayout()
-        Me.txtGameList_Region.SuspendLayout()
-        Me.txtGameList_Compat.SuspendLayout()
-        Me.txtGameList_Compat.SuspendLayout()
-        Me.imgFlag.SuspendLayout()
-        Me.imgCover.SuspendLayout()
-        Me.cmdGameSelectAll.SuspendLayout()
-        Me.cmdGameSelectInvert.SuspendLayout()
-        Me.cmdGameSelectNone.SuspendLayout()
 
         If SSMGameList.Games.Count > 0 And checkedGames.Count > 0 Then
             '========================
@@ -427,23 +404,14 @@ Public Class frmMain
             End If
         End If
 
-        Me.txtGameList_Title.ResumeLayout()
-        Me.txtGameList_Serial.ResumeLayout()
-        Me.txtGameList_Region.ResumeLayout()
-        Me.txtGameList_Compat.ResumeLayout()
-        Me.txtGameList_Compat.ResumeLayout()
-        Me.imgFlag.ResumeLayout()
-        Me.imgCover.ResumeLayout()
-        Me.cmdGameSelectAll.ResumeLayout()
-        Me.cmdGameSelectInvert.ResumeLayout()
-        Me.cmdGameSelectNone.ResumeLayout()
-
         sw.Stop()
-        SSMAppLog.Append("Main window", "UI_Update", "Updated game info.", sw.ElapsedTicks)
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "UI_Update", "Updated game info.", sw.ElapsedTicks)
     End Sub
 
     ''' <summary>Updates the UI savestate info: items selected, size.</summary>
     Private Sub UI_UpdateFileInfo()
+        Dim sw As Stopwatch = Stopwatch.StartNew
+
         Me.txtSelected.Text = System.String.Format("{0:N0} | {1:N0} files", Me.lvwFilesList.CheckedItems.Count, Me.lvwFilesList.Items.Count)
         Select Case Me.WindowListMode
             Case ListMode.Savestates
@@ -497,6 +465,9 @@ Public Class frmMain
                 Me.cmdFilesDelete.Enabled = False
             End If
         End If
+
+        sw.Stop()
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "UI_Update", "Updated file info.", sw.ElapsedTicks)
     End Sub
 
     Private Sub tmrSStatesListRefresh_Tick(sender As System.Object, e As System.EventArgs) Handles tmrSStatesListRefresh.Tick
@@ -508,7 +479,7 @@ Public Class frmMain
 
                 If Not (Directory.GetLastWriteTime(My.Settings.PCSX2_PathSState) = SSMGameList.SStatesFolder_LastModified) Then 'Different time
 
-                    SSMAppLog.Append("Main window", "Timer", "Refreshed lists.")
+                    SSMAppLog.Append(LogEventType.tInformation, "Main window", "Timer", "Scheduled lists refresh.")
 
                     Me.List_RefreshAll()
 
@@ -772,7 +743,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwGamesList)
 
         sw.Stop()
-        SSMAppLog.Append("Main window", "Add games", String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), sw.ElapsedTicks)
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Add games", String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
     Private Sub GamesList_IndexCheckedGames()
@@ -928,7 +899,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwFilesList)
 
         sw.Stop()
-        SSMAppLog.Append("Main window", "Add savestates", String.Format("Listed {0:N0} savestates.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Add savestates", String.Format("Listed {0:N0} savestates.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
     Private Sub lvwFilesList_AddSnapshots()
@@ -1013,7 +984,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwFilesList)
 
         sw.Stop()
-        SSMAppLog.Append("Main window", "Add snapshots", String.Format("Listed {0:N0} snapshots.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Add snapshots", String.Format("Listed {0:N0} snapshots.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
     Private Sub lvwFilesList_AddColumns(ByVal pListMode As ListMode)
@@ -1040,7 +1011,6 @@ Public Class frmMain
                                            New ColumnHeader With {.Name = "SnapsCH_Modified", .Text = "Modified", .Width = 120}, _
                                            New ColumnHeader With {.Name = "SnapsCH_Size", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
                                           })
-                'tmpColumnWidths = {0}
         End Select
 
         If tmpColumnWidths.Length = tmpColumnHeaders.Count Then

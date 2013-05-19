@@ -13,8 +13,16 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Module mdlApplicationLog
+    Friend Enum LogEventType
+        tInformation
+        tWarning
+        tError
+        tCritical
+    End Enum
+
     Friend Structure sLog
         Friend Time As DateTime
+        Friend Type As LogEventType
         Friend OrClass As String
         Friend OrMethod As String
         Friend Description As String
@@ -24,17 +32,17 @@ Module mdlApplicationLog
         Public Events As New List(Of sLog)
         Const MaxLenght As Integer = 255
 
-        Public Sub Append(ByVal pClass As String, ByVal pMethod As String, ByVal pMessage As String, Optional pDuration As Long = -1)
+        Public Sub Append(ByVal pType As LogEventType, ByVal pClass As String, ByVal pMethod As String, ByVal pMessage As String, Optional pDuration As Long = -1)
             If Events.Count >= AppLog.MaxLenght Then
                 Events.RemoveAt(0)
             End If
-            Events.Add(New sLog With {.Time = Now, .OrClass = pClass, .OrMethod = pMethod, .Description = pMessage, .Duration = pDuration})
+            Events.Add(New sLog With {.Type = pType, .Time = Now, .OrClass = pClass, .OrMethod = pMethod, .Description = pMessage, .Duration = pDuration})
         End Sub
 
         Public Sub ExportConsole()
             If Events.Count > 0 Then
                 For Each tmpLogItem As sLog In Events
-                    Console.WriteLine(String.Format("[{0:HH.mm.ss}] {1}: {2} {3} {4:N1}ms.", tmpLogItem.Time, tmpLogItem.OrClass, tmpLogItem.OrMethod, tmpLogItem.Description, tmpLogItem.Duration))
+                    Console.WriteLine(String.Format("[{0:HH.mm.ss}] {1} {2}: {3} {4} {5:N1}ms.", tmpLogItem.Time, tmpLogItem.Type.ToString, tmpLogItem.OrClass, tmpLogItem.OrMethod, tmpLogItem.Description, tmpLogItem.Duration))
                 Next
             End If
         End Sub
@@ -42,12 +50,13 @@ Module mdlApplicationLog
         Public Sub ExportFile(ByVal pPath As String)
             If Events.Count > 0 Then
                 Using tmpStreamWriter As IO.StreamWriter = New IO.StreamWriter(pPath)
-                    tmpStreamWriter.WriteLine(String.Concat("Timestamp", vbTab, "Origin", vbTab, "Action", vbTab, "Description", vbTab, "Duration"))
+                    tmpStreamWriter.WriteLine(String.Concat("Timestamp", vbTab, "Type", vbTab, "Origin", vbTab, "Action", vbTab, "Description", vbTab, "Duration"))
                     For Each tmpLogItem As sLog In Events
-                        tmpStreamWriter.WriteLine(String.Concat(tmpLogItem.Time.ToString, vbTab,
-                                                                tmpLogItem.OrClass, vbTab,
-                                                                tmpLogItem.OrMethod, vbTab,
-                                                                tmpLogItem.Description, vbTab,
+                        tmpStreamWriter.WriteLine(String.Concat(tmpLogItem.Time.ToString, vbTab, _
+                                                                tmpLogItem.Type.ToString, vbTab, _
+                                                                tmpLogItem.OrClass, vbTab, _
+                                                                tmpLogItem.OrMethod, vbTab, _
+                                                                tmpLogItem.Description, vbTab, _
                                                                 tmpLogItem.Duration))
                     Next
                 End Using

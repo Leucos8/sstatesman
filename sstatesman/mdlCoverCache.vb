@@ -53,13 +53,13 @@ Module mdlCoverCache
             Next
             If CoverCache.ContainsKey(tmpSerial) Then
                 CoverCache.Remove(tmpSerial)
-                SSMAppLog.Append("CoverCache", "AddCover", String.Format("Cover for {0} removed from cache.", tmpSerial))
+                SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "AddCover", String.Format("Cover for {0} removed from cache.", tmpSerial))
             Else
-                SSMAppLog.Append("CoverCache", "AddCover", String.Format("Error: Cover for {0} not removed from cache.", tmpSerial))
+                SSMAppLog.Append(LogEventType.tWarning, "CoverCache", "AddCover", String.Format("Cover for {0} not found in cache, removal ignored.", tmpSerial))
             End If
         End If
         CoverCache.Add(pSerial, pCoverInfo)
-        SSMAppLog.Append("CoverCache", "AddCover", String.Format("Cover for {0} cached.", pSerial))
+        SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "AddCover", String.Format("Cover for {0} cached. {1} covers in cache.", pSerial, CoverCache.Count))
     End Sub
 
 
@@ -103,14 +103,14 @@ Module mdlCoverCache
                 endCover.FillRectangle(tmpShade, i * pStepWidth - 4, 0, 3, pDestHeight)
             Catch ex As Exception
                 'No cover image found or file is corrupted
-                SSMAppLog.Append("Cover", "MultipleCover", String.Concat("Error: ", ex.Message))
+                SSMAppLog.Append(LogEventType.tError, "CoverCache", "MultipleCover", ex.Message)
             End Try
         Next
         'The graphics object update the image object
         endCover.DrawImage(GetCover, pDestWidth, pDestHeight)
 
         sw.Stop()
-        SSMAppLog.Append("CoverCache", "GetCover", "Cover served for multiple games.", sw.ElapsedTicks)
+        SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "GetCover", "Cover served for multiple games.", sw.ElapsedTicks)
 
         Return GetCover
     End Function
@@ -135,8 +135,10 @@ Module mdlCoverCache
                     tmpImage = Image.FromFile(Path.Combine(pPath, pSerial & ".jpg"))
                 Catch ex As Exception
                     'No cover image found or file is corrupted
-                    SSMAppLog.Append("CoverCache", "GetCover", String.Format("Error for {0}: {1}", pSerial, ex.Message))
-                    SSMGameList.Games(pSerial).HasCoverFile = False
+                    SSMAppLog.Append(LogEventType.tError, "CoverCache", "GetCover", String.Format("Game {0}: {1}", pSerial, ex.Message))
+                    If SSMGameList.Games.ContainsKey(pSerial) Then
+                        SSMGameList.Games(pSerial).HasCoverFile = False
+                    End If
                     tmpImage = My.Resources.Extra_Nocover_120x170
                 End Try
 
@@ -148,7 +150,7 @@ Module mdlCoverCache
         End If
 
         sw.Stop()
-        SSMAppLog.Append("CoverCache", "GetCover", String.Format("Cover for {0} served.", pSerial), sw.ElapsedTicks)
+        SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "GetCover", String.Format("Cover for {0} served.", pSerial), sw.ElapsedTicks)
 
         If pExpanded Then
             Return CoverCache(pSerial).CoverThumb_Large
@@ -179,7 +181,7 @@ Module mdlCoverCache
             Return tmpThumbnail
         Catch ex As Exception
             'No cover image found or file is corrupted
-            SSMAppLog.Append("CoverCache", "ResizeCover", String.Concat("Error: ", ex.Message))
+            SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "ResizeCover", ex.Message)
             Return My.Resources.Extra_Nocover_120x170
         End Try
 

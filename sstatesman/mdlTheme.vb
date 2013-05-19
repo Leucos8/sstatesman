@@ -15,7 +15,10 @@
 Imports System.Drawing
 
 Module mdlTheme
-    Public Enum eTheme As Byte
+    Friend imlLvwCheckboxes As ImageList
+    Friend imlLvwItemIcons As ImageList
+
+    Friend Enum eTheme As Byte
         none = 0
         squares = 1
         noise = 2
@@ -26,7 +29,7 @@ Module mdlTheme
         PCSX2 = 11
     End Enum
 
-    Public Structure sTheme
+    Friend Structure sTheme
         Friend AccentColor As Color
         Friend AccentColorLight As Color
         Friend AccentColorDark As Color
@@ -39,18 +42,38 @@ Module mdlTheme
         Friend BgImageBottomStyle As ImageLayout
     End Structure
 
-    Public currentTheme As New sTheme With {.AccentColor = Color.FromArgb(255, 130, 150, 200),
-                                            .AccentColorLight = Color.WhiteSmoke,
-                                            .AccentColorDark = Color.FromArgb(255, 65, 74, 100),
-                                            .BgColor = Color.WhiteSmoke,
-                                            .BgColorTop = Color.Gainsboro,
-                                            .BgColorBottom = Color.Gainsboro,
-                                            .BgImageTop = My.Resources.BgSquares,
-                                            .BgImageTopStyle = ImageLayout.None,
-                                            .BgImageBottom = Nothing,
+    Public currentTheme As New sTheme With {.AccentColor = Color.FromArgb(255, 130, 150, 200), _
+                                            .AccentColorLight = Color.WhiteSmoke, _
+                                            .AccentColorDark = Color.FromArgb(255, 65, 74, 100), _
+                                            .BgColor = Color.WhiteSmoke, _
+                                            .BgColorTop = Color.Gainsboro, _
+                                            .BgColorBottom = Color.Gainsboro, _
+                                            .BgImageTop = My.Resources.BgSquares, _
+                                            .BgImageTopStyle = ImageLayout.None, _
+                                            .BgImageBottom = Nothing, _
                                             .BgImageBottomStyle = ImageLayout.None}
 
     Public Function LoadTheme(ByVal pTheme As eTheme) As sTheme
+
+        'ImageList for custom checkboxes (listview statelist)
+        imlLvwCheckboxes = New ImageList With {.ImageSize = New Size( _
+                CInt((My.Resources.Checkbox_Unchecked_22x22.Width \ 2 - 1) * DPIxScale + 1), _
+                CInt((My.Resources.Checkbox_Unchecked_22x22.Height \ 2 - 1) * DPIyScale) + 1)}
+        imlLvwCheckboxes.Images.AddRange({My.Resources.Checkbox_Unchecked_22x22, _
+                                          My.Resources.Checkbox_Checked_22x22})
+
+        'List view items icons
+        imlLvwItemIcons = New ImageList With {.ImageSize = New Size( _
+                      CInt((My.Resources.Icon_Savestate_16x16.Width - 1) * DPIxScale) + 1, _
+                      CInt((My.Resources.Icon_Savestate_16x16.Height - 1) * DPIyScale) + 1)}
+        imlLvwItemIcons.Images.AddRange({My.Resources.Icon_Savestate_16x16, _
+                                         My.Resources.Icon_SavestateBackup_16x16, _
+                                         My.Resources.Icon_Screenshot_16x16, _
+                                         My.Resources.InfoIcon_Information_16x16, _
+                                         My.Resources.InfoIcon_Warning_16x16, _
+                                         My.Resources.InfoIcon_Exclamation_16x16, _
+                                         My.Resources.InfoIcon_Error_16x16})
+
         Select Case My.Settings.SStatesMan_Theme
             Case eTheme.squares
                 With LoadTheme

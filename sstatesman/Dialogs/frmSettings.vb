@@ -259,6 +259,7 @@ Public Class frmSettings
 
 #Region "Form management"
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Me.ListView1.SmallImageList = imlLvwItemIcons
 
         Me.applyTheme()
 
@@ -678,7 +679,7 @@ Public Class frmSettings
         Me.ListView1.Items.Clear()
         Dim tmpListItems As New List(Of ListViewItem)
         For Each tmpLogItem As sLog In pLog
-            Dim tmpListItem As New ListViewItem With {.Text = tmpLogItem.Time.ToString("H.mm.ss")}
+            Dim tmpListItem As New ListViewItem With {.Text = tmpLogItem.Time.ToString("H:mm:ss.ff"), .ImageIndex = tmpLogItem.Type + 3}
             tmpListItem.SubItems.AddRange({String.Concat(tmpLogItem.OrClass, ": ", tmpLogItem.OrMethod), tmpLogItem.Description})
             If tmpLogItem.Duration = -1 Then
                 tmpListItem.SubItems.Add("-")
