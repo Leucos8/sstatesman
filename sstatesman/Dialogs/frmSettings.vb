@@ -271,6 +271,10 @@ Public Class frmSettings
         Me.Settings_Load()
         Me.Settings_Check()
 
+        Me.optSettingTab1_CheckedChanged(Nothing, Nothing)
+        Me.optSettingTab2_CheckedChanged(Nothing, Nothing)
+        Me.optSettingTab3_CheckedChanged(Nothing, Nothing)
+        Me.optSettingTab4_CheckedChanged(Nothing, Nothing)
         Me.cmdLogRefresh_Click(Nothing, Nothing)
     End Sub
 
@@ -296,58 +300,74 @@ Public Class frmSettings
 
 #Region "Form - Tab management"
     Private Sub optSettingTab1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab1.CheckedChanged
-        If Me.optSettingTab1.Checked = True Then
-            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
-            Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
-            Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.White
+        'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to kwnow 
+        'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
+        If Me.optSettingTab1.IsHandleCreated Then
+            If Me.optSettingTab1.Checked = True Then
+                Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+                Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.White
 
-            Me.pnlTab1.Visible = True
-            Me.pnlTab2.Visible = False
-            Me.pnlTab3.Visible = False
-            Me.pnlTab4.Visible = False
+                Me.pnlTab1.Visible = True
+                Me.pnlTab2.Visible = False
+                Me.pnlTab3.Visible = False
+                Me.pnlTab4.Visible = False
+            End If
         End If
     End Sub
 
     Private Sub optSettingTab2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab2.CheckedChanged
-        If Me.optSettingTab2.Checked = True Then
-            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
-            Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
-            Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.White
+        'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to kwnow 
+        'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
+        If Me.optSettingTab2.IsHandleCreated Then
+            If Me.optSettingTab2.Checked = True Then
+                Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+                Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.White
 
-            Me.pnlTab2.Visible = True
-            Me.pnlTab1.Visible = False
-            Me.pnlTab3.Visible = False
-            Me.pnlTab4.Visible = False
+                Me.pnlTab2.Visible = True
+                Me.pnlTab1.Visible = False
+                Me.pnlTab3.Visible = False
+                Me.pnlTab4.Visible = False
+            End If
         End If
     End Sub
 
     Private Sub optSettingTab3_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab3.CheckedChanged
-        If Me.optSettingTab3.Checked = True Then
-            Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
-            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
-            Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.White
+        'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to kwnow 
+        'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
+        If Me.optSettingTab3.IsHandleCreated Then
+            If Me.optSettingTab3.Checked = True Then
+                Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+                Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.White
 
-            Me.pnlTab3.Visible = True
-            Me.pnlTab1.Visible = False
-            Me.pnlTab2.Visible = False
-            Me.pnlTab4.Visible = False
+                Me.pnlTab3.Visible = True
+                Me.pnlTab1.Visible = False
+                Me.pnlTab2.Visible = False
+                Me.pnlTab4.Visible = False
+            End If
         End If
     End Sub
 
     Private Sub optSettingTab4_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab4.CheckedChanged
-        If Me.optSettingTab4.Checked = True Then
-            Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
-            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
-            Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
+        'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to kwnow 
+        'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
+        If Me.optSettingTab4.IsHandleCreated Then
+            If Me.optSettingTab4.Checked = True Then
+                Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+                Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
 
-            Me.pnlTab4.Visible = True
-            Me.pnlTab1.Visible = False
-            Me.pnlTab2.Visible = False
-            Me.pnlTab3.Visible = False
+                Me.pnlTab4.Visible = True
+                Me.pnlTab1.Visible = False
+                Me.pnlTab2.Visible = False
+                Me.pnlTab3.Visible = False
+            End If
         End If
     End Sub
 #End Region
@@ -680,7 +700,7 @@ Public Class frmSettings
         Dim tmpListItems As New List(Of ListViewItem)
         For Each tmpLogItem As sLog In pLog
             Dim tmpListItem As New ListViewItem With {.Text = tmpLogItem.Time.ToString("H:mm:ss.ff"), .ImageIndex = tmpLogItem.Type + 3}
-            tmpListItem.SubItems.AddRange({String.Concat(tmpLogItem.OrClass, ": ", tmpLogItem.OrMethod), tmpLogItem.Description})
+            tmpListItem.SubItems.AddRange({String.Concat(tmpLogItem.OrClass, " > ", tmpLogItem.OrMethod), tmpLogItem.Description})
             If tmpLogItem.Duration = -1 Then
                 tmpListItem.SubItems.Add("-")
             Else

@@ -32,17 +32,29 @@ Module mdlApplicationLog
         Public Events As New List(Of sLog)
         Const MaxLenght As Integer = 255
 
-        Public Sub Append(ByVal pType As LogEventType, ByVal pClass As String, ByVal pMethod As String, ByVal pMessage As String, Optional pDuration As Long = -1)
+        Public Sub Append(ByVal pType As LogEventType, ByVal pClass As String, ByVal pOrMethod As String, ByVal pDescription As String, Optional pDuration As Long = -1)
             If Events.Count >= AppLog.MaxLenght Then
                 Events.RemoveAt(0)
             End If
-            Events.Add(New sLog With {.Type = pType, .Time = Now, .OrClass = pClass, .OrMethod = pMethod, .Description = pMessage, .Duration = pDuration})
+            Events.Add(New sLog With {.Type = pType, .Time = Now, .OrClass = pClass, .OrMethod = pOrMethod, .Description = pDescription, .Duration = pDuration})
+
+            'Dim tmpString As String = String.Format("[{0:HH:mm:ss.ff}] {1} {2} > {3} {4}", Now, pType.ToString, pClass, pOrMethod, pDescription)
+            'If Not (pDuration = -1) Then
+            '    tmpString &= String.Format(" {0:N2}ms", pDuration / Stopwatch.Frequency * 1000)
+            'End If
+            'Console.WriteLine(tmpString)
         End Sub
 
         Public Sub ExportConsole()
             If Events.Count > 0 Then
                 For Each tmpLogItem As sLog In Events
-                    Console.WriteLine(String.Format("[{0:HH.mm.ss}] {1} {2}: {3} {4} {5:N1}ms.", tmpLogItem.Time, tmpLogItem.Type.ToString, tmpLogItem.OrClass, tmpLogItem.OrMethod, tmpLogItem.Description, tmpLogItem.Duration))
+                    Dim tmpString As String = String.Format("[{0:HH:mm:ss.ff}] {1} {2} > {3} {4}", tmpLogItem.Time, tmpLogItem.Type.ToString, tmpLogItem.OrClass, tmpLogItem.OrMethod, tmpLogItem.Description)
+                    If tmpLogItem.Duration = -1 Then
+                        tmpString &= "."
+                    Else
+                        tmpString &= String.Format(" {0:N2}ms.", tmpLogItem.Duration / Stopwatch.Frequency * 1000)
+                    End If
+                    Console.WriteLine(tmpString)
                 Next
             End If
         End Sub
@@ -52,12 +64,18 @@ Module mdlApplicationLog
                 Using tmpStreamWriter As IO.StreamWriter = New IO.StreamWriter(pPath)
                     tmpStreamWriter.WriteLine(String.Concat("Timestamp", vbTab, "Type", vbTab, "Origin", vbTab, "Action", vbTab, "Description", vbTab, "Duration"))
                     For Each tmpLogItem As sLog In Events
-                        tmpStreamWriter.WriteLine(String.Concat(tmpLogItem.Time.ToString, vbTab, _
+                        Dim tmpString As String = String.Concat(tmpLogItem.Time.ToString("yyyy-MM-dd HH:mm:ss.ff"), vbTab, _
                                                                 tmpLogItem.Type.ToString, vbTab, _
                                                                 tmpLogItem.OrClass, vbTab, _
                                                                 tmpLogItem.OrMethod, vbTab, _
-                                                                tmpLogItem.Description, vbTab, _
-                                                                tmpLogItem.Duration))
+                                                                tmpLogItem.Description, vbTab)
+                        If tmpLogItem.Duration = -1 Then
+                            tmpString &= "-"
+                        Else
+                            tmpString &= String.Format("{0:N2}", tmpLogItem.Duration / Stopwatch.Frequency * 1000)
+                        End If
+
+                        tmpStreamWriter.WriteLine(tmpString)
                     Next
                 End Using
             End If

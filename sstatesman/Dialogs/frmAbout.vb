@@ -25,6 +25,8 @@ Public NotInheritable Class frmAbout
         Me.lblCopyright.Text = My.Application.Info.Copyright
         Me.lblAuthorName.Text = String.Concat("Created by ", My.Application.Info.CompanyName)
 
+        Me.optSettingTab1_CheckedChanged(Nothing, Nothing)
+        Me.optSettingTab2_CheckedChanged(Nothing, Nothing)
     End Sub
 
     Private Sub OKButton_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
@@ -37,22 +39,30 @@ Public NotInheritable Class frmAbout
 
 #Region "Tab management"
     Private Sub optSettingTab1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab1.CheckedChanged
-        If Me.optSettingTab1.Checked = True Then
-            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
+        'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to kwnow 
+        'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
+        If Me.optSettingTab1.IsHandleCreated Then
+            If Me.optSettingTab1.Checked = True Then
+                Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+                Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
 
-            Me.SplitContainer1.Panel2Collapsed = True
-            Me.SplitContainer1.Panel1Collapsed = False
+                Me.SplitContainer1.Panel2Collapsed = True
+                Me.SplitContainer1.Panel1Collapsed = False
+            End If
         End If
     End Sub
 
     Private Sub optSettingTab2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab2.CheckedChanged
-        If Me.optSettingTab2.Checked = True Then
-            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
+        'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to kwnow 
+        'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
+        If Me.optSettingTab2.IsHandleCreated Then
+            If Me.optSettingTab2.Checked = True Then
+                Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+                Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
 
-            Me.SplitContainer1.Panel1Collapsed = True
-            Me.SplitContainer1.Panel2Collapsed = False
+                Me.SplitContainer1.Panel1Collapsed = True
+                Me.SplitContainer1.Panel2Collapsed = False
+            End If
         End If
     End Sub
 #End Region

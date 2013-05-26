@@ -1546,7 +1546,7 @@ Partial Class frmSettings
         Me.cmdLogRefresh.Name = "cmdLogRefresh"
         Me.cmdLogRefresh.Size = New System.Drawing.Size(68, 22)
         Me.cmdLogRefresh.TabIndex = 20
-        Me.cmdLogRefresh.Text = "REFERSH"
+        Me.cmdLogRefresh.Text = "REFRESH"
         Me.cmdLogRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdLogRefresh.UseVisualStyleBackColor = False
         '

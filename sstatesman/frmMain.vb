@@ -16,13 +16,13 @@ Imports System.IO
 
 Public Class frmMain
     Dim lastWindowState As FormWindowState
-    Friend WindowListMode As ListMode = ListMode.Savestates
     Friend Enum ListMode
         'Iso
         Savestates
         Stored
         Snapshots
     End Enum
+    Friend WindowListMode As ListMode = ListMode.Savestates
 
     'Main window checked objects list
     Public checkedGames As New List(Of String)
@@ -114,6 +114,10 @@ Public Class frmMain
 
 #Region "Form - General"
     Private Sub frmMain_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Dim sw As Stopwatch = Stopwatch.StartNew
+        Dim tmpTicks As Long = 0
+
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Load", "Form load start.")
         '==========================
         'General loading procedures
         '==========================
@@ -139,9 +143,16 @@ Public Class frmMain
 
         mdlTheme.currentTheme = mdlTheme.LoadTheme(CType(My.Settings.SStatesMan_Theme, eTheme))
 
-        '=====================
-        'Main form preparation
-        '=====================
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Load", "1/5 General loading procedures done.", sw.ElapsedTicks - tmpTicks)
+        tmpTicks = sw.ElapsedTicks
+
+        '==================
+        'Window preparation
+        '==================
+
+        '-----
+        'Theme
+        '-----
         Me.applyTheme()
 
         'Add version information to the main window
@@ -156,6 +167,9 @@ Public Class frmMain
 
         'Savestates, backup, and screenshot icons
         Me.lvwFilesList.SmallImageList = imlLvwItemIcons        'Assigning the imagelist to the Savestates listview
+
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Load", "2/5 Main window preparation done.", sw.ElapsedTicks - tmpTicks)
+        tmpTicks = sw.ElapsedTicks
 
         '---------------
         'Window settings
@@ -172,6 +186,8 @@ Public Class frmMain
         'Splitter distance
         Me.SplitContainer1.SplitterDistance = My.Settings.frmMain_SplitterDistance
 
+
+        Me.UI_Enable(False, True)
 
         'Games list columns size
         If My.Settings.frmMain_glvw_columnwidth IsNot Nothing Then
@@ -191,11 +207,8 @@ Public Class frmMain
             End If
         End If
 
-        'Cover image state
-        If My.Settings.frmMain_CoverExpanded Then
-            My.Settings.frmMain_CoverExpanded = Not (My.Settings.frmMain_CoverExpanded)
-            Me.imgCover_MouseClick(Me, New MouseEventArgs(Windows.Forms.MouseButtons.Left, 1, 0, 0, 0))
-        End If
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Load", "3/5 Main window saved sizes applied.", sw.ElapsedTicks - tmpTicks)
+        tmpTicks = sw.ElapsedTicks
 
         '==============
         'Loading things
@@ -204,18 +217,36 @@ Public Class frmMain
         'Loading the Game database (from PCSX2 directory)
         PCSX2GameDb.Load(Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
 
-        Me.UI_SwitchMode(ListMode.Savestates)
         'Refreshing the games list
-        Me.List_RefreshAll()
+        SSMGameList.LoadAll(My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
+
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Load", "4/5 GameDB and Gamelist loaded.", sw.ElapsedTicks - tmpTicks)
+        tmpTicks = sw.ElapsedTicks
+        '===============================
+        'Post file load form preparation
+        '===============================
+        Me.lvwGamesList_AddGames()
+        Me.UI_Enable(True, True)
+        Me.UI_SwitchMode(ListMode.Savestates)
+
+        'Cover image state
+        If My.Settings.frmMain_CoverExpanded Then
+            My.Settings.frmMain_CoverExpanded = Not (My.Settings.frmMain_CoverExpanded)
+            Me.imgCover_MouseClick(Me, New MouseEventArgs(Windows.Forms.MouseButtons.Left, 1, 0, 0, 0))
+        End If
 
         'Timer auto refresh
         Me.tmrSStatesListRefresh.Enabled = My.Settings.SStatesMan_SStatesListAutoRefresh
-
 
         If My.Settings.SStatesMan_SStatesListShowOnly Then
             Me.cmdSStatesLvwExpand_Click(Nothing, Nothing)
         End If
 
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Load", "5/5 Post load done.", sw.ElapsedTicks - tmpTicks)
+        'tmpTicks = sw.ElapsedTicks
+
+        sw.Stop()
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Load", "All done.", sw.ElapsedTicks)
     End Sub
 
     Private Sub frmMain_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
@@ -244,31 +275,31 @@ Public Class frmMain
     ''' <param name="pSwitch">True to end the update, False to begin the update</param>
     ''' <remarks></remarks>
     Private Sub UI_Enable(ByVal pSwitch As Boolean, Optional ByVal pGamesList_included As Boolean = False)
+        Me.ListsAreRefreshed = Not (pSwitch)
         If pSwitch Then
-            Me.ListsAreRefreshed = False
             If pGamesList_included Then
                 Me.lvwGamesList.EndUpdate()
             End If
             Me.lvwFilesList.EndUpdate()
         Else
-            Me.ListsAreRefreshed = True
             If pGamesList_included Then
                 Me.lvwGamesList.BeginUpdate()
             End If
             Me.lvwFilesList.BeginUpdate()
         End If
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "UI_Enable", pSwitch.ToString)
     End Sub
 
     ''' <summary>Updates the UI status, game info and savestate info</summary>
     Private Sub UI_Update()
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "UI_Update", "Update start.")
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "UI_Update", "Status update start.")
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         Me.UI_UpdateGameInfo()
         Me.UI_UpdateFileInfo()
 
         sw.Stop()
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "UI_Update", "Update done.", sw.ElapsedTicks)
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "UI_Update", "Status update done.", sw.ElapsedTicks)
     End Sub
 
     ''' <summary>Updates the UI game info: title, region, image cover, etc.</summary>
@@ -792,6 +823,7 @@ Public Class frmMain
 
     Private Sub lvwGamesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwGamesList.ItemChecked
         If ListsAreRefreshed = False Then
+            SSMAppLog.Append(LogEventType.tInformation, "Main window", "GamesList", "Checked games changed.")
             Me.UI_Enable(False)
             Me.List_RefreshFiles()
             Me.UI_Enable(True)
@@ -801,6 +833,7 @@ Public Class frmMain
     Private Sub lvwGamesList_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lvwGamesList.SelectedIndexChanged
         If Me.lvwGamesList.CheckedItems.Count = 0 Then
             If ListsAreRefreshed = False Then
+                SSMAppLog.Append(LogEventType.tInformation, "Main window", "GamesList", "Selected game changed.")
                 Me.UI_Enable(False)
                 Me.List_RefreshFiles()
                 Me.UI_Enable(True)
@@ -988,7 +1021,7 @@ Public Class frmMain
     End Sub
 
     Private Sub lvwFilesList_AddColumns(ByVal pListMode As ListMode)
-        'Dim sw As Stopwatch = Stopwatch.StartNew
+        Dim sw As Stopwatch = Stopwatch.StartNew
 
         Dim tmpColumnHeaders As New List(Of ColumnHeader)
         Dim tmpColumnWidths() As Integer = {0}
@@ -1022,8 +1055,8 @@ Public Class frmMain
         Me.lvwFilesList.Columns.Clear()
         Me.lvwFilesList.Columns.AddRange(tmpColumnHeaders.ToArray)
 
-        'sw.Stop()
-        'SSMAppLog.Append("Main window", "AddColumns", "Added column to files listview", sw.ElapsedTicks)
+        sw.Stop()
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "AddColumns", "Added columns to files listview", sw.ElapsedTicks)
     End Sub
 
     Private Sub lvwFileList_IndexChecked()
@@ -1114,6 +1147,7 @@ Public Class frmMain
 
     Private Sub lvwFilesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwFilesList.ItemChecked
         If ListsAreRefreshed = False Then
+            SSMAppLog.Append(LogEventType.tInformation, "Main window", "FilesList", "Checked files changed.")
             Me.lvwFileList_IndexChecked()
             Me.UI_UpdateFileInfo()
         End If
@@ -1122,32 +1156,44 @@ Public Class frmMain
 
 #Region "Form - Tabs management"
     Private Sub optSettingTab1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab1.CheckedChanged
-        If Me.optSettingTab1.Checked = True Then
-            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
-            Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
+        'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to kwnow 
+        'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
+        If Me.optSettingTab1.IsHandleCreated Then
+            If Me.optSettingTab1.Checked = True Then
+                Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+                Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
 
-            Me.UI_SwitchMode(ListMode.Savestates)
+                Me.UI_SwitchMode(ListMode.Savestates)
+            End If
         End If
     End Sub
 
     Private Sub optSettingTab2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab2.CheckedChanged
-        If Me.optSettingTab2.Checked = True Then
-            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
-            Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
+        'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to kwnow 
+        'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
+        If Me.optSettingTab2.IsHandleCreated Then
+            If Me.optSettingTab2.Checked = True Then
+                Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+                Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
 
-            Me.UI_SwitchMode(ListMode.Stored)
+                Me.UI_SwitchMode(ListMode.Stored)
+            End If
         End If
     End Sub
 
     Private Sub optSettingTab3_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab3.CheckedChanged
-        If Me.optSettingTab3.Checked = True Then
-            Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-            Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
-            Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
+        'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to kwnow 
+        'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
+        If Me.optSettingTab3.IsHandleCreated Then
+            If Me.optSettingTab3.Checked = True Then
+                Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+                Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
 
-            Me.UI_SwitchMode(ListMode.Snapshots)
+                Me.UI_SwitchMode(ListMode.Snapshots)
+            End If
         End If
     End Sub
 #End Region
