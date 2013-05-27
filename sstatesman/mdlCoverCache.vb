@@ -24,48 +24,53 @@ Module mdlCoverCache
     Friend ReadOnly CoverThumb_SizeLarge As New Size(256, 256)
     Friend ReadOnly CoverThumb_SizeSmall As New Size(48, 48)
 
-    ''' <summary>
-    ''' Cover cache structure, two images object and a date.
-    ''' </summary>
-    Friend Structure sCoverInfo
+    ''' <summary>Cover cache structure, two images object and a date.</summary>
+    Friend Class sCoverInfo
         Friend CacheDate As Date
         Friend CoverThumb_Large As Image
         Friend CoverThumb_Small As Image
-    End Structure
-    ''' <summary>
-    ''' Dictionary of the cover cache.
-    ''' </summary>
+    End Class
+    ''' <summary>Dictionary of the cover cache.</summary>
     Friend CoverCache As New Dictionary(Of String, sCoverInfo)
 
-    ''' <summary>
-    ''' Add a cover to the cache and checks if a cleanup of older covers is needed
-    ''' </summary>
+    ''' <summary>Add a cover to the cache and checks if a cleanup of older covers is needed.</summary>
     ''' <param name="pSerial">Serial of the game to add.</param>
     ''' <param name="pCoverInfo">Cover to add to the cache.</param>
-    Friend Sub AddCover(ByVal pSerial As String, ByVal pCoverInfo As sCoverInfo)
-        If CoverCache.Count >= maxCachedCover Then
+    Friend Sub CacheCover(ByVal pSerial As String, ByVal pCoverInfo As sCoverInfo)
+        If Not (CoverCache.ContainsKey(pSerial)) Then
+            CacheResize(maxCachedCover)
+            CoverCache.Add(pSerial, pCoverInfo)
+            SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "CacheCover", String.Format("Cover for {0} cached. {1} covers in cache.", pSerial, CoverCache.Count))
+        Else
+            SSMAppLog.Append(LogEventType.tWarning, "CoverCache", "CacheCover", String.Format("Cover for {0} already cached, addition ignored.", pSerial))
+        End If
+    End Sub
+    ''' <summary>Removes the oldest used cover from the cache when it reaches the maximum item count.</summary>
+    ''' <param name="pMaxCachedCover">Maximum cached items allowed.</param>
+    Friend Sub CacheResize(ByVal pMaxCachedCover As Long)
+        If CoverCache.Count >= pMaxCachedCover Then
             Dim tmpSerial As String = ""
             Dim tmpDate As Date = Now
             For Each tmpCoverInfo As KeyValuePair(Of String, sCoverInfo) In CoverCache
-                If tmpDate > tmpCoverInfo.Value.CacheDate Then
+                If tmpDate >= tmpCoverInfo.Value.CacheDate Then
                     tmpSerial = tmpCoverInfo.Key
                 End If
             Next
             If CoverCache.ContainsKey(tmpSerial) Then
                 CoverCache.Remove(tmpSerial)
-                SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "AddCover", String.Format("Cover for {0} removed from cache.", tmpSerial))
+                SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "CacheResize", String.Format("Cover for {0} removed from cache.", tmpSerial))
             Else
-                SSMAppLog.Append(LogEventType.tWarning, "CoverCache", "AddCover", String.Format("Cover for {0} not found in cache, removal ignored.", tmpSerial))
+                SSMAppLog.Append(LogEventType.tWarning, "CoverCache", "CacheResize", String.Format("Cover for {0} not found in cache, removal ignored.", tmpSerial))
             End If
         End If
-        CoverCache.Add(pSerial, pCoverInfo)
-        SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "AddCover", String.Format("Cover for {0} cached. {1} covers in cache.", pSerial, CoverCache.Count))
+    End Sub
+    ''' <summary>Clears the cover cache.</summary>
+    Private Sub CacheClear()
+        SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "CacheClear", String.Format("Cache with {0} items cleared.", CoverCache.Count))
+        CoverCache.Clear()
     End Sub
 
-
-    ''' <summary>
-    ''' Creates a collage Image from multiple files
-    ''' </summary>
+    ''' <summary>Creates a collage Image from multiple files.</summary>
     ''' <param name="pSerial">List of serials.</param>
     ''' <param name="pPath">Folder containing the image files.</param>
     ''' <param name="pDestWidth">Width of the resulting image.</param>
@@ -115,9 +120,7 @@ Module mdlCoverCache
         Return GetCover
     End Function
 
-    ''' <summary>
-    ''' Retrieves a cover image from the specified serial from the cache, if it's not in the cache the cover is loaded from file.
-    ''' </summary>
+    ''' <summary>Retrieves a cover image from the specified serial from the cache, if it's not in the cache the cover is loaded from file.</summary>
     ''' <param name="pSerial">The serial (name) used to get the image name.</param>
     ''' <param name="pPath">Folder containing the image file.</param>
     ''' <param name="pExpanded">Specifies if the height must be respected.</param>
@@ -126,7 +129,8 @@ Module mdlCoverCache
     Friend Function GetCover(ByVal pSerial As String, ByVal pPath As String, ByVal pExpanded As Boolean) As Image
         Dim sw As Stopwatch = Stopwatch.StartNew
 
-        Dim tmpImage As Image = My.Resources.Extra_Nocover_120x170
+        Dim tmpImage As Image = New Bitmap(1, 1)
+
         If Not (CoverCache.ContainsKey(pSerial)) Then
             If pSerial.ToLower = "screenshots" Then
                 tmpImage = My.Resources.Icon_Screenshot_256x192
@@ -141,17 +145,24 @@ Module mdlCoverCache
                     End If
                     tmpImage = My.Resources.Extra_Nocover_120x170
                 End Try
-
+            Else
+                pSerial = "*nocover*"
+                If Not (CoverCache.ContainsKey(pSerial)) Then
+                    tmpImage = My.Resources.Extra_Nocover_120x170
+                End If
             End If
+        End If
 
-            AddCover(pSerial, New sCoverInfo With {.CoverThumb_Large = ResizeCover(tmpImage, CoverThumb_SizeLarge.Width, CoverThumb_SizeLarge.Height),
-                                                   .CoverThumb_Small = ResizeCover(tmpImage, CoverThumb_SizeSmall.Width, CoverThumb_SizeSmall.Height),
-                                                   .CacheDate = Now})
+        If Not (CoverCache.ContainsKey(pSerial)) Then
+            CacheCover(pSerial, New sCoverInfo With {.CoverThumb_Large = ResizeCover(tmpImage, CoverThumb_SizeLarge.Width, CoverThumb_SizeLarge.Height), _
+                                                     .CoverThumb_Small = ResizeCover(tmpImage, CoverThumb_SizeSmall.Width, CoverThumb_SizeSmall.Height), _
+                                                     .CacheDate = Now})
         End If
 
         sw.Stop()
         SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "GetCover", String.Format("Cover for {0} served.", pSerial), sw.ElapsedTicks)
 
+        CoverCache(pSerial).CacheDate = Now
         If pExpanded Then
             Return CoverCache(pSerial).CoverThumb_Large
         Else
@@ -159,9 +170,7 @@ Module mdlCoverCache
         End If
     End Function
 
-    ''' <summary>
-    ''' Resize the input image using the specified parameters.
-    ''' </summary>
+    ''' <summary>Resize the input image using the specified parameters.</summary>
     ''' <param name="pInputImage"></param>
     ''' <param name="pThumbWidth">Width of the resulting image.</param>
     ''' <param name="pThumbHeight">Height of the resulting image.</param>
