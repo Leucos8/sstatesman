@@ -62,27 +62,22 @@ Public Class frmMain
                 Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = True
                 Me.txtSizeBackup.Visible = True
-
-                SSMAppLog.Append(LogEventType.tInformation, "Main window", "ListMode", "Switched to savestates.")
             Case ListMode.Stored
                 Me.lblSStateListCheck.Text = "check savestates:"
                 Me.cmdFilesCheckBackup.Visible = False
                 Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
-
-                SSMAppLog.Append(LogEventType.tInformation, "Main window", "ListMode", "Switched to stored.")
             Case ListMode.Snapshots
                 Me.lblSStateListCheck.Text = "check screnshots:"
                 Me.cmdFilesCheckBackup.Visible = False
                 Me.lblSize.Text = "screenshots size"
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
-
-                SSMAppLog.Append(LogEventType.tInformation, "Main window", "ListMode", "Switched to screenshots.")
         End Select
 
         Me.WindowListMode = pListMode
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "ListMode", String.Format("Switched to {0}.", pListMode.ToString))
 
         Me.lvwFilesList_AddColumns(pListMode)
         Me.List_RefreshFiles()
@@ -822,7 +817,7 @@ Public Class frmMain
     End Sub
 
     Private Sub lvwGamesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwGamesList.ItemChecked
-        If ListsAreRefreshed = False Then
+        If Not (ListsAreRefreshed) Then
             SSMAppLog.Append(LogEventType.tInformation, "Main window", "GamesList", "Checked games changed.")
             Me.UI_Enable(False)
             Me.List_RefreshFiles()
@@ -830,9 +825,23 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub lvwGamesList_SelectedIndexChanged(sender As System.Object, e As System.EventArgs) Handles lvwGamesList.SelectedIndexChanged
+    Private Sub lvwGamesList_SelectedIndexChanged(sender As System.Object, e As ListViewItemSelectionChangedEventArgs) Handles lvwGamesList.ItemSelectionChanged
+        'If (Me.lvwGamesList.CheckedItems.Count = 0) And ((Me.lvwGamesList.SelectedItems.Count > 0) Or (Me.lvwGamesList.Items.Count = 0)) Then
         If Me.lvwGamesList.CheckedItems.Count = 0 Then
-            If ListsAreRefreshed = False Then
+            If Not (ListsAreRefreshed) Then
+                'SSMAppLog.Append(LogEventType.tInformation, "Main window", "GamesList", "Selected game changed.")
+                'Me.UI_Enable(False)
+                'Me.List_RefreshFiles()
+                'Me.UI_Enable(True)
+                Me.tmrSelectedItemChanged.Enabled = True
+            End If
+        End If
+    End Sub
+
+    Private Sub tmrSelectedItemChanged_Tick(sender As Object, e As EventArgs) Handles tmrSelectedItemChanged.Tick
+        Me.tmrSelectedItemChanged.Enabled = False
+        If Me.lvwGamesList.CheckedItems.Count = 0 Then
+            If Not (ListsAreRefreshed) Then
                 SSMAppLog.Append(LogEventType.tInformation, "Main window", "GamesList", "Selected game changed.")
                 Me.UI_Enable(False)
                 Me.List_RefreshFiles()
@@ -1043,7 +1052,7 @@ Public Class frmMain
                                            New ColumnHeader With {.Name = "SnapsCH_Resolution", .Text = "Resolution", .Width = 120}, _
                                            New ColumnHeader With {.Name = "SnapsCH_Modified", .Text = "Modified", .Width = 120}, _
                                            New ColumnHeader With {.Name = "SnapsCH_Size", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
-                                          })
+                                           })
         End Select
 
         If tmpColumnWidths.Length = tmpColumnHeaders.Count Then
@@ -1056,7 +1065,7 @@ Public Class frmMain
         Me.lvwFilesList.Columns.AddRange(tmpColumnHeaders.ToArray)
 
         sw.Stop()
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "AddColumns", "Added columns to files listview", sw.ElapsedTicks)
+        SSMAppLog.Append(LogEventType.tInformation, "Main window", "AddColumns", String.Format("Added columns to files listview for {0}.", pListMode), sw.ElapsedTicks)
     End Sub
 
     Private Sub lvwFileList_IndexChecked()
@@ -1146,7 +1155,7 @@ Public Class frmMain
     End Sub
 
     Private Sub lvwFilesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwFilesList.ItemChecked
-        If ListsAreRefreshed = False Then
+        If Not (ListsAreRefreshed) Then
             SSMAppLog.Append(LogEventType.tInformation, "Main window", "FilesList", "Checked files changed.")
             Me.lvwFileList_IndexChecked()
             Me.UI_UpdateFileInfo()
@@ -1347,5 +1356,4 @@ Public Class frmMain
     End Sub
 
 #End Region
-
 End Class

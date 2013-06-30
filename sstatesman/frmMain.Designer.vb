@@ -70,6 +70,9 @@ Partial Class frmMain
         Me.GameLvw_BackupInfo = CType(New System.Windows.Forms.ColumnHeader(),System.Windows.Forms.ColumnHeader)
         Me.GameLvw_SnapsInfo = CType(New System.Windows.Forms.ColumnHeader(),System.Windows.Forms.ColumnHeader)
         Me.imgCover = New System.Windows.Forms.PictureBox()
+        Me.cmCover = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmiCoverAdd = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmiCoverOpenPicsFolder = New System.Windows.Forms.ToolStripMenuItem()
         Me.lblGameList_Title = New System.Windows.Forms.Label()
         Me.txtGameList_Title = New System.Windows.Forms.TextBox()
         Me.lblGameList_Region = New System.Windows.Forms.Label()
@@ -113,9 +116,7 @@ Partial Class frmMain
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.GameDBExplorerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeveloperToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmCover = New System.Windows.Forms.ContextMenuStrip(Me.components)
-        Me.cmiCoverAdd = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmiCoverOpenPicsFolder = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tmrSelectedItemChanged = New System.Windows.Forms.Timer(Me.components)
         Me.panelWindowTitle.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel2.SuspendLayout()
@@ -131,6 +132,7 @@ Partial Class frmMain
         Me.SplitContainer1.SuspendLayout()
         Me.TableLayoutPanel3.SuspendLayout()
         CType(Me.imgCover, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.cmCover.SuspendLayout()
         CType(Me.imgFlag, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.FlowPanelGameList.SuspendLayout()
@@ -139,7 +141,6 @@ Partial Class frmMain
         Me.FlowLayoutPanel4.SuspendLayout()
         Me.FlowPanelSStatesList.SuspendLayout()
         Me.cmPCSX2.SuspendLayout()
-        Me.cmCover.SuspendLayout()
         Me.SuspendLayout()
         '
         'panelWindowTitle
@@ -662,6 +663,28 @@ Partial Class frmMain
         Me.imgCover.Size = New System.Drawing.Size(48, 48)
         Me.imgCover.TabIndex = 26
         Me.imgCover.TabStop = False
+        '
+        'cmCover
+        '
+        Me.cmCover.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmCover.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiCoverAdd, Me.cmiCoverOpenPicsFolder})
+        Me.cmCover.Name = "cmCover"
+        Me.cmCover.Size = New System.Drawing.Size(215, 48)
+        Me.cmCover.Text = "Cover menu"
+        '
+        'cmiCoverAdd
+        '
+        Me.cmiCoverAdd.Image = Global.sstatesman.My.Resources.Resources.Icon_Cover_16x16
+        Me.cmiCoverAdd.Name = "cmiCoverAdd"
+        Me.cmiCoverAdd.Size = New System.Drawing.Size(214, 22)
+        Me.cmiCoverAdd.Text = "Select cover image..."
+        '
+        'cmiCoverOpenPicsFolder
+        '
+        Me.cmiCoverOpenPicsFolder.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderCover_16x16
+        Me.cmiCoverOpenPicsFolder.Name = "cmiCoverOpenPicsFolder"
+        Me.cmiCoverOpenPicsFolder.Size = New System.Drawing.Size(214, 22)
+        Me.cmiCoverOpenPicsFolder.Text = "Open cover image folder..."
         '
         'lblGameList_Title
         '
@@ -1262,27 +1285,9 @@ Partial Class frmMain
         Me.DeveloperToolsToolStripMenuItem.Size = New System.Drawing.Size(209, 22)
         Me.DeveloperToolsToolStripMenuItem.Text = "Developer Tools..."
         '
-        'cmCover
+        'tmrSelectedItemChanged
         '
-        Me.cmCover.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmCover.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiCoverAdd, Me.cmiCoverOpenPicsFolder})
-        Me.cmCover.Name = "cmCover"
-        Me.cmCover.Size = New System.Drawing.Size(215, 48)
-        Me.cmCover.Text = "Cover menu"
-        '
-        'cmiCoverAdd
-        '
-        Me.cmiCoverAdd.Image = Global.sstatesman.My.Resources.Resources.Icon_Cover_16x16
-        Me.cmiCoverAdd.Name = "cmiCoverAdd"
-        Me.cmiCoverAdd.Size = New System.Drawing.Size(214, 22)
-        Me.cmiCoverAdd.Text = "Select cover image..."
-        '
-        'cmiCoverOpenPicsFolder
-        '
-        Me.cmiCoverOpenPicsFolder.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderCover_16x16
-        Me.cmiCoverOpenPicsFolder.Name = "cmiCoverOpenPicsFolder"
-        Me.cmiCoverOpenPicsFolder.Size = New System.Drawing.Size(214, 22)
-        Me.cmiCoverOpenPicsFolder.Text = "Open cover image folder..."
+        Me.tmrSelectedItemChanged.Interval = 20
         '
         'frmMain
         '
@@ -1326,6 +1331,7 @@ Partial Class frmMain
         Me.TableLayoutPanel3.ResumeLayout(False)
         Me.TableLayoutPanel3.PerformLayout()
         CType(Me.imgCover, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.cmCover.ResumeLayout(False)
         CType(Me.imgFlag, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel2.ResumeLayout(False)
         Me.TableLayoutPanel2.PerformLayout()
@@ -1340,7 +1346,6 @@ Partial Class frmMain
         Me.FlowPanelSStatesList.ResumeLayout(False)
         Me.FlowPanelSStatesList.PerformLayout()
         Me.cmPCSX2.ResumeLayout(False)
-        Me.cmCover.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1424,4 +1429,5 @@ Partial Class frmMain
     Friend WithEvents cmCover As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents cmiCoverAdd As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmiCoverOpenPicsFolder As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents tmrSelectedItemChanged As System.Windows.Forms.Timer
 End Class
