@@ -242,7 +242,7 @@ Public Class frmSettings
 
 #Region "Form management"
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
-        Me.ListView1.SmallImageList = imlLvwItemIcons
+        Me.lvwLog.SmallImageList = imlLvwItemIcons
 
         Me.applyTheme()
 
@@ -258,7 +258,36 @@ Public Class frmSettings
         Me.optSettingTab2_CheckedChanged(Nothing, Nothing)
         Me.optSettingTab3_CheckedChanged(Nothing, Nothing)
         Me.optSettingTab4_CheckedChanged(Nothing, Nothing)
-        Me.cmdLogRefresh_Click(Nothing, Nothing)
+
+        '===
+        'Log
+        '===
+
+        'Filter menu
+        If Me.cmLogFilter.Items.Count = 1 Then
+            Dim tmpFilterLogMenuItems As New List(Of ToolStripMenuItem)
+            'Adding a menu item for each item in the enum.
+            For Each tmpItem As String In [Enum].GetNames(GetType(mdlApplicationLog.eSrc))
+                Dim tmpToolStripMenuItem As New ToolStripMenuItem With {.Name = "cmi" & tmpItem, .Text = tmpItem}
+                'Adding click event
+                AddHandler tmpToolStripMenuItem.Click, AddressOf Me.cmiFilter_Click
+                tmpFilterLogMenuItems.Add(tmpToolStripMenuItem)
+            Next
+            cmLogFilter.SuspendLayout()
+            cmLogFilter.Items.AddRange(tmpFilterLogMenuItems.ToArray)
+            cmLogFilter.ResumeLayout()
+        ElseIf Me.cmLogFilter.Items.Count > 0 Then
+            'If the menu is already loaded reset the filter.
+            cmLogFilter.SuspendLayout()
+            For Each tmpMenuItem As ToolStripMenuItem In cmLogFilter.Items
+                tmpMenuItem.Checked = False
+            Next
+            CType(cmLogFilter.Items(0), ToolStripMenuItem).Checked = True
+            cmLogFilter.ResumeLayout()
+        End If
+
+        'Log is populated.
+        Me.Log_Populate(SSMAppLog.Events)
     End Sub
 
     Private Sub cmdOk_Click(sender As System.Object, e As System.EventArgs) Handles cmdOk.Click
@@ -634,7 +663,11 @@ Public Class frmSettings
 #End Region
 
 #Region "Log"
-    Private Sub cmdLogRefresh_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogRefresh.Click
+    Private Sub cmdLogRefresh_Click(sender As Object, e As EventArgs) Handles cmdLogRefresh.Click
+        Me.Log_Populate(SSMAppLog.Events)
+    End Sub
+
+    Private Sub cmiAll_Click(sender As Object, e As System.EventArgs) Handles cmiAll.Click
         Me.Log_Populate(SSMAppLog.Events)
     End Sub
 
@@ -659,31 +692,13 @@ Public Class frmSettings
         End Using
     End Sub
 
-    Private Sub cmdLogFilter_GameDB_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogFilter_GameDB.Click
-        Dim tmpLog As New List(Of sLog)
-        SSMAppLog.FilterByClass("GameDB", tmpLog)
-        Me.Log_Populate(tmpLog)
-    End Sub
-
-    Private Sub cmdLogFilter_Files_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogFilter_Files.Click
-        Dim tmpLog As New List(Of sLog)
-        SSMAppLog.FilterByClass("FilesList", tmpLog)
-        Me.Log_Populate(tmpLog)
-    End Sub
-
-    Private Sub cmdLogFilter_frmMain_Click(sender As System.Object, e As System.EventArgs) Handles cmdLogFilter_frmMain.Click
-        Dim tmpLog As New List(Of sLog)
-        SSMAppLog.FilterByClass("Main Window", tmpLog)
-        Me.Log_Populate(tmpLog)
-    End Sub
-
     Private Sub Log_Populate(ByVal pLog As List(Of sLog))
-        Me.ListView1.BeginUpdate()
-        Me.ListView1.Items.Clear()
+        Me.lvwLog.BeginUpdate()
+        Me.lvwLog.Items.Clear()
         Dim tmpListItems As New List(Of ListViewItem)
         For Each tmpLogItem As sLog In pLog
             Dim tmpListItem As New ListViewItem With {.Text = tmpLogItem.Time.ToString("H:mm:ss.ff"), .ImageIndex = tmpLogItem.Type + 3}
-            tmpListItem.SubItems.AddRange({String.Concat(tmpLogItem.OrClass, " > ", tmpLogItem.OrMethod), tmpLogItem.Description})
+            tmpListItem.SubItems.AddRange({String.Concat(tmpLogItem.Src.ToString, " > ", tmpLogItem.SrcMethod.ToString), tmpLogItem.Description})
             If tmpLogItem.Duration = -1 Then
                 tmpListItem.SubItems.Add("-")
             Else
@@ -691,8 +706,35 @@ Public Class frmSettings
             End If
             tmpListItems.Add(tmpListItem)
         Next
-        Me.ListView1.Items.AddRange(tmpListItems.ToArray)
-        Me.ListView1.EndUpdate()
+        Me.lvwLog.Items.AddRange(tmpListItems.ToArray)
+        Me.lvwLog.EndUpdate()
+    End Sub
+
+    Private Sub cmdLogFilter_Click(sender As Object, e As EventArgs) Handles cmdLogFilter.Click
+        Me.cmLogFilter.Show(Point.Add(Me.cmdLogFilter.PointToScreen(Me.cmdLogFilter.Location), New Size(0, Me.cmdLogFilter.Size.Height)))
+    End Sub
+
+    Private Sub cmiFilter_Click(sender As Object, e As System.EventArgs)
+        'Check if the sender is a ToolStripMenuItem, done because Text and Checked are used.
+        If GetType(ToolStripMenuItem).Equals(sender.GetType) Then
+            'Try to convert the string from the text properties in an enum value.
+            Dim tmpESrc As mdlApplicationLog.eSrc
+            If [Enum].TryParse(CType(sender, ToolStripMenuItem).Text, tmpESrc) Then
+                'Uncheck all others menu items.
+                cmLogFilter.SuspendLayout()
+                For Each tmpMenuItem As ToolStripMenuItem In cmLogFilter.Items
+                    tmpMenuItem.Checked = False
+                Next
+                'Check only the one needed
+                CType(sender, ToolStripMenuItem).Checked = True
+                cmLogFilter.ResumeLayout()
+
+                'Applying the filter
+                Dim tmpLog As New List(Of sLog)
+                SSMAppLog.FilterByClass(tmpESrc, tmpLog)
+                Me.Log_Populate(tmpLog)
+            End If
+        End If
     End Sub
 #End Region
 End Class

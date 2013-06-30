@@ -13,18 +13,56 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Module mdlApplicationLog
-    Friend Enum LogEventType
-        tInformation
-        tWarning
-        tError
-        tCritical
+    Friend Enum eType
+        LogInformation
+        LogWarning
+        LogError
+        LogCritical
+    End Enum
+
+    Friend Enum eSrc
+        MainWindow
+        GameDB
+        GameDB_Explorer
+        FileList
+        CoverCache
+    End Enum
+
+    Friend Enum eSrcMethod
+        'General
+        Load
+        Search
+        Timer
+        'UI
+        UI_Update
+        UI_Enable
+        ListMode
+        'Main Window
+        GameListview
+        FileListview
+        List_Games
+        List_Savestates
+        List_Stored
+        List_Screenshots
+        AddColumns
+        'GameDB
+        Extract
+        'File
+        File_LoadAll
+        'Cache
+        Cache_Add
+        Cache_Resize
+        Cache_Clear
+        'Cover
+        Cover_Fetch
+        Cover_Resize
     End Enum
 
     Friend Structure sLog
         Friend Time As DateTime
-        Friend Type As LogEventType
-        Friend OrClass As String
-        Friend OrMethod As String
+        Friend Type As eType
+        Friend Src As eSrc
+        Friend SrcMethod As eSrcMethod
         Friend Description As String
         Friend Duration As Long
     End Structure
@@ -32,11 +70,11 @@ Module mdlApplicationLog
         Public Events As New List(Of sLog)
         Const MaxLenght As Integer = 255
 
-        Public Sub Append(ByVal pType As LogEventType, ByVal pClass As String, ByVal pOrMethod As String, ByVal pDescription As String, Optional pDuration As Long = -1)
+        Public Sub Append(ByVal pType As eType, ByVal pSrc As eSrc, ByVal pSrcMethod As eSrcMethod, ByVal pDescription As String, Optional pDuration As Long = -1)
             If Events.Count >= AppLog.MaxLenght Then
                 Events.RemoveAt(0)
             End If
-            Events.Add(New sLog With {.Type = pType, .Time = Now, .OrClass = pClass, .OrMethod = pOrMethod, .Description = pDescription, .Duration = pDuration})
+            Events.Add(New sLog With {.Type = pType, .Time = Now, .Src = pSrc, .SrcMethod = pSrcMethod, .Description = pDescription, .Duration = pDuration})
 
             'Dim tmpString As String = String.Format("[{0:HH:mm:ss.ff}] {1} {2} > {3} {4}", Now, pType.ToString, pClass, pOrMethod, pDescription)
             'If Not (pDuration = -1) Then
@@ -48,7 +86,7 @@ Module mdlApplicationLog
         Public Sub ExportConsole()
             If Events.Count > 0 Then
                 For Each tmpLogItem As sLog In Events
-                    Dim tmpString As String = String.Format("[{0:HH:mm:ss.ff}] {1} {2} > {3} {4}", tmpLogItem.Time, tmpLogItem.Type.ToString, tmpLogItem.OrClass, tmpLogItem.OrMethod, tmpLogItem.Description)
+                    Dim tmpString As String = String.Format("[{0:HH:mm:ss.ff}] {1} {2} > {3} {4}", tmpLogItem.Time, tmpLogItem.Type.ToString, tmpLogItem.Src, tmpLogItem.SrcMethod, tmpLogItem.Description)
                     If tmpLogItem.Duration = -1 Then
                         tmpString &= "."
                     Else
@@ -62,12 +100,12 @@ Module mdlApplicationLog
         Public Sub ExportFile(ByVal pPath As String)
             If Events.Count > 0 Then
                 Using tmpStreamWriter As IO.StreamWriter = New IO.StreamWriter(pPath)
-                    tmpStreamWriter.WriteLine(String.Concat("Timestamp", vbTab, "Type", vbTab, "Origin", vbTab, "Action", vbTab, "Description", vbTab, "Duration"))
+                    tmpStreamWriter.WriteLine(String.Concat("Timestamp", vbTab, "Type", vbTab, "Source", vbTab, "Action", vbTab, "Description", vbTab, "Duration"))
                     For Each tmpLogItem As sLog In Events
                         Dim tmpString As String = String.Concat(tmpLogItem.Time.ToString("yyyy-MM-dd HH:mm:ss.ff"), vbTab, _
                                                                 tmpLogItem.Type.ToString, vbTab, _
-                                                                tmpLogItem.OrClass, vbTab, _
-                                                                tmpLogItem.OrMethod, vbTab, _
+                                                                tmpLogItem.Src.ToString, vbTab, _
+                                                                tmpLogItem.SrcMethod.ToString, vbTab, _
                                                                 tmpLogItem.Description, vbTab)
                         If tmpLogItem.Duration = -1 Then
                             tmpString &= "-"
@@ -81,9 +119,9 @@ Module mdlApplicationLog
             End If
         End Sub
 
-        Public Sub FilterByClass(ByVal pPattern As String, ByRef pResults As List(Of sLog))
+        Public Sub FilterByClass(ByVal pPattern As eSrc, ByRef pResults As List(Of sLog))
             If Events.Count > 0 Then
-                pResults = Events.Where(Function(item) item.OrClass.ToLower.Contains(pPattern.ToLower)).ToList
+                pResults = Events.Where(Function(item) item.Src.Equals(pPattern)).ToList
             End If
         End Sub
     End Class

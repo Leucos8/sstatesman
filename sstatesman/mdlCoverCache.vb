@@ -40,9 +40,9 @@ Module mdlCoverCache
         If Not (CoverCache.ContainsKey(pSerial)) Then
             CacheResize(maxCachedCover)
             CoverCache.Add(pSerial, pCoverInfo)
-            SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "CacheCover", String.Format("Cover for {0} cached. {1} covers in cache.", pSerial, CoverCache.Count))
+            SSMAppLog.Append(eType.LogInformation, eSrc.CoverCache, eSrcMethod.Cache_Add, String.Format("Cover for {0} cached. {1} covers in cache.", pSerial, CoverCache.Count))
         Else
-            SSMAppLog.Append(LogEventType.tWarning, "CoverCache", "CacheCover", String.Format("Cover for {0} already cached, addition ignored.", pSerial))
+            SSMAppLog.Append(eType.LogWarning, eSrc.CoverCache, eSrcMethod.Cache_Add, String.Format("Cover for {0} already cached, addition ignored.", pSerial))
         End If
     End Sub
     ''' <summary>Removes the oldest used cover from the cache when it reaches the maximum item count.</summary>
@@ -58,15 +58,15 @@ Module mdlCoverCache
             Next
             If CoverCache.ContainsKey(tmpSerial) Then
                 CoverCache.Remove(tmpSerial)
-                SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "CacheResize", String.Format("Cover for {0} removed from cache.", tmpSerial))
+                SSMAppLog.Append(eType.LogInformation, eSrc.CoverCache, eSrcMethod.Cache_Resize, String.Format("Cover for {0} removed from cache.", tmpSerial))
             Else
-                SSMAppLog.Append(LogEventType.tWarning, "CoverCache", "CacheResize", String.Format("Cover for {0} not found in cache, removal ignored.", tmpSerial))
+                SSMAppLog.Append(eType.LogWarning, eSrc.CoverCache, eSrcMethod.Cache_Resize, String.Format("Cover for {0} not found in cache, removal ignored.", tmpSerial))
             End If
         End If
     End Sub
     ''' <summary>Clears the cover cache.</summary>
     Private Sub CacheClear()
-        SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "CacheClear", String.Format("Cache with {0} items cleared.", CoverCache.Count))
+        SSMAppLog.Append(eType.LogInformation, eSrc.CoverCache, eSrcMethod.Cache_Clear, String.Format("Cache with {0} items cleared.", CoverCache.Count))
         CoverCache.Clear()
     End Sub
 
@@ -77,9 +77,9 @@ Module mdlCoverCache
     ''' <param name="pDestHeight">Height of the resulting image.</param>
     ''' <param name="pExpanded">Specifies if the height must be respected.</param>
     ''' <returns>Collage image from multiple files</returns>
-    Friend Function GetCover(ByVal pSerial As List(Of String), ByVal pPath As String, _
-                             ByVal pDestWidth As Integer, pDestHeight As Integer, _
-                             ByVal pExpanded As Boolean) As Image
+    Friend Function FetchCover(ByVal pSerial As List(Of String), ByVal pPath As String, _
+                               ByVal pDestWidth As Integer, pDestHeight As Integer, _
+                               ByVal pExpanded As Boolean) As Image
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         'Distance between the images
@@ -91,15 +91,15 @@ Module mdlCoverCache
         End If
 
         'The drawing surface will be based on an empty image
-        GetCover = New Bitmap(pDestWidth, pDestHeight)
+        FetchCover = New Bitmap(pDestWidth, pDestHeight)
         'The image is referenced to a graphics object for editing
-        Dim endCover As Graphics = Graphics.FromImage(GetCover)
+        Dim endCover As Graphics = Graphics.FromImage(FetchCover)
 
 
         For i As Integer = 0 To tmpMaxThumbnail - 1
             Try
                 'The cover will be added to the graphic object using DrawImage
-                Dim tmpCover As Image = GetCover(pSerial(i), pPath, pExpanded)
+                Dim tmpCover As Image = FetchCover(pSerial(i), pPath, pExpanded)
                 endCover.DrawImage(tmpCover, i * pStepWidth, 0, tmpCover.Width * pDestHeight \ tmpCover.Height, pDestHeight)
                 'Adds a line for the next cover
                 endCover.DrawLine(Pens.DimGray, i * pStepWidth - 1, 0, i * pStepWidth - 1, pDestHeight)
@@ -108,16 +108,16 @@ Module mdlCoverCache
                 endCover.FillRectangle(tmpShade, i * pStepWidth - 4, 0, 3, pDestHeight)
             Catch ex As Exception
                 'No cover image found or file is corrupted
-                SSMAppLog.Append(LogEventType.tError, "CoverCache", "MultipleCover", ex.Message)
+                SSMAppLog.Append(eType.LogError, eSrc.CoverCache, eSrcMethod.Cover_Fetch, "Multiple cover. " & ex.Message)
             End Try
         Next
         'The graphics object update the image object
-        endCover.DrawImage(GetCover, pDestWidth, pDestHeight)
+        endCover.DrawImage(FetchCover, pDestWidth, pDestHeight)
 
         sw.Stop()
-        SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "GetCover", "Cover served for multiple games.", sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.CoverCache, eSrcMethod.Cover_Fetch, "Cover served for multiple games.", sw.ElapsedTicks)
 
-        Return GetCover
+        Return FetchCover
     End Function
 
     ''' <summary>Retrieves a cover image from the specified serial from the cache, if it's not in the cache the cover is loaded from file.</summary>
@@ -126,7 +126,7 @@ Module mdlCoverCache
     ''' <param name="pExpanded">Specifies if the height must be respected.</param>
     ''' <returns>Cover thumbnail</returns>
     ''' <remarks></remarks>
-    Friend Function GetCover(ByVal pSerial As String, ByVal pPath As String, ByVal pExpanded As Boolean) As Image
+    Friend Function FetchCover(ByVal pSerial As String, ByVal pPath As String, ByVal pExpanded As Boolean) As Image
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         Dim tmpImage As Image = New Bitmap(1, 1)
@@ -139,11 +139,14 @@ Module mdlCoverCache
                     tmpImage = Image.FromFile(Path.Combine(pPath, mdlMain.TrimBadPathChars(pSerial) & ".jpg"))
                 Catch ex As Exception
                     'No cover image found or file is corrupted
-                    SSMAppLog.Append(LogEventType.tError, "CoverCache", "GetCover", String.Format("Game {0}: {1}", pSerial, ex.Message))
+                    SSMAppLog.Append(eType.LogError, eSrc.CoverCache, eSrcMethod.Cover_Fetch, String.Format("Failed for game {0}: {1}", pSerial, ex.Message))
                     If SSMGameList.Games.ContainsKey(pSerial) Then
                         SSMGameList.Games(pSerial).HasCoverFile = False
                     End If
-                    tmpImage = My.Resources.Extra_Nocover_120x170
+                    pSerial = "*nocover*"
+                    If Not (CoverCache.ContainsKey(pSerial)) Then
+                        tmpImage = My.Resources.Extra_Nocover_120x170
+                    End If
                 End Try
             Else
                 pSerial = "*nocover*"
@@ -160,7 +163,7 @@ Module mdlCoverCache
         End If
 
         sw.Stop()
-        SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "GetCover", String.Format("Cover for {0} served.", pSerial), sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.CoverCache, eSrcMethod.Cover_Fetch, String.Format("Cover for {0} served.", pSerial), sw.ElapsedTicks)
 
         CoverCache(pSerial).CacheDate = Now
         If pExpanded Then
@@ -190,7 +193,7 @@ Module mdlCoverCache
             Return tmpThumbnail
         Catch ex As Exception
             'No cover image found or file is corrupted
-            SSMAppLog.Append(LogEventType.tInformation, "CoverCache", "ResizeCover", ex.Message)
+            SSMAppLog.Append(eType.LogInformation, eSrc.CoverCache, eSrcMethod.Cover_Resize, ex.Message)
             Return My.Resources.Extra_Nocover_120x170
         End Try
 

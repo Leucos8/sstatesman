@@ -36,6 +36,7 @@ Partial Class frmSettings
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.cmdOk = New System.Windows.Forms.Button()
         Me.txtSStatesManPicsPath = New System.Windows.Forms.TextBox()
         Me.cmdCancel = New System.Windows.Forms.Button()
@@ -114,20 +115,19 @@ Partial Class frmSettings
         Me.optTheme1 = New System.Windows.Forms.RadioButton()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.pnlTab4 = New System.Windows.Forms.Panel()
-        Me.ListView1 = New System.Windows.Forms.ListView()
+        Me.lvwLog = New System.Windows.Forms.ListView()
         Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.ColumnHeader4 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
         Me.FlowPanelSStatesList = New System.Windows.Forms.FlowLayoutPanel()
-        Me.cmdLogFilter_frmMain = New System.Windows.Forms.Button()
-        Me.cmdLogFilter_Files = New System.Windows.Forms.Button()
-        Me.cmdLogFilter_GameDB = New System.Windows.Forms.Button()
-        Me.lblSStateListCheck = New System.Windows.Forms.Label()
+        Me.cmdLogFilter = New System.Windows.Forms.Button()
         Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdLogRefresh = New System.Windows.Forms.Button()
         Me.cmdLogExport = New System.Windows.Forms.Button()
+        Me.cmLogFilter = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmiAll = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.imgPCSX2IniPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgPCSX2AppPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.imgSStatesManPicsPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -154,6 +154,7 @@ Partial Class frmSettings
         Me.TableLayoutPanel4.SuspendLayout()
         Me.FlowPanelSStatesList.SuspendLayout()
         Me.FlowLayoutPanel2.SuspendLayout()
+        Me.cmLogFilter.SuspendLayout()
         Me.SuspendLayout()
         '
         'cmdOk
@@ -1369,30 +1370,30 @@ Partial Class frmSettings
         'pnlTab4
         '
         Me.pnlTab4.AutoScroll = True
-        Me.pnlTab4.Controls.Add(Me.ListView1)
+        Me.pnlTab4.Controls.Add(Me.lvwLog)
         Me.pnlTab4.Controls.Add(Me.TableLayoutPanel4)
         Me.pnlTab4.Location = New System.Drawing.Point(431, 61)
         Me.pnlTab4.Name = "pnlTab4"
         Me.pnlTab4.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
-        Me.pnlTab4.Size = New System.Drawing.Size(111, 324)
+        Me.pnlTab4.Size = New System.Drawing.Size(143, 329)
         Me.pnlTab4.TabIndex = 58
         '
-        'ListView1
+        'lvwLog
         '
-        Me.ListView1.BackColor = System.Drawing.Color.White
-        Me.ListView1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4})
-        Me.ListView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ListView1.ForeColor = System.Drawing.Color.Black
-        Me.ListView1.FullRowSelect = True
-        Me.ListView1.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.ListView1.Location = New System.Drawing.Point(8, 23)
-        Me.ListView1.Margin = New System.Windows.Forms.Padding(0)
-        Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(95, 297)
-        Me.ListView1.TabIndex = 0
-        Me.ListView1.UseCompatibleStateImageBehavior = False
-        Me.ListView1.View = System.Windows.Forms.View.Details
+        Me.lvwLog.BackColor = System.Drawing.Color.White
+        Me.lvwLog.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lvwLog.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3, Me.ColumnHeader4})
+        Me.lvwLog.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lvwLog.ForeColor = System.Drawing.Color.Black
+        Me.lvwLog.FullRowSelect = True
+        Me.lvwLog.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.lvwLog.Location = New System.Drawing.Point(8, 23)
+        Me.lvwLog.Margin = New System.Windows.Forms.Padding(0)
+        Me.lvwLog.Name = "lvwLog"
+        Me.lvwLog.Size = New System.Drawing.Size(127, 302)
+        Me.lvwLog.TabIndex = 0
+        Me.lvwLog.UseCompatibleStateImageBehavior = False
+        Me.lvwLog.View = System.Windows.Forms.View.Details
         '
         'ColumnHeader1
         '
@@ -1401,12 +1402,12 @@ Partial Class frmSettings
         '
         'ColumnHeader2
         '
-        Me.ColumnHeader2.Text = "Origin"
+        Me.ColumnHeader2.Text = "Source"
         Me.ColumnHeader2.Width = 180
         '
         'ColumnHeader3
         '
-        Me.ColumnHeader3.Text = "Decription"
+        Me.ColumnHeader3.Text = "Action"
         Me.ColumnHeader3.Width = 190
         '
         'ColumnHeader4
@@ -1433,90 +1434,41 @@ Partial Class frmSettings
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(95, 23)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(127, 23)
         Me.TableLayoutPanel4.TabIndex = 39
         '
         'FlowPanelSStatesList
         '
         Me.FlowPanelSStatesList.AutoSize = True
         Me.FlowPanelSStatesList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.FlowPanelSStatesList.Controls.Add(Me.cmdLogFilter_frmMain)
-        Me.FlowPanelSStatesList.Controls.Add(Me.cmdLogFilter_Files)
-        Me.FlowPanelSStatesList.Controls.Add(Me.cmdLogFilter_GameDB)
-        Me.FlowPanelSStatesList.Controls.Add(Me.lblSStateListCheck)
+        Me.FlowPanelSStatesList.Controls.Add(Me.cmdLogFilter)
         Me.FlowPanelSStatesList.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowPanelSStatesList.Location = New System.Drawing.Point(-138, 0)
+        Me.FlowPanelSStatesList.Location = New System.Drawing.Point(32, 0)
         Me.FlowPanelSStatesList.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowPanelSStatesList.Name = "FlowPanelSStatesList"
-        Me.FlowPanelSStatesList.Size = New System.Drawing.Size(217, 22)
+        Me.FlowPanelSStatesList.Size = New System.Drawing.Size(79, 22)
         Me.FlowPanelSStatesList.TabIndex = 48
         Me.FlowPanelSStatesList.WrapContents = False
         '
-        'cmdLogFilter_frmMain
+        'cmdLogFilter
         '
-        Me.cmdLogFilter_frmMain.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdLogFilter_frmMain.AutoSize = True
-        Me.cmdLogFilter_frmMain.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdLogFilter_frmMain.FlatAppearance.BorderSize = 0
-        Me.cmdLogFilter_frmMain.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdLogFilter_frmMain.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdLogFilter_frmMain.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdLogFilter_frmMain.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdLogFilter_frmMain.Location = New System.Drawing.Point(133, 0)
-        Me.cmdLogFilter_frmMain.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdLogFilter_frmMain.Name = "cmdLogFilter_frmMain"
-        Me.cmdLogFilter_frmMain.Size = New System.Drawing.Size(84, 22)
-        Me.cmdLogFilter_frmMain.TabIndex = 45
-        Me.cmdLogFilter_frmMain.Text = "MAIN WINDOW"
-        Me.cmdLogFilter_frmMain.UseVisualStyleBackColor = False
-        '
-        'cmdLogFilter_Files
-        '
-        Me.cmdLogFilter_Files.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdLogFilter_Files.AutoSize = True
-        Me.cmdLogFilter_Files.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdLogFilter_Files.FlatAppearance.BorderSize = 0
-        Me.cmdLogFilter_Files.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdLogFilter_Files.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdLogFilter_Files.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdLogFilter_Files.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdLogFilter_Files.Location = New System.Drawing.Point(95, 0)
-        Me.cmdLogFilter_Files.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdLogFilter_Files.Name = "cmdLogFilter_Files"
-        Me.cmdLogFilter_Files.Size = New System.Drawing.Size(38, 22)
-        Me.cmdLogFilter_Files.TabIndex = 44
-        Me.cmdLogFilter_Files.Text = "FILES"
-        Me.cmdLogFilter_Files.UseVisualStyleBackColor = False
-        '
-        'cmdLogFilter_GameDB
-        '
-        Me.cmdLogFilter_GameDB.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdLogFilter_GameDB.AutoSize = True
-        Me.cmdLogFilter_GameDB.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdLogFilter_GameDB.FlatAppearance.BorderSize = 0
-        Me.cmdLogFilter_GameDB.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdLogFilter_GameDB.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdLogFilter_GameDB.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdLogFilter_GameDB.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdLogFilter_GameDB.Location = New System.Drawing.Point(38, 0)
-        Me.cmdLogFilter_GameDB.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdLogFilter_GameDB.Name = "cmdLogFilter_GameDB"
-        Me.cmdLogFilter_GameDB.Size = New System.Drawing.Size(57, 22)
-        Me.cmdLogFilter_GameDB.TabIndex = 43
-        Me.cmdLogFilter_GameDB.Text = "GAMEDB"
-        Me.cmdLogFilter_GameDB.UseVisualStyleBackColor = False
-        '
-        'lblSStateListCheck
-        '
-        Me.lblSStateListCheck.AutoSize = True
-        Me.lblSStateListCheck.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSStateListCheck.Location = New System.Drawing.Point(2, 0)
-        Me.lblSStateListCheck.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblSStateListCheck.Name = "lblSStateListCheck"
-        Me.lblSStateListCheck.Size = New System.Drawing.Size(34, 22)
-        Me.lblSStateListCheck.TabIndex = 42
-        Me.lblSStateListCheck.Text = "filter:"
-        Me.lblSStateListCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.cmdLogFilter.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdLogFilter.AutoSize = True
+        Me.cmdLogFilter.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdLogFilter.FlatAppearance.BorderSize = 0
+        Me.cmdLogFilter.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdLogFilter.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdLogFilter.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdLogFilter.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdLogFilter.Image = Global.sstatesman.My.Resources.Resources.Button_Dropdown_6x3
+        Me.cmdLogFilter.Location = New System.Drawing.Point(0, 0)
+        Me.cmdLogFilter.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdLogFilter.Name = "cmdLogFilter"
+        Me.cmdLogFilter.Size = New System.Drawing.Size(79, 22)
+        Me.cmdLogFilter.TabIndex = 43
+        Me.cmdLogFilter.Text = "EVENT FILTER"
+        Me.cmdLogFilter.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
+        Me.cmdLogFilter.UseVisualStyleBackColor = False
         '
         'FlowLayoutPanel2
         '
@@ -1568,6 +1520,21 @@ Partial Class frmSettings
         Me.cmdLogExport.Text = "EXPORT"
         Me.cmdLogExport.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdLogExport.UseVisualStyleBackColor = False
+        '
+        'cmLogFilter
+        '
+        Me.cmLogFilter.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmLogFilter.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiAll})
+        Me.cmLogFilter.Name = "cmLogFilter"
+        Me.cmLogFilter.Size = New System.Drawing.Size(97, 26)
+        '
+        'cmiAll
+        '
+        Me.cmiAll.Checked = True
+        Me.cmiAll.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.cmiAll.Name = "cmiAll"
+        Me.cmiAll.Size = New System.Drawing.Size(96, 22)
+        Me.cmiAll.Text = "(All)"
         '
         'frmSettings
         '
@@ -1640,6 +1607,7 @@ Partial Class frmSettings
         Me.FlowPanelSStatesList.PerformLayout()
         Me.FlowLayoutPanel2.ResumeLayout(False)
         Me.FlowLayoutPanel2.PerformLayout()
+        Me.cmLogFilter.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1709,7 +1677,7 @@ Partial Class frmSettings
     Private WithEvents ckbSStatesManVersionExtract As System.Windows.Forms.CheckBox
     Friend WithEvents optTheme5 As System.Windows.Forms.RadioButton
     Friend WithEvents pnlTab4 As System.Windows.Forms.Panel
-    Friend WithEvents ListView1 As System.Windows.Forms.ListView
+    Friend WithEvents lvwLog As System.Windows.Forms.ListView
     Private WithEvents optSettingTab4 As System.Windows.Forms.RadioButton
     Friend WithEvents ColumnHeader1 As System.Windows.Forms.ColumnHeader
     Friend WithEvents ColumnHeader2 As System.Windows.Forms.ColumnHeader
@@ -1717,10 +1685,7 @@ Partial Class frmSettings
     Friend WithEvents ColumnHeader4 As System.Windows.Forms.ColumnHeader
     Private WithEvents cmdLogRefresh As System.Windows.Forms.Button
     Friend WithEvents FlowPanelSStatesList As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents cmdLogFilter_frmMain As System.Windows.Forms.Button
-    Private WithEvents cmdLogFilter_Files As System.Windows.Forms.Button
-    Private WithEvents cmdLogFilter_GameDB As System.Windows.Forms.Button
-    Private WithEvents lblSStateListCheck As System.Windows.Forms.Label
+    Private WithEvents cmdLogFilter As System.Windows.Forms.Button
     Friend WithEvents TableLayoutPanel4 As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents optTheme4 As System.Windows.Forms.RadioButton
     Friend WithEvents optTheme6 As System.Windows.Forms.RadioButton
@@ -1736,4 +1701,6 @@ Partial Class frmSettings
     Private WithEvents lblPCSX2SnapsPath As System.Windows.Forms.Label
     Friend WithEvents FlowLayoutPanel2 As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdLogExport As System.Windows.Forms.Button
+    Friend WithEvents cmLogFilter As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents cmiAll As System.Windows.Forms.ToolStripMenuItem
 End Class

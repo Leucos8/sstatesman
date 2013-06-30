@@ -77,7 +77,7 @@ Public Class frmMain
         End Select
 
         Me.WindowListMode = pListMode
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "ListMode", String.Format("Switched to {0}.", pListMode.ToString))
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.ListMode, String.Format("Switched to {0}.", pListMode.ToString))
 
         Me.lvwFilesList_AddColumns(pListMode)
         Me.List_RefreshFiles()
@@ -112,7 +112,7 @@ Public Class frmMain
         Dim sw As Stopwatch = Stopwatch.StartNew
         Dim tmpTicks As Long = 0
 
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Load", "Form load start.")
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "Form load start.")
         '==========================
         'General loading procedures
         '==========================
@@ -138,7 +138,7 @@ Public Class frmMain
 
         mdlTheme.currentTheme = mdlTheme.LoadTheme(CType(My.Settings.SStatesMan_Theme, eTheme))
 
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Load", "1/5 General loading procedures done.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "1/5 General loading procedures done.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
 
         '==================
@@ -163,7 +163,7 @@ Public Class frmMain
         'Savestates, backup, and screenshot icons
         Me.lvwFilesList.SmallImageList = imlLvwItemIcons        'Assigning the imagelist to the Savestates listview
 
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Load", "2/5 Main window preparation done.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "2/5 Main window preparation done.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
 
         '---------------
@@ -202,7 +202,7 @@ Public Class frmMain
             End If
         End If
 
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Load", "3/5 Main window saved sizes applied.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "3/5 Main window saved sizes applied.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
 
         '==============
@@ -215,7 +215,7 @@ Public Class frmMain
         'Refreshing the games list
         SSMGameList.LoadAll(My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
 
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Load", "4/5 GameDB and Gamelist loaded.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "4/5 GameDB and Gamelist loaded.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
         '===============================
         'Post file load form preparation
@@ -237,11 +237,11 @@ Public Class frmMain
             Me.cmdSStatesLvwExpand_Click(Nothing, Nothing)
         End If
 
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Load", "5/5 Post load done.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "5/5 Post load done.", sw.ElapsedTicks - tmpTicks)
         'tmpTicks = sw.ElapsedTicks
 
         sw.Stop()
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Load", "All done.", sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "All done.", sw.ElapsedTicks)
     End Sub
 
     Private Sub frmMain_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
@@ -282,19 +282,19 @@ Public Class frmMain
             End If
             Me.lvwFilesList.BeginUpdate()
         End If
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "UI_Enable", pSwitch.ToString)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.UI_Enable, pSwitch.ToString)
     End Sub
 
     ''' <summary>Updates the UI status, game info and savestate info</summary>
     Private Sub UI_Update()
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "UI_Update", "Status update start.")
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.UI_Update, "Status update start.")
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         Me.UI_UpdateGameInfo()
         Me.UI_UpdateFileInfo()
 
         sw.Stop()
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "UI_Update", "Status update done.", sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.UI_Update, "Status update done.", sw.ElapsedTicks)
     End Sub
 
     ''' <summary>Updates the UI game info: title, region, image cover, etc.</summary>
@@ -338,7 +338,7 @@ Public Class frmMain
                 Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
 
                 If My.Settings.frmMain_CoverExpanded Then
-                    Me.imgCover.Image = GetCover(checkedGames, My.Settings.SStatesMan_PathPics, _
+                    Me.imgCover.Image = FetchCover(checkedGames, My.Settings.SStatesMan_PathPics, _
                                                  CInt(imgCover_SizeExpanded.Width * DPIxScale), _
                                                  CInt(imgCover_SizeExpanded.Height * DPIyScale), _
                                                  My.Settings.frmMain_CoverExpanded)
@@ -346,7 +346,7 @@ Public Class frmMain
                     Me.imgCover.Height = CInt(imgCover_SizeExpanded.Height * DPIxScale) + 2
                     Me.imgCover.Dock = DockStyle.Bottom
                 Else
-                    Me.imgCover.Image = GetCover(checkedGames, My.Settings.SStatesMan_PathPics, _
+                    Me.imgCover.Image = FetchCover(checkedGames, My.Settings.SStatesMan_PathPics, _
                                                  CInt(imgCover_SizeReduced.Height * DPIxScale), _
                                                  CInt(imgCover_SizeReduced.Height * DPIyScale), _
                                                  My.Settings.frmMain_CoverExpanded)
@@ -374,12 +374,12 @@ Public Class frmMain
                 Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
 
                 If My.Settings.frmMain_CoverExpanded Then
-                    Me.imgCover.Image = mdlCoverCache.GetCover(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, My.Settings.frmMain_CoverExpanded)
+                    Me.imgCover.Image = mdlCoverCache.FetchCover(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, My.Settings.frmMain_CoverExpanded)
                     Me.imgCover.Width = CInt(imgCover_SizeExpanded.Width * DPIxScale) + 2
                     Me.imgCover.Height = CInt((imgCover_SizeExpanded.Width * Me.imgCover.Image.PhysicalDimension.Height / Me.imgCover.Image.PhysicalDimension.Width) * DPIyScale) + 2
                     Me.imgCover.Dock = DockStyle.Bottom
                 Else
-                    Me.imgCover.Image = mdlCoverCache.GetCover(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, My.Settings.frmMain_CoverExpanded)
+                    Me.imgCover.Image = mdlCoverCache.FetchCover(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, My.Settings.frmMain_CoverExpanded)
                     Me.imgCover.Width = CInt((imgCover_SizeReduced.Height * Me.imgCover.Image.PhysicalDimension.Width / Me.imgCover.Image.PhysicalDimension.Height) * DPIxScale) + 2
                     If Me.imgCover.Image.PhysicalDimension.Width < Me.imgCover.Image.PhysicalDimension.Height Then
                         Me.imgCover.Height = CInt(imgCover_SizeReduced.Height * DPIxScale) + 2
@@ -431,7 +431,7 @@ Public Class frmMain
         End If
 
         sw.Stop()
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "UI_Update", "Updated game info.", sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.UI_Update, "Updated game info.", sw.ElapsedTicks)
     End Sub
 
     ''' <summary>Updates the UI savestate info: items selected, size.</summary>
@@ -493,7 +493,7 @@ Public Class frmMain
         End If
 
         sw.Stop()
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "UI_Update", "Updated file info.", sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
     End Sub
 
     Private Sub tmrSStatesListRefresh_Tick(sender As System.Object, e As System.EventArgs) Handles tmrSStatesListRefresh.Tick
@@ -505,7 +505,7 @@ Public Class frmMain
 
                 If Not (Directory.GetLastWriteTime(My.Settings.PCSX2_PathSState) = SSMGameList.SStatesFolder_LastModified) Then 'Different time
 
-                    SSMAppLog.Append(LogEventType.tInformation, "Main window", "Timer", "Scheduled lists refresh.")
+                    SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Timer, "Scheduled lists refresh.")
 
                     Me.List_RefreshAll()
 
@@ -769,7 +769,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwGamesList)
 
         sw.Stop()
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Add games", String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.List_Games, String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
     Private Sub GamesList_IndexCheckedGames()
@@ -818,7 +818,7 @@ Public Class frmMain
 
     Private Sub lvwGamesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwGamesList.ItemChecked
         If Not (ListsAreRefreshed) Then
-            SSMAppLog.Append(LogEventType.tInformation, "Main window", "GamesList", "Checked games changed.")
+            SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.GameListview, "Checked games changed.")
             Me.UI_Enable(False)
             Me.List_RefreshFiles()
             Me.UI_Enable(True)
@@ -829,7 +829,7 @@ Public Class frmMain
         'If (Me.lvwGamesList.CheckedItems.Count = 0) And ((Me.lvwGamesList.SelectedItems.Count > 0) Or (Me.lvwGamesList.Items.Count = 0)) Then
         If Me.lvwGamesList.CheckedItems.Count = 0 Then
             If Not (ListsAreRefreshed) Then
-                'SSMAppLog.Append(LogEventType.tInformation, "Main window", "GamesList", "Selected game changed.")
+                'SSMAppLog.Append(LogEventType.tInformation, eSrc.MainWindow, "GamesList", "Selected game changed.")
                 'Me.UI_Enable(False)
                 'Me.List_RefreshFiles()
                 'Me.UI_Enable(True)
@@ -842,7 +842,7 @@ Public Class frmMain
         Me.tmrSelectedItemChanged.Enabled = False
         If Me.lvwGamesList.CheckedItems.Count = 0 Then
             If Not (ListsAreRefreshed) Then
-                SSMAppLog.Append(LogEventType.tInformation, "Main window", "GamesList", "Selected game changed.")
+                SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.GameListview, "Selected game changed.")
                 Me.UI_Enable(False)
                 Me.List_RefreshFiles()
                 Me.UI_Enable(True)
@@ -941,7 +941,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwFilesList)
 
         sw.Stop()
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Add savestates", String.Format("Listed {0:N0} savestates.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.List_Savestates, String.Format("Listed {0:N0} savestates.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
     Private Sub lvwFilesList_AddSnapshots()
@@ -1026,7 +1026,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwFilesList)
 
         sw.Stop()
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "Add snapshots", String.Format("Listed {0:N0} snapshots.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.List_Screenshots, String.Format("Listed {0:N0} snapshots.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
     Private Sub lvwFilesList_AddColumns(ByVal pListMode As ListMode)
@@ -1065,7 +1065,7 @@ Public Class frmMain
         Me.lvwFilesList.Columns.AddRange(tmpColumnHeaders.ToArray)
 
         sw.Stop()
-        SSMAppLog.Append(LogEventType.tInformation, "Main window", "AddColumns", String.Format("Added columns to files listview for {0}.", pListMode), sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.AddColumns, String.Format("Added columns to files listview for {0}.", pListMode), sw.ElapsedTicks)
     End Sub
 
     Private Sub lvwFileList_IndexChecked()
@@ -1156,7 +1156,7 @@ Public Class frmMain
 
     Private Sub lvwFilesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwFilesList.ItemChecked
         If Not (ListsAreRefreshed) Then
-            SSMAppLog.Append(LogEventType.tInformation, "Main window", "FilesList", "Checked files changed.")
+            SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.FileListview, "Checked files changed.")
             Me.lvwFileList_IndexChecked()
             Me.UI_UpdateFileInfo()
         End If
