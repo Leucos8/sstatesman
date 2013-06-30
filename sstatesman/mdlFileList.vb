@@ -153,7 +153,7 @@ Module mdlFileList
         End Sub
 
         Public Function HasCover(ByVal pSerial As String, ByVal pDirectory As String) As Boolean
-            If File.Exists(Path.Combine(pDirectory, pSerial & ".jpg")) Then
+            If File.Exists(Path.Combine(pDirectory, mdlMain.TrimBadPathChars(pSerial) & ".jpg")) Then
                 Return True
             Else
                 Return False

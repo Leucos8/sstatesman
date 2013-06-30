@@ -97,18 +97,13 @@ Public Class frmSettings
     End Sub
 
     Private Sub Settings_Check()
-        Dim badChars() As Char = {" "c, "\"c, "/"c, ":"c}
-        Dim invalidChars() As Char = {""""c, "*"c, "?"c, "|"c, "<"c, ">"c}
 
         Me.cmdOk.Enabled = True
         Me.cmdApply.Enabled = True
         Me.tmpTab2SettingsFail = False
 
         'PCSX2 application path
-        Me.txtPCSX2AppPath.Text = Me.txtPCSX2AppPath.Text.Trim(badChars)
-        For i As Int32 = 0 To invalidChars.Length - 1
-            Me.txtPCSX2AppPath.Text = Me.txtPCSX2AppPath.Text.Replace(invalidChars(i), "_"c)
-        Next i
+        Me.txtPCSX2AppPath.Text = mdlMain.TrimBadPathChars(Me.txtPCSX2AppPath.Text)
         If Not (Directory.Exists(Me.txtPCSX2AppPath.Text)) Then
             Me.lblPCSX2AppPathStatus.Text = String.Concat("The specified path is not found or inaccessible.", Environment.NewLine,
                                                           "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
@@ -138,10 +133,7 @@ Public Class frmSettings
         End If
 
         'PCSX2 inis path
-        Me.txtPCSX2IniPath.Text = Me.txtPCSX2IniPath.Text.Trim(badChars)
-        For i As Int32 = 0 To invalidChars.Length - 1
-            Me.txtPCSX2IniPath.Text = Me.txtPCSX2IniPath.Text.Replace(invalidChars(i), "_")
-        Next i
+        Me.txtPCSX2IniPath.Text = mdlMain.TrimBadPathChars(Me.txtPCSX2IniPath.Text)
         If Not (Directory.Exists(Me.txtPCSX2IniPath.Text)) Then
             Me.lblPCSX2IniPathStatus.Text = String.Concat("The specified path is not found or inaccessible.", Environment.NewLine,
                                                           "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
@@ -171,10 +163,7 @@ Public Class frmSettings
         End If
 
         'PCSX2 savestates path
-        Me.txtPCSX2SStatePath.Text = Me.txtPCSX2SStatePath.Text.Trim(badChars)
-        For i As Int32 = 0 To invalidChars.Length - 1
-            Me.txtPCSX2SStatePath.Text = Me.txtPCSX2SStatePath.Text.Replace(invalidChars(i), "_")
-        Next i
+        Me.txtPCSX2SStatePath.Text = mdlMain.TrimBadPathChars(Me.txtPCSX2SStatePath.Text)
         If Not (Directory.Exists(Me.txtPCSX2SStatePath.Text)) Then
             Me.lblPCSX2SStatePathStatus.Text = String.Concat("The specified path is not found or inaccessible.", Environment.NewLine,
                                                              "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
@@ -196,10 +185,7 @@ Public Class frmSettings
         End If
 
         'PCSX2 snapshots path
-        Me.txtPCSX2SnapsPath.Text = Me.txtPCSX2SnapsPath.Text.Trim(badChars)
-        For i As Int32 = 0 To invalidChars.Length - 1
-            Me.txtPCSX2SnapsPath.Text = Me.txtPCSX2SnapsPath.Text.Replace(invalidChars(i), "_")
-        Next i
+        Me.txtPCSX2SnapsPath.Text = mdlMain.TrimBadPathChars(Me.txtPCSX2SnapsPath.Text)
         If Not (Directory.Exists(Me.txtPCSX2SnapsPath.Text)) Then
             Me.lblPCSX2SnapsPathStatus.Text = String.Concat("The specified path is not found or inaccessible.", Environment.NewLine,
                                                              "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
@@ -221,10 +207,7 @@ Public Class frmSettings
         End If
 
         'SStatesMan cover pics path
-        Me.txtSStatesManPicsPath.Text = Me.txtSStatesManPicsPath.Text.Trim(badChars)
-        For i As Int32 = 0 To invalidChars.Length - 1
-            Me.txtSStatesManPicsPath.Text = Me.txtSStatesManPicsPath.Text.Replace(invalidChars(i), "_")
-        Next i
+        Me.txtSStatesManPicsPath.Text = mdlMain.TrimBadPathChars(Me.txtSStatesManPicsPath.Text)
         If Not (Directory.Exists(Me.txtSStatesManPicsPath.Text)) Then
             'Me.txtSStatesManPicsPath.Text = "Not set"
             'Me.lblSStatesManPicsPathStatus.Text = String.Concat("Path not found or inaccessible.", Environment.NewLine,

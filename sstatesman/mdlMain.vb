@@ -100,4 +100,20 @@ Module mdlMain
         End If
         Return My.Resources.Flag_0Null_30x20
     End Function
+
+    Friend Function TrimBadPathChars(ByVal pInputPath As String, Optional ByVal pTrimBadChars As Boolean = False) As String
+        If (Not (pInputPath = "")) Then
+            Dim badChars() As Char = {" "c, "\"c, "/"c, ":"c}
+            Dim invalidChars() As Char = {""""c, "*"c, "?"c, "|"c, "<"c, ">"c}
+            If pTrimBadChars Then
+                pInputPath = pInputPath.Trim(badChars)
+            Else
+                pInputPath = pInputPath.Trim
+            End If
+            For Each tmpChar As Char In invalidChars
+                pInputPath = pInputPath.Replace(tmpChar, "_"c)
+            Next
+        End If
+        Return pInputPath
+    End Function
 End Module

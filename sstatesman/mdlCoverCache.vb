@@ -136,7 +136,7 @@ Module mdlCoverCache
                 tmpImage = My.Resources.Icon_Screenshot_256x192
             ElseIf SSMGameList.Games(pSerial).HasCoverFile Then
                 Try
-                    tmpImage = Image.FromFile(Path.Combine(pPath, pSerial & ".jpg"))
+                    tmpImage = Image.FromFile(Path.Combine(pPath, mdlMain.TrimBadPathChars(pSerial) & ".jpg"))
                 Catch ex As Exception
                     'No cover image found or file is corrupted
                     SSMAppLog.Append(LogEventType.tError, "CoverCache", "GetCover", String.Format("Game {0}: {1}", pSerial, ex.Message))

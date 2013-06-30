@@ -685,7 +685,7 @@ Public Class frmMain
                 Try
                     Dim tmpImage As Image = Image.FromFile(openDialog.FileName)
                     tmpImage = mdlCoverCache.ResizeCover(tmpImage, CoverThumb_SizeLarge.Width, CoverThumb_SizeLarge.Height)
-                    tmpImage.Save(Path.Combine(My.Settings.SStatesMan_PathPics, Me.checkedGames(0) & ".jpg"), Imaging.ImageFormat.Jpeg)
+                    tmpImage.Save(Path.Combine(My.Settings.SStatesMan_PathPics, mdlMain.TrimBadPathChars(Me.checkedGames(0)) & ".jpg"), Imaging.ImageFormat.Jpeg)
                     Me.UI_UpdateGameInfo()
                 Catch ex As Exception
                     MessageBox.Show("An error has occurred while trying to convert the specified file. " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
