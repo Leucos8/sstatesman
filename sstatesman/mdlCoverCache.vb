@@ -78,7 +78,7 @@ Module mdlCoverCache
     ''' <param name="pExpanded">Specifies if the height must be respected.</param>
     ''' <returns>Collage image from multiple files</returns>
     Friend Function FetchCover(ByVal pSerial As List(Of String), ByVal pPath As String, _
-                               ByVal pDestWidth As Integer, pDestHeight As Integer, _
+                               ByVal pDestWidth As Integer, ByVal pDestHeight As Integer, _
                                ByVal pExpanded As Boolean) As Image
         Dim sw As Stopwatch = Stopwatch.StartNew
 
@@ -101,9 +101,9 @@ Module mdlCoverCache
                 'The cover will be added to the graphic object using DrawImage
                 Dim tmpCover As Image = FetchCover(pSerial(i), pPath, pExpanded)
                 endCover.DrawImage(tmpCover, i * pStepWidth, 0, tmpCover.Width * pDestHeight \ tmpCover.Height, pDestHeight)
-                'Adds a line for the next cover
+                'Adds a line for the current cover
                 endCover.DrawLine(Pens.DimGray, i * pStepWidth - 1, 0, i * pStepWidth - 1, pDestHeight)
-                'Adds a shade for the next cover
+                'Adds a shade for the current cover
                 Dim tmpShade As New Drawing2D.LinearGradientBrush(New Rectangle(i * pStepWidth - 4, 0, 6, pDestHeight), Color.Transparent, Color.Black, 0)
                 endCover.FillRectangle(tmpShade, i * pStepWidth - 4, 0, 3, pDestHeight)
             Catch ex As Exception
@@ -111,8 +111,6 @@ Module mdlCoverCache
                 SSMAppLog.Append(eType.LogError, eSrc.CoverCache, eSrcMethod.Cover_Fetch, "Multiple cover. " & ex.Message)
             End Try
         Next
-        'The graphics object update the image object
-        endCover.DrawImage(FetchCover, pDestWidth, pDestHeight)
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.CoverCache, eSrcMethod.Cover_Fetch, "Cover served for multiple games.", sw.ElapsedTicks)
