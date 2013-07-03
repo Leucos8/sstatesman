@@ -40,7 +40,7 @@ Public Class frmSettings
         Me.ckbSStatesManThemeImage.Checked = My.Settings.SStatesMan_ThemeImageEnabled
         Me.ckbSStatesManThemeGradient.Checked = My.Settings.SStatesMan_ThemeGradientEnabled
 
-        Select Case My.Settings.SStatesMan_Theme
+        Select Case mdlTheme.currentThemeSetting
             Case eTheme.squares
                 Me.optTheme1.Checked = True
             Case eTheme.noise
@@ -55,10 +55,6 @@ Public Class frmSettings
                 Me.optTheme6.Checked = True
             Case eTheme.PCSX2
                 Me.optTheme11.Checked = True
-            Case Else
-                'Unknown theme = fallback to squares
-                Me.optTheme1.Checked = True
-                My.Settings.SStatesMan_Theme = eTheme.squares
         End Select
 
     End Sub
@@ -82,12 +78,12 @@ Public Class frmSettings
         'Theme
         My.Settings.SStatesMan_ThemeImageEnabled = Me.ckbSStatesManThemeImage.Checked
         My.Settings.SStatesMan_ThemeGradientEnabled = Me.ckbSStatesManThemeGradient.Checked
-        My.Settings.SStatesMan_Theme = currentSelectedTheme
+        My.Settings.SStatesMan_Theme = currentSelectedTheme.ToString
 
         My.Settings.Save()
 
         'Getting things ready
-        currentTheme = mdlTheme.LoadTheme(CType(My.Settings.SStatesMan_Theme, eTheme))
+        mdlTheme.LoadTheme(currentSelectedTheme.ToString)
 
         'Me.applyTheme()
 

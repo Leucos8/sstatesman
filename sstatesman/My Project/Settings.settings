@@ -55,7 +55,7 @@
       <Value Profile="(Default)">coverpics</Value>
     </Setting>
     <Setting Name="SStatesMan_ThemeGradientEnabled" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
+      <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="PCSX2_PCSX2_uiFilename" Type="System.String" Scope="Application">
       <Value Profile="(Default)">PCSX2_ui.ini</Value>
@@ -66,8 +66,8 @@
     <Setting Name="SStatesMan_SStatesListShowOnly" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="SStatesMan_Theme" Type="System.Byte" Scope="User">
-      <Value Profile="(Default)">1</Value>
+    <Setting Name="SStatesMan_Theme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">squares</Value>
     </Setting>
     <Setting Name="SStatesMan_SStatesVersionExtract" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>

@@ -26,13 +26,16 @@ Module mdlApplicationLog
         GameDB_Explorer
         FileList
         CoverCache
+        Theme
     End Enum
 
     Friend Enum eSrcMethod
         'General
         Load
+        List
         Search
         Timer
+        Refresh
         'UI
         UI_Update
         UI_Enable
@@ -40,10 +43,6 @@ Module mdlApplicationLog
         'Main Window
         GameListview
         FileListview
-        List_Games
-        List_Savestates
-        List_Stored
-        List_Screenshots
         AddColumns
         'GameDB
         Extract
@@ -56,6 +55,8 @@ Module mdlApplicationLog
         'Cover
         Cover_Fetch
         Cover_Resize
+        'Theme
+
     End Enum
 
     Friend Structure sLog

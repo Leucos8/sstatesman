@@ -32,9 +32,6 @@ Public Class frmMain
     'To avoid refreshing the lists when an operation is running, set by UI_Enabled
     Dim ListsAreRefreshed As Boolean = False
 
-    'Dim lvwGamesList_PopTime As Long
-    'Dim lvwSStatesList_PopTime As Long
-
     'Stores the current game information displayed in the game information section
     Dim currentGameInfo As New GameInfo
 
@@ -136,7 +133,7 @@ Public Class frmMain
             frmSettings.ShowDialog(Me)
         End If
 
-        mdlTheme.currentTheme = mdlTheme.LoadTheme(CType(My.Settings.SStatesMan_Theme, eTheme))
+        mdlTheme.LoadTheme(My.Settings.SStatesMan_Theme)
 
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "1/5 General loading procedures done.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
@@ -769,7 +766,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwGamesList)
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.List_Games, String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.List, String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
     Private Sub GamesList_IndexCheckedGames()
@@ -941,7 +938,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwFilesList)
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.List_Savestates, String.Format("Listed {0:N0} savestates.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.List, String.Format("Listed {0:N0} savestates.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
     Private Sub lvwFilesList_AddSnapshots()
@@ -1026,7 +1023,7 @@ Public Class frmMain
         mdlTheme.ListAlternateColors(Me.lvwFilesList)
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.List_Screenshots, String.Format("Listed {0:N0} snapshots.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.List, String.Format("Listed {0:N0} snapshots.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
     Private Sub lvwFilesList_AddColumns(ByVal pListMode As ListMode)

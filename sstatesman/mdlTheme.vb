@@ -18,7 +18,7 @@ Module mdlTheme
     Friend imlLvwCheckboxes As ImageList
     Friend imlLvwItemIcons As ImageList
 
-    Friend Enum eTheme As Byte
+    Friend Enum eTheme
         none = 0
         squares = 1
         noise = 2
@@ -42,18 +42,21 @@ Module mdlTheme
         Friend BgImageBottomStyle As ImageLayout
     End Structure
 
-    Public currentTheme As New sTheme With {.AccentColor = Color.FromArgb(255, 130, 150, 200), _
-                                            .AccentColorLight = Color.WhiteSmoke, _
-                                            .AccentColorDark = Color.FromArgb(255, 65, 74, 100), _
-                                            .BgColor = Color.WhiteSmoke, _
-                                            .BgColorTop = Color.Gainsboro, _
-                                            .BgColorBottom = Color.Gainsboro, _
-                                            .BgImageTop = My.Resources.BgSquares, _
-                                            .BgImageTopStyle = ImageLayout.None, _
-                                            .BgImageBottom = Nothing, _
-                                            .BgImageBottomStyle = ImageLayout.None}
+    Friend currentTheme As sTheme
+    Friend currentThemeSetting As eTheme
 
-    Public Function LoadTheme(ByVal pTheme As eTheme) As sTheme
+    Friend Sub LoadTheme(ByRef pTheme As String)
+        If Not ([Enum].TryParse(My.Settings.SStatesMan_Theme, currentThemeSetting)) Then
+            SSMAppLog.Append(eType.LogWarning, eSrc.Theme, eSrcMethod.Load, "Unable to load theme from setting: " & pTheme)
+
+            pTheme = eTheme.squares.ToString
+            currentThemeSetting = eTheme.squares
+        End If
+        RefreshTheme(currentThemeSetting)
+    End Sub
+
+    Private Sub RefreshTheme(ByVal pTheme As eTheme)
+        Dim sw As Stopwatch = Stopwatch.StartNew
 
         'ImageList for custom checkboxes (listview statelist)
         imlLvwCheckboxes = New ImageList With {.ImageSize = New Size( _
@@ -74,9 +77,9 @@ Module mdlTheme
                                          My.Resources.InfoIcon_Exclamation_16x16, _
                                          My.Resources.InfoIcon_Error_16x16})
 
-        Select Case My.Settings.SStatesMan_Theme
+        Select Case pTheme
             Case eTheme.squares
-                With LoadTheme
+                With currentTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
                     .AccentColorLight = Color.FromArgb(215, 220, 255)
                     .AccentColorDark = Color.FromArgb(255, 65, 74, 100)
@@ -89,7 +92,7 @@ Module mdlTheme
                     .BgImageBottomStyle = ImageLayout.None
                 End With
             Case eTheme.noise
-                With LoadTheme
+                With currentTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
                     .AccentColorLight = Color.FromArgb(215, 220, 255)
                     .AccentColorDark = Color.FromArgb(255, 65, 74, 100)
@@ -102,7 +105,7 @@ Module mdlTheme
                     .BgImageBottomStyle = ImageLayout.Tile
                 End With
             Case eTheme.stripes_dark
-                With LoadTheme
+                With currentTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
                     .AccentColorLight = Color.FromArgb(215, 220, 255)
                     .AccentColorDark = Color.FromArgb(255, 65, 74, 100)
@@ -115,7 +118,7 @@ Module mdlTheme
                     .BgImageBottomStyle = ImageLayout.Tile
                 End With
             Case eTheme.stripes_light
-                With LoadTheme
+                With currentTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
                     .AccentColorLight = Color.FromArgb(215, 220, 255)
                     .AccentColorDark = Color.FromArgb(255, 65, 74, 100)
@@ -128,7 +131,7 @@ Module mdlTheme
                     .BgImageBottomStyle = ImageLayout.Tile
                 End With
             Case eTheme.brushedmetal
-                With LoadTheme
+                With currentTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
                     .AccentColorLight = Color.FromArgb(215, 220, 255)
                     .AccentColorDark = Color.FromArgb(255, 65, 74, 100)
@@ -141,7 +144,7 @@ Module mdlTheme
                     .BgImageBottomStyle = ImageLayout.Tile
                 End With
             Case eTheme.hexagons
-                With LoadTheme
+                With currentTheme
                     .AccentColor = Color.FromArgb(255, 130, 150, 200)
                     .AccentColorLight = Color.FromArgb(215, 220, 255)
                     .AccentColorDark = Color.FromArgb(255, 65, 74, 100)
@@ -154,7 +157,7 @@ Module mdlTheme
                     .BgImageBottomStyle = ImageLayout.None
                 End With
             Case eTheme.PCSX2
-                With LoadTheme
+                With currentTheme
                     .AccentColor = Color.Gainsboro
                     .AccentColorLight = Color.WhiteSmoke
                     .AccentColorDark = Color.Silver
@@ -166,24 +169,15 @@ Module mdlTheme
                     .BgImageBottom = My.Resources.BgPCSX2
                     .BgImageBottomStyle = ImageLayout.Stretch
                 End With
-            Case Else
-                My.Settings.SStatesMan_Theme = eTheme.squares
-                With LoadTheme
-                    .AccentColor = Color.FromArgb(255, 130, 150, 200)
-                    .AccentColorLight = Color.WhiteSmoke
-                    .AccentColorDark = Color.FromArgb(255, 65, 74, 100)
-                    .BgColor = Color.WhiteSmoke
-                    .BgColorTop = Color.Gainsboro
-                    .BgColorBottom = Color.Gainsboro
-                    .BgImageTop = My.Resources.BgSquares
-                    .BgImageTopStyle = ImageLayout.None
-                    .BgImageBottom = Nothing
-                    .BgImageBottomStyle = ImageLayout.None
-                End With
         End Select
-    End Function
+
+        sw.Stop()
+        SSMAppLog.Append(eType.LogInformation, eSrc.Theme, eSrcMethod.Refresh, "Theme refreshed: " & pTheme.ToString, sw.ElapsedTicks)
+    End Sub
 
     Public Sub ListAlternateColors(ByRef pListView As ListView)
+        Dim sw As Stopwatch = Stopwatch.StartNew
+
         If pListView IsNot Nothing Then
             Dim colorswitch As Boolean = True
             For i As Integer = 0 To pListView.Items.Count - 1
@@ -197,5 +191,8 @@ Module mdlTheme
                 colorswitch = Not colorswitch
             Next
         End If
+
+        sw.Stop()
+        SSMAppLog.Append(eType.LogInformation, eSrc.Theme, eSrcMethod.List, String.Format("Alternated {0:N0} items bgcolor.", pListView.Items.Count), sw.ElapsedTicks)
     End Sub
 End Module
