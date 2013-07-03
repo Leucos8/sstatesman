@@ -175,17 +175,17 @@ Module mdlTheme
         SSMAppLog.Append(eType.LogInformation, eSrc.Theme, eSrcMethod.Refresh, "Theme refreshed: " & pTheme.ToString, sw.ElapsedTicks)
     End Sub
 
-    Public Sub ListAlternateColors(ByRef pListView As ListView)
+    Public Sub ListAlternateColors(ByRef pListView As List(Of ListViewItem))
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         If pListView IsNot Nothing Then
             Dim colorswitch As Boolean = True
-            For i As Integer = 0 To pListView.Items.Count - 1
-                If Not pListView.Items(i).BackColor = Color.Transparent Then
+            For Each tmpListViewItem As ListViewItem In pListView
+                If Not tmpListViewItem.BackColor = Color.Transparent Then
                     If colorswitch Then
-                        pListView.Items(i).BackColor = Color.Transparent
+                        tmpListViewItem.BackColor = Color.Transparent
                     Else
-                        pListView.Items(i).BackColor = Color.Gainsboro
+                        tmpListViewItem.BackColor = Color.Gainsboro
                     End If
                 End If
                 colorswitch = Not colorswitch
@@ -193,6 +193,20 @@ Module mdlTheme
         End If
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.Theme, eSrcMethod.List, String.Format("Alternated {0:N0} items bgcolor.", pListView.Items.Count), sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.Theme, eSrcMethod.List, String.Format("Alternated {0:N0} items bgcolor.", pListView.Count), sw.ElapsedTicks)
     End Sub
+
+    Friend Function sortListViewItemsByName(ByVal x As ListViewItem, ByVal y As ListViewItem) As Integer
+        If x.Text = y.Text Then
+            If x.Name = y.Name Then
+                Return 0
+            ElseIf x.Name > y.Name Then
+                Return 1
+            Else : Return -1
+            End If
+        ElseIf x.Text > y.Text Then
+            Return 1
+        Else : Return -1
+        End If
+    End Function
 End Module

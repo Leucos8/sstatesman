@@ -226,8 +226,8 @@ Public Class frmReorderForm
                 End If
             Next
 
+            mdlTheme.ListAlternateColors(tmpSListItems)
             Me.lvwReorderList.Items.AddRange(tmpSListItems.ToArray)
-            mdlTheme.ListAlternateColors(Me.lvwReorderList)
         End If
     End Sub
 

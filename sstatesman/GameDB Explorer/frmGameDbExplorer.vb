@@ -266,8 +266,8 @@ Public Class frmGameDbExplorer
                                          myTmpGame.Value.CompatToText})
             myLvwItems.Add(myTmpItem)
         Next
+        mdlTheme.ListAlternateColors(myLvwItems)
         Me.lvwGameDBList.Items.AddRange(myLvwItems.ToArray)
-        mdlTheme.ListAlternateColors(Me.lvwGameDBList)
         sw.Stop()
         Me.populationTime = sw.ElapsedTicks
 

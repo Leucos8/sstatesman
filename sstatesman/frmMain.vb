@@ -760,10 +760,12 @@ Public Class frmMain
             tmpLvwItems.Add(newLvwItem)
 
         Next
+        'Ordering by game name
+        tmpLvwItems.Sort(AddressOf sortListViewItemsByName)
         'Alternating back colors
+        mdlTheme.ListAlternateColors(tmpLvwItems)
         Me.lvwGamesList.Items.AddRange(tmpLvwItems.ToArray)
         'Addrange is faster than adding each item, even with begin/endupdate
-        mdlTheme.ListAlternateColors(Me.lvwGamesList)
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.List, String.Format("Listed {0:N0} games.", Me.lvwGamesList.Items.Count), sw.ElapsedTicks)
@@ -934,8 +936,8 @@ Public Class frmMain
 
 
         Me.lvwFilesList.Groups.AddRange(tmpGroups.ToArray)
+        mdlTheme.ListAlternateColors(tmpLvwItems)
         Me.lvwFilesList.Items.AddRange(tmpLvwItems.ToArray)
-        mdlTheme.ListAlternateColors(Me.lvwFilesList)
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.List, String.Format("Listed {0:N0} savestates.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
@@ -1019,8 +1021,8 @@ Public Class frmMain
 
 
         Me.lvwFilesList.Groups.AddRange(tmpGroups.ToArray)
+        mdlTheme.ListAlternateColors(tmpLvwItems)
         Me.lvwFilesList.Items.AddRange(tmpLvwItems.ToArray)
-        mdlTheme.ListAlternateColors(Me.lvwFilesList)
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.List, String.Format("Listed {0:N0} snapshots.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)

@@ -291,8 +291,8 @@ Public Class frmDeleteForm
             End If
         Next
         Me.lvwSStatesListToDelete.Groups.AddRange(tmpSListGroups.ToArray)
+        mdlTheme.ListAlternateColors(tmpSListItems)
         Me.lvwSStatesListToDelete.Items.AddRange(tmpSListItems.ToArray)
-        mdlTheme.ListAlternateColors(Me.lvwSStatesListToDelete)
     End Sub
 
     Private Sub lvwSStatesListToDelete_indexCheckedFiles()
