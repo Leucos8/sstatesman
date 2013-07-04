@@ -22,6 +22,7 @@ Module mdlApplicationLog
 
     Friend Enum eSrc
         MainWindow
+        DeleteWindow
         GameDB
         GameDB_Explorer
         FileList
@@ -32,6 +33,7 @@ Module mdlApplicationLog
     Friend Enum eSrcMethod
         'General
         Load
+        Close
         List
         Search
         Timer
@@ -44,6 +46,7 @@ Module mdlApplicationLog
         GameListview
         FileListview
         AddColumns
+        CoverImage
         'GameDB
         Extract
         'File
@@ -56,7 +59,7 @@ Module mdlApplicationLog
         Cover_Fetch
         Cover_Resize
         'Theme
-
+        Theme
     End Enum
 
     Friend Structure sLog

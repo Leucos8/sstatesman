@@ -38,15 +38,15 @@ Partial Class frmMain
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.panelWindowTitle = New System.Windows.Forms.Panel()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.tlpTopPanel = New System.Windows.Forms.TableLayoutPanel()
+        Me.flpTitleBar = New System.Windows.Forms.FlowLayoutPanel()
         Me.lblWindowTitle = New System.Windows.Forms.Label()
         Me.blWindowDescription = New System.Windows.Forms.Label()
-        Me.FlowPanelSettings = New System.Windows.Forms.FlowLayoutPanel()
+        Me.flpTitleBarTools = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdAbout = New System.Windows.Forms.Button()
         Me.cmdSettings = New System.Windows.Forms.Button()
         Me.cmdTools = New System.Windows.Forms.Button()
-        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.flpControlBox = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdWindowMinimize = New System.Windows.Forms.Button()
         Me.cmdWindowMaximize = New System.Windows.Forms.Button()
         Me.cmdWindowClose = New System.Windows.Forms.Button()
@@ -54,21 +54,21 @@ Partial Class frmMain
         Me.lblWindowVersion = New System.Windows.Forms.Label()
         Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
         Me.flpTab = New System.Windows.Forms.FlowLayoutPanel()
+        Me.optSettingTab0 = New System.Windows.Forms.RadioButton()
         Me.optSettingTab1 = New System.Windows.Forms.RadioButton()
         Me.optSettingTab2 = New System.Windows.Forms.RadioButton()
-        Me.optSettingTab3 = New System.Windows.Forms.RadioButton()
         Me.FlowLayoutPanel3 = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdRefresh = New System.Windows.Forms.Button()
         Me.tmrSStatesListRefresh = New System.Windows.Forms.Timer(Me.components)
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.TableLayoutPanel3 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tlpGameList = New System.Windows.Forms.TableLayoutPanel()
         Me.lvwGamesList = New System.Windows.Forms.ListView()
-        Me.GamesLvw_GameTitle = CType(New System.Windows.Forms.ColumnHeader(),System.Windows.Forms.ColumnHeader)
-        Me.GameLvw_GameSerial = CType(New System.Windows.Forms.ColumnHeader(),System.Windows.Forms.ColumnHeader)
-        Me.GameLvw_GameRegion = CType(New System.Windows.Forms.ColumnHeader(),System.Windows.Forms.ColumnHeader)
-        Me.GameLvw_SStatesInfo = CType(New System.Windows.Forms.ColumnHeader(),System.Windows.Forms.ColumnHeader)
-        Me.GameLvw_BackupInfo = CType(New System.Windows.Forms.ColumnHeader(),System.Windows.Forms.ColumnHeader)
-        Me.GameLvw_SnapsInfo = CType(New System.Windows.Forms.ColumnHeader(),System.Windows.Forms.ColumnHeader)
+        Me.GamesLvw_GameTitle = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.GameLvw_GameSerial = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.GameLvw_GameRegion = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.GameLvw_SStatesInfo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.GameLvw_BackupInfo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.GameLvw_SnapsInfo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.imgCover = New System.Windows.Forms.PictureBox()
         Me.cmCover = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmiCoverAdd = New System.Windows.Forms.ToolStripMenuItem()
@@ -107,7 +107,7 @@ Partial Class frmMain
         Me.cmdFilesCheckAll = New System.Windows.Forms.Button()
         Me.cmdFilesCheckBackup = New System.Windows.Forms.Button()
         Me.lblSStateListCheck = New System.Windows.Forms.Label()
-        Me.cmPCSX2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmTools = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmiPCSX2Launch = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.cmiPCSX2BinFolderOpen = New System.Windows.Forms.ToolStripMenuItem()
@@ -118,10 +118,10 @@ Partial Class frmMain
         Me.DeveloperToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tmrSelectedItemChanged = New System.Windows.Forms.Timer(Me.components)
         Me.panelWindowTitle.SuspendLayout()
-        Me.TableLayoutPanel1.SuspendLayout()
-        Me.FlowLayoutPanel2.SuspendLayout()
-        Me.FlowPanelSettings.SuspendLayout()
-        Me.FlowLayoutPanel1.SuspendLayout()
+        Me.tlpTopPanel.SuspendLayout()
+        Me.flpTitleBar.SuspendLayout()
+        Me.flpTitleBarTools.SuspendLayout()
+        Me.flpControlBox.SuspendLayout()
         CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TableLayoutPanel6.SuspendLayout()
         Me.flpTab.SuspendLayout()
@@ -130,7 +130,7 @@ Partial Class frmMain
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
-        Me.TableLayoutPanel3.SuspendLayout()
+        Me.tlpGameList.SuspendLayout()
         CType(Me.imgCover, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.cmCover.SuspendLayout()
         CType(Me.imgFlag, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -140,7 +140,7 @@ Partial Class frmMain
         Me.TableLayoutPanel4.SuspendLayout()
         Me.FlowLayoutPanel4.SuspendLayout()
         Me.FlowPanelSStatesList.SuspendLayout()
-        Me.cmPCSX2.SuspendLayout()
+        Me.cmTools.SuspendLayout()
         Me.SuspendLayout()
         '
         'panelWindowTitle
@@ -148,7 +148,7 @@ Partial Class frmMain
         Me.panelWindowTitle.AutoSize = True
         Me.panelWindowTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.panelWindowTitle.BackColor = System.Drawing.Color.Gainsboro
-        Me.panelWindowTitle.Controls.Add(Me.TableLayoutPanel1)
+        Me.panelWindowTitle.Controls.Add(Me.tlpTopPanel)
         Me.panelWindowTitle.Controls.Add(Me.TableLayoutPanel6)
         Me.panelWindowTitle.Dock = System.Windows.Forms.DockStyle.Top
         Me.panelWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -159,49 +159,49 @@ Partial Class frmMain
         Me.panelWindowTitle.Size = New System.Drawing.Size(632, 79)
         Me.panelWindowTitle.TabIndex = 0
         '
-        'TableLayoutPanel1
+        'tlpTopPanel
         '
-        Me.TableLayoutPanel1.AutoSize = True
-        Me.TableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Transparent
-        Me.TableLayoutPanel1.ColumnCount = 4
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel2, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.FlowPanelSettings, 1, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel1, 3, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.imgWindowGradientIcon, 2, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.lblWindowVersion, 1, 1)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 2
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(632, 55)
-        Me.TableLayoutPanel1.TabIndex = 4
+        Me.tlpTopPanel.AutoSize = True
+        Me.tlpTopPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.tlpTopPanel.BackColor = System.Drawing.Color.Transparent
+        Me.tlpTopPanel.ColumnCount = 4
+        Me.tlpTopPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpTopPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpTopPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpTopPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpTopPanel.Controls.Add(Me.flpTitleBar, 0, 0)
+        Me.tlpTopPanel.Controls.Add(Me.flpTitleBarTools, 1, 0)
+        Me.tlpTopPanel.Controls.Add(Me.flpControlBox, 3, 0)
+        Me.tlpTopPanel.Controls.Add(Me.imgWindowGradientIcon, 2, 0)
+        Me.tlpTopPanel.Controls.Add(Me.lblWindowVersion, 1, 1)
+        Me.tlpTopPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.tlpTopPanel.Location = New System.Drawing.Point(0, 0)
+        Me.tlpTopPanel.Margin = New System.Windows.Forms.Padding(0)
+        Me.tlpTopPanel.Name = "tlpTopPanel"
+        Me.tlpTopPanel.RowCount = 2
+        Me.tlpTopPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpTopPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpTopPanel.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpTopPanel.Size = New System.Drawing.Size(632, 55)
+        Me.tlpTopPanel.TabIndex = 4
         '
-        'FlowLayoutPanel2
+        'flpTitleBar
         '
-        Me.FlowLayoutPanel2.AutoSize = True
-        Me.FlowLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.FlowLayoutPanel2.BackColor = System.Drawing.Color.Transparent
-        Me.FlowLayoutPanel2.Controls.Add(Me.lblWindowTitle)
-        Me.FlowLayoutPanel2.Controls.Add(Me.blWindowDescription)
-        Me.FlowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FlowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(2, 2)
-        Me.FlowLayoutPanel2.Margin = New System.Windows.Forms.Padding(2)
-        Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
-        Me.FlowLayoutPanel2.Padding = New System.Windows.Forms.Padding(24, 4, 0, 4)
-        Me.TableLayoutPanel1.SetRowSpan(Me.FlowLayoutPanel2, 2)
-        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(331, 51)
-        Me.FlowLayoutPanel2.TabIndex = 1
-        Me.FlowLayoutPanel2.WrapContents = False
+        Me.flpTitleBar.AutoSize = True
+        Me.flpTitleBar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpTitleBar.BackColor = System.Drawing.Color.Transparent
+        Me.flpTitleBar.Controls.Add(Me.lblWindowTitle)
+        Me.flpTitleBar.Controls.Add(Me.blWindowDescription)
+        Me.flpTitleBar.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flpTitleBar.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
+        Me.flpTitleBar.Location = New System.Drawing.Point(2, 2)
+        Me.flpTitleBar.Margin = New System.Windows.Forms.Padding(2)
+        Me.flpTitleBar.Name = "flpTitleBar"
+        Me.flpTitleBar.Padding = New System.Windows.Forms.Padding(24, 4, 0, 4)
+        Me.tlpTopPanel.SetRowSpan(Me.flpTitleBar, 2)
+        Me.flpTitleBar.Size = New System.Drawing.Size(331, 51)
+        Me.flpTitleBar.TabIndex = 1
+        Me.flpTitleBar.WrapContents = False
         '
         'lblWindowTitle
         '
@@ -227,21 +227,21 @@ Partial Class frmMain
         Me.blWindowDescription.TabIndex = 3
         Me.blWindowDescription.Text = "a savestate managing tool for PCSX2"
         '
-        'FlowPanelSettings
+        'flpTitleBarTools
         '
-        Me.FlowPanelSettings.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.FlowPanelSettings.AutoSize = True
-        Me.FlowPanelSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.FlowPanelSettings.Controls.Add(Me.cmdAbout)
-        Me.FlowPanelSettings.Controls.Add(Me.cmdSettings)
-        Me.FlowPanelSettings.Controls.Add(Me.cmdTools)
-        Me.FlowPanelSettings.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowPanelSettings.Location = New System.Drawing.Point(335, 0)
-        Me.FlowPanelSettings.Margin = New System.Windows.Forms.Padding(0)
-        Me.FlowPanelSettings.Name = "FlowPanelSettings"
-        Me.FlowPanelSettings.Size = New System.Drawing.Size(154, 22)
-        Me.FlowPanelSettings.TabIndex = 5
-        Me.FlowPanelSettings.WrapContents = False
+        Me.flpTitleBarTools.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.flpTitleBarTools.AutoSize = True
+        Me.flpTitleBarTools.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpTitleBarTools.Controls.Add(Me.cmdAbout)
+        Me.flpTitleBarTools.Controls.Add(Me.cmdSettings)
+        Me.flpTitleBarTools.Controls.Add(Me.cmdTools)
+        Me.flpTitleBarTools.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.flpTitleBarTools.Location = New System.Drawing.Point(335, 0)
+        Me.flpTitleBarTools.Margin = New System.Windows.Forms.Padding(0)
+        Me.flpTitleBarTools.Name = "flpTitleBarTools"
+        Me.flpTitleBarTools.Size = New System.Drawing.Size(154, 22)
+        Me.flpTitleBarTools.TabIndex = 5
+        Me.flpTitleBarTools.WrapContents = False
         '
         'cmdAbout
         '
@@ -305,18 +305,18 @@ Partial Class frmMain
         Me.cmdTools.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         Me.cmdTools.UseVisualStyleBackColor = False
         '
-        'FlowLayoutPanel1
+        'flpControlBox
         '
-        Me.FlowLayoutPanel1.AutoSize = True
-        Me.FlowLayoutPanel1.Controls.Add(Me.cmdWindowMinimize)
-        Me.FlowLayoutPanel1.Controls.Add(Me.cmdWindowMaximize)
-        Me.FlowLayoutPanel1.Controls.Add(Me.cmdWindowClose)
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(529, 0)
-        Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0, 0, 6, 0)
-        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(97, 20)
-        Me.FlowLayoutPanel1.TabIndex = 23
-        Me.FlowLayoutPanel1.WrapContents = False
+        Me.flpControlBox.AutoSize = True
+        Me.flpControlBox.Controls.Add(Me.cmdWindowMinimize)
+        Me.flpControlBox.Controls.Add(Me.cmdWindowMaximize)
+        Me.flpControlBox.Controls.Add(Me.cmdWindowClose)
+        Me.flpControlBox.Location = New System.Drawing.Point(529, 0)
+        Me.flpControlBox.Margin = New System.Windows.Forms.Padding(0, 0, 6, 0)
+        Me.flpControlBox.Name = "flpControlBox"
+        Me.flpControlBox.Size = New System.Drawing.Size(97, 20)
+        Me.flpControlBox.TabIndex = 23
+        Me.flpControlBox.WrapContents = False
         '
         'cmdWindowMinimize
         '
@@ -375,7 +375,7 @@ Partial Class frmMain
         Me.imgWindowGradientIcon.Location = New System.Drawing.Point(493, 0)
         Me.imgWindowGradientIcon.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.imgWindowGradientIcon.Name = "imgWindowGradientIcon"
-        Me.TableLayoutPanel1.SetRowSpan(Me.imgWindowGradientIcon, 2)
+        Me.tlpTopPanel.SetRowSpan(Me.imgWindowGradientIcon, 2)
         Me.imgWindowGradientIcon.Size = New System.Drawing.Size(32, 32)
         Me.imgWindowGradientIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.imgWindowGradientIcon.TabIndex = 6
@@ -421,9 +421,9 @@ Partial Class frmMain
         '
         Me.flpTab.AutoSize = True
         Me.flpTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpTab.Controls.Add(Me.optSettingTab0)
         Me.flpTab.Controls.Add(Me.optSettingTab1)
         Me.flpTab.Controls.Add(Me.optSettingTab2)
-        Me.flpTab.Controls.Add(Me.optSettingTab3)
         Me.flpTab.Location = New System.Drawing.Point(16, 1)
         Me.flpTab.Margin = New System.Windows.Forms.Padding(0, 1, 0, 0)
         Me.flpTab.Name = "flpTab"
@@ -431,26 +431,47 @@ Partial Class frmMain
         Me.flpTab.TabIndex = 15
         Me.flpTab.WrapContents = False
         '
+        'optSettingTab0
+        '
+        Me.optSettingTab0.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
+        Me.optSettingTab0.Appearance = System.Windows.Forms.Appearance.Button
+        Me.optSettingTab0.AutoSize = True
+        Me.optSettingTab0.Checked = True
+        Me.optSettingTab0.FlatAppearance.BorderSize = 0
+        Me.optSettingTab0.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optSettingTab0.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optSettingTab0.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optSettingTab0.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.optSettingTab0.Location = New System.Drawing.Point(0, 0)
+        Me.optSettingTab0.Margin = New System.Windows.Forms.Padding(0)
+        Me.optSettingTab0.MinimumSize = New System.Drawing.Size(80, 0)
+        Me.optSettingTab0.Name = "optSettingTab0"
+        Me.optSettingTab0.Size = New System.Drawing.Size(80, 23)
+        Me.optSettingTab0.TabIndex = 16
+        Me.optSettingTab0.TabStop = True
+        Me.optSettingTab0.Tag = "0"
+        Me.optSettingTab0.Text = "savestates"
+        Me.optSettingTab0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.optSettingTab0.UseVisualStyleBackColor = False
+        '
         'optSettingTab1
         '
         Me.optSettingTab1.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
         Me.optSettingTab1.Appearance = System.Windows.Forms.Appearance.Button
         Me.optSettingTab1.AutoSize = True
-        Me.optSettingTab1.Checked = True
         Me.optSettingTab1.FlatAppearance.BorderSize = 0
         Me.optSettingTab1.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSettingTab1.Location = New System.Drawing.Point(0, 0)
+        Me.optSettingTab1.Location = New System.Drawing.Point(80, 0)
         Me.optSettingTab1.Margin = New System.Windows.Forms.Padding(0)
         Me.optSettingTab1.MinimumSize = New System.Drawing.Size(80, 0)
         Me.optSettingTab1.Name = "optSettingTab1"
         Me.optSettingTab1.Size = New System.Drawing.Size(80, 23)
-        Me.optSettingTab1.TabIndex = 16
-        Me.optSettingTab1.TabStop = True
-        Me.optSettingTab1.Text = "savestates"
-        Me.optSettingTab1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.optSettingTab1.TabIndex = 17
+        Me.optSettingTab1.Tag = "1"
+        Me.optSettingTab1.Text = "storage"
         Me.optSettingTab1.UseVisualStyleBackColor = False
         '
         'optSettingTab2
@@ -463,33 +484,15 @@ Partial Class frmMain
         Me.optSettingTab2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optSettingTab2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSettingTab2.Location = New System.Drawing.Point(80, 0)
+        Me.optSettingTab2.Location = New System.Drawing.Point(160, 0)
         Me.optSettingTab2.Margin = New System.Windows.Forms.Padding(0)
         Me.optSettingTab2.MinimumSize = New System.Drawing.Size(80, 0)
         Me.optSettingTab2.Name = "optSettingTab2"
         Me.optSettingTab2.Size = New System.Drawing.Size(80, 23)
-        Me.optSettingTab2.TabIndex = 17
-        Me.optSettingTab2.Text = "storage"
+        Me.optSettingTab2.TabIndex = 18
+        Me.optSettingTab2.Tag = "2"
+        Me.optSettingTab2.Text = "screenshots"
         Me.optSettingTab2.UseVisualStyleBackColor = False
-        '
-        'optSettingTab3
-        '
-        Me.optSettingTab3.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
-        Me.optSettingTab3.Appearance = System.Windows.Forms.Appearance.Button
-        Me.optSettingTab3.AutoSize = True
-        Me.optSettingTab3.FlatAppearance.BorderSize = 0
-        Me.optSettingTab3.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSettingTab3.Location = New System.Drawing.Point(160, 0)
-        Me.optSettingTab3.Margin = New System.Windows.Forms.Padding(0)
-        Me.optSettingTab3.MinimumSize = New System.Drawing.Size(80, 0)
-        Me.optSettingTab3.Name = "optSettingTab3"
-        Me.optSettingTab3.Size = New System.Drawing.Size(80, 23)
-        Me.optSettingTab3.TabIndex = 18
-        Me.optSettingTab3.Text = "screenshots"
-        Me.optSettingTab3.UseVisualStyleBackColor = False
         '
         'FlowLayoutPanel3
         '
@@ -542,7 +545,7 @@ Partial Class frmMain
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.SplitContainer1.Panel1.Controls.Add(Me.TableLayoutPanel3)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.tlpGameList)
         Me.SplitContainer1.Panel1.Controls.Add(Me.TableLayoutPanel2)
         Me.SplitContainer1.Panel1.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
         Me.SplitContainer1.Panel1MinSize = 200
@@ -559,41 +562,41 @@ Partial Class frmMain
         Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 20
         '
-        'TableLayoutPanel3
+        'tlpGameList
         '
-        Me.TableLayoutPanel3.AutoSize = True
-        Me.TableLayoutPanel3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.TableLayoutPanel3.ColumnCount = 9
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56.0!))
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel3.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.Controls.Add(Me.lvwGamesList, 0, 0)
-        Me.TableLayoutPanel3.Controls.Add(Me.imgCover, 0, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblGameList_Title, 1, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.txtGameList_Title, 2, 1)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblGameList_Region, 1, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.imgFlag, 3, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.txtGameList_Compat, 7, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.txtGameList_Region, 2, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblGameList_Compat, 6, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.lblGameList_Serial, 4, 2)
-        Me.TableLayoutPanel3.Controls.Add(Me.txtGameList_Serial, 5, 2)
-        Me.TableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel3.Location = New System.Drawing.Point(8, 22)
-        Me.TableLayoutPanel3.Margin = New System.Windows.Forms.Padding(2)
-        Me.TableLayoutPanel3.Name = "TableLayoutPanel3"
-        Me.TableLayoutPanel3.RowCount = 3
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel3.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel3.Size = New System.Drawing.Size(616, 176)
-        Me.TableLayoutPanel3.TabIndex = 21
+        Me.tlpGameList.AutoSize = True
+        Me.tlpGameList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.tlpGameList.ColumnCount = 9
+        Me.tlpGameList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56.0!))
+        Me.tlpGameList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpGameList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpGameList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpGameList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpGameList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpGameList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpGameList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpGameList.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpGameList.Controls.Add(Me.lvwGamesList, 0, 0)
+        Me.tlpGameList.Controls.Add(Me.imgCover, 0, 1)
+        Me.tlpGameList.Controls.Add(Me.lblGameList_Title, 1, 1)
+        Me.tlpGameList.Controls.Add(Me.txtGameList_Title, 2, 1)
+        Me.tlpGameList.Controls.Add(Me.lblGameList_Region, 1, 2)
+        Me.tlpGameList.Controls.Add(Me.imgFlag, 3, 2)
+        Me.tlpGameList.Controls.Add(Me.txtGameList_Compat, 7, 2)
+        Me.tlpGameList.Controls.Add(Me.txtGameList_Region, 2, 2)
+        Me.tlpGameList.Controls.Add(Me.lblGameList_Compat, 6, 2)
+        Me.tlpGameList.Controls.Add(Me.lblGameList_Serial, 4, 2)
+        Me.tlpGameList.Controls.Add(Me.txtGameList_Serial, 5, 2)
+        Me.tlpGameList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tlpGameList.Location = New System.Drawing.Point(8, 22)
+        Me.tlpGameList.Margin = New System.Windows.Forms.Padding(2)
+        Me.tlpGameList.Name = "tlpGameList"
+        Me.tlpGameList.RowCount = 3
+        Me.tlpGameList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpGameList.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpGameList.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpGameList.Size = New System.Drawing.Size(616, 176)
+        Me.tlpGameList.TabIndex = 21
         '
         'lvwGamesList
         '
@@ -601,7 +604,7 @@ Partial Class frmMain
         Me.lvwGamesList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lvwGamesList.CheckBoxes = True
         Me.lvwGamesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.GamesLvw_GameTitle, Me.GameLvw_GameSerial, Me.GameLvw_GameRegion, Me.GameLvw_SStatesInfo, Me.GameLvw_BackupInfo, Me.GameLvw_SnapsInfo})
-        Me.TableLayoutPanel3.SetColumnSpan(Me.lvwGamesList, 9)
+        Me.tlpGameList.SetColumnSpan(Me.lvwGamesList, 9)
         Me.lvwGamesList.Cursor = System.Windows.Forms.Cursors.Default
         Me.lvwGamesList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvwGamesList.ForeColor = System.Drawing.Color.Black
@@ -658,7 +661,7 @@ Partial Class frmMain
         Me.imgCover.Location = New System.Drawing.Point(0, 126)
         Me.imgCover.Margin = New System.Windows.Forms.Padding(0, 0, 6, 2)
         Me.imgCover.Name = "imgCover"
-        Me.TableLayoutPanel3.SetRowSpan(Me.imgCover, 2)
+        Me.tlpGameList.SetRowSpan(Me.imgCover, 2)
         Me.imgCover.Size = New System.Drawing.Size(48, 48)
         Me.imgCover.TabIndex = 26
         Me.imgCover.TabStop = False
@@ -702,7 +705,7 @@ Partial Class frmMain
         '
         Me.txtGameList_Title.BackColor = System.Drawing.Color.WhiteSmoke
         Me.txtGameList_Title.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TableLayoutPanel3.SetColumnSpan(Me.txtGameList_Title, 7)
+        Me.tlpGameList.SetColumnSpan(Me.txtGameList_Title, 7)
         Me.txtGameList_Title.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtGameList_Title.ForeColor = System.Drawing.Color.Black
         Me.txtGameList_Title.Location = New System.Drawing.Point(128, 126)
@@ -1224,13 +1227,13 @@ Partial Class frmMain
         Me.lblSStateListCheck.Text = "check savestates:"
         Me.lblSStateListCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'cmPCSX2
+        'cmTools
         '
-        Me.cmPCSX2.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmPCSX2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiPCSX2Launch, Me.ToolStripSeparator1, Me.cmiPCSX2BinFolderOpen, Me.cmiPCSX2SStatesFolderOpen, Me.cmiPCSX2SnapsFolderOpen, Me.ToolStripSeparator2, Me.GameDBExplorerToolStripMenuItem, Me.DeveloperToolsToolStripMenuItem})
-        Me.cmPCSX2.Name = "cmPCSX2"
-        Me.cmPCSX2.Size = New System.Drawing.Size(210, 148)
-        Me.cmPCSX2.Text = "Tools menu"
+        Me.cmTools.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmTools.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiPCSX2Launch, Me.ToolStripSeparator1, Me.cmiPCSX2BinFolderOpen, Me.cmiPCSX2SStatesFolderOpen, Me.cmiPCSX2SnapsFolderOpen, Me.ToolStripSeparator2, Me.GameDBExplorerToolStripMenuItem, Me.DeveloperToolsToolStripMenuItem})
+        Me.cmTools.Name = "cmPCSX2"
+        Me.cmTools.Size = New System.Drawing.Size(210, 148)
+        Me.cmTools.Text = "Tools menu"
         '
         'cmiPCSX2Launch
         '
@@ -1307,13 +1310,13 @@ Partial Class frmMain
         Me.Text = "SStatesMan"
         Me.panelWindowTitle.ResumeLayout(False)
         Me.panelWindowTitle.PerformLayout()
-        Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel1.PerformLayout()
-        Me.FlowLayoutPanel2.ResumeLayout(False)
-        Me.FlowLayoutPanel2.PerformLayout()
-        Me.FlowPanelSettings.ResumeLayout(False)
-        Me.FlowPanelSettings.PerformLayout()
-        Me.FlowLayoutPanel1.ResumeLayout(False)
+        Me.tlpTopPanel.ResumeLayout(False)
+        Me.tlpTopPanel.PerformLayout()
+        Me.flpTitleBar.ResumeLayout(False)
+        Me.flpTitleBar.PerformLayout()
+        Me.flpTitleBarTools.ResumeLayout(False)
+        Me.flpTitleBarTools.PerformLayout()
+        Me.flpControlBox.ResumeLayout(False)
         CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.TableLayoutPanel6.ResumeLayout(False)
         Me.TableLayoutPanel6.PerformLayout()
@@ -1327,8 +1330,8 @@ Partial Class frmMain
         Me.SplitContainer1.Panel2.PerformLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
-        Me.TableLayoutPanel3.ResumeLayout(False)
-        Me.TableLayoutPanel3.PerformLayout()
+        Me.tlpGameList.ResumeLayout(False)
+        Me.tlpGameList.PerformLayout()
         CType(Me.imgCover, System.ComponentModel.ISupportInitialize).EndInit()
         Me.cmCover.ResumeLayout(False)
         CType(Me.imgFlag, System.ComponentModel.ISupportInitialize).EndInit()
@@ -1344,7 +1347,7 @@ Partial Class frmMain
         Me.FlowLayoutPanel4.PerformLayout()
         Me.FlowPanelSStatesList.ResumeLayout(False)
         Me.FlowPanelSStatesList.PerformLayout()
-        Me.cmPCSX2.ResumeLayout(False)
+        Me.cmTools.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1383,15 +1386,15 @@ Partial Class frmMain
     Protected Friend WithEvents tmrSStatesListRefresh As System.Windows.Forms.Timer
     Friend WithEvents FlowPanelSStatesList As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents FlowPanelGameList As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents FlowLayoutPanel2 As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents flpTitleBar As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents TableLayoutPanel3 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents FlowPanelSettings As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents tlpGameList As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents tlpTopPanel As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents flpTitleBarTools As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdAbout As System.Windows.Forms.Button
     Private WithEvents cmdSettings As System.Windows.Forms.Button
     Private WithEvents cmdTools As System.Windows.Forms.Button
-    Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents flpControlBox As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdWindowMinimize As System.Windows.Forms.Button
     Private WithEvents cmdWindowMaximize As System.Windows.Forms.Button
     Private WithEvents cmdWindowClose As System.Windows.Forms.Button
@@ -1405,14 +1408,14 @@ Partial Class frmMain
     Private WithEvents lblSizeBackup As System.Windows.Forms.Label
     Private WithEvents txtSize As System.Windows.Forms.TextBox
     Friend WithEvents flpTab As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents optSettingTab0 As System.Windows.Forms.RadioButton
     Private WithEvents optSettingTab1 As System.Windows.Forms.RadioButton
     Private WithEvents optSettingTab2 As System.Windows.Forms.RadioButton
-    Private WithEvents optSettingTab3 As System.Windows.Forms.RadioButton
     Friend WithEvents TableLayoutPanel6 As System.Windows.Forms.TableLayoutPanel
     Private WithEvents cmdRefresh As System.Windows.Forms.Button
     Friend WithEvents panelWindowTitle As System.Windows.Forms.Panel
     Friend WithEvents FlowLayoutPanel3 As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents cmPCSX2 As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents cmTools As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents cmiPCSX2Launch As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmiPCSX2BinFolderOpen As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmiPCSX2SStatesFolderOpen As System.Windows.Forms.ToolStripMenuItem

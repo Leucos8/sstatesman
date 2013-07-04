@@ -81,7 +81,7 @@
     <Setting Name="frmMain_WindowState" Type="System.Windows.Forms.FormWindowState" Scope="User">
       <Value Profile="(Default)">Normal</Value>
     </Setting>
-    <Setting Name="frmMain_WindowPosition" Type="System.Drawing.Point" Scope="User">
+    <Setting Name="frmMain_WindowLocation" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">128, 64</Value>
     </Setting>
     <Setting Name="frmMain_SplitterDistance" Type="System.Int32" Scope="User">
@@ -120,10 +120,10 @@
     <Setting Name="frmMain_glvw_columnwidth" Type="System.Int32[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="frmMain_slvw_columnwidth" Type="System.Int32[]" Scope="User">
+    <Setting Name="frmMain_flvw_columnwidth" Type="System.Int32[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="frmDel_slvw_columnwidth" Type="System.Int32[]" Scope="User">
+    <Setting Name="frmDel_flvw_columnwidth" Type="System.Int32[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="SStatesMan_SStateReorderBackup" Type="System.Boolean" Scope="User">

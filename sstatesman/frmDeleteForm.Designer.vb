@@ -37,21 +37,21 @@ Partial Class frmDeleteForm
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.cmdCancel = New System.Windows.Forms.Button()
-        Me.cmdDeleteSStateSelected = New System.Windows.Forms.Button()
-        Me.lvwSStatesListToDelete = New System.Windows.Forms.ListView()
+        Me.cmdFilesDeleteSelected = New System.Windows.Forms.Button()
+        Me.lvwDelFilesList = New System.Windows.Forms.ListView()
         Me.StDelLvw_FileName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StDelLvw_Slot = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StDelLvw_Version = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StDelLvw_LastWT = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StDelLvw_Size = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StDelLvw_Status = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.cmdSStateSelectInvert = New System.Windows.Forms.Button()
-        Me.cmdSStateSelectBackup = New System.Windows.Forms.Button()
-        Me.cmdSStateSelectAll = New System.Windows.Forms.Button()
-        Me.cmdSStateSelectNone = New System.Windows.Forms.Button()
-        Me.txtSStateListSelection = New System.Windows.Forms.TextBox()
+        Me.cmdFilesCheckInvert = New System.Windows.Forms.Button()
+        Me.cmdFilesCheckBackup = New System.Windows.Forms.Button()
+        Me.cmdFilesCheckAll = New System.Windows.Forms.Button()
+        Me.cmdFilesCheckNone = New System.Windows.Forms.Button()
+        Me.txtSelected = New System.Windows.Forms.TextBox()
         Me.lblSizeBackup = New System.Windows.Forms.Label()
-        Me.lblSStateListSelection = New System.Windows.Forms.Label()
+        Me.lblSelected = New System.Windows.Forms.Label()
         Me.lblSize = New System.Windows.Forms.Label()
         Me.txtSizeBackup = New System.Windows.Forms.TextBox()
         Me.txtSize = New System.Windows.Forms.TextBox()
@@ -100,46 +100,46 @@ Partial Class frmDeleteForm
         Me.cmdCancel.Text = "CLOSE"
         Me.cmdCancel.UseVisualStyleBackColor = False
         '
-        'cmdDeleteSStateSelected
+        'cmdFilesDeleteSelected
         '
-        Me.cmdDeleteSStateSelected.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdDeleteSStateSelected.AutoSize = True
-        Me.cmdDeleteSStateSelected.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdDeleteSStateSelected.BackColor = System.Drawing.Color.White
-        Me.cmdDeleteSStateSelected.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdDeleteSStateSelected.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
-        Me.cmdDeleteSStateSelected.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdDeleteSStateSelected.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdDeleteSStateSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdDeleteSStateSelected.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdDeleteSStateSelected.Location = New System.Drawing.Point(414, 6)
-        Me.cmdDeleteSStateSelected.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdDeleteSStateSelected.MinimumSize = New System.Drawing.Size(100, 0)
-        Me.cmdDeleteSStateSelected.Name = "cmdDeleteSStateSelected"
-        Me.cmdDeleteSStateSelected.Size = New System.Drawing.Size(100, 24)
-        Me.cmdDeleteSStateSelected.TabIndex = 8
-        Me.cmdDeleteSStateSelected.Text = "DELETE CHECKED"
-        Me.cmdDeleteSStateSelected.UseVisualStyleBackColor = False
+        Me.cmdFilesDeleteSelected.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdFilesDeleteSelected.AutoSize = True
+        Me.cmdFilesDeleteSelected.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdFilesDeleteSelected.BackColor = System.Drawing.Color.White
+        Me.cmdFilesDeleteSelected.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
+        Me.cmdFilesDeleteSelected.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
+        Me.cmdFilesDeleteSelected.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdFilesDeleteSelected.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdFilesDeleteSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdFilesDeleteSelected.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdFilesDeleteSelected.Location = New System.Drawing.Point(414, 6)
+        Me.cmdFilesDeleteSelected.Margin = New System.Windows.Forms.Padding(2)
+        Me.cmdFilesDeleteSelected.MinimumSize = New System.Drawing.Size(100, 0)
+        Me.cmdFilesDeleteSelected.Name = "cmdFilesDeleteSelected"
+        Me.cmdFilesDeleteSelected.Size = New System.Drawing.Size(100, 24)
+        Me.cmdFilesDeleteSelected.TabIndex = 8
+        Me.cmdFilesDeleteSelected.Text = "DELETE CHECKED"
+        Me.cmdFilesDeleteSelected.UseVisualStyleBackColor = False
         '
-        'lvwSStatesListToDelete
+        'lvwDelFilesList
         '
-        Me.lvwSStatesListToDelete.BackColor = System.Drawing.Color.White
-        Me.lvwSStatesListToDelete.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lvwSStatesListToDelete.CheckBoxes = True
-        Me.lvwSStatesListToDelete.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StDelLvw_FileName, Me.StDelLvw_Slot, Me.StDelLvw_Version, Me.StDelLvw_LastWT, Me.StDelLvw_Size, Me.StDelLvw_Status})
-        Me.lvwSStatesListToDelete.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lvwSStatesListToDelete.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lvwSStatesListToDelete.ForeColor = System.Drawing.Color.Black
-        Me.lvwSStatesListToDelete.FullRowSelect = True
-        Me.lvwSStatesListToDelete.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.lvwSStatesListToDelete.Location = New System.Drawing.Point(0, 78)
-        Me.lvwSStatesListToDelete.Margin = New System.Windows.Forms.Padding(2)
-        Me.lvwSStatesListToDelete.MultiSelect = False
-        Me.lvwSStatesListToDelete.Name = "lvwSStatesListToDelete"
-        Me.lvwSStatesListToDelete.Size = New System.Drawing.Size(628, 195)
-        Me.lvwSStatesListToDelete.TabIndex = 10
-        Me.lvwSStatesListToDelete.UseCompatibleStateImageBehavior = False
-        Me.lvwSStatesListToDelete.View = System.Windows.Forms.View.Details
+        Me.lvwDelFilesList.BackColor = System.Drawing.Color.White
+        Me.lvwDelFilesList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lvwDelFilesList.CheckBoxes = True
+        Me.lvwDelFilesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StDelLvw_FileName, Me.StDelLvw_Slot, Me.StDelLvw_Version, Me.StDelLvw_LastWT, Me.StDelLvw_Size, Me.StDelLvw_Status})
+        Me.lvwDelFilesList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lvwDelFilesList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+        Me.lvwDelFilesList.ForeColor = System.Drawing.Color.Black
+        Me.lvwDelFilesList.FullRowSelect = True
+        Me.lvwDelFilesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.lvwDelFilesList.Location = New System.Drawing.Point(0, 78)
+        Me.lvwDelFilesList.Margin = New System.Windows.Forms.Padding(2)
+        Me.lvwDelFilesList.MultiSelect = False
+        Me.lvwDelFilesList.Name = "lvwDelFilesList"
+        Me.lvwDelFilesList.Size = New System.Drawing.Size(628, 195)
+        Me.lvwDelFilesList.TabIndex = 10
+        Me.lvwDelFilesList.UseCompatibleStateImageBehavior = False
+        Me.lvwDelFilesList.View = System.Windows.Forms.View.Details
         '
         'StDelLvw_FileName
         '
@@ -173,96 +173,96 @@ Partial Class frmDeleteForm
         Me.StDelLvw_Status.Text = "Status"
         Me.StDelLvw_Status.Width = 140
         '
-        'cmdSStateSelectInvert
+        'cmdFilesCheckInvert
         '
-        Me.cmdSStateSelectInvert.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdSStateSelectInvert.AutoSize = True
-        Me.cmdSStateSelectInvert.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdSStateSelectInvert.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdSStateSelectInvert.FlatAppearance.BorderSize = 0
-        Me.cmdSStateSelectInvert.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateSelectInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdSStateSelectInvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateSelectInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSStateSelectInvert.Location = New System.Drawing.Point(557, 0)
-        Me.cmdSStateSelectInvert.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdSStateSelectInvert.Name = "cmdSStateSelectInvert"
-        Me.cmdSStateSelectInvert.Size = New System.Drawing.Size(47, 22)
-        Me.cmdSStateSelectInvert.TabIndex = 16
-        Me.cmdSStateSelectInvert.Text = "INVERT"
-        Me.cmdSStateSelectInvert.UseVisualStyleBackColor = False
+        Me.cmdFilesCheckInvert.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdFilesCheckInvert.AutoSize = True
+        Me.cmdFilesCheckInvert.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdFilesCheckInvert.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdFilesCheckInvert.FlatAppearance.BorderSize = 0
+        Me.cmdFilesCheckInvert.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdFilesCheckInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdFilesCheckInvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdFilesCheckInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdFilesCheckInvert.Location = New System.Drawing.Point(557, 0)
+        Me.cmdFilesCheckInvert.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdFilesCheckInvert.Name = "cmdFilesCheckInvert"
+        Me.cmdFilesCheckInvert.Size = New System.Drawing.Size(47, 22)
+        Me.cmdFilesCheckInvert.TabIndex = 16
+        Me.cmdFilesCheckInvert.Text = "INVERT"
+        Me.cmdFilesCheckInvert.UseVisualStyleBackColor = False
         '
-        'cmdSStateSelectBackup
+        'cmdFilesCheckBackup
         '
-        Me.cmdSStateSelectBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdSStateSelectBackup.AutoSize = True
-        Me.cmdSStateSelectBackup.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdSStateSelectBackup.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdSStateSelectBackup.FlatAppearance.BorderSize = 0
-        Me.cmdSStateSelectBackup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateSelectBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdSStateSelectBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateSelectBackup.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSStateSelectBackup.Location = New System.Drawing.Point(428, 0)
-        Me.cmdSStateSelectBackup.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdSStateSelectBackup.Name = "cmdSStateSelectBackup"
-        Me.cmdSStateSelectBackup.Size = New System.Drawing.Size(57, 22)
-        Me.cmdSStateSelectBackup.TabIndex = 13
-        Me.cmdSStateSelectBackup.Text = "BACKUPS"
-        Me.cmdSStateSelectBackup.UseVisualStyleBackColor = False
+        Me.cmdFilesCheckBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdFilesCheckBackup.AutoSize = True
+        Me.cmdFilesCheckBackup.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdFilesCheckBackup.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdFilesCheckBackup.FlatAppearance.BorderSize = 0
+        Me.cmdFilesCheckBackup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdFilesCheckBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdFilesCheckBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdFilesCheckBackup.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdFilesCheckBackup.Location = New System.Drawing.Point(428, 0)
+        Me.cmdFilesCheckBackup.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdFilesCheckBackup.Name = "cmdFilesCheckBackup"
+        Me.cmdFilesCheckBackup.Size = New System.Drawing.Size(57, 22)
+        Me.cmdFilesCheckBackup.TabIndex = 13
+        Me.cmdFilesCheckBackup.Text = "BACKUPS"
+        Me.cmdFilesCheckBackup.UseVisualStyleBackColor = False
         '
-        'cmdSStateSelectAll
+        'cmdFilesCheckAll
         '
-        Me.cmdSStateSelectAll.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdSStateSelectAll.AutoSize = True
-        Me.cmdSStateSelectAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdSStateSelectAll.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdSStateSelectAll.FlatAppearance.BorderSize = 0
-        Me.cmdSStateSelectAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateSelectAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdSStateSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateSelectAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSStateSelectAll.Location = New System.Drawing.Point(485, 0)
-        Me.cmdSStateSelectAll.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdSStateSelectAll.Name = "cmdSStateSelectAll"
-        Me.cmdSStateSelectAll.Size = New System.Drawing.Size(31, 22)
-        Me.cmdSStateSelectAll.TabIndex = 14
-        Me.cmdSStateSelectAll.Text = "ALL"
-        Me.cmdSStateSelectAll.UseVisualStyleBackColor = False
+        Me.cmdFilesCheckAll.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdFilesCheckAll.AutoSize = True
+        Me.cmdFilesCheckAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdFilesCheckAll.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdFilesCheckAll.FlatAppearance.BorderSize = 0
+        Me.cmdFilesCheckAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdFilesCheckAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdFilesCheckAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdFilesCheckAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdFilesCheckAll.Location = New System.Drawing.Point(485, 0)
+        Me.cmdFilesCheckAll.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdFilesCheckAll.Name = "cmdFilesCheckAll"
+        Me.cmdFilesCheckAll.Size = New System.Drawing.Size(31, 22)
+        Me.cmdFilesCheckAll.TabIndex = 14
+        Me.cmdFilesCheckAll.Text = "ALL"
+        Me.cmdFilesCheckAll.UseVisualStyleBackColor = False
         '
-        'cmdSStateSelectNone
+        'cmdFilesCheckNone
         '
-        Me.cmdSStateSelectNone.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdSStateSelectNone.AutoSize = True
-        Me.cmdSStateSelectNone.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdSStateSelectNone.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdSStateSelectNone.FlatAppearance.BorderSize = 0
-        Me.cmdSStateSelectNone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStateSelectNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdSStateSelectNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStateSelectNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSStateSelectNone.Location = New System.Drawing.Point(516, 0)
-        Me.cmdSStateSelectNone.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdSStateSelectNone.Name = "cmdSStateSelectNone"
-        Me.cmdSStateSelectNone.Size = New System.Drawing.Size(41, 22)
-        Me.cmdSStateSelectNone.TabIndex = 15
-        Me.cmdSStateSelectNone.Text = "NONE"
-        Me.cmdSStateSelectNone.UseVisualStyleBackColor = False
+        Me.cmdFilesCheckNone.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdFilesCheckNone.AutoSize = True
+        Me.cmdFilesCheckNone.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdFilesCheckNone.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdFilesCheckNone.FlatAppearance.BorderSize = 0
+        Me.cmdFilesCheckNone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdFilesCheckNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdFilesCheckNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdFilesCheckNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdFilesCheckNone.Location = New System.Drawing.Point(516, 0)
+        Me.cmdFilesCheckNone.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdFilesCheckNone.Name = "cmdFilesCheckNone"
+        Me.cmdFilesCheckNone.Size = New System.Drawing.Size(41, 22)
+        Me.cmdFilesCheckNone.TabIndex = 15
+        Me.cmdFilesCheckNone.Text = "NONE"
+        Me.cmdFilesCheckNone.UseVisualStyleBackColor = False
         '
-        'txtSStateListSelection
+        'txtSelected
         '
-        Me.txtSStateListSelection.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.txtSStateListSelection.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtSStateListSelection.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSStateListSelection.ForeColor = System.Drawing.Color.Black
-        Me.txtSStateListSelection.Location = New System.Drawing.Point(2, 15)
-        Me.txtSStateListSelection.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtSStateListSelection.Name = "txtSStateListSelection"
-        Me.txtSStateListSelection.ReadOnly = True
-        Me.txtSStateListSelection.Size = New System.Drawing.Size(128, 22)
-        Me.txtSStateListSelection.TabIndex = 19
-        Me.txtSStateListSelection.TabStop = False
-        Me.txtSStateListSelection.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.txtSelected.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtSelected.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtSelected.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtSelected.ForeColor = System.Drawing.Color.Black
+        Me.txtSelected.Location = New System.Drawing.Point(2, 15)
+        Me.txtSelected.Margin = New System.Windows.Forms.Padding(2)
+        Me.txtSelected.Name = "txtSelected"
+        Me.txtSelected.ReadOnly = True
+        Me.txtSelected.Size = New System.Drawing.Size(128, 22)
+        Me.txtSelected.TabIndex = 19
+        Me.txtSelected.TabStop = False
+        Me.txtSelected.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'lblSizeBackup
         '
@@ -274,15 +274,15 @@ Partial Class frmDeleteForm
         Me.lblSizeBackup.TabIndex = 22
         Me.lblSizeBackup.Text = "backups size"
         '
-        'lblSStateListSelection
+        'lblSelected
         '
-        Me.lblSStateListSelection.AutoSize = True
-        Me.lblSStateListSelection.Location = New System.Drawing.Point(2, 0)
-        Me.lblSStateListSelection.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblSStateListSelection.Name = "lblSStateListSelection"
-        Me.lblSStateListSelection.Size = New System.Drawing.Size(53, 13)
-        Me.lblSStateListSelection.TabIndex = 18
-        Me.lblSStateListSelection.Text = "selection"
+        Me.lblSelected.AutoSize = True
+        Me.lblSelected.Location = New System.Drawing.Point(2, 0)
+        Me.lblSelected.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblSelected.Name = "lblSelected"
+        Me.lblSelected.Size = New System.Drawing.Size(53, 13)
+        Me.lblSelected.TabIndex = 18
+        Me.lblSelected.Text = "selection"
         '
         'lblSize
         '
@@ -470,7 +470,7 @@ Partial Class frmDeleteForm
         Me.flpWindowBottom.BackColor = System.Drawing.Color.Gainsboro
         Me.flpWindowBottom.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.flpWindowBottom.Controls.Add(Me.cmdCancel)
-        Me.flpWindowBottom.Controls.Add(Me.cmdDeleteSStateSelected)
+        Me.flpWindowBottom.Controls.Add(Me.cmdFilesDeleteSelected)
         Me.flpWindowBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.flpWindowBottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
         Me.flpWindowBottom.Location = New System.Drawing.Point(0, 312)
@@ -483,10 +483,10 @@ Partial Class frmDeleteForm
         '
         Me.FlowPanelGameList.AutoSize = True
         Me.FlowPanelGameList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.FlowPanelGameList.Controls.Add(Me.cmdSStateSelectInvert)
-        Me.FlowPanelGameList.Controls.Add(Me.cmdSStateSelectNone)
-        Me.FlowPanelGameList.Controls.Add(Me.cmdSStateSelectAll)
-        Me.FlowPanelGameList.Controls.Add(Me.cmdSStateSelectBackup)
+        Me.FlowPanelGameList.Controls.Add(Me.cmdFilesCheckInvert)
+        Me.FlowPanelGameList.Controls.Add(Me.cmdFilesCheckNone)
+        Me.FlowPanelGameList.Controls.Add(Me.cmdFilesCheckAll)
+        Me.FlowPanelGameList.Controls.Add(Me.cmdFilesCheckBackup)
         Me.FlowPanelGameList.Controls.Add(Me.lblGameListCheck)
         Me.FlowPanelGameList.Dock = System.Windows.Forms.DockStyle.Top
         Me.FlowPanelGameList.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
@@ -502,13 +502,14 @@ Partial Class frmDeleteForm
         '
         Me.TableLayoutPanel2.AutoSize = True
         Me.TableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.White
         Me.TableLayoutPanel2.ColumnCount = 4
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.lblSStateListSelection, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.txtSStateListSelection, 0, 1)
+        Me.TableLayoutPanel2.Controls.Add(Me.lblSelected, 0, 0)
+        Me.TableLayoutPanel2.Controls.Add(Me.txtSelected, 0, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.txtSizeBackup, 2, 1)
         Me.TableLayoutPanel2.Controls.Add(Me.lblSize, 1, 0)
         Me.TableLayoutPanel2.Controls.Add(Me.lblSizeBackup, 2, 0)
@@ -537,14 +538,14 @@ Partial Class frmDeleteForm
         '
         'frmDeleteForm
         '
-        Me.AcceptButton = Me.cmdDeleteSStateSelected
+        Me.AcceptButton = Me.cmdFilesDeleteSelected
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.CancelButton = Me.cmdCancel
         Me.ClientSize = New System.Drawing.Size(628, 348)
         Me.ControlBox = False
-        Me.Controls.Add(Me.lvwSStatesListToDelete)
+        Me.Controls.Add(Me.lvwDelFilesList)
         Me.Controls.Add(Me.FlowPanelGameList)
         Me.Controls.Add(Me.TableLayoutPanel2)
         Me.Controls.Add(Me.flpWindowBottom)
@@ -580,20 +581,20 @@ Partial Class frmDeleteForm
     End Sub
     Private WithEvents lblGameListCheck As System.Windows.Forms.Label
     Private WithEvents cmdCancel As System.Windows.Forms.Button
-    Private WithEvents cmdDeleteSStateSelected As System.Windows.Forms.Button
-    Private WithEvents lvwSStatesListToDelete As System.Windows.Forms.ListView
+    Private WithEvents cmdFilesDeleteSelected As System.Windows.Forms.Button
+    Private WithEvents lvwDelFilesList As System.Windows.Forms.ListView
     Private WithEvents StDelLvw_FileName As System.Windows.Forms.ColumnHeader
     Private WithEvents StDelLvw_Slot As System.Windows.Forms.ColumnHeader
     Private WithEvents StDelLvw_Version As System.Windows.Forms.ColumnHeader
     Private WithEvents StDelLvw_Size As System.Windows.Forms.ColumnHeader
     Private WithEvents StDelLvw_Status As System.Windows.Forms.ColumnHeader
-    Private WithEvents cmdSStateSelectInvert As System.Windows.Forms.Button
-    Private WithEvents cmdSStateSelectBackup As System.Windows.Forms.Button
-    Private WithEvents cmdSStateSelectAll As System.Windows.Forms.Button
-    Private WithEvents cmdSStateSelectNone As System.Windows.Forms.Button
-    Private WithEvents txtSStateListSelection As System.Windows.Forms.TextBox
+    Private WithEvents cmdFilesCheckInvert As System.Windows.Forms.Button
+    Private WithEvents cmdFilesCheckBackup As System.Windows.Forms.Button
+    Private WithEvents cmdFilesCheckAll As System.Windows.Forms.Button
+    Private WithEvents cmdFilesCheckNone As System.Windows.Forms.Button
+    Private WithEvents txtSelected As System.Windows.Forms.TextBox
     Private WithEvents lblSizeBackup As System.Windows.Forms.Label
-    Private WithEvents lblSStateListSelection As System.Windows.Forms.Label
+    Private WithEvents lblSelected As System.Windows.Forms.Label
     Private WithEvents lblSize As System.Windows.Forms.Label
     Private WithEvents txtSizeBackup As System.Windows.Forms.TextBox
     Private WithEvents txtSize As System.Windows.Forms.TextBox
