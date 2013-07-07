@@ -1099,14 +1099,14 @@ Public Class frmMain
 
 #Region "Form - Tabs"
     'This common event is fired AFTER the other specific events.
-    Private Sub optSettingTab_CheckedChanged(sender As Object, e As EventArgs) Handles optSettingTab0.CheckedChanged, optSettingTab1.CheckedChanged, optSettingTab2.CheckedChanged
+    Private Sub optTabHeader_CheckedChanged(sender As Object, e As EventArgs) Handles optTabHeader0.CheckedChanged, optTabHeader1.CheckedChanged, optTabHeader2.CheckedChanged
         'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to know 
         'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
         If CType(sender, RadioButton).IsHandleCreated Then
             If CType(sender, RadioButton).Checked Then
-                Me.optSettingTab0.FlatAppearance.MouseDownBackColor = Color.White
-                Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
-                Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optTabHeader0.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optTabHeader1.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optTabHeader2.FlatAppearance.MouseDownBackColor = Color.White
                 CType(sender, RadioButton).FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
 
                 'Me.UI_SwitchMode(CType(CType(sender, RadioButton).Tag, ListMode))
@@ -1114,31 +1114,31 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub optSettingTab0_CheckedChanged(sender As Object, e As EventArgs) Handles optSettingTab0.CheckedChanged
+    Private Sub optTabHeader0_CheckedChanged(sender As Object, e As EventArgs) Handles optTabHeader0.CheckedChanged
         'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to know 
         'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
         If CType(sender, RadioButton).IsHandleCreated Then
-            If CType(sender, RadioButton).Checked = True Then
+            If CType(sender, RadioButton).Checked Then
                 Me.UI_SwitchMode(ListMode.Savestates)
             End If
         End If
     End Sub
 
-    Private Sub optSettingTab1_CheckedChanged(sender As Object, e As EventArgs) Handles optSettingTab1.CheckedChanged
+    Private Sub optTabHeader1_CheckedChanged(sender As Object, e As EventArgs) Handles optTabHeader1.CheckedChanged
         'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to know 
         'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
         If CType(sender, RadioButton).IsHandleCreated Then
-            If CType(sender, RadioButton).Checked = True Then
+            If CType(sender, RadioButton).Checked Then
                 Me.UI_SwitchMode(ListMode.Stored)
             End If
         End If
     End Sub
 
-    Private Sub optSettingTab2_CheckedChanged(sender As Object, e As EventArgs) Handles optSettingTab2.CheckedChanged
+    Private Sub optTabHeader2_CheckedChanged(sender As Object, e As EventArgs) Handles optTabHeader2.CheckedChanged
         'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to know 
         'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
         If CType(sender, RadioButton).IsHandleCreated Then
-            If CType(sender, RadioButton).Checked = True Then
+            If CType(sender, RadioButton).Checked Then
                 Me.UI_SwitchMode(ListMode.Snapshots)
             End If
         End If
@@ -1242,7 +1242,7 @@ Public Class frmMain
 #End Region
 
 #Region "Theme"
-    Private Sub panelWindowTitle_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
+    Private Sub pnlTopPanel_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlTopPanel.Paint
         Dim rectoolbar As New Rectangle(0, CInt(8 * DPIyScale), CInt(23 * DPIxScale) + 1, CInt(38 * DPIyScale) + 1)
         Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 90)
         e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
@@ -1262,7 +1262,7 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub optSettingTab_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optSettingTab0.Paint, optSettingTab1.Paint, optSettingTab2.Paint
+    Private Sub optTabHeader_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optTabHeader0.Paint, optTabHeader1.Paint, optTabHeader2.Paint
         If CType(sender, RadioButton).Checked Then
             e.Graphics.DrawLine(Pens.DimGray, 0, 0, CType(sender, RadioButton).Width, 0)
             e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, CType(sender, RadioButton).Height)
@@ -1278,15 +1278,15 @@ Public Class frmMain
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         Me.BackColor = currentTheme.BgColor
-        Me.panelWindowTitle.BackColor = currentTheme.BgColorTop
+        Me.pnlTopPanel.BackColor = currentTheme.BgColorTop
         'Me.flpWindowBottom.BackColor = currentTheme.BgColorBottom
         If My.Settings.SStatesMan_ThemeImageEnabled Then
-            Me.panelWindowTitle.BackgroundImage = currentTheme.BgImageTop
-            Me.panelWindowTitle.BackgroundImageLayout = currentTheme.BgImageTopStyle
+            Me.pnlTopPanel.BackgroundImage = currentTheme.BgImageTop
+            Me.pnlTopPanel.BackgroundImageLayout = currentTheme.BgImageTopStyle
             'Me.flpWindowBottom.BackgroundImage = currentTheme.BgImageBottom
             'Me.flpWindowBottom.BackgroundImageLayout = currentTheme.BgImageBottomStyle
         Else
-            Me.panelWindowTitle.BackgroundImage = Nothing
+            Me.pnlTopPanel.BackgroundImage = Nothing
             'Me.flpWindowBottom.BackgroundImage = Nothing
         End If
         Me.Refresh()

@@ -25,6 +25,7 @@ Module mdlApplicationLog
         DeleteWindow
         GameDB
         GameDB_Explorer
+        AboutDialog
         FileList
         CoverCache
         Theme

@@ -37,7 +37,7 @@ Partial Class frmMain
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.panelWindowTitle = New System.Windows.Forms.Panel()
+        Me.pnlTopPanel = New System.Windows.Forms.Panel()
         Me.tlpTopPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.flpTitleBar = New System.Windows.Forms.FlowLayoutPanel()
         Me.lblWindowTitle = New System.Windows.Forms.Label()
@@ -54,9 +54,9 @@ Partial Class frmMain
         Me.lblWindowVersion = New System.Windows.Forms.Label()
         Me.TableLayoutPanel6 = New System.Windows.Forms.TableLayoutPanel()
         Me.flpTab = New System.Windows.Forms.FlowLayoutPanel()
-        Me.optSettingTab0 = New System.Windows.Forms.RadioButton()
-        Me.optSettingTab1 = New System.Windows.Forms.RadioButton()
-        Me.optSettingTab2 = New System.Windows.Forms.RadioButton()
+        Me.optTabHeader0 = New System.Windows.Forms.RadioButton()
+        Me.optTabHeader1 = New System.Windows.Forms.RadioButton()
+        Me.optTabHeader2 = New System.Windows.Forms.RadioButton()
         Me.FlowLayoutPanel3 = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdRefresh = New System.Windows.Forms.Button()
         Me.tmrSStatesListRefresh = New System.Windows.Forms.Timer(Me.components)
@@ -117,7 +117,7 @@ Partial Class frmMain
         Me.GameDBExplorerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeveloperToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tmrSelectedItemChanged = New System.Windows.Forms.Timer(Me.components)
-        Me.panelWindowTitle.SuspendLayout()
+        Me.pnlTopPanel.SuspendLayout()
         Me.tlpTopPanel.SuspendLayout()
         Me.flpTitleBar.SuspendLayout()
         Me.flpTitleBarTools.SuspendLayout()
@@ -143,21 +143,21 @@ Partial Class frmMain
         Me.cmTools.SuspendLayout()
         Me.SuspendLayout()
         '
-        'panelWindowTitle
+        'pnlTopPanel
         '
-        Me.panelWindowTitle.AutoSize = True
-        Me.panelWindowTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelWindowTitle.BackColor = System.Drawing.Color.Gainsboro
-        Me.panelWindowTitle.Controls.Add(Me.tlpTopPanel)
-        Me.panelWindowTitle.Controls.Add(Me.TableLayoutPanel6)
-        Me.panelWindowTitle.Dock = System.Windows.Forms.DockStyle.Top
-        Me.panelWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.panelWindowTitle.Location = New System.Drawing.Point(0, 0)
-        Me.panelWindowTitle.Margin = New System.Windows.Forms.Padding(0)
-        Me.panelWindowTitle.MinimumSize = New System.Drawing.Size(0, 56)
-        Me.panelWindowTitle.Name = "panelWindowTitle"
-        Me.panelWindowTitle.Size = New System.Drawing.Size(632, 79)
-        Me.panelWindowTitle.TabIndex = 0
+        Me.pnlTopPanel.AutoSize = True
+        Me.pnlTopPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.pnlTopPanel.BackColor = System.Drawing.Color.Gainsboro
+        Me.pnlTopPanel.Controls.Add(Me.tlpTopPanel)
+        Me.pnlTopPanel.Controls.Add(Me.TableLayoutPanel6)
+        Me.pnlTopPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pnlTopPanel.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+        Me.pnlTopPanel.Location = New System.Drawing.Point(0, 0)
+        Me.pnlTopPanel.Margin = New System.Windows.Forms.Padding(0)
+        Me.pnlTopPanel.MinimumSize = New System.Drawing.Size(0, 56)
+        Me.pnlTopPanel.Name = "pnlTopPanel"
+        Me.pnlTopPanel.Size = New System.Drawing.Size(632, 79)
+        Me.pnlTopPanel.TabIndex = 0
         '
         'tlpTopPanel
         '
@@ -421,9 +421,9 @@ Partial Class frmMain
         '
         Me.flpTab.AutoSize = True
         Me.flpTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.flpTab.Controls.Add(Me.optSettingTab0)
-        Me.flpTab.Controls.Add(Me.optSettingTab1)
-        Me.flpTab.Controls.Add(Me.optSettingTab2)
+        Me.flpTab.Controls.Add(Me.optTabHeader0)
+        Me.flpTab.Controls.Add(Me.optTabHeader1)
+        Me.flpTab.Controls.Add(Me.optTabHeader2)
         Me.flpTab.Location = New System.Drawing.Point(16, 1)
         Me.flpTab.Margin = New System.Windows.Forms.Padding(0, 1, 0, 0)
         Me.flpTab.Name = "flpTab"
@@ -431,68 +431,68 @@ Partial Class frmMain
         Me.flpTab.TabIndex = 15
         Me.flpTab.WrapContents = False
         '
-        'optSettingTab0
+        'optTabHeader0
         '
-        Me.optSettingTab0.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
-        Me.optSettingTab0.Appearance = System.Windows.Forms.Appearance.Button
-        Me.optSettingTab0.AutoSize = True
-        Me.optSettingTab0.Checked = True
-        Me.optSettingTab0.FlatAppearance.BorderSize = 0
-        Me.optSettingTab0.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab0.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab0.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab0.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSettingTab0.Location = New System.Drawing.Point(0, 0)
-        Me.optSettingTab0.Margin = New System.Windows.Forms.Padding(0)
-        Me.optSettingTab0.MinimumSize = New System.Drawing.Size(80, 0)
-        Me.optSettingTab0.Name = "optSettingTab0"
-        Me.optSettingTab0.Size = New System.Drawing.Size(80, 23)
-        Me.optSettingTab0.TabIndex = 16
-        Me.optSettingTab0.TabStop = True
-        Me.optSettingTab0.Tag = "0"
-        Me.optSettingTab0.Text = "savestates"
-        Me.optSettingTab0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        Me.optSettingTab0.UseVisualStyleBackColor = False
+        Me.optTabHeader0.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
+        Me.optTabHeader0.Appearance = System.Windows.Forms.Appearance.Button
+        Me.optTabHeader0.AutoSize = True
+        Me.optTabHeader0.Checked = True
+        Me.optTabHeader0.FlatAppearance.BorderSize = 0
+        Me.optTabHeader0.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader0.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader0.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader0.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.optTabHeader0.Location = New System.Drawing.Point(0, 0)
+        Me.optTabHeader0.Margin = New System.Windows.Forms.Padding(0)
+        Me.optTabHeader0.MinimumSize = New System.Drawing.Size(80, 0)
+        Me.optTabHeader0.Name = "optTabHeader0"
+        Me.optTabHeader0.Size = New System.Drawing.Size(80, 23)
+        Me.optTabHeader0.TabIndex = 16
+        Me.optTabHeader0.TabStop = True
+        Me.optTabHeader0.Tag = "0"
+        Me.optTabHeader0.Text = "savestates"
+        Me.optTabHeader0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.optTabHeader0.UseVisualStyleBackColor = False
         '
-        'optSettingTab1
+        'optTabHeader1
         '
-        Me.optSettingTab1.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
-        Me.optSettingTab1.Appearance = System.Windows.Forms.Appearance.Button
-        Me.optSettingTab1.AutoSize = True
-        Me.optSettingTab1.FlatAppearance.BorderSize = 0
-        Me.optSettingTab1.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSettingTab1.Location = New System.Drawing.Point(80, 0)
-        Me.optSettingTab1.Margin = New System.Windows.Forms.Padding(0)
-        Me.optSettingTab1.MinimumSize = New System.Drawing.Size(80, 0)
-        Me.optSettingTab1.Name = "optSettingTab1"
-        Me.optSettingTab1.Size = New System.Drawing.Size(80, 23)
-        Me.optSettingTab1.TabIndex = 17
-        Me.optSettingTab1.Tag = "1"
-        Me.optSettingTab1.Text = "storage"
-        Me.optSettingTab1.UseVisualStyleBackColor = False
+        Me.optTabHeader1.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
+        Me.optTabHeader1.Appearance = System.Windows.Forms.Appearance.Button
+        Me.optTabHeader1.AutoSize = True
+        Me.optTabHeader1.FlatAppearance.BorderSize = 0
+        Me.optTabHeader1.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.optTabHeader1.Location = New System.Drawing.Point(80, 0)
+        Me.optTabHeader1.Margin = New System.Windows.Forms.Padding(0)
+        Me.optTabHeader1.MinimumSize = New System.Drawing.Size(80, 0)
+        Me.optTabHeader1.Name = "optTabHeader1"
+        Me.optTabHeader1.Size = New System.Drawing.Size(80, 23)
+        Me.optTabHeader1.TabIndex = 17
+        Me.optTabHeader1.Tag = "1"
+        Me.optTabHeader1.Text = "storage"
+        Me.optTabHeader1.UseVisualStyleBackColor = False
         '
-        'optSettingTab2
+        'optTabHeader2
         '
-        Me.optSettingTab2.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
-        Me.optSettingTab2.Appearance = System.Windows.Forms.Appearance.Button
-        Me.optSettingTab2.AutoSize = True
-        Me.optSettingTab2.FlatAppearance.BorderSize = 0
-        Me.optSettingTab2.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSettingTab2.Location = New System.Drawing.Point(160, 0)
-        Me.optSettingTab2.Margin = New System.Windows.Forms.Padding(0)
-        Me.optSettingTab2.MinimumSize = New System.Drawing.Size(80, 0)
-        Me.optSettingTab2.Name = "optSettingTab2"
-        Me.optSettingTab2.Size = New System.Drawing.Size(80, 23)
-        Me.optSettingTab2.TabIndex = 18
-        Me.optSettingTab2.Tag = "2"
-        Me.optSettingTab2.Text = "screenshots"
-        Me.optSettingTab2.UseVisualStyleBackColor = False
+        Me.optTabHeader2.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
+        Me.optTabHeader2.Appearance = System.Windows.Forms.Appearance.Button
+        Me.optTabHeader2.AutoSize = True
+        Me.optTabHeader2.FlatAppearance.BorderSize = 0
+        Me.optTabHeader2.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.optTabHeader2.Location = New System.Drawing.Point(160, 0)
+        Me.optTabHeader2.Margin = New System.Windows.Forms.Padding(0)
+        Me.optTabHeader2.MinimumSize = New System.Drawing.Size(80, 0)
+        Me.optTabHeader2.Name = "optTabHeader2"
+        Me.optTabHeader2.Size = New System.Drawing.Size(80, 23)
+        Me.optTabHeader2.TabIndex = 18
+        Me.optTabHeader2.Tag = "2"
+        Me.optTabHeader2.Text = "screenshots"
+        Me.optTabHeader2.UseVisualStyleBackColor = False
         '
         'FlowLayoutPanel3
         '
@@ -1299,7 +1299,7 @@ Partial Class frmMain
         Me.ClientSize = New System.Drawing.Size(632, 472)
         Me.ControlBox = False
         Me.Controls.Add(Me.SplitContainer1)
-        Me.Controls.Add(Me.panelWindowTitle)
+        Me.Controls.Add(Me.pnlTopPanel)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.ForeColor = System.Drawing.Color.Black
         Me.Icon = Global.sstatesman.My.Resources.Resources.SSMico_v1_256x256
@@ -1308,8 +1308,8 @@ Partial Class frmMain
         Me.MinimumSize = New System.Drawing.Size(640, 480)
         Me.Name = "frmMain"
         Me.Text = "SStatesMan"
-        Me.panelWindowTitle.ResumeLayout(False)
-        Me.panelWindowTitle.PerformLayout()
+        Me.pnlTopPanel.ResumeLayout(False)
+        Me.pnlTopPanel.PerformLayout()
         Me.tlpTopPanel.ResumeLayout(False)
         Me.tlpTopPanel.PerformLayout()
         Me.flpTitleBar.ResumeLayout(False)
@@ -1408,12 +1408,12 @@ Partial Class frmMain
     Private WithEvents lblSizeBackup As System.Windows.Forms.Label
     Private WithEvents txtSize As System.Windows.Forms.TextBox
     Friend WithEvents flpTab As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents optSettingTab0 As System.Windows.Forms.RadioButton
-    Private WithEvents optSettingTab1 As System.Windows.Forms.RadioButton
-    Private WithEvents optSettingTab2 As System.Windows.Forms.RadioButton
+    Private WithEvents optTabHeader0 As System.Windows.Forms.RadioButton
+    Private WithEvents optTabHeader1 As System.Windows.Forms.RadioButton
+    Private WithEvents optTabHeader2 As System.Windows.Forms.RadioButton
     Friend WithEvents TableLayoutPanel6 As System.Windows.Forms.TableLayoutPanel
     Private WithEvents cmdRefresh As System.Windows.Forms.Button
-    Friend WithEvents panelWindowTitle As System.Windows.Forms.Panel
+    Friend WithEvents pnlTopPanel As System.Windows.Forms.Panel
     Friend WithEvents FlowLayoutPanel3 As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents cmTools As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents cmiPCSX2Launch As System.Windows.Forms.ToolStripMenuItem

@@ -38,98 +38,30 @@ Partial Class frmAbout
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAbout))
-        Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
-        Me.lblAuthorName = New System.Windows.Forms.Label()
-        Me.lblCopyright = New System.Windows.Forms.Label()
-        Me.lblVersionMain = New System.Windows.Forms.Label()
-        Me.TextBoxDescription = New System.Windows.Forms.TextBox()
         Me.OKButton = New System.Windows.Forms.Button()
-        Me.flpWindowBottom = New System.Windows.Forms.FlowLayoutPanel()
+        Me.flpBottomPanel = New System.Windows.Forms.FlowLayoutPanel()
         Me.flpTab = New System.Windows.Forms.FlowLayoutPanel()
-        Me.optSettingTab1 = New System.Windows.Forms.RadioButton()
-        Me.optSettingTab2 = New System.Windows.Forms.RadioButton()
+        Me.optTabHeader0 = New System.Windows.Forms.RadioButton()
+        Me.optTabHeader1 = New System.Windows.Forms.RadioButton()
         Me.lblWindowProgramName = New System.Windows.Forms.Label()
-        Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.pnlTopPanel = New System.Windows.Forms.Panel()
+        Me.pnlTab0 = New System.Windows.Forms.Panel()
+        Me.llbPCSX2Forum = New System.Windows.Forms.LinkLabel()
         Me.lblLinksTitle = New System.Windows.Forms.Label()
+        Me.lblCopyright = New System.Windows.Forms.Label()
+        Me.lblAuthorName = New System.Windows.Forms.Label()
         Me.lblAuthorTitle = New System.Windows.Forms.Label()
         Me.lblVersionChannel = New System.Windows.Forms.Label()
+        Me.lblVersionMain = New System.Windows.Forms.Label()
         Me.lblVersionTitle = New System.Windows.Forms.Label()
-        Me.panelWindowTitle = New System.Windows.Forms.Panel()
-        Me.flpWindowBottom.SuspendLayout()
+        Me.pnlTab1 = New System.Windows.Forms.Panel()
+        Me.TextBoxDescription = New System.Windows.Forms.TextBox()
+        Me.flpBottomPanel.SuspendLayout()
         Me.flpTab.SuspendLayout()
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SplitContainer1.Panel1.SuspendLayout()
-        Me.SplitContainer1.Panel2.SuspendLayout()
-        Me.SplitContainer1.SuspendLayout()
-        Me.panelWindowTitle.SuspendLayout()
+        Me.pnlTopPanel.SuspendLayout()
+        Me.pnlTab0.SuspendLayout()
+        Me.pnlTab1.SuspendLayout()
         Me.SuspendLayout()
-        '
-        'LinkLabel1
-        '
-        Me.LinkLabel1.AutoSize = True
-        Me.LinkLabel1.Dock = System.Windows.Forms.DockStyle.Top
-        Me.LinkLabel1.LinkColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.LinkLabel1.Location = New System.Drawing.Point(6, 134)
-        Me.LinkLabel1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
-        Me.LinkLabel1.Size = New System.Drawing.Size(186, 17)
-        Me.LinkLabel1.TabIndex = 15
-        Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "Official Thread on PCSX2 Forums"
-        '
-        'lblAuthorName
-        '
-        Me.lblAuthorName.AutoSize = True
-        Me.lblAuthorName.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblAuthorName.Location = New System.Drawing.Point(6, 79)
-        Me.lblAuthorName.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblAuthorName.Name = "lblAuthorName"
-        Me.lblAuthorName.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
-        Me.lblAuthorName.Size = New System.Drawing.Size(110, 17)
-        Me.lblAuthorName.TabIndex = 12
-        Me.lblAuthorName.Text = "<Author's name>"
-        '
-        'lblCopyright
-        '
-        Me.lblCopyright.AutoSize = True
-        Me.lblCopyright.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblCopyright.Location = New System.Drawing.Point(6, 96)
-        Me.lblCopyright.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblCopyright.Name = "lblCopyright"
-        Me.lblCopyright.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
-        Me.lblCopyright.Size = New System.Drawing.Size(86, 17)
-        Me.lblCopyright.TabIndex = 13
-        Me.lblCopyright.Text = "<Copyright>"
-        '
-        'lblVersionMain
-        '
-        Me.lblVersionMain.AutoSize = True
-        Me.lblVersionMain.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblVersionMain.Location = New System.Drawing.Point(6, 24)
-        Me.lblVersionMain.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblVersionMain.Name = "lblVersionMain"
-        Me.lblVersionMain.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
-        Me.lblVersionMain.Size = New System.Drawing.Size(105, 17)
-        Me.lblVersionMain.TabIndex = 9
-        Me.lblVersionMain.Text = "<Major version>"
-        '
-        'TextBoxDescription
-        '
-        Me.TextBoxDescription.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.TextBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.TextBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TextBoxDescription.ForeColor = System.Drawing.Color.Black
-        Me.TextBoxDescription.Location = New System.Drawing.Point(6, 3)
-        Me.TextBoxDescription.Margin = New System.Windows.Forms.Padding(2)
-        Me.TextBoxDescription.Multiline = True
-        Me.TextBoxDescription.Name = "TextBoxDescription"
-        Me.TextBoxDescription.ReadOnly = True
-        Me.TextBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBoxDescription.Size = New System.Drawing.Size(196, 177)
-        Me.TextBoxDescription.TabIndex = 16
-        Me.TextBoxDescription.TabStop = False
-        Me.TextBoxDescription.Text = resources.GetString("TextBoxDescription.Text")
         '
         'OKButton
         '
@@ -138,7 +70,7 @@ Partial Class frmAbout
         Me.OKButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.OKButton.BackColor = System.Drawing.Color.White
         Me.OKButton.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.OKButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.OKButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
         Me.OKButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.OKButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
@@ -153,27 +85,27 @@ Partial Class frmAbout
         Me.OKButton.Text = "&OK"
         Me.OKButton.UseVisualStyleBackColor = False
         '
-        'flpWindowBottom
+        'flpBottomPanel
         '
-        Me.flpWindowBottom.AutoSize = True
-        Me.flpWindowBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.flpWindowBottom.BackColor = System.Drawing.Color.Gainsboro
-        Me.flpWindowBottom.Controls.Add(Me.OKButton)
-        Me.flpWindowBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.flpWindowBottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpWindowBottom.Location = New System.Drawing.Point(0, 236)
-        Me.flpWindowBottom.Name = "flpWindowBottom"
-        Me.flpWindowBottom.Padding = New System.Windows.Forms.Padding(4)
-        Me.flpWindowBottom.Size = New System.Drawing.Size(414, 36)
-        Me.flpWindowBottom.TabIndex = 5
+        Me.flpBottomPanel.AutoSize = True
+        Me.flpBottomPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpBottomPanel.BackColor = System.Drawing.Color.Gainsboro
+        Me.flpBottomPanel.Controls.Add(Me.OKButton)
+        Me.flpBottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.flpBottomPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.flpBottomPanel.Location = New System.Drawing.Point(0, 236)
+        Me.flpBottomPanel.Name = "flpBottomPanel"
+        Me.flpBottomPanel.Padding = New System.Windows.Forms.Padding(4)
+        Me.flpBottomPanel.Size = New System.Drawing.Size(414, 36)
+        Me.flpBottomPanel.TabIndex = 5
         '
         'flpTab
         '
         Me.flpTab.AutoSize = True
         Me.flpTab.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.flpTab.BackColor = System.Drawing.Color.Transparent
-        Me.flpTab.Controls.Add(Me.optSettingTab1)
-        Me.flpTab.Controls.Add(Me.optSettingTab2)
+        Me.flpTab.Controls.Add(Me.optTabHeader0)
+        Me.flpTab.Controls.Add(Me.optTabHeader1)
         Me.flpTab.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.flpTab.Location = New System.Drawing.Point(0, 30)
         Me.flpTab.Margin = New System.Windows.Forms.Padding(0)
@@ -183,45 +115,45 @@ Partial Class frmAbout
         Me.flpTab.TabIndex = 2
         Me.flpTab.WrapContents = False
         '
-        'optSettingTab1
+        'optTabHeader0
         '
-        Me.optSettingTab1.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
-        Me.optSettingTab1.Appearance = System.Windows.Forms.Appearance.Button
-        Me.optSettingTab1.AutoSize = True
-        Me.optSettingTab1.Checked = True
-        Me.optSettingTab1.FlatAppearance.BorderSize = 0
-        Me.optSettingTab1.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.optSettingTab1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
-        Me.optSettingTab1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSettingTab1.Location = New System.Drawing.Point(16, 0)
-        Me.optSettingTab1.Margin = New System.Windows.Forms.Padding(0)
-        Me.optSettingTab1.MinimumSize = New System.Drawing.Size(80, 0)
-        Me.optSettingTab1.Name = "optSettingTab1"
-        Me.optSettingTab1.Size = New System.Drawing.Size(80, 23)
-        Me.optSettingTab1.TabIndex = 3
-        Me.optSettingTab1.TabStop = True
-        Me.optSettingTab1.Text = "sstatesman"
-        Me.optSettingTab1.UseVisualStyleBackColor = False
+        Me.optTabHeader0.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
+        Me.optTabHeader0.Appearance = System.Windows.Forms.Appearance.Button
+        Me.optTabHeader0.AutoSize = True
+        Me.optTabHeader0.Checked = True
+        Me.optTabHeader0.FlatAppearance.BorderSize = 0
+        Me.optTabHeader0.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader0.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.optTabHeader0.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
+        Me.optTabHeader0.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.optTabHeader0.Location = New System.Drawing.Point(16, 0)
+        Me.optTabHeader0.Margin = New System.Windows.Forms.Padding(0)
+        Me.optTabHeader0.MinimumSize = New System.Drawing.Size(80, 0)
+        Me.optTabHeader0.Name = "optTabHeader0"
+        Me.optTabHeader0.Size = New System.Drawing.Size(80, 23)
+        Me.optTabHeader0.TabIndex = 3
+        Me.optTabHeader0.TabStop = True
+        Me.optTabHeader0.Text = "sstatesman"
+        Me.optTabHeader0.UseVisualStyleBackColor = False
         '
-        'optSettingTab2
+        'optTabHeader1
         '
-        Me.optSettingTab2.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
-        Me.optSettingTab2.Appearance = System.Windows.Forms.Appearance.Button
-        Me.optSettingTab2.AutoSize = True
-        Me.optSettingTab2.FlatAppearance.BorderSize = 0
-        Me.optSettingTab2.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optSettingTab2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.optSettingTab2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
-        Me.optSettingTab2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.optSettingTab2.Location = New System.Drawing.Point(96, 0)
-        Me.optSettingTab2.Margin = New System.Windows.Forms.Padding(0)
-        Me.optSettingTab2.MinimumSize = New System.Drawing.Size(80, 0)
-        Me.optSettingTab2.Name = "optSettingTab2"
-        Me.optSettingTab2.Size = New System.Drawing.Size(80, 23)
-        Me.optSettingTab2.TabIndex = 4
-        Me.optSettingTab2.Text = "licence"
-        Me.optSettingTab2.UseVisualStyleBackColor = False
+        Me.optTabHeader1.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
+        Me.optTabHeader1.Appearance = System.Windows.Forms.Appearance.Button
+        Me.optTabHeader1.AutoSize = True
+        Me.optTabHeader1.FlatAppearance.BorderSize = 0
+        Me.optTabHeader1.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.optTabHeader1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
+        Me.optTabHeader1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.optTabHeader1.Location = New System.Drawing.Point(96, 0)
+        Me.optTabHeader1.Margin = New System.Windows.Forms.Padding(0)
+        Me.optTabHeader1.MinimumSize = New System.Drawing.Size(80, 0)
+        Me.optTabHeader1.Name = "optTabHeader1"
+        Me.optTabHeader1.Size = New System.Drawing.Size(80, 23)
+        Me.optTabHeader1.TabIndex = 4
+        Me.optTabHeader1.Text = "licence"
+        Me.optTabHeader1.UseVisualStyleBackColor = False
         '
         'lblWindowProgramName
         '
@@ -237,34 +169,52 @@ Partial Class frmAbout
         Me.lblWindowProgramName.TabIndex = 1
         Me.lblWindowProgramName.Text = "about"
         '
-        'SplitContainer1
+        'pnlTopPanel
         '
-        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 53)
-        Me.SplitContainer1.Margin = New System.Windows.Forms.Padding(2)
-        Me.SplitContainer1.Name = "SplitContainer1"
+        Me.pnlTopPanel.AutoSize = True
+        Me.pnlTopPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.pnlTopPanel.BackColor = System.Drawing.Color.Gainsboro
+        Me.pnlTopPanel.Controls.Add(Me.lblWindowProgramName)
+        Me.pnlTopPanel.Controls.Add(Me.flpTab)
+        Me.pnlTopPanel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.pnlTopPanel.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+        Me.pnlTopPanel.Location = New System.Drawing.Point(0, 0)
+        Me.pnlTopPanel.Margin = New System.Windows.Forms.Padding(2)
+        Me.pnlTopPanel.MinimumSize = New System.Drawing.Size(0, 26)
+        Me.pnlTopPanel.Name = "pnlTopPanel"
+        Me.pnlTopPanel.Size = New System.Drawing.Size(414, 53)
+        Me.pnlTopPanel.TabIndex = 0
         '
-        'SplitContainer1.Panel1
+        'pnlTab0
         '
-        Me.SplitContainer1.Panel1.AutoScroll = True
-        Me.SplitContainer1.Panel1.Controls.Add(Me.LinkLabel1)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.lblLinksTitle)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.lblCopyright)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.lblAuthorName)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.lblAuthorTitle)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.lblVersionChannel)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.lblVersionMain)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.lblVersionTitle)
-        Me.SplitContainer1.Panel1.Padding = New System.Windows.Forms.Padding(6, 3, 6, 3)
+        Me.pnlTab0.AutoScroll = True
+        Me.pnlTab0.Controls.Add(Me.llbPCSX2Forum)
+        Me.pnlTab0.Controls.Add(Me.lblLinksTitle)
+        Me.pnlTab0.Controls.Add(Me.lblCopyright)
+        Me.pnlTab0.Controls.Add(Me.lblAuthorName)
+        Me.pnlTab0.Controls.Add(Me.lblAuthorTitle)
+        Me.pnlTab0.Controls.Add(Me.lblVersionChannel)
+        Me.pnlTab0.Controls.Add(Me.lblVersionMain)
+        Me.pnlTab0.Controls.Add(Me.lblVersionTitle)
+        Me.pnlTab0.Location = New System.Drawing.Point(12, 58)
+        Me.pnlTab0.Name = "pnlTab0"
+        Me.pnlTab0.Padding = New System.Windows.Forms.Padding(6, 3, 6, 3)
+        Me.pnlTab0.Size = New System.Drawing.Size(189, 172)
+        Me.pnlTab0.TabIndex = 8
         '
-        'SplitContainer1.Panel2
+        'llbPCSX2Forum
         '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.TextBoxDescription)
-        Me.SplitContainer1.Panel2.Padding = New System.Windows.Forms.Padding(6, 3, 6, 3)
-        Me.SplitContainer1.Size = New System.Drawing.Size(414, 183)
-        Me.SplitContainer1.SplitterDistance = 203
-        Me.SplitContainer1.SplitterWidth = 3
-        Me.SplitContainer1.TabIndex = 7
+        Me.llbPCSX2Forum.AutoSize = True
+        Me.llbPCSX2Forum.Dock = System.Windows.Forms.DockStyle.Top
+        Me.llbPCSX2Forum.LinkColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
+        Me.llbPCSX2Forum.Location = New System.Drawing.Point(6, 134)
+        Me.llbPCSX2Forum.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.llbPCSX2Forum.Name = "llbPCSX2Forum"
+        Me.llbPCSX2Forum.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
+        Me.llbPCSX2Forum.Size = New System.Drawing.Size(186, 17)
+        Me.llbPCSX2Forum.TabIndex = 23
+        Me.llbPCSX2Forum.TabStop = True
+        Me.llbPCSX2Forum.Text = "Official Thread on PCSX2 Forums"
         '
         'lblLinksTitle
         '
@@ -276,8 +226,32 @@ Partial Class frmAbout
         Me.lblLinksTitle.Name = "lblLinksTitle"
         Me.lblLinksTitle.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.lblLinksTitle.Size = New System.Drawing.Size(36, 21)
-        Me.lblLinksTitle.TabIndex = 14
+        Me.lblLinksTitle.TabIndex = 22
         Me.lblLinksTitle.Text = "Links"
+        '
+        'lblCopyright
+        '
+        Me.lblCopyright.AutoSize = True
+        Me.lblCopyright.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblCopyright.Location = New System.Drawing.Point(6, 96)
+        Me.lblCopyright.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblCopyright.Name = "lblCopyright"
+        Me.lblCopyright.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
+        Me.lblCopyright.Size = New System.Drawing.Size(84, 17)
+        Me.lblCopyright.TabIndex = 21
+        Me.lblCopyright.Text = "<copyright>"
+        '
+        'lblAuthorName
+        '
+        Me.lblAuthorName.AutoSize = True
+        Me.lblAuthorName.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblAuthorName.Location = New System.Drawing.Point(6, 79)
+        Me.lblAuthorName.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblAuthorName.Name = "lblAuthorName"
+        Me.lblAuthorName.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
+        Me.lblAuthorName.Size = New System.Drawing.Size(70, 17)
+        Me.lblAuthorName.TabIndex = 20
+        Me.lblAuthorName.Text = "<author>"
         '
         'lblAuthorTitle
         '
@@ -289,7 +263,7 @@ Partial Class frmAbout
         Me.lblAuthorTitle.Name = "lblAuthorTitle"
         Me.lblAuthorTitle.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.lblAuthorTitle.Size = New System.Drawing.Size(47, 21)
-        Me.lblAuthorTitle.TabIndex = 11
+        Me.lblAuthorTitle.TabIndex = 19
         Me.lblAuthorTitle.Text = "Author"
         '
         'lblVersionChannel
@@ -300,9 +274,21 @@ Partial Class frmAbout
         Me.lblVersionChannel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblVersionChannel.Name = "lblVersionChannel"
         Me.lblVersionChannel.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
-        Me.lblVersionChannel.Size = New System.Drawing.Size(118, 17)
-        Me.lblVersionChannel.TabIndex = 10
-        Me.lblVersionChannel.Text = "<Release channel>"
+        Me.lblVersionChannel.Size = New System.Drawing.Size(76, 17)
+        Me.lblVersionChannel.TabIndex = 18
+        Me.lblVersionChannel.Text = "<channel>"
+        '
+        'lblVersionMain
+        '
+        Me.lblVersionMain.AutoSize = True
+        Me.lblVersionMain.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblVersionMain.Location = New System.Drawing.Point(6, 24)
+        Me.lblVersionMain.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblVersionMain.Name = "lblVersionMain"
+        Me.lblVersionMain.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
+        Me.lblVersionMain.Size = New System.Drawing.Size(72, 17)
+        Me.lblVersionMain.TabIndex = 17
+        Me.lblVersionMain.Text = "<version>"
         '
         'lblVersionTitle
         '
@@ -314,24 +300,34 @@ Partial Class frmAbout
         Me.lblVersionTitle.Name = "lblVersionTitle"
         Me.lblVersionTitle.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.lblVersionTitle.Size = New System.Drawing.Size(123, 21)
-        Me.lblVersionTitle.TabIndex = 8
+        Me.lblVersionTitle.TabIndex = 16
         Me.lblVersionTitle.Text = "Version information"
         '
-        'panelWindowTitle
+        'pnlTab1
         '
-        Me.panelWindowTitle.AutoSize = True
-        Me.panelWindowTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelWindowTitle.BackColor = System.Drawing.Color.Gainsboro
-        Me.panelWindowTitle.Controls.Add(Me.lblWindowProgramName)
-        Me.panelWindowTitle.Controls.Add(Me.flpTab)
-        Me.panelWindowTitle.Dock = System.Windows.Forms.DockStyle.Top
-        Me.panelWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.panelWindowTitle.Location = New System.Drawing.Point(0, 0)
-        Me.panelWindowTitle.Margin = New System.Windows.Forms.Padding(2)
-        Me.panelWindowTitle.MinimumSize = New System.Drawing.Size(0, 26)
-        Me.panelWindowTitle.Name = "panelWindowTitle"
-        Me.panelWindowTitle.Size = New System.Drawing.Size(414, 53)
-        Me.panelWindowTitle.TabIndex = 0
+        Me.pnlTab1.Controls.Add(Me.TextBoxDescription)
+        Me.pnlTab1.Location = New System.Drawing.Point(207, 58)
+        Me.pnlTab1.Name = "pnlTab1"
+        Me.pnlTab1.Padding = New System.Windows.Forms.Padding(6, 3, 6, 3)
+        Me.pnlTab1.Size = New System.Drawing.Size(195, 172)
+        Me.pnlTab1.TabIndex = 24
+        '
+        'TextBoxDescription
+        '
+        Me.TextBoxDescription.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.TextBoxDescription.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TextBoxDescription.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TextBoxDescription.ForeColor = System.Drawing.Color.Black
+        Me.TextBoxDescription.Location = New System.Drawing.Point(6, 3)
+        Me.TextBoxDescription.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBoxDescription.Multiline = True
+        Me.TextBoxDescription.Name = "TextBoxDescription"
+        Me.TextBoxDescription.ReadOnly = True
+        Me.TextBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.TextBoxDescription.Size = New System.Drawing.Size(183, 166)
+        Me.TextBoxDescription.TabIndex = 17
+        Me.TextBoxDescription.TabStop = False
+        Me.TextBoxDescription.Text = resources.GetString("TextBoxDescription.Text")
         '
         'frmAbout
         '
@@ -340,9 +336,10 @@ Partial Class frmAbout
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(414, 272)
         Me.ControlBox = False
-        Me.Controls.Add(Me.SplitContainer1)
-        Me.Controls.Add(Me.flpWindowBottom)
-        Me.Controls.Add(Me.panelWindowTitle)
+        Me.Controls.Add(Me.pnlTab1)
+        Me.Controls.Add(Me.pnlTab0)
+        Me.Controls.Add(Me.flpBottomPanel)
+        Me.Controls.Add(Me.pnlTopPanel)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.Black
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
@@ -354,38 +351,37 @@ Partial Class frmAbout
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "About"
-        Me.flpWindowBottom.ResumeLayout(False)
-        Me.flpWindowBottom.PerformLayout()
+        Me.flpBottomPanel.ResumeLayout(False)
+        Me.flpBottomPanel.PerformLayout()
         Me.flpTab.ResumeLayout(False)
         Me.flpTab.PerformLayout()
-        Me.SplitContainer1.Panel1.ResumeLayout(False)
-        Me.SplitContainer1.Panel1.PerformLayout()
-        Me.SplitContainer1.Panel2.ResumeLayout(False)
-        Me.SplitContainer1.Panel2.PerformLayout()
-        CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.SplitContainer1.ResumeLayout(False)
-        Me.panelWindowTitle.ResumeLayout(False)
-        Me.panelWindowTitle.PerformLayout()
+        Me.pnlTopPanel.ResumeLayout(False)
+        Me.pnlTopPanel.PerformLayout()
+        Me.pnlTab0.ResumeLayout(False)
+        Me.pnlTab0.PerformLayout()
+        Me.pnlTab1.ResumeLayout(False)
+        Me.pnlTab1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents OKButton As System.Windows.Forms.Button
-    Friend WithEvents TextBoxDescription As System.Windows.Forms.TextBox
-    Friend WithEvents lblAuthorName As System.Windows.Forms.Label
-    Friend WithEvents lblCopyright As System.Windows.Forms.Label
-    Friend WithEvents lblVersionMain As System.Windows.Forms.Label
-    Friend WithEvents LinkLabel1 As System.Windows.Forms.LinkLabel
-    Friend WithEvents flpWindowBottom As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents flpTab As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents optSettingTab1 As System.Windows.Forms.RadioButton
-    Private WithEvents optSettingTab2 As System.Windows.Forms.RadioButton
+    Private WithEvents optTabHeader0 As System.Windows.Forms.RadioButton
+    Private WithEvents optTabHeader1 As System.Windows.Forms.RadioButton
     Private WithEvents lblWindowProgramName As System.Windows.Forms.Label
-    Friend WithEvents SplitContainer1 As System.Windows.Forms.SplitContainer
-    Friend WithEvents lblVersionTitle As System.Windows.Forms.Label
-    Friend WithEvents lblVersionChannel As System.Windows.Forms.Label
-    Friend WithEvents lblLinksTitle As System.Windows.Forms.Label
-    Friend WithEvents lblAuthorTitle As System.Windows.Forms.Label
-    Private WithEvents panelWindowTitle As System.Windows.Forms.Panel
+    Private WithEvents pnlTopPanel As System.Windows.Forms.Panel
+    Private WithEvents OKButton As System.Windows.Forms.Button
+    Private WithEvents flpBottomPanel As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents flpTab As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents pnlTab0 As System.Windows.Forms.Panel
+    Private WithEvents llbPCSX2Forum As System.Windows.Forms.LinkLabel
+    Private WithEvents lblLinksTitle As System.Windows.Forms.Label
+    Private WithEvents lblCopyright As System.Windows.Forms.Label
+    Private WithEvents lblAuthorName As System.Windows.Forms.Label
+    Private WithEvents lblAuthorTitle As System.Windows.Forms.Label
+    Private WithEvents lblVersionChannel As System.Windows.Forms.Label
+    Private WithEvents lblVersionMain As System.Windows.Forms.Label
+    Private WithEvents lblVersionTitle As System.Windows.Forms.Label
+    Private WithEvents pnlTab1 As System.Windows.Forms.Panel
+    Private WithEvents TextBoxDescription As System.Windows.Forms.TextBox
 
 End Class
