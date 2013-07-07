@@ -480,7 +480,7 @@ Public Class frmDeleteForm
         End If
     End Sub
 
-    Private Sub flpWindowBottom_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles flpWindowBottom.Paint
+    Private Sub flpWindowBottom_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles flpBottomPanel.Paint
         If CType(sender, FlowLayoutPanel).Height > CInt(4 * DPIyScale) Then
             If My.Settings.SStatesMan_ThemeGradientEnabled Then
                 Dim recToolbar As New Rectangle(0, 0, CType(sender, FlowLayoutPanel).Width + 1, CInt(3 * DPIyScale) + 1)
@@ -496,15 +496,15 @@ Public Class frmDeleteForm
 
         Me.BackColor = currentTheme.BgColor
         Me.panelWindowTitle.BackColor = currentTheme.BgColorTop
-        Me.flpWindowBottom.BackColor = currentTheme.BgColorBottom
+        Me.flpBottomPanel.BackColor = currentTheme.BgColorBottom
         If My.Settings.SStatesMan_ThemeImageEnabled Then
             Me.panelWindowTitle.BackgroundImage = currentTheme.BgImageTop
             Me.panelWindowTitle.BackgroundImageLayout = currentTheme.BgImageTopStyle
-            Me.flpWindowBottom.BackgroundImage = currentTheme.BgImageBottom
-            Me.flpWindowBottom.BackgroundImageLayout = currentTheme.BgImageBottomStyle
+            Me.flpBottomPanel.BackgroundImage = currentTheme.BgImageBottom
+            Me.flpBottomPanel.BackgroundImageLayout = currentTheme.BgImageBottomStyle
         Else
             Me.panelWindowTitle.BackgroundImage = Nothing
-            Me.flpWindowBottom.BackgroundImage = Nothing
+            Me.flpBottomPanel.BackgroundImage = Nothing
         End If
         Me.Refresh()
 

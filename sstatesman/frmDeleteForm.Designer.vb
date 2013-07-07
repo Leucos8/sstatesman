@@ -57,23 +57,23 @@ Partial Class frmDeleteForm
         Me.txtSize = New System.Windows.Forms.TextBox()
         Me.lblGameListCheck = New System.Windows.Forms.Label()
         Me.panelWindowTitle = New System.Windows.Forms.Panel()
-        Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
-        Me.FlowLayoutPanel2 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.tlpTopPanel = New System.Windows.Forms.TableLayoutPanel()
+        Me.flpTitleBar = New System.Windows.Forms.FlowLayoutPanel()
         Me.lblWindowTitle = New System.Windows.Forms.Label()
+        Me.blWindowDescription = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdWindowMaximize = New System.Windows.Forms.Button()
         Me.cmdWindowClose = New System.Windows.Forms.Button()
         Me.imgWindowGradientIcon = New System.Windows.Forms.PictureBox()
-        Me.flpWindowBottom = New System.Windows.Forms.FlowLayoutPanel()
+        Me.flpBottomPanel = New System.Windows.Forms.FlowLayoutPanel()
         Me.FlowPanelGameList = New System.Windows.Forms.FlowLayoutPanel()
         Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.lblWindowDescription = New System.Windows.Forms.Label()
         Me.panelWindowTitle.SuspendLayout()
-        Me.TableLayoutPanel1.SuspendLayout()
-        Me.FlowLayoutPanel2.SuspendLayout()
+        Me.tlpTopPanel.SuspendLayout()
+        Me.flpTitleBar.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.flpWindowBottom.SuspendLayout()
+        Me.flpBottomPanel.SuspendLayout()
         Me.FlowPanelGameList.SuspendLayout()
         Me.TableLayoutPanel2.SuspendLayout()
         Me.SuspendLayout()
@@ -341,7 +341,7 @@ Partial Class frmDeleteForm
         Me.panelWindowTitle.AutoSize = True
         Me.panelWindowTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.panelWindowTitle.BackColor = System.Drawing.Color.Gainsboro
-        Me.panelWindowTitle.Controls.Add(Me.TableLayoutPanel1)
+        Me.panelWindowTitle.Controls.Add(Me.tlpTopPanel)
         Me.panelWindowTitle.Dock = System.Windows.Forms.DockStyle.Top
         Me.panelWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.panelWindowTitle.Location = New System.Drawing.Point(0, 0)
@@ -351,46 +351,46 @@ Partial Class frmDeleteForm
         Me.panelWindowTitle.Size = New System.Drawing.Size(628, 56)
         Me.panelWindowTitle.TabIndex = 0
         '
-        'TableLayoutPanel1
+        'tlpTopPanel
         '
-        Me.TableLayoutPanel1.AutoSize = True
-        Me.TableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.TableLayoutPanel1.BackColor = System.Drawing.Color.Transparent
-        Me.TableLayoutPanel1.ColumnCount = 3
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel2, 0, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel1, 2, 0)
-        Me.TableLayoutPanel1.Controls.Add(Me.imgWindowGradientIcon, 1, 0)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 0)
-        Me.TableLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
-        Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
-        Me.TableLayoutPanel1.RowCount = 3
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(628, 56)
-        Me.TableLayoutPanel1.TabIndex = 22
+        Me.tlpTopPanel.AutoSize = True
+        Me.tlpTopPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.tlpTopPanel.BackColor = System.Drawing.Color.Transparent
+        Me.tlpTopPanel.ColumnCount = 3
+        Me.tlpTopPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpTopPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpTopPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpTopPanel.Controls.Add(Me.flpTitleBar, 0, 0)
+        Me.tlpTopPanel.Controls.Add(Me.FlowLayoutPanel1, 2, 0)
+        Me.tlpTopPanel.Controls.Add(Me.imgWindowGradientIcon, 1, 0)
+        Me.tlpTopPanel.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.tlpTopPanel.Location = New System.Drawing.Point(0, 0)
+        Me.tlpTopPanel.Margin = New System.Windows.Forms.Padding(0)
+        Me.tlpTopPanel.Name = "tlpTopPanel"
+        Me.tlpTopPanel.RowCount = 3
+        Me.tlpTopPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpTopPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpTopPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpTopPanel.Size = New System.Drawing.Size(628, 56)
+        Me.tlpTopPanel.TabIndex = 22
         '
-        'FlowLayoutPanel2
+        'flpTitleBar
         '
-        Me.FlowLayoutPanel2.AutoSize = True
-        Me.FlowLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.FlowLayoutPanel2.BackColor = System.Drawing.Color.Transparent
-        Me.FlowLayoutPanel2.Controls.Add(Me.lblWindowTitle)
-        Me.FlowLayoutPanel2.Controls.Add(Me.lblWindowDescription)
-        Me.FlowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FlowLayoutPanel2.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.FlowLayoutPanel2.Location = New System.Drawing.Point(2, 2)
-        Me.FlowLayoutPanel2.Margin = New System.Windows.Forms.Padding(2)
-        Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
-        Me.FlowLayoutPanel2.Padding = New System.Windows.Forms.Padding(24, 4, 0, 4)
-        Me.TableLayoutPanel1.SetRowSpan(Me.FlowLayoutPanel2, 3)
-        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(509, 52)
-        Me.FlowLayoutPanel2.TabIndex = 1
-        Me.FlowLayoutPanel2.WrapContents = False
+        Me.flpTitleBar.AutoSize = True
+        Me.flpTitleBar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpTitleBar.BackColor = System.Drawing.Color.Transparent
+        Me.flpTitleBar.Controls.Add(Me.lblWindowTitle)
+        Me.flpTitleBar.Controls.Add(Me.blWindowDescription)
+        Me.flpTitleBar.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flpTitleBar.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
+        Me.flpTitleBar.Location = New System.Drawing.Point(2, 2)
+        Me.flpTitleBar.Margin = New System.Windows.Forms.Padding(2)
+        Me.flpTitleBar.Name = "flpTitleBar"
+        Me.flpTitleBar.Padding = New System.Windows.Forms.Padding(24, 4, 0, 4)
+        Me.tlpTopPanel.SetRowSpan(Me.flpTitleBar, 3)
+        Me.flpTitleBar.Size = New System.Drawing.Size(509, 52)
+        Me.flpTitleBar.TabIndex = 1
+        Me.flpTitleBar.WrapContents = False
         '
         'lblWindowTitle
         '
@@ -403,6 +403,18 @@ Partial Class frmDeleteForm
         Me.lblWindowTitle.Size = New System.Drawing.Size(197, 30)
         Me.lblWindowTitle.TabIndex = 2
         Me.lblWindowTitle.Text = "Delete confirmation"
+        '
+        'blWindowDescription
+        '
+        Me.blWindowDescription.AutoSize = True
+        Me.blWindowDescription.BackColor = System.Drawing.Color.Transparent
+        Me.blWindowDescription.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+        Me.blWindowDescription.Location = New System.Drawing.Point(26, 34)
+        Me.blWindowDescription.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.blWindowDescription.Name = "blWindowDescription"
+        Me.blWindowDescription.Size = New System.Drawing.Size(349, 13)
+        Me.blWindowDescription.TabIndex = 4
+        Me.blWindowDescription.Text = "check the files you really want to delete and click ""delete checked""."
         '
         'FlowLayoutPanel1
         '
@@ -457,27 +469,27 @@ Partial Class frmDeleteForm
         Me.imgWindowGradientIcon.Location = New System.Drawing.Point(516, 0)
         Me.imgWindowGradientIcon.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
         Me.imgWindowGradientIcon.Name = "imgWindowGradientIcon"
-        Me.TableLayoutPanel1.SetRowSpan(Me.imgWindowGradientIcon, 2)
+        Me.tlpTopPanel.SetRowSpan(Me.imgWindowGradientIcon, 2)
         Me.imgWindowGradientIcon.Size = New System.Drawing.Size(32, 32)
         Me.imgWindowGradientIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.imgWindowGradientIcon.TabIndex = 6
         Me.imgWindowGradientIcon.TabStop = False
         '
-        'flpWindowBottom
+        'flpBottomPanel
         '
-        Me.flpWindowBottom.AutoSize = True
-        Me.flpWindowBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.flpWindowBottom.BackColor = System.Drawing.Color.Gainsboro
-        Me.flpWindowBottom.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.flpWindowBottom.Controls.Add(Me.cmdCancel)
-        Me.flpWindowBottom.Controls.Add(Me.cmdFilesDeleteSelected)
-        Me.flpWindowBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.flpWindowBottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpWindowBottom.Location = New System.Drawing.Point(0, 312)
-        Me.flpWindowBottom.Name = "flpWindowBottom"
-        Me.flpWindowBottom.Padding = New System.Windows.Forms.Padding(4)
-        Me.flpWindowBottom.Size = New System.Drawing.Size(628, 36)
-        Me.flpWindowBottom.TabIndex = 7
+        Me.flpBottomPanel.AutoSize = True
+        Me.flpBottomPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpBottomPanel.BackColor = System.Drawing.Color.Gainsboro
+        Me.flpBottomPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.flpBottomPanel.Controls.Add(Me.cmdCancel)
+        Me.flpBottomPanel.Controls.Add(Me.cmdFilesDeleteSelected)
+        Me.flpBottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.flpBottomPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.flpBottomPanel.Location = New System.Drawing.Point(0, 312)
+        Me.flpBottomPanel.Name = "flpBottomPanel"
+        Me.flpBottomPanel.Padding = New System.Windows.Forms.Padding(4)
+        Me.flpBottomPanel.Size = New System.Drawing.Size(628, 36)
+        Me.flpBottomPanel.TabIndex = 7
         '
         'FlowPanelGameList
         '
@@ -524,18 +536,6 @@ Partial Class frmDeleteForm
         Me.TableLayoutPanel2.Size = New System.Drawing.Size(628, 39)
         Me.TableLayoutPanel2.TabIndex = 17
         '
-        'lblWindowDescription
-        '
-        Me.lblWindowDescription.AutoSize = True
-        Me.lblWindowDescription.BackColor = System.Drawing.Color.Transparent
-        Me.lblWindowDescription.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lblWindowDescription.Location = New System.Drawing.Point(26, 34)
-        Me.lblWindowDescription.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblWindowDescription.Name = "lblWindowDescription"
-        Me.lblWindowDescription.Size = New System.Drawing.Size(349, 13)
-        Me.lblWindowDescription.TabIndex = 4
-        Me.lblWindowDescription.Text = "please check the file you really want to delete and click ""delete checked""."
-        '
         'frmDeleteForm
         '
         Me.AcceptButton = Me.cmdFilesDeleteSelected
@@ -548,7 +548,7 @@ Partial Class frmDeleteForm
         Me.Controls.Add(Me.lvwDelFilesList)
         Me.Controls.Add(Me.FlowPanelGameList)
         Me.Controls.Add(Me.TableLayoutPanel2)
-        Me.Controls.Add(Me.flpWindowBottom)
+        Me.Controls.Add(Me.flpBottomPanel)
         Me.Controls.Add(Me.panelWindowTitle)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.ForeColor = System.Drawing.Color.Black
@@ -563,14 +563,14 @@ Partial Class frmDeleteForm
         Me.Text = "Delete confirmation"
         Me.panelWindowTitle.ResumeLayout(False)
         Me.panelWindowTitle.PerformLayout()
-        Me.TableLayoutPanel1.ResumeLayout(False)
-        Me.TableLayoutPanel1.PerformLayout()
-        Me.FlowLayoutPanel2.ResumeLayout(False)
-        Me.FlowLayoutPanel2.PerformLayout()
+        Me.tlpTopPanel.ResumeLayout(False)
+        Me.tlpTopPanel.PerformLayout()
+        Me.flpTitleBar.ResumeLayout(False)
+        Me.flpTitleBar.PerformLayout()
         Me.FlowLayoutPanel1.ResumeLayout(False)
         CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.flpWindowBottom.ResumeLayout(False)
-        Me.flpWindowBottom.PerformLayout()
+        Me.flpBottomPanel.ResumeLayout(False)
+        Me.flpBottomPanel.PerformLayout()
         Me.FlowPanelGameList.ResumeLayout(False)
         Me.FlowPanelGameList.PerformLayout()
         Me.TableLayoutPanel2.ResumeLayout(False)
@@ -599,16 +599,16 @@ Partial Class frmDeleteForm
     Private WithEvents txtSizeBackup As System.Windows.Forms.TextBox
     Private WithEvents txtSize As System.Windows.Forms.TextBox
     Private WithEvents panelWindowTitle As System.Windows.Forms.Panel
-    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents tlpTopPanel As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdWindowMaximize As System.Windows.Forms.Button
     Private WithEvents cmdWindowClose As System.Windows.Forms.Button
     Private WithEvents imgWindowGradientIcon As System.Windows.Forms.PictureBox
-    Friend WithEvents FlowLayoutPanel2 As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents flpTitleBar As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents lblWindowTitle As System.Windows.Forms.Label
-    Friend WithEvents flpWindowBottom As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents flpBottomPanel As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents FlowPanelGameList As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
     Private WithEvents StDelLvw_LastWT As System.Windows.Forms.ColumnHeader
-    Private WithEvents lblWindowDescription As System.Windows.Forms.Label
+    Private WithEvents blWindowDescription As System.Windows.Forms.Label
 End Class
