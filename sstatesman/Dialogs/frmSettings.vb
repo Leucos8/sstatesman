@@ -36,26 +36,7 @@ Public Class frmSettings
         Me.txtPCSX2SStatePath.Text = My.Settings.PCSX2_PathSState
         Me.txtPCSX2SnapsPath.Text = My.Settings.PCSX2_PathSnaps
 
-        'Theme
-        Me.ckbSStatesManThemeImage.Checked = My.Settings.SStatesMan_ThemeImageEnabled
-        Me.ckbSStatesManThemeGradient.Checked = My.Settings.SStatesMan_ThemeGradientEnabled
-
-        Select Case mdlTheme.currentThemeSetting
-            Case eTheme.squares
-                Me.optTheme1.Checked = True
-            Case eTheme.noise
-                Me.optTheme2.Checked = True
-            Case eTheme.stripes_dark
-                Me.optTheme3.Checked = True
-            Case eTheme.stripes_light
-                Me.optTheme4.Checked = True
-            Case eTheme.brushedmetal
-                Me.optTheme5.Checked = True
-            Case eTheme.hexagons
-                Me.optTheme6.Checked = True
-            Case eTheme.PCSX2
-                Me.optTheme11.Checked = True
-        End Select
+        Me.LoadSettings_Theme()
 
     End Sub
 
@@ -228,32 +209,32 @@ Public Class frmSettings
 
 
         If Me.tmpTab2SettingsFail Then
-            Me.optSettingTab2.BackColor = Color.FromArgb(255, 255, 192, 192)
+            Me.optTabHeader1.BackColor = Color.FromArgb(255, 255, 192, 192)
         Else
-            Me.optSettingTab2.BackColor = Color.Transparent
+            Me.optTabHeader1.BackColor = Color.Transparent
         End If
 
     End Sub
 #End Region
 
-#Region "Form management"
+#Region "Form"
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Me.lvwLog.SmallImageList = imlLvwItemIcons
 
         Me.applyTheme()
 
+        Me.pnlTab0.Dock = DockStyle.Fill
         Me.pnlTab1.Dock = DockStyle.Fill
         Me.pnlTab2.Dock = DockStyle.Fill
         Me.pnlTab3.Dock = DockStyle.Fill
-        Me.pnlTab4.Dock = DockStyle.Fill
+
+        Me.pnlTab0.Visible = Me.optTabHeader0.Checked
+        Me.pnlTab1.Visible = Me.optTabHeader1.Checked
+        Me.pnlTab2.Visible = Me.optTabHeader2.Checked
+        Me.pnlTab3.Visible = Me.optTabHeader3.Checked
 
         Me.Settings_Load()
         Me.Settings_Check()
-
-        Me.optSettingTab1_CheckedChanged(Nothing, Nothing)
-        Me.optSettingTab2_CheckedChanged(Nothing, Nothing)
-        Me.optSettingTab3_CheckedChanged(Nothing, Nothing)
-        Me.optSettingTab4_CheckedChanged(Nothing, Nothing)
 
         '===
         'Log
@@ -297,7 +278,8 @@ Public Class frmSettings
     End Sub
 
     Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click
-        PCSX2_PathAll_Check()
+        My.Settings.SStatesMan_SettingFail = PCSX2_PathAll_Check(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_PathInis, _
+                                                                 My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
         If My.Settings.SStatesMan_SettingFail Then
             My.Settings.SStatesMan_FirstRun = True
             End
@@ -306,107 +288,8 @@ Public Class frmSettings
     End Sub
 #End Region
 
-#Region "Form - Tab management"
-    Private Sub optSettingTab1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab1.CheckedChanged
-        'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to kwnow 
-        'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
-        If Me.optSettingTab1.IsHandleCreated Then
-            If Me.optSettingTab1.Checked = True Then
-                Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-                Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
-                Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
-                Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.White
-
-                Me.pnlTab1.Visible = True
-                Me.pnlTab2.Visible = False
-                Me.pnlTab3.Visible = False
-                Me.pnlTab4.Visible = False
-            End If
-        End If
-    End Sub
-
-    Private Sub optSettingTab2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab2.CheckedChanged
-        'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to kwnow 
-        'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
-        If Me.optSettingTab2.IsHandleCreated Then
-            If Me.optSettingTab2.Checked = True Then
-                Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-                Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
-                Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
-                Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.White
-
-                Me.pnlTab2.Visible = True
-                Me.pnlTab1.Visible = False
-                Me.pnlTab3.Visible = False
-                Me.pnlTab4.Visible = False
-            End If
-        End If
-    End Sub
-
-    Private Sub optSettingTab3_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab3.CheckedChanged
-        'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to kwnow 
-        'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
-        If Me.optSettingTab3.IsHandleCreated Then
-            If Me.optSettingTab3.Checked = True Then
-                Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-                Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
-                Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
-                Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.White
-
-                Me.pnlTab3.Visible = True
-                Me.pnlTab1.Visible = False
-                Me.pnlTab2.Visible = False
-                Me.pnlTab4.Visible = False
-            End If
-        End If
-    End Sub
-
-    Private Sub optSettingTab4_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optSettingTab4.CheckedChanged
-        'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to kwnow 
-        'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
-        If Me.optSettingTab4.IsHandleCreated Then
-            If Me.optSettingTab4.Checked = True Then
-                Me.optSettingTab4.FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-                Me.optSettingTab1.FlatAppearance.MouseDownBackColor = Color.White
-                Me.optSettingTab2.FlatAppearance.MouseDownBackColor = Color.White
-                Me.optSettingTab3.FlatAppearance.MouseDownBackColor = Color.White
-
-                Me.pnlTab4.Visible = True
-                Me.pnlTab1.Visible = False
-                Me.pnlTab2.Visible = False
-                Me.pnlTab3.Visible = False
-            End If
-        End If
-    End Sub
-#End Region
-
 #Region "Folder panels - validating events"
-
-    Private Sub txtPCSX2AppPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtPCSX2AppPath.Validating
-        If e.Cancel = False Then
-            Me.Settings_Check()
-        End If
-    End Sub
-
-    Private Sub txtPCSX2IniPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtPCSX2IniPath.Validating
-        If e.Cancel = False Then
-            Me.Settings_Check()
-        End If
-    End Sub
-
-    Private Sub txtPCSX2SStatePath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtPCSX2SStatePath.Validating
-        If e.Cancel = False Then
-            Me.Settings_Check()
-        End If
-    End Sub
-
-    Private Sub txtPCSX2SnapsPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtPCSX2SnapsPath.Validating
-        If e.Cancel = False Then
-            Me.Settings_Check()
-        End If
-    End Sub
-
-    Private Sub txtSStatesManPicsPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtSStatesManPicsPath.Validating
+    Private Sub txtPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtPCSX2AppPath.Validating, txtPCSX2IniPath.Validating, txtPCSX2SStatePath.Validating, txtPCSX2SnapsPath.Validating
         If e.Cancel = False Then
             Me.Settings_Check()
         End If
@@ -415,73 +298,64 @@ Public Class frmSettings
 
 #Region "Folder panels - browser"
     Private Sub cmdPCSX2AppPathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2AppPathBrowse.Click
-        Dim tmpPath As String = Me.createFolderBrowser("Select your PCSX2 executable folder.", Me.txtPCSX2AppPath.Text, Environment.SpecialFolder.ProgramFilesX86, False)
-
-        If Not (tmpPath = "") Then
+        Dim tmpPath As String = Me.txtPCSX2AppPath.Text
+        If Me.createFolderBrowser("Select your PCSX2 executable folder.", tmpPath, Environment.SpecialFolder.ProgramFiles, False) = Windows.Forms.DialogResult.OK Then
             Me.txtPCSX2AppPath.Text = tmpPath
         End If
         Me.Settings_Check()
     End Sub
 
     Private Sub cmdPCSX2IniPathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2IniPathBrowse.Click
-        Dim tmpPath As String = Me.createFolderBrowser("Select your PCSX2 ""inis"" folder.", Me.txtPCSX2IniPath.Text, Environment.SpecialFolder.MyDocuments, False)
-
-        If Not (tmpPath = "") Then
+        Dim tmpPath As String = Me.txtPCSX2IniPath.Text
+        If Me.createFolderBrowser("Select your PCSX2 ""inis"" folder.", Me.txtPCSX2IniPath.Text, Environment.SpecialFolder.MyDocuments, False) = Windows.Forms.DialogResult.OK Then
             Me.txtPCSX2IniPath.Text = tmpPath
         End If
         Me.Settings_Check()
     End Sub
 
     Private Sub cmdPCSX2SStatePathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SStatePathBrowse.Click
-        Dim tmpPath As String = Me.createFolderBrowser("Select your PCSX2 savestates folder.", Me.txtPCSX2SStatePath.Text, Environment.SpecialFolder.MyDocuments, False)
-
-        If Not (tmpPath = "") Then
+        Dim tmpPath As String = Me.txtPCSX2SStatePath.Text
+        If Me.createFolderBrowser("Select your PCSX2 savestates folder.", Me.txtPCSX2SStatePath.Text, Environment.SpecialFolder.MyDocuments, False) = Windows.Forms.DialogResult.OK Then
             Me.txtPCSX2SStatePath.Text = tmpPath
         End If
         Me.Settings_Check()
     End Sub
 
     Private Sub cmdPCSX2SnapsPathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SnapsPathBrowse.Click
-        Dim tmpPath As String = Me.createFolderBrowser("Select your PCSX2 screenshots folder.", Me.txtPCSX2SnapsPath.Text, Environment.SpecialFolder.MyPictures, False)
-
-        If Not (tmpPath = "") Then
+        Dim tmpPath As String = Me.txtPCSX2SnapsPath.Text
+        If Me.createFolderBrowser("Select your PCSX2 screenshots folder.", Me.txtPCSX2SnapsPath.Text, Environment.SpecialFolder.MyPictures, False) = Windows.Forms.DialogResult.OK Then
             Me.txtPCSX2SnapsPath.Text = tmpPath
         End If
         Me.Settings_Check()
     End Sub
 
     Private Sub cmdSStatesManPicsPathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStatesManPicsPathBrowse.Click
-        Dim tmpPath As String = Me.createFolderBrowser("Select your game cover images folder.", Me.txtSStatesManPicsPath.Text, Environment.SpecialFolder.MyPictures, True)
-
-        If Not (tmpPath = "") Then
+        Dim tmpPath As String = Me.txtSStatesManPicsPath.Text
+        If Me.createFolderBrowser("Select your game cover images folder.", Me.txtSStatesManPicsPath.Text, Environment.SpecialFolder.MyPictures, True) = Windows.Forms.DialogResult.OK Then
             Me.txtSStatesManPicsPath.Text = tmpPath
         End If
         Me.Settings_Check()
     End Sub
 
-    Private Function createFolderBrowser(ByVal pDescription As String, ByVal pStartPath As String, ByVal pStartPathDefault As Environment.SpecialFolder, Optional ByVal pAllowNewFolder As Boolean = False) As String
+    Private Function createFolderBrowser(ByVal pDescription As String, ByRef pStartPath As String, ByVal pStartPathDefault As Environment.SpecialFolder, Optional ByVal pAllowNewFolder As Boolean = False) As Windows.Forms.DialogResult
         Using FolderBrowse As New FolderBrowserDialog With {.Description = pDescription, .ShowNewFolderButton = pAllowNewFolder}
             If Directory.Exists(pStartPath) Then
                 FolderBrowse.SelectedPath = pStartPath
             Else : FolderBrowse.SelectedPath = Environment.GetFolderPath(pStartPathDefault)
             End If
-            If FolderBrowse.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                createFolderBrowser = FolderBrowse.SelectedPath
-            Else
-                createFolderBrowser = ""
-            End If
+            Return FolderBrowse.ShowDialog(Me)
         End Using
     End Function
 #End Region
 
 #Region "Folder panels - detect"
     Private Sub cmdPCSX2AppPathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2AppPathDetect.Click
-        Me.txtPCSX2AppPath.Text = PCSX2_PathBin_Detect()
+        PCSX2_PathBin_Detect(Me.txtPCSX2AppPath.Text)
         Me.Settings_Check()
     End Sub
 
     Private Sub cmdPCSX2IniPathDetect_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2IniPathDetect.Click
-        Me.txtPCSX2IniPath.Text = PCSX2_PathInis_Detect(Me.txtPCSX2AppPath.Text)
+        PCSX2_PathInis_Detect(Me.txtPCSX2AppPath.Text, Me.txtPCSX2IniPath.Text)
         Me.Settings_Check()
     End Sub
 
@@ -539,126 +413,48 @@ Public Class frmSettings
 #End Region
 
 #Region "Theme tab"
-    Private Sub optTheme1_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme1.CheckedChanged
-        If optTheme1.Checked Then
-            Me.currentSelectedTheme = eTheme.squares
-        End If
+    Private Sub LoadSettings_Theme()
+        'Theme
+        Me.ckbSStatesManThemeImage.Checked = My.Settings.SStatesMan_ThemeImageEnabled
+        Me.ckbSStatesManThemeGradient.Checked = My.Settings.SStatesMan_ThemeGradientEnabled
+
+        'Dim tmpObject As Object = Me.pnlThemeOptions.Controls("optTheme" & CInt(mdlTheme.currentThemeSetting))
+        'CType(tmpObject, RadioButton).Checked = True
+
+        Select Case mdlTheme.currentThemeSetting
+            Case eTheme.squares
+                Me.optTheme1.Checked = True
+            Case eTheme.noise
+                Me.optTheme2.Checked = True
+            Case eTheme.stripes_dark
+                Me.optTheme3.Checked = True
+            Case eTheme.stripes_light
+                Me.optTheme4.Checked = True
+            Case eTheme.brushedmetal
+                Me.optTheme5.Checked = True
+            Case eTheme.hexagons
+                Me.optTheme6.Checked = True
+            Case eTheme.PCSX2
+                Me.optTheme11.Checked = True
+        End Select
+
     End Sub
 
-    Private Sub optTheme2_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme2.CheckedChanged
-        If optTheme2.Checked Then
-            Me.currentSelectedTheme = eTheme.noise
-        End If
-    End Sub
-
-    Private Sub optTheme3_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme3.CheckedChanged
-        If optTheme3.Checked Then
-            Me.currentSelectedTheme = eTheme.stripes_dark
-        End If
-    End Sub
-
-    Private Sub optTheme4_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme4.CheckedChanged
-        If optTheme4.Checked Then
-            Me.currentSelectedTheme = eTheme.stripes_light
-        End If
-    End Sub
-
-    Private Sub optTheme5_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme5.CheckedChanged
-        If optTheme5.Checked Then
-            Me.currentSelectedTheme = eTheme.brushedmetal
-        End If
-    End Sub
-
-    Private Sub optTheme6_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme6.CheckedChanged
-        If optTheme6.Checked Then
-            Me.currentSelectedTheme = eTheme.hexagons
-        End If
-    End Sub
-
-    Private Sub optTheme11_CheckedChanged(sender As System.Object, e As System.EventArgs) Handles optTheme11.CheckedChanged
-        If optTheme11.Checked Then
-            Me.currentSelectedTheme = eTheme.PCSX2
+    Private Sub optTheme_CheckedChanged(sender As Object, e As EventArgs) Handles optTheme1.CheckedChanged, optTheme2.CheckedChanged, optTheme3.CheckedChanged, optTheme4.CheckedChanged, optTheme5.CheckedChanged, optTheme6.CheckedChanged, optTheme11.CheckedChanged
+        If CType(sender, RadioButton).Checked Then
+            Dim tmpTheme As mdlTheme.eTheme
+            If [Enum].TryParse(Of eTheme)(CType(sender, RadioButton).Tag.ToString, tmpTheme) Then
+                Me.currentSelectedTheme = tmpTheme
+            Else
+                SSMAppLog.Append(eType.LogError, eSrc.SettingDialog, eSrcMethod.SettingChanged, "Unable to load the specified theme: " & CType(sender, RadioButton).Tag.ToString)
+                Me.LoadSettings_Theme()
+            End If
+            SSMAppLog.Append(eType.LogInformation, eSrc.SettingDialog, eSrcMethod.SettingChanged, "Selected theme changed to: " & Me.currentSelectedTheme.ToString)
         End If
     End Sub
 #End Region
 
-#Region "UI Paint"
-    Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
-        Dim recToolbar As New Rectangle(CInt(8 * DPIxScale), 0, CInt(127 * DPIxScale) + 1, CInt(7 * DPIyScale) + 1)
-        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 0)
-        e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-        If (panelWindowTitle.Height > 4 * CInt(DPIyScale) + 1) And (panelWindowTitle.Width > 0) Then
-            If My.Settings.SStatesMan_ThemeGradientEnabled Then
-                recToolbar = New Rectangle(0, panelWindowTitle.Height - CInt(4 * DPIyScale), panelWindowTitle.Width, CInt(3 * DPIyScale) + 1)
-                linGrBrushToolbar = New Drawing2D.LinearGradientBrush(recToolbar, Color.Transparent, Color.DarkGray, 90)
-                recToolbar.Y += 1
-                e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-            End If
-            e.Graphics.DrawLine(Pens.DimGray, 0, panelWindowTitle.Height - 1, panelWindowTitle.Width, panelWindowTitle.Height - 1)
-        End If
-    End Sub
-
-    Private Sub flpWindowBottom_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles flpWindowBottom.Paint
-        If flpWindowBottom.Height > CInt(4 * DPIyScale) Then
-            If My.Settings.SStatesMan_ThemeGradientEnabled Then
-                Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width + 1, CInt(3 * DPIyScale) + 1)
-                Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
-                e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-            End If
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, flpWindowBottom.Width, 0)
-        End If
-    End Sub
-
-    Private Sub optSettingTab1_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optSettingTab1.Paint
-        If Me.optSettingTab1.Checked Then
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.optSettingTab1.Width, 0)
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.optSettingTab1.Height)
-            e.Graphics.DrawLine(Pens.DimGray, Me.optSettingTab1.Width - 1, 0, Me.optSettingTab1.Width - 1, Me.optSettingTab1.Height)
-        End If
-    End Sub
-
-    Private Sub optSettingTab2_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optSettingTab2.Paint
-        If Me.optSettingTab2.Checked Then
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.optSettingTab2.Width, 0)
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.optSettingTab2.Height)
-            e.Graphics.DrawLine(Pens.DimGray, Me.optSettingTab2.Width - 1, 0, Me.optSettingTab2.Width - 1, Me.optSettingTab2.Height)
-        End If
-    End Sub
-
-    Private Sub optSettingTab3_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optSettingTab3.Paint
-        If Me.optSettingTab3.Checked Then
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.optSettingTab3.Width, 0)
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.optSettingTab3.Height)
-            e.Graphics.DrawLine(Pens.DimGray, Me.optSettingTab3.Width - 1, 0, Me.optSettingTab3.Width - 1, Me.optSettingTab3.Height)
-        End If
-    End Sub
-
-    Private Sub optSettingTab4_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optSettingTab4.Paint
-        If Me.optSettingTab4.Checked Then
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, Me.optSettingTab4.Width, 0)
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, Me.optSettingTab4.Height)
-            e.Graphics.DrawLine(Pens.DimGray, Me.optSettingTab4.Width - 1, 0, Me.optSettingTab4.Width - 1, Me.optSettingTab4.Height)
-        End If
-    End Sub
-
-    Private Sub applyTheme()
-        Me.BackColor = currentTheme.BgColor
-        Me.panelWindowTitle.BackColor = currentTheme.BgColorTop
-        Me.flpWindowBottom.BackColor = currentTheme.BgColorBottom
-        If My.Settings.SStatesMan_ThemeImageEnabled Then
-            Me.panelWindowTitle.BackgroundImage = currentTheme.BgImageTop
-            Me.panelWindowTitle.BackgroundImageLayout = currentTheme.BgImageTopStyle
-            Me.flpWindowBottom.BackgroundImage = currentTheme.BgImageBottom
-            Me.flpWindowBottom.BackgroundImageLayout = currentTheme.BgImageBottomStyle
-        Else
-            Me.panelWindowTitle.BackgroundImage = Nothing
-            Me.flpWindowBottom.BackgroundImage = Nothing
-        End If
-        Me.Refresh()
-    End Sub
-#End Region
-
-#Region "Log"
+#Region "Log tab"
     Private Sub cmdLogRefresh_Click(sender As Object, e As EventArgs) Handles cmdLogRefresh.Click
         Me.Log_Populate(SSMAppLog.Events)
     End Sub
@@ -731,6 +527,80 @@ Public Class frmSettings
                 Me.Log_Populate(tmpLog)
             End If
         End If
+    End Sub
+#End Region
+
+#Region "Form - Tabs"
+    Private Sub optTabHeader_CheckedChanged(sender As Object, e As EventArgs) Handles optTabHeader0.CheckedChanged, optTabHeader1.CheckedChanged, optTabHeader2.CheckedChanged, optTabHeader3.CheckedChanged
+        'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to kwnow 
+        'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
+        If CType(sender, RadioButton).IsHandleCreated Then
+            If CType(sender, RadioButton).Checked Then
+                Me.optTabHeader0.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optTabHeader1.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optTabHeader2.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optTabHeader3.FlatAppearance.MouseDownBackColor = Color.White
+
+                CType(sender, RadioButton).FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+
+                Me.pnlTab0.Visible = Me.optTabHeader0.Checked
+                Me.pnlTab1.Visible = Me.optTabHeader1.Checked
+                Me.pnlTab2.Visible = Me.optTabHeader2.Checked
+                Me.pnlTab3.Visible = Me.optTabHeader3.Checked
+            End If
+        End If
+    End Sub
+#End Region
+
+#Region "Theme"
+    Private Sub pnlTopPanel_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlTopPanel.Paint
+        Dim recToolbar As New Rectangle(CInt(8 * DPIxScale), 0, CInt(127 * DPIxScale) + 1, CInt(7 * DPIyScale) + 1)
+        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 0)
+        e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
+        If (CType(sender, Panel).Height > 4 * CInt(DPIyScale) + 1) And (CType(sender, Panel).Width > 0) Then
+            If My.Settings.SStatesMan_ThemeGradientEnabled Then
+                recToolbar = New Rectangle(0, CType(sender, Panel).Height - CInt(4 * DPIyScale), CType(sender, Panel).Width, CInt(3 * DPIyScale) + 1)
+                linGrBrushToolbar = New Drawing2D.LinearGradientBrush(recToolbar, Color.Transparent, Color.DarkGray, 90)
+                recToolbar.Y += 1
+                e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
+            End If
+            e.Graphics.DrawLine(Pens.DimGray, 0, CType(sender, Panel).Height - 1, CType(sender, Panel).Width, CType(sender, Panel).Height - 1)
+        End If
+    End Sub
+
+    Private Sub flpBottomPanel_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles flpBottomPanel.Paint
+        If CType(sender, Panel).Height > CInt(4 * DPIyScale) Then
+            If My.Settings.SStatesMan_ThemeGradientEnabled Then
+                Dim recToolbar As New Rectangle(0, 0, CType(sender, Panel).Width + 1, CInt(3 * DPIyScale) + 1)
+                Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
+                e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
+            End If
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, CType(sender, Panel).Width, 0)
+        End If
+    End Sub
+
+    Private Sub optTabHeader_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optTabHeader0.Paint, optTabHeader1.Paint, optTabHeader2.Paint, optTabHeader3.Paint
+        If CType(sender, RadioButton).Checked Then
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, CType(sender, RadioButton).Width, 0)
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, CType(sender, RadioButton).Height)
+            e.Graphics.DrawLine(Pens.DimGray, CType(sender, RadioButton).Width - 1, 0, CType(sender, RadioButton).Width - 1, CType(sender, RadioButton).Height)
+        End If
+    End Sub
+
+    Private Sub applyTheme()
+        Me.BackColor = currentTheme.BgColor
+        Me.pnlTopPanel.BackColor = currentTheme.BgColorTop
+        Me.flpBottomPanel.BackColor = currentTheme.BgColorBottom
+        If My.Settings.SStatesMan_ThemeImageEnabled Then
+            Me.pnlTopPanel.BackgroundImage = currentTheme.BgImageTop
+            Me.pnlTopPanel.BackgroundImageLayout = currentTheme.BgImageTopStyle
+            Me.flpBottomPanel.BackgroundImage = currentTheme.BgImageBottom
+            Me.flpBottomPanel.BackgroundImageLayout = currentTheme.BgImageBottomStyle
+        Else
+            Me.pnlTopPanel.BackgroundImage = Nothing
+            Me.flpBottomPanel.BackgroundImage = Nothing
+        End If
+        Me.Refresh()
     End Sub
 #End Region
 End Class

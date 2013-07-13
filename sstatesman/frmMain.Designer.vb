@@ -461,7 +461,7 @@ Partial Class frmMain
         Me.optTabHeader1.AutoSize = True
         Me.optTabHeader1.FlatAppearance.BorderSize = 0
         Me.optTabHeader1.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optTabHeader1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.optTabHeader1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optTabHeader1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optTabHeader1.Location = New System.Drawing.Point(80, 0)
@@ -481,7 +481,7 @@ Partial Class frmMain
         Me.optTabHeader2.AutoSize = True
         Me.optTabHeader2.FlatAppearance.BorderSize = 0
         Me.optTabHeader2.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optTabHeader2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.optTabHeader2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optTabHeader2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optTabHeader2.Location = New System.Drawing.Point(160, 0)

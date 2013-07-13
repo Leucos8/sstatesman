@@ -68,7 +68,8 @@ Public Class frmMain
             FirstRun()
         Else
             'Checks if there are some invalid settings
-            PCSX2_PathAll_Check()
+            My.Settings.SStatesMan_SettingFail = PCSX2_PathAll_Check(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_PathInis, _
+                                                                     My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
         End If
 
         If My.Settings.SStatesMan_SettingFail Then

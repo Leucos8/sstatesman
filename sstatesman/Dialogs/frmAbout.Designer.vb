@@ -123,8 +123,8 @@ Partial Class frmAbout
         Me.optTabHeader0.Checked = True
         Me.optTabHeader0.FlatAppearance.BorderSize = 0
         Me.optTabHeader0.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
-        Me.optTabHeader0.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.optTabHeader0.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
+        Me.optTabHeader0.FlatAppearance.MouseDownBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader0.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optTabHeader0.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optTabHeader0.Location = New System.Drawing.Point(16, 0)
         Me.optTabHeader0.Margin = New System.Windows.Forms.Padding(0)
@@ -144,7 +144,7 @@ Partial Class frmAbout
         Me.optTabHeader1.FlatAppearance.BorderSize = 0
         Me.optTabHeader1.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
         Me.optTabHeader1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.optTabHeader1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.White
+        Me.optTabHeader1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.optTabHeader1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optTabHeader1.Location = New System.Drawing.Point(96, 0)
         Me.optTabHeader1.Margin = New System.Windows.Forms.Padding(0)

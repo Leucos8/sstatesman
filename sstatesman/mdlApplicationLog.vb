@@ -22,12 +22,15 @@ Module mdlApplicationLog
 
     Friend Enum eSrc
         MainWindow
-        DeleteWindow
-        GameDB
-        GameDB_Explorer
+        SettingDialog
         AboutDialog
+        DeleteWindow
+        ReorderWindow
+        GameDB_Explorer
+        GameDB
         FileList
         CoverCache
+        Settings
         Theme
     End Enum
 
@@ -39,6 +42,7 @@ Module mdlApplicationLog
         Search
         Timer
         Refresh
+        Detect
         'UI
         UI_Update
         UI_Enable
@@ -48,6 +52,11 @@ Module mdlApplicationLog
         FileListview
         AddColumns
         CoverImage
+        'Setting Dialog
+        SettingChanged
+        SettingsLoaded
+        SettingsApplied
+        SettingsCanceled
         'GameDB
         Extract
         'File
