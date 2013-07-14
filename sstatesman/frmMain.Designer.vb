@@ -964,7 +964,7 @@ Partial Class frmMain
         '
         Me.lblSelected.AutoSize = True
         Me.lblSelected.Location = New System.Drawing.Point(0, 0)
-        Me.lblSelected.Margin = New System.Windows.Forms.Padding(0, 0, 2, 0)
+        Me.lblSelected.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
         Me.lblSelected.Name = "lblSelected"
         Me.lblSelected.Size = New System.Drawing.Size(49, 13)
         Me.lblSelected.TabIndex = 49
@@ -977,7 +977,7 @@ Partial Class frmMain
         Me.txtSelected.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtSelected.ForeColor = System.Drawing.Color.Black
         Me.txtSelected.Location = New System.Drawing.Point(0, 15)
-        Me.txtSelected.Margin = New System.Windows.Forms.Padding(0, 2, 2, 2)
+        Me.txtSelected.Margin = New System.Windows.Forms.Padding(0, 2, 4, 2)
         Me.txtSelected.Name = "txtSelected"
         Me.txtSelected.ReadOnly = True
         Me.txtSelected.Size = New System.Drawing.Size(128, 22)
@@ -992,7 +992,7 @@ Partial Class frmMain
         Me.txtSizeBackup.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtSizeBackup.ForeColor = System.Drawing.Color.Black
         Me.txtSizeBackup.Location = New System.Drawing.Point(264, 15)
-        Me.txtSizeBackup.Margin = New System.Windows.Forms.Padding(2)
+        Me.txtSizeBackup.Margin = New System.Windows.Forms.Padding(0, 2, 4, 2)
         Me.txtSizeBackup.Name = "txtSizeBackup"
         Me.txtSizeBackup.ReadOnly = True
         Me.txtSizeBackup.Size = New System.Drawing.Size(128, 22)
@@ -1004,7 +1004,7 @@ Partial Class frmMain
         '
         Me.lblSize.AutoSize = True
         Me.lblSize.Location = New System.Drawing.Point(132, 0)
-        Me.lblSize.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblSize.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
         Me.lblSize.Name = "lblSize"
         Me.lblSize.Size = New System.Drawing.Size(81, 13)
         Me.lblSize.TabIndex = 51
@@ -1014,7 +1014,7 @@ Partial Class frmMain
         '
         Me.lblSizeBackup.AutoSize = True
         Me.lblSizeBackup.Location = New System.Drawing.Point(264, 0)
-        Me.lblSizeBackup.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblSizeBackup.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
         Me.lblSizeBackup.Name = "lblSizeBackup"
         Me.lblSizeBackup.Size = New System.Drawing.Size(72, 13)
         Me.lblSizeBackup.TabIndex = 53
@@ -1027,7 +1027,7 @@ Partial Class frmMain
         Me.txtSize.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtSize.ForeColor = System.Drawing.Color.Black
         Me.txtSize.Location = New System.Drawing.Point(132, 15)
-        Me.txtSize.Margin = New System.Windows.Forms.Padding(2)
+        Me.txtSize.Margin = New System.Windows.Forms.Padding(0, 2, 4, 2)
         Me.txtSize.Name = "txtSize"
         Me.txtSize.ReadOnly = True
         Me.txtSize.Size = New System.Drawing.Size(128, 22)

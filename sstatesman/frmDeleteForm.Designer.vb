@@ -39,12 +39,6 @@ Partial Class frmDeleteForm
         Me.cmdCancel = New System.Windows.Forms.Button()
         Me.cmdFilesDeleteSelected = New System.Windows.Forms.Button()
         Me.lvwDelFilesList = New System.Windows.Forms.ListView()
-        Me.StDelLvw_FileName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.StDelLvw_Slot = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.StDelLvw_Version = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.StDelLvw_LastWT = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.StDelLvw_Size = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.StDelLvw_Status = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmdFilesCheckInvert = New System.Windows.Forms.Button()
         Me.cmdFilesCheckBackup = New System.Windows.Forms.Button()
         Me.cmdFilesCheckAll = New System.Windows.Forms.Button()
@@ -55,7 +49,7 @@ Partial Class frmDeleteForm
         Me.lblSize = New System.Windows.Forms.Label()
         Me.txtSizeBackup = New System.Windows.Forms.TextBox()
         Me.txtSize = New System.Windows.Forms.TextBox()
-        Me.lblGameListCheck = New System.Windows.Forms.Label()
+        Me.lblFileListCheck = New System.Windows.Forms.Label()
         Me.panelWindowTitle = New System.Windows.Forms.Panel()
         Me.tlpTopPanel = New System.Windows.Forms.TableLayoutPanel()
         Me.flpTitleBar = New System.Windows.Forms.FlowLayoutPanel()
@@ -66,16 +60,18 @@ Partial Class frmDeleteForm
         Me.cmdWindowClose = New System.Windows.Forms.Button()
         Me.imgWindowGradientIcon = New System.Windows.Forms.PictureBox()
         Me.flpBottomPanel = New System.Windows.Forms.FlowLayoutPanel()
-        Me.FlowPanelGameList = New System.Windows.Forms.FlowLayoutPanel()
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
+        Me.flpFileListTop = New System.Windows.Forms.FlowLayoutPanel()
+        Me.tlpFileListStatus = New System.Windows.Forms.TableLayoutPanel()
+        Me.pnlWindowContent = New System.Windows.Forms.Panel()
         Me.panelWindowTitle.SuspendLayout()
         Me.tlpTopPanel.SuspendLayout()
         Me.flpTitleBar.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
         CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.flpBottomPanel.SuspendLayout()
-        Me.FlowPanelGameList.SuspendLayout()
-        Me.TableLayoutPanel2.SuspendLayout()
+        Me.flpFileListTop.SuspendLayout()
+        Me.tlpFileListStatus.SuspendLayout()
+        Me.pnlWindowContent.SuspendLayout()
         Me.SuspendLayout()
         '
         'cmdCancel
@@ -126,52 +122,19 @@ Partial Class frmDeleteForm
         Me.lvwDelFilesList.BackColor = System.Drawing.Color.White
         Me.lvwDelFilesList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lvwDelFilesList.CheckBoxes = True
-        Me.lvwDelFilesList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StDelLvw_FileName, Me.StDelLvw_Slot, Me.StDelLvw_Version, Me.StDelLvw_LastWT, Me.StDelLvw_Size, Me.StDelLvw_Status})
         Me.lvwDelFilesList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvwDelFilesList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lvwDelFilesList.ForeColor = System.Drawing.Color.Black
         Me.lvwDelFilesList.FullRowSelect = True
         Me.lvwDelFilesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.lvwDelFilesList.Location = New System.Drawing.Point(0, 78)
+        Me.lvwDelFilesList.Location = New System.Drawing.Point(8, 22)
         Me.lvwDelFilesList.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwDelFilesList.MultiSelect = False
         Me.lvwDelFilesList.Name = "lvwDelFilesList"
-        Me.lvwDelFilesList.Size = New System.Drawing.Size(628, 195)
+        Me.lvwDelFilesList.Size = New System.Drawing.Size(612, 195)
         Me.lvwDelFilesList.TabIndex = 10
         Me.lvwDelFilesList.UseCompatibleStateImageBehavior = False
         Me.lvwDelFilesList.View = System.Windows.Forms.View.Details
-        '
-        'StDelLvw_FileName
-        '
-        Me.StDelLvw_FileName.Text = "Savestate file name"
-        Me.StDelLvw_FileName.Width = 240
-        '
-        'StDelLvw_Slot
-        '
-        Me.StDelLvw_Slot.Text = "Slot"
-        Me.StDelLvw_Slot.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.StDelLvw_Slot.Width = 40
-        '
-        'StDelLvw_Version
-        '
-        Me.StDelLvw_Version.Text = "Version"
-        Me.StDelLvw_Version.Width = 80
-        '
-        'StDelLvw_LastWT
-        '
-        Me.StDelLvw_LastWT.Text = "Modified"
-        Me.StDelLvw_LastWT.Width = 0
-        '
-        'StDelLvw_Size
-        '
-        Me.StDelLvw_Size.Text = "Size"
-        Me.StDelLvw_Size.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        Me.StDelLvw_Size.Width = 80
-        '
-        'StDelLvw_Status
-        '
-        Me.StDelLvw_Status.Text = "Status"
-        Me.StDelLvw_Status.Width = 140
         '
         'cmdFilesCheckInvert
         '
@@ -184,7 +147,7 @@ Partial Class frmDeleteForm
         Me.cmdFilesCheckInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdFilesCheckInvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdFilesCheckInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdFilesCheckInvert.Location = New System.Drawing.Point(557, 0)
+        Me.cmdFilesCheckInvert.Location = New System.Drawing.Point(541, 0)
         Me.cmdFilesCheckInvert.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdFilesCheckInvert.Name = "cmdFilesCheckInvert"
         Me.cmdFilesCheckInvert.Size = New System.Drawing.Size(47, 22)
@@ -203,7 +166,7 @@ Partial Class frmDeleteForm
         Me.cmdFilesCheckBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdFilesCheckBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdFilesCheckBackup.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdFilesCheckBackup.Location = New System.Drawing.Point(428, 0)
+        Me.cmdFilesCheckBackup.Location = New System.Drawing.Point(412, 0)
         Me.cmdFilesCheckBackup.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdFilesCheckBackup.Name = "cmdFilesCheckBackup"
         Me.cmdFilesCheckBackup.Size = New System.Drawing.Size(57, 22)
@@ -222,7 +185,7 @@ Partial Class frmDeleteForm
         Me.cmdFilesCheckAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdFilesCheckAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdFilesCheckAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdFilesCheckAll.Location = New System.Drawing.Point(485, 0)
+        Me.cmdFilesCheckAll.Location = New System.Drawing.Point(469, 0)
         Me.cmdFilesCheckAll.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdFilesCheckAll.Name = "cmdFilesCheckAll"
         Me.cmdFilesCheckAll.Size = New System.Drawing.Size(31, 22)
@@ -241,7 +204,7 @@ Partial Class frmDeleteForm
         Me.cmdFilesCheckNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdFilesCheckNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdFilesCheckNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdFilesCheckNone.Location = New System.Drawing.Point(516, 0)
+        Me.cmdFilesCheckNone.Location = New System.Drawing.Point(500, 0)
         Me.cmdFilesCheckNone.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdFilesCheckNone.Name = "cmdFilesCheckNone"
         Me.cmdFilesCheckNone.Size = New System.Drawing.Size(41, 22)
@@ -255,8 +218,8 @@ Partial Class frmDeleteForm
         Me.txtSelected.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtSelected.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtSelected.ForeColor = System.Drawing.Color.Black
-        Me.txtSelected.Location = New System.Drawing.Point(2, 15)
-        Me.txtSelected.Margin = New System.Windows.Forms.Padding(2)
+        Me.txtSelected.Location = New System.Drawing.Point(0, 15)
+        Me.txtSelected.Margin = New System.Windows.Forms.Padding(0, 2, 4, 2)
         Me.txtSelected.Name = "txtSelected"
         Me.txtSelected.ReadOnly = True
         Me.txtSelected.Size = New System.Drawing.Size(128, 22)
@@ -267,8 +230,8 @@ Partial Class frmDeleteForm
         'lblSizeBackup
         '
         Me.lblSizeBackup.AutoSize = True
-        Me.lblSizeBackup.Location = New System.Drawing.Point(266, 0)
-        Me.lblSizeBackup.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblSizeBackup.Location = New System.Drawing.Point(264, 0)
+        Me.lblSizeBackup.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
         Me.lblSizeBackup.Name = "lblSizeBackup"
         Me.lblSizeBackup.Size = New System.Drawing.Size(72, 13)
         Me.lblSizeBackup.TabIndex = 22
@@ -277,8 +240,8 @@ Partial Class frmDeleteForm
         'lblSelected
         '
         Me.lblSelected.AutoSize = True
-        Me.lblSelected.Location = New System.Drawing.Point(2, 0)
-        Me.lblSelected.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblSelected.Location = New System.Drawing.Point(0, 0)
+        Me.lblSelected.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
         Me.lblSelected.Name = "lblSelected"
         Me.lblSelected.Size = New System.Drawing.Size(53, 13)
         Me.lblSelected.TabIndex = 18
@@ -287,8 +250,8 @@ Partial Class frmDeleteForm
         'lblSize
         '
         Me.lblSize.AutoSize = True
-        Me.lblSize.Location = New System.Drawing.Point(134, 0)
-        Me.lblSize.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblSize.Location = New System.Drawing.Point(132, 0)
+        Me.lblSize.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
         Me.lblSize.Name = "lblSize"
         Me.lblSize.Size = New System.Drawing.Size(81, 13)
         Me.lblSize.TabIndex = 20
@@ -300,8 +263,8 @@ Partial Class frmDeleteForm
         Me.txtSizeBackup.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtSizeBackup.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtSizeBackup.ForeColor = System.Drawing.Color.Black
-        Me.txtSizeBackup.Location = New System.Drawing.Point(266, 15)
-        Me.txtSizeBackup.Margin = New System.Windows.Forms.Padding(2)
+        Me.txtSizeBackup.Location = New System.Drawing.Point(264, 15)
+        Me.txtSizeBackup.Margin = New System.Windows.Forms.Padding(0, 2, 4, 2)
         Me.txtSizeBackup.Name = "txtSizeBackup"
         Me.txtSizeBackup.ReadOnly = True
         Me.txtSizeBackup.Size = New System.Drawing.Size(128, 22)
@@ -315,8 +278,8 @@ Partial Class frmDeleteForm
         Me.txtSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtSize.Dock = System.Windows.Forms.DockStyle.Fill
         Me.txtSize.ForeColor = System.Drawing.Color.Black
-        Me.txtSize.Location = New System.Drawing.Point(134, 15)
-        Me.txtSize.Margin = New System.Windows.Forms.Padding(2)
+        Me.txtSize.Location = New System.Drawing.Point(132, 15)
+        Me.txtSize.Margin = New System.Windows.Forms.Padding(0, 2, 4, 2)
         Me.txtSize.Name = "txtSize"
         Me.txtSize.ReadOnly = True
         Me.txtSize.Size = New System.Drawing.Size(128, 22)
@@ -324,17 +287,17 @@ Partial Class frmDeleteForm
         Me.txtSize.TabStop = False
         Me.txtSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'lblGameListCheck
+        'lblFileListCheck
         '
-        Me.lblGameListCheck.AutoSize = True
-        Me.lblGameListCheck.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblGameListCheck.Location = New System.Drawing.Point(332, 0)
-        Me.lblGameListCheck.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblGameListCheck.Name = "lblGameListCheck"
-        Me.lblGameListCheck.Size = New System.Drawing.Size(94, 22)
-        Me.lblGameListCheck.TabIndex = 32
-        Me.lblGameListCheck.Text = "check savestates:"
-        Me.lblGameListCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblFileListCheck.AutoSize = True
+        Me.lblFileListCheck.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblFileListCheck.Location = New System.Drawing.Point(316, 0)
+        Me.lblFileListCheck.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblFileListCheck.Name = "lblFileListCheck"
+        Me.lblFileListCheck.Size = New System.Drawing.Size(94, 22)
+        Me.lblFileListCheck.TabIndex = 32
+        Me.lblFileListCheck.Text = "check savestates:"
+        Me.lblFileListCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'panelWindowTitle
         '
@@ -491,50 +454,62 @@ Partial Class frmDeleteForm
         Me.flpBottomPanel.Size = New System.Drawing.Size(628, 36)
         Me.flpBottomPanel.TabIndex = 7
         '
-        'FlowPanelGameList
+        'flpFileListTop
         '
-        Me.FlowPanelGameList.AutoSize = True
-        Me.FlowPanelGameList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.FlowPanelGameList.Controls.Add(Me.cmdFilesCheckInvert)
-        Me.FlowPanelGameList.Controls.Add(Me.cmdFilesCheckNone)
-        Me.FlowPanelGameList.Controls.Add(Me.cmdFilesCheckAll)
-        Me.FlowPanelGameList.Controls.Add(Me.cmdFilesCheckBackup)
-        Me.FlowPanelGameList.Controls.Add(Me.lblGameListCheck)
-        Me.FlowPanelGameList.Dock = System.Windows.Forms.DockStyle.Top
-        Me.FlowPanelGameList.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowPanelGameList.Location = New System.Drawing.Point(0, 56)
-        Me.FlowPanelGameList.Margin = New System.Windows.Forms.Padding(0)
-        Me.FlowPanelGameList.Name = "FlowPanelGameList"
-        Me.FlowPanelGameList.Padding = New System.Windows.Forms.Padding(12, 0, 12, 0)
-        Me.FlowPanelGameList.Size = New System.Drawing.Size(628, 22)
-        Me.FlowPanelGameList.TabIndex = 12
-        Me.FlowPanelGameList.WrapContents = False
+        Me.flpFileListTop.AutoSize = True
+        Me.flpFileListTop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpFileListTop.Controls.Add(Me.cmdFilesCheckInvert)
+        Me.flpFileListTop.Controls.Add(Me.cmdFilesCheckNone)
+        Me.flpFileListTop.Controls.Add(Me.cmdFilesCheckAll)
+        Me.flpFileListTop.Controls.Add(Me.cmdFilesCheckBackup)
+        Me.flpFileListTop.Controls.Add(Me.lblFileListCheck)
+        Me.flpFileListTop.Dock = System.Windows.Forms.DockStyle.Top
+        Me.flpFileListTop.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.flpFileListTop.Location = New System.Drawing.Point(8, 0)
+        Me.flpFileListTop.Margin = New System.Windows.Forms.Padding(0)
+        Me.flpFileListTop.Name = "flpFileListTop"
+        Me.flpFileListTop.Padding = New System.Windows.Forms.Padding(12, 0, 12, 0)
+        Me.flpFileListTop.Size = New System.Drawing.Size(612, 22)
+        Me.flpFileListTop.TabIndex = 12
+        Me.flpFileListTop.WrapContents = False
         '
-        'TableLayoutPanel2
+        'tlpFileListStatus
         '
-        Me.TableLayoutPanel2.AutoSize = True
-        Me.TableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.TableLayoutPanel2.BackColor = System.Drawing.Color.White
-        Me.TableLayoutPanel2.ColumnCount = 4
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Controls.Add(Me.lblSelected, 0, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.txtSelected, 0, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.txtSizeBackup, 2, 1)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblSize, 1, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.lblSizeBackup, 2, 0)
-        Me.TableLayoutPanel2.Controls.Add(Me.txtSize, 1, 1)
-        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(0, 273)
-        Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(0)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.RowCount = 2
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(628, 39)
-        Me.TableLayoutPanel2.TabIndex = 17
+        Me.tlpFileListStatus.AutoSize = True
+        Me.tlpFileListStatus.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.tlpFileListStatus.BackColor = System.Drawing.Color.White
+        Me.tlpFileListStatus.ColumnCount = 4
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpFileListStatus.Controls.Add(Me.lblSelected, 0, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.txtSelected, 0, 1)
+        Me.tlpFileListStatus.Controls.Add(Me.txtSizeBackup, 2, 1)
+        Me.tlpFileListStatus.Controls.Add(Me.lblSize, 1, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.lblSizeBackup, 2, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.txtSize, 1, 1)
+        Me.tlpFileListStatus.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.tlpFileListStatus.Location = New System.Drawing.Point(8, 217)
+        Me.tlpFileListStatus.Margin = New System.Windows.Forms.Padding(0)
+        Me.tlpFileListStatus.Name = "tlpFileListStatus"
+        Me.tlpFileListStatus.RowCount = 2
+        Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpFileListStatus.Size = New System.Drawing.Size(612, 39)
+        Me.tlpFileListStatus.TabIndex = 17
+        '
+        'pnlWindowContent
+        '
+        Me.pnlWindowContent.Controls.Add(Me.lvwDelFilesList)
+        Me.pnlWindowContent.Controls.Add(Me.tlpFileListStatus)
+        Me.pnlWindowContent.Controls.Add(Me.flpFileListTop)
+        Me.pnlWindowContent.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.pnlWindowContent.Location = New System.Drawing.Point(0, 56)
+        Me.pnlWindowContent.Name = "pnlWindowContent"
+        Me.pnlWindowContent.Padding = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.pnlWindowContent.Size = New System.Drawing.Size(628, 256)
+        Me.pnlWindowContent.TabIndex = 18
         '
         'frmDeleteForm
         '
@@ -545,9 +520,7 @@ Partial Class frmDeleteForm
         Me.CancelButton = Me.cmdCancel
         Me.ClientSize = New System.Drawing.Size(628, 348)
         Me.ControlBox = False
-        Me.Controls.Add(Me.lvwDelFilesList)
-        Me.Controls.Add(Me.FlowPanelGameList)
-        Me.Controls.Add(Me.TableLayoutPanel2)
+        Me.Controls.Add(Me.pnlWindowContent)
         Me.Controls.Add(Me.flpBottomPanel)
         Me.Controls.Add(Me.panelWindowTitle)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -571,23 +544,20 @@ Partial Class frmDeleteForm
         CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).EndInit()
         Me.flpBottomPanel.ResumeLayout(False)
         Me.flpBottomPanel.PerformLayout()
-        Me.FlowPanelGameList.ResumeLayout(False)
-        Me.FlowPanelGameList.PerformLayout()
-        Me.TableLayoutPanel2.ResumeLayout(False)
-        Me.TableLayoutPanel2.PerformLayout()
+        Me.flpFileListTop.ResumeLayout(False)
+        Me.flpFileListTop.PerformLayout()
+        Me.tlpFileListStatus.ResumeLayout(False)
+        Me.tlpFileListStatus.PerformLayout()
+        Me.pnlWindowContent.ResumeLayout(False)
+        Me.pnlWindowContent.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Private WithEvents lblGameListCheck As System.Windows.Forms.Label
+    Private WithEvents lblFileListCheck As System.Windows.Forms.Label
     Private WithEvents cmdCancel As System.Windows.Forms.Button
     Private WithEvents cmdFilesDeleteSelected As System.Windows.Forms.Button
     Private WithEvents lvwDelFilesList As System.Windows.Forms.ListView
-    Private WithEvents StDelLvw_FileName As System.Windows.Forms.ColumnHeader
-    Private WithEvents StDelLvw_Slot As System.Windows.Forms.ColumnHeader
-    Private WithEvents StDelLvw_Version As System.Windows.Forms.ColumnHeader
-    Private WithEvents StDelLvw_Size As System.Windows.Forms.ColumnHeader
-    Private WithEvents StDelLvw_Status As System.Windows.Forms.ColumnHeader
     Private WithEvents cmdFilesCheckInvert As System.Windows.Forms.Button
     Private WithEvents cmdFilesCheckBackup As System.Windows.Forms.Button
     Private WithEvents cmdFilesCheckAll As System.Windows.Forms.Button
@@ -599,16 +569,16 @@ Partial Class frmDeleteForm
     Private WithEvents txtSizeBackup As System.Windows.Forms.TextBox
     Private WithEvents txtSize As System.Windows.Forms.TextBox
     Private WithEvents panelWindowTitle As System.Windows.Forms.Panel
-    Friend WithEvents tlpTopPanel As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents tlpTopPanel As System.Windows.Forms.TableLayoutPanel
+    Private WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdWindowMaximize As System.Windows.Forms.Button
     Private WithEvents cmdWindowClose As System.Windows.Forms.Button
     Private WithEvents imgWindowGradientIcon As System.Windows.Forms.PictureBox
-    Friend WithEvents flpTitleBar As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents flpTitleBar As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents lblWindowTitle As System.Windows.Forms.Label
-    Friend WithEvents flpBottomPanel As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents FlowPanelGameList As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
-    Private WithEvents StDelLvw_LastWT As System.Windows.Forms.ColumnHeader
+    Private WithEvents flpBottomPanel As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents flpFileListTop As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents tlpFileListStatus As System.Windows.Forms.TableLayoutPanel
     Private WithEvents blWindowDescription As System.Windows.Forms.Label
+    Private WithEvents pnlWindowContent As System.Windows.Forms.Panel
 End Class

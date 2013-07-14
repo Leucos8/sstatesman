@@ -227,7 +227,7 @@ Public Class frmMain
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
             Case ListMode.Snapshots
-                Me.lblSStateListCheck.Text = "check screnshots:"
+                Me.lblSStateListCheck.Text = "check screenshots:"
                 Me.cmdFilesCheckBackup.Visible = False
                 Me.lblSize.Text = "screenshots size"
                 Me.lblSizeBackup.Visible = False
@@ -651,7 +651,7 @@ Public Class frmMain
         For Each tmpSerial As String In Me.checkedGames
 
             Dim tmpGamesListItem As New GamesList_Item
-            If (SSMGameList.Games.TryGetValue(tmpSerial, tmpGamesListItem)) Then
+            If SSMGameList.Games.TryGetValue(tmpSerial, tmpGamesListItem) Then
 
                 'Creation of the header group
                 currentGameInfo = PCSX2GameDb.Extract(tmpSerial)
@@ -663,14 +663,14 @@ Public Class frmMain
                 tmpGroups.Add(tmpLvwSListGroup)
 
                 'Calculating checked games savestate size
-                GameList_SelectedSize += SSMGameList.Games(currentGameInfo.Serial).Savestates_SizeTot
-                GameList_SelectedSizeBackup += SSMGameList.Games(currentGameInfo.Serial).SavestatesBackup_SizeTot
+                GameList_SelectedSize += tmpGamesListItem.Savestates_SizeTot
+                GameList_SelectedSizeBackup += tmpGamesListItem.SavestatesBackup_SizeTot
 
-                If (SSMGameList.Games(tmpSerial).Savestates.Values.Count > 0) Then
+                If tmpGamesListItem.Savestates.Values.Count > 0 Then
 
                     lastSStateDate = Date.MinValue
 
-                    For Each tmpSavestate As KeyValuePair(Of String, Savestate) In SSMGameList.Games(tmpSerial).Savestates
+                    For Each tmpSavestate As KeyValuePair(Of String, Savestate) In tmpGamesListItem.Savestates
 
                         Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key, _
                                                                                            .Group = tmpLvwSListGroup, _
@@ -685,13 +685,13 @@ Public Class frmMain
                             tmpLvwSListItem.ImageIndex = 1
                         End If
 
-                        If (checkedSavestates.Contains(tmpSavestate.Key)) Then
+                        If checkedSavestates.Contains(tmpSavestate.Key) Then
                             tmpLvwSListItem.Checked = True
                         End If
 
                         tmpLvwItems.Add(tmpLvwSListItem)
 
-                        If (tmpSavestate.Value.LastWriteTime > lastSStateDate) Then
+                        If tmpSavestate.Value.LastWriteTime > lastSStateDate Then
                             lastSStateIndex = tmpLvwItems.Count - 1
                             lastSStateDate = tmpSavestate.Value.LastWriteTime
                         End If
@@ -700,7 +700,7 @@ Public Class frmMain
 
             End If
 
-            If (lastSStateIndex > -1) Then
+            If lastSStateIndex > -1 Then
                 tmpLvwItems.Item(lastSStateIndex).SubItems(0).ForeColor = Color.FromArgb(255, 65, 74, 100)
             End If
         Next
@@ -740,7 +740,7 @@ Public Class frmMain
         For Each tmpSerial As String In Me.checkedGames
 
             Dim tmpGamesListItem As New GamesList_Item
-            If (SSMGameList.Games.TryGetValue(tmpSerial, tmpGamesListItem)) Then
+            If SSMGameList.Games.TryGetValue(tmpSerial, tmpGamesListItem) Then
 
                 'Creation of the header group
                 currentGameInfo = PCSX2GameDb.Extract(tmpSerial)
@@ -752,39 +752,39 @@ Public Class frmMain
                 tmpGroups.Add(tmpLvwSListGroup)
 
                 'Calculating checked games snapshots size
-                GameList_SelectedSize += SSMGameList.Games(currentGameInfo.Serial).Snapshots_SizeTot
+                GameList_SelectedSize += tmpGamesListItem.Snapshots_SizeTot
 
-                If (SSMGameList.Games(tmpSerial).Snapshots.Values.Count > 0) Then
+                If tmpGamesListItem.Snapshots.Values.Count > 0 Then
 
                     lastSnapsDate = Date.MinValue
 
-                    For Each tmpSnaps As KeyValuePair(Of String, Snapshot) In SSMGameList.Games(tmpSerial).Snapshots
+                    For Each tmpSnap As KeyValuePair(Of String, Snapshot) In tmpGamesListItem.Snapshots
 
-                        Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSnaps.Key, _
+                        Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSnap.Key, _
                                                                                            .Group = tmpLvwSListGroup, _
-                                                                                           .Name = tmpSnaps.Key}
+                                                                                           .Name = tmpSnap.Key}
                         tmpLvwSListItem.SubItems.AddRange({"00", _
                                                            "Resolution", _
-                                                           tmpSnaps.Value.LastWriteTime.ToString, _
-                                                           System.String.Format("{0:N2} MB", tmpSnaps.Value.Length / 1024 ^ 2)})
+                                                           tmpSnap.Value.LastWriteTime.ToString, _
+                                                           System.String.Format("{0:N2} MB", tmpSnap.Value.Length / 1024 ^ 2)})
                         tmpLvwSListItem.ImageIndex = 2
 
-                        If (checkedSnapshots.Contains(tmpSnaps.Key)) Then
+                        If checkedSnapshots.Contains(tmpSnap.Key) Then
                             tmpLvwSListItem.Checked = True
                         End If
 
                         tmpLvwItems.Add(tmpLvwSListItem)
 
-                        If (tmpSnaps.Value.LastWriteTime > lastSnapsDate) Then
+                        If tmpSnap.Value.LastWriteTime > lastSnapsDate Then
                             lastSnapsIndex = tmpLvwItems.Count - 1
-                            lastSnapsDate = tmpSnaps.Value.LastWriteTime
+                            lastSnapsDate = tmpSnap.Value.LastWriteTime
                         End If
                     Next
                 End If
 
             End If
 
-            If (lastSnapsIndex > -1) Then
+            If lastSnapsIndex > -1 Then
                 tmpLvwItems.Item(lastSnapsIndex).SubItems(0).ForeColor = Color.FromArgb(255, 65, 74, 100)
             End If
         Next
@@ -838,10 +838,10 @@ Public Class frmMain
     End Sub
 
     Private Sub FileList_IndexChecked()
+        Me.FileList_SelectedSize = 0
+        Me.FileList_SelectedSizeBackup = 0
         Select Case Me.currentListMode
             Case ListMode.Savestates
-                Me.FileList_SelectedSize = 0
-                Me.FileList_SelectedSizeBackup = 0
                 checkedSavestates.Clear()
 
                 If Me.lvwFilesList.CheckedItems.Count > 0 Then
@@ -859,7 +859,6 @@ Public Class frmMain
                     Next
                 End If
             Case ListMode.Snapshots
-                Me.FileList_SelectedSize = 0
                 checkedSnapshots.Clear()
 
                 If Me.lvwFilesList.CheckedItems.Count > 0 Then

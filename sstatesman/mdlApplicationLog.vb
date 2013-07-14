@@ -37,6 +37,7 @@ Module mdlApplicationLog
     Friend Enum eSrcMethod
         'General
         Load
+        Delete
         Close
         List
         Search
