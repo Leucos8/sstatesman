@@ -180,12 +180,12 @@ Module mdlTheme
 
         If pListView IsNot Nothing Then
             Dim colorswitch As Boolean = True
-            For Each tmpListViewItem As ListViewItem In pListView
-                If Not tmpListViewItem.BackColor = Color.Transparent Then
+            For i As Integer = 0 To pListView.Count - 1
+                If pListView(i).BackColor = SystemColors.Window Then
                     If colorswitch Then
-                        tmpListViewItem.BackColor = Color.Transparent
+                        pListView(i).BackColor = Color.Transparent
                     Else
-                        tmpListViewItem.BackColor = Color.Gainsboro
+                        pListView(i).BackColor = Color.Gainsboro
                     End If
                 End If
                 colorswitch = Not colorswitch
