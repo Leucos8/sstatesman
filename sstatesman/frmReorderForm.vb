@@ -15,12 +15,9 @@
 Imports System.IO
 
 Public Class frmReorderForm
+    Dim lastWindowState As FormWindowState  'Needed to know if a form resize changed the windowstate
 
     Dim ListsAreCurrentlyRefreshed As Boolean = False
-    'Dim SStateList_TotalSizeSelected As Long = 0
-    'Dim SStateList_TotalSizeBackupSelected As Long = 0
-    'Dim SStateList_TotalSize As Long = 0
-    'Dim SStateList_TotalSizeBackup As Long = 0
 
     Friend Enum ReorderListColumns
         Slot
@@ -28,7 +25,33 @@ Public Class frmReorderForm
         NewName
     End Enum
 
-#Region "Form - General"
+#Region "Form"
+    Private Sub frmReorderForm_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
+
+        'Dim imlLvwItemsIcons As New ImageList With {.ImageSize = New Size(CInt(15 * DPIxScale) + 1, CInt(15 * DPIyScale) + 1)}
+        'imlLvwItemsIcons.Images.AddRange({My.Resources.Icon_Savestates_16x16, My.Resources.Icon_SavestatesBackup_16x16})
+        Me.lvwReorderList.SmallImageList = imlLvwItemIcons
+
+
+        Me.applyTheme()
+
+        UI_Enabler(False)
+        Me.ReorderList_Populate()
+        Me.Rename_Preview()
+        UI_Enabler(True)
+        UI_Updater()
+
+    End Sub
+
+    Private Sub frmReorderForm_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        Me.lvwReorderList.Items.Clear()
+        Me.lvwReorderList.Groups.Clear()
+
+        frmMain.GameList_Refresh()
+    End Sub
+#End Region
+
+#Region "UI - General"
     Private Sub UI_Enabler(pGlobalSwitch As Boolean)
         If pGlobalSwitch = True Then
             Me.ListsAreCurrentlyRefreshed = False
@@ -73,65 +96,15 @@ Public Class frmReorderForm
 
         End If
     End Sub
+#End Region
 
-    Private Sub frmReorderForm_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-
-        Dim imlLvwSStatesIcons As New ImageList With {.ImageSize = New Size(CInt(15 * DPIxScale) + 1, CInt(15 * DPIyScale) + 1)}
-        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_Savestate_16x16)
-        imlLvwSStatesIcons.Images.Add(My.Resources.Icon_SavestateBackup_16x16)
-        Me.lvwReorderList.SmallImageList = imlLvwSStatesIcons
-
-
-        'Me.Location = My.Settings.frmDel_WindowLocation
-        'Me.Size = My.Settings.frmDel_WindowSize
-        'If My.Settings.frmMain_WindowState = FormWindowState.Minimized Then
-        '    My.Settings.frmMain_WindowState = FormWindowState.Normal
-        'End If
-        'Me.WindowState = My.Settings.frmDel_WindowState
-
-        'If My.Settings.frmDel_slvw_columnwidth IsNot Nothing Then
-        '    If My.Settings.frmDel_slvw_columnwidth.Length = Me.lvwSStatesListToDelete.Columns.Count Then
-        '        For i As Integer = 0 To Me.lvwSStatesListToDelete.Columns.Count - 1
-        '            Me.lvwSStatesListToDelete.Columns(i).Width = My.Settings.frmDel_slvw_columnwidth(i)
-        '        Next
-        '    End If
-        'End If
-
-        Me.applyTheme()
-
-        UI_Enabler(False)
-        Me.ReorderList_Populate()
-        Me.Rename_Preview()
-        'Me.lvwSStatesListToDelete_indexCheckedFiles()
-        UI_Enabler(True)
-        UI_Updater()
-
-    End Sub
-
-    Private Sub frmReorderForm_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
-        Me.lvwReorderList.Items.Clear()
-        Me.lvwReorderList.Groups.Clear()
-
-        'My.Settings.frmDel_WindowState = Me.WindowState
-        'If Not (Me.WindowState = FormWindowState.Maximized Or Me.WindowState = FormWindowState.Minimized) Then
-        '    My.Settings.frmDel_WindowLocation = Me.Location
-        '    My.Settings.frmDel_WindowSize = Me.Size
-        'End If
-
-        'Dim columnwidtharray As Integer() = {Me.StDelLvw_FileName.Width, Me.StDelLvw_Slot.Width, Me.StDelLvw_Backup.Width,
-        '                                     Me.StDelLvw_Version.Width, Me.StDelLvw_LastWT.Width, Me.StDelLvw_Size.Width, Me.StDelLvw_Status.Width}
-        'My.Settings.frmDel_slvw_columnwidth = columnwidtharray
-
-        frmMain.GameList_Refresh()
-    End Sub
-
+#Region "Form - Commands"
     Private Sub cmdReorder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdReorder.Click
         Rename_Execute()
         frmMain.GameList_Refresh()
         UI_Enabler(False)
         Me.ReorderList_Populate()
         Me.Rename_Preview()
-        'Me.lvwSStatesListToDelete_indexCheckedFiles()
         UI_Enabler(True)
         UI_Updater()
     End Sub
@@ -141,51 +114,52 @@ Public Class frmReorderForm
     End Sub
 #End Region
 
-#Region "Windows state buttons"
+#Region "Form - ControlBox & Resize"
     Private Sub cmdWindowMaximize_MouseEnter(sender As Object, e As EventArgs) Handles cmdWindowMaximize.MouseEnter
         If Me.WindowState = FormWindowState.Normal Then
-            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximizeW_12x12
+            CType(sender, Button).Image = My.Resources.Window_ButtonMaximizeW_12x12
         ElseIf Me.WindowState = FormWindowState.Maximized Then
-            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestoreW_12x12
+            CType(sender, Button).Image = My.Resources.Window_ButtonRestoreW_12x12
         End If
     End Sub
 
     Private Sub cmdWindowMaximize_MouseLeave(sender As Object, e As EventArgs) Handles cmdWindowMaximize.MouseLeave
         If Me.WindowState = FormWindowState.Normal Then
-            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
+            CType(sender, Button).Image = My.Resources.Window_ButtonMaximize_12x12
         ElseIf Me.WindowState = FormWindowState.Maximized Then
-            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
+            CType(sender, Button).Image = My.Resources.Window_ButtonRestore_12x12
         End If
     End Sub
 
-    Private Sub cmdWindowMaximize_Click(sender As System.Object, e As System.EventArgs) Handles cmdWindowMaximize.Click
+    Private Sub cmdWindowMaximize_Click(sender As Object, e As EventArgs) Handles cmdWindowMaximize.Click
         If Me.WindowState = FormWindowState.Normal Then
             Me.WindowState = FormWindowState.Maximized
-            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
         ElseIf Me.WindowState = FormWindowState.Maximized Then
             Me.WindowState = FormWindowState.Normal
-            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
         End If
     End Sub
 
-    Private Sub cmdWindowClose_Click(sender As System.Object, e As System.EventArgs) Handles cmdWindowClose.Click
+    Private Sub cmdWindowClose_Click(sender As Object, e As EventArgs) Handles cmdWindowClose.Click
         Me.Close()
     End Sub
 
-    Private Sub frmDeleteForm_SizeChanged(sender As Object, e As System.EventArgs) Handles Me.SizeChanged
-        If Me.WindowState = FormWindowState.Normal Then
-            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
-            Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0, 0, CInt(6 * DPIxScale), 0)
-            'Me.Padding = New Padding(Math.Abs(Me.Top))
-        ElseIf Me.WindowState = FormWindowState.Maximized Then
-            Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
-            Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
-            'Me.Padding = New Padding(1)
+    Private Sub frmDeleteForm_SizeChanged(sender As Object, e As EventArgs) Handles Me.SizeChanged
+        If Not (Me.lastWindowState = Me.WindowState) Then
+            If Me.WindowState = FormWindowState.Normal Then
+                Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
+                Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0, 0, CInt(6 * DPIxScale), 0)
+                'Me.Padding = New Padding(1)
+            ElseIf Me.WindowState = FormWindowState.Maximized Then
+                Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
+                Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0, 0, CInt(3 * DPIxScale), 0)
+                'Me.Padding = New Padding(0)
+            End If
+            Me.lastWindowState = Me.WindowState
         End If
     End Sub
 #End Region
 
-#Region "SStatesList management"
+#Region "UI - FileList"
     Private Sub ReorderList_Populate()
         Me.lvwReorderList.Items.Clear()
         Me.lvwReorderList.Groups.Clear()
@@ -234,57 +208,6 @@ Public Class frmReorderForm
     Private Sub lvwReorderLisst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvwReorderList.SelectedIndexChanged
         Me.UI_Updater()
     End Sub
-
-#End Region
-
-#Region "UI paint"
-    Private Sub panelWindowTitle_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
-        Dim rectoolbar As New Rectangle(0, CInt(8 * DPIyScale), CInt(23 * DPIxScale) + 1, CInt(38 * DPIyScale) + 1)
-        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 90)
-        e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
-        If Me.imgWindowGradientIcon.Width > 0 And Me.imgWindowGradientIcon.Height > 0 Then
-            rectoolbar = New Rectangle(Me.imgWindowGradientIcon.Location, Me.imgWindowGradientIcon.Size)
-            linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 90)
-            e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
-        End If
-        If (panelWindowTitle.Height > CInt(4 * DPIyScale) + 1) And (panelWindowTitle.Width > 0) Then
-            If My.Settings.SStatesMan_ThemeGradientEnabled Then
-                rectoolbar = New Rectangle(0, panelWindowTitle.Height - CInt(4 * DPIyScale), panelWindowTitle.Width + 1, CInt(3 * DPIyScale) + 1)
-                linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, Color.Transparent, Color.DarkGray, 90)
-                rectoolbar.Y += 1
-                e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
-            End If
-            e.Graphics.DrawLine(Pens.DimGray, 0, panelWindowTitle.Height - 1, panelWindowTitle.Width, panelWindowTitle.Height - 1)
-        End If
-    End Sub
-
-    Private Sub flpWindowBottom_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles flpWindowBottom.Paint
-        If flpWindowBottom.Height > CInt(4 * DPIyScale) Then
-            If My.Settings.SStatesMan_ThemeGradientEnabled Then
-                Dim recToolbar As New Rectangle(0, 0, flpWindowBottom.Width + 1, CInt(3 * DPIyScale) + 1)
-                Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
-                e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-            End If
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, flpWindowBottom.Width, 0)
-        End If
-    End Sub
-
-    Private Sub applyTheme()
-        Me.BackColor = currentTheme.BgColor
-        Me.panelWindowTitle.BackColor = currentTheme.BgColorTop
-        Me.flpWindowBottom.BackColor = currentTheme.BgColorBottom
-        If My.Settings.SStatesMan_ThemeImageEnabled Then
-            Me.panelWindowTitle.BackgroundImage = currentTheme.BgImageTop
-            Me.panelWindowTitle.BackgroundImageLayout = currentTheme.BgImageTopStyle
-            Me.flpWindowBottom.BackgroundImage = currentTheme.BgImageBottom
-            Me.flpWindowBottom.BackgroundImageLayout = currentTheme.BgImageBottomStyle
-        Else
-            Me.panelWindowTitle.BackgroundImage = Nothing
-            Me.flpWindowBottom.BackgroundImage = Nothing
-        End If
-        Me.Refresh()
-    End Sub
-#End Region
 
     Private Sub cmdMoveUp_Click(sender As Object, e As EventArgs) Handles cmdMoveUp.Click
         UI_Enabler(False)
@@ -349,6 +272,61 @@ Public Class frmReorderForm
         Rename_Preview()
         UI_Enabler(True)
     End Sub
+#End Region
+
+#Region "Theme"
+    Private Sub pnlTopPanel_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlTopPanel.Paint
+        Dim rectoolbar As New Rectangle(0, CInt(8 * DPIyScale), CInt(23 * DPIxScale) + 1, CInt(38 * DPIyScale) + 1)
+        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 90)
+        e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
+        If Me.imgWindowGradientIcon.Width > 0 And Me.imgWindowGradientIcon.Height > 0 Then
+            rectoolbar = New Rectangle(Me.imgWindowGradientIcon.Location, Me.imgWindowGradientIcon.Size)
+            linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 90)
+            e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
+        End If
+        If (CType(sender, Panel).Height > CInt(4 * DPIyScale) + 1) And (CType(sender, Panel).Width > 0) Then
+            If My.Settings.SStatesMan_ThemeGradientEnabled Then
+                rectoolbar = New Rectangle(0, CType(sender, Panel).Height - CInt(4 * DPIyScale), CType(sender, Panel).Width + 1, CInt(3 * DPIyScale) + 1)
+                linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, Color.Transparent, Color.DarkGray, 90)
+                rectoolbar.Y += 1
+                e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
+            End If
+            e.Graphics.DrawLine(Pens.DimGray, 0, CType(sender, Panel).Height - 1, CType(sender, Panel).Width, CType(sender, Panel).Height - 1)
+        End If
+    End Sub
+
+    Private Sub flpWindowBottom_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles flpBottomPanel.Paint
+        If CType(sender, FlowLayoutPanel).Height > CInt(4 * DPIyScale) Then
+            If My.Settings.SStatesMan_ThemeGradientEnabled Then
+                Dim recToolbar As New Rectangle(0, 0, CType(sender, FlowLayoutPanel).Width + 1, CInt(3 * DPIyScale) + 1)
+                Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
+                e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
+            End If
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, CType(sender, FlowLayoutPanel).Width, 0)
+        End If
+    End Sub
+
+    Private Sub applyTheme()
+        Dim sw As Stopwatch = Stopwatch.StartNew
+
+        Me.BackColor = currentTheme.BgColor
+        Me.pnlTopPanel.BackColor = currentTheme.BgColorTop
+        Me.flpBottomPanel.BackColor = currentTheme.BgColorBottom
+        If My.Settings.SStatesMan_ThemeImageEnabled Then
+            Me.pnlTopPanel.BackgroundImage = currentTheme.BgImageTop
+            Me.pnlTopPanel.BackgroundImageLayout = currentTheme.BgImageTopStyle
+            Me.flpBottomPanel.BackgroundImage = currentTheme.BgImageBottom
+            Me.flpBottomPanel.BackgroundImageLayout = currentTheme.BgImageBottomStyle
+        Else
+            Me.pnlTopPanel.BackgroundImage = Nothing
+            Me.flpBottomPanel.BackgroundImage = Nothing
+        End If
+        Me.Refresh()
+
+        sw.Stop()
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Theme, "Theme applied.", sw.ElapsedTicks)
+    End Sub
+#End Region
 
     Private Sub Rename_Preview()
         If Me.lvwReorderList.Items.Count > 0 Then
