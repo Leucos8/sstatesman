@@ -68,7 +68,6 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
-
   <PropertyGroup>
     <ApplicationIcon>Resources\ico\SSMicov1_256x256.ico</ApplicationIcon>
   </PropertyGroup>
@@ -296,6 +295,16 @@
     <None Include="Resources\Icon_FolderPCSX2_16x16.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Icon_OrderLast_16x16.png" />
+    <None Include="Resources\Icon_OrderFirst_16x16.png" />
+    <None Include="Resources\Icon_OrderDown_16x16.png" />
+    <None Include="Resources\Icon_OrderUp_16x16.png" />
+    <None Include="Resources\Glyph_Reorder_16x16.png" />
+    <None Include="Resources\Glyph_TrashCan_16x16.png" />
+    <None Include="Resources\Icon_CheckBackup_16x16.png" />
+    <None Include="Resources\Icon_CheckInvert_16x16.png" />
+    <None Include="Resources\Icon_CheckNone_16x16.png" />
+    <None Include="Resources\Icon_CheckAll_16x16.png" />
     <None Include="Resources\InfoIcon_Warning_16x16.png" />
     <None Include="Resources\InfoIcon_Information_16x16.png" />
   </ItemGroup>

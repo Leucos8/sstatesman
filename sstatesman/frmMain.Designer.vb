@@ -82,30 +82,30 @@ Partial Class frmMain
         Me.lblGameList_Compat = New System.Windows.Forms.Label()
         Me.lblGameList_Serial = New System.Windows.Forms.Label()
         Me.txtGameList_Serial = New System.Windows.Forms.TextBox()
-        Me.TableLayoutPanel2 = New System.Windows.Forms.TableLayoutPanel()
-        Me.FlowPanelGameList = New System.Windows.Forms.FlowLayoutPanel()
+        Me.tlpGameListCommands = New System.Windows.Forms.TableLayoutPanel()
+        Me.flpGameListCommandsCheck = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdGameSelectInvert = New System.Windows.Forms.Button()
         Me.cmdGameSelectNone = New System.Windows.Forms.Button()
         Me.cmdGameSelectAll = New System.Windows.Forms.Button()
         Me.lblGameListCheck = New System.Windows.Forms.Label()
         Me.lvwFilesList = New System.Windows.Forms.ListView()
-        Me.TableLayoutPanel5 = New System.Windows.Forms.TableLayoutPanel()
+        Me.tlpFileListStatus = New System.Windows.Forms.TableLayoutPanel()
         Me.lblSelected = New System.Windows.Forms.Label()
         Me.txtSelected = New System.Windows.Forms.TextBox()
         Me.txtSizeBackup = New System.Windows.Forms.TextBox()
         Me.lblSize = New System.Windows.Forms.Label()
         Me.lblSizeBackup = New System.Windows.Forms.Label()
         Me.txtSize = New System.Windows.Forms.TextBox()
-        Me.TableLayoutPanel4 = New System.Windows.Forms.TableLayoutPanel()
-        Me.FlowLayoutPanel4 = New System.Windows.Forms.FlowLayoutPanel()
+        Me.tlpFileListCommands = New System.Windows.Forms.TableLayoutPanel()
+        Me.flpFileListCommandsFiles = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdFilesReorder = New System.Windows.Forms.Button()
         Me.cmdFilesDelete = New System.Windows.Forms.Button()
         Me.cmdExpandFilesList = New System.Windows.Forms.Button()
-        Me.FlowPanelSStatesList = New System.Windows.Forms.FlowLayoutPanel()
-        Me.cmdFilesCheckInvert = New System.Windows.Forms.Button()
-        Me.cmdFilesCheckNone = New System.Windows.Forms.Button()
-        Me.cmdFilesCheckAll = New System.Windows.Forms.Button()
-        Me.cmdFilesCheckBackup = New System.Windows.Forms.Button()
+        Me.flpFileListCommandsCheck = New System.Windows.Forms.FlowLayoutPanel()
+        Me.cmdFileCheckInvert = New System.Windows.Forms.Button()
+        Me.cmdFileCheckNone = New System.Windows.Forms.Button()
+        Me.cmdFileCheckAll = New System.Windows.Forms.Button()
+        Me.cmdFileCheckBackup = New System.Windows.Forms.Button()
         Me.lblSStateListCheck = New System.Windows.Forms.Label()
         Me.cmTools = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmiPCSX2Launch = New System.Windows.Forms.ToolStripMenuItem()
@@ -134,12 +134,12 @@ Partial Class frmMain
         CType(Me.imgCover, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.cmCover.SuspendLayout()
         CType(Me.imgFlag, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.TableLayoutPanel2.SuspendLayout()
-        Me.FlowPanelGameList.SuspendLayout()
-        Me.TableLayoutPanel5.SuspendLayout()
-        Me.TableLayoutPanel4.SuspendLayout()
-        Me.FlowLayoutPanel4.SuspendLayout()
-        Me.FlowPanelSStatesList.SuspendLayout()
+        Me.tlpGameListCommands.SuspendLayout()
+        Me.flpGameListCommandsCheck.SuspendLayout()
+        Me.tlpFileListStatus.SuspendLayout()
+        Me.tlpFileListCommands.SuspendLayout()
+        Me.flpFileListCommandsFiles.SuspendLayout()
+        Me.flpFileListCommandsCheck.SuspendLayout()
         Me.cmTools.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -526,7 +526,7 @@ Partial Class frmMain
         Me.cmdRefresh.Size = New System.Drawing.Size(68, 22)
         Me.cmdRefresh.TabIndex = 19
         Me.cmdRefresh.Text = "&REFRESH"
-        Me.cmdRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
+        Me.cmdRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdRefresh.UseVisualStyleBackColor = False
         '
         'tmrSStatesListRefresh
@@ -546,15 +546,15 @@ Partial Class frmMain
         '
         Me.SplitContainer1.Panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
         Me.SplitContainer1.Panel1.Controls.Add(Me.tlpGameList)
-        Me.SplitContainer1.Panel1.Controls.Add(Me.TableLayoutPanel2)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.tlpGameListCommands)
         Me.SplitContainer1.Panel1.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
         Me.SplitContainer1.Panel1MinSize = 200
         '
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.lvwFilesList)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.TableLayoutPanel5)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.TableLayoutPanel4)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.tlpFileListStatus)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.tlpFileListCommands)
         Me.SplitContainer1.Panel2.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
         Me.SplitContainer1.Panel2MinSize = 120
         Me.SplitContainer1.Size = New System.Drawing.Size(632, 393)
@@ -811,41 +811,41 @@ Partial Class frmMain
         Me.txtGameList_Serial.TabIndex = 28
         Me.txtGameList_Serial.TabStop = False
         '
-        'TableLayoutPanel2
+        'tlpGameListCommands
         '
-        Me.TableLayoutPanel2.AutoSize = True
-        Me.TableLayoutPanel2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.TableLayoutPanel2.ColumnCount = 3
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel2.Controls.Add(Me.FlowPanelGameList, 2, 0)
-        Me.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TableLayoutPanel2.Location = New System.Drawing.Point(8, 0)
-        Me.TableLayoutPanel2.Margin = New System.Windows.Forms.Padding(0)
-        Me.TableLayoutPanel2.Name = "TableLayoutPanel2"
-        Me.TableLayoutPanel2.Padding = New System.Windows.Forms.Padding(16, 0, 16, 0)
-        Me.TableLayoutPanel2.RowCount = 1
-        Me.TableLayoutPanel2.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel2.Size = New System.Drawing.Size(616, 22)
-        Me.TableLayoutPanel2.TabIndex = 31
+        Me.tlpGameListCommands.AutoSize = True
+        Me.tlpGameListCommands.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.tlpGameListCommands.ColumnCount = 3
+        Me.tlpGameListCommands.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpGameListCommands.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpGameListCommands.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpGameListCommands.Controls.Add(Me.flpGameListCommandsCheck, 2, 0)
+        Me.tlpGameListCommands.Dock = System.Windows.Forms.DockStyle.Top
+        Me.tlpGameListCommands.Location = New System.Drawing.Point(8, 0)
+        Me.tlpGameListCommands.Margin = New System.Windows.Forms.Padding(0)
+        Me.tlpGameListCommands.Name = "tlpGameListCommands"
+        Me.tlpGameListCommands.Padding = New System.Windows.Forms.Padding(16, 0, 16, 0)
+        Me.tlpGameListCommands.RowCount = 1
+        Me.tlpGameListCommands.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpGameListCommands.Size = New System.Drawing.Size(616, 22)
+        Me.tlpGameListCommands.TabIndex = 31
         '
-        'FlowPanelGameList
+        'flpGameListCommandsCheck
         '
-        Me.FlowPanelGameList.AutoSize = True
-        Me.FlowPanelGameList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.FlowPanelGameList.Controls.Add(Me.cmdGameSelectInvert)
-        Me.FlowPanelGameList.Controls.Add(Me.cmdGameSelectNone)
-        Me.FlowPanelGameList.Controls.Add(Me.cmdGameSelectAll)
-        Me.FlowPanelGameList.Controls.Add(Me.lblGameListCheck)
-        Me.FlowPanelGameList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FlowPanelGameList.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowPanelGameList.Location = New System.Drawing.Point(402, 0)
-        Me.FlowPanelGameList.Margin = New System.Windows.Forms.Padding(0)
-        Me.FlowPanelGameList.Name = "FlowPanelGameList"
-        Me.FlowPanelGameList.Size = New System.Drawing.Size(198, 22)
-        Me.FlowPanelGameList.TabIndex = 32
-        Me.FlowPanelGameList.WrapContents = False
+        Me.flpGameListCommandsCheck.AutoSize = True
+        Me.flpGameListCommandsCheck.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpGameListCommandsCheck.Controls.Add(Me.cmdGameSelectInvert)
+        Me.flpGameListCommandsCheck.Controls.Add(Me.cmdGameSelectNone)
+        Me.flpGameListCommandsCheck.Controls.Add(Me.cmdGameSelectAll)
+        Me.flpGameListCommandsCheck.Controls.Add(Me.lblGameListCheck)
+        Me.flpGameListCommandsCheck.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flpGameListCommandsCheck.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.flpGameListCommandsCheck.Location = New System.Drawing.Point(354, 0)
+        Me.flpGameListCommandsCheck.Margin = New System.Windows.Forms.Padding(0)
+        Me.flpGameListCommandsCheck.Name = "flpGameListCommandsCheck"
+        Me.flpGameListCommandsCheck.Size = New System.Drawing.Size(246, 22)
+        Me.flpGameListCommandsCheck.TabIndex = 32
+        Me.flpGameListCommandsCheck.WrapContents = False
         '
         'cmdGameSelectInvert
         '
@@ -858,12 +858,15 @@ Partial Class frmMain
         Me.cmdGameSelectInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdGameSelectInvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdGameSelectInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdGameSelectInvert.Location = New System.Drawing.Point(151, 0)
+        Me.cmdGameSelectInvert.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckInvert_16x16
+        Me.cmdGameSelectInvert.Location = New System.Drawing.Point(183, 0)
         Me.cmdGameSelectInvert.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdGameSelectInvert.Name = "cmdGameSelectInvert"
-        Me.cmdGameSelectInvert.Size = New System.Drawing.Size(47, 22)
+        Me.cmdGameSelectInvert.Size = New System.Drawing.Size(63, 22)
         Me.cmdGameSelectInvert.TabIndex = 36
         Me.cmdGameSelectInvert.Text = "INVERT"
+        Me.cmdGameSelectInvert.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdGameSelectInvert.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdGameSelectInvert.UseVisualStyleBackColor = False
         '
         'cmdGameSelectNone
@@ -877,12 +880,15 @@ Partial Class frmMain
         Me.cmdGameSelectNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdGameSelectNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdGameSelectNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdGameSelectNone.Location = New System.Drawing.Point(110, 0)
+        Me.cmdGameSelectNone.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckNone_16x16
+        Me.cmdGameSelectNone.Location = New System.Drawing.Point(126, 0)
         Me.cmdGameSelectNone.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdGameSelectNone.Name = "cmdGameSelectNone"
-        Me.cmdGameSelectNone.Size = New System.Drawing.Size(41, 22)
+        Me.cmdGameSelectNone.Size = New System.Drawing.Size(57, 22)
         Me.cmdGameSelectNone.TabIndex = 35
         Me.cmdGameSelectNone.Text = "NONE"
+        Me.cmdGameSelectNone.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdGameSelectNone.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdGameSelectNone.UseVisualStyleBackColor = False
         '
         'cmdGameSelectAll
@@ -896,12 +902,15 @@ Partial Class frmMain
         Me.cmdGameSelectAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdGameSelectAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdGameSelectAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdGameSelectAll.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckAll_16x16
         Me.cmdGameSelectAll.Location = New System.Drawing.Point(79, 0)
         Me.cmdGameSelectAll.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdGameSelectAll.Name = "cmdGameSelectAll"
-        Me.cmdGameSelectAll.Size = New System.Drawing.Size(31, 22)
+        Me.cmdGameSelectAll.Size = New System.Drawing.Size(47, 22)
         Me.cmdGameSelectAll.TabIndex = 34
         Me.cmdGameSelectAll.Text = "ALL"
+        Me.cmdGameSelectAll.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdGameSelectAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdGameSelectAll.UseVisualStyleBackColor = False
         '
         'lblGameListCheck
@@ -935,30 +944,30 @@ Partial Class frmMain
         Me.lvwFilesList.UseCompatibleStateImageBehavior = False
         Me.lvwFilesList.View = System.Windows.Forms.View.Details
         '
-        'TableLayoutPanel5
+        'tlpFileListStatus
         '
-        Me.TableLayoutPanel5.AutoSize = True
-        Me.TableLayoutPanel5.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.TableLayoutPanel5.ColumnCount = 4
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel5.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel5.Controls.Add(Me.lblSelected, 0, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.txtSelected, 0, 1)
-        Me.TableLayoutPanel5.Controls.Add(Me.txtSizeBackup, 2, 1)
-        Me.TableLayoutPanel5.Controls.Add(Me.lblSize, 1, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.lblSizeBackup, 2, 0)
-        Me.TableLayoutPanel5.Controls.Add(Me.txtSize, 1, 1)
-        Me.TableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.TableLayoutPanel5.Location = New System.Drawing.Point(8, 145)
-        Me.TableLayoutPanel5.Margin = New System.Windows.Forms.Padding(0)
-        Me.TableLayoutPanel5.Name = "TableLayoutPanel5"
-        Me.TableLayoutPanel5.RowCount = 2
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel5.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.TableLayoutPanel5.Size = New System.Drawing.Size(616, 39)
-        Me.TableLayoutPanel5.TabIndex = 48
+        Me.tlpFileListStatus.AutoSize = True
+        Me.tlpFileListStatus.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.tlpFileListStatus.ColumnCount = 4
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpFileListStatus.Controls.Add(Me.lblSelected, 0, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.txtSelected, 0, 1)
+        Me.tlpFileListStatus.Controls.Add(Me.txtSizeBackup, 2, 1)
+        Me.tlpFileListStatus.Controls.Add(Me.lblSize, 1, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.lblSizeBackup, 2, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.txtSize, 1, 1)
+        Me.tlpFileListStatus.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.tlpFileListStatus.Location = New System.Drawing.Point(8, 145)
+        Me.tlpFileListStatus.Margin = New System.Windows.Forms.Padding(0)
+        Me.tlpFileListStatus.Name = "tlpFileListStatus"
+        Me.tlpFileListStatus.RowCount = 2
+        Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpFileListStatus.Size = New System.Drawing.Size(616, 39)
+        Me.tlpFileListStatus.TabIndex = 48
         '
         'lblSelected
         '
@@ -1035,42 +1044,42 @@ Partial Class frmMain
         Me.txtSize.TabStop = False
         Me.txtSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'TableLayoutPanel4
+        'tlpFileListCommands
         '
-        Me.TableLayoutPanel4.AutoSize = True
-        Me.TableLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.TableLayoutPanel4.ColumnCount = 4
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel4.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.TableLayoutPanel4.Controls.Add(Me.FlowLayoutPanel4, 0, 0)
-        Me.TableLayoutPanel4.Controls.Add(Me.cmdExpandFilesList, 3, 0)
-        Me.TableLayoutPanel4.Controls.Add(Me.FlowPanelSStatesList, 2, 0)
-        Me.TableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top
-        Me.TableLayoutPanel4.Location = New System.Drawing.Point(8, 0)
-        Me.TableLayoutPanel4.Margin = New System.Windows.Forms.Padding(0)
-        Me.TableLayoutPanel4.Name = "TableLayoutPanel4"
-        Me.TableLayoutPanel4.Padding = New System.Windows.Forms.Padding(16, 0, 0, 0)
-        Me.TableLayoutPanel4.RowCount = 1
-        Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(616, 22)
-        Me.TableLayoutPanel4.TabIndex = 38
+        Me.tlpFileListCommands.AutoSize = True
+        Me.tlpFileListCommands.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.tlpFileListCommands.ColumnCount = 4
+        Me.tlpFileListCommands.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFileListCommands.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpFileListCommands.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFileListCommands.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFileListCommands.Controls.Add(Me.flpFileListCommandsFiles, 0, 0)
+        Me.tlpFileListCommands.Controls.Add(Me.cmdExpandFilesList, 3, 0)
+        Me.tlpFileListCommands.Controls.Add(Me.flpFileListCommandsCheck, 2, 0)
+        Me.tlpFileListCommands.Dock = System.Windows.Forms.DockStyle.Top
+        Me.tlpFileListCommands.Location = New System.Drawing.Point(8, 0)
+        Me.tlpFileListCommands.Margin = New System.Windows.Forms.Padding(0)
+        Me.tlpFileListCommands.Name = "tlpFileListCommands"
+        Me.tlpFileListCommands.Padding = New System.Windows.Forms.Padding(16, 0, 0, 0)
+        Me.tlpFileListCommands.RowCount = 1
+        Me.tlpFileListCommands.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpFileListCommands.Size = New System.Drawing.Size(616, 22)
+        Me.tlpFileListCommands.TabIndex = 38
         '
-        'FlowLayoutPanel4
+        'flpFileListCommandsFiles
         '
-        Me.FlowLayoutPanel4.AutoSize = True
-        Me.FlowLayoutPanel4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.FlowLayoutPanel4.Controls.Add(Me.cmdFilesReorder)
-        Me.FlowLayoutPanel4.Controls.Add(Me.cmdFilesDelete)
-        Me.FlowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FlowLayoutPanel4.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowLayoutPanel4.Location = New System.Drawing.Point(16, 0)
-        Me.FlowLayoutPanel4.Margin = New System.Windows.Forms.Padding(0)
-        Me.FlowLayoutPanel4.Name = "FlowLayoutPanel4"
-        Me.FlowLayoutPanel4.Size = New System.Drawing.Size(148, 22)
-        Me.FlowLayoutPanel4.TabIndex = 50
-        Me.FlowLayoutPanel4.WrapContents = False
+        Me.flpFileListCommandsFiles.AutoSize = True
+        Me.flpFileListCommandsFiles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpFileListCommandsFiles.Controls.Add(Me.cmdFilesReorder)
+        Me.flpFileListCommandsFiles.Controls.Add(Me.cmdFilesDelete)
+        Me.flpFileListCommandsFiles.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flpFileListCommandsFiles.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.flpFileListCommandsFiles.Location = New System.Drawing.Point(16, 0)
+        Me.flpFileListCommandsFiles.Margin = New System.Windows.Forms.Padding(0)
+        Me.flpFileListCommandsFiles.Name = "flpFileListCommandsFiles"
+        Me.flpFileListCommandsFiles.Size = New System.Drawing.Size(148, 22)
+        Me.flpFileListCommandsFiles.TabIndex = 50
+        Me.flpFileListCommandsFiles.WrapContents = False
         '
         'cmdFilesReorder
         '
@@ -1081,36 +1090,42 @@ Partial Class frmMain
         Me.cmdFilesReorder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdFilesReorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdFilesReorder.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdFilesReorder.Location = New System.Drawing.Point(91, 0)
+        Me.cmdFilesReorder.Image = Global.sstatesman.My.Resources.Resources.Glyph_Reorder_16x16
+        Me.cmdFilesReorder.Location = New System.Drawing.Point(69, 0)
         Me.cmdFilesReorder.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdFilesReorder.Name = "cmdFilesReorder"
-        Me.cmdFilesReorder.Size = New System.Drawing.Size(57, 22)
+        Me.cmdFilesReorder.Size = New System.Drawing.Size(79, 22)
         Me.cmdFilesReorder.TabIndex = 49
-        Me.cmdFilesReorder.Text = "RE&ORDER"
+        Me.cmdFilesReorder.Text = "RE&ORDER..."
+        Me.cmdFilesReorder.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdFilesReorder.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdFilesReorder.UseVisualStyleBackColor = False
         '
         'cmdFilesDelete
         '
         Me.cmdFilesDelete.AutoSize = True
+        Me.cmdFilesDelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdFilesDelete.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdFilesDelete.FlatAppearance.BorderSize = 0
         Me.cmdFilesDelete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdFilesDelete.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdFilesDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdFilesDelete.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdFilesDelete.Image = Global.sstatesman.My.Resources.Resources.Glyph_TrashCan_16x16
         Me.cmdFilesDelete.Location = New System.Drawing.Point(0, 0)
         Me.cmdFilesDelete.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdFilesDelete.Name = "cmdFilesDelete"
-        Me.cmdFilesDelete.Size = New System.Drawing.Size(91, 22)
+        Me.cmdFilesDelete.Size = New System.Drawing.Size(69, 22)
         Me.cmdFilesDelete.TabIndex = 40
-        Me.cmdFilesDelete.Text = "&DELETE CHECKED"
+        Me.cmdFilesDelete.Text = "&DELETE..."
+        Me.cmdFilesDelete.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdFilesDelete.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdFilesDelete.UseVisualStyleBackColor = False
         '
         'cmdExpandFilesList
         '
         Me.cmdExpandFilesList.AutoSize = True
         Me.cmdExpandFilesList.BackColor = System.Drawing.Color.Transparent
-        Me.cmdExpandFilesList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdExpandFilesList.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdExpandFilesList.FlatAppearance.BorderSize = 0
         Me.cmdExpandFilesList.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -1125,95 +1140,107 @@ Partial Class frmMain
         Me.cmdExpandFilesList.TabIndex = 47
         Me.cmdExpandFilesList.UseVisualStyleBackColor = False
         '
-        'FlowPanelSStatesList
+        'flpFileListCommandsCheck
         '
-        Me.FlowPanelSStatesList.AutoSize = True
-        Me.FlowPanelSStatesList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.FlowPanelSStatesList.Controls.Add(Me.cmdFilesCheckInvert)
-        Me.FlowPanelSStatesList.Controls.Add(Me.cmdFilesCheckNone)
-        Me.FlowPanelSStatesList.Controls.Add(Me.cmdFilesCheckAll)
-        Me.FlowPanelSStatesList.Controls.Add(Me.cmdFilesCheckBackup)
-        Me.FlowPanelSStatesList.Controls.Add(Me.lblSStateListCheck)
-        Me.FlowPanelSStatesList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.FlowPanelSStatesList.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowPanelSStatesList.Location = New System.Drawing.Point(323, 0)
-        Me.FlowPanelSStatesList.Margin = New System.Windows.Forms.Padding(0)
-        Me.FlowPanelSStatesList.Name = "FlowPanelSStatesList"
-        Me.FlowPanelSStatesList.Size = New System.Drawing.Size(275, 22)
-        Me.FlowPanelSStatesList.TabIndex = 41
-        Me.FlowPanelSStatesList.WrapContents = False
+        Me.flpFileListCommandsCheck.AutoSize = True
+        Me.flpFileListCommandsCheck.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpFileListCommandsCheck.Controls.Add(Me.cmdFileCheckInvert)
+        Me.flpFileListCommandsCheck.Controls.Add(Me.cmdFileCheckNone)
+        Me.flpFileListCommandsCheck.Controls.Add(Me.cmdFileCheckAll)
+        Me.flpFileListCommandsCheck.Controls.Add(Me.cmdFileCheckBackup)
+        Me.flpFileListCommandsCheck.Controls.Add(Me.lblSStateListCheck)
+        Me.flpFileListCommandsCheck.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.flpFileListCommandsCheck.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.flpFileListCommandsCheck.Location = New System.Drawing.Point(260, 0)
+        Me.flpFileListCommandsCheck.Margin = New System.Windows.Forms.Padding(0)
+        Me.flpFileListCommandsCheck.Name = "flpFileListCommandsCheck"
+        Me.flpFileListCommandsCheck.Size = New System.Drawing.Size(338, 22)
+        Me.flpFileListCommandsCheck.TabIndex = 41
+        Me.flpFileListCommandsCheck.WrapContents = False
         '
-        'cmdFilesCheckInvert
+        'cmdFileCheckInvert
         '
-        Me.cmdFilesCheckInvert.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdFilesCheckInvert.AutoSize = True
-        Me.cmdFilesCheckInvert.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdFilesCheckInvert.FlatAppearance.BorderSize = 0
-        Me.cmdFilesCheckInvert.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdFilesCheckInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdFilesCheckInvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdFilesCheckInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdFilesCheckInvert.Location = New System.Drawing.Point(228, 0)
-        Me.cmdFilesCheckInvert.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdFilesCheckInvert.Name = "cmdFilesCheckInvert"
-        Me.cmdFilesCheckInvert.Size = New System.Drawing.Size(47, 22)
-        Me.cmdFilesCheckInvert.TabIndex = 46
-        Me.cmdFilesCheckInvert.Text = "INVERT"
-        Me.cmdFilesCheckInvert.UseVisualStyleBackColor = False
+        Me.cmdFileCheckInvert.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdFileCheckInvert.AutoSize = True
+        Me.cmdFileCheckInvert.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdFileCheckInvert.FlatAppearance.BorderSize = 0
+        Me.cmdFileCheckInvert.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdFileCheckInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdFileCheckInvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdFileCheckInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdFileCheckInvert.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckInvert_16x16
+        Me.cmdFileCheckInvert.Location = New System.Drawing.Point(275, 0)
+        Me.cmdFileCheckInvert.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdFileCheckInvert.Name = "cmdFileCheckInvert"
+        Me.cmdFileCheckInvert.Size = New System.Drawing.Size(63, 22)
+        Me.cmdFileCheckInvert.TabIndex = 46
+        Me.cmdFileCheckInvert.Text = "INVERT"
+        Me.cmdFileCheckInvert.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdFileCheckInvert.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.cmdFileCheckInvert.UseVisualStyleBackColor = False
         '
-        'cmdFilesCheckNone
+        'cmdFileCheckNone
         '
-        Me.cmdFilesCheckNone.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdFilesCheckNone.AutoSize = True
-        Me.cmdFilesCheckNone.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdFilesCheckNone.FlatAppearance.BorderSize = 0
-        Me.cmdFilesCheckNone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdFilesCheckNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdFilesCheckNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdFilesCheckNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdFilesCheckNone.Location = New System.Drawing.Point(187, 0)
-        Me.cmdFilesCheckNone.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdFilesCheckNone.Name = "cmdFilesCheckNone"
-        Me.cmdFilesCheckNone.Size = New System.Drawing.Size(41, 22)
-        Me.cmdFilesCheckNone.TabIndex = 45
-        Me.cmdFilesCheckNone.Text = "NONE"
-        Me.cmdFilesCheckNone.UseVisualStyleBackColor = False
+        Me.cmdFileCheckNone.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdFileCheckNone.AutoSize = True
+        Me.cmdFileCheckNone.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdFileCheckNone.FlatAppearance.BorderSize = 0
+        Me.cmdFileCheckNone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdFileCheckNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdFileCheckNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdFileCheckNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdFileCheckNone.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckNone_16x16
+        Me.cmdFileCheckNone.Location = New System.Drawing.Point(218, 0)
+        Me.cmdFileCheckNone.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdFileCheckNone.Name = "cmdFileCheckNone"
+        Me.cmdFileCheckNone.Size = New System.Drawing.Size(57, 22)
+        Me.cmdFileCheckNone.TabIndex = 45
+        Me.cmdFileCheckNone.Text = "NONE"
+        Me.cmdFileCheckNone.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdFileCheckNone.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.cmdFileCheckNone.UseVisualStyleBackColor = False
         '
-        'cmdFilesCheckAll
+        'cmdFileCheckAll
         '
-        Me.cmdFilesCheckAll.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdFilesCheckAll.AutoSize = True
-        Me.cmdFilesCheckAll.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdFilesCheckAll.FlatAppearance.BorderSize = 0
-        Me.cmdFilesCheckAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdFilesCheckAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdFilesCheckAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdFilesCheckAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdFilesCheckAll.Location = New System.Drawing.Point(155, 0)
-        Me.cmdFilesCheckAll.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdFilesCheckAll.Name = "cmdFilesCheckAll"
-        Me.cmdFilesCheckAll.Size = New System.Drawing.Size(32, 22)
-        Me.cmdFilesCheckAll.TabIndex = 44
-        Me.cmdFilesCheckAll.Text = "ALL"
-        Me.cmdFilesCheckAll.UseVisualStyleBackColor = False
+        Me.cmdFileCheckAll.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdFileCheckAll.AutoSize = True
+        Me.cmdFileCheckAll.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdFileCheckAll.FlatAppearance.BorderSize = 0
+        Me.cmdFileCheckAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdFileCheckAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdFileCheckAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdFileCheckAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdFileCheckAll.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckAll_16x16
+        Me.cmdFileCheckAll.Location = New System.Drawing.Point(171, 0)
+        Me.cmdFileCheckAll.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdFileCheckAll.Name = "cmdFileCheckAll"
+        Me.cmdFileCheckAll.Size = New System.Drawing.Size(47, 22)
+        Me.cmdFileCheckAll.TabIndex = 44
+        Me.cmdFileCheckAll.Text = "ALL"
+        Me.cmdFileCheckAll.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdFileCheckAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.cmdFileCheckAll.UseVisualStyleBackColor = False
         '
-        'cmdFilesCheckBackup
+        'cmdFileCheckBackup
         '
-        Me.cmdFilesCheckBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdFilesCheckBackup.AutoSize = True
-        Me.cmdFilesCheckBackup.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdFilesCheckBackup.FlatAppearance.BorderSize = 0
-        Me.cmdFilesCheckBackup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdFilesCheckBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdFilesCheckBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdFilesCheckBackup.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdFilesCheckBackup.Location = New System.Drawing.Point(98, 0)
-        Me.cmdFilesCheckBackup.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdFilesCheckBackup.Name = "cmdFilesCheckBackup"
-        Me.cmdFilesCheckBackup.Size = New System.Drawing.Size(57, 22)
-        Me.cmdFilesCheckBackup.TabIndex = 43
-        Me.cmdFilesCheckBackup.Text = "BACKUPS"
-        Me.cmdFilesCheckBackup.UseVisualStyleBackColor = False
+        Me.cmdFileCheckBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdFileCheckBackup.AutoSize = True
+        Me.cmdFileCheckBackup.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdFileCheckBackup.FlatAppearance.BorderSize = 0
+        Me.cmdFileCheckBackup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdFileCheckBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdFileCheckBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdFileCheckBackup.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdFileCheckBackup.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckBackup_16x16
+        Me.cmdFileCheckBackup.Location = New System.Drawing.Point(98, 0)
+        Me.cmdFileCheckBackup.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdFileCheckBackup.Name = "cmdFileCheckBackup"
+        Me.cmdFileCheckBackup.Size = New System.Drawing.Size(73, 22)
+        Me.cmdFileCheckBackup.TabIndex = 43
+        Me.cmdFileCheckBackup.Text = "BACKUPS"
+        Me.cmdFileCheckBackup.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdFileCheckBackup.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.cmdFileCheckBackup.UseVisualStyleBackColor = False
         '
         'lblSStateListCheck
         '
@@ -1335,18 +1362,18 @@ Partial Class frmMain
         CType(Me.imgCover, System.ComponentModel.ISupportInitialize).EndInit()
         Me.cmCover.ResumeLayout(False)
         CType(Me.imgFlag, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.TableLayoutPanel2.ResumeLayout(False)
-        Me.TableLayoutPanel2.PerformLayout()
-        Me.FlowPanelGameList.ResumeLayout(False)
-        Me.FlowPanelGameList.PerformLayout()
-        Me.TableLayoutPanel5.ResumeLayout(False)
-        Me.TableLayoutPanel5.PerformLayout()
-        Me.TableLayoutPanel4.ResumeLayout(False)
-        Me.TableLayoutPanel4.PerformLayout()
-        Me.FlowLayoutPanel4.ResumeLayout(False)
-        Me.FlowLayoutPanel4.PerformLayout()
-        Me.FlowPanelSStatesList.ResumeLayout(False)
-        Me.FlowPanelSStatesList.PerformLayout()
+        Me.tlpGameListCommands.ResumeLayout(False)
+        Me.tlpGameListCommands.PerformLayout()
+        Me.flpGameListCommandsCheck.ResumeLayout(False)
+        Me.flpGameListCommandsCheck.PerformLayout()
+        Me.tlpFileListStatus.ResumeLayout(False)
+        Me.tlpFileListStatus.PerformLayout()
+        Me.tlpFileListCommands.ResumeLayout(False)
+        Me.tlpFileListCommands.PerformLayout()
+        Me.flpFileListCommandsFiles.ResumeLayout(False)
+        Me.flpFileListCommandsFiles.PerformLayout()
+        Me.flpFileListCommandsCheck.ResumeLayout(False)
+        Me.flpFileListCommandsCheck.PerformLayout()
         Me.cmTools.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -1361,9 +1388,9 @@ Partial Class frmMain
     Private WithEvents GameLvw_GameSerial As System.Windows.Forms.ColumnHeader
     Private WithEvents GameLvw_GameRegion As System.Windows.Forms.ColumnHeader
     Private WithEvents GameLvw_BackupInfo As System.Windows.Forms.ColumnHeader
-    Private WithEvents cmdFilesCheckAll As System.Windows.Forms.Button
-    Private WithEvents cmdFilesCheckNone As System.Windows.Forms.Button
-    Private WithEvents cmdFilesCheckBackup As System.Windows.Forms.Button
+    Private WithEvents cmdFileCheckAll As System.Windows.Forms.Button
+    Private WithEvents cmdFileCheckNone As System.Windows.Forms.Button
+    Private WithEvents cmdFileCheckBackup As System.Windows.Forms.Button
     Private WithEvents txtGameList_Serial As System.Windows.Forms.TextBox
     Private WithEvents txtGameList_Region As System.Windows.Forms.TextBox
     Private WithEvents txtGameList_Title As System.Windows.Forms.TextBox
@@ -1371,7 +1398,7 @@ Partial Class frmMain
     Private WithEvents lblGameList_Region As System.Windows.Forms.Label
     Private WithEvents lblGameList_Title As System.Windows.Forms.Label
     Private WithEvents cmdFilesDelete As System.Windows.Forms.Button
-    Private WithEvents cmdFilesCheckInvert As System.Windows.Forms.Button
+    Private WithEvents cmdFileCheckInvert As System.Windows.Forms.Button
     Private WithEvents cmdGameSelectInvert As System.Windows.Forms.Button
     Private WithEvents cmdGameSelectAll As System.Windows.Forms.Button
     Private WithEvents cmdGameSelectNone As System.Windows.Forms.Button
@@ -1384,10 +1411,10 @@ Partial Class frmMain
     Private WithEvents cmdExpandFilesList As System.Windows.Forms.Button
     Private WithEvents GameLvw_SStatesInfo As System.Windows.Forms.ColumnHeader
     Protected Friend WithEvents tmrSStatesListRefresh As System.Windows.Forms.Timer
-    Friend WithEvents FlowPanelSStatesList As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents FlowPanelGameList As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents flpFileListCommandsCheck As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents flpGameListCommandsCheck As System.Windows.Forms.FlowLayoutPanel
     Friend WithEvents flpTitleBar As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents TableLayoutPanel2 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents tlpGameListCommands As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents tlpGameList As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents tlpTopPanel As System.Windows.Forms.TableLayoutPanel
     Friend WithEvents flpTitleBarTools As System.Windows.Forms.FlowLayoutPanel
@@ -1400,8 +1427,8 @@ Partial Class frmMain
     Private WithEvents cmdWindowClose As System.Windows.Forms.Button
     Private WithEvents imgWindowGradientIcon As System.Windows.Forms.PictureBox
     Private WithEvents lblWindowVersion As System.Windows.Forms.Label
-    Friend WithEvents TableLayoutPanel4 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents TableLayoutPanel5 As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents tlpFileListCommands As System.Windows.Forms.TableLayoutPanel
+    Friend WithEvents tlpFileListStatus As System.Windows.Forms.TableLayoutPanel
     Private WithEvents lblSelected As System.Windows.Forms.Label
     Private WithEvents txtSizeBackup As System.Windows.Forms.TextBox
     Private WithEvents lblSize As System.Windows.Forms.Label
@@ -1426,7 +1453,7 @@ Partial Class frmMain
     Friend WithEvents DeveloperToolsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents txtSelected As System.Windows.Forms.TextBox
     Private WithEvents GameLvw_SnapsInfo As System.Windows.Forms.ColumnHeader
-    Friend WithEvents FlowLayoutPanel4 As System.Windows.Forms.FlowLayoutPanel
+    Friend WithEvents flpFileListCommandsFiles As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdFilesReorder As System.Windows.Forms.Button
     Friend WithEvents cmCover As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents cmiCoverAdd As System.Windows.Forms.ToolStripMenuItem

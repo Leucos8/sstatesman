@@ -25,6 +25,21 @@ Module mdlPCSX2Settings
         End If
     End Function
 
+    ''' <summary>Checks if all the parameters are valid paths.</summary>
+    ''' <param name="pPathBin">PCSX2 executable path.</param>
+    ''' <param name="pPathInis">PCSX2 inis directory path.</param>
+    ''' <param name="pPathSStates">PCSX2 savestates directory path.</param>
+    ''' <param name="pPathSnaps">PCSX2 screenshots directory path.</param>
+    ''' <returns>Boolean value. True: all paths are valid, false: at least one path is not valid.</returns>
+    Friend Function PCSX2_PathAll_Check(pPathBin As String, pPathInis As String, pPathSStates As String, pPathSnaps As String) As Boolean
+        If Directory.Exists(pPathBin) And Directory.Exists(pPathInis) And _
+            Directory.Exists(pPathSStates) And Directory.Exists(pPathSnaps) Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
     ''' <summary>Detects PCSX2 executable path.</summary>
     ''' <param name="pReturnPath">Out parameter that returns the detected path. Returns empty string if detection fails.</param>
     ''' <returns>Boolean value. True: path is detected and valid, false: path is not valid.</returns>
@@ -38,11 +53,16 @@ Module mdlPCSX2Settings
                     '                                     Install_Dir
                     pReturnPath = PCSX2_Registry.GetValue(My.Settings.PCSX2_PathBinReg, "").ToString
                     SSMAppLog.Append(eType.LogInformation, eSrc.Settings, eSrcMethod.Detect, "PCSX2 bin path detected: " & pReturnPath)
+                Else
+                    pReturnPath = ""
+                    SSMAppLog.Append(eType.LogWarning, eSrc.Settings, eSrcMethod.Detect, "PCSX2 registry key not found.")
+                    Return False
                 End If
             End Using
         Catch ex As Exception
             pReturnPath = ""
             SSMAppLog.Append(eType.LogError, eSrc.Settings, eSrcMethod.Detect, "PCSX2 bin path detection failed. " & ex.Message)
+            Return False
         End Try
 
         Return Directory.Exists(pReturnPath)
@@ -59,6 +79,7 @@ Module mdlPCSX2Settings
             If File.Exists(Path.Combine(pPCSX2_PathBin, "portable.ini")) Then
                 'If so the inis are in the "inis" folder of the PCSX2 binaries directory
                 pReturnPath = Path.Combine(pPCSX2_PathBin, "inis")
+                SSMAppLog.Append(eType.LogInformation, eSrc.Settings, eSrcMethod.Detect, "PCSX2 inis path detected in portable mode: " & pReturnPath)
             Else
                 'Else the registry value is checked
                 Using PCSX2_Registry As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(My.Settings.PCSX2_PathRegKey)
@@ -67,13 +88,18 @@ Module mdlPCSX2Settings
                         'I assume that the installation found in the registry is the good one
                         '                                     SettingsFolder
                         pReturnPath = PCSX2_Registry.GetValue(My.Settings.PCSX2_PathInisReg, "").ToString
-                        SSMAppLog.Append(eType.LogInformation, eSrc.Settings, eSrcMethod.Detect, "PCSX2 inis path detected: " & pReturnPath)
+                        SSMAppLog.Append(eType.LogInformation, eSrc.Settings, eSrcMethod.Detect, "PCSX2 inis path detected in user mode: " & pReturnPath)
+                    Else
+                        pReturnPath = ""
+                        SSMAppLog.Append(eType.LogWarning, eSrc.Settings, eSrcMethod.Detect, "PCSX2 registry key not found.")
+                        Return False
                     End If
                 End Using
             End If
         Catch ex As Exception
             pReturnPath = ""
             SSMAppLog.Append(eType.LogError, eSrc.Settings, eSrcMethod.Detect, "PCSX2 bin path detection failed. " & ex.Message)
+            Return False
         End Try
 
         Return Directory.Exists(pReturnPath)
@@ -101,29 +127,19 @@ Module mdlPCSX2Settings
                     ElseIf tmpLine.StartsWith("snapshots=") Then
                         Dim tmpStrings As String() = tmpLine.Split({"="c}, 2, StringSplitOptions.RemoveEmptyEntries)
                         pReturnPathSnaps = tmpStrings(1).Replace("\\", "\")
-                        SSMAppLog.Append(eType.LogInformation, eSrc.Settings, eSrcMethod.Detect, "PCSX2 savestates path detected: " & pReturnPathSnaps)
+                        SSMAppLog.Append(eType.LogInformation, eSrc.Settings, eSrcMethod.Detect, "PCSX2 sceenshots path detected: " & pReturnPathSnaps)
                     End If
 
                 End While
                 PCSX2UI_reader.Close()
             End Using
+        Else
+            pReturnPathSStates = ""
+            pReturnPathSnaps = ""
+            SSMAppLog.Append(eType.LogWarning, eSrc.Settings, eSrcMethod.Detect, "PCSX2_ui.ini not found.")
+            Return False
         End If
 
         Return Directory.Exists(pReturnPathSStates) And Directory.Exists(pReturnPathSnaps)
-    End Function
-
-    ''' <summary>Checks if all the parameters are valid paths.</summary>
-    ''' <param name="pPathBin">PCSX2 executable path.</param>
-    ''' <param name="pPathInis">PCSX2 inis directory path.</param>
-    ''' <param name="pPathSStates">PCSX2 savestates directory path.</param>
-    ''' <param name="pPathSnaps">PCSX2 screenshots directory path.</param>
-    ''' <returns>Boolean value. True: all paths are valid, false: at least one path is not valid.</returns>
-    Friend Function PCSX2_PathAll_Check(pPathBin As String, pPathInis As String, pPathSStates As String, pPathSnaps As String) As Boolean
-        If Directory.Exists(pPathBin) And Directory.Exists(pPathInis) And _
-            Directory.Exists(pPathSStates) And Directory.Exists(pPathSnaps) Then
-            Return False
-        Else
-            Return True
-        End If
     End Function
 End Module

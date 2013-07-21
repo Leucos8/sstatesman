@@ -63,20 +63,20 @@ Public Class frmMain
             DPIyScale = gfx.DpiY / 96
         End Using
 
-        If My.Settings.SStatesMan_FirstRun = True Then
+        mdlTheme.LoadTheme(My.Settings.SStatesMan_Theme)
+
+        If My.Settings.SStatesMan_FirstRun Then
             'Executes the FirstRun procedure (detects PCSX2 folders configuration)
-            FirstRun()
+            mdlMain.FirstRun()
         Else
             'Checks if there are some invalid settings
-            My.Settings.SStatesMan_SettingFail = PCSX2_PathAll_Check(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_PathInis, _
+            My.Settings.SStatesMan_SettingsOK = PCSX2_PathAll_Check(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_PathInis, _
                                                                      My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
         End If
 
-        If My.Settings.SStatesMan_SettingFail Then
+        If Not (My.Settings.SStatesMan_SettingsOK) Then
             frmSettings.ShowDialog(Me)
         End If
-
-        mdlTheme.LoadTheme(My.Settings.SStatesMan_Theme)
 
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "1/5 General settings & resources.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
@@ -216,19 +216,19 @@ Public Class frmMain
         Select Case pListMode
             Case ListMode.Savestates
                 Me.lblSStateListCheck.Text = "check savestates:"
-                Me.cmdFilesCheckBackup.Visible = True
+                Me.cmdFileCheckBackup.Visible = True
                 Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = True
                 Me.txtSizeBackup.Visible = True
             Case ListMode.Stored
                 Me.lblSStateListCheck.Text = "check savestates:"
-                Me.cmdFilesCheckBackup.Visible = False
+                Me.cmdFileCheckBackup.Visible = False
                 Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
             Case ListMode.Snapshots
                 Me.lblSStateListCheck.Text = "check screenshots:"
-                Me.cmdFilesCheckBackup.Visible = False
+                Me.cmdFileCheckBackup.Visible = False
                 Me.lblSize.Text = "screenshots size"
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
@@ -276,6 +276,9 @@ Public Class frmMain
     Private Sub UI_UpdateGameInfo()
         Dim sw As Stopwatch = Stopwatch.StartNew
 
+        Me.tlpGameList.SuspendLayout()
+        Me.tlpGameListCommands.SuspendLayout()
+
         If SSMGameList.Games.Count > 0 And checkedGames.Count > 0 Then
             '========================
             'Game checked or selected
@@ -295,6 +298,9 @@ Public Class frmMain
             Else
                 Me.cmdGameSelectAll.Enabled = True
             End If
+
+            Me.cmdGameSelectAll.Visible = Me.cmdGameSelectAll.Enabled
+            Me.cmdGameSelectNone.Visible = Me.cmdGameSelectNone.Enabled
 
             If checkedGames.Count > 1 Then
                 '--------------------------
@@ -399,11 +405,18 @@ Public Class frmMain
                 '================
                 Me.cmdGameSelectAll.Enabled = False
                 Me.cmdGameSelectInvert.Enabled = False
+                Me.cmdGameSelectAll.Visible = True
+                Me.cmdGameSelectNone.Visible = True
+
             Else
                 Me.cmdGameSelectAll.Enabled = True
+                Me.cmdGameSelectAll.Visible = True
                 Me.cmdGameSelectInvert.Enabled = True
             End If
         End If
+
+        Me.tlpGameListCommands.ResumeLayout()
+        Me.tlpGameList.ResumeLayout()
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.UI_Update, "Updated game info.", sw.ElapsedTicks)
@@ -417,22 +430,36 @@ Public Class frmMain
         Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.FileList_SelectedSize / 1024 ^ 2, Me.GameList_SelectedSize / 1024 ^ 2)
         Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.FileList_SelectedSizeBackup / 1024 ^ 2, Me.GameList_SelectedSizeBackup / 1024 ^ 2)
 
+        Me.tlpFileListCommands.SuspendLayout()
+
         If Me.lvwFilesList.Items.Count = 0 Then
             '================
             'No files in list
             '================
-            Me.cmdFilesCheckAll.Enabled = False
-            Me.cmdFilesCheckInvert.Enabled = False
-            Me.cmdFilesCheckNone.Enabled = False
-            Me.cmdFilesCheckBackup.Enabled = False
+            Me.cmdFileCheckAll.Enabled = False
+            Me.cmdFileCheckInvert.Enabled = False
+            Me.cmdFileCheckNone.Enabled = False
+            Me.cmdFileCheckBackup.Enabled = False
+
+            Me.cmdFileCheckAll.Visible = True
+            Me.cmdFileCheckInvert.Visible = True
+            Me.cmdFileCheckNone.Visible = True
+
             Me.cmdFilesDelete.Enabled = False
             Me.cmdFilesReorder.Enabled = False
         Else
             '=================
             'Files are present
             '=================
-            Me.cmdFilesCheckInvert.Enabled = True
-            Me.cmdFilesCheckBackup.Enabled = True
+            Me.cmdFileCheckInvert.Enabled = True
+
+            If (Me.GameList_SelectedSizeBackup = 0) Or (Me.GameList_SelectedSizeBackup = Me.FileList_SelectedSizeBackup) Then
+                'Backup size is zero -> no backup files in list
+                'Backup size = selected backup size -> all backup are selected
+                Me.cmdFileCheckBackup.Enabled = False
+            Else
+                Me.cmdFileCheckBackup.Enabled = True
+            End If
 
             If Me.lvwGamesList.CheckedItems.Count > 1 Then
                 'More than one game is checked
@@ -444,23 +471,28 @@ Public Class frmMain
 
             If Me.lvwFilesList.CheckedItems.Count > 0 Then
                 'At least one file is checked
-                Me.cmdFilesCheckNone.Enabled = True
+                Me.cmdFileCheckNone.Enabled = True
                 Me.cmdFilesDelete.Enabled = True
 
                 If Me.lvwFilesList.Items.Count = Me.lvwFilesList.CheckedItems.Count Then
                     'All files are checked
-                    Me.cmdFilesCheckAll.Enabled = False
+                    Me.cmdFileCheckAll.Enabled = False
                 Else
-                    Me.cmdFilesCheckAll.Enabled = True
+                    Me.cmdFileCheckAll.Enabled = True
                 End If
 
             Else
                 'No files are checked
-                Me.cmdFilesCheckNone.Enabled = False
-                Me.cmdFilesCheckAll.Enabled = True
+                Me.cmdFileCheckNone.Enabled = False
+                Me.cmdFileCheckAll.Enabled = True
                 Me.cmdFilesDelete.Enabled = False
             End If
+
+            Me.cmdFileCheckAll.Visible = Me.cmdFileCheckAll.Enabled
+            Me.cmdFileCheckNone.Visible = Me.cmdFileCheckNone.Enabled
         End If
+
+        Me.tlpFileListCommands.ResumeLayout()
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
@@ -556,7 +588,7 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub cmdGameCheckAll_Click(sender As Object, e As EventArgs) Handles cmdGameSelectAll.Click
+    Private Sub cmdGameSelectAll_Click(sender As Object, e As EventArgs) Handles cmdGameSelectAll.Click
         Me.UI_Enable(False, True)
         For i = 0 To Me.lvwGamesList.Items.Count - 1
             Me.lvwGamesList.Items.Item(i).Checked = True
@@ -565,7 +597,7 @@ Public Class frmMain
         Me.UI_Enable(True, True)
     End Sub
 
-    Private Sub cmdGameCheckNone_Click(sender As Object, e As EventArgs) Handles cmdGameSelectNone.Click
+    Private Sub cmdGameSelectNone_Click(sender As Object, e As EventArgs) Handles cmdGameSelectNone.Click
         Me.UI_Enable(False, True)
         For i = 0 To Me.lvwGamesList.Items.Count - 1
             Me.lvwGamesList.Items.Item(i).Checked = False
@@ -874,7 +906,7 @@ Public Class frmMain
         End Select
     End Sub
 
-    Private Sub cmdFileCheckAll_Click(sender As Object, e As EventArgs) Handles cmdFilesCheckAll.Click
+    Private Sub cmdFileCheckAll_Click(sender As Object, e As EventArgs) Handles cmdFileCheckAll.Click
         Me.UI_Enable(False)
         For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
             Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = True
@@ -884,7 +916,7 @@ Public Class frmMain
         Me.UI_Enable(True)
     End Sub
 
-    Private Sub cmdFileCheckNone_Click(sender As Object, e As EventArgs) Handles cmdFilesCheckNone.Click
+    Private Sub cmdFileCheckNone_Click(sender As Object, e As EventArgs) Handles cmdFileCheckNone.Click
         Me.UI_Enable(False)
         For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
             Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = False
@@ -894,7 +926,7 @@ Public Class frmMain
         Me.UI_Enable(True)
     End Sub
 
-    Private Sub cmdFileCheckInvert_Click(sender As Object, e As EventArgs) Handles cmdFilesCheckInvert.Click
+    Private Sub cmdFileCheckInvert_Click(sender As Object, e As EventArgs) Handles cmdFileCheckInvert.Click
         Me.UI_Enable(False)
         For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
             Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = Not (Me.lvwFilesList.Items.Item(lvwItemIndex).Checked)
@@ -904,7 +936,7 @@ Public Class frmMain
         Me.UI_Enable(True)
     End Sub
 
-    Private Sub cmdFileCheckBackup_Click(sender As Object, e As EventArgs) Handles cmdFilesCheckBackup.Click
+    Private Sub cmdFileCheckBackup_Click(sender As Object, e As EventArgs) Handles cmdFileCheckBackup.Click
         Me.UI_Enable(False)
         For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
             If Savestate.isBackup(Me.lvwFilesList.Items.Item(lvwItemIndex).Name) Then
@@ -1010,12 +1042,12 @@ Public Class frmMain
     Private Sub cmdSStatesLvwExpand_Click(sender As Object, e As EventArgs) Handles cmdExpandFilesList.Click
         If Me.SplitContainer1.Panel1Collapsed Then
             Me.SplitContainer1.Panel1Collapsed = False
-            CType(sender, Button).Image = My.Resources.Icon_ExpandTop_12x12
+            cmdExpandFilesList.Image = My.Resources.Icon_ExpandTop_12x12
         Else
             Me.SplitContainer1.Panel1Collapsed = True
-            CType(sender, Button).Image = My.Resources.Icon_ExpandBottom_12x12
+            cmdExpandFilesList.Image = My.Resources.Icon_ExpandBottom_12x12
 
-            Me.cmdGameCheckAll_Click(Nothing, Nothing)
+            Me.cmdGameSelectAll_Click(Nothing, Nothing)
         End If
     End Sub
 

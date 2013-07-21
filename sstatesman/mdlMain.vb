@@ -33,7 +33,7 @@ Module mdlMain
 
     Friend Sub FirstRun()
         My.Settings.Reset()
-        My.Settings.SStatesMan_SettingFail = PCSX2_PathAll_Detect()
+        My.Settings.SStatesMan_SettingsOK = PCSX2_PathAll_Detect()
 
         My.Settings.SStatesMan_FirstRun = False
         My.Settings.Save()

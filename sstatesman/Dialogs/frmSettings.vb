@@ -278,12 +278,14 @@ Public Class frmSettings
     End Sub
 
     Private Sub cmdCancel_Click(sender As System.Object, e As System.EventArgs) Handles cmdCancel.Click
-        My.Settings.SStatesMan_SettingFail = PCSX2_PathAll_Check(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_PathInis, _
+        My.Settings.SStatesMan_SettingsOK = PCSX2_PathAll_Check(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_PathInis, _
                                                                  My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
-        If My.Settings.SStatesMan_SettingFail Then
+        If Not (My.Settings.SStatesMan_SettingsOK) Then
+            MessageBox.Show("Not all the required settings for SStatesMan to work are valid. SStatesMan will now be closed.", "SStatesMan", MessageBoxButtons.OK, MessageBoxIcon.Information)
             My.Settings.SStatesMan_FirstRun = True
             End
         End If
+
         Me.Close()
     End Sub
 #End Region
@@ -307,7 +309,7 @@ Public Class frmSettings
 
     Private Sub cmdPCSX2IniPathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2IniPathBrowse.Click
         Dim tmpPath As String = Me.txtPCSX2IniPath.Text
-        If Me.createFolderBrowser("Select your PCSX2 ""inis"" folder.", Me.txtPCSX2IniPath.Text, Environment.SpecialFolder.MyDocuments, False) = Windows.Forms.DialogResult.OK Then
+        If Me.createFolderBrowser("Select your PCSX2 ""inis"" folder.", tmpPath, Environment.SpecialFolder.MyDocuments, False) = Windows.Forms.DialogResult.OK Then
             Me.txtPCSX2IniPath.Text = tmpPath
         End If
         Me.Settings_Check()
@@ -315,7 +317,7 @@ Public Class frmSettings
 
     Private Sub cmdPCSX2SStatePathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SStatePathBrowse.Click
         Dim tmpPath As String = Me.txtPCSX2SStatePath.Text
-        If Me.createFolderBrowser("Select your PCSX2 savestates folder.", Me.txtPCSX2SStatePath.Text, Environment.SpecialFolder.MyDocuments, False) = Windows.Forms.DialogResult.OK Then
+        If Me.createFolderBrowser("Select your PCSX2 savestates folder.", tmpPath, Environment.SpecialFolder.MyDocuments, False) = Windows.Forms.DialogResult.OK Then
             Me.txtPCSX2SStatePath.Text = tmpPath
         End If
         Me.Settings_Check()
@@ -323,7 +325,7 @@ Public Class frmSettings
 
     Private Sub cmdPCSX2SnapsPathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdPCSX2SnapsPathBrowse.Click
         Dim tmpPath As String = Me.txtPCSX2SnapsPath.Text
-        If Me.createFolderBrowser("Select your PCSX2 screenshots folder.", Me.txtPCSX2SnapsPath.Text, Environment.SpecialFolder.MyPictures, False) = Windows.Forms.DialogResult.OK Then
+        If Me.createFolderBrowser("Select your PCSX2 screenshots folder.", tmpPath, Environment.SpecialFolder.MyPictures, False) = Windows.Forms.DialogResult.OK Then
             Me.txtPCSX2SnapsPath.Text = tmpPath
         End If
         Me.Settings_Check()
@@ -331,19 +333,24 @@ Public Class frmSettings
 
     Private Sub cmdSStatesManPicsPathBrowse_Click(sender As System.Object, e As System.EventArgs) Handles cmdSStatesManPicsPathBrowse.Click
         Dim tmpPath As String = Me.txtSStatesManPicsPath.Text
-        If Me.createFolderBrowser("Select your game cover images folder.", Me.txtSStatesManPicsPath.Text, Environment.SpecialFolder.MyPictures, True) = Windows.Forms.DialogResult.OK Then
+        If Me.createFolderBrowser("Select your game cover images folder.", tmpPath, Environment.SpecialFolder.MyPictures, True) = Windows.Forms.DialogResult.OK Then
             Me.txtSStatesManPicsPath.Text = tmpPath
         End If
         Me.Settings_Check()
     End Sub
 
-    Private Function createFolderBrowser(ByVal pDescription As String, ByRef pStartPath As String, ByVal pStartPathDefault As Environment.SpecialFolder, Optional ByVal pAllowNewFolder As Boolean = False) As Windows.Forms.DialogResult
+    Private Function createFolderBrowser(pDescription As String, _
+                                         ByRef pStartPath As String, _
+                                         pStartPathDefault As Environment.SpecialFolder, _
+                                         Optional pAllowNewFolder As Boolean = False) _
+                                     As Windows.Forms.DialogResult
         Using FolderBrowse As New FolderBrowserDialog With {.Description = pDescription, .ShowNewFolderButton = pAllowNewFolder}
             If Directory.Exists(pStartPath) Then
                 FolderBrowse.SelectedPath = pStartPath
             Else : FolderBrowse.SelectedPath = Environment.GetFolderPath(pStartPathDefault)
             End If
-            Return FolderBrowse.ShowDialog(Me)
+            createFolderBrowser = FolderBrowse.ShowDialog(Me)
+            pStartPath = FolderBrowse.SelectedPath
         End Using
     End Function
 #End Region

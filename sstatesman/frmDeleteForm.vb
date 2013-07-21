@@ -22,10 +22,10 @@ Public Class frmDeleteForm
     Dim ListsAreRefreshed As Boolean = False
 
     'Current size in bytes of the selected items
-    Dim Files_SelectedSize As Long = 0
-    Dim Files_SelectedSizeBackup As Long = 0
-    Dim Files_TotalSize As Long = 0
-    Dim Files_TotalSizeBackup As Long = 0
+    Dim FileList_SelectedSize As Long = 0
+    Dim FileList_SelectedSizeBackup As Long = 0
+    Dim FileList_TotalSize As Long = 0
+    Dim FileList_TotalSizeBackup As Long = 0
 
     Enum DelFileStatus
         Ready
@@ -54,9 +54,9 @@ Public Class frmDeleteForm
                         End If
 
                         If tmpSavestate.isBackup Then
-                            Files_TotalSizeBackup -= tmpSavestate.Length
+                            FileList_TotalSizeBackup -= tmpSavestate.Length
                         Else
-                            Files_TotalSize -= tmpSavestate.Length
+                            FileList_TotalSize -= tmpSavestate.Length
                         End If
                         'tmpGamesListItem.Savestates.Remove(tmpSavestate.Name)
 
@@ -107,7 +107,7 @@ Public Class frmDeleteForm
                             File.Delete(Path.Combine(My.Settings.PCSX2_PathSnaps, tmpSnap.Name))
                             SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Delete, tmpItem.Text & " deleted succesfully.")
                         End If
-                        Files_TotalSize -= tmpSnap.Length
+                        FileList_TotalSize -= tmpSnap.Length
                         'tmpGamesListItem.Snapshots.Remove(tmpSnap.Name)
 
                         tmpItem.Tag = DelFileStatus.DeletedOk
@@ -212,8 +212,8 @@ Public Class frmDeleteForm
 
         Me.lvwDelFilesList.Items.Clear()
         Me.lvwDelFilesList.Groups.Clear()
-        Me.Files_TotalSize = 0
-        Me.Files_TotalSizeBackup = 0
+        Me.FileList_TotalSize = 0
+        Me.FileList_TotalSizeBackup = 0
 
         '======================
         'Saving window settings
@@ -249,19 +249,19 @@ Public Class frmDeleteForm
         Select Case pListMode
             Case frmMain.ListMode.Savestates
                 Me.lblFileListCheck.Text = "check savestates:"
-                Me.cmdFilesCheckBackup.Visible = True
+                Me.cmdFileCheckBackup.Visible = True
                 Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = True
                 Me.txtSizeBackup.Visible = True
             Case frmMain.ListMode.Stored
                 Me.lblFileListCheck.Text = "check savestates:"
-                Me.cmdFilesCheckBackup.Visible = False
+                Me.cmdFileCheckBackup.Visible = False
                 Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
             Case frmMain.ListMode.Snapshots
                 Me.lblFileListCheck.Text = "check screenshots:"
-                Me.cmdFilesCheckBackup.Visible = False
+                Me.cmdFileCheckBackup.Visible = False
                 Me.lblSize.Text = "screenshots size"
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
@@ -291,48 +291,68 @@ Public Class frmDeleteForm
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         Me.txtSelected.Text = String.Format("{0:N0} | {1:N0} files", Me.lvwDelFilesList.CheckedItems.Count, Me.lvwDelFilesList.Items.Count)
-        Me.txtSize.Text = String.Format("{0:N2} | {1:N2} MB", Me.Files_SelectedSize / 1024 ^ 2, Me.Files_TotalSize / 1024 ^ 2)
-        Me.txtSizeBackup.Text = String.Format("{0:N2} | {1:N2} MB", Me.Files_SelectedSizeBackup / 1024 ^ 2, Me.Files_TotalSizeBackup / 1024 ^ 2)
+        Me.txtSize.Text = String.Format("{0:N2} | {1:N2} MB", Me.FileList_SelectedSize / 1024 ^ 2, Me.FileList_TotalSize / 1024 ^ 2)
+        Me.txtSizeBackup.Text = String.Format("{0:N2} | {1:N2} MB", Me.FileList_SelectedSizeBackup / 1024 ^ 2, Me.FileList_TotalSizeBackup / 1024 ^ 2)
+
+        Me.flpFileListCommands.SuspendLayout()
 
         If Me.lvwDelFilesList.Items.Count = 0 Then
             '================
             'No files in list
             '================
 
-            Me.cmdFilesCheckAll.Enabled = False
-            Me.cmdFilesCheckInvert.Enabled = False
-            Me.cmdFilesCheckNone.Enabled = False
-            Me.cmdFilesCheckBackup.Enabled = False
+            Me.cmdFileCheckAll.Enabled = False
+            Me.cmdFileCheckInvert.Enabled = False
+            Me.cmdFileCheckNone.Enabled = False
+            Me.cmdFileCheckBackup.Enabled = False
+
+            Me.cmdFileCheckAll.Visible = True
+            Me.cmdFileCheckInvert.Visible = True
+            Me.cmdFileCheckNone.Visible = True
 
             Me.cmdFilesDeleteSelected.Enabled = False
+
+            SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "No files in list. This shouldn't be happening.")
         Else
             '=================
             'Files are present
             '=================
-            Me.cmdFilesCheckInvert.Enabled = True
-            Me.cmdFilesCheckBackup.Enabled = True
+            Me.cmdFileCheckInvert.Enabled = True
+
+            If (Me.FileList_TotalSizeBackup = 0) Or (Me.FileList_TotalSizeBackup = Me.FileList_SelectedSizeBackup) Then
+                'Backup size is zero -> no backup files in list
+                'Backup size = selected backup size -> all backup are selected
+                Me.cmdFileCheckBackup.Enabled = False
+            Else
+                Me.cmdFileCheckBackup.Enabled = True
+            End If
 
             If Me.lvwDelFilesList.CheckedItems.Count > 0 Then
                 'At least one file is checked
-                Me.cmdFilesCheckNone.Enabled = True
+                Me.cmdFileCheckNone.Enabled = True
 
                 Me.cmdFilesDeleteSelected.Enabled = True
 
                 If Me.lvwDelFilesList.Items.Count = Me.lvwDelFilesList.CheckedItems.Count Then
                     'All files are checked
-                    Me.cmdFilesCheckAll.Enabled = False
+                    Me.cmdFileCheckAll.Enabled = False
                 Else
-                    Me.cmdFilesCheckAll.Enabled = True
+                    Me.cmdFileCheckAll.Enabled = True
                 End If
 
             Else
                 'No files are checked
-                Me.cmdFilesCheckNone.Enabled = False
-                Me.cmdFilesCheckAll.Enabled = True
+                Me.cmdFileCheckNone.Enabled = False
+                Me.cmdFileCheckAll.Enabled = True
 
                 Me.cmdFilesDeleteSelected.Enabled = False
             End If
+
+            Me.cmdFileCheckAll.Visible = Me.cmdFileCheckAll.Enabled
+            Me.cmdFileCheckNone.Visible = Me.cmdFileCheckNone.Enabled
         End If
+
+        Me.flpFileListCommands.ResumeLayout()
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
@@ -355,8 +375,8 @@ Public Class frmDeleteForm
         Dim sw As New Stopwatch
         sw.Start()
 
-        Me.Files_TotalSize = 0
-        Me.Files_TotalSizeBackup = 0
+        Me.FileList_TotalSize = 0
+        Me.FileList_TotalSizeBackup = 0
 
         'clear items and group.
         Me.lvwDelFilesList.Items.Clear()
@@ -395,10 +415,10 @@ Public Class frmDeleteForm
                                 tmpLvwSListItem.Checked = True
                                 If Not (tmpSavestate.Value.isBackup) Then
                                     tmpLvwSListItem.ImageIndex = 0
-                                    Files_TotalSize += tmpSavestate.Value.Length
+                                    FileList_TotalSize += tmpSavestate.Value.Length
                                 Else
                                     tmpLvwSListItem.ImageIndex = 1
-                                    Files_TotalSizeBackup += tmpSavestate.Value.Length
+                                    FileList_TotalSizeBackup += tmpSavestate.Value.Length
                                 End If
                                 tmpLvwSListItem.BackColor = Color.Transparent
                                 tmpLvwSListItem.Tag = DelFileStatus.Ready
@@ -433,8 +453,8 @@ Public Class frmDeleteForm
         Dim sw As New Stopwatch
         sw.Start()
 
-        Me.Files_TotalSize = 0
-        Me.Files_TotalSizeBackup = 0
+        Me.FileList_TotalSize = 0
+        Me.FileList_TotalSizeBackup = 0
 
         'clear items and group.
         Me.lvwDelFilesList.Items.Clear()
@@ -472,7 +492,7 @@ Public Class frmDeleteForm
                                 tmpLvwSListItem.SubItems.Add("")
                                 tmpLvwSListItem.Checked = True
                                 tmpLvwSListItem.ImageIndex = 2
-                                Files_TotalSize += tmpSnap.Value.Length
+                                FileList_TotalSize += tmpSnap.Value.Length
                                 tmpLvwSListItem.BackColor = Color.Transparent
                                 tmpLvwSListItem.Tag = DelFileStatus.Ready
                             Else
@@ -544,8 +564,8 @@ Public Class frmDeleteForm
     End Sub
 
     Private Sub DelFileList_indexChecked()
-        Me.Files_SelectedSize = 0
-        Me.Files_SelectedSizeBackup = 0
+        Me.FileList_SelectedSize = 0
+        Me.FileList_SelectedSizeBackup = 0
 
         Select Case frmMain.currentListMode
             Case frmMain.ListMode.Savestates
@@ -558,9 +578,9 @@ Public Class frmDeleteForm
                             Dim tmpSavestate As New Savestate
                             If tmpGamesListItem.Savestates.TryGetValue(tmpLvwSListItemChecked.Name, tmpSavestate) Then
                                 If tmpSavestate.isBackup Then
-                                    Files_SelectedSizeBackup += tmpSavestate.Length
+                                    FileList_SelectedSizeBackup += tmpSavestate.Length
                                 Else
-                                    Files_SelectedSize += tmpSavestate.Length
+                                    FileList_SelectedSize += tmpSavestate.Length
                                 End If
                             End If
                         End If
@@ -577,7 +597,7 @@ Public Class frmDeleteForm
                         If SSMGameList.Games.TryGetValue(Snapshot.GetSerial(tmpLvwSListItemChecked.Name), tmpGamesListItem) Then
                             Dim tmpSnap As New Snapshot
                             If tmpGamesListItem.Snapshots.TryGetValue(tmpLvwSListItemChecked.Name, tmpSnap) Then
-                                Files_SelectedSize += tmpSnap.Length
+                                FileList_SelectedSize += tmpSnap.Length
                             End If
                         End If
 
@@ -587,7 +607,7 @@ Public Class frmDeleteForm
         End Select
     End Sub
 
-    Private Sub cmdFileCheckAll_Click(sender As Object, e As EventArgs) Handles cmdFilesCheckAll.Click
+    Private Sub cmdFileCheckAll_Click(sender As Object, e As EventArgs) Handles cmdFileCheckAll.Click
         Me.UI_Enable(False)
         For lvwItemIndex = 0 To Me.lvwDelFilesList.Items.Count - 1
             If DelFileStatus.Ready.Equals(Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag) Then
@@ -599,7 +619,7 @@ Public Class frmDeleteForm
         Me.UI_Enable(True)
     End Sub
 
-    Private Sub cmdFileCheckNone_Click(sender As Object, e As EventArgs) Handles cmdFilesCheckNone.Click
+    Private Sub cmdFileCheckNone_Click(sender As Object, e As EventArgs) Handles cmdFileCheckNone.Click
         Me.UI_Enable(False)
         For lvwItemIndex = 0 To Me.lvwDelFilesList.Items.Count - 1
             Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = False
@@ -609,7 +629,7 @@ Public Class frmDeleteForm
         Me.UI_Enable(True)
     End Sub
 
-    Private Sub cmdFileCheckInvert_Click(sender As Object, e As EventArgs) Handles cmdFilesCheckInvert.Click
+    Private Sub cmdFileCheckInvert_Click(sender As Object, e As EventArgs) Handles cmdFileCheckInvert.Click
         Me.UI_Enable(False)
         For lvwItemIndex = 0 To Me.lvwDelFilesList.Items.Count - 1
             If DelFileStatus.Ready.Equals(Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag) Then
@@ -623,7 +643,7 @@ Public Class frmDeleteForm
         Me.UI_Enable(True)
     End Sub
 
-    Private Sub cmdFileCheckBackup_Click(sender As Object, e As EventArgs) Handles cmdFilesCheckBackup.Click
+    Private Sub cmdFileCheckBackup_Click(sender As Object, e As EventArgs) Handles cmdFileCheckBackup.Click
         Me.UI_Enable(False)
         For lvwItemIndex = 0 To Me.lvwDelFilesList.Items.Count - 1
             If Savestate.isBackup(Me.lvwDelFilesList.Items.Item(lvwItemIndex).Name) Then
@@ -710,8 +730,8 @@ Public Class frmDeleteForm
     End Sub
 #End Region
 
-#Region "UI Theme"
-    Private Sub panelWindowTitle_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles panelWindowTitle.Paint
+#Region "Theme"
+    Private Sub pnlTopPanel_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlTopPanel.Paint
         Dim rectoolbar As New Rectangle(0, CInt(8 * DPIyScale), CInt(23 * DPIxScale) + 1, CInt(38 * DPIyScale) + 1)
         Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 90)
         e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
@@ -746,15 +766,15 @@ Public Class frmDeleteForm
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         Me.BackColor = currentTheme.BgColor
-        Me.panelWindowTitle.BackColor = currentTheme.BgColorTop
+        Me.pnlTopPanel.BackColor = currentTheme.BgColorTop
         Me.flpBottomPanel.BackColor = currentTheme.BgColorBottom
         If My.Settings.SStatesMan_ThemeImageEnabled Then
-            Me.panelWindowTitle.BackgroundImage = currentTheme.BgImageTop
-            Me.panelWindowTitle.BackgroundImageLayout = currentTheme.BgImageTopStyle
+            Me.pnlTopPanel.BackgroundImage = currentTheme.BgImageTop
+            Me.pnlTopPanel.BackgroundImageLayout = currentTheme.BgImageTopStyle
             Me.flpBottomPanel.BackgroundImage = currentTheme.BgImageBottom
             Me.flpBottomPanel.BackgroundImageLayout = currentTheme.BgImageBottomStyle
         Else
-            Me.panelWindowTitle.BackgroundImage = Nothing
+            Me.pnlTopPanel.BackgroundImage = Nothing
             Me.flpBottomPanel.BackgroundImage = Nothing
         End If
         Me.Refresh()

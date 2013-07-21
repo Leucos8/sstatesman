@@ -157,12 +157,15 @@ Partial Class frmReorderForm
         Me.cmdMoveLast.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdMoveLast.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdMoveLast.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdMoveLast.Location = New System.Drawing.Point(552, 0)
+        Me.cmdMoveLast.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderLast_16x16
+        Me.cmdMoveLast.Location = New System.Drawing.Point(536, 0)
         Me.cmdMoveLast.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdMoveLast.Name = "cmdMoveLast"
-        Me.cmdMoveLast.Size = New System.Drawing.Size(36, 22)
+        Me.cmdMoveLast.Size = New System.Drawing.Size(52, 22)
         Me.cmdMoveLast.TabIndex = 16
         Me.cmdMoveLast.Text = "LAST"
+        Me.cmdMoveLast.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdMoveLast.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdMoveLast.UseVisualStyleBackColor = False
         '
         'cmdMoveFirst
@@ -176,12 +179,15 @@ Partial Class frmReorderForm
         Me.cmdMoveFirst.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdMoveFirst.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdMoveFirst.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdMoveFirst.Location = New System.Drawing.Point(440, 0)
+        Me.cmdMoveFirst.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderFirst_16x16
+        Me.cmdMoveFirst.Location = New System.Drawing.Point(376, 0)
         Me.cmdMoveFirst.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdMoveFirst.Name = "cmdMoveFirst"
-        Me.cmdMoveFirst.Size = New System.Drawing.Size(39, 22)
+        Me.cmdMoveFirst.Size = New System.Drawing.Size(55, 22)
         Me.cmdMoveFirst.TabIndex = 13
         Me.cmdMoveFirst.Text = "FIRST"
+        Me.cmdMoveFirst.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdMoveFirst.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdMoveFirst.UseVisualStyleBackColor = False
         '
         'cmdMoveUp
@@ -195,12 +201,15 @@ Partial Class frmReorderForm
         Me.cmdMoveUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdMoveUp.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdMoveUp.Location = New System.Drawing.Point(479, 0)
+        Me.cmdMoveUp.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderUp_16x16
+        Me.cmdMoveUp.Location = New System.Drawing.Point(431, 0)
         Me.cmdMoveUp.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdMoveUp.Name = "cmdMoveUp"
-        Me.cmdMoveUp.Size = New System.Drawing.Size(28, 22)
+        Me.cmdMoveUp.Size = New System.Drawing.Size(44, 22)
         Me.cmdMoveUp.TabIndex = 14
         Me.cmdMoveUp.Text = "UP"
+        Me.cmdMoveUp.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdMoveUp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdMoveUp.UseVisualStyleBackColor = False
         '
         'cmdMoveDown
@@ -214,19 +223,22 @@ Partial Class frmReorderForm
         Me.cmdMoveDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdMoveDown.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdMoveDown.Location = New System.Drawing.Point(507, 0)
+        Me.cmdMoveDown.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderDown_16x16
+        Me.cmdMoveDown.Location = New System.Drawing.Point(475, 0)
         Me.cmdMoveDown.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdMoveDown.Name = "cmdMoveDown"
-        Me.cmdMoveDown.Size = New System.Drawing.Size(45, 22)
+        Me.cmdMoveDown.Size = New System.Drawing.Size(61, 22)
         Me.cmdMoveDown.TabIndex = 15
         Me.cmdMoveDown.Text = "DOWN"
+        Me.cmdMoveDown.TextAlign = System.Drawing.ContentAlignment.BottomCenter
+        Me.cmdMoveDown.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdMoveDown.UseVisualStyleBackColor = False
         '
         'lblMove
         '
         Me.lblMove.AutoSize = True
         Me.lblMove.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblMove.Location = New System.Drawing.Point(306, 0)
+        Me.lblMove.Location = New System.Drawing.Point(242, 0)
         Me.lblMove.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblMove.Name = "lblMove"
         Me.lblMove.Size = New System.Drawing.Size(132, 22)

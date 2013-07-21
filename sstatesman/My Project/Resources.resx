@@ -332,4 +332,34 @@
   <data name="InfoIcon_Warning_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\InfoIcon_Warning_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Icon_CheckAll_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon_CheckAll_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Glyph_Reorder_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Glyph_Reorder_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Glyph_TrashCan_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Glyph_TrashCan_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon_CheckBackup_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon_CheckBackup_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon_CheckInvert_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon_CheckInvert_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon_CheckNone_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon_CheckNone_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon_OrderDown_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon_OrderDown_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon_OrderFirst_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon_OrderFirst_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon_OrderLast_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon_OrderLast_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Icon_OrderUp_16x16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Icon_OrderUp_16x16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>
