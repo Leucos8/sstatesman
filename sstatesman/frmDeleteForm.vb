@@ -43,7 +43,7 @@ Public Class frmDeleteForm
             If SSMGameList.Games.TryGetValue(tmpItem.Group.Name, tmpGamesListItem) Then
                 If tmpGamesListItem.Savestates.TryGetValue(tmpItem.Name, tmpSavestate) Then
                     Try
-                        If My.Settings.SStatesMan_SStateTrash = True Then
+                        If My.Settings.SStatesMan_FileTrash = True Then
                             My.Computer.FileSystem.DeleteFile(Path.Combine(My.Settings.PCSX2_PathSState, tmpSavestate.Name),
                                                               FileIO.UIOption.OnlyErrorDialogs,
                                                               FileIO.RecycleOption.SendToRecycleBin)
@@ -98,7 +98,7 @@ Public Class frmDeleteForm
             If SSMGameList.Games.TryGetValue(tmpItem.Group.Name, tmpGamesListItem) Then
                 If tmpGamesListItem.Snapshots.TryGetValue(tmpItem.Name, tmpSnap) Then
                     Try
-                        If My.Settings.SStatesMan_SStateTrash = True Then
+                        If My.Settings.SStatesMan_FileTrash = True Then
                             My.Computer.FileSystem.DeleteFile(Path.Combine(My.Settings.PCSX2_PathSnaps, tmpSnap.Name),
                                                               FileIO.UIOption.OnlyErrorDialogs,
                                                               FileIO.RecycleOption.SendToRecycleBin)

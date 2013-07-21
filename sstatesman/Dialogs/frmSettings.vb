@@ -25,7 +25,7 @@ Public Class frmSettings
         Me.ckb_SStatesListShowOnly.Checked = My.Settings.SStatesMan_SStatesListShowOnly
         Me.ckb_SStatesListAutoRefresh.Checked = My.Settings.SStatesMan_SStatesListAutoRefresh
         'Savestates management
-        Me.ckbSStatesManMoveToTrash.Checked = My.Settings.SStatesMan_SStateTrash
+        Me.ckbSStatesManMoveToTrash.Checked = My.Settings.SStatesMan_FileTrash
         Me.ckbSStatesManVersionExtract.Checked = My.Settings.SStatesMan_SStatesVersionExtract
         'Cover folder
         Me.txtSStatesManPicsPath.Text = My.Settings.SStatesMan_PathPics
@@ -46,7 +46,7 @@ Public Class frmSettings
         My.Settings.SStatesMan_SStatesListShowOnly = Me.ckb_SStatesListShowOnly.Checked
         My.Settings.SStatesMan_SStatesListAutoRefresh = Me.ckb_SStatesListAutoRefresh.Checked
         'Savestates management
-        My.Settings.SStatesMan_SStateTrash = Me.ckbSStatesManMoveToTrash.Checked
+        My.Settings.SStatesMan_FileTrash = Me.ckbSStatesManMoveToTrash.Checked
         My.Settings.SStatesMan_SStatesVersionExtract = Me.ckbSStatesManVersionExtract.Checked
         'Cover folder
         My.Settings.SStatesMan_PathPics = Me.txtSStatesManPicsPath.Text

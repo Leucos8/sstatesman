@@ -156,12 +156,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(), _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.Configuration.DefaultSettingValueAttribute("True")> _
-        Public Property SStatesMan_SStateTrash() As Boolean
+        Public Property SStatesMan_FileTrash() As Boolean
             Get
-                Return CType(Me("SStatesMan_SStateTrash"), Boolean)
+                Return CType(Me("SStatesMan_FileTrash"), Boolean)
             End Get
             Set(value As Boolean)
-                Me("SStatesMan_SStateTrash") = value
+                Me("SStatesMan_FileTrash") = value
             End Set
         End Property
 
@@ -473,7 +473,7 @@ Namespace My
                 Return CType(Me("SStatesMan_SStateReorderBackup"), Boolean)
             End Get
             Set(value As Boolean)
-                Me("SStatesMan_SStateReorderBackup") = Value
+                Me("SStatesMan_SStateReorderBackup") = value
             End Set
         End Property
     End Class

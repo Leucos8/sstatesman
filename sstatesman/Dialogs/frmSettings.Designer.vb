@@ -334,7 +334,7 @@ Partial Class frmSettings
         Me.txtPCSX2IniPath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2IniPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2IniPath.Name = "txtPCSX2IniPath"
-        Me.txtPCSX2IniPath.Size = New System.Drawing.Size(139, 22)
+        Me.txtPCSX2IniPath.Size = New System.Drawing.Size(122, 22)
         Me.txtPCSX2IniPath.TabIndex = 34
         '
         'cmdPCSX2AppPathOpen
@@ -454,7 +454,7 @@ Partial Class frmSettings
         Me.txtPCSX2AppPath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2AppPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2AppPath.Name = "txtPCSX2AppPath"
-        Me.txtPCSX2AppPath.Size = New System.Drawing.Size(139, 22)
+        Me.txtPCSX2AppPath.Size = New System.Drawing.Size(122, 22)
         Me.txtPCSX2AppPath.TabIndex = 27
         '
         'cmdSStatesManPicsPathOpen
@@ -562,7 +562,7 @@ Partial Class frmSettings
         Me.tlpPCSX2AppPath.RowCount = 2
         Me.tlpPCSX2AppPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2AppPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2AppPath.Size = New System.Drawing.Size(159, 58)
+        Me.tlpPCSX2AppPath.Size = New System.Drawing.Size(142, 58)
         Me.tlpPCSX2AppPath.TabIndex = 26
         '
         'flpPCSX2AppPath
@@ -572,7 +572,7 @@ Partial Class frmSettings
         Me.flpPCSX2AppPath.Controls.Add(Me.cmdPCSX2AppPathOpen)
         Me.flpPCSX2AppPath.Controls.Add(Me.cmdPCSX2AppPathDetect)
         Me.flpPCSX2AppPath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2AppPath.Location = New System.Drawing.Point(-26, 28)
+        Me.flpPCSX2AppPath.Location = New System.Drawing.Point(-43, 28)
         Me.flpPCSX2AppPath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpPCSX2AppPath.Name = "flpPCSX2AppPath"
         Me.flpPCSX2AppPath.Size = New System.Drawing.Size(177, 28)
@@ -608,7 +608,7 @@ Partial Class frmSettings
         Me.tlpPCSX2SStatePath.RowCount = 2
         Me.tlpPCSX2SStatePath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2SStatePath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2SStatePath.Size = New System.Drawing.Size(159, 58)
+        Me.tlpPCSX2SStatePath.Size = New System.Drawing.Size(142, 58)
         Me.tlpPCSX2SStatePath.TabIndex = 41
         '
         'flpPCSX2SStatePath
@@ -618,7 +618,7 @@ Partial Class frmSettings
         Me.flpPCSX2SStatePath.Controls.Add(Me.cmdPCSX2SStatePathOpen)
         Me.flpPCSX2SStatePath.Controls.Add(Me.cmdPCSX2SStatePathDetect)
         Me.flpPCSX2SStatePath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2SStatePath.Location = New System.Drawing.Point(-26, 28)
+        Me.flpPCSX2SStatePath.Location = New System.Drawing.Point(-43, 28)
         Me.flpPCSX2SStatePath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpPCSX2SStatePath.Name = "flpPCSX2SStatePath"
         Me.flpPCSX2SStatePath.Size = New System.Drawing.Size(177, 28)
@@ -694,7 +694,7 @@ Partial Class frmSettings
         Me.txtPCSX2SStatePath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2SStatePath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2SStatePath.Name = "txtPCSX2SStatePath"
-        Me.txtPCSX2SStatePath.Size = New System.Drawing.Size(139, 22)
+        Me.txtPCSX2SStatePath.Size = New System.Drawing.Size(122, 22)
         Me.txtPCSX2SStatePath.TabIndex = 42
         '
         'lblPCSX2SStatePathStatus
@@ -738,7 +738,7 @@ Partial Class frmSettings
         Me.tlpPCSX2IniPath.RowCount = 2
         Me.tlpPCSX2IniPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2IniPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2IniPath.Size = New System.Drawing.Size(159, 58)
+        Me.tlpPCSX2IniPath.Size = New System.Drawing.Size(142, 58)
         Me.tlpPCSX2IniPath.TabIndex = 30
         '
         'flpPCSX2IniPath
@@ -748,7 +748,7 @@ Partial Class frmSettings
         Me.flpPCSX2IniPath.Controls.Add(Me.cmdPCSX2IniPathOpen)
         Me.flpPCSX2IniPath.Controls.Add(Me.cmdPCSX2IniPathDetect)
         Me.flpPCSX2IniPath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2IniPath.Location = New System.Drawing.Point(-26, 28)
+        Me.flpPCSX2IniPath.Location = New System.Drawing.Point(-43, 28)
         Me.flpPCSX2IniPath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpPCSX2IniPath.Name = "flpPCSX2IniPath"
         Me.flpPCSX2IniPath.Size = New System.Drawing.Size(177, 28)
@@ -946,8 +946,7 @@ Partial Class frmSettings
         Me.ckbSStatesManMoveToTrash.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
         Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(130, 21)
         Me.ckbSStatesManMoveToTrash.TabIndex = 16
-        Me.ckbSStatesManMoveToTrash.Text = "Move the deleted savestates to the Recycle Bin instead of deleting them permanent" & _
-    "ly."
+        Me.ckbSStatesManMoveToTrash.Text = "Send files to the Windows Recycle Bin instead of permanently deleting them."
         Me.ckbSStatesManMoveToTrash.UseVisualStyleBackColor = False
         '
         'ckbSStatesManVersionExtract
@@ -974,9 +973,9 @@ Partial Class frmSettings
         Me.Label1.Location = New System.Drawing.Point(8, 90)
         Me.Label1.Name = "Label1"
         Me.Label1.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
-        Me.Label1.Size = New System.Drawing.Size(158, 23)
+        Me.Label1.Size = New System.Drawing.Size(120, 23)
         Me.Label1.TabIndex = 14
-        Me.Label1.Text = "Savestates management"
+        Me.Label1.Text = "Files management"
         '
         'ckb_SStatesListAutoRefresh
         '
@@ -1003,7 +1002,7 @@ Partial Class frmSettings
         Me.ckb_SStatesListShowOnly.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
         Me.ckb_SStatesListShowOnly.Size = New System.Drawing.Size(130, 21)
         Me.ckb_SStatesListShowOnly.TabIndex = 12
-        Me.ckb_SStatesListShowOnly.Text = "By default hide the games list."
+        Me.ckb_SStatesListShowOnly.Text = "Use a single list for files only (hides the game info and game list)."
         Me.ckb_SStatesListShowOnly.UseVisualStyleBackColor = False
         '
         'ckbFirstRun
@@ -1017,7 +1016,7 @@ Partial Class frmSettings
         Me.ckbFirstRun.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
         Me.ckbFirstRun.Size = New System.Drawing.Size(130, 21)
         Me.ckbFirstRun.TabIndex = 11
-        Me.ckbFirstRun.Text = "Restore SStatesMan settings to their defaults on next startup."
+        Me.ckbFirstRun.Text = "Reset SStatesMan settings to their defaults on next startup."
         Me.ckbFirstRun.UseVisualStyleBackColor = False
         '
         'Label3
@@ -1069,7 +1068,7 @@ Partial Class frmSettings
         Me.tlpPCSX2SnapsPath.RowCount = 2
         Me.tlpPCSX2SnapsPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2SnapsPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2SnapsPath.Size = New System.Drawing.Size(159, 58)
+        Me.tlpPCSX2SnapsPath.Size = New System.Drawing.Size(142, 58)
         Me.tlpPCSX2SnapsPath.TabIndex = 43
         '
         'FlowLayoutPanel1
@@ -1079,7 +1078,7 @@ Partial Class frmSettings
         Me.FlowLayoutPanel1.Controls.Add(Me.cmdPCSX2SnapsPathOpen)
         Me.FlowLayoutPanel1.Controls.Add(Me.cmdPCSX2SnapsPathDetect)
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(-26, 28)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(-43, 28)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(177, 28)
@@ -1155,7 +1154,7 @@ Partial Class frmSettings
         Me.txtPCSX2SnapsPath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2SnapsPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2SnapsPath.Name = "txtPCSX2SnapsPath"
-        Me.txtPCSX2SnapsPath.Size = New System.Drawing.Size(139, 22)
+        Me.txtPCSX2SnapsPath.Size = New System.Drawing.Size(122, 22)
         Me.txtPCSX2SnapsPath.TabIndex = 42
         '
         'lblPCSX2SnapsPathStatus

@@ -398,6 +398,7 @@ Public Class frmMain
             End If
 
             Me.cmdGameSelectNone.Enabled = False
+            Me.cmdGameSelectNone.Visible = False
 
             If SSMGameList.Games.Count = 0 Then
                 '================

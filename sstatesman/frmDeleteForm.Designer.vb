@@ -63,6 +63,7 @@ Partial Class frmDeleteForm
         Me.flpFileListCommands = New System.Windows.Forms.FlowLayoutPanel()
         Me.tlpFileListStatus = New System.Windows.Forms.TableLayoutPanel()
         Me.pnlWindowContent = New System.Windows.Forms.Panel()
+        Me.ckbSStatesManMoveToTrash = New System.Windows.Forms.CheckBox()
         Me.pnlTopPanel.SuspendLayout()
         Me.tlpTopPanel.SuspendLayout()
         Me.flpTitleBar.SuspendLayout()
@@ -131,7 +132,7 @@ Partial Class frmDeleteForm
         Me.lvwDelFilesList.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwDelFilesList.MultiSelect = False
         Me.lvwDelFilesList.Name = "lvwDelFilesList"
-        Me.lvwDelFilesList.Size = New System.Drawing.Size(612, 195)
+        Me.lvwDelFilesList.Size = New System.Drawing.Size(612, 174)
         Me.lvwDelFilesList.TabIndex = 10
         Me.lvwDelFilesList.UseCompatibleStateImageBehavior = False
         Me.lvwDelFilesList.View = System.Windows.Forms.View.Details
@@ -489,7 +490,6 @@ Partial Class frmDeleteForm
         '
         Me.tlpFileListStatus.AutoSize = True
         Me.tlpFileListStatus.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.tlpFileListStatus.BackColor = System.Drawing.Color.White
         Me.tlpFileListStatus.ColumnCount = 4
         Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
@@ -514,14 +514,32 @@ Partial Class frmDeleteForm
         'pnlWindowContent
         '
         Me.pnlWindowContent.Controls.Add(Me.lvwDelFilesList)
-        Me.pnlWindowContent.Controls.Add(Me.tlpFileListStatus)
         Me.pnlWindowContent.Controls.Add(Me.flpFileListCommands)
+        Me.pnlWindowContent.Controls.Add(Me.ckbSStatesManMoveToTrash)
+        Me.pnlWindowContent.Controls.Add(Me.tlpFileListStatus)
         Me.pnlWindowContent.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlWindowContent.Location = New System.Drawing.Point(0, 56)
         Me.pnlWindowContent.Name = "pnlWindowContent"
         Me.pnlWindowContent.Padding = New System.Windows.Forms.Padding(8, 0, 8, 0)
         Me.pnlWindowContent.Size = New System.Drawing.Size(628, 256)
         Me.pnlWindowContent.TabIndex = 18
+        '
+        'ckbSStatesManMoveToTrash
+        '
+        Me.ckbSStatesManMoveToTrash.AutoSize = True
+        Me.ckbSStatesManMoveToTrash.Checked = Global.sstatesman.My.MySettings.Default.SStatesMan_FileTrash
+        Me.ckbSStatesManMoveToTrash.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ckbSStatesManMoveToTrash.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.sstatesman.My.MySettings.Default, "SStatesMan_FileTrash", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.ckbSStatesManMoveToTrash.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.ckbSStatesManMoveToTrash.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.ckbSStatesManMoveToTrash.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ckbSStatesManMoveToTrash.Location = New System.Drawing.Point(8, 196)
+        Me.ckbSStatesManMoveToTrash.Name = "ckbSStatesManMoveToTrash"
+        Me.ckbSStatesManMoveToTrash.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
+        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(612, 21)
+        Me.ckbSStatesManMoveToTrash.TabIndex = 18
+        Me.ckbSStatesManMoveToTrash.Text = "Send files to the Windows Recycle Bin instead of permanently deleting them."
+        Me.ckbSStatesManMoveToTrash.UseVisualStyleBackColor = False
         '
         'frmDeleteForm
         '
@@ -593,4 +611,5 @@ Partial Class frmDeleteForm
     Private WithEvents tlpFileListStatus As System.Windows.Forms.TableLayoutPanel
     Private WithEvents blWindowDescription As System.Windows.Forms.Label
     Private WithEvents pnlWindowContent As System.Windows.Forms.Panel
+    Private WithEvents ckbSStatesManMoveToTrash As System.Windows.Forms.CheckBox
 End Class
