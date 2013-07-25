@@ -245,7 +245,6 @@
     <None Include="Resources\Icon_Gear_16x16.png" />
     <None Include="Resources\InfoIcon_Exclamation_16x16.png" />
     <None Include="Resources\InfoIcon_Error_16x16.png" />
-    <None Include="Resources\Extra_Nocover_40x40.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\themes\BgSquares.png" />
@@ -272,7 +271,7 @@
     <None Include="Resources\flags\Flag_France_30x20.png" />
     <None Include="Resources\flags\Flag_EU_30x20.png" />
     <None Include="Resources\flags\Flag_China_30x20.png" />
-    <None Include="Resources\flags\Flag_0Null_30x20.png" />
+    <None Include="Resources\Extra_ClearImage_30x20.png" />
     <None Include="Resources\flags\Flag_Canada_30x20.png" />
     <None Include="Resources\flags\Flag_Australia_30x20.png" />
     <None Include="Resources\flags\Flag_Austria_30x20.png" />

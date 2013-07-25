@@ -98,7 +98,7 @@ Module mdlMain
                 End If
             End If
         End If
-        Return My.Resources.Flag_0Null_30x20
+        Return My.Resources.Extra_ClearImage_30x20
     End Function
 
     Friend Function TrimBadPathChars(ByVal pInputPath As String, Optional ByVal pTrimBadChars As Boolean = False) As String

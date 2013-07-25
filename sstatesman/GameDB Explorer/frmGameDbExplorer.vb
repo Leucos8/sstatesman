@@ -33,7 +33,7 @@ Public Class frmGameDbExplorer
         Me.txtGameList_Serial.Text = ""
         Me.txtGameList_Region.Text = ""
         Me.txtGameList_Compat.Text = ""
-        Me.imgFlag.Image = My.Resources.Flag_0Null_30x20
+        Me.imgFlag.Image = My.Resources.Extra_ClearImage_30x20
 
         Me.ToolStripStatusLabel1.Text = ""
         Me.ToolStripStatusLabel3.Text = ""

@@ -657,7 +657,7 @@ Partial Class frmMain
         '
         Me.imgCover.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.imgCover.ContextMenuStrip = Me.cmCover
-        Me.imgCover.Image = Global.sstatesman.My.Resources.Resources.Extra_Nocover_40x40
+        Me.imgCover.Image = Global.sstatesman.My.Resources.Resources.Extra_ClearImage_30x20
         Me.imgCover.Location = New System.Drawing.Point(0, 126)
         Me.imgCover.Margin = New System.Windows.Forms.Padding(0, 0, 6, 2)
         Me.imgCover.Name = "imgCover"
@@ -734,7 +734,7 @@ Partial Class frmMain
         Me.imgFlag.BackColor = System.Drawing.Color.WhiteSmoke
         Me.imgFlag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.imgFlag.Dock = System.Windows.Forms.DockStyle.Top
-        Me.imgFlag.Image = Global.sstatesman.My.Resources.Resources.Flag_0Null_30x20
+        Me.imgFlag.Image = Global.sstatesman.My.Resources.Resources.Extra_ClearImage_30x20
         Me.imgFlag.Location = New System.Drawing.Point(230, 152)
         Me.imgFlag.Margin = New System.Windows.Forms.Padding(2)
         Me.imgFlag.Name = "imgFlag"

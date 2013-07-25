@@ -62,7 +62,7 @@ Public Class frmDeleteForm
 
                         tmpItem.Tag = DelFileStatus.DeletedOk
                         tmpItem.SubItems(statusColumnHeaderRef.Index).Text = "File deleted successfully."
-                        tmpItem.BackColor = Color.FromArgb(255, 192, 255, 192)
+                        tmpItem.BackColor = Color.FromArgb(255, 150, 200, 130)
                     Catch ex As Exception
                         tmpItem.Tag = DelFileStatus.OtherError
                         tmpItem.SubItems(statusColumnHeaderRef.Index).Text = ex.Message

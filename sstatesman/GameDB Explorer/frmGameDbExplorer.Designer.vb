@@ -357,7 +357,7 @@ Partial Class frmGameDbExplorer
         '
         Me.imgFlag.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.imgFlag.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgFlag.Image = Global.sstatesman.My.Resources.Resources.Flag_0Null_30x20
+        Me.imgFlag.Image = Global.sstatesman.My.Resources.Resources.Extra_ClearImage_30x20
         Me.imgFlag.Location = New System.Drawing.Point(157, 28)
         Me.imgFlag.Margin = New System.Windows.Forms.Padding(2)
         Me.imgFlag.Name = "imgFlag"

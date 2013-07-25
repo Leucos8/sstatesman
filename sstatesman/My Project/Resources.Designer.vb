@@ -188,29 +188,19 @@ Namespace My.Resources
         '''<summary>
         '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
         '''</summary>
+        Friend ReadOnly Property Extra_ClearImage_30x20() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("Extra_ClearImage_30x20", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        '''</summary>
         Friend ReadOnly Property Extra_Nocover_120x170() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("Extra_Nocover_120x170", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property Extra_Nocover_40x40() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("Extra_Nocover_40x40", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property Flag_0Null_30x20() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("Flag_0Null_30x20", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

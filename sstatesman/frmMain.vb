@@ -313,7 +313,7 @@ Public Class frmMain
                 Me.txtGameList_Region.Text = ""
                 Me.txtGameList_Compat.Text = ""
                 Me.txtGameList_Compat.BackColor = Color.WhiteSmoke
-                Me.imgFlag.Image = My.Resources.Flag_0Null_30x20
+                Me.imgFlag.Image = My.Resources.Extra_ClearImage_30x20
 
                 'Cover image
                 Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
@@ -382,10 +382,10 @@ Public Class frmMain
             Me.txtGameList_Region.Text = ""
             Me.txtGameList_Compat.Text = ""
             Me.txtGameList_Compat.BackColor = Color.WhiteSmoke
-            Me.imgFlag.Image = My.Resources.Flag_0Null_30x20
+            Me.imgFlag.Image = My.Resources.Extra_ClearImage_30x20
 
             'Cover image
-            Me.imgCover.Image = My.Resources.Flag_0Null_30x20
+            Me.imgCover.Image = My.Resources.Extra_ClearImage_30x20
             Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
             If My.Settings.frmMain_CoverExpanded Then
                 Me.imgCover.Width = CInt(Cover_SizeExpanded.Width * DPIxScale) + 2
@@ -734,7 +734,7 @@ Public Class frmMain
             End If
 
             If lastSStateIndex > -1 Then
-                tmpLvwItems.Item(lastSStateIndex).SubItems(0).ForeColor = Color.FromArgb(255, 65, 74, 100)
+                tmpLvwItems.Item(lastSStateIndex).ForeColor = mdlTheme.currentTheme.AccentColorDark
             End If
         Next
 
@@ -818,7 +818,7 @@ Public Class frmMain
             End If
 
             If lastSnapsIndex > -1 Then
-                tmpLvwItems.Item(lastSnapsIndex).SubItems(0).ForeColor = Color.FromArgb(255, 65, 74, 100)
+                tmpLvwItems.Item(lastSnapsIndex).ForeColor = mdlTheme.currentTheme.AccentColorDark
             End If
         Next
 
