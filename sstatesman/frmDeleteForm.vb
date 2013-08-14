@@ -378,7 +378,7 @@ Public Class frmDeleteForm
         Me.FileList_TotalSize = 0
         Me.FileList_TotalSizeBackup = 0
 
-        'clear items and group.
+        'clear items and groups.
         Me.lvwDelFilesList.Items.Clear()
         Me.lvwDelFilesList.Groups.Clear()
 

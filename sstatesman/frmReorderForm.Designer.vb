@@ -42,6 +42,7 @@ Partial Class frmReorderForm
         Me.StROLvw_Slot = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StROLvw_OldName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StROLvw_NewName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.StROLvw_Status = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmdMoveLast = New System.Windows.Forms.Button()
         Me.cmdMoveFirst = New System.Windows.Forms.Button()
         Me.cmdMoveUp = New System.Windows.Forms.Button()
@@ -116,7 +117,7 @@ Partial Class frmReorderForm
         '
         Me.lvwReorderList.BackColor = System.Drawing.Color.White
         Me.lvwReorderList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lvwReorderList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StROLvw_Slot, Me.StROLvw_OldName, Me.StROLvw_NewName})
+        Me.lvwReorderList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StROLvw_Slot, Me.StROLvw_OldName, Me.StROLvw_NewName, Me.StROLvw_Status})
         Me.lvwReorderList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvwReorderList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lvwReorderList.ForeColor = System.Drawing.Color.Black
@@ -125,7 +126,6 @@ Partial Class frmReorderForm
         Me.lvwReorderList.HideSelection = False
         Me.lvwReorderList.Location = New System.Drawing.Point(8, 22)
         Me.lvwReorderList.Margin = New System.Windows.Forms.Padding(2)
-        Me.lvwReorderList.MultiSelect = False
         Me.lvwReorderList.Name = "lvwReorderList"
         Me.lvwReorderList.Size = New System.Drawing.Size(612, 230)
         Me.lvwReorderList.TabIndex = 10
@@ -135,16 +135,22 @@ Partial Class frmReorderForm
         'StROLvw_Slot
         '
         Me.StROLvw_Slot.Text = "Slot"
+        Me.StROLvw_Slot.Width = 40
         '
         'StROLvw_OldName
         '
         Me.StROLvw_OldName.Text = "Old name"
-        Me.StROLvw_OldName.Width = 240
+        Me.StROLvw_OldName.Width = 200
         '
         'StROLvw_NewName
         '
         Me.StROLvw_NewName.Text = "New name"
-        Me.StROLvw_NewName.Width = 240
+        Me.StROLvw_NewName.Width = 200
+        '
+        'StROLvw_Status
+        '
+        Me.StROLvw_Status.Text = "Status"
+        Me.StROLvw_Status.Width = 140
         '
         'cmdMoveLast
         '
@@ -495,4 +501,5 @@ Partial Class frmReorderForm
     Private WithEvents StROLvw_NewName As System.Windows.Forms.ColumnHeader
     Private WithEvents blWindowDescription As System.Windows.Forms.Label
     Friend WithEvents pnlWindowContent As System.Windows.Forms.Panel
+    Private WithEvents StROLvw_Status As System.Windows.Forms.ColumnHeader
 End Class
