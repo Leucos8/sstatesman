@@ -35,7 +35,7 @@ Public Class Savestate
         Get
             If Not (Integer.TryParse(Name.Substring(Name.IndexOf("."c, 0) + 1, 2), _slot)) Then
                 _slot = -1
-            ElseIf Not ((_slot >= 0) Or (_slot <= 9)) Then
+            ElseIf Not ((_slot >= My.Settings.PCSX2_SStateSlotLowerBound) Or (_slot <= My.Settings.PCSX2_SStateSlotUpperBound)) Then
                 _slot = -1
             End If
             Return _slot

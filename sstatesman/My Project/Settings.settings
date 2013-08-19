@@ -129,5 +129,11 @@
     <Setting Name="SStatesMan_SStateReorderBackup" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="PCSX2_SStateSlotLowerBound" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="PCSX2_SStateSlotUpperBound" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">9</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

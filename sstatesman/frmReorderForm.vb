@@ -17,7 +17,11 @@ Imports System.IO
 Public Class frmReorderForm
     Dim lastWindowState As FormWindowState  'Needed to know if a form resize changed the windowstate
 
-    Dim ListsAreCurrentlyRefreshed As Boolean = False
+    Dim ListsAreRefreshed As Boolean = False
+
+    Dim FilesRenamed As Boolean = False
+    'Const StandardSlot_LowerBound As Integer = 0
+    'Const StandardSlot_UpperBound As Integer = 9
 
     Friend Enum ReorderListColumns
         Slot
@@ -27,13 +31,20 @@ Public Class frmReorderForm
     End Enum
 
     Enum ReorderFileStatus
-        FreeSlot    'No savestate
-        Idle        'Current file name matches new name
-        ToBeRenamed 'Current file name is different from new name
-        RenamedOk   'The file has been renamed succesfully
-        NotFound    'The file has not been found when renaming
-        OtherError  'Another error has been encountered
+        FreeSlot        'No savestate
+        Idle            'Current file name matches new name
+        RenamePending   'Current file name is different from new name
+        RenamedTmp      'Renaming phase 1 (added the .tmp extension)
+        Renamed_OK      'The file has been renamed succesfully
+        FileNotFound    'The file has not been found when renaming
+        FileAlreadyExist 'A file with the target name already exist
+        OtherError      'Another error has been encountered
     End Enum
+
+    Private Function AddTmpExtension(pFilename As String) As String
+        Const tmpExtension As String = ".tmp"
+        Return pFilename & tmpExtension
+    End Function
 
 #Region "Form"
     Private Sub frmReorderForm_Load(ByVal sender As Object, ByVal e As EventArgs) Handles MyBase.Load
@@ -62,11 +73,11 @@ Public Class frmReorderForm
 
 
 
-        UI_Enabler(False)
+        UI_Enable(False)
         Me.ReorderList_AddSavestates()
         Me.Rename_Preview()
         UI_Updater()
-        UI_Enabler(True)
+        UI_Enable(True)
 
         SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Load, "2/2 Post load done.", sw.ElapsedTicks - tmpTicks)
         'tmpTicks = sw.ElapsedTicks
@@ -84,30 +95,42 @@ Public Class frmReorderForm
 #End Region
 
 #Region "UI - General"
-    Private Sub UI_Enabler(pGlobalSwitch As Boolean)
-        If pGlobalSwitch = True Then
-            Me.ListsAreCurrentlyRefreshed = False
+    ''' <summary>Handles the filelist beginupdate and endupdate methods</summary>
+    ''' <param name="pSwitch">True to end the update, False to begin the update</param>
+    Private Sub UI_Enable(pSwitch As Boolean)
+        Me.ListsAreRefreshed = Not (pSwitch)
+        If pSwitch = True Then
             Me.lvwReorderList.EndUpdate()
         Else
-            Me.ListsAreCurrentlyRefreshed = True
             Me.lvwReorderList.BeginUpdate()
         End If
+        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.UI_Enable, pSwitch.ToString)
     End Sub
 
+    ''' <summary>Updates the UI status.</summary>
     Private Sub UI_Updater()
+        Dim sw As Stopwatch = Stopwatch.StartNew
 
-        If (Me.lvwReorderList.Items.Count = 0) Then
-            'No savestates in list
+        If (Me.lvwReorderList.Items.Count = 0) Or FilesRenamed Then
+            '==========================================
+            'No files in list or file have been renamed
+            '==========================================
+
             Me.cmdMoveUp.Enabled = False
             Me.cmdMoveLast.Enabled = False
             Me.cmdMoveDown.Enabled = False
             Me.cmdMoveFirst.Enabled = False
+
             Me.cmdReorder.Enabled = False
         Else
+            '=================
+            'Files are present
+            '=================
             Me.cmdReorder.Enabled = True
+
             If Me.lvwReorderList.SelectedItems.Count > 0 Then
                 'First item selected
-                If Me.lvwReorderList.SelectedItems.Item(0).Index = 0 Then
+                If Me.lvwReorderList.Items(0).Selected Then
                     Me.cmdMoveFirst.Enabled = False
                     Me.cmdMoveUp.Enabled = False
                 Else
@@ -116,7 +139,7 @@ Public Class frmReorderForm
                 End If
 
                 'Last item selected
-                If Me.lvwReorderList.SelectedItems.Item(0).Index = (Me.lvwReorderList.Items.Count - 1) Then
+                If Me.lvwReorderList.Items(Me.lvwReorderList.Items.Count - 1).Selected Then
                     Me.cmdMoveLast.Enabled = False
                     Me.cmdMoveDown.Enabled = False
                 Else
@@ -124,21 +147,29 @@ Public Class frmReorderForm
                     Me.cmdMoveDown.Enabled = True
                 End If
 
+            ElseIf Me.lvwReorderList.SelectedItems.Count = 0 Then
+                Me.cmdMoveUp.Enabled = False
+                Me.cmdMoveLast.Enabled = False
+                Me.cmdMoveDown.Enabled = False
+                Me.cmdMoveFirst.Enabled = False
             End If
 
         End If
+
+        sw.Stop()
+        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
     End Sub
 #End Region
 
 #Region "Form - Commands"
     Private Sub cmdReorder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdReorder.Click
-        Rename_Execute()
+        Me.Rename_Execute()
         frmMain.GameList_Refresh()
-        UI_Enabler(False)
+        Me.UI_Enable(False)
         Me.ReorderList_AddSavestates()
         Me.Rename_Preview()
-        UI_Enabler(True)
-        UI_Updater()
+        Me.UI_Updater()
+        Me.UI_Enable(True)
     End Sub
 
     Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
@@ -216,8 +247,11 @@ Public Class frmReorderForm
                 Dim tmpSListItems As New List(Of ListViewItem)
 
                 'Creation of the available slots, 10 x 2 = 20
-                For i As Integer = 0 To 19
-                    Dim tmpLvwSListItem As New ListViewItem With {.Text = (i \ 2).ToString, .Group = tmpLvwSListGroup, .Tag = ReorderFileStatus.FreeSlot}
+                Dim currentSlot As Integer = My.Settings.PCSX2_SStateSlotLowerBound
+                For i As Integer = 0 To (My.Settings.PCSX2_SStateSlotUpperBound - My.Settings.PCSX2_SStateSlotLowerBound + 1) * 2 - 1
+                    Dim tmpLvwSListItem As New ListViewItem With {.Text = (My.Settings.PCSX2_SStateSlotLowerBound + i \ 2).ToString, _
+                                                                  .Group = tmpLvwSListGroup, _
+                                                                  .Tag = ReorderFileStatus.FreeSlot}
                     If Not ((i Mod 2) > 0) Then
                         tmpLvwSListItem.ImageIndex = 0
                         'tmpLvwSListItem.Text &= " Standard"
@@ -232,8 +266,9 @@ Public Class frmReorderForm
                 'Adding savestates
                 For Each tmpSavestate As KeyValuePair(Of String, Savestate) In SSMGameList.Games(frmMain.checkedGames(0)).Savestates
                     Dim listRef As Integer = tmpSavestate.Value.Slot    'Used for list index
-                    If (listRef >= 0) And (listRef <= 9) Then
+                    If (listRef >= My.Settings.PCSX2_SStateSlotLowerBound) And (listRef <= My.Settings.PCSX2_SStateSlotUpperBound) Then
                         'Even numbers are for savestates
+                        listRef -= My.Settings.PCSX2_SStateSlotLowerBound
                         listRef *= 2
                         If tmpSavestate.Value.isBackup Then
                             'Odd numbers are for backups
@@ -246,10 +281,14 @@ Public Class frmReorderForm
                         tmpSListItems.Item(listRef).Tag = ReorderFileStatus.Idle
                     Else
                         'This savestate has an out of bounds index, a new list item is added
-                        Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = "Other", .Tag = ReorderFileStatus.Idle}
-                        tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Name, "", ""})
+                        Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = "Other", _
+                                                                                           .Tag = ReorderFileStatus.Idle, _
+                                                                                           .Group = tmpLvwSListGroup, _
+                                                                                           .ImageIndex = 0}
+                        tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Name, tmpSavestate.Value.Name, ""})
                         tmpSListItems.Add(tmpLvwSListItem)
-                        SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, "Slot value not valid for: " & tmpSavestate.Value.Name & ".")
+                        SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+                                         String.Format("Slot value not valid for {0}.", tmpSavestate.Value.Name))
                     End If
                 Next
 
@@ -258,18 +297,23 @@ Public Class frmReorderForm
                 Me.lvwReorderList.Groups.Add(tmpLvwSListGroup)
                 Me.lvwReorderList.Items.AddRange(tmpSListItems.ToArray)
             Else
-                SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, "Game not found in list: " & frmMain.checkedGames(0) & ".")
+                SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+                                 String.Format("Game {0} not found in list.", frmMain.checkedGames(0)))
             End If
         Else
-            SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, "Only one game need to be checked when renaming. " & frmMain.checkedGames.Count & " games were checked.")
+            SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+                             String.Format("Only one game need to be checked when renaming. {0} games were checked.", frmMain.checkedGames.Count))
         End If
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.FileListview, String.Format("Listed {0:N0} savestates.", Me.lvwReorderList.Items.Count), sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.FileListview, _
+                         String.Format("Listed {0:N0} savestates.", Me.lvwReorderList.Items.Count), sw.ElapsedTicks)
     End Sub
 
     Private Sub lvwReorderLisst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvwReorderList.SelectedIndexChanged
-        Me.UI_Updater()
+        If Not (Me.ListsAreRefreshed) Then
+            Me.UI_Updater()
+        End If
     End Sub
 
     Private Sub MoveLwItems(ByRef pListView As ListView, pStep As Integer)
@@ -285,7 +329,8 @@ Public Class frmReorderForm
 
                 If ((pListView.Items.Count - 1) - pListView.SelectedItems.Item(pListView.SelectedItems.Count - 1).Index) < pStep Then
                     pStep = (pListView.Items.Count - 1) - pListView.SelectedItems.Item(pListView.SelectedItems.Count - 1).Index
-                    SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, "Move ListViewItems step has been recalculated.")
+                    SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+                                     "Move ListViewItems step has been recalculated.")
                 End If
 
             ElseIf pStep < 0 Then
@@ -295,13 +340,15 @@ Public Class frmReorderForm
 
                 If pListView.SelectedItems.Item(0).Index < -pStep Then
                     pStep = -pListView.SelectedItems.Item(0).Index
-                    SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, "Move ListViewItems step has been recalculated.")
+                    SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+                                     "Move ListViewItems step has been recalculated.")
                 End If
 
             End If
 
             If pStep = 0 Then
-                SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, "Move ListViewItems step is 0.")
+                SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+                                 "Move ListViewItems step is 0. There is no need to move ListViewItems.")
                 Exit Sub
             End If
 
@@ -320,10 +367,10 @@ Public Class frmReorderForm
                 tmpItemSelected.Tag = tmpItemSwapped.Tag
                 tmpItemSwapped.Tag = tmpTag
                 If ReorderFileStatus.Idle.Equals(tmpItemSelected.Tag) Then
-                    tmpItemSelected.Tag = ReorderFileStatus.ToBeRenamed
+                    tmpItemSelected.Tag = ReorderFileStatus.RenamePending
                 End If
                 If ReorderFileStatus.Idle.Equals(tmpItemSwapped.Tag) Then
-                    tmpItemSwapped.Tag = ReorderFileStatus.ToBeRenamed
+                    tmpItemSwapped.Tag = ReorderFileStatus.RenamePending
                 End If
                 'Updated selections
                 tmpItemSelected.Selected = tmpItemSwapped.Selected
@@ -331,140 +378,67 @@ Public Class frmReorderForm
 
             Next
 
-            'SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.List, String.Format("Moved {0:N0} savestates by {1}.", pListView.SelectedItems.Count, pStep))
+            'SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.List, _
+            '                 String.Format("Moved {0:N0} savestates by {1}.", pListView.SelectedItems.Count, pStep))
         Else
-            SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, "There are no ListViewItems selected to be moved.")
+            SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+                             "There are no ListViewItems selected to be moved.")
         End If
 
     End Sub
 
     Private Sub cmdMoveUp_Click(sender As Object, e As EventArgs) Handles cmdMoveUp.Click
-        UI_Enabler(False)
-
+        UI_Enable(False)
 
         'At least one item needs to be selected
         If Me.lvwReorderList.SelectedItems.Count > 0 Then
             Me.MoveLwItems(lvwReorderList, -1)
-            '    'At least one slot is available before the one selected
-            '    If Me.lvwReorderList.SelectedItems(0).Index > 0 Then
-            '        For i As Integer = 0 To Me.lvwReorderList.SelectedItems.Count - 1
-            '            'I love references!
-            '            Dim tmpItemSelected As ListViewItem = Me.lvwReorderList.SelectedItems(i)
-            '            Dim tmpItemSwapped As ListViewItem = Me.lvwReorderList.Items(tmpItemSelected.Index - 1)
-            '            'Backing up swapped values
-            '            Dim tmpPosition As Integer = tmpItemSelected.Index
-            '            Dim tmpOldName As String = tmpItemSelected.SubItems(ReorderListColumns.OldName).Text
-            '            Dim tmpTag As ReorderFileStatus = CType(tmpItemSelected.Tag, ReorderFileStatus)
-            '            'Swapping names
-            '            tmpItemSelected.SubItems(ReorderListColumns.OldName).Text = tmpItemSwapped.SubItems(ReorderListColumns.OldName).Text
-            '            tmpItemSwapped.SubItems(ReorderListColumns.OldName).Text = tmpOldName
-            '            'Tags
-            '            tmpItemSelected.Tag = tmpItemSwapped.Tag
-            '            tmpItemSwapped.Tag = tmpTag
-            '            If ReorderFileStatus.Idle.Equals(tmpItemSelected.Tag) Then
-            '                tmpItemSelected.Tag = ReorderFileStatus.ToBeRenamed
-            '            End If
-            '            If ReorderFileStatus.Idle.Equals(tmpItemSwapped.Tag) Then
-            '                tmpItemSwapped.Tag = ReorderFileStatus.ToBeRenamed
-            '            End If
-            '            'Updated selections
-            '            tmpItemSelected.Selected = tmpItemSwapped.Selected
-            '            tmpItemSwapped.Selected = True
-
-            '        Next
-            '    End If
             'Visibility
             Me.lvwReorderList.SelectedItems(0).EnsureVisible()
         End If
         Rename_Preview()
-        UI_Enabler(True)
+        UI_Enable(True)
     End Sub
 
     Private Sub cmdMoveDown_Click(sender As Object, e As EventArgs) Handles cmdMoveDown.Click
-        UI_Enabler(False)
+        UI_Enable(False)
 
         'At least one item needs to be selected
         If Me.lvwReorderList.SelectedItems.Count > 0 Then
             Me.MoveLwItems(Me.lvwReorderList, 1)
-            '    'At least one slot is available after the one selected
-            '    If Me.lvwReorderList.SelectedItems(Me.lvwReorderList.SelectedItems.Count - 1).Index < Me.lvwReorderList.Items.Count Then
-            '        For i As Integer = Me.lvwReorderList.SelectedItems.Count - 1 To 0 Step -1
-            '            'I love references!
-            '            Dim tmpItemSelected As ListViewItem = Me.lvwReorderList.SelectedItems(i)
-            '            Dim tmpItemSwapped As ListViewItem = Me.lvwReorderList.Items(tmpItemSelected.Index + 1)
-            '            'Backing up swapped values
-            '            Dim tmpPosition As Integer = tmpItemSelected.Index
-            '            Dim tmpOldName As String = tmpItemSelected.SubItems(ReorderListColumns.OldName).Text
-            '            Dim tmpTag As ReorderFileStatus = CType(tmpItemSelected.Tag, ReorderFileStatus)
-            '            'Swapping names
-            '            tmpItemSelected.SubItems(ReorderListColumns.OldName).Text = tmpItemSwapped.SubItems(ReorderListColumns.OldName).Text
-            '            tmpItemSwapped.SubItems(ReorderListColumns.OldName).Text = tmpOldName
-            '            'Tags
-            '            tmpItemSelected.Tag = tmpItemSwapped.Tag
-            '            tmpItemSwapped.Tag = tmpTag
-            '            If ReorderFileStatus.Idle.Equals(tmpItemSelected.Tag) Then
-            '                tmpItemSelected.Tag = ReorderFileStatus.ToBeRenamed
-            '            End If
-            '            If ReorderFileStatus.Idle.Equals(tmpItemSwapped.Tag) Then
-            '                tmpItemSwapped.Tag = ReorderFileStatus.ToBeRenamed
-            '            End If
-            '            'Updated selections
-            '            tmpItemSelected.Selected = tmpItemSwapped.Selected
-            '            tmpItemSwapped.Selected = True
-            '        Next
-            '    End If
-
             'Visibility
             Me.lvwReorderList.SelectedItems(0).EnsureVisible()
         End If
         Rename_Preview()
-        UI_Enabler(True)
-
+        UI_Enable(True)
     End Sub
 
     Private Sub cmdMoveFirst_Click(sender As Object, e As EventArgs) Handles cmdMoveFirst.Click
-        UI_Enabler(False)
+        UI_Enable(False)
 
         If Me.lvwReorderList.SelectedItems.Count > 0 Then
             'Me.MoveLwItems(Me.lvwReorderList, -Me.lvwReorderList.SelectedItems.Item(0).Index)
             For i As Integer = 0 To Me.lvwReorderList.SelectedItems.Item(0).Index - 1
                 Me.MoveLwItems(Me.lvwReorderList, -1)
             Next
-            '    Dim tmpPosition As Integer = Me.lvwReorderList.SelectedItems(0).Index
-            '    Dim tmpOldName As String = Me.lvwReorderList.SelectedItems(0).SubItems(ReorderListColumns.OldName).Text
-            '    For i = tmpPosition To 1 Step -1
-            '        Me.lvwReorderList.Items(i).SubItems(ReorderListColumns.OldName).Text = Me.lvwReorderList.Items(i - 1).SubItems(ReorderListColumns.OldName).Text
-            '    Next
-            '    Me.lvwReorderList.Items(tmpPosition).Selected = False
-            '    Me.lvwReorderList.Items(0).SubItems(ReorderListColumns.OldName).Text = tmpOldName
-            '    Me.lvwReorderList.Items(0).Selected = True
             Me.lvwReorderList.Items(0).EnsureVisible()
         End If
         Rename_Preview()
-        UI_Enabler(True)
+        UI_Enable(True)
     End Sub
 
     Private Sub cmdMoveLast_Click(sender As Object, e As EventArgs) Handles cmdMoveLast.Click
-        UI_Enabler(False)
-
+        UI_Enable(False)
 
         If Me.lvwReorderList.SelectedItems.Count > 0 Then
             'Me.MoveLwItems(Me.lvwReorderList, (Me.lvwReorderList.Items.Count - 1) - Me.lvwReorderList.SelectedItems.Item(Me.lvwReorderList.SelectedItems.Count - 1).Index)
             For i As Integer = 0 To (Me.lvwReorderList.Items.Count - 1) - (Me.lvwReorderList.SelectedItems.Item(Me.lvwReorderList.SelectedItems.Count - 1).Index + 1)
                 Me.MoveLwItems(Me.lvwReorderList, 1)
             Next
-            '    Dim tmpPosition As Integer = Me.lvwReorderList.SelectedItems(0).Index
-            '    Dim tmpOldName As String = Me.lvwReorderList.SelectedItems(0).SubItems(ReorderListColumns.OldName).Text
-            '    For i = tmpPosition + 1 To Me.lvwReorderList.Items.Count - 1
-            '        Me.lvwReorderList.Items(i - 1).SubItems(ReorderListColumns.OldName).Text = Me.lvwReorderList.Items(i).SubItems(ReorderListColumns.OldName).Text
-            '    Next
-            '    Me.lvwReorderList.Items(tmpPosition).Selected = False
-            '    Me.lvwReorderList.Items(Me.lvwReorderList.Items.Count - 1).SubItems(ReorderListColumns.OldName).Text = tmpOldName
-            '    Me.lvwReorderList.Items(Me.lvwReorderList.Items.Count - 1).Selected = True
             Me.lvwReorderList.Items(Me.lvwReorderList.Items.Count - 1).EnsureVisible()
         End If
         Rename_Preview()
-        UI_Enabler(True)
+        UI_Enable(True)
     End Sub
 #End Region
 
@@ -529,20 +503,25 @@ Public Class frmReorderForm
                     'Free slot, no savestate
                     tmpListItem.SubItems(ReorderListColumns.NewName).Text = "-"
                     tmpListItem.ForeColor = Color.DimGray
-                ElseIf tmpListItem.Tag.Equals(ReorderFileStatus.ToBeRenamed) Then
+                ElseIf tmpListItem.Tag.Equals(ReorderFileStatus.RenamePending) Then
                     'Creating the new name
                     If frmMain.checkedGames.Count = 1 Then
-                        If ((tmpListItem.Index \ 2) >= 0) And ((tmpListItem.Index \ 2) <= 9) Then
-                            tmpListItem.SubItems(ReorderListColumns.NewName).Text = Rename_NewName(frmMain.checkedGames(0),
-                                                                                                   tmpListItem.Index \ 2,
-                                                                                                   CBool(tmpListItem.Index Mod 2))
-                            If tmpListItem.SubItems(ReorderListColumns.OldName).Text = tmpListItem.SubItems(ReorderListColumns.NewName).Text Then
-                                tmpListItem.Tag = ReorderFileStatus.Idle
-                                tmpListItem.ForeColor = Me.ForeColor
-                            Else
-                                tmpListItem.ForeColor = mdlTheme.currentTheme.AccentColorDark
-                            End If
+
+                        tmpListItem.SubItems(ReorderListColumns.NewName).Text = Rename_NewName(frmMain.checkedGames(0), _
+                                                                                               tmpListItem.Index \ 2 + My.Settings.PCSX2_SStateSlotLowerBound, _
+                                                                                               CBool(tmpListItem.Index Mod 2))
+
+                        If tmpListItem.SubItems(ReorderListColumns.OldName).Text = tmpListItem.SubItems(ReorderListColumns.NewName).Text Then
+                            tmpListItem.Tag = ReorderFileStatus.Idle
+                            tmpListItem.ForeColor = Me.ForeColor
+                        Else
+                            tmpListItem.ForeColor = mdlTheme.currentTheme.AccentColorDark
                         End If
+
+                    Else
+                        SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.Preview, _
+                                         String.Format("Only one game must be selected. Reported to be selected: {0}", _
+                                                       frmMain.checkedGames.Count))
                     End If
                 End If
                 tmpListItem.SubItems(ReorderListColumns.Status).Text = tmpListItem.Tag.ToString
@@ -551,13 +530,20 @@ Public Class frmReorderForm
     End Sub
 
     Private Function Rename_NewName(pSerial As String, pSlot As Integer, pSlotType As Boolean) As String
-        If SSMGameList.Games.ContainsKey(frmMain.checkedGames(0)) Then
-            Rename_NewName = frmMain.checkedGames(0) & " (" & SSMGameList.Games(frmMain.checkedGames(0)).CRC & ")." & pSlot.ToString("00") & My.Settings.PCSX2_SStateExt
+        'Game CRC
+        Dim tmpCRC As String = "00000000"
+        If SSMGameList.Games.ContainsKey(pSerial) Then
+            tmpCRC = SSMGameList.Games(pSerial).CRC
+        End If
+
+        If (pSlot >= My.Settings.PCSX2_SStateSlotLowerBound) And (pSlot <= My.Settings.PCSX2_SStateSlotUpperBound) Then
+            Rename_NewName = String.Format("{0} ({1}).{2:00}{3}", pSerial, tmpCRC, pSlot, My.Settings.PCSX2_SStateExt)
             If pSlotType Then
                 Rename_NewName &= My.Settings.PCSX2_SStateExtBackup
             End If
+            Return Rename_NewName
         Else
-            Return "-"
+            Rename_NewName = String.Format("{0} ({1}).X{2:00}{3}", pSerial, tmpCRC, pSlot, My.Settings.PCSX2_SStateExt)
         End If
 
     End Function
@@ -565,26 +551,52 @@ Public Class frmReorderForm
     Private Sub Rename_Execute()
         If Me.lvwReorderList.Items.Count > 0 Then
             For Each tmpListItem As ListViewItem In Me.lvwReorderList.Items
-                If ReorderFileStatus.ToBeRenamed.Equals(tmpListItem.Tag) Then
-                    Try
-                        File.Move(Path.Combine(My.Settings.PCSX2_PathSState, tmpListItem.SubItems(ReorderListColumns.OldName).Text), _
-                                  Path.Combine(My.Settings.PCSX2_PathSState, tmpListItem.SubItems(ReorderListColumns.NewName).Text & ".tmp"))
-                        tmpListItem.Tag = ReorderFileStatus.RenamedOk
-                    Catch ex As Exception
-                        MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                        tmpListItem.Tag = ReorderFileStatus.OtherError
-                    End Try
+                If ReorderFileStatus.RenamePending.Equals(tmpListItem.Tag) Then
+                    tmpListItem.Tag = Me.Rename_Execute2(1, tmpListItem.SubItems(ReorderListColumns.OldName).Text, _
+                                                         Me.AddTmpExtension(tmpListItem.SubItems(ReorderListColumns.OldName).Text), _
+                                                         My.Settings.PCSX2_PathSState, _
+                                                         tmpListItem.SubItems(ReorderListColumns.Status).Text)
                 End If
             Next
 
-            For Each tmpFileName As String In Directory.EnumerateFiles(My.Settings.PCSX2_PathSState, "*.tmp")
-                Try
-                    File.Move(Path.Combine(My.Settings.PCSX2_PathSState, tmpFileName), _
-                              Path.Combine(My.Settings.PCSX2_PathSState, tmpFileName.Remove(tmpFileName.Length - 4)))
-                Catch ex As Exception
-                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-                End Try
+            For Each tmpListItem As ListViewItem In Me.lvwReorderList.Items
+                If ReorderFileStatus.RenamedTmp.Equals(tmpListItem.Tag) Then
+                    tmpListItem.Tag = Me.Rename_Execute2(2, Me.AddTmpExtension(tmpListItem.SubItems(ReorderListColumns.OldName).Text), _
+                                                         tmpListItem.SubItems(ReorderListColumns.NewName).Text, _
+                                                         My.Settings.PCSX2_PathSState, _
+                                                         tmpListItem.SubItems(ReorderListColumns.Status).Text)
+                End If
             Next
         End If
+        Me.FilesRenamed = True
     End Sub
+
+    Private Function Rename_Execute2(pPhase As Integer, pOldName As String, pNewName As String, pPath As String, Optional ByRef pResultMessage As String = "No message.") As ReorderFileStatus
+        Try
+            Dim tmpOldFileFullPath As String = Path.Combine(My.Settings.PCSX2_PathSState, pOldName)
+            Dim tmpNewFileFullPath As String = Path.Combine(My.Settings.PCSX2_PathSState, pNewName)
+            If File.Exists(tmpOldFileFullPath) Then
+                If Not (File.Exists(tmpOldFileFullPath)) Then
+                    File.Move(tmpOldFileFullPath, tmpNewFileFullPath)
+                    SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Rename, _
+                                     String.Format("Phase {0}/2: File {1} renamed to {2}.", pPhase, pOldName, pNewName))
+                    Return ReorderFileStatus.RenamedTmp
+                Else
+                    SSMAppLog.Append(eType.LogError, eSrc.ReorderWindow, eSrcMethod.Rename, _
+                                     String.Format("Phase {0}/2: Target file {1} already exist. Renaming skipped", pPhase, pNewName))
+                    Return ReorderFileStatus.FileAlreadyExist
+                End If
+            Else
+                SSMAppLog.Append(eType.LogError, eSrc.ReorderWindow, eSrcMethod.Rename, _
+                                 String.Format("Phase {0}/2: File {1} not found.", pPhase, pOldName))
+                Return ReorderFileStatus.FileNotFound
+            End If
+        Catch ex As Exception
+            'MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            SSMAppLog.Append(eType.LogError, eSrc.ReorderWindow, eSrcMethod.Rename, _
+                             String.Format("Phase {0}/2: Error renaming {1} to {2}. {3}", pPhase, pOldName, pNewName, ex.Message))
+            Return ReorderFileStatus.OtherError
+        End Try
+    End Function
+
 End Class

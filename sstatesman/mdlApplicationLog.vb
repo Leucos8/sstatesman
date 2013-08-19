@@ -38,12 +38,14 @@ Module mdlApplicationLog
         'General
         Load
         Delete
+        Rename
         Close
         List
         Search
         Timer
         Refresh
         Detect
+        Preview
         'UI
         UI_Update
         UI_Enable

@@ -244,12 +244,12 @@ Partial Class frmReorderForm
         '
         Me.lblMove.AutoSize = True
         Me.lblMove.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblMove.Location = New System.Drawing.Point(242, 0)
+        Me.lblMove.Location = New System.Drawing.Point(292, 0)
         Me.lblMove.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblMove.Name = "lblMove"
-        Me.lblMove.Size = New System.Drawing.Size(132, 22)
+        Me.lblMove.Size = New System.Drawing.Size(82, 22)
         Me.lblMove.TabIndex = 32
-        Me.lblMove.Text = "move selected savestate:"
+        Me.lblMove.Text = "move selected:"
         Me.lblMove.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'pnlTopPanel

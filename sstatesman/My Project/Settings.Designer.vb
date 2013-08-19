@@ -28,35 +28,35 @@ Option Explicit On
 
 
 Namespace My
-
-    <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(), _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0"), _
-     Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)> _
+    
+    <Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0"),  _
+     Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)>  _
     Partial Friend NotInheritable Class MySettings
         Inherits Global.System.Configuration.ApplicationSettingsBase
-
-        Private Shared defaultInstance As MySettings = CType(Global.System.Configuration.ApplicationSettingsBase.Synchronized(New MySettings()), MySettings)
-
+        
+        Private Shared defaultInstance As MySettings = CType(Global.System.Configuration.ApplicationSettingsBase.Synchronized(New MySettings()),MySettings)
+        
 #Region "Funzionalità di salvataggio automatico My.Settings"
 #If _MyType = "WindowsForms" Then
-        Private Shared addedHandler As Boolean
+    Private Shared addedHandler As Boolean
 
-        Private Shared addedHandlerLockObject As New Object
+    Private Shared addedHandlerLockObject As New Object
 
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)> _
-        Private Shared Sub AutoSaveSettings(ByVal sender As Global.System.Object, ByVal e As Global.System.EventArgs)
-            If My.Application.SaveMySettingsOnExit Then
-                My.Settings.Save()
-            End If
-        End Sub
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), Global.System.ComponentModel.EditorBrowsableAttribute(Global.System.ComponentModel.EditorBrowsableState.Advanced)> _
+    Private Shared Sub AutoSaveSettings(ByVal sender As Global.System.Object, ByVal e As Global.System.EventArgs)
+        If My.Application.SaveMySettingsOnExit Then
+            My.Settings.Save()
+        End If
+    End Sub
 #End If
 #End Region
-
+        
         Public Shared ReadOnly Property [Default]() As MySettings
             Get
-
+                
 #If _MyType = "WindowsForms" Then
-                If Not addedHandler Then
+               If Not addedHandler Then
                     SyncLock addedHandlerLockObject
                         If Not addedHandler Then
                             AddHandler My.Application.Shutdown, AddressOf AutoSaveSettings
@@ -68,413 +68,431 @@ Namespace My
                 Return defaultInstance
             End Get
         End Property
-
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute(".p2s")> _
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute(".p2s")>  _
         Public ReadOnly Property PCSX2_SStateExt() As String
             Get
-                Return CType(Me("PCSX2_SStateExt"), String)
+                Return CType(Me("PCSX2_SStateExt"),String)
             End Get
         End Property
-
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute(".backup")> _
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute(".backup")>  _
         Public ReadOnly Property PCSX2_SStateExtBackup() As String
             Get
-                Return CType(Me("PCSX2_SStateExtBackup"), String)
+                Return CType(Me("PCSX2_SStateExtBackup"),String)
             End Get
         End Property
-
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("GameIndex.dbf")> _
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("GameIndex.dbf")>  _
         Public ReadOnly Property PCSX2_GameDbFilename() As String
             Get
-                Return CType(Me("PCSX2_GameDbFilename"), String)
+                Return CType(Me("PCSX2_GameDbFilename"),String)
             End Get
         End Property
-
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("alpha")> _
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("alpha")>  _
         Public ReadOnly Property SStatesMan_Channel() As String
             Get
-                Return CType(Me("SStatesMan_Channel"), String)
+                Return CType(Me("SStatesMan_Channel"),String)
             End Get
         End Property
-
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("Software\PCSX2")> _
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Software\PCSX2")>  _
         Public ReadOnly Property PCSX2_PathRegKey() As String
             Get
-                Return CType(Me("PCSX2_PathRegKey"), String)
+                Return CType(Me("PCSX2_PathRegKey"),String)
             End Get
         End Property
-
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("Install_Dir")> _
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Install_Dir")>  _
         Public ReadOnly Property PCSX2_PathBinReg() As String
             Get
-                Return CType(Me("PCSX2_PathBinReg"), String)
+                Return CType(Me("PCSX2_PathBinReg"),String)
             End Get
         End Property
-
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("SettingsFolder")> _
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("SettingsFolder")>  _
         Public ReadOnly Property PCSX2_PathInisReg() As String
             Get
-                Return CType(Me("PCSX2_PathInisReg"), String)
+                Return CType(Me("PCSX2_PathInisReg"),String)
             End Get
         End Property
-
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("sstates")> _
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("sstates")>  _
         Public ReadOnly Property PCSX2_SStateFolder() As String
             Get
-                Return CType(Me("PCSX2_SStateFolder"), String)
+                Return CType(Me("PCSX2_SStateFolder"),String)
             End Get
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
         Public Property SStatesMan_FirstRun() As Boolean
             Get
-                Return CType(Me("SStatesMan_FirstRun"), Boolean)
+                Return CType(Me("SStatesMan_FirstRun"),Boolean)
             End Get
-            Set(value As Boolean)
+            Set
                 Me("SStatesMan_FirstRun") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
         Public Property SStatesMan_FileTrash() As Boolean
             Get
-                Return CType(Me("SStatesMan_FileTrash"), Boolean)
+                Return CType(Me("SStatesMan_FileTrash"),Boolean)
             End Get
-            Set(value As Boolean)
+            Set
                 Me("SStatesMan_FileTrash") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property SStatesMan_PathPics() As String
             Get
-                Return CType(Me("SStatesMan_PathPics"), String)
+                Return CType(Me("SStatesMan_PathPics"),String)
             End Get
-            Set(value As String)
+            Set
                 Me("SStatesMan_PathPics") = value
             End Set
         End Property
-
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("coverpics")> _
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("coverpics")>  _
         Public ReadOnly Property SStatesMan_PicsFolder() As String
             Get
-                Return CType(Me("SStatesMan_PicsFolder"), String)
+                Return CType(Me("SStatesMan_PicsFolder"),String)
             End Get
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
         Public Property SStatesMan_ThemeGradientEnabled() As Boolean
             Get
-                Return CType(Me("SStatesMan_ThemeGradientEnabled"), Boolean)
+                Return CType(Me("SStatesMan_ThemeGradientEnabled"),Boolean)
             End Get
-            Set(value As Boolean)
+            Set
                 Me("SStatesMan_ThemeGradientEnabled") = value
             End Set
         End Property
-
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("PCSX2_ui.ini")> _
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("PCSX2_ui.ini")>  _
         Public ReadOnly Property PCSX2_PCSX2_uiFilename() As String
             Get
-                Return CType(Me("PCSX2_PCSX2_uiFilename"), String)
+                Return CType(Me("PCSX2_PCSX2_uiFilename"),String)
             End Get
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
         Public Property SStatesMan_SStatesListAutoRefresh() As Boolean
             Get
-                Return CType(Me("SStatesMan_SStatesListAutoRefresh"), Boolean)
+                Return CType(Me("SStatesMan_SStatesListAutoRefresh"),Boolean)
             End Get
-            Set(value As Boolean)
+            Set
                 Me("SStatesMan_SStatesListAutoRefresh") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
         Public Property SStatesMan_SStatesListShowOnly() As Boolean
             Get
-                Return CType(Me("SStatesMan_SStatesListShowOnly"), Boolean)
+                Return CType(Me("SStatesMan_SStatesListShowOnly"),Boolean)
             End Get
-            Set(value As Boolean)
+            Set
                 Me("SStatesMan_SStatesListShowOnly") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("squares")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("squares")>  _
         Public Property SStatesMan_Theme() As String
             Get
-                Return CType(Me("SStatesMan_Theme"), String)
+                Return CType(Me("SStatesMan_Theme"),String)
             End Get
-            Set(value As String)
+            Set
                 Me("SStatesMan_Theme") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
         Public Property SStatesMan_SStatesVersionExtract() As Boolean
             Get
-                Return CType(Me("SStatesMan_SStatesVersionExtract"), Boolean)
+                Return CType(Me("SStatesMan_SStatesVersionExtract"),Boolean)
             End Get
-            Set(value As Boolean)
+            Set
                 Me("SStatesMan_SStatesVersionExtract") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
         Public Property SStatesMan_ThemeImageEnabled() As Boolean
             Get
-                Return CType(Me("SStatesMan_ThemeImageEnabled"), Boolean)
+                Return CType(Me("SStatesMan_ThemeImageEnabled"),Boolean)
             End Get
-            Set(value As Boolean)
+            Set
                 Me("SStatesMan_ThemeImageEnabled") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("624, 442")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("624, 442")>  _
         Public Property frmMain_WindowSize() As Global.System.Drawing.Size
             Get
-                Return CType(Me("frmMain_WindowSize"), Global.System.Drawing.Size)
+                Return CType(Me("frmMain_WindowSize"),Global.System.Drawing.Size)
             End Get
-            Set(value As Global.System.Drawing.Size)
+            Set
                 Me("frmMain_WindowSize") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("Normal")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Normal")>  _
         Public Property frmMain_WindowState() As Global.System.Windows.Forms.FormWindowState
             Get
-                Return CType(Me("frmMain_WindowState"), Global.System.Windows.Forms.FormWindowState)
+                Return CType(Me("frmMain_WindowState"),Global.System.Windows.Forms.FormWindowState)
             End Get
-            Set(value As Global.System.Windows.Forms.FormWindowState)
+            Set
                 Me("frmMain_WindowState") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("128, 64")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("128, 64")>  _
         Public Property frmMain_WindowLocation() As Global.System.Drawing.Point
             Get
-                Return CType(Me("frmMain_WindowLocation"), Global.System.Drawing.Point)
+                Return CType(Me("frmMain_WindowLocation"),Global.System.Drawing.Point)
             End Get
-            Set(value As Global.System.Drawing.Point)
+            Set
                 Me("frmMain_WindowLocation") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("200")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("200")>  _
         Public Property frmMain_SplitterDistance() As Integer
             Get
-                Return CType(Me("frmMain_SplitterDistance"), Integer)
+                Return CType(Me("frmMain_SplitterDistance"),Integer)
             End Get
-            Set(value As Integer)
+            Set
                 Me("frmMain_SplitterDistance") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("640, 360")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("640, 360")>  _
         Public Property frmDel_WindowSize() As Global.System.Drawing.Size
             Get
-                Return CType(Me("frmDel_WindowSize"), Global.System.Drawing.Size)
+                Return CType(Me("frmDel_WindowSize"),Global.System.Drawing.Size)
             End Get
-            Set(value As Global.System.Drawing.Size)
+            Set
                 Me("frmDel_WindowSize") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("Normal")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Normal")>  _
         Public Property frmDel_WindowState() As Global.System.Windows.Forms.FormWindowState
             Get
-                Return CType(Me("frmDel_WindowState"), Global.System.Windows.Forms.FormWindowState)
+                Return CType(Me("frmDel_WindowState"),Global.System.Windows.Forms.FormWindowState)
             End Get
-            Set(value As Global.System.Windows.Forms.FormWindowState)
+            Set
                 Me("frmDel_WindowState") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
         Public Property frmMain_CoverExpanded() As Boolean
             Get
-                Return CType(Me("frmMain_CoverExpanded"), Boolean)
+                Return CType(Me("frmMain_CoverExpanded"),Boolean)
             End Get
-            Set(value As Boolean)
+            Set
                 Me("frmMain_CoverExpanded") = value
             End Set
         End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("128, 72")> _
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("128, 72")>  _
         Public Property frmDel_WindowLocation() As Global.System.Drawing.Point
             Get
-                Return CType(Me("frmDel_WindowLocation"), Global.System.Drawing.Point)
+                Return CType(Me("frmDel_WindowLocation"),Global.System.Drawing.Point)
             End Get
-            Set(value As Global.System.Drawing.Point)
+            Set
                 Me("frmDel_WindowLocation") = value
             End Set
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("snaps")>  _
+        Public ReadOnly Property PCSX2_SnapsFolder() As String
+            Get
+                Return CType(Me("PCSX2_SnapsFolder"),String)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property SStatesMan_SettingsOK() As Boolean
+            Get
+                Return CType(Me("SStatesMan_SettingsOK"),Boolean)
+            End Get
+            Set
+                Me("SStatesMan_SettingsOK") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PCSX2_PathInis() As String
+            Get
+                Return CType(Me("PCSX2_PathInis"),String)
+            End Get
+            Set
+                Me("PCSX2_PathInis") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PCSX2_PathSState() As String
+            Get
+                Return CType(Me("PCSX2_PathSState"),String)
+            End Get
+            Set
+                Me("PCSX2_PathSState") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PCSX2_PathBin() As String
+            Get
+                Return CType(Me("PCSX2_PathBin"),String)
+            End Get
+            Set
+                Me("PCSX2_PathBin") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property PCSX2_PathSnaps() As String
+            Get
+                Return CType(Me("PCSX2_PathSnaps"),String)
+            End Get
+            Set
+                Me("PCSX2_PathSnaps") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
+        Public Property frmMain_glvw_columnwidth() As Integer()
+            Get
+                Return CType(Me("frmMain_glvw_columnwidth"),Integer())
+            End Get
+            Set
+                Me("frmMain_glvw_columnwidth") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
+        Public Property frmMain_flvw_columnwidth() As Integer()
+            Get
+                Return CType(Me("frmMain_flvw_columnwidth"),Integer())
+            End Get
+            Set
+                Me("frmMain_flvw_columnwidth") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
+        Public Property frmDel_flvw_columnwidth() As Integer()
+            Get
+                Return CType(Me("frmDel_flvw_columnwidth"),Integer())
+            End Get
+            Set
+                Me("frmDel_flvw_columnwidth") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property SStatesMan_SStateReorderBackup() As Boolean
+            Get
+                Return CType(Me("SStatesMan_SStateReorderBackup"),Boolean)
+            End Get
+            Set
+                Me("SStatesMan_SStateReorderBackup") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("0")> _
+        Public ReadOnly Property PCSX2_SStateSlotLowerBound() As Integer
+            Get
+                Return CType(Me("PCSX2_SStateSlotLowerBound"), Integer)
+            End Get
         End Property
 
         <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("snaps")> _
-        Public ReadOnly Property PCSX2_SnapsFolder() As String
+         Global.System.Configuration.DefaultSettingValueAttribute("9")> _
+        Public ReadOnly Property PCSX2_SStateSlotUpperBound() As Integer
             Get
-                Return CType(Me("PCSX2_SnapsFolder"), String)
+                Return CType(Me("PCSX2_SStateSlotUpperBound"), Integer)
             End Get
-        End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("True")> _
-        Public Property SStatesMan_SettingsOK() As Boolean
-            Get
-                Return CType(Me("SStatesMan_SettingsOK"), Boolean)
-            End Get
-            Set(value As Boolean)
-                Me("SStatesMan_SettingsOK") = value
-            End Set
-        End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("")> _
-        Public Property PCSX2_PathInis() As String
-            Get
-                Return CType(Me("PCSX2_PathInis"), String)
-            End Get
-            Set(value As String)
-                Me("PCSX2_PathInis") = value
-            End Set
-        End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("")> _
-        Public Property PCSX2_PathSState() As String
-            Get
-                Return CType(Me("PCSX2_PathSState"), String)
-            End Get
-            Set(value As String)
-                Me("PCSX2_PathSState") = value
-            End Set
-        End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("")> _
-        Public Property PCSX2_PathBin() As String
-            Get
-                Return CType(Me("PCSX2_PathBin"), String)
-            End Get
-            Set(value As String)
-                Me("PCSX2_PathBin") = value
-            End Set
-        End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("")> _
-        Public Property PCSX2_PathSnaps() As String
-            Get
-                Return CType(Me("PCSX2_PathSnaps"), String)
-            End Get
-            Set(value As String)
-                Me("PCSX2_PathSnaps") = value
-            End Set
-        End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute()> _
-        Public Property frmMain_glvw_columnwidth() As Integer()
-            Get
-                Return CType(Me("frmMain_glvw_columnwidth"), Integer())
-            End Get
-            Set(value As Integer())
-                Me("frmMain_glvw_columnwidth") = value
-            End Set
-        End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute()> _
-        Public Property frmMain_flvw_columnwidth() As Integer()
-            Get
-                Return CType(Me("frmMain_flvw_columnwidth"), Integer())
-            End Get
-            Set(value As Integer())
-                Me("frmMain_flvw_columnwidth") = value
-            End Set
-        End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute()> _
-        Public Property frmDel_flvw_columnwidth() As Integer()
-            Get
-                Return CType(Me("frmDel_flvw_columnwidth"), Integer())
-            End Get
-            Set(value As Integer())
-                Me("frmDel_flvw_columnwidth") = value
-            End Set
-        End Property
-
-        <Global.System.Configuration.UserScopedSettingAttribute(), _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.Configuration.DefaultSettingValueAttribute("False")> _
-        Public Property SStatesMan_SStateReorderBackup() As Boolean
-            Get
-                Return CType(Me("SStatesMan_SStateReorderBackup"), Boolean)
-            End Get
-            Set(value As Boolean)
-                Me("SStatesMan_SStateReorderBackup") = value
-            End Set
         End Property
     End Class
 End Namespace
