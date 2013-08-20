@@ -217,18 +217,21 @@ Public Class frmMain
             Case ListMode.Savestates
                 Me.lblSStateListCheck.Text = "check savestates:"
                 Me.cmdFileCheckBackup.Visible = True
+                Me.cmdFilesReorder.Visible = True
                 Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = True
                 Me.txtSizeBackup.Visible = True
             Case ListMode.Stored
                 Me.lblSStateListCheck.Text = "check savestates:"
                 Me.cmdFileCheckBackup.Visible = False
+                Me.cmdFilesReorder.Visible = True
                 Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
             Case ListMode.Snapshots
                 Me.lblSStateListCheck.Text = "check screenshots:"
                 Me.cmdFileCheckBackup.Visible = False
+                Me.cmdFilesReorder.Visible = False
                 Me.lblSize.Text = "screenshots size"
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False

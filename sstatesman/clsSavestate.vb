@@ -35,7 +35,7 @@ Public Class Savestate
         Get
             If Not (Integer.TryParse(Name.Substring(Name.IndexOf("."c, 0) + 1, 2), _slot)) Then
                 _slot = -1
-            ElseIf Not ((_slot >= My.Settings.PCSX2_SStateSlotLowerBound) Or (_slot <= My.Settings.PCSX2_SStateSlotUpperBound)) Then
+            ElseIf Not ((_slot >= My.Settings.PCSX2_SStateSlotLowerBound) And (_slot <= My.Settings.PCSX2_SStateSlotUpperBound)) Then
                 _slot = -1
             End If
             Return _slot
@@ -99,4 +99,17 @@ Public Class Savestate
         Dim tmpSavestate As New Savestate With {.Name = pFilename}
         Return tmpSavestate.isBackup
     End Function
+
+    Public Shared Function CreateFileName(pSerial As String, pCRC As String, pSlot As Integer, pSlotType As Boolean) As String
+        If (pSlot >= My.Settings.PCSX2_SStateSlotLowerBound) And (pSlot <= My.Settings.PCSX2_SStateSlotUpperBound) Then
+            CreateFileName = String.Format("{0} ({1}).{2:00}{3}", pSerial, pCRC, pSlot, My.Settings.PCSX2_SStateExt)
+            If pSlotType Then
+                CreateFileName &= My.Settings.PCSX2_SStateExtBackup
+            End If
+            Return CreateFileName
+        Else
+            Return String.Format("{0} ({1}).X{2:00}{3}", pSerial, pCRC, pSlot, My.Settings.PCSX2_SStateExt)
+        End If
+    End Function
+
 End Class
