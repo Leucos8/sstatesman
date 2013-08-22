@@ -125,7 +125,6 @@ Partial Class frmGameDbExplorer
         '
         Me.tsGameDbLoad.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.tsGameDbLoad.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsLoadDefaultGameDB, Me.tsLoadFromFileTool})
-        Me.tsGameDbLoad.Image = CType(resources.GetObject("tsGameDbLoad.Image"), System.Drawing.Image)
         Me.tsGameDbLoad.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsGameDbLoad.Name = "tsGameDbLoad"
         Me.tsGameDbLoad.Size = New System.Drawing.Size(87, 22)
@@ -432,7 +431,7 @@ Partial Class frmGameDbExplorer
         Me.Controls.Add(Me.StatusStrip1)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.Black
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Icon = Global.sstatesman.My.Resources.GDE_256x256
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.Name = "frmGameDbExplorer"
         Me.Text = "GameDB Explorer"
