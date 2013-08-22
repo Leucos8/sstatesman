@@ -17,9 +17,10 @@ Imports System.IO
 Public Class frmReorderForm
     Dim lastWindowState As FormWindowState  'Needed to know if a form resize changed the windowstate
 
-    Dim ListsAreRefreshed As Boolean = False
+    Dim LastChecked As Integer = -1
     'Dim FilesRenamed As Boolean = False
     Dim RenamePhase As Integer = 0
+    Dim MoveStep As Integer = 1
 
     Dim currentSerial As String = ""
     Dim currentCRC As String = "00000000"
@@ -139,6 +140,11 @@ Public Class frmReorderForm
         '-----
         Me.applyTheme()
 
+        'Checked state icons
+        Dim tmpLvwCheckboxes As New ImageList With {.ImageSize = mdlTheme.imlLvwCheckboxes.ImageSize}   'Cannot use imlLvwCheckboxes directly because of a bug that makes checkboxes disappear.
+        tmpLvwCheckboxes.Images.AddRange({My.Resources.Checkbox_Unchecked_22x22, My.Resources.Checkbox_Checked_22x22})
+        Me.lvwReorderList.StateImageList = tmpLvwCheckboxes    'Assigning the imagelist to the Files listview
+        'Savestates, backup, and screenshot icons
         Me.lvwReorderList.SmallImageList = mdlTheme.imlLvwItemIcons
 
         SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Load, "1/2 Theme & resources.", sw.ElapsedTicks - tmpTicks)
@@ -148,7 +154,11 @@ Public Class frmReorderForm
         'Post file load form preparation
         '===============================
 
-
+        If My.Settings.SStatesMan_SStateReorderBackup Then
+            Me.MoveStep = 2
+        Else
+            Me.MoveStep = 1
+        End If
 
         Me.UI_Enable(False)
         Me.ReorderList_AddSavestates()
@@ -166,6 +176,7 @@ Public Class frmReorderForm
     Private Sub frmReorderForm_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         Me.UI_Enable(False)
         Me.RenamePhase = 0
+        Me.LastChecked = -1
 
         Me.lvwReorderList.Items.Clear()
         Me.lvwReorderList.Groups.Clear()
@@ -179,10 +190,11 @@ Public Class frmReorderForm
     ''' <summary>Handles the filelist beginupdate and endupdate methods</summary>
     ''' <param name="pSwitch">True to end the update, False to begin the update</param>
     Private Sub UI_Enable(pSwitch As Boolean)
-        Me.ListsAreRefreshed = Not (pSwitch)
-        If pSwitch = True Then
+        If pSwitch Then
+            AddHandler Me.lvwReorderList.ItemChecked, AddressOf Me.lvwReorderLisst_ItemChecked
             Me.lvwReorderList.EndUpdate()
         Else
+            RemoveHandler Me.lvwReorderList.ItemChecked, AddressOf Me.lvwReorderLisst_ItemChecked
             Me.lvwReorderList.BeginUpdate()
         End If
         SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.UI_Enable, pSwitch.ToString)
@@ -192,7 +204,7 @@ Public Class frmReorderForm
     Private Sub UI_Updater()
         Dim sw As Stopwatch = Stopwatch.StartNew
 
-        Me.txtSelected.Text = String.Format("{0:N0} | {1:N0} items", Me.lvwReorderList.SelectedItems.Count, Me.lvwReorderList.Items.Count)
+        Me.txtSelected.Text = String.Format("{0:N0} | {1:N0} items", Me.lvwReorderList.CheckedItems.Count, Me.lvwReorderList.Items.Count)
         Me.txtSize.Text = String.Format("{0:N0} | {1:N0} files", Me.Count_RenamePending, Me.Count_Files)
 
         Me.flpFileListCommandsFiles.SuspendLayout()
@@ -214,12 +226,17 @@ Public Class frmReorderForm
             '=================
             'Files are present
             '=================
-            Me.cmdReorder.Enabled = True
-            Me.cmdSortReset.Enabled = True
+            If Me.Count_RenamePending > 0 Then
+                Me.cmdReorder.Enabled = True
+                Me.cmdSortReset.Enabled = True
+            Else
+                Me.cmdReorder.Enabled = False
+                Me.cmdSortReset.Enabled = False
+            End If
 
-            If Me.lvwReorderList.SelectedItems.Count > 0 Then
-                'First item selected
-                If Me.lvwReorderList.Items(0).Selected Then
+            If Me.lvwReorderList.CheckedItems.Count > 0 Then
+                'First item checked
+                If Me.lvwReorderList.Items(0).Checked Then
                     Me.cmdMoveFirst.Enabled = False
                     Me.cmdMoveUp.Enabled = False
                 Else
@@ -227,16 +244,24 @@ Public Class frmReorderForm
                     Me.cmdMoveUp.Enabled = True
                 End If
 
-                'Last item selected
-                If Me.lvwReorderList.Items(Me.lvwReorderList.Items.Count - 1).Selected Then
-                    Me.cmdMoveLast.Enabled = False
+                'Move down should work as per list items.
+                If Me.lvwReorderList.Items(Me.lvwReorderList.Items.Count - 1).Checked Then
                     Me.cmdMoveDown.Enabled = False
                 Else
-                    Me.cmdMoveLast.Enabled = True
                     Me.cmdMoveDown.Enabled = True
                 End If
+                'Last file should have regular slot number.
+                If Me.lvwReorderList.Items((My.Settings.PCSX2_SStateSlotUpperBound - My.Settings.PCSX2_SStateSlotLowerBound + 1) * 2 - 1).Checked Then
+                    Me.cmdMoveLast.Enabled = False
+                    If My.Settings.SStatesMan_SStateReorderBackup Then
+                        Me.cmdMoveDown.Enabled = False
+                    End If
+                Else
+                    Me.cmdMoveLast.Enabled = True
+                End If
 
-            ElseIf Me.lvwReorderList.SelectedItems.Count = 0 Then
+
+            ElseIf Me.lvwReorderList.CheckedItems.Count = 0 Then
                 Me.cmdMoveUp.Enabled = False
                 Me.cmdMoveLast.Enabled = False
                 Me.cmdMoveDown.Enabled = False
@@ -319,6 +344,28 @@ Public Class frmReorderForm
     Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
         Me.Close()
     End Sub
+
+    Private Sub ckbSStatesManReorderBackup_CheckedChanged(sender As Object, e As EventArgs) Handles ckbSStatesManReorderBackup.CheckedChanged
+        'Prevent firing during load
+        If CType(sender, CheckBox).IsHandleCreated Then
+            'UI disabled
+            Me.UI_Enable(False)
+            'Unchecking items.
+            For lvwItemIndex = 0 To Me.lvwReorderList.Items.Count - 1
+                Me.lvwReorderList.Items.Item(lvwItemIndex).Checked = False
+            Next
+
+            'MoveStep (1 = move one item each time, 2 = move two items together - savestate and backup)
+            If CType(sender, CheckBox).Checked Then
+                Me.MoveStep = 2
+            Else
+                Me.MoveStep = 1
+            End If
+            'UI enabled
+            Me.UI_Enable(True)
+
+        End If
+    End Sub
 #End Region
 
 #Region "Form - ControlBox & Resize"
@@ -375,7 +422,7 @@ Public Class frmReorderForm
         Me.lvwReorderList.Items.Clear()
         Me.lvwReorderList.Groups.Clear()
 
-        'only one game need to be selected
+        'only one game need to be checked
         If frmMain.checkedGames.Count = 1 Then
             'GameList contains the serial
             If SSMGameList.Games.ContainsKey(frmMain.checkedGames(0)) Then
@@ -432,7 +479,8 @@ Public Class frmReorderForm
                         Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = "Other", _
                                                                                            .Tag = ReorderFileStatus.Idle, _
                                                                                            .Group = tmpLvwSListGroup, _
-                                                                                           .ImageIndex = 0}
+                                                                                           .ImageIndex = 0, _
+                                                                                           .Font = New Font(Me.lvwReorderList.Font, FontStyle.Bold)}
                         tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Name, tmpSavestate.Value.Name, ""})
                         tmpSListItems.Add(tmpLvwSListItem)
                         SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
@@ -460,89 +508,148 @@ Public Class frmReorderForm
                          String.Format("Listed {0:N0} savestates.", Me.lvwReorderList.Items.Count), sw.ElapsedTicks)
     End Sub
 
-    Private Sub lvwReorderLisst_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvwReorderList.SelectedIndexChanged
-        If Not (Me.ListsAreRefreshed) Then
-            Me.UI_Updater()
-        End If
-    End Sub
+    Private Sub lvwReorderLisst_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs)
+        'Fixing ItemChecked firing unexpectedly.
+        '=======================================
+        'The first time the form is opened everything happens as expected. When AddRange is used to add the ListViewItems the ItemChecked event is 
+        'fired immediatly for each item that has been added, before Form_Load is complete. 
+        'Since I do not want ItemChecked firing during Form_Load, before using AddRange, UI_Enable is called and removes the event handler for 
+        'ItemChecked, effectively preventing it from firing. After AddRange UI_Enable is called again in Form_Load and the event handler
+        'for ItemChecked is reattached.
+        'The second time the form is opened something does not work in the same way. ItemChecked events are delayed after Form_Load is complete 
+        '(after End Sub), meaning that UI_Enabled has been already called twice and has already reattached the event handler. But the state of the
+        'ListView control is inconsistent:
+        '- if I try to access the items from another Sub or Function everything is fine.
+        '- if I try to access the items (in fact only the items added after the one in e.Item are inaccessible) in the ItemChecked Sub I get a 
+        '  System.NullReference exception, while accessing the Items.Count property says that all the items have been added.
+        If CType(sender, ListView).Items(CType(sender, ListView).Items.Count - 1) IsNot Nothing Then
 
-    Private Sub MoveLwItems(ByRef pListView As ListView, pStep As Integer)
+            If My.Settings.SStatesMan_SStateReorderBackup Then
 
-        'At least one item needs to be selected
-        If pListView.SelectedItems.Count > 0 Then
+                If (e.Item.Index \ 2 + My.Settings.PCSX2_SStateSlotLowerBound >= My.Settings.PCSX2_SStateSlotLowerBound) AndAlso _
+                    (e.Item.Index \ 2 + My.Settings.PCSX2_SStateSlotLowerBound <= My.Settings.PCSX2_SStateSlotUpperBound) Then
 
-            Dim LowerBound, UpperBound As Integer   'Bounds for the loop that moves the items
-            If pStep > 0 Then
-                'pStep > 0, move down
-                LowerBound = pListView.SelectedItems.Count - 1
-                UpperBound = 0
+                    If LastChecked = e.Item.Index Then
+                        LastChecked = -1
+                    Else
+                        If (e.Item.Index Mod 2) > 0 Then
+                            'Backup
+                            LastChecked = e.Item.Index - 1  'Will be selected the previous one, the savestate
+                        Else
+                            'Standard
+                            LastChecked = e.Item.Index + 1  'Will be selected the next one, the backup
+                        End If
+                        'Stupid ItemChecked event is firing long after adding items and causes a SystemNullReference exception.
+                        If CType(sender, ListView).Items(LastChecked) IsNot Nothing Then
+                            CType(sender, ListView).Items(LastChecked).Checked = e.Item.Checked
+                        End If
+                    End If
 
-                If ((pListView.Items.Count - 1) - pListView.SelectedItems.Item(pListView.SelectedItems.Count - 1).Index) < pStep Then
-                    pStep = (pListView.Items.Count - 1) - pListView.SelectedItems.Item(pListView.SelectedItems.Count - 1).Index
-                    SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
-                                     "Move ListViewItems step has been recalculated.")
-                End If
-
-            ElseIf pStep < 0 Then
-                'pStep < 0, move up
-                LowerBound = 0
-                UpperBound = pListView.SelectedItems.Count - 1
-
-                If pListView.SelectedItems.Item(0).Index < -pStep Then
-                    pStep = -pListView.SelectedItems.Item(0).Index
-                    SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
-                                     "Move ListViewItems step has been recalculated.")
+                Else
+                    LastChecked = e.Item.Index
+                    e.Item.Checked = False
                 End If
 
             End If
 
+            Me.UI_Updater()
+        End If
+    End Sub
+
+    ''' <summary>Moves the checked items in pListView by the amount of pStep.</summary>
+    ''' <param name="pListView">ListView containing the items.</param>
+    ''' <param name="pStep">How much the items will be moved.</param>
+    ''' <remarks>Only some properties are moved, not everything!</remarks>
+    Private Sub MoveLwItems(ByRef pListView As ListView, pStep As Integer)
+
+        'At least one item needs to be selected
+        If pListView.CheckedItems.Count > 0 Then
+
+            Dim LowerBound, UpperBound As Integer   'Bounds used in the For loop that loops throurough all the checked items.
+            If pStep > 0 Then                                                                                 '------------- 
+                'pStep > 0, move down
+                'Since items will be moved down, the checked items will be swapped backwards:first item swapped is the last one
+                '(index = pListView.CheckedItems.Count - 1), last item swapped is the first one (index = 0)
+                LowerBound = pListView.CheckedItems.Count - 1
+                UpperBound = 0
+
+                'pStep must not exceed the difference between the last pListView item index and the last checked item index,
+                'because it would move the items outside the ListView (obviously throwing a OutOfRange exception).
+                If ((pListView.Items.Count - 1) - pListView.CheckedItems.Item(pListView.CheckedItems.Count - 1).Index) < pStep Then
+                    pStep = (pListView.Items.Count - 1) - pListView.CheckedItems.Item(pListView.CheckedItems.Count - 1).Index
+                    SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+                                     String.Format("Move step has been recalculated: {0}.", pStep))
+                End If
+
+            ElseIf pStep < 0 Then
+                'pStep < 0, move up
+                'Since items will be moved up, the checked items will be swapped in their right order: first item swapped is the 
+                'first one (index = 0), last item swapped is the last one (pListView.CheckedItems.Count - 1)
+                LowerBound = 0
+                UpperBound = pListView.CheckedItems.Count - 1
+
+                'pStep must not exceed the first checked item index, because it would move the items outside the ListView 
+                '(obviously throwing a OutOfRange exception).
+                '"-pStep" is used because when moving up pStep is negative, while all the indexes are positive.
+                If pListView.CheckedItems.Item(0).Index < -pStep Then
+                    pStep = -pListView.CheckedItems.Item(0).Index
+                    SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+                                     String.Format("Move step has been recalculated: {0}.", pStep))
+                End If
+
+            End If
+
+            'If pStep is 0 then there is no need to move items.
             If pStep = 0 Then
                 SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
                                  "Move ListViewItems step is 0. There is no need to move ListViewItems.")
                 Exit Sub
             End If
 
+            'This For loop cycles all checked items, swapping them relatively to pStep (negative pStep means previous items, positive
+            'means successive items.
+            '"Step Math.Sign(-pStep)" is used to give the direction of the loop.
             For i As Integer = LowerBound To UpperBound Step Math.Sign(-pStep)
                 'I love references! These two act like the variable used in a For Each loop
-                Dim tmpItemSelected As ListViewItem = pListView.SelectedItems(i)
-                Dim tmpItemSwapped As ListViewItem = pListView.Items(tmpItemSelected.Index + pStep)
+                Dim tmpItemChecked As ListViewItem = pListView.CheckedItems(i)
+                Dim tmpItemSwapped As ListViewItem = pListView.Items(tmpItemChecked.Index + pStep)
                 'Backing up swapped values
-                Dim tmpPosition As Integer = tmpItemSelected.Index
-                Dim tmpOldName As String = tmpItemSelected.SubItems(ReorderListColumns.OldName).Text
-                Dim tmpTag As ReorderFileStatus = CType(tmpItemSelected.Tag, ReorderFileStatus)
+                Dim tmpPosition As Integer = tmpItemChecked.Index
+                Dim tmpOldName As String = tmpItemChecked.SubItems(ReorderListColumns.OldName).Text
+                Dim tmpTag As ReorderFileStatus = CType(tmpItemChecked.Tag, ReorderFileStatus)
                 'Swapping names
-                tmpItemSelected.SubItems(ReorderListColumns.OldName).Text = tmpItemSwapped.SubItems(ReorderListColumns.OldName).Text
+                tmpItemChecked.SubItems(ReorderListColumns.OldName).Text = tmpItemSwapped.SubItems(ReorderListColumns.OldName).Text
                 tmpItemSwapped.SubItems(ReorderListColumns.OldName).Text = tmpOldName
                 'Tags
-                tmpItemSelected.Tag = tmpItemSwapped.Tag
+                tmpItemChecked.Tag = tmpItemSwapped.Tag
                 tmpItemSwapped.Tag = tmpTag
-                If tmpItemSelected.Tag.Equals(ReorderFileStatus.Idle) Then
-                    tmpItemSelected.Tag = ReorderFileStatus.RenamePending
+                If tmpItemChecked.Tag.Equals(ReorderFileStatus.Idle) Then
+                    tmpItemChecked.Tag = ReorderFileStatus.RenamePending
                 End If
                 If tmpItemSwapped.Tag.Equals(ReorderFileStatus.Idle) Then
                     tmpItemSwapped.Tag = ReorderFileStatus.RenamePending
                 End If
                 'Updated selections
-                tmpItemSelected.Selected = tmpItemSwapped.Selected
-                tmpItemSwapped.Selected = True
+                tmpItemChecked.Checked = tmpItemSwapped.Checked
+                tmpItemSwapped.Checked = True
 
             Next
 
             'SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.List, _
-            '                 String.Format("Moved {0:N0} savestates by {1}.", pListView.SelectedItems.Count, pStep))
+            '                 String.Format("Moved {0:N0} savestates by {1}.", pListView.CheckedItems.Count, pStep))
         Else
             SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
-                             "There are no ListViewItems selected to be moved.")
+                             "There are no ListViewItems checked to be moved.")
         End If
 
     End Sub
 
     Private Sub cmdMoveUp_Click(sender As Object, e As EventArgs) Handles cmdMoveUp.Click
         Me.UI_Enable(False)
-        'At least one item needs to be selected
-        If Me.lvwReorderList.SelectedItems.Count > 0 Then
-            Me.MoveLwItems(lvwReorderList, -1)                  'Move one position up
-            Me.lvwReorderList.SelectedItems(0).EnsureVisible()  'Visibility
+        'At least one item needs to be checked
+        If Me.lvwReorderList.CheckedItems.Count > 0 Then
+            Me.MoveLwItems(lvwReorderList, -MoveStep)           'Move one position up
+            Me.lvwReorderList.CheckedItems(0).EnsureVisible()  'Visibility
         End If
         Me.UI_RenamePreview()
         Me.UI_Updater()
@@ -551,10 +658,10 @@ Public Class frmReorderForm
 
     Private Sub cmdMoveDown_Click(sender As Object, e As EventArgs) Handles cmdMoveDown.Click
         Me.UI_Enable(False)
-        'At least one item needs to be selected
-        If Me.lvwReorderList.SelectedItems.Count > 0 Then
-            Me.MoveLwItems(Me.lvwReorderList, 1)                'Move one position down
-            Me.lvwReorderList.SelectedItems(0).EnsureVisible()  'Visibility
+        'At least one item needs to be checked
+        If Me.lvwReorderList.CheckedItems.Count > 0 Then
+            Me.MoveLwItems(Me.lvwReorderList, MoveStep)        'Move one position down
+            Me.lvwReorderList.CheckedItems(Me.lvwReorderList.CheckedItems.Count - 1).EnsureVisible()  'Visibility
         End If
         Me.UI_RenamePreview()
         Me.UI_Updater()
@@ -563,10 +670,10 @@ Public Class frmReorderForm
 
     Private Sub cmdMoveFirst_Click(sender As Object, e As EventArgs) Handles cmdMoveFirst.Click
         Me.UI_Enable(False)
-        If Me.lvwReorderList.SelectedItems.Count > 0 Then
-            'Me.MoveLwItems(Me.lvwReorderList, -Me.lvwReorderList.SelectedItems.Item(0).Index)
-            For i As Integer = 0 To Me.lvwReorderList.SelectedItems.Item(0).Index - 1   'Need to move step by step, if not weid sorting happens
-                Me.MoveLwItems(Me.lvwReorderList, -1)
+        If Me.lvwReorderList.CheckedItems.Count > 0 Then
+            'Me.MoveLwItems(Me.lvwReorderList, -Me.lvwReorderList.checkedItems.Item(0).Index)
+            For i As Integer = 0 To Me.lvwReorderList.CheckedItems.Item(0).Index - 1 Step MoveStep   'Need to move step by step, if not weird sorting cand happen.
+                Me.MoveLwItems(Me.lvwReorderList, -MoveStep)
             Next
             Me.lvwReorderList.Items(0).EnsureVisible()
         End If
@@ -577,12 +684,18 @@ Public Class frmReorderForm
 
     Private Sub cmdMoveLast_Click(sender As Object, e As EventArgs) Handles cmdMoveLast.Click
         Me.UI_Enable(False)
-        If Me.lvwReorderList.SelectedItems.Count > 0 Then
-            'Me.MoveLwItems(Me.lvwReorderList, (Me.lvwReorderList.Items.Count - 1) - Me.lvwReorderList.SelectedItems.Item(Me.lvwReorderList.SelectedItems.Count - 1).Index)
-            For i As Integer = 0 To (Me.lvwReorderList.Items.Count - 1) - (Me.lvwReorderList.SelectedItems.Item(Me.lvwReorderList.SelectedItems.Count - 1).Index + 1)
-                Me.MoveLwItems(Me.lvwReorderList, 1)
+        If Me.lvwReorderList.CheckedItems.Count > 0 Then
+            'Me.MoveLwItems(Me.lvwReorderList, (Me.lvwReorderList.Items.Count - 1) - Me.lvwReorderList.checkedItems.Item(Me.lvwReorderList.checkedItems.Count - 1).Index)
+            '(SStateSlotUpperBound - SStateSlotLowerBound + 1) * 2 -1 = (9 - 0 + 1) * 2 -1 = 19 Gives the index of the last standard savestate.
+            'CheckedItems.Item(CheckedItems.Count - 1).Index - 1 Gives the index of the last checked item. -1 at the end is added because 
+            '*last index of standard savestate* - *last checked item index* gives the number of iterations, since the loop start with i = 0
+            'the max needs to be *number of iteration* - 1.
+            '-2 because there are two -1.
+            For i As Integer = 0 To (My.Settings.PCSX2_SStateSlotUpperBound - My.Settings.PCSX2_SStateSlotLowerBound + 1) * 2 - _
+                Me.lvwReorderList.CheckedItems.Item(Me.lvwReorderList.CheckedItems.Count - 1).Index - 2 Step MoveStep
+                Me.MoveLwItems(Me.lvwReorderList, MoveStep)
             Next
-            Me.lvwReorderList.Items(Me.lvwReorderList.Items.Count - 1).EnsureVisible()
+            Me.lvwReorderList.CheckedItems.Item(Me.lvwReorderList.CheckedItems.Count - 1).EnsureVisible()
         End If
         Me.UI_RenamePreview()
         Me.UI_Updater()

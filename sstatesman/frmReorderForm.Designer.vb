@@ -60,6 +60,7 @@ Partial Class frmReorderForm
         Me.flpBottomPanel = New System.Windows.Forms.FlowLayoutPanel()
         Me.flpMainListCommands = New System.Windows.Forms.FlowLayoutPanel()
         Me.pnlWindowContent = New System.Windows.Forms.Panel()
+        Me.ckbSStatesManReorderBackup = New System.Windows.Forms.CheckBox()
         Me.tlpFileListStatus = New System.Windows.Forms.TableLayoutPanel()
         Me.lblSelected = New System.Windows.Forms.Label()
         Me.txtSelected = New System.Windows.Forms.TextBox()
@@ -128,6 +129,7 @@ Partial Class frmReorderForm
         '
         Me.lvwReorderList.BackColor = System.Drawing.Color.White
         Me.lvwReorderList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lvwReorderList.CheckBoxes = True
         Me.lvwReorderList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StROLvw_Slot, Me.StROLvw_OldName, Me.StROLvw_NewName, Me.StROLvw_Status})
         Me.lvwReorderList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvwReorderList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -137,8 +139,9 @@ Partial Class frmReorderForm
         Me.lvwReorderList.HideSelection = False
         Me.lvwReorderList.Location = New System.Drawing.Point(8, 22)
         Me.lvwReorderList.Margin = New System.Windows.Forms.Padding(2)
+        Me.lvwReorderList.MultiSelect = False
         Me.lvwReorderList.Name = "lvwReorderList"
-        Me.lvwReorderList.Size = New System.Drawing.Size(612, 191)
+        Me.lvwReorderList.Size = New System.Drawing.Size(612, 174)
         Me.lvwReorderList.TabIndex = 10
         Me.lvwReorderList.UseCompatibleStateImageBehavior = False
         Me.lvwReorderList.View = System.Windows.Forms.View.Details
@@ -146,7 +149,6 @@ Partial Class frmReorderForm
         'StROLvw_Slot
         '
         Me.StROLvw_Slot.Text = "Slot"
-        Me.StROLvw_Slot.Width = 40
         '
         'StROLvw_OldName
         '
@@ -161,7 +163,7 @@ Partial Class frmReorderForm
         'StROLvw_Status
         '
         Me.StROLvw_Status.Text = "Status"
-        Me.StROLvw_Status.Width = 140
+        Me.StROLvw_Status.Width = 120
         '
         'cmdMoveLast
         '
@@ -260,7 +262,7 @@ Partial Class frmReorderForm
         Me.lblMove.Name = "lblMove"
         Me.lblMove.Size = New System.Drawing.Size(82, 22)
         Me.lblMove.TabIndex = 32
-        Me.lblMove.Text = "move selected:"
+        Me.lblMove.Text = "move checked:"
         Me.lblMove.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'pnlTopPanel
@@ -438,14 +440,31 @@ Partial Class frmReorderForm
         'pnlWindowContent
         '
         Me.pnlWindowContent.Controls.Add(Me.lvwReorderList)
+        Me.pnlWindowContent.Controls.Add(Me.ckbSStatesManReorderBackup)
         Me.pnlWindowContent.Controls.Add(Me.tlpFileListStatus)
         Me.pnlWindowContent.Controls.Add(Me.tlpFileListCommands)
         Me.pnlWindowContent.Dock = System.Windows.Forms.DockStyle.Fill
         Me.pnlWindowContent.Location = New System.Drawing.Point(0, 56)
         Me.pnlWindowContent.Name = "pnlWindowContent"
-        Me.pnlWindowContent.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
+        Me.pnlWindowContent.Padding = New System.Windows.Forms.Padding(8, 0, 8, 0)
         Me.pnlWindowContent.Size = New System.Drawing.Size(628, 256)
         Me.pnlWindowContent.TabIndex = 13
+        '
+        'ckbSStatesManReorderBackup
+        '
+        Me.ckbSStatesManReorderBackup.AutoSize = True
+        Me.ckbSStatesManReorderBackup.Checked = Global.sstatesman.My.MySettings.Default.SStatesMan_SStateReorderBackup
+        Me.ckbSStatesManReorderBackup.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.sstatesman.My.MySettings.Default, "SStatesMan_SStateReorderBackup", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.ckbSStatesManReorderBackup.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.ckbSStatesManReorderBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.ckbSStatesManReorderBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ckbSStatesManReorderBackup.Location = New System.Drawing.Point(8, 196)
+        Me.ckbSStatesManReorderBackup.Name = "ckbSStatesManReorderBackup"
+        Me.ckbSStatesManReorderBackup.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
+        Me.ckbSStatesManReorderBackup.Size = New System.Drawing.Size(612, 21)
+        Me.ckbSStatesManReorderBackup.TabIndex = 41
+        Me.ckbSStatesManReorderBackup.Text = "Reorder savestates together with their backup."
+        Me.ckbSStatesManReorderBackup.UseVisualStyleBackColor = False
         '
         'tlpFileListStatus
         '
@@ -461,7 +480,7 @@ Partial Class frmReorderForm
         Me.tlpFileListStatus.Controls.Add(Me.lblSize, 1, 0)
         Me.tlpFileListStatus.Controls.Add(Me.txtSize, 1, 1)
         Me.tlpFileListStatus.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.tlpFileListStatus.Location = New System.Drawing.Point(8, 213)
+        Me.tlpFileListStatus.Location = New System.Drawing.Point(8, 217)
         Me.tlpFileListStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.tlpFileListStatus.Name = "tlpFileListStatus"
         Me.tlpFileListStatus.RowCount = 2
@@ -653,4 +672,5 @@ Partial Class frmReorderForm
     Private WithEvents txtSelected As System.Windows.Forms.TextBox
     Private WithEvents lblSize As System.Windows.Forms.Label
     Private WithEvents txtSize As System.Windows.Forms.TextBox
+    Private WithEvents ckbSStatesManReorderBackup As System.Windows.Forms.CheckBox
 End Class

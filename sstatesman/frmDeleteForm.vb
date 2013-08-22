@@ -18,9 +18,6 @@ Public Class frmDeleteForm
     Dim lastWindowState As FormWindowState  'Needed to know if a form resize changed the windowstate
     Dim statusColumnHeaderRef As ColumnHeader
 
-    'To avoid refreshing the lists when an operation is running, set by UI_Enabled
-    Dim ListsAreRefreshed As Boolean = False
-
     'Current size in bytes of the selected items
     Dim FileList_SelectedSize As Long = 0
     Dim FileList_SelectedSizeBackup As Long = 0
@@ -206,6 +203,8 @@ Public Class frmDeleteForm
     Private Sub frmDeleteForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Dim sw As Stopwatch = Stopwatch.StartNew
 
+        Me.UI_Enable(False)
+
         '================
         'Resetting values
         '================
@@ -231,6 +230,8 @@ Public Class frmDeleteForm
         'My.Settings.frmDel_flvw_columnwidth = New Integer() {Me.SStatesCH_FileName.Width, Me.SStatesCH_Slot.Width, _
         '                                                     Me.SStatesCH_Version.Width, Me.SStatesCH_Modified.Width, _
         '                                                     Me.SStatesCH_Size.Width, Me.SStatesCH_Status.Width}
+
+        Me.UI_Enable(True)
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Close, "Form closed.", sw.ElapsedTicks)
@@ -277,10 +278,11 @@ Public Class frmDeleteForm
     ''' <summary>Handles the filelist beginupdate and endupdate methods</summary>
     ''' <param name="pSwitch">True to end the update, False to begin the update</param>
     Private Sub UI_Enable(pSwitch As Boolean)
-        Me.ListsAreRefreshed = Not (pSwitch)
-        If pSwitch = True Then
+        If pSwitch Then
+            AddHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
             Me.lvwDelFilesList.EndUpdate()
         Else
+            RemoveHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
             Me.lvwDelFilesList.BeginUpdate()
         End If
         SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.UI_Enable, pSwitch.ToString)
@@ -484,8 +486,8 @@ Public Class frmDeleteForm
                             Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSnap.Key,
                                                                                                .Group = tmpLvwSListGroup,
                                                                                                .Name = tmpSnap.Key}
-                            tmpLvwSListItem.SubItems.AddRange({"Number",
-                                                               "Resolution",
+                            tmpLvwSListItem.SubItems.AddRange({"",
+                                                               "",
                                                                tmpSnap.Value.LastWriteTime.ToString,
                                                                System.String.Format("{0:N2} MB", tmpSnap.Value.Length / 1024 ^ 2)})
                             If File.Exists(Path.Combine(My.Settings.PCSX2_PathSnaps, tmpSnap.Key)) Then
@@ -610,7 +612,7 @@ Public Class frmDeleteForm
     Private Sub cmdFileCheckAll_Click(sender As Object, e As EventArgs) Handles cmdFileCheckAll.Click
         Me.UI_Enable(False)
         For lvwItemIndex = 0 To Me.lvwDelFilesList.Items.Count - 1
-            If DelFileStatus.Ready.Equals(Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag) Then
+            If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag.Equals(DelFileStatus.Ready) Then
                 Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = True
             End If
         Next
@@ -632,7 +634,7 @@ Public Class frmDeleteForm
     Private Sub cmdFileCheckInvert_Click(sender As Object, e As EventArgs) Handles cmdFileCheckInvert.Click
         Me.UI_Enable(False)
         For lvwItemIndex = 0 To Me.lvwDelFilesList.Items.Count - 1
-            If DelFileStatus.Ready.Equals(Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag) Then
+            If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag.Equals(DelFileStatus.Ready) Then
                 Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = Not (Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked)
             Else
                 Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = False
@@ -645,9 +647,9 @@ Public Class frmDeleteForm
 
     Private Sub cmdFileCheckBackup_Click(sender As Object, e As EventArgs) Handles cmdFileCheckBackup.Click
         Me.UI_Enable(False)
-        For lvwItemIndex = 0 To Me.lvwDelFilesList.Items.Count - 1
+        For lvwItemIndex As Integer = 0 To Me.lvwDelFilesList.Items.Count - 1
             If Savestate.isBackup(Me.lvwDelFilesList.Items.Item(lvwItemIndex).Name) Then
-                If DelFileStatus.Ready.Equals(Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag) Then
+                If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag.Equals(DelFileStatus.Ready) Then
                     Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = True
                 End If
             Else
@@ -659,9 +661,9 @@ Public Class frmDeleteForm
         Me.UI_Enable(True)
     End Sub
 
-    Private Sub lvwDelFileList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwDelFilesList.ItemChecked
-        If Not (ListsAreRefreshed) Then
-            If Not (DelFileStatus.Ready.Equals(e.Item.Tag)) Then
+    Private Sub lvwDelFilesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs)
+        If CType(sender, ListView).Items(CType(sender, ListView).Items.Count - 1) IsNot Nothing Then
+            If Not (e.Item.Tag.Equals(DelFileStatus.Ready)) Then
                 e.Item.Checked = False
             End If
             Me.DelFileList_indexChecked()

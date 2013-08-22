@@ -31,7 +31,7 @@ Public Class frmMain
     Friend checkedSnapshots As New List(Of String)
 
     'To avoid refreshing the lists when an operation is running, set by UI_Enabled
-    Dim listsAreRefreshed As Boolean = False
+    'Dim listsAreRefreshed As Boolean = False
 
     'Stores the current game information displayed in the game information section
     Dim currentGameInfo As New GameInfo
@@ -248,17 +248,22 @@ Public Class frmMain
     ''' <summary>Handles the gamelist and file list beginupdate and endupdate methods</summary>
     ''' <param name="pSwitch">True to end the update, False to begin the update</param>
     Private Sub UI_Enable(pSwitch As Boolean, Optional pGamesList_included As Boolean = False)
-        Me.listsAreRefreshed = Not (pSwitch)
         If pSwitch Then
             If pGamesList_included Then
+                AddHandler Me.lvwGamesList.ItemChecked, AddressOf Me.lvwGamesList_ItemChecked
+                AddHandler Me.lvwGamesList.ItemSelectionChanged, AddressOf Me.lvwGamesList_ItemSelectionChanged
                 Me.lvwGamesList.EndUpdate()
             End If
+            AddHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
             Me.lvwFilesList.EndUpdate()
         Else
             If pGamesList_included Then
                 Me.lvwGamesList.BeginUpdate()
+                RemoveHandler Me.lvwGamesList.ItemChecked, AddressOf Me.lvwGamesList_ItemChecked
+                RemoveHandler Me.lvwGamesList.ItemSelectionChanged, AddressOf Me.lvwGamesList_ItemSelectionChanged
             End If
             Me.lvwFilesList.BeginUpdate()
+            RemoveHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
         End If
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.UI_Enable, pSwitch.ToString)
     End Sub
@@ -610,37 +615,31 @@ Public Class frmMain
         Me.UI_Enable(True, True)
     End Sub
 
-    Private Sub lvwGameList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwGamesList.ItemChecked
-        If Not (listsAreRefreshed) Then
-            SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.GameListview, "Checked games changed.")
-            Me.UI_Enable(False)
-            Me.FileList_Refresh()
-            Me.UI_Enable(True)
-        End If
+    Private Sub lvwGamesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs)
+        'SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.GameListview, "Checked games changed.")
+        Me.UI_Enable(False)
+        Me.FileList_Refresh()
+        Me.UI_Enable(True)
     End Sub
 
-    Private Sub lvwGameList_ItemSelectionChanged(sender As Object, e As ListViewItemSelectionChangedEventArgs) Handles lvwGamesList.ItemSelectionChanged
+    Private Sub lvwGamesList_ItemSelectionChanged(sender As Object, e As ListViewItemSelectionChangedEventArgs)
         'If (Me.lvwGamesList.CheckedItems.Count = 0) And ((Me.lvwGamesList.SelectedItems.Count > 0) Or (Me.lvwGamesList.Items.Count = 0)) Then
         If Me.lvwGamesList.CheckedItems.Count = 0 Then
-            If Not (listsAreRefreshed) Then
-                'SSMAppLog.Append(LogEventType.tInformation, eSrc.MainWindow, "GamesList", "Selected game changed.")
-                'Me.UI_Enable(False)
-                'Me.List_RefreshFiles()
-                'Me.UI_Enable(True)
-                Me.tmrSelectedItemChanged.Enabled = True
-            End If
+            'SSMAppLog.Append(LogEventType.tInformation, eSrc.MainWindow, "GamesList", "Selected game changed.")
+            'Me.UI_Enable(False)
+            'Me.List_RefreshFiles()
+            'Me.UI_Enable(True)
+            Me.tmrSelectedItemChanged.Enabled = True
         End If
     End Sub
 
     Private Sub tmrSelectedItemChanged_Tick(sender As Object, e As EventArgs) Handles tmrSelectedItemChanged.Tick
         Me.tmrSelectedItemChanged.Enabled = False
         If Me.lvwGamesList.CheckedItems.Count = 0 Then
-            If Not (listsAreRefreshed) Then
-                SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.GameListview, "Selected game changed.")
-                Me.UI_Enable(False)
-                Me.FileList_Refresh()
-                Me.UI_Enable(True)
-            End If
+            'SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.GameListview, "Selected game changed.")
+            Me.UI_Enable(False)
+            Me.FileList_Refresh()
+            Me.UI_Enable(True)
         End If
     End Sub
 #End Region
@@ -799,8 +798,8 @@ Public Class frmMain
                         Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSnap.Key, _
                                                                                            .Group = tmpLvwSListGroup, _
                                                                                            .Name = tmpSnap.Key}
-                        tmpLvwSListItem.SubItems.AddRange({"00", _
-                                                           "Resolution", _
+                        tmpLvwSListItem.SubItems.AddRange({"", _
+                                                           "", _
                                                            tmpSnap.Value.LastWriteTime.ToString, _
                                                            System.String.Format("{0:N2} MB", tmpSnap.Value.Length / 1024 ^ 2)})
                         tmpLvwSListItem.ImageIndex = 2
@@ -954,12 +953,10 @@ Public Class frmMain
         Me.UI_Enable(True)
     End Sub
 
-    Private Sub lvwFileList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs) Handles lvwFilesList.ItemChecked
-        If Not (listsAreRefreshed) Then
-            'SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.FileListview, "Checked files changed.")
-            Me.FileList_IndexChecked()
-            Me.UI_UpdateFileInfo()
-        End If
+    Private Sub lvwFilesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs)
+        'SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.FileListview, "Checked files changed.")
+        Me.FileList_IndexChecked()
+        Me.UI_UpdateFileInfo()
     End Sub
 #End Region
 
