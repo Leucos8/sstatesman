@@ -167,91 +167,83 @@ Partial Class frmReorderForm
         '
         'cmdMoveLast
         '
-        Me.cmdMoveLast.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdMoveLast.AutoSize = True
         Me.cmdMoveLast.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdMoveLast.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdMoveLast.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdMoveLast.FlatAppearance.BorderSize = 0
         Me.cmdMoveLast.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdMoveLast.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdMoveLast.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdMoveLast.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdMoveLast.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderLast_16x16
+        Me.cmdMoveLast.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderLast
         Me.cmdMoveLast.Location = New System.Drawing.Point(246, 0)
         Me.cmdMoveLast.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdMoveLast.Name = "cmdMoveLast"
         Me.cmdMoveLast.Size = New System.Drawing.Size(52, 22)
         Me.cmdMoveLast.TabIndex = 16
         Me.cmdMoveLast.Text = "LAST"
-        Me.cmdMoveLast.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdMoveLast.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.cmdMoveLast.UseVisualStyleBackColor = False
         '
         'cmdMoveFirst
         '
-        Me.cmdMoveFirst.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdMoveFirst.AutoSize = True
         Me.cmdMoveFirst.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdMoveFirst.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdMoveFirst.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdMoveFirst.FlatAppearance.BorderSize = 0
         Me.cmdMoveFirst.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdMoveFirst.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdMoveFirst.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdMoveFirst.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdMoveFirst.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderFirst_16x16
+        Me.cmdMoveFirst.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderFirst
         Me.cmdMoveFirst.Location = New System.Drawing.Point(86, 0)
         Me.cmdMoveFirst.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdMoveFirst.Name = "cmdMoveFirst"
         Me.cmdMoveFirst.Size = New System.Drawing.Size(55, 22)
         Me.cmdMoveFirst.TabIndex = 13
         Me.cmdMoveFirst.Text = "FIRST"
-        Me.cmdMoveFirst.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdMoveFirst.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.cmdMoveFirst.UseVisualStyleBackColor = False
         '
         'cmdMoveUp
         '
-        Me.cmdMoveUp.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdMoveUp.AutoSize = True
         Me.cmdMoveUp.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdMoveUp.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdMoveUp.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdMoveUp.FlatAppearance.BorderSize = 0
         Me.cmdMoveUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdMoveUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdMoveUp.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdMoveUp.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderUp_16x16
+        Me.cmdMoveUp.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderUp
         Me.cmdMoveUp.Location = New System.Drawing.Point(141, 0)
         Me.cmdMoveUp.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdMoveUp.Name = "cmdMoveUp"
         Me.cmdMoveUp.Size = New System.Drawing.Size(44, 22)
         Me.cmdMoveUp.TabIndex = 14
         Me.cmdMoveUp.Text = "UP"
-        Me.cmdMoveUp.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdMoveUp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.cmdMoveUp.UseVisualStyleBackColor = False
         '
         'cmdMoveDown
         '
-        Me.cmdMoveDown.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdMoveDown.AutoSize = True
         Me.cmdMoveDown.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdMoveDown.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdMoveDown.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdMoveDown.FlatAppearance.BorderSize = 0
         Me.cmdMoveDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdMoveDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdMoveDown.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdMoveDown.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderDown_16x16
+        Me.cmdMoveDown.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderDown
         Me.cmdMoveDown.Location = New System.Drawing.Point(185, 0)
         Me.cmdMoveDown.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdMoveDown.Name = "cmdMoveDown"
         Me.cmdMoveDown.Size = New System.Drawing.Size(61, 22)
         Me.cmdMoveDown.TabIndex = 15
         Me.cmdMoveDown.Text = "DOWN"
-        Me.cmdMoveDown.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdMoveDown.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.cmdMoveDown.UseVisualStyleBackColor = False
         '
         'lblMove
         '
@@ -366,7 +358,7 @@ Partial Class frmReorderForm
         Me.cmdWindowMaximize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdWindowMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdWindowMaximize.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.cmdWindowMaximize.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonMaximize_12x12
+        Me.cmdWindowMaximize.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonMaximize
         Me.cmdWindowMaximize.Location = New System.Drawing.Point(0, 0)
         Me.cmdWindowMaximize.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowMaximize.Name = "cmdWindowMaximize"
@@ -383,7 +375,7 @@ Partial Class frmReorderForm
         Me.cmdWindowClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(67, Byte), Integer), CType(CType(67, Byte), Integer))
         Me.cmdWindowClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdWindowClose.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.cmdWindowClose.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonCloseW_12x12
+        Me.cmdWindowClose.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonCloseW
         Me.cmdWindowClose.Location = New System.Drawing.Point(26, 0)
         Me.cmdWindowClose.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowClose.Name = "cmdWindowClose"
@@ -577,6 +569,7 @@ Partial Class frmReorderForm
         '
         Me.cmdSortReset.AutoSize = True
         Me.cmdSortReset.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdSortReset.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdSortReset.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdSortReset.FlatAppearance.BorderSize = 0
         Me.cmdSortReset.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -589,9 +582,7 @@ Partial Class frmReorderForm
         Me.cmdSortReset.Size = New System.Drawing.Size(41, 22)
         Me.cmdSortReset.TabIndex = 40
         Me.cmdSortReset.Text = "&RESET"
-        Me.cmdSortReset.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdSortReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.cmdSortReset.UseVisualStyleBackColor = False
         '
         'frmReorderForm
         '
@@ -607,7 +598,7 @@ Partial Class frmReorderForm
         Me.Controls.Add(Me.pnlTopPanel)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.ForeColor = System.Drawing.Color.Black
-        Me.Icon = Global.sstatesman.My.Resources.Resources.SSMico_v1_256x256
+        Me.Icon = Global.sstatesman.My.Resources.Resources.SSM_Icon_v2
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(640, 360)

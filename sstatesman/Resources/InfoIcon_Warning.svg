@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="64"
+   height="64"
+   id="svg3173"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="InfoIcon_Warning.svg"
+   inkscape:export-filename="InfoIcon_Warning.png"
+   inkscape:export-xdpi="22.5"
+   inkscape:export-ydpi="22.5">
+  <title
+     id="title3760">InfoIcon Warning</title>
+  <sodipodi:namedview
+     id="base"
+     showgrid="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid3226"
+       empspacing="4"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata3178">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>InfoIcon Warning</dc:title>
+        <dc:date>2013-05-19</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Leucos</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:prohibits
+           rdf:resource="http://creativecommons.org/ns#CommercialUse" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <path
+       style="fill:#000000"
+       d="M 32,0 0,60 64,60 z m 0,7.98813 25.21212,47.98048 -50.42424,0 z"
+       id="path3192" />
+    <path
+       id="path2994"
+       d="m 35.931616,48.090142 c 0,1.01453 -0.338178,1.859973 -1.056804,2.536327 -0.718626,0.676354 -1.690885,1.014531 -2.874505,1.014531 -1.141347,0 -2.071334,-0.338177 -2.832233,-1.014531 C 28.449448,49.907843 28.069,49.0624 28.069,48.090142 c 0,-1.014532 0.380448,-1.859975 1.141346,-2.536329 0.718627,-0.676354 1.690886,-0.972258 2.789961,-0.972258 1.18362,0 2.113607,0.338176 2.832233,0.972258 0.718626,0.676354 1.099076,1.521797 1.099076,2.536329 m -0.38045,-27.730516 -0.845443,21.220607 -5.495377,0 -0.80317,-21.220607 7.14399,0 z"
+       style="fill:#000000" />
+  </g>
+</svg>

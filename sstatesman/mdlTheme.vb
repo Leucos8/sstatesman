@@ -67,15 +67,15 @@ Module mdlTheme
 
         'List view items icons
         imlLvwItemIcons = New ImageList With {.ImageSize = New Size( _
-                      CInt((My.Resources.Icon_Savestate_16x16.Width - 1) * DPIxScale) + 1, _
-                      CInt((My.Resources.Icon_Savestate_16x16.Height - 1) * DPIyScale) + 1)}
-        imlLvwItemIcons.Images.AddRange({My.Resources.Icon_Savestate_16x16, _
-                                         My.Resources.Icon_SavestateBackup_16x16, _
-                                         My.Resources.Icon_Screenshot_16x16, _
-                                         My.Resources.InfoIcon_Information_16x16, _
-                                         My.Resources.InfoIcon_Warning_16x16, _
-                                         My.Resources.InfoIcon_Exclamation_16x16, _
-                                         My.Resources.InfoIcon_Error_16x16})
+                      CInt((My.Resources.Icon_Savestate.Width - 1) * DPIxScale) + 1, _
+                      CInt((My.Resources.Icon_Savestate.Height - 1) * DPIyScale) + 1)}
+        imlLvwItemIcons.Images.AddRange({My.Resources.Icon_Savestate, _
+                                         My.Resources.Icon_SavestateBackup, _
+                                         My.Resources.Icon_Screenshot, _
+                                         My.Resources.InfoIcon_Information, _
+                                         My.Resources.InfoIcon_Warning, _
+                                         My.Resources.InfoIcon_Exclamation, _
+                                         My.Resources.InfoIcon_Error})
 
         Select Case pTheme
             Case eTheme.squares

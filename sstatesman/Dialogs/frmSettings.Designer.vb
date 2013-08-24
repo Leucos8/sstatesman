@@ -285,7 +285,7 @@ Partial Class frmSettings
         'imgPCSX2IniPathStatus
         '
         Me.imgPCSX2IniPathStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgPCSX2IniPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation_16x16
+        Me.imgPCSX2IniPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation
         Me.imgPCSX2IniPathStatus.Location = New System.Drawing.Point(8, 28)
         Me.imgPCSX2IniPathStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.imgPCSX2IniPathStatus.Name = "imgPCSX2IniPathStatus"
@@ -334,7 +334,7 @@ Partial Class frmSettings
         Me.txtPCSX2IniPath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2IniPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2IniPath.Name = "txtPCSX2IniPath"
-        Me.txtPCSX2IniPath.Size = New System.Drawing.Size(122, 22)
+        Me.txtPCSX2IniPath.Size = New System.Drawing.Size(139, 22)
         Me.txtPCSX2IniPath.TabIndex = 34
         '
         'cmdPCSX2AppPathOpen
@@ -378,7 +378,7 @@ Partial Class frmSettings
         'imgPCSX2AppPathStatus
         '
         Me.imgPCSX2AppPathStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgPCSX2AppPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation_16x16
+        Me.imgPCSX2AppPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation
         Me.imgPCSX2AppPathStatus.Location = New System.Drawing.Point(8, 28)
         Me.imgPCSX2AppPathStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.imgPCSX2AppPathStatus.Name = "imgPCSX2AppPathStatus"
@@ -454,7 +454,7 @@ Partial Class frmSettings
         Me.txtPCSX2AppPath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2AppPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2AppPath.Name = "txtPCSX2AppPath"
-        Me.txtPCSX2AppPath.Size = New System.Drawing.Size(122, 22)
+        Me.txtPCSX2AppPath.Size = New System.Drawing.Size(139, 22)
         Me.txtPCSX2AppPath.TabIndex = 27
         '
         'cmdSStatesManPicsPathOpen
@@ -479,7 +479,7 @@ Partial Class frmSettings
         'imgSStatesManPicsPathStatus
         '
         Me.imgSStatesManPicsPathStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgSStatesManPicsPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation_16x16
+        Me.imgSStatesManPicsPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation
         Me.imgSStatesManPicsPathStatus.Location = New System.Drawing.Point(8, 28)
         Me.imgSStatesManPicsPathStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.imgSStatesManPicsPathStatus.Name = "imgSStatesManPicsPathStatus"
@@ -562,7 +562,7 @@ Partial Class frmSettings
         Me.tlpPCSX2AppPath.RowCount = 2
         Me.tlpPCSX2AppPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2AppPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2AppPath.Size = New System.Drawing.Size(142, 58)
+        Me.tlpPCSX2AppPath.Size = New System.Drawing.Size(159, 58)
         Me.tlpPCSX2AppPath.TabIndex = 26
         '
         'flpPCSX2AppPath
@@ -572,7 +572,7 @@ Partial Class frmSettings
         Me.flpPCSX2AppPath.Controls.Add(Me.cmdPCSX2AppPathOpen)
         Me.flpPCSX2AppPath.Controls.Add(Me.cmdPCSX2AppPathDetect)
         Me.flpPCSX2AppPath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2AppPath.Location = New System.Drawing.Point(-43, 28)
+        Me.flpPCSX2AppPath.Location = New System.Drawing.Point(-26, 28)
         Me.flpPCSX2AppPath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpPCSX2AppPath.Name = "flpPCSX2AppPath"
         Me.flpPCSX2AppPath.Size = New System.Drawing.Size(177, 28)
@@ -608,7 +608,7 @@ Partial Class frmSettings
         Me.tlpPCSX2SStatePath.RowCount = 2
         Me.tlpPCSX2SStatePath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2SStatePath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2SStatePath.Size = New System.Drawing.Size(142, 58)
+        Me.tlpPCSX2SStatePath.Size = New System.Drawing.Size(159, 58)
         Me.tlpPCSX2SStatePath.TabIndex = 41
         '
         'flpPCSX2SStatePath
@@ -618,7 +618,7 @@ Partial Class frmSettings
         Me.flpPCSX2SStatePath.Controls.Add(Me.cmdPCSX2SStatePathOpen)
         Me.flpPCSX2SStatePath.Controls.Add(Me.cmdPCSX2SStatePathDetect)
         Me.flpPCSX2SStatePath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2SStatePath.Location = New System.Drawing.Point(-43, 28)
+        Me.flpPCSX2SStatePath.Location = New System.Drawing.Point(-26, 28)
         Me.flpPCSX2SStatePath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpPCSX2SStatePath.Name = "flpPCSX2SStatePath"
         Me.flpPCSX2SStatePath.Size = New System.Drawing.Size(177, 28)
@@ -694,7 +694,7 @@ Partial Class frmSettings
         Me.txtPCSX2SStatePath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2SStatePath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2SStatePath.Name = "txtPCSX2SStatePath"
-        Me.txtPCSX2SStatePath.Size = New System.Drawing.Size(122, 22)
+        Me.txtPCSX2SStatePath.Size = New System.Drawing.Size(139, 22)
         Me.txtPCSX2SStatePath.TabIndex = 42
         '
         'lblPCSX2SStatePathStatus
@@ -709,7 +709,7 @@ Partial Class frmSettings
         'imgPCSX2SStatePathStatus
         '
         Me.imgPCSX2SStatePathStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgPCSX2SStatePathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation_16x16
+        Me.imgPCSX2SStatePathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation
         Me.imgPCSX2SStatePathStatus.Location = New System.Drawing.Point(8, 28)
         Me.imgPCSX2SStatePathStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.imgPCSX2SStatePathStatus.Name = "imgPCSX2SStatePathStatus"
@@ -738,7 +738,7 @@ Partial Class frmSettings
         Me.tlpPCSX2IniPath.RowCount = 2
         Me.tlpPCSX2IniPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2IniPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2IniPath.Size = New System.Drawing.Size(142, 58)
+        Me.tlpPCSX2IniPath.Size = New System.Drawing.Size(159, 58)
         Me.tlpPCSX2IniPath.TabIndex = 30
         '
         'flpPCSX2IniPath
@@ -748,7 +748,7 @@ Partial Class frmSettings
         Me.flpPCSX2IniPath.Controls.Add(Me.cmdPCSX2IniPathOpen)
         Me.flpPCSX2IniPath.Controls.Add(Me.cmdPCSX2IniPathDetect)
         Me.flpPCSX2IniPath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2IniPath.Location = New System.Drawing.Point(-43, 28)
+        Me.flpPCSX2IniPath.Location = New System.Drawing.Point(-26, 28)
         Me.flpPCSX2IniPath.Margin = New System.Windows.Forms.Padding(0)
         Me.flpPCSX2IniPath.Name = "flpPCSX2IniPath"
         Me.flpPCSX2IniPath.Size = New System.Drawing.Size(177, 28)
@@ -1068,7 +1068,7 @@ Partial Class frmSettings
         Me.tlpPCSX2SnapsPath.RowCount = 2
         Me.tlpPCSX2SnapsPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpPCSX2SnapsPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2SnapsPath.Size = New System.Drawing.Size(142, 58)
+        Me.tlpPCSX2SnapsPath.Size = New System.Drawing.Size(159, 58)
         Me.tlpPCSX2SnapsPath.TabIndex = 43
         '
         'FlowLayoutPanel1
@@ -1078,7 +1078,7 @@ Partial Class frmSettings
         Me.FlowLayoutPanel1.Controls.Add(Me.cmdPCSX2SnapsPathOpen)
         Me.FlowLayoutPanel1.Controls.Add(Me.cmdPCSX2SnapsPathDetect)
         Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(-43, 28)
+        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(-26, 28)
         Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
         Me.FlowLayoutPanel1.Size = New System.Drawing.Size(177, 28)
@@ -1154,7 +1154,7 @@ Partial Class frmSettings
         Me.txtPCSX2SnapsPath.Location = New System.Drawing.Point(10, 4)
         Me.txtPCSX2SnapsPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPCSX2SnapsPath.Name = "txtPCSX2SnapsPath"
-        Me.txtPCSX2SnapsPath.Size = New System.Drawing.Size(122, 22)
+        Me.txtPCSX2SnapsPath.Size = New System.Drawing.Size(139, 22)
         Me.txtPCSX2SnapsPath.TabIndex = 42
         '
         'lblPCSX2SnapsPathStatus
@@ -1169,7 +1169,7 @@ Partial Class frmSettings
         'imgPCSX2SnapsPathStatus
         '
         Me.imgPCSX2SnapsPathStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgPCSX2SnapsPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation_16x16
+        Me.imgPCSX2SnapsPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation
         Me.imgPCSX2SnapsPathStatus.Location = New System.Drawing.Point(8, 28)
         Me.imgPCSX2SnapsPathStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.imgPCSX2SnapsPathStatus.Name = "imgPCSX2SnapsPathStatus"
@@ -1458,8 +1458,9 @@ Partial Class frmSettings
         '
         'cmdLogFilter
         '
-        Me.cmdLogFilter.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdLogFilter.AutoSize = True
+        Me.cmdLogFilter.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdLogFilter.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdLogFilter.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdLogFilter.FlatAppearance.BorderSize = 0
         Me.cmdLogFilter.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -1484,7 +1485,7 @@ Partial Class frmSettings
         Me.FlowLayoutPanel2.Location = New System.Drawing.Point(16, 0)
         Me.FlowLayoutPanel2.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowLayoutPanel2.Name = "FlowLayoutPanel2"
-        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(118, 23)
+        Me.FlowLayoutPanel2.Size = New System.Drawing.Size(120, 23)
         Me.FlowLayoutPanel2.TabIndex = 49
         Me.FlowLayoutPanel2.WrapContents = False
         '
@@ -1492,17 +1493,18 @@ Partial Class frmSettings
         '
         Me.cmdLogRefresh.AutoSize = True
         Me.cmdLogRefresh.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdLogRefresh.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdLogRefresh.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdLogRefresh.FlatAppearance.BorderSize = 0
         Me.cmdLogRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdLogRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdLogRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdLogRefresh.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdLogRefresh.Image = Global.sstatesman.My.Resources.Resources.Icon_Refresh_14x14
+        Me.cmdLogRefresh.Image = Global.sstatesman.My.Resources.Resources.Glyph_Refresh
         Me.cmdLogRefresh.Location = New System.Drawing.Point(0, 0)
         Me.cmdLogRefresh.Margin = New System.Windows.Forms.Padding(0, 0, 0, 1)
         Me.cmdLogRefresh.Name = "cmdLogRefresh"
-        Me.cmdLogRefresh.Size = New System.Drawing.Size(68, 22)
+        Me.cmdLogRefresh.Size = New System.Drawing.Size(70, 22)
         Me.cmdLogRefresh.TabIndex = 20
         Me.cmdLogRefresh.Text = "REFRESH"
         Me.cmdLogRefresh.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
@@ -1512,13 +1514,14 @@ Partial Class frmSettings
         '
         Me.cmdLogExport.AutoSize = True
         Me.cmdLogExport.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdLogExport.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdLogExport.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdLogExport.FlatAppearance.BorderSize = 0
         Me.cmdLogExport.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdLogExport.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdLogExport.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdLogExport.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdLogExport.Location = New System.Drawing.Point(68, 0)
+        Me.cmdLogExport.Location = New System.Drawing.Point(70, 0)
         Me.cmdLogExport.Margin = New System.Windows.Forms.Padding(0, 0, 0, 1)
         Me.cmdLogExport.Name = "cmdLogExport"
         Me.cmdLogExport.Size = New System.Drawing.Size(50, 22)
@@ -1559,7 +1562,7 @@ Partial Class frmSettings
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.Black
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Icon = Global.sstatesman.My.Resources.Resources.SSMico_v1_256x256
+        Me.Icon = Global.sstatesman.My.Resources.Resources.SSM_Icon_v2
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "frmSettings"

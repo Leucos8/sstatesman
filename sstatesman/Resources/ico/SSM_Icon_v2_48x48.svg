@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48"
+   height="48"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="SSM_Icon_v2_48x48.svg"
+   inkscape:export-filename="SSM_Icon_v2_96x96.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <title
+     id="title3037">SStatesMan Icon v2</title>
+  <sodipodi:namedview
+     id="base"
+     showgrid="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="4"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>SStatesMan Icon v2</dc:title>
+        <dc:date>2013-08-24</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Leucos</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
+        <dc:description>SStatesMan Icon v2 48x48</dc:description>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:prohibits
+           rdf:resource="http://creativecommons.org/ns#CommercialUse" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Shadow">
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45"
+       width="15.5"
+       height="15.5"
+       x="0"
+       y="0.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-5"
+       width="15.5"
+       height="15.5"
+       x="16"
+       y="0.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-1"
+       width="15.5"
+       height="15.5"
+       x="32"
+       y="0.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-7"
+       width="15.5"
+       height="15.5"
+       x="32"
+       y="16.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-11"
+       width="15.5"
+       height="15.5"
+       x="16"
+       y="16.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-52"
+       width="15.5"
+       height="15.5"
+       x="0"
+       y="16.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-76"
+       width="15.5"
+       height="15.5"
+       x="0"
+       y="32.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-14"
+       width="15.5"
+       height="15.5"
+       x="16"
+       y="32.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-2"
+       width="15.5"
+       height="15.5"
+       x="32"
+       y="32.5" />
+  </g>
+  <g
+     inkscape:label="Tiles"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#dcdcdc"
+       id="rect3000"
+       width="14"
+       height="14"
+       x="0.5"
+       y="1" />
+    <rect
+       style="fill:#f5f5f5"
+       id="rect3000-1"
+       width="14"
+       height="14"
+       x="32.5"
+       y="1" />
+    <rect
+       style="fill:#d7dcff"
+       id="rect3000-7"
+       width="14"
+       height="14"
+       x="16.5"
+       y="1" />
+    <rect
+       style="fill:#f5f5f5"
+       id="rect3000-4"
+       width="14"
+       height="14"
+       x="0.5"
+       y="17" />
+    <rect
+       style="fill:#f5f5f5"
+       id="rect3000-0"
+       width="14"
+       height="14"
+       x="16.5"
+       y="17" />
+    <rect
+       style="fill:#f5f5f5"
+       id="rect3000-9"
+       width="14"
+       height="14"
+       x="32.5"
+       y="17" />
+    <rect
+       style="fill:#dcdcdc"
+       id="rect3000-48"
+       width="14"
+       height="14"
+       x="0.5"
+       y="33" />
+    <rect
+       style="fill:#d7dcff"
+       id="rect3000-8"
+       width="14"
+       height="14"
+       x="16.5"
+       y="33" />
+    <rect
+       style="fill:#dcdcdc"
+       id="rect3000-2"
+       width="14"
+       height="14"
+       x="32.5"
+       y="33" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Icons">
+    <path
+       id="path3073-7"
+       d="M 7.962053,9.21708 C 8.250838,9.924 8.770647,10.04183 9.174944,10.04183 9.810268,10.04183 10.041293,9.57054 10.041293,9.57054 10.328564,10.06643 10.618862,10.74876 11.023158,11.16113 11.305701,11.44933 11.811774,11.58893 12.192888,11.43914 12.685795,11.24541 13.077542,10.89342 12.986887,10.21856 12.824674,9.01096 12.725801,7.6358 12.467076,6.44827 12.351562,5.91807 11.773998,5.5646 11.658483,5.44679 11.635063,5.30352 11.658483,4.85768 11.485211,4.79877 11.369697,4.62204 11.159015,4.4453 10.849891,4.4453 10.503347,4.4453 10.09905,4.4453 9.983535,4.79877 9.810268,4.85768 9.694755,5.5057 9.694755,5.5057 L 5.305244,5.5057 C 5.305244,5.5057 5.189731,4.85768 5.016461,4.79877 4.900948,4.44531 4.496651,4.44531 4.15011,4.44531 3.840984,4.44531 3.6303,4.62204 3.514787,4.79877 3.341517,4.85768 3.364926,5.30353 3.341517,5.44679 3.226003,5.56461 2.648436,5.91807 2.532923,6.44827 2.274196,7.6358 2.175327,9.01096 2.013112,10.21856 1.922459,10.89342 2.314204,11.24541 2.807112,11.43914 3.188223,11.58893 3.694298,11.44934 3.97684,11.16113 4.381137,10.74876 4.671433,10.06643 4.958704,9.57054 4.958704,9.57054 5.189731,10.04183 5.825055,10.04183 6.229352,10.04183 6.749162,9.924 7.037946,9.21708 z M 5.825055,5.62352 7.268973,5.62352 M 7.211216,5.5057 C 6.980189,4.91659 6.229351,5.09332 5.767298,5.5057 L 5.189731,5.5057 C 5.709541,4.85768 7.153459,4.26857 7.67327,5.5057 z"
+       style="fill:#8296c8" />
+    <g
+       id="g3023"
+       transform="matrix(0.1875,0,0,0.1875,-0.5,0.25)">
+      <path
+         id="path3805"
+         d="M 40,156 40,124 48,124 48,136 64,136 64,124 66,124 72,130 72,156 z"
+         style="fill:#8296c8" />
+      <path
+         id="path3807"
+         d="M 56,124 56,132 60,132 60,124 z"
+         style="fill:#8296c8" />
+      <path
+         id="path2999"
+         d="M 36,152 36,120 60,120 60,116 64,116 64,112 60,112 60,108 64,108 64,104 60,104 60,100 20,100 20,104 16,104 16,108 20,108 20,112 16,112 16,116 20,116 20,120 16,120 16,124 20,124 20,128 16,128 16,132 20,132 20,136 16,136 16,140 20,140 20,144 16,144 16,148 20,148 20,152 z"
+         style="fill:#424242" />
+    </g>
+    <g
+       id="g3031"
+       transform="matrix(0.1875,0,0,0.1875,-0.75,0.25)">
+      <path
+         style="fill:#8296c8"
+         d="M 16,192 16,218 36,198 52,214 60,206 72,218 72,192 55,192 C 58.9,192 62,195.1 62,199 62,202.9 58.9,206 55,206 51.1,206 48,202.9 48,199 48,195.1 51.1,192 55,192 L 16,192 z"
+         id="path3791" />
+      <path
+         style="fill:#424242"
+         d="M 12,188 12,236 76,236 76,188 z M 16,192 72,192 72,232 16,232 z"
+         id="path2997" />
+      <path
+         style="fill:#424242"
+         d="M 14,226 36,204 52,220 60,212 74,226 74,220 60,206 52,214 36,198 14,220 z"
+         id="path3770" />
+      <path
+         id="path3969"
+         d="M 48,199 C 48,195 51,192 55,192 59,192 62,195 62,199 62,203 59,206 55,206 51,206 48,203 48,199 z"
+         style="fill:#ffffff" />
+    </g>
+  </g>
+</svg>

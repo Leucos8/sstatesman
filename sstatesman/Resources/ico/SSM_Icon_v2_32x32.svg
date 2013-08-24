@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="32"
+   height="32"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="SSM_Icon_v2_32x32.svg"
+   inkscape:export-filename="SSM_Icon_v2_16x16.png"
+   inkscape:export-xdpi="45"
+   inkscape:export-ydpi="45">
+  <title
+     id="title3037">SStatesMan Icon v2</title>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="16.523125"
+     inkscape:cx="15.73552"
+     inkscape:cy="17.2322"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer3"
+     showgrid="true"
+     inkscape:snap-bbox="true"
+     objecttolerance="20"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     showguides="true"
+     inkscape:guide-bbox="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="4"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="38.430987,-1.0288611"
+       id="guide3014" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>SStatesMan Icon v2</dc:title>
+        <dc:date>2013-08-24</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Leucos</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
+        <dc:description>SStatesMan Icon v2 32x32</dc:description>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:prohibits
+           rdf:resource="http://creativecommons.org/ns#CommercialUse" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer3"
+     inkscape:label="Shadow">
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45"
+       width="9.5"
+       height="9.5"
+       x="1.5"
+       y="1.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-5"
+       width="9.5"
+       height="9.5"
+       x="11.5"
+       y="1.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-1"
+       width="9.5"
+       height="9.5"
+       x="21.5"
+       y="1.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-7"
+       width="9.5"
+       height="9.5"
+       x="21.5"
+       y="11.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-11"
+       width="9.5"
+       height="9.5"
+       x="11.5"
+       y="11.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-52"
+       width="9.5"
+       height="9.5"
+       x="1.5"
+       y="11.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-76"
+       width="9.5"
+       height="9.5"
+       x="1.5"
+       y="21.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-14"
+       width="9.5"
+       height="9.5"
+       x="11.5"
+       y="21.5" />
+    <rect
+       style="fill:#000000;fill-opacity:0.5"
+       id="rect3000-45-2"
+       width="9.5"
+       height="9.5"
+       x="21.5"
+       y="21.5" />
+  </g>
+  <g
+     inkscape:label="Tiles"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#dcdcdc"
+       id="rect3000"
+       width="8"
+       height="8"
+       x="2"
+       y="2" />
+    <rect
+       style="fill:#f5f5f5"
+       id="rect3000-1"
+       width="8"
+       height="8"
+       x="22"
+       y="2" />
+    <rect
+       style="fill:#d7dcff"
+       id="rect3000-7"
+       width="8"
+       height="8"
+       x="12"
+       y="2" />
+    <rect
+       style="fill:#f5f5f5"
+       id="rect3000-4"
+       width="8"
+       height="8"
+       x="2"
+       y="12" />
+    <rect
+       style="fill:#f5f5f5"
+       id="rect3000-0"
+       width="8"
+       height="8"
+       x="12"
+       y="12" />
+    <rect
+       style="fill:#f5f5f5"
+       id="rect3000-9"
+       width="8"
+       height="8"
+       x="22"
+       y="12" />
+    <rect
+       style="fill:#dcdcdc"
+       id="rect3000-48"
+       width="8"
+       height="8"
+       x="2"
+       y="22" />
+    <rect
+       style="fill:#d7dcff"
+       id="rect3000-8"
+       width="8"
+       height="8"
+       x="12"
+       y="22" />
+    <rect
+       style="fill:#dcdcdc"
+       id="rect3000-2"
+       width="8"
+       height="8"
+       x="22"
+       y="22" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer4"
+     inkscape:label="Icons"
+	 style="display:none"
+     transform="translate(1,0)">
+    <path
+       id="path3073-7"
+       d="M 5.2549552,6.40327 C 5.4455532,6.86984 5.7886272,6.94761 6.0554632,6.94761 6.4747772,6.94761 6.6272532,6.63656 6.6272532,6.63656 6.8168522,6.96384 7.0084492,7.41418 7.2752842,7.68635 7.4617632,7.87656 7.7957712,7.96869 8.0473062,7.86983 8.3726252,7.74197 8.6311782,7.50966 8.5713452,7.06425 8.4642852,6.26723 8.3990292,5.35963 8.2282702,4.57586 8.1520312,4.22593 7.7708392,3.99264 7.6945992,3.91488 7.6791422,3.82032 7.6945992,3.52607 7.5802392,3.48719 7.5040002,3.37055 7.3649502,3.2539 7.1609282,3.2539 6.9322092,3.2539 6.6653732,3.2539 6.5891332,3.48719 6.4747772,3.52607 6.3985382,3.95376 6.3985382,3.95376 L 3.5014612,3.95376 C 3.5014612,3.95376 3.4252222,3.52607 3.3108642,3.48719 3.2346262,3.2539 2.9677902,3.2539 2.7390732,3.2539 2.5350492,3.2539 2.3959982,3.37055 2.3197592,3.48719 2.2054012,3.52607 2.2208512,3.82033 2.2054012,3.91488 2.1291622,3.99264 1.7479682,4.22593 1.6717292,4.57586 1.5009692,5.35963 1.4357162,6.26723 1.3286541,7.06425 1.2688231,7.50966 1.5273752,7.74197 1.8526942,7.86983 2.1042272,7.96869 2.4382372,7.87656 2.6247142,7.68635 2.8915502,7.41418 3.0831462,6.96384 3.2727452,6.63656 3.2727452,6.63656 3.4252222,6.94761 3.8445362,6.94761 4.1113722,6.94761 4.4544472,6.86984 4.6450442,6.40327 z M 3.8445362,4.03152 4.7975222,4.03152 M 4.7594032,3.95376 C 4.6069252,3.56495 4.1113722,3.68159 3.8064172,3.95376 L 3.4252222,3.95376 C 3.7682972,3.52607 4.7212832,3.13726 5.0643582,3.95376 z"
+       style="fill:#8296c8" />
+    <g
+       id="g3023"
+       transform="matrix(0.12,0,0,0.12,-0.25,0.5)">
+      <path
+         id="path3805"
+         d="M 40,156 40,124 48,124 48,136 64,136 64,124 66,124 72,130 72,156 z"
+         style="fill:#8296c8" />
+      <path
+         id="path3807"
+         d="M 56,124 56,132 60,132 60,124 z"
+         style="fill:#8296c8" />
+      <path
+         id="path2999"
+         d="M 36,152 36,120 60,120 60,116 64,116 64,112 60,112 60,108 64,108 64,104 60,104 60,100 20,100 20,104 16,104 16,108 20,108 20,112 16,112 16,116 20,116 20,120 16,120 16,124 20,124 20,128 16,128 16,132 20,132 20,136 16,136 16,140 20,140 20,144 16,144 16,148 20,148 20,152 z"
+         style="fill:#424242" />
+    </g>
+    <g
+       id="g3031"
+       transform="matrix(0.12,0,0,0.12,-0.25,0.5)">
+      <path
+         style="fill:#8296c8"
+         d="M 16,192 16,218 36,198 52,214 60,206 72,218 72,192 55,192 C 58.9,192 62,195.1 62,199 62,202.9 58.9,206 55,206 51.1,206 48,202.9 48,199 48,195.1 51.1,192 55,192 L 16,192 z"
+         id="path3791" />
+      <path
+         style="fill:#424242"
+         d="M 12,188 12,236 76,236 76,188 z M 16,192 72,192 72,232 16,232 z"
+         id="path2997" />
+      <path
+         style="fill:#424242"
+         d="M 14,226 36,204 52,220 60,212 74,226 74,220 60,206 52,214 36,198 14,220 z"
+         id="path3770" />
+      <path
+         id="path3969"
+         d="M 48,199 C 48,195 51,192 55,192 59,192 62,195 62,199 62,203 59,206 55,206 51,206 48,203 48,199 z"
+         style="fill:#ffffff" />
+    </g>
+  </g>
+</svg>

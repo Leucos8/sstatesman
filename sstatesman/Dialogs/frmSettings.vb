@@ -87,7 +87,7 @@ Public Class frmSettings
             Me.tlpPCSX2AppPath.BackColor = Color.FromArgb(255, 255, 192, 192)
             Me.cmdPCSX2AppPathOpen.Enabled = False
 
-            Me.imgPCSX2AppPathStatus.Image = My.Resources.InfoIcon_Error_16x16
+            Me.imgPCSX2AppPathStatus.Image = My.Resources.InfoIcon_Error
             Me.imgPCSX2AppPathStatus.Visible = True
 
             Me.cmdOk.Enabled = False
@@ -99,7 +99,7 @@ Public Class frmSettings
             Me.tlpPCSX2AppPath.BackColor = Color.FromArgb(255, 255, 255, 192)
             Me.cmdPCSX2AppPathOpen.Enabled = False
 
-            Me.imgPCSX2AppPathStatus.Image = My.Resources.InfoIcon_Exclamation_16x16
+            Me.imgPCSX2AppPathStatus.Image = My.Resources.InfoIcon_Exclamation
             Me.imgPCSX2AppPathStatus.Visible = True
         Else
             Me.lblPCSX2AppPathStatus.Text = String.Concat("The folder where SStatesMan will look for """, My.Settings.PCSX2_GameDbFilename, """, usually the folder where PCSX2 is installed.")
@@ -117,7 +117,7 @@ Public Class frmSettings
             Me.tlpPCSX2IniPath.BackColor = Color.FromArgb(255, 255, 192, 192)
             Me.cmdPCSX2IniPathOpen.Enabled = False
 
-            Me.imgPCSX2IniPathStatus.Image = My.Resources.InfoIcon_Error_16x16
+            Me.imgPCSX2IniPathStatus.Image = My.Resources.InfoIcon_Error
             Me.imgPCSX2IniPathStatus.Visible = True
 
             Me.cmdOk.Enabled = False
@@ -129,7 +129,7 @@ Public Class frmSettings
             Me.tlpPCSX2IniPath.BackColor = Color.FromArgb(255, 255, 255, 192)
             Me.cmdPCSX2IniPathOpen.Enabled = False
 
-            Me.imgPCSX2IniPathStatus.Image = My.Resources.InfoIcon_Exclamation_16x16
+            Me.imgPCSX2IniPathStatus.Image = My.Resources.InfoIcon_Exclamation
             Me.imgPCSX2IniPathStatus.Visible = True
         Else
             Me.lblPCSX2IniPathStatus.Text = "The folder where SStatesMan will look PCSX2 inis, usually the ""inis"" folder inside PCSX2 user folder."
@@ -147,7 +147,7 @@ Public Class frmSettings
             Me.tlpPCSX2SStatePath.BackColor = Color.FromArgb(255, 255, 192, 192)
             Me.cmdPCSX2SStatePathOpen.Enabled = False
 
-            Me.imgPCSX2SStatePathStatus.Image = My.Resources.InfoIcon_Error_16x16
+            Me.imgPCSX2SStatePathStatus.Image = My.Resources.InfoIcon_Error
             Me.imgPCSX2SStatePathStatus.Visible = True
 
             Me.cmdOk.Enabled = False
@@ -169,7 +169,7 @@ Public Class frmSettings
             Me.tlpPCSX2SnapsPath.BackColor = Color.FromArgb(255, 255, 192, 192)
             Me.cmdPCSX2SnapsPathOpen.Enabled = False
 
-            Me.imgPCSX2SnapsPathStatus.Image = My.Resources.InfoIcon_Error_16x16
+            Me.imgPCSX2SnapsPathStatus.Image = My.Resources.InfoIcon_Error
             Me.imgPCSX2SnapsPathStatus.Visible = True
 
             Me.cmdOk.Enabled = False

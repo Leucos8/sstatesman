@@ -139,89 +139,85 @@ Partial Class frmDeleteForm
         '
         'cmdFileCheckInvert
         '
-        Me.cmdFileCheckInvert.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdFileCheckInvert.AutoSize = True
         Me.cmdFileCheckInvert.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdFileCheckInvert.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdFileCheckInvert.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdFileCheckInvert.FlatAppearance.BorderSize = 0
         Me.cmdFileCheckInvert.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdFileCheckInvert.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdFileCheckInvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdFileCheckInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdFileCheckInvert.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckInvert_16x16
+        Me.cmdFileCheckInvert.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckInvert
         Me.cmdFileCheckInvert.Location = New System.Drawing.Point(533, 0)
         Me.cmdFileCheckInvert.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdFileCheckInvert.Name = "cmdFileCheckInvert"
         Me.cmdFileCheckInvert.Size = New System.Drawing.Size(63, 22)
         Me.cmdFileCheckInvert.TabIndex = 16
         Me.cmdFileCheckInvert.Text = "INVERT"
-        Me.cmdFileCheckInvert.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdFileCheckInvert.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdFileCheckInvert.UseVisualStyleBackColor = False
         '
         'cmdFileCheckBackup
         '
-        Me.cmdFileCheckBackup.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdFileCheckBackup.AutoSize = True
         Me.cmdFileCheckBackup.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdFileCheckBackup.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdFileCheckBackup.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdFileCheckBackup.FlatAppearance.BorderSize = 0
         Me.cmdFileCheckBackup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdFileCheckBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdFileCheckBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdFileCheckBackup.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdFileCheckBackup.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckBackup_16x16
+        Me.cmdFileCheckBackup.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckBackup
         Me.cmdFileCheckBackup.Location = New System.Drawing.Point(356, 0)
         Me.cmdFileCheckBackup.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdFileCheckBackup.Name = "cmdFileCheckBackup"
         Me.cmdFileCheckBackup.Size = New System.Drawing.Size(73, 22)
         Me.cmdFileCheckBackup.TabIndex = 13
         Me.cmdFileCheckBackup.Text = "BACKUPS"
-        Me.cmdFileCheckBackup.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdFileCheckBackup.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdFileCheckBackup.UseVisualStyleBackColor = False
         '
         'cmdFileCheckAll
         '
-        Me.cmdFileCheckAll.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdFileCheckAll.AutoSize = True
         Me.cmdFileCheckAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdFileCheckAll.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdFileCheckAll.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdFileCheckAll.FlatAppearance.BorderSize = 0
         Me.cmdFileCheckAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdFileCheckAll.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdFileCheckAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdFileCheckAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdFileCheckAll.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckAll_16x16
+        Me.cmdFileCheckAll.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckAll
         Me.cmdFileCheckAll.Location = New System.Drawing.Point(429, 0)
         Me.cmdFileCheckAll.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdFileCheckAll.Name = "cmdFileCheckAll"
         Me.cmdFileCheckAll.Size = New System.Drawing.Size(47, 22)
         Me.cmdFileCheckAll.TabIndex = 14
         Me.cmdFileCheckAll.Text = "ALL"
-        Me.cmdFileCheckAll.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdFileCheckAll.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdFileCheckAll.UseVisualStyleBackColor = False
         '
         'cmdFileCheckNone
         '
-        Me.cmdFileCheckNone.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.cmdFileCheckNone.AutoSize = True
         Me.cmdFileCheckNone.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdFileCheckNone.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdFileCheckNone.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdFileCheckNone.FlatAppearance.BorderSize = 0
         Me.cmdFileCheckNone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdFileCheckNone.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdFileCheckNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdFileCheckNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdFileCheckNone.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckNone_16x16
+        Me.cmdFileCheckNone.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckNone
         Me.cmdFileCheckNone.Location = New System.Drawing.Point(476, 0)
         Me.cmdFileCheckNone.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdFileCheckNone.Name = "cmdFileCheckNone"
         Me.cmdFileCheckNone.Size = New System.Drawing.Size(57, 22)
         Me.cmdFileCheckNone.TabIndex = 15
         Me.cmdFileCheckNone.Text = "NONE"
-        Me.cmdFileCheckNone.TextAlign = System.Drawing.ContentAlignment.BottomCenter
         Me.cmdFileCheckNone.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.cmdFileCheckNone.UseVisualStyleBackColor = False
         '
@@ -413,7 +409,7 @@ Partial Class frmDeleteForm
         Me.cmdWindowMaximize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdWindowMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdWindowMaximize.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.cmdWindowMaximize.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonMaximize_12x12
+        Me.cmdWindowMaximize.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonMaximize
         Me.cmdWindowMaximize.Location = New System.Drawing.Point(0, 0)
         Me.cmdWindowMaximize.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowMaximize.Name = "cmdWindowMaximize"
@@ -430,7 +426,7 @@ Partial Class frmDeleteForm
         Me.cmdWindowClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(67, Byte), Integer), CType(CType(67, Byte), Integer))
         Me.cmdWindowClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdWindowClose.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.cmdWindowClose.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonCloseW_12x12
+        Me.cmdWindowClose.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonCloseW
         Me.cmdWindowClose.Location = New System.Drawing.Point(26, 0)
         Me.cmdWindowClose.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdWindowClose.Name = "cmdWindowClose"
@@ -555,7 +551,7 @@ Partial Class frmDeleteForm
         Me.Controls.Add(Me.pnlTopPanel)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.ForeColor = System.Drawing.Color.Black
-        Me.Icon = Global.sstatesman.My.Resources.Resources.SSMico_v1_256x256
+        Me.Icon = Global.sstatesman.My.Resources.Resources.SSM_Icon_v2
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(640, 360)

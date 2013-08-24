@@ -69,7 +69,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\ico\SSMicov1_256x256.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\ico\SSM_Icon_v2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -190,6 +190,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.vb</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="GameDB Explorer\frmGameDbExplorer.resx">
       <DependentUpon>frmGameDbExplorer.vb</DependentUpon>
@@ -220,16 +221,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\ico\SSMicov1_256x256.ico" />
     <None Include="Resources\ico\GDE_256x256.ico" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Button_Bg.png" />
     <None Include="Resources\Button_Dropdown_6x3.png" />
     <None Include="Resources\Window_ButtonClose_12x12.png" />
+    <None Include="Resources\Window_ButtonCloseW_12x12.png" />
     <None Include="Resources\Window_ButtonMaximize_12x12.png" />
+    <None Include="Resources\Window_ButtonMaximizeW_12x12.png" />
     <None Include="Resources\Window_ButtonMinimize_12x12.png" />
+    <None Include="Resources\Window_ButtonMinimizeW_12x12.png" />
     <None Include="Resources\Window_ButtonRestore_12x12.png" />
+    <None Include="Resources\Window_ButtonRestoreW_12x12.png" />
     <None Include="Resources\Checkbox_Unchecked_22x22.png" />
     <None Include="Resources\Checkbox_Checked_22x22.png" />
     <None Include="Resources\Icon_SSM1ico_24x24.png" />
@@ -237,14 +241,7 @@
     <None Include="Resources\Icon_ExpandRight_12x12.png" />
     <None Include="Resources\Icon_ExpandTop_12x12.png" />
     <None Include="Resources\Icon_ExpandBottom_12x12.png" />
-    <None Include="Resources\Icon_GDE_16x16.png" />
-    <None Include="Resources\Icon_Tools_16x16.png" />
-    <None Include="Resources\Icon_PCSX2_16x16.png" />
-    <None Include="Resources\Icon_Refresh_14x14.png" />
-    <None Include="Resources\Icon_Folder_16x16.png" />
-    <None Include="Resources\Icon_Gear_16x16.png" />
-    <None Include="Resources\InfoIcon_Exclamation_16x16.png" />
-    <None Include="Resources\InfoIcon_Error_16x16.png" />
+    <None Include="Resources\Glyph_Refresh.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\themes\BgSquares.png" />
@@ -278,34 +275,38 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\ssversion.txt" />
-    <None Include="Resources\Icon_SavestateBackup_16x16.png" />
-    <None Include="Resources\Icon_Savestate_16x16.png" />
-    <None Include="Resources\Icon_Cover_16x16.png" />
-    <None Include="Resources\Icon_FolderCover_16x16.png" />
     <None Include="Resources\Extra_Nocover_120x170.png" />
-    <None Include="Resources\Icon_Screenshot_16x16.png" />
     <None Include="Resources\Icon_Screenshot_256x192.png" />
-    <None Include="Resources\Window_ButtonRestoreW_12x12.png" />
-    <None Include="Resources\Window_ButtonMinimizeW_12x12.png" />
-    <None Include="Resources\Window_ButtonMaximizeW_12x12.png" />
-    <None Include="Resources\Window_ButtonCloseW_12x12.png" />
-    <None Include="Resources\Icon_FolderSStates_16x16.png" />
-    <None Include="Resources\Icon_FolderScreenshots_16x16.png" />
-    <None Include="Resources\Icon_FolderPCSX2_16x16.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Icon_OrderLast_16x16.png" />
-    <None Include="Resources\Icon_OrderFirst_16x16.png" />
-    <None Include="Resources\Icon_OrderDown_16x16.png" />
-    <None Include="Resources\Icon_OrderUp_16x16.png" />
-    <None Include="Resources\Glyph_Reorder_16x16.png" />
-    <None Include="Resources\Glyph_TrashCan_16x16.png" />
-    <None Include="Resources\Icon_CheckBackup_16x16.png" />
-    <None Include="Resources\Icon_CheckInvert_16x16.png" />
-    <None Include="Resources\Icon_CheckNone_16x16.png" />
-    <None Include="Resources\Icon_CheckAll_16x16.png" />
-    <None Include="Resources\InfoIcon_Warning_16x16.png" />
-    <None Include="Resources\InfoIcon_Information_16x16.png" />
+    <None Include="Resources\Glyph_Reorder.png" />
+    <None Include="Resources\Glyph_TrashCan.png" />
+    <None Include="Resources\Icon_CheckAll.png" />
+    <None Include="Resources\Icon_CheckBackup.png" />
+    <None Include="Resources\Icon_CheckInvert.png" />
+    <None Include="Resources\Icon_CheckNone.png" />
+    <None Include="Resources\Icon_Cover.png" />
+    <None Include="Resources\Icon_Folder.png" />
+    <None Include="Resources\Icon_FolderCover.png" />
+    <None Include="Resources\Icon_FolderPCSX2.png" />
+    <None Include="Resources\Icon_FolderScreenshots.png" />
+    <None Include="Resources\Icon_FolderSStates.png" />
+    <None Include="Resources\Icon_GDE.png" />
+    <None Include="Resources\Icon_Gear.png" />
+    <None Include="Resources\Icon_OrderDown.png" />
+    <None Include="Resources\Icon_OrderFirst.png" />
+    <None Include="Resources\Icon_OrderLast.png" />
+    <None Include="Resources\Icon_OrderUp.png" />
+    <None Include="Resources\Icon_PCSX2.png" />
+    <None Include="Resources\Icon_Savestate.png" />
+    <None Include="Resources\Icon_SavestateBackup.png" />
+    <None Include="Resources\Icon_Screenshot.png" />
+    <None Include="Resources\Icon_Tools.png" />
+    <None Include="Resources\ico\SSM_Icon_v2.ico" />
+    <None Include="Resources\InfoIcon_Error.png" />
+    <None Include="Resources\InfoIcon_Exclamation.png" />
+    <None Include="Resources\InfoIcon_Information.png" />
+    <None Include="Resources\InfoIcon_Warning.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

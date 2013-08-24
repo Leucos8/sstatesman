@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="64"
+   height="64"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="Icon_Cover.svg"
+   inkscape:export-filename="Icon_Cover.png"
+   inkscape:export-xdpi="22.5"
+   inkscape:export-ydpi="22.5">
+  <title
+     id="title3040">Icon Cover</title>
+  <sodipodi:namedview
+     id="base"
+     showgrid="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2985"
+       empspacing="4"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Icon Cover</dc:title>
+		<cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Leucos</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:date>2012-12-02</dc:date>
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:prohibits
+           rdf:resource="http://creativecommons.org/ns#CommercialUse" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <rect
+       style="fill:#000000"
+       id="rect3019"
+       width="40"
+       height="6"
+       x="12"
+       y="4" />
+    <rect
+       style="fill:#dcdcdc"
+       id="rect3021"
+       width="40"
+       height="50"
+       x="12"
+       y="10" />
+    <path
+       id="path3073-7"
+       style="fill:#c0c0c0"
+       d="m 52,32 -16.654204,0 c 0,0 -0.522614,-2.897321 -1.306536,-3.160721 -0.522616,-1.58036 -2.351768,-1.58036 -3.919612,-1.58036 -1.398576,0 -2.351768,0.79018 -2.874382,1.58036 -0.783922,0.2634 -0.678012,2.2568 -0.783922,2.897321 -0.522616,0.5268 -3.13569,2.10716 -3.658304,4.47768 -1.17055,5.30952 -1.617864,11.45792 -2.351768,16.85718 -0.41014,3.01734 1.362222,4.59108 3.592276,5.45726 1.724256,0.66974 4.013876,0.0458 5.292178,-1.24296 1.829152,-1.84376 3.142532,-4.8945 4.442226,-7.11164 0,0 1.04523,2.10718 3.919612,2.10718 1.829152,0 4.180916,-0.52684 5.487456,-3.68754 l 4.180916,0 c 1.110104,2.6855 2.976514,3.46956 4.634064,3.64464 m -14.302436,-19.71162 6.532686,0 m -0.26131,-0.52678 c -1.04523,-2.633921 -4.442226,-1.843741 -6.532684,0 l -2.613074,0 c 2.351766,-2.897321 8.884452,-5.531261 11.236222,0 z" />
+    <path
+       style="fill:#696969"
+       d="M 8 0 L 8 64 L 56 64 L 56 0 L 8 0 z M 12 4 L 52 4 L 52 60 L 12 60 L 12 4 z "
+       id="path3155" />
+  </g>
+</svg>

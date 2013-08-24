@@ -1092,36 +1092,36 @@ Public Class frmMain
 
     Private Sub cmdWindowMaximize_MouseEnter(sender As Object, e As EventArgs) Handles cmdWindowMaximize.MouseEnter
         If Me.WindowState = FormWindowState.Normal Then
-            CType(sender, Button).Image = My.Resources.Window_ButtonMaximizeW_12x12
+            CType(sender, Button).Image = My.Resources.Window_ButtonMaximizeW
         ElseIf Me.WindowState = FormWindowState.Maximized Then
-            CType(sender, Button).Image = My.Resources.Window_ButtonRestoreW_12x12
+            CType(sender, Button).Image = My.Resources.Window_ButtonRestoreW
         End If
     End Sub
 
     Private Sub cmdWindowMaximize_MouseLeave(sender As Object, e As EventArgs) Handles cmdWindowMaximize.MouseLeave
         If Me.WindowState = FormWindowState.Normal Then
-            CType(sender, Button).Image = My.Resources.Window_ButtonMaximize_12x12
+            CType(sender, Button).Image = My.Resources.Window_ButtonMaximize
         ElseIf Me.WindowState = FormWindowState.Maximized Then
-            CType(sender, Button).Image = My.Resources.Window_ButtonRestore_12x12
+            CType(sender, Button).Image = My.Resources.Window_ButtonRestore
         End If
     End Sub
 
     Private Sub cmdWindowMinimize_MouseEnter(sender As Object, e As EventArgs) Handles cmdWindowMinimize.MouseEnter
-        CType(sender, Button).Image = My.Resources.Window_ButtonMinimizeW_12x12
+        CType(sender, Button).Image = My.Resources.Window_ButtonMinimizeW
     End Sub
 
     Private Sub cmdWindowMinimize_MouseLeave(sender As Object, e As EventArgs) Handles cmdWindowMinimize.MouseLeave
-        CType(sender, Button).Image = My.Resources.Window_ButtonMinimize_12x12
+        CType(sender, Button).Image = My.Resources.Window_ButtonMinimize
     End Sub
 
     Private Sub frmMain_SizeChanged(sender As Object, e As EventArgs) Handles Me.SizeChanged
         If Not (Me.lastWindowState = Me.WindowState) Then
             If Me.WindowState = FormWindowState.Normal Then
-                Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize_12x12
+                Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize
                 Me.flpControlBox.Margin = New Padding(0, 0, CInt(6 * DPIxScale), 0)
                 'Me.Padding = New Padding(1)
             ElseIf Me.WindowState = FormWindowState.Maximized Then
-                Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore_12x12
+                Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore
                 Me.flpControlBox.Margin = New Padding(0, 0, CInt(3 * DPIxScale), 0)
                 'Me.Padding = New Padding(0)
             End If

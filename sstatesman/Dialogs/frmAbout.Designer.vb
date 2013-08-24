@@ -343,7 +343,7 @@ Partial Class frmAbout
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.Black
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Icon = Global.sstatesman.My.Resources.Resources.SSMico_v1_256x256
+        Me.Icon = Global.sstatesman.My.Resources.Resources.SSM_Icon_v2
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
