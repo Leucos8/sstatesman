@@ -22,39 +22,47 @@ Public NotInheritable Class frmAbout
         Me.lblVersionMain.Text = My.Application.Info.Version.ToString
         Me.lblVersionChannel.Text = My.Settings.SStatesMan_Channel
 
-        Me.lblAuthorName.Text = My.Application.Info.CompanyName
+        Me.llbAuthor.Text = My.Application.Info.CompanyName
         Me.lblCopyright.Text = My.Application.Info.Copyright
 
         Me.pnlTab0.Dock = DockStyle.Fill
         Me.pnlTab1.Dock = DockStyle.Fill
+        Me.pnlTab2.Dock = DockStyle.Fill
 
         Me.pnlTab0.Visible = Me.optTabHeader0.Checked
         Me.pnlTab1.Visible = Me.optTabHeader1.Checked
+        Me.pnlTab2.Visible = Me.optTabHeader2.Checked
 
     End Sub
 
-    Private Sub OKButton_Click(sender As Object, e As EventArgs)
-        Me.Close()
+    Private Sub llbAuthor_LinkClicked(sender As Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbAuthor.LinkClicked
+        System.Diagnostics.Process.Start("http://forums.pcsx2.net/User-Leucos")
     End Sub
 
     Private Sub llbPCSX2Forum_LinkClicked(sender As Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPCSX2Forum.LinkClicked
         System.Diagnostics.Process.Start("http://forums.pcsx2.net/Thread-SStatesMan-a-savestates-managing-tool-for-PCSX2")
     End Sub
+
+    Private Sub llbPCSX2net_LinkClicked(sender As Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPCSX2net.LinkClicked
+        System.Diagnostics.Process.Start("http://pcsx2.net/download/viewcategory/43-frontends.html")
+    End Sub
 #End Region
 
 #Region "Form - Tabs"
     'This common event is fired AFTER the other specific events.
-    Private Sub optTabHeader_CheckedChanged(sender As Object, e As EventArgs) Handles optTabHeader0.CheckedChanged, optTabHeader1.CheckedChanged
+    Private Sub optTabHeader_CheckedChanged(sender As Object, e As EventArgs) Handles optTabHeader0.CheckedChanged, optTabHeader1.CheckedChanged, optTabHeader2.CheckedChanged
         'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to know 
         'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
         If CType(sender, RadioButton).IsHandleCreated Then
             If CType(sender, RadioButton).Checked Then
                 Me.optTabHeader0.FlatAppearance.MouseDownBackColor = Color.White
                 Me.optTabHeader1.FlatAppearance.MouseDownBackColor = Color.White
+                Me.optTabHeader2.FlatAppearance.MouseDownBackColor = Color.White
                 CType(sender, RadioButton).FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
 
                 Me.pnlTab0.Visible = Me.optTabHeader0.Checked
                 Me.pnlTab1.Visible = Me.optTabHeader1.Checked
+                Me.pnlTab2.Visible = Me.optTabHeader2.Checked
 
             End If
         End If
@@ -88,7 +96,7 @@ Public NotInheritable Class frmAbout
         End If
     End Sub
 
-    Private Sub optTabHeader_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optTabHeader0.Paint, optTabHeader1.Paint
+    Private Sub optTabHeader_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optTabHeader0.Paint, optTabHeader2.Paint
         If CType(sender, RadioButton).Checked Then
             e.Graphics.DrawLine(Pens.DimGray, 0, 0, CType(sender, RadioButton).Width, 0)
             e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, CType(sender, RadioButton).Height)

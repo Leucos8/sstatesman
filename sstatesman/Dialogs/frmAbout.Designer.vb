@@ -43,23 +43,28 @@ Partial Class frmAbout
         Me.flpTab = New System.Windows.Forms.FlowLayoutPanel()
         Me.optTabHeader0 = New System.Windows.Forms.RadioButton()
         Me.optTabHeader1 = New System.Windows.Forms.RadioButton()
+        Me.optTabHeader2 = New System.Windows.Forms.RadioButton()
         Me.lblWindowProgramName = New System.Windows.Forms.Label()
         Me.pnlTopPanel = New System.Windows.Forms.Panel()
         Me.pnlTab0 = New System.Windows.Forms.Panel()
+        Me.llbPCSX2net = New System.Windows.Forms.LinkLabel()
         Me.llbPCSX2Forum = New System.Windows.Forms.LinkLabel()
         Me.lblLinksTitle = New System.Windows.Forms.Label()
         Me.lblCopyright = New System.Windows.Forms.Label()
-        Me.lblAuthorName = New System.Windows.Forms.Label()
+        Me.llbAuthor = New System.Windows.Forms.LinkLabel()
         Me.lblAuthorTitle = New System.Windows.Forms.Label()
         Me.lblVersionChannel = New System.Windows.Forms.Label()
         Me.lblVersionMain = New System.Windows.Forms.Label()
         Me.lblVersionTitle = New System.Windows.Forms.Label()
-        Me.pnlTab1 = New System.Windows.Forms.Panel()
+        Me.pnlTab2 = New System.Windows.Forms.Panel()
         Me.TextBoxDescription = New System.Windows.Forms.TextBox()
+        Me.pnlTab1 = New System.Windows.Forms.Panel()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.flpBottomPanel.SuspendLayout()
         Me.flpTab.SuspendLayout()
         Me.pnlTopPanel.SuspendLayout()
         Me.pnlTab0.SuspendLayout()
+        Me.pnlTab2.SuspendLayout()
         Me.pnlTab1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -106,6 +111,7 @@ Partial Class frmAbout
         Me.flpTab.BackColor = System.Drawing.Color.Transparent
         Me.flpTab.Controls.Add(Me.optTabHeader0)
         Me.flpTab.Controls.Add(Me.optTabHeader1)
+        Me.flpTab.Controls.Add(Me.optTabHeader2)
         Me.flpTab.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.flpTab.Location = New System.Drawing.Point(0, 30)
         Me.flpTab.Margin = New System.Windows.Forms.Padding(0)
@@ -151,9 +157,28 @@ Partial Class frmAbout
         Me.optTabHeader1.MinimumSize = New System.Drawing.Size(80, 0)
         Me.optTabHeader1.Name = "optTabHeader1"
         Me.optTabHeader1.Size = New System.Drawing.Size(80, 23)
-        Me.optTabHeader1.TabIndex = 4
+        Me.optTabHeader1.TabIndex = 5
         Me.optTabHeader1.Text = "licence"
         Me.optTabHeader1.UseVisualStyleBackColor = False
+        '
+        'optTabHeader2
+        '
+        Me.optTabHeader2.AccessibleRole = System.Windows.Forms.AccessibleRole.PageTab
+        Me.optTabHeader2.Appearance = System.Windows.Forms.Appearance.Button
+        Me.optTabHeader2.AutoSize = True
+        Me.optTabHeader2.FlatAppearance.BorderSize = 0
+        Me.optTabHeader2.FlatAppearance.CheckedBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.optTabHeader2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.optTabHeader2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.optTabHeader2.Location = New System.Drawing.Point(176, 0)
+        Me.optTabHeader2.Margin = New System.Windows.Forms.Padding(0)
+        Me.optTabHeader2.MinimumSize = New System.Drawing.Size(80, 0)
+        Me.optTabHeader2.Name = "optTabHeader2"
+        Me.optTabHeader2.Size = New System.Drawing.Size(80, 23)
+        Me.optTabHeader2.TabIndex = 4
+        Me.optTabHeader2.Text = "licence"
+        Me.optTabHeader2.UseVisualStyleBackColor = False
         '
         'lblWindowProgramName
         '
@@ -188,10 +213,11 @@ Partial Class frmAbout
         'pnlTab0
         '
         Me.pnlTab0.AutoScroll = True
+        Me.pnlTab0.Controls.Add(Me.llbPCSX2net)
         Me.pnlTab0.Controls.Add(Me.llbPCSX2Forum)
         Me.pnlTab0.Controls.Add(Me.lblLinksTitle)
         Me.pnlTab0.Controls.Add(Me.lblCopyright)
-        Me.pnlTab0.Controls.Add(Me.lblAuthorName)
+        Me.pnlTab0.Controls.Add(Me.llbAuthor)
         Me.pnlTab0.Controls.Add(Me.lblAuthorTitle)
         Me.pnlTab0.Controls.Add(Me.lblVersionChannel)
         Me.pnlTab0.Controls.Add(Me.lblVersionMain)
@@ -201,6 +227,20 @@ Partial Class frmAbout
         Me.pnlTab0.Padding = New System.Windows.Forms.Padding(6, 3, 6, 3)
         Me.pnlTab0.Size = New System.Drawing.Size(189, 172)
         Me.pnlTab0.TabIndex = 8
+        '
+        'llbPCSX2net
+        '
+        Me.llbPCSX2net.AutoSize = True
+        Me.llbPCSX2net.Dock = System.Windows.Forms.DockStyle.Top
+        Me.llbPCSX2net.LinkColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
+        Me.llbPCSX2net.Location = New System.Drawing.Point(6, 151)
+        Me.llbPCSX2net.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.llbPCSX2net.Name = "llbPCSX2net"
+        Me.llbPCSX2net.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
+        Me.llbPCSX2net.Size = New System.Drawing.Size(210, 17)
+        Me.llbPCSX2net.TabIndex = 24
+        Me.llbPCSX2net.TabStop = True
+        Me.llbPCSX2net.Text = "PCSX2.net Tools > Frontends section."
         '
         'llbPCSX2Forum
         '
@@ -241,17 +281,19 @@ Partial Class frmAbout
         Me.lblCopyright.TabIndex = 21
         Me.lblCopyright.Text = "<copyright>"
         '
-        'lblAuthorName
+        'llbAuthor
         '
-        Me.lblAuthorName.AutoSize = True
-        Me.lblAuthorName.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblAuthorName.Location = New System.Drawing.Point(6, 79)
-        Me.lblAuthorName.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblAuthorName.Name = "lblAuthorName"
-        Me.lblAuthorName.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
-        Me.lblAuthorName.Size = New System.Drawing.Size(70, 17)
-        Me.lblAuthorName.TabIndex = 20
-        Me.lblAuthorName.Text = "<author>"
+        Me.llbAuthor.AutoSize = True
+        Me.llbAuthor.Dock = System.Windows.Forms.DockStyle.Top
+        Me.llbAuthor.LinkColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
+        Me.llbAuthor.Location = New System.Drawing.Point(6, 79)
+        Me.llbAuthor.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.llbAuthor.Name = "llbAuthor"
+        Me.llbAuthor.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
+        Me.llbAuthor.Size = New System.Drawing.Size(70, 17)
+        Me.llbAuthor.TabIndex = 25
+        Me.llbAuthor.TabStop = True
+        Me.llbAuthor.Text = "<author>"
         '
         'lblAuthorTitle
         '
@@ -303,14 +345,14 @@ Partial Class frmAbout
         Me.lblVersionTitle.TabIndex = 16
         Me.lblVersionTitle.Text = "Version information"
         '
-        'pnlTab1
+        'pnlTab2
         '
-        Me.pnlTab1.Controls.Add(Me.TextBoxDescription)
-        Me.pnlTab1.Location = New System.Drawing.Point(207, 58)
-        Me.pnlTab1.Name = "pnlTab1"
-        Me.pnlTab1.Padding = New System.Windows.Forms.Padding(6, 3, 6, 3)
-        Me.pnlTab1.Size = New System.Drawing.Size(195, 172)
-        Me.pnlTab1.TabIndex = 24
+        Me.pnlTab2.Controls.Add(Me.TextBoxDescription)
+        Me.pnlTab2.Location = New System.Drawing.Point(304, 58)
+        Me.pnlTab2.Name = "pnlTab2"
+        Me.pnlTab2.Padding = New System.Windows.Forms.Padding(6, 3, 6, 3)
+        Me.pnlTab2.Size = New System.Drawing.Size(100, 172)
+        Me.pnlTab2.TabIndex = 24
         '
         'TextBoxDescription
         '
@@ -324,10 +366,36 @@ Partial Class frmAbout
         Me.TextBoxDescription.Name = "TextBoxDescription"
         Me.TextBoxDescription.ReadOnly = True
         Me.TextBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBoxDescription.Size = New System.Drawing.Size(183, 166)
+        Me.TextBoxDescription.Size = New System.Drawing.Size(88, 166)
         Me.TextBoxDescription.TabIndex = 17
         Me.TextBoxDescription.TabStop = False
         Me.TextBoxDescription.Text = resources.GetString("TextBoxDescription.Text")
+        '
+        'pnlTab1
+        '
+        Me.pnlTab1.Controls.Add(Me.TextBox1)
+        Me.pnlTab1.Location = New System.Drawing.Point(209, 58)
+        Me.pnlTab1.Name = "pnlTab1"
+        Me.pnlTab1.Padding = New System.Windows.Forms.Padding(6, 3, 6, 3)
+        Me.pnlTab1.Size = New System.Drawing.Size(96, 172)
+        Me.pnlTab1.TabIndex = 25
+        '
+        'TextBox1
+        '
+        Me.TextBox1.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.TextBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TextBox1.ForeColor = System.Drawing.Color.Black
+        Me.TextBox1.Location = New System.Drawing.Point(6, 3)
+        Me.TextBox1.Margin = New System.Windows.Forms.Padding(2)
+        Me.TextBox1.Multiline = True
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ReadOnly = True
+        Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.TextBox1.Size = New System.Drawing.Size(84, 166)
+        Me.TextBox1.TabIndex = 17
+        Me.TextBox1.TabStop = False
+        Me.TextBox1.Text = resources.GetString("TextBox1.Text")
         '
         'frmAbout
         '
@@ -337,6 +405,7 @@ Partial Class frmAbout
         Me.ClientSize = New System.Drawing.Size(414, 272)
         Me.ControlBox = False
         Me.Controls.Add(Me.pnlTab1)
+        Me.Controls.Add(Me.pnlTab2)
         Me.Controls.Add(Me.pnlTab0)
         Me.Controls.Add(Me.flpBottomPanel)
         Me.Controls.Add(Me.pnlTopPanel)
@@ -359,6 +428,8 @@ Partial Class frmAbout
         Me.pnlTopPanel.PerformLayout()
         Me.pnlTab0.ResumeLayout(False)
         Me.pnlTab0.PerformLayout()
+        Me.pnlTab2.ResumeLayout(False)
+        Me.pnlTab2.PerformLayout()
         Me.pnlTab1.ResumeLayout(False)
         Me.pnlTab1.PerformLayout()
         Me.ResumeLayout(False)
@@ -366,7 +437,7 @@ Partial Class frmAbout
 
     End Sub
     Private WithEvents optTabHeader0 As System.Windows.Forms.RadioButton
-    Private WithEvents optTabHeader1 As System.Windows.Forms.RadioButton
+    Private WithEvents optTabHeader2 As System.Windows.Forms.RadioButton
     Private WithEvents lblWindowProgramName As System.Windows.Forms.Label
     Private WithEvents pnlTopPanel As System.Windows.Forms.Panel
     Private WithEvents OKButton As System.Windows.Forms.Button
@@ -376,12 +447,16 @@ Partial Class frmAbout
     Private WithEvents llbPCSX2Forum As System.Windows.Forms.LinkLabel
     Private WithEvents lblLinksTitle As System.Windows.Forms.Label
     Private WithEvents lblCopyright As System.Windows.Forms.Label
-    Private WithEvents lblAuthorName As System.Windows.Forms.Label
     Private WithEvents lblAuthorTitle As System.Windows.Forms.Label
     Private WithEvents lblVersionChannel As System.Windows.Forms.Label
     Private WithEvents lblVersionMain As System.Windows.Forms.Label
     Private WithEvents lblVersionTitle As System.Windows.Forms.Label
-    Private WithEvents pnlTab1 As System.Windows.Forms.Panel
+    Private WithEvents pnlTab2 As System.Windows.Forms.Panel
     Private WithEvents TextBoxDescription As System.Windows.Forms.TextBox
+    Private WithEvents optTabHeader1 As System.Windows.Forms.RadioButton
+    Private WithEvents pnlTab1 As System.Windows.Forms.Panel
+    Private WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Private WithEvents llbPCSX2net As System.Windows.Forms.LinkLabel
+    Private WithEvents llbAuthor As System.Windows.Forms.LinkLabel
 
 End Class
