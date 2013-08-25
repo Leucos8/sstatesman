@@ -117,6 +117,9 @@ Partial Class frmMain
         Me.GameDBExplorerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeveloperToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tmrSelectedItemChanged = New System.Windows.Forms.Timer(Me.components)
+        Me.pnlScreenshotThumb = New System.Windows.Forms.Panel()
+        Me.imgScreenshotThumb = New System.Windows.Forms.PictureBox()
+        Me.bwLoadScreenshot = New System.ComponentModel.BackgroundWorker()
         Me.pnlTopPanel.SuspendLayout()
         Me.tlpTopPanel.SuspendLayout()
         Me.flpTitleBar.SuspendLayout()
@@ -141,6 +144,8 @@ Partial Class frmMain
         Me.flpFileListCommandsFiles.SuspendLayout()
         Me.flpFileListCommandsCheck.SuspendLayout()
         Me.cmTools.SuspendLayout()
+        Me.pnlScreenshotThumb.SuspendLayout()
+        CType(Me.imgScreenshotThumb, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'pnlTopPanel
@@ -556,6 +561,7 @@ Partial Class frmMain
         Me.SplitContainer1.Panel2.Controls.Add(Me.lvwFilesList)
         Me.SplitContainer1.Panel2.Controls.Add(Me.tlpFileListStatus)
         Me.SplitContainer1.Panel2.Controls.Add(Me.tlpFileListCommands)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.pnlScreenshotThumb)
         Me.SplitContainer1.Panel2.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
         Me.SplitContainer1.Panel2MinSize = 120
         Me.SplitContainer1.Size = New System.Drawing.Size(632, 393)
@@ -937,7 +943,7 @@ Partial Class frmMain
         Me.lvwFilesList.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwFilesList.MultiSelect = False
         Me.lvwFilesList.Name = "lvwFilesList"
-        Me.lvwFilesList.Size = New System.Drawing.Size(616, 118)
+        Me.lvwFilesList.Size = New System.Drawing.Size(416, 118)
         Me.lvwFilesList.TabIndex = 37
         Me.lvwFilesList.UseCompatibleStateImageBehavior = False
         Me.lvwFilesList.View = System.Windows.Forms.View.Details
@@ -964,7 +970,7 @@ Partial Class frmMain
         Me.tlpFileListStatus.RowCount = 2
         Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFileListStatus.Size = New System.Drawing.Size(616, 39)
+        Me.tlpFileListStatus.Size = New System.Drawing.Size(416, 39)
         Me.tlpFileListStatus.TabIndex = 48
         '
         'lblSelected
@@ -1061,7 +1067,7 @@ Partial Class frmMain
         Me.tlpFileListCommands.Padding = New System.Windows.Forms.Padding(16, 0, 0, 0)
         Me.tlpFileListCommands.RowCount = 1
         Me.tlpFileListCommands.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpFileListCommands.Size = New System.Drawing.Size(616, 22)
+        Me.tlpFileListCommands.Size = New System.Drawing.Size(416, 22)
         Me.tlpFileListCommands.TabIndex = 38
         '
         'flpFileListCommandsFiles
@@ -1134,7 +1140,7 @@ Partial Class frmMain
         Me.cmdExpandFilesList.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdExpandFilesList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.cmdExpandFilesList.Image = Global.sstatesman.My.Resources.Resources.Icon_ExpandTop_12x12
-        Me.cmdExpandFilesList.Location = New System.Drawing.Point(598, 0)
+        Me.cmdExpandFilesList.Location = New System.Drawing.Point(398, 0)
         Me.cmdExpandFilesList.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdExpandFilesList.Name = "cmdExpandFilesList"
         Me.cmdExpandFilesList.Size = New System.Drawing.Size(18, 22)
@@ -1152,7 +1158,7 @@ Partial Class frmMain
         Me.flpFileListCommandsCheck.Controls.Add(Me.lblSStateListCheck)
         Me.flpFileListCommandsCheck.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flpFileListCommandsCheck.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpFileListCommandsCheck.Location = New System.Drawing.Point(260, 0)
+        Me.flpFileListCommandsCheck.Location = New System.Drawing.Point(60, 0)
         Me.flpFileListCommandsCheck.Margin = New System.Windows.Forms.Padding(0)
         Me.flpFileListCommandsCheck.Name = "flpFileListCommandsCheck"
         Me.flpFileListCommandsCheck.Size = New System.Drawing.Size(338, 22)
@@ -1319,6 +1325,31 @@ Partial Class frmMain
         '
         Me.tmrSelectedItemChanged.Interval = 20
         '
+        'pnlScreenshotThumb
+        '
+        Me.pnlScreenshotThumb.Controls.Add(Me.imgScreenshotThumb)
+        Me.pnlScreenshotThumb.Dock = System.Windows.Forms.DockStyle.Right
+        Me.pnlScreenshotThumb.Location = New System.Drawing.Point(424, 0)
+        Me.pnlScreenshotThumb.Name = "pnlScreenshotThumb"
+        Me.pnlScreenshotThumb.Padding = New System.Windows.Forms.Padding(4, 2, 0, 0)
+        Me.pnlScreenshotThumb.Size = New System.Drawing.Size(200, 179)
+        Me.pnlScreenshotThumb.TabIndex = 49
+        '
+        'imgScreenshotThumb
+        '
+        Me.imgScreenshotThumb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.imgScreenshotThumb.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.imgScreenshotThumb.Location = New System.Drawing.Point(4, 2)
+        Me.imgScreenshotThumb.Name = "imgScreenshotThumb"
+        Me.imgScreenshotThumb.Size = New System.Drawing.Size(196, 177)
+        Me.imgScreenshotThumb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.imgScreenshotThumb.TabIndex = 0
+        Me.imgScreenshotThumb.TabStop = False
+        '
+        'bwLoadScreenshot
+        '
+        Me.bwLoadScreenshot.WorkerSupportsCancellation = True
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1376,6 +1407,8 @@ Partial Class frmMain
         Me.flpFileListCommandsCheck.ResumeLayout(False)
         Me.flpFileListCommandsCheck.PerformLayout()
         Me.cmTools.ResumeLayout(False)
+        Me.pnlScreenshotThumb.ResumeLayout(False)
+        CType(Me.imgScreenshotThumb, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1460,4 +1493,7 @@ Partial Class frmMain
     Friend WithEvents cmiCoverAdd As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents cmiCoverOpenPicsFolder As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents tmrSelectedItemChanged As System.Windows.Forms.Timer
+    Private WithEvents pnlScreenshotThumb As System.Windows.Forms.Panel
+    Friend WithEvents imgScreenshotThumb As System.Windows.Forms.PictureBox
+    Private WithEvents bwLoadScreenshot As System.ComponentModel.BackgroundWorker
 End Class

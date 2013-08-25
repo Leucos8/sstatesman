@@ -22,8 +22,9 @@ Public Class Snapshot
         'Dim SpacePosition As Int32 = Name.IndexOf(" "c, 0)
         'If Name.ToLower.StartsWith("gsdx") Then
         '    Return "GSdX"
-        If PCSX2GameDb.Records.ContainsKey(Name) Then
-            Return Name
+        Dim SpacePosition As Integer = Name.IndexOf(" "c, 0)
+        If SpacePosition > 0 Then
+            Return Name.Remove(SpacePosition)
         Else
             Return "Screenshots"
         End If

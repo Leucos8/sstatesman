@@ -35,6 +35,8 @@ Public Class frmMain
 
     'Stores the current game information displayed in the game information section
     Dim currentGameInfo As New GameInfo
+    'Current snapshot path
+    Dim currentSnapshotPath As String
 
     'Current size in bytes of the selected items
     Dim GameList_SelectedSize As Long = 0
@@ -221,6 +223,7 @@ Public Class frmMain
                 Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = True
                 Me.txtSizeBackup.Visible = True
+                Me.pnlScreenshotThumb.Visible = False
             Case ListMode.Stored
                 Me.lblSStateListCheck.Text = "check savestates:"
                 Me.cmdFileCheckBackup.Visible = False
@@ -228,6 +231,7 @@ Public Class frmMain
                 Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
+                Me.pnlScreenshotThumb.Visible = False
             Case ListMode.Snapshots
                 Me.lblSStateListCheck.Text = "check screenshots:"
                 Me.cmdFileCheckBackup.Visible = False
@@ -235,6 +239,7 @@ Public Class frmMain
                 Me.lblSize.Text = "screenshots size"
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
+                Me.pnlScreenshotThumb.Visible = True
         End Select
 
         Me.currentListMode = pListMode
@@ -470,6 +475,21 @@ Public Class frmMain
                 Me.cmdFileCheckBackup.Enabled = True
             End If
 
+            If Me.currentListMode = ListMode.Snapshots AndAlso Me.lvwFilesList.SelectedItems.Count = 1 Then
+                'Try
+                '    Me.imgScreenshotThumb.Load(Path.Combine(My.Settings.PCSX2_PathSnaps, Me.lvwFilesList.SelectedItems(0).Name))
+                'Catch ex As Exception
+                '    Me.imgScreenshotThumb.Image = My.Resources.Extra_ClearImage_30x20
+                'End Try
+                Me.currentSnapshotPath = Path.Combine(My.Settings.PCSX2_PathSnaps, Me.lvwFilesList.SelectedItems(0).Name)
+
+                If bwLoadScreenshot.IsBusy = False Then
+                    bwLoadScreenshot.RunWorkerAsync(Me.currentSnapshotPath)
+                ElseIf bwLoadScreenshot.WorkerSupportsCancellation Then
+                    bwLoadScreenshot.CancelAsync()
+                End If
+            End If
+
             If Me.lvwGamesList.CheckedItems.Count > 1 Then
                 'More than one game is checked
                 Me.cmdFilesReorder.Enabled = False
@@ -499,12 +519,12 @@ Public Class frmMain
 
             Me.cmdFileCheckAll.Visible = Me.cmdFileCheckAll.Enabled
             Me.cmdFileCheckNone.Visible = Me.cmdFileCheckNone.Enabled
-        End If
+            End If
 
-        Me.tlpFileListCommands.ResumeLayout()
+            Me.tlpFileListCommands.ResumeLayout()
 
-        sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
+            sw.Stop()
+            SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
     End Sub
 #End Region
 
@@ -958,6 +978,16 @@ Public Class frmMain
         Me.FileList_IndexChecked()
         Me.UI_UpdateFileInfo()
     End Sub
+
+    Private Sub lvwFilesList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvwFilesList.SelectedIndexChanged
+        If Me.lvwFilesList.CheckedItems.Count = 0 Then
+            'SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.GameListview, "Selected game changed.")
+            Me.UI_Enable(False)
+            Me.FileList_IndexChecked()
+            Me.UI_UpdateFileInfo()
+            Me.UI_Enable(True)
+        End If
+    End Sub
 #End Region
 
 #Region "Form - TitleBar ToolBar"
@@ -1339,4 +1369,60 @@ Public Class frmMain
     '    End If
     'End Sub
 #End Region
+
+#Region "Snapshot load async"
+
+#End Region
+
+    Private Sub bwLoadScreenshot_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bwLoadScreenshot.DoWork
+        If e.Cancel Then
+            Exit Sub
+        Else
+            Dim tmpSnapshotFullPath As String = Path.Combine(My.Settings.PCSX2_PathSnaps, e.Argument.ToString)
+            Dim ResultImage As Image
+            If File.Exists(tmpSnapshotFullPath) Then
+                Try
+
+                    Dim tmpBuff(4096) As Byte
+                    Using tmpStreamReader As New FileStream(tmpSnapshotFullPath, FileMode.Open, FileAccess.Read, FileShare.Read), tmpMemoryStream As New MemoryStream()
+
+
+                        Do
+                            If e.Cancel Then
+                                Exit Sub
+                            Else
+                                tmpStreamReader.Read(tmpBuff, 0, tmpBuff.Length)
+                                tmpMemoryStream.Write(tmpBuff, 0, tmpBuff.Length)
+                            End If
+                        Loop Until tmpStreamReader.Position >= tmpStreamReader.Length
+                        'MessageBox.Show(String.Format("MemoryStream: {0:N0} bytes | StreamReader: {1:N0} bytes.", tmpMemoryStream.Length, tmpStreamReader.Length))
+
+                        ResultImage = Image.FromStream(tmpMemoryStream)
+                    End Using
+                Catch ex As Exception
+                    'MessageBox.Show(ex.Message)
+                    ResultImage = My.Resources.Extra_ClearImage_30x20
+                End Try
+            Else
+                ResultImage = My.Resources.Extra_ClearImage_30x20
+            End If
+            '    'Try
+            '    '    ResultImage = Image.FromFile(CType(e.Argument, String))
+
+            '    'Catch ex As Exception
+            '    '    ResultImage = My.Resources.Extra_ClearImage_30x20
+            '    'End Try
+            e.Result = New Object() {ResultImage, tmpSnapshotFullPath}
+        End If
+    End Sub
+
+    Private Sub bwLoadScreenshot_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwLoadScreenshot.RunWorkerCompleted
+        Dim ConvertedResults() As Object = CType(e.Result, Object())
+        If Not (e.Cancelled) Then
+            Me.imgScreenshotThumb.Image = CType(ConvertedResults(0), Image)
+        End If
+        If (CType(ConvertedResults(1), String) <> Me.currentSnapshotPath) AndAlso Not bwLoadScreenshot.IsBusy Then
+            bwLoadScreenshot.RunWorkerAsync(Me.currentSnapshotPath)
+        End If
+    End Sub
 End Class
