@@ -107,6 +107,8 @@ Partial Class frmMain
         Me.cmdFileCheckAll = New System.Windows.Forms.Button()
         Me.cmdFileCheckBackup = New System.Windows.Forms.Button()
         Me.lblSStateListCheck = New System.Windows.Forms.Label()
+        Me.pnlScreenshotThumb = New System.Windows.Forms.Panel()
+        Me.imgScreenshotThumb = New System.Windows.Forms.PictureBox()
         Me.cmTools = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmiPCSX2Launch = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
@@ -117,8 +119,6 @@ Partial Class frmMain
         Me.GameDBExplorerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeveloperToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.tmrSelectedItemChanged = New System.Windows.Forms.Timer(Me.components)
-        Me.pnlScreenshotThumb = New System.Windows.Forms.Panel()
-        Me.imgScreenshotThumb = New System.Windows.Forms.PictureBox()
         Me.bwLoadScreenshot = New System.ComponentModel.BackgroundWorker()
         Me.pnlTopPanel.SuspendLayout()
         Me.tlpTopPanel.SuspendLayout()
@@ -143,9 +143,9 @@ Partial Class frmMain
         Me.tlpFileListCommands.SuspendLayout()
         Me.flpFileListCommandsFiles.SuspendLayout()
         Me.flpFileListCommandsCheck.SuspendLayout()
-        Me.cmTools.SuspendLayout()
         Me.pnlScreenshotThumb.SuspendLayout()
         CType(Me.imgScreenshotThumb, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.cmTools.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlTopPanel
@@ -478,6 +478,7 @@ Partial Class frmMain
         Me.optTabHeader1.Tag = "1"
         Me.optTabHeader1.Text = "storage"
         Me.optTabHeader1.UseVisualStyleBackColor = False
+        Me.optTabHeader1.Visible = False
         '
         'optTabHeader2
         '
@@ -1261,6 +1262,27 @@ Partial Class frmMain
         Me.lblSStateListCheck.Text = "check savestates:"
         Me.lblSStateListCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
+        'pnlScreenshotThumb
+        '
+        Me.pnlScreenshotThumb.Controls.Add(Me.imgScreenshotThumb)
+        Me.pnlScreenshotThumb.Dock = System.Windows.Forms.DockStyle.Right
+        Me.pnlScreenshotThumb.Location = New System.Drawing.Point(424, 0)
+        Me.pnlScreenshotThumb.Name = "pnlScreenshotThumb"
+        Me.pnlScreenshotThumb.Padding = New System.Windows.Forms.Padding(4, 2, 0, 0)
+        Me.pnlScreenshotThumb.Size = New System.Drawing.Size(200, 179)
+        Me.pnlScreenshotThumb.TabIndex = 49
+        '
+        'imgScreenshotThumb
+        '
+        Me.imgScreenshotThumb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.imgScreenshotThumb.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.imgScreenshotThumb.Location = New System.Drawing.Point(4, 2)
+        Me.imgScreenshotThumb.Name = "imgScreenshotThumb"
+        Me.imgScreenshotThumb.Size = New System.Drawing.Size(196, 177)
+        Me.imgScreenshotThumb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.imgScreenshotThumb.TabIndex = 0
+        Me.imgScreenshotThumb.TabStop = False
+        '
         'cmTools
         '
         Me.cmTools.BackColor = System.Drawing.Color.WhiteSmoke
@@ -1325,27 +1347,6 @@ Partial Class frmMain
         '
         Me.tmrSelectedItemChanged.Interval = 20
         '
-        'pnlScreenshotThumb
-        '
-        Me.pnlScreenshotThumb.Controls.Add(Me.imgScreenshotThumb)
-        Me.pnlScreenshotThumb.Dock = System.Windows.Forms.DockStyle.Right
-        Me.pnlScreenshotThumb.Location = New System.Drawing.Point(424, 0)
-        Me.pnlScreenshotThumb.Name = "pnlScreenshotThumb"
-        Me.pnlScreenshotThumb.Padding = New System.Windows.Forms.Padding(4, 2, 0, 0)
-        Me.pnlScreenshotThumb.Size = New System.Drawing.Size(200, 179)
-        Me.pnlScreenshotThumb.TabIndex = 49
-        '
-        'imgScreenshotThumb
-        '
-        Me.imgScreenshotThumb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.imgScreenshotThumb.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgScreenshotThumb.Location = New System.Drawing.Point(4, 2)
-        Me.imgScreenshotThumb.Name = "imgScreenshotThumb"
-        Me.imgScreenshotThumb.Size = New System.Drawing.Size(196, 177)
-        Me.imgScreenshotThumb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.imgScreenshotThumb.TabIndex = 0
-        Me.imgScreenshotThumb.TabStop = False
-        '
         'bwLoadScreenshot
         '
         Me.bwLoadScreenshot.WorkerSupportsCancellation = True
@@ -1406,9 +1407,9 @@ Partial Class frmMain
         Me.flpFileListCommandsFiles.PerformLayout()
         Me.flpFileListCommandsCheck.ResumeLayout(False)
         Me.flpFileListCommandsCheck.PerformLayout()
-        Me.cmTools.ResumeLayout(False)
         Me.pnlScreenshotThumb.ResumeLayout(False)
         CType(Me.imgScreenshotThumb, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.cmTools.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

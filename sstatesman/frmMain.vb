@@ -259,6 +259,7 @@ Public Class frmMain
                 AddHandler Me.lvwGamesList.ItemSelectionChanged, AddressOf Me.lvwGamesList_ItemSelectionChanged
                 Me.lvwGamesList.EndUpdate()
             End If
+            AddHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
             AddHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
             Me.lvwFilesList.EndUpdate()
         Else
@@ -269,6 +270,7 @@ Public Class frmMain
             End If
             Me.lvwFilesList.BeginUpdate()
             RemoveHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
+            RemoveHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
         End If
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.UI_Enable, pSwitch.ToString)
     End Sub
@@ -473,21 +475,6 @@ Public Class frmMain
                 Me.cmdFileCheckBackup.Enabled = False
             Else
                 Me.cmdFileCheckBackup.Enabled = True
-            End If
-
-            If Me.currentListMode = ListMode.Snapshots AndAlso Me.lvwFilesList.SelectedItems.Count = 1 Then
-                'Try
-                '    Me.imgScreenshotThumb.Load(Path.Combine(My.Settings.PCSX2_PathSnaps, Me.lvwFilesList.SelectedItems(0).Name))
-                'Catch ex As Exception
-                '    Me.imgScreenshotThumb.Image = My.Resources.Extra_ClearImage_30x20
-                'End Try
-                Me.currentSnapshotPath = Path.Combine(My.Settings.PCSX2_PathSnaps, Me.lvwFilesList.SelectedItems(0).Name)
-
-                If bwLoadScreenshot.IsBusy = False Then
-                    bwLoadScreenshot.RunWorkerAsync(Me.currentSnapshotPath)
-                ElseIf bwLoadScreenshot.WorkerSupportsCancellation Then
-                    bwLoadScreenshot.CancelAsync()
-                End If
             End If
 
             If Me.lvwGamesList.CheckedItems.Count > 1 Then
@@ -980,12 +967,24 @@ Public Class frmMain
     End Sub
 
     Private Sub lvwFilesList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvwFilesList.SelectedIndexChanged
-        If Me.lvwFilesList.CheckedItems.Count = 0 Then
-            'SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.GameListview, "Selected game changed.")
-            Me.UI_Enable(False)
-            Me.FileList_IndexChecked()
-            Me.UI_UpdateFileInfo()
-            Me.UI_Enable(True)
+        If Me.currentListMode = ListMode.Snapshots Then
+            If CType(sender, ListView).SelectedItems.Count = 1 Then
+                Me.UI_Enable(False)
+
+                Me.currentSnapshotPath = Path.Combine(My.Settings.PCSX2_PathSnaps, Me.lvwFilesList.SelectedItems(0).Name)
+
+                If bwLoadScreenshot.IsBusy = False Then
+                    bwLoadScreenshot.RunWorkerAsync(Me.currentSnapshotPath)
+                ElseIf bwLoadScreenshot.WorkerSupportsCancellation Then
+                    bwLoadScreenshot.CancelAsync()
+                End If
+
+                Me.FileList_IndexChecked()
+                Me.UI_UpdateFileInfo()
+                Me.UI_Enable(True)
+            Else
+                Me.imgScreenshotThumb.Image = My.Resources.Extra_ClearImage_30x20
+            End If
         End If
     End Sub
 #End Region
@@ -1371,9 +1370,6 @@ Public Class frmMain
 #End Region
 
 #Region "Snapshot load async"
-
-#End Region
-
     Private Sub bwLoadScreenshot_DoWork(sender As Object, e As System.ComponentModel.DoWorkEventArgs) Handles bwLoadScreenshot.DoWork
         If e.Cancel Then
             Exit Sub
@@ -1395,23 +1391,15 @@ Public Class frmMain
                                 tmpMemoryStream.Write(tmpBuff, 0, tmpBuff.Length)
                             End If
                         Loop Until tmpStreamReader.Position >= tmpStreamReader.Length
-                        'MessageBox.Show(String.Format("MemoryStream: {0:N0} bytes | StreamReader: {1:N0} bytes.", tmpMemoryStream.Length, tmpStreamReader.Length))
-
                         ResultImage = Image.FromStream(tmpMemoryStream)
                     End Using
                 Catch ex As Exception
-                    'MessageBox.Show(ex.Message)
                     ResultImage = My.Resources.Extra_ClearImage_30x20
                 End Try
             Else
                 ResultImage = My.Resources.Extra_ClearImage_30x20
             End If
-            '    'Try
-            '    '    ResultImage = Image.FromFile(CType(e.Argument, String))
 
-            '    'Catch ex As Exception
-            '    '    ResultImage = My.Resources.Extra_ClearImage_30x20
-            '    'End Try
             e.Result = New Object() {ResultImage, tmpSnapshotFullPath}
         End If
     End Sub
@@ -1425,4 +1413,6 @@ Public Class frmMain
             bwLoadScreenshot.RunWorkerAsync(Me.currentSnapshotPath)
         End If
     End Sub
+#End Region
+
 End Class
