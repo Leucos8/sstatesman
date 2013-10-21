@@ -158,7 +158,7 @@ Partial Class frmAbout
         Me.optTabHeader1.Name = "optTabHeader1"
         Me.optTabHeader1.Size = New System.Drawing.Size(80, 23)
         Me.optTabHeader1.TabIndex = 5
-        Me.optTabHeader1.Text = "licence"
+        Me.optTabHeader1.Text = "Thanks"
         Me.optTabHeader1.UseVisualStyleBackColor = False
         '
         'optTabHeader2
