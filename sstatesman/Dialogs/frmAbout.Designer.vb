@@ -14,7 +14,7 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmAbout
-    Inherits System.Windows.Forms.Form
+    Inherits frmDialogTemplate
 
     'Form esegue l'override del metodo Dispose per pulire l'elenco dei componenti.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -39,13 +39,10 @@ Partial Class frmAbout
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmAbout))
         Me.OKButton = New System.Windows.Forms.Button()
-        Me.flpBottomPanel = New System.Windows.Forms.FlowLayoutPanel()
         Me.flpTab = New System.Windows.Forms.FlowLayoutPanel()
         Me.optTabHeader0 = New System.Windows.Forms.RadioButton()
         Me.optTabHeader1 = New System.Windows.Forms.RadioButton()
         Me.optTabHeader2 = New System.Windows.Forms.RadioButton()
-        Me.lblWindowProgramName = New System.Windows.Forms.Label()
-        Me.pnlTopPanel = New System.Windows.Forms.Panel()
         Me.pnlTab0 = New System.Windows.Forms.Panel()
         Me.llbPCSX2net = New System.Windows.Forms.LinkLabel()
         Me.llbPCSX2Forum = New System.Windows.Forms.LinkLabel()
@@ -60,13 +57,16 @@ Partial Class frmAbout
         Me.TextBoxDescription = New System.Windows.Forms.TextBox()
         Me.pnlTab1 = New System.Windows.Forms.Panel()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.flpBottomPanel.SuspendLayout()
         Me.flpTab.SuspendLayout()
-        Me.pnlTopPanel.SuspendLayout()
         Me.pnlTab0.SuspendLayout()
         Me.pnlTab2.SuspendLayout()
         Me.pnlTab1.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'pnlWindowTop
+        '
+        Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.pnlWindowTop.Size = New System.Drawing.Size(414, 30)
         '
         'OKButton
         '
@@ -81,7 +81,7 @@ Partial Class frmAbout
         Me.OKButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.OKButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.OKButton.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.OKButton.Location = New System.Drawing.Point(304, 6)
+        Me.OKButton.Location = New System.Drawing.Point(303, 235)
         Me.OKButton.Margin = New System.Windows.Forms.Padding(2)
         Me.OKButton.MinimumSize = New System.Drawing.Size(100, 0)
         Me.OKButton.Name = "OKButton"
@@ -89,20 +89,6 @@ Partial Class frmAbout
         Me.OKButton.TabIndex = 6
         Me.OKButton.Text = "&OK"
         Me.OKButton.UseVisualStyleBackColor = False
-        '
-        'flpBottomPanel
-        '
-        Me.flpBottomPanel.AutoSize = True
-        Me.flpBottomPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.flpBottomPanel.BackColor = System.Drawing.Color.Gainsboro
-        Me.flpBottomPanel.Controls.Add(Me.OKButton)
-        Me.flpBottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.flpBottomPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpBottomPanel.Location = New System.Drawing.Point(0, 236)
-        Me.flpBottomPanel.Name = "flpBottomPanel"
-        Me.flpBottomPanel.Padding = New System.Windows.Forms.Padding(4)
-        Me.flpBottomPanel.Size = New System.Drawing.Size(414, 36)
-        Me.flpBottomPanel.TabIndex = 5
         '
         'flpTab
         '
@@ -112,12 +98,11 @@ Partial Class frmAbout
         Me.flpTab.Controls.Add(Me.optTabHeader0)
         Me.flpTab.Controls.Add(Me.optTabHeader1)
         Me.flpTab.Controls.Add(Me.optTabHeader2)
-        Me.flpTab.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.flpTab.Location = New System.Drawing.Point(0, 30)
+        Me.flpTab.Location = New System.Drawing.Point(4, 33)
         Me.flpTab.Margin = New System.Windows.Forms.Padding(0)
         Me.flpTab.Name = "flpTab"
         Me.flpTab.Padding = New System.Windows.Forms.Padding(16, 0, 16, 0)
-        Me.flpTab.Size = New System.Drawing.Size(414, 23)
+        Me.flpTab.Size = New System.Drawing.Size(272, 23)
         Me.flpTab.TabIndex = 2
         Me.flpTab.WrapContents = False
         '
@@ -180,36 +165,6 @@ Partial Class frmAbout
         Me.optTabHeader2.Text = "licence"
         Me.optTabHeader2.UseVisualStyleBackColor = False
         '
-        'lblWindowProgramName
-        '
-        Me.lblWindowProgramName.AutoSize = True
-        Me.lblWindowProgramName.BackColor = System.Drawing.Color.Transparent
-        Me.lblWindowProgramName.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblWindowProgramName.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWindowProgramName.Location = New System.Drawing.Point(0, 0)
-        Me.lblWindowProgramName.Margin = New System.Windows.Forms.Padding(6, 0, 6, 3)
-        Me.lblWindowProgramName.Name = "lblWindowProgramName"
-        Me.lblWindowProgramName.Padding = New System.Windows.Forms.Padding(6, 6, 6, 3)
-        Me.lblWindowProgramName.Size = New System.Drawing.Size(62, 30)
-        Me.lblWindowProgramName.TabIndex = 1
-        Me.lblWindowProgramName.Text = "about"
-        '
-        'pnlTopPanel
-        '
-        Me.pnlTopPanel.AutoSize = True
-        Me.pnlTopPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.pnlTopPanel.BackColor = System.Drawing.Color.Gainsboro
-        Me.pnlTopPanel.Controls.Add(Me.lblWindowProgramName)
-        Me.pnlTopPanel.Controls.Add(Me.flpTab)
-        Me.pnlTopPanel.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlTopPanel.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.pnlTopPanel.Location = New System.Drawing.Point(0, 0)
-        Me.pnlTopPanel.Margin = New System.Windows.Forms.Padding(2)
-        Me.pnlTopPanel.MinimumSize = New System.Drawing.Size(0, 26)
-        Me.pnlTopPanel.Name = "pnlTopPanel"
-        Me.pnlTopPanel.Size = New System.Drawing.Size(414, 53)
-        Me.pnlTopPanel.TabIndex = 0
-        '
         'pnlTab0
         '
         Me.pnlTab0.AutoScroll = True
@@ -222,10 +177,10 @@ Partial Class frmAbout
         Me.pnlTab0.Controls.Add(Me.lblVersionChannel)
         Me.pnlTab0.Controls.Add(Me.lblVersionMain)
         Me.pnlTab0.Controls.Add(Me.lblVersionTitle)
-        Me.pnlTab0.Location = New System.Drawing.Point(12, 58)
+        Me.pnlTab0.Location = New System.Drawing.Point(4, 59)
         Me.pnlTab0.Name = "pnlTab0"
         Me.pnlTab0.Padding = New System.Windows.Forms.Padding(6, 3, 6, 3)
-        Me.pnlTab0.Size = New System.Drawing.Size(189, 172)
+        Me.pnlTab0.Size = New System.Drawing.Size(134, 172)
         Me.pnlTab0.TabIndex = 8
         '
         'llbPCSX2net
@@ -348,10 +303,10 @@ Partial Class frmAbout
         'pnlTab2
         '
         Me.pnlTab2.Controls.Add(Me.TextBoxDescription)
-        Me.pnlTab2.Location = New System.Drawing.Point(304, 58)
+        Me.pnlTab2.Location = New System.Drawing.Point(279, 210)
         Me.pnlTab2.Name = "pnlTab2"
         Me.pnlTab2.Padding = New System.Windows.Forms.Padding(6, 3, 6, 3)
-        Me.pnlTab2.Size = New System.Drawing.Size(100, 172)
+        Me.pnlTab2.Size = New System.Drawing.Size(109, 169)
         Me.pnlTab2.TabIndex = 24
         '
         'TextBoxDescription
@@ -366,7 +321,7 @@ Partial Class frmAbout
         Me.TextBoxDescription.Name = "TextBoxDescription"
         Me.TextBoxDescription.ReadOnly = True
         Me.TextBoxDescription.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBoxDescription.Size = New System.Drawing.Size(88, 166)
+        Me.TextBoxDescription.Size = New System.Drawing.Size(97, 163)
         Me.TextBoxDescription.TabIndex = 17
         Me.TextBoxDescription.TabStop = False
         Me.TextBoxDescription.Text = resources.GetString("TextBoxDescription.Text")
@@ -374,7 +329,7 @@ Partial Class frmAbout
         'pnlTab1
         '
         Me.pnlTab1.Controls.Add(Me.TextBox1)
-        Me.pnlTab1.Location = New System.Drawing.Point(209, 58)
+        Me.pnlTab1.Location = New System.Drawing.Point(164, 210)
         Me.pnlTab1.Name = "pnlTab1"
         Me.pnlTab1.Padding = New System.Windows.Forms.Padding(6, 3, 6, 3)
         Me.pnlTab1.Size = New System.Drawing.Size(96, 172)
@@ -403,29 +358,22 @@ Partial Class frmAbout
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(414, 272)
-        Me.ControlBox = False
-        Me.Controls.Add(Me.pnlTab1)
         Me.Controls.Add(Me.pnlTab2)
+        Me.Controls.Add(Me.pnlTab1)
         Me.Controls.Add(Me.pnlTab0)
-        Me.Controls.Add(Me.flpBottomPanel)
-        Me.Controls.Add(Me.pnlTopPanel)
-        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ForeColor = System.Drawing.Color.Black
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
+        Me.Controls.Add(Me.flpTab)
+        Me.Controls.Add(Me.OKButton)
         Me.Icon = Global.sstatesman.My.Resources.Resources.SSM_Icon_v2
-        Me.Margin = New System.Windows.Forms.Padding(2)
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "frmAbout"
-        Me.ShowInTaskbar = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "About"
-        Me.flpBottomPanel.ResumeLayout(False)
-        Me.flpBottomPanel.PerformLayout()
+        Me.Controls.SetChildIndex(Me.pnlWindowTop, 0)
+        Me.Controls.SetChildIndex(Me.OKButton, 0)
+        Me.Controls.SetChildIndex(Me.flpTab, 0)
+        Me.Controls.SetChildIndex(Me.pnlTab0, 0)
+        Me.Controls.SetChildIndex(Me.pnlTab1, 0)
+        Me.Controls.SetChildIndex(Me.pnlTab2, 0)
         Me.flpTab.ResumeLayout(False)
         Me.flpTab.PerformLayout()
-        Me.pnlTopPanel.ResumeLayout(False)
-        Me.pnlTopPanel.PerformLayout()
         Me.pnlTab0.ResumeLayout(False)
         Me.pnlTab0.PerformLayout()
         Me.pnlTab2.ResumeLayout(False)
@@ -438,10 +386,7 @@ Partial Class frmAbout
     End Sub
     Private WithEvents optTabHeader0 As System.Windows.Forms.RadioButton
     Private WithEvents optTabHeader2 As System.Windows.Forms.RadioButton
-    Private WithEvents lblWindowProgramName As System.Windows.Forms.Label
-    Private WithEvents pnlTopPanel As System.Windows.Forms.Panel
     Private WithEvents OKButton As System.Windows.Forms.Button
-    Private WithEvents flpBottomPanel As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents flpTab As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents pnlTab0 As System.Windows.Forms.Panel
     Private WithEvents llbPCSX2Forum As System.Windows.Forms.LinkLabel

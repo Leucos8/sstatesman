@@ -466,17 +466,17 @@ Partial Class frmGameDbExplorer
     Private WithEvents tsExportTSVTxt As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents tsTxtSearchSerial As System.Windows.Forms.ToolStripTextBox
     Private WithEvents tsExportCSVTxt As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsCmdSearch As System.Windows.Forms.ToolStripButton
-    Friend WithEvents txtGameList_Compat As System.Windows.Forms.TextBox
-    Friend WithEvents txtGameList_Serial As System.Windows.Forms.TextBox
-    Friend WithEvents txtGameList_Region As System.Windows.Forms.TextBox
-    Friend WithEvents txtGameList_Title As System.Windows.Forms.TextBox
-    Friend WithEvents lvwGameDBList As System.Windows.Forms.ListView
-    Friend WithEvents ToolStripStatusLabel3 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents FlowLayoutPanel2 As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents tsCmdSearch As System.Windows.Forms.ToolStripButton
+    Private WithEvents txtGameList_Compat As System.Windows.Forms.TextBox
+    Private WithEvents txtGameList_Serial As System.Windows.Forms.TextBox
+    Private WithEvents txtGameList_Region As System.Windows.Forms.TextBox
+    Private WithEvents txtGameList_Title As System.Windows.Forms.TextBox
+    Private WithEvents lvwGameDBList As System.Windows.Forms.ListView
+    Private WithEvents ToolStripStatusLabel3 As System.Windows.Forms.ToolStripStatusLabel
+    Private WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
+    Private WithEvents FlowLayoutPanel2 As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents tsGameDbLoad As System.Windows.Forms.ToolStripSplitButton
-    Friend WithEvents tsLoadDefaultGameDB As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsLoadFromFileTool As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents tsLoadDefaultGameDB As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents tsLoadFromFileTool As System.Windows.Forms.ToolStripMenuItem
 End Class

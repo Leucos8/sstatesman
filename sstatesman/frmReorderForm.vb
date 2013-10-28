@@ -13,8 +13,7 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
-
-Public Class frmReorderForm
+Public NotInheritable Class frmReorderForm
     Dim lastWindowState As FormWindowState  'Needed to know if a form resize changed the windowstate
 
     Dim LastChecked As Integer = -1
@@ -138,7 +137,9 @@ Public Class frmReorderForm
         '-----
         'Theme
         '-----
-        Me.applyTheme()
+        'Me.applyTheme()
+        Me.flpWindowBottom.Controls.AddRange({Me.cmdCancel, Me.cmdReorder})
+        Me.pnlFormContent.Dock = DockStyle.Fill
 
         'Checked state icons
         Dim tmpLvwCheckboxes As New ImageList With {.ImageSize = mdlTheme.imlLvwCheckboxes.ImageSize}   'Cannot use imlLvwCheckboxes directly because of a bug that makes checkboxes disappear.
@@ -368,50 +369,6 @@ Public Class frmReorderForm
     End Sub
 #End Region
 
-#Region "Form - ControlBox & Resize"
-    Private Sub cmdWindowMaximize_MouseEnter(sender As Object, e As EventArgs) Handles cmdWindowMaximize.MouseEnter
-        If Me.WindowState = FormWindowState.Normal Then
-            CType(sender, Button).Image = My.Resources.Window_ButtonMaximizeW
-        ElseIf Me.WindowState = FormWindowState.Maximized Then
-            CType(sender, Button).Image = My.Resources.Window_ButtonRestoreW
-        End If
-    End Sub
-
-    Private Sub cmdWindowMaximize_MouseLeave(sender As Object, e As EventArgs) Handles cmdWindowMaximize.MouseLeave
-        If Me.WindowState = FormWindowState.Normal Then
-            CType(sender, Button).Image = My.Resources.Window_ButtonMaximize
-        ElseIf Me.WindowState = FormWindowState.Maximized Then
-            CType(sender, Button).Image = My.Resources.Window_ButtonRestore
-        End If
-    End Sub
-
-    Private Sub cmdWindowMaximize_Click(sender As Object, e As EventArgs) Handles cmdWindowMaximize.Click
-        If Me.WindowState = FormWindowState.Normal Then
-            Me.WindowState = FormWindowState.Maximized
-        ElseIf Me.WindowState = FormWindowState.Maximized Then
-            Me.WindowState = FormWindowState.Normal
-        End If
-    End Sub
-
-    Private Sub cmdWindowClose_Click(sender As Object, e As EventArgs) Handles cmdWindowClose.Click
-        Me.Close()
-    End Sub
-
-    Private Sub frmDeleteForm_SizeChanged(sender As Object, e As EventArgs) Handles Me.SizeChanged
-        If Not (Me.lastWindowState = Me.WindowState) Then
-            If Me.WindowState = FormWindowState.Normal Then
-                Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize
-                Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0, 0, CInt(6 * DPIxScale), 0)
-                'Me.Padding = New Padding(1)
-            ElseIf Me.WindowState = FormWindowState.Maximized Then
-                Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore
-                Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0, 0, CInt(3 * DPIxScale), 0)
-                'Me.Padding = New Padding(0)
-            End If
-            Me.lastWindowState = Me.WindowState
-        End If
-    End Sub
-#End Region
 
 #Region "UI - FileList"
     Private Sub ReorderList_AddSavestates()
@@ -708,60 +665,6 @@ Public Class frmReorderForm
         Me.UI_RenamePreview()
         Me.UI_Updater()
         Me.UI_Enable(True)
-    End Sub
-#End Region
-
-#Region "Theme"
-    Private Sub pnlTopPanel_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlTopPanel.Paint
-        Dim rectoolbar As New Rectangle(0, CInt(8 * DPIyScale), CInt(23 * DPIxScale) + 1, CInt(38 * DPIyScale) + 1)
-        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 90)
-        e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
-        If Me.imgWindowGradientIcon.Width > 0 And Me.imgWindowGradientIcon.Height > 0 Then
-            rectoolbar = New Rectangle(Me.imgWindowGradientIcon.Location, Me.imgWindowGradientIcon.Size)
-            linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 90)
-            e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
-        End If
-        If (CType(sender, Panel).Height > CInt(4 * DPIyScale) + 1) And (CType(sender, Panel).Width > 0) Then
-            If My.Settings.SStatesMan_ThemeGradientEnabled Then
-                rectoolbar = New Rectangle(0, CType(sender, Panel).Height - CInt(4 * DPIyScale), CType(sender, Panel).Width + 1, CInt(3 * DPIyScale) + 1)
-                linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, Color.Transparent, Color.DarkGray, 90)
-                rectoolbar.Y += 1
-                e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
-            End If
-            e.Graphics.DrawLine(Pens.DimGray, 0, CType(sender, Panel).Height - 1, CType(sender, Panel).Width, CType(sender, Panel).Height - 1)
-        End If
-    End Sub
-
-    Private Sub flpWindowBottom_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles flpBottomPanel.Paint
-        If CType(sender, FlowLayoutPanel).Height > CInt(4 * DPIyScale) Then
-            If My.Settings.SStatesMan_ThemeGradientEnabled Then
-                Dim recToolbar As New Rectangle(0, 0, CType(sender, FlowLayoutPanel).Width + 1, CInt(3 * DPIyScale) + 1)
-                Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
-                e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-            End If
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, CType(sender, FlowLayoutPanel).Width, 0)
-        End If
-    End Sub
-
-    Private Sub applyTheme()
-        Dim sw As Stopwatch = Stopwatch.StartNew
-
-        Me.BackColor = currentTheme.BgColor
-        Me.pnlTopPanel.BackColor = currentTheme.BgColorTop
-        Me.flpBottomPanel.BackColor = currentTheme.BgColorBottom
-        If My.Settings.SStatesMan_ThemeImageEnabled Then
-            Me.pnlTopPanel.BackgroundImage = currentTheme.BgImageTop
-            Me.pnlTopPanel.BackgroundImageLayout = currentTheme.BgImageTopStyle
-            Me.flpBottomPanel.BackgroundImage = currentTheme.BgImageBottom
-            Me.flpBottomPanel.BackgroundImageLayout = currentTheme.BgImageBottomStyle
-        Else
-            Me.pnlTopPanel.BackgroundImage = Nothing
-            Me.flpBottomPanel.BackgroundImage = Nothing
-        End If
-        Me.Refresh()
-
-        sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Theme, "Theme applied.", sw.ElapsedTicks)
     End Sub
 #End Region
 

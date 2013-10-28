@@ -14,7 +14,7 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmChooseVersion
-    Inherits System.Windows.Forms.Form
+    Inherits frmDialogTemplate
 
     'Form esegue l'override del metodo Dispose per pulire l'elenco dei componenti.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -36,33 +36,19 @@ Partial Class frmChooseVersion
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.lblWindowProgramName = New System.Windows.Forms.Label()
         Me.cmdOk = New System.Windows.Forms.Button()
-        Me.flpWindowBottom = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdCancel = New System.Windows.Forms.Button()
-        Me.pnlWindowTitle = New System.Windows.Forms.Panel()
         Me.lbPCSX2exe = New System.Windows.Forms.ListBox()
         Me.lblPlease = New System.Windows.Forms.Label()
         Me.lblTroubleshoot = New System.Windows.Forms.Label()
-        Me.pnlWindowContent = New System.Windows.Forms.TableLayoutPanel()
-        Me.flpWindowBottom.SuspendLayout()
-        Me.pnlWindowTitle.SuspendLayout()
-        Me.pnlWindowContent.SuspendLayout()
+        Me.tlpFormContent = New System.Windows.Forms.TableLayoutPanel()
+        Me.tlpFormContent.SuspendLayout()
         Me.SuspendLayout()
         '
-        'lblWindowProgramName
+        'pnlWindowTop
         '
-        Me.lblWindowProgramName.AutoSize = True
-        Me.lblWindowProgramName.BackColor = System.Drawing.Color.Transparent
-        Me.lblWindowProgramName.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblWindowProgramName.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWindowProgramName.Location = New System.Drawing.Point(0, 0)
-        Me.lblWindowProgramName.Margin = New System.Windows.Forms.Padding(6, 0, 6, 3)
-        Me.lblWindowProgramName.Name = "lblWindowProgramName"
-        Me.lblWindowProgramName.Padding = New System.Windows.Forms.Padding(6, 6, 6, 3)
-        Me.lblWindowProgramName.Size = New System.Drawing.Size(118, 30)
-        Me.lblWindowProgramName.TabIndex = 1
-        Me.lblWindowProgramName.Text = "launch PCSX2"
+        Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.pnlWindowTop.Size = New System.Drawing.Size(308, 30)
         '
         'cmdOk
         '
@@ -78,7 +64,7 @@ Partial Class frmChooseVersion
         Me.cmdOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdOk.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdOk.Location = New System.Drawing.Point(94, 6)
+        Me.cmdOk.Location = New System.Drawing.Point(86, 211)
         Me.cmdOk.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdOk.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdOk.Name = "cmdOk"
@@ -86,21 +72,6 @@ Partial Class frmChooseVersion
         Me.cmdOk.TabIndex = 6
         Me.cmdOk.Text = "&OK"
         Me.cmdOk.UseVisualStyleBackColor = False
-        '
-        'flpWindowBottom
-        '
-        Me.flpWindowBottom.AutoSize = True
-        Me.flpWindowBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.flpWindowBottom.BackColor = System.Drawing.Color.Gainsboro
-        Me.flpWindowBottom.Controls.Add(Me.cmdCancel)
-        Me.flpWindowBottom.Controls.Add(Me.cmdOk)
-        Me.flpWindowBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.flpWindowBottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpWindowBottom.Location = New System.Drawing.Point(0, 250)
-        Me.flpWindowBottom.Name = "flpWindowBottom"
-        Me.flpWindowBottom.Padding = New System.Windows.Forms.Padding(4)
-        Me.flpWindowBottom.Size = New System.Drawing.Size(308, 36)
-        Me.flpWindowBottom.TabIndex = 9
         '
         'cmdCancel
         '
@@ -115,7 +86,7 @@ Partial Class frmChooseVersion
         Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdCancel.Location = New System.Drawing.Point(198, 6)
+        Me.cmdCancel.Location = New System.Drawing.Point(190, 211)
         Me.cmdCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdCancel.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdCancel.Name = "cmdCancel"
@@ -123,21 +94,6 @@ Partial Class frmChooseVersion
         Me.cmdCancel.TabIndex = 7
         Me.cmdCancel.Text = "&CANCEL"
         Me.cmdCancel.UseVisualStyleBackColor = False
-        '
-        'pnlWindowTitle
-        '
-        Me.pnlWindowTitle.AutoSize = True
-        Me.pnlWindowTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.pnlWindowTitle.BackColor = System.Drawing.Color.Gainsboro
-        Me.pnlWindowTitle.Controls.Add(Me.lblWindowProgramName)
-        Me.pnlWindowTitle.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.pnlWindowTitle.Location = New System.Drawing.Point(0, 0)
-        Me.pnlWindowTitle.Margin = New System.Windows.Forms.Padding(2)
-        Me.pnlWindowTitle.MinimumSize = New System.Drawing.Size(0, 48)
-        Me.pnlWindowTitle.Name = "pnlWindowTitle"
-        Me.pnlWindowTitle.Size = New System.Drawing.Size(308, 48)
-        Me.pnlWindowTitle.TabIndex = 8
         '
         'lbPCSX2exe
         '
@@ -147,7 +103,7 @@ Partial Class frmChooseVersion
         Me.lbPCSX2exe.FormattingEnabled = True
         Me.lbPCSX2exe.Location = New System.Drawing.Point(9, 26)
         Me.lbPCSX2exe.Name = "lbPCSX2exe"
-        Me.lbPCSX2exe.Size = New System.Drawing.Size(290, 102)
+        Me.lbPCSX2exe.Size = New System.Drawing.Size(377, 102)
         Me.lbPCSX2exe.TabIndex = 10
         '
         'lblPlease
@@ -167,30 +123,29 @@ Partial Class frmChooseVersion
         Me.lblTroubleshoot.ForeColor = System.Drawing.Color.DimGray
         Me.lblTroubleshoot.Location = New System.Drawing.Point(9, 131)
         Me.lblTroubleshoot.Name = "lblTroubleshoot"
-        Me.lblTroubleshoot.Size = New System.Drawing.Size(290, 65)
+        Me.lblTroubleshoot.Size = New System.Drawing.Size(377, 39)
         Me.lblTroubleshoot.TabIndex = 13
         Me.lblTroubleshoot.Text = "If your current PCSX2 version is not listed here then:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "1. check you currently co" & _
     "nfigured PCSX2 path in Settings > PCSX2 paths," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2. make sure the PCSX2 executabl" & _
     "e file name starts with ""PCSX2""."
         '
-        'pnlWindowContent
+        'tlpFormContent
         '
-        Me.pnlWindowContent.AutoSize = True
-        Me.pnlWindowContent.ColumnCount = 1
-        Me.pnlWindowContent.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.pnlWindowContent.Controls.Add(Me.lblTroubleshoot, 0, 2)
-        Me.pnlWindowContent.Controls.Add(Me.lbPCSX2exe, 0, 1)
-        Me.pnlWindowContent.Controls.Add(Me.lblPlease, 0, 0)
-        Me.pnlWindowContent.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlWindowContent.Location = New System.Drawing.Point(0, 48)
-        Me.pnlWindowContent.Name = "pnlWindowContent"
-        Me.pnlWindowContent.Padding = New System.Windows.Forms.Padding(6)
-        Me.pnlWindowContent.RowCount = 3
-        Me.pnlWindowContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pnlWindowContent.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.pnlWindowContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.pnlWindowContent.Size = New System.Drawing.Size(308, 202)
-        Me.pnlWindowContent.TabIndex = 13
+        Me.tlpFormContent.AutoSize = True
+        Me.tlpFormContent.ColumnCount = 1
+        Me.tlpFormContent.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpFormContent.Controls.Add(Me.lblTroubleshoot, 0, 2)
+        Me.tlpFormContent.Controls.Add(Me.lbPCSX2exe, 0, 1)
+        Me.tlpFormContent.Controls.Add(Me.lblPlease, 0, 0)
+        Me.tlpFormContent.Location = New System.Drawing.Point(4, 40)
+        Me.tlpFormContent.Name = "tlpFormContent"
+        Me.tlpFormContent.Padding = New System.Windows.Forms.Padding(6)
+        Me.tlpFormContent.RowCount = 3
+        Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpFormContent.Size = New System.Drawing.Size(395, 176)
+        Me.tlpFormContent.TabIndex = 13
         '
         'frmChooseVersion
         '
@@ -201,37 +156,22 @@ Partial Class frmChooseVersion
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.CancelButton = Me.cmdCancel
         Me.ClientSize = New System.Drawing.Size(308, 286)
-        Me.ControlBox = False
-        Me.Controls.Add(Me.pnlWindowContent)
-        Me.Controls.Add(Me.flpWindowBottom)
-        Me.Controls.Add(Me.pnlWindowTitle)
+        Me.Controls.Add(Me.tlpFormContent)
         Me.DoubleBuffered = True
-        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ForeColor = System.Drawing.Color.Black
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "frmChooseVersion"
-        Me.ShowInTaskbar = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "PCSX2"
-        Me.flpWindowBottom.ResumeLayout(False)
-        Me.flpWindowBottom.PerformLayout()
-        Me.pnlWindowTitle.ResumeLayout(False)
-        Me.pnlWindowTitle.PerformLayout()
-        Me.pnlWindowContent.ResumeLayout(False)
-        Me.pnlWindowContent.PerformLayout()
+        Me.Text = "Launch PCSX2"
+        Me.Controls.SetChildIndex(Me.pnlWindowTop, 0)
+        Me.Controls.SetChildIndex(Me.tlpFormContent, 0)
+        Me.tlpFormContent.ResumeLayout(False)
+        Me.tlpFormContent.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Private WithEvents lblWindowProgramName As System.Windows.Forms.Label
-    Friend WithEvents cmdOk As System.Windows.Forms.Button
-    Friend WithEvents flpWindowBottom As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents pnlWindowTitle As System.Windows.Forms.Panel
-    Friend WithEvents lbPCSX2exe As System.Windows.Forms.ListBox
+    Private WithEvents cmdOk As System.Windows.Forms.Button
+    Private WithEvents lbPCSX2exe As System.Windows.Forms.ListBox
     Private WithEvents cmdCancel As System.Windows.Forms.Button
-    Friend WithEvents lblPlease As System.Windows.Forms.Label
-    Friend WithEvents lblTroubleshoot As System.Windows.Forms.Label
-    Friend WithEvents pnlWindowContent As System.Windows.Forms.TableLayoutPanel
+    Private WithEvents lblPlease As System.Windows.Forms.Label
+    Private WithEvents lblTroubleshoot As System.Windows.Forms.Label
+    Private WithEvents tlpFormContent As System.Windows.Forms.TableLayoutPanel
 End Class

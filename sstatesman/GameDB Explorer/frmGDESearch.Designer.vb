@@ -14,7 +14,7 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmGDESearch
-    Inherits System.Windows.Forms.Form
+    Inherits frmDialogTemplate
 
     'Form esegue l'override del metodo Dispose per pulire l'elenco dei componenti.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -36,7 +36,6 @@ Partial Class frmGDESearch
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(frmGDESearch))
         Me.ckbSerial = New System.Windows.Forms.CheckBox()
         Me.txtSerial = New System.Windows.Forms.TextBox()
         Me.txtGameTitle = New System.Windows.Forms.TextBox()
@@ -47,19 +46,19 @@ Partial Class frmGDESearch
         Me.cmdSearch = New System.Windows.Forms.Button()
         Me.cmdCancel = New System.Windows.Forms.Button()
         Me.cbGameCompat = New System.Windows.Forms.ComboBox()
-        Me.flpWindowBottom = New System.Windows.Forms.FlowLayoutPanel()
         Me.TableLayoutPanel1 = New System.Windows.Forms.TableLayoutPanel()
         Me.lblSeatchType = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.optSeatchTypeAND = New System.Windows.Forms.RadioButton()
         Me.optSeatchTypeOR = New System.Windows.Forms.RadioButton()
-        Me.panelWindowTitle = New System.Windows.Forms.Panel()
-        Me.lblWindowProgramName = New System.Windows.Forms.Label()
-        Me.flpWindowBottom.SuspendLayout()
         Me.TableLayoutPanel1.SuspendLayout()
         Me.FlowLayoutPanel1.SuspendLayout()
-        Me.panelWindowTitle.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'pnlWindowTop
+        '
+        Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.pnlWindowTop.Size = New System.Drawing.Size(474, 30)
         '
         'ckbSerial
         '
@@ -163,7 +162,7 @@ Partial Class frmGDESearch
         Me.cmdSearch.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
         Me.cmdSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdSearch.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSearch.Location = New System.Drawing.Point(257, 7)
+        Me.cmdSearch.Location = New System.Drawing.Point(12, 194)
         Me.cmdSearch.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdSearch.Name = "cmdSearch"
         Me.cmdSearch.Size = New System.Drawing.Size(100, 24)
@@ -181,7 +180,7 @@ Partial Class frmGDESearch
         Me.cmdCancel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdCancel.Location = New System.Drawing.Point(363, 7)
+        Me.cmdCancel.Location = New System.Drawing.Point(310, 208)
         Me.cmdCancel.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdCancel.Name = "cmdCancel"
         Me.cmdCancel.Size = New System.Drawing.Size(100, 24)
@@ -203,22 +202,6 @@ Partial Class frmGDESearch
         Me.cbGameCompat.Size = New System.Drawing.Size(366, 21)
         Me.cbGameCompat.TabIndex = 13
         '
-        'flpWindowBottom
-        '
-        Me.flpWindowBottom.AutoSize = True
-        Me.flpWindowBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.flpWindowBottom.BackColor = System.Drawing.Color.Gainsboro
-        Me.flpWindowBottom.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.flpWindowBottom.Controls.Add(Me.cmdCancel)
-        Me.flpWindowBottom.Controls.Add(Me.cmdSearch)
-        Me.flpWindowBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.flpWindowBottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpWindowBottom.Location = New System.Drawing.Point(0, 194)
-        Me.flpWindowBottom.Name = "flpWindowBottom"
-        Me.flpWindowBottom.Padding = New System.Windows.Forms.Padding(4)
-        Me.flpWindowBottom.Size = New System.Drawing.Size(474, 38)
-        Me.flpWindowBottom.TabIndex = 2
-        '
         'TableLayoutPanel1
         '
         Me.TableLayoutPanel1.AutoScroll = True
@@ -237,8 +220,7 @@ Partial Class frmGDESearch
         Me.TableLayoutPanel1.Controls.Add(Me.cbGameCompat, 1, 4)
         Me.TableLayoutPanel1.Controls.Add(Me.lblSeatchType, 0, 5)
         Me.TableLayoutPanel1.Controls.Add(Me.FlowLayoutPanel1, 1, 5)
-        Me.TableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.TableLayoutPanel1.Location = New System.Drawing.Point(0, 30)
+        Me.TableLayoutPanel1.Location = New System.Drawing.Point(4, 35)
         Me.TableLayoutPanel1.Name = "TableLayoutPanel1"
         Me.TableLayoutPanel1.Padding = New System.Windows.Forms.Padding(8, 4, 8, 4)
         Me.TableLayoutPanel1.RowCount = 7
@@ -249,7 +231,7 @@ Partial Class frmGDESearch
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel1.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.TableLayoutPanel1.Size = New System.Drawing.Size(474, 164)
+        Me.TableLayoutPanel1.Size = New System.Drawing.Size(474, 150)
         Me.TableLayoutPanel1.TabIndex = 5
         '
         'lblSeatchType
@@ -300,83 +282,43 @@ Partial Class frmGDESearch
         Me.optSeatchTypeOR.Text = "OR"
         Me.optSeatchTypeOR.UseVisualStyleBackColor = True
         '
-        'panelWindowTitle
-        '
-        Me.panelWindowTitle.AutoSize = True
-        Me.panelWindowTitle.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.panelWindowTitle.BackColor = System.Drawing.Color.Gainsboro
-        Me.panelWindowTitle.Controls.Add(Me.lblWindowProgramName)
-        Me.panelWindowTitle.Dock = System.Windows.Forms.DockStyle.Top
-        Me.panelWindowTitle.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.panelWindowTitle.Location = New System.Drawing.Point(0, 0)
-        Me.panelWindowTitle.Margin = New System.Windows.Forms.Padding(2)
-        Me.panelWindowTitle.MinimumSize = New System.Drawing.Size(0, 26)
-        Me.panelWindowTitle.Name = "panelWindowTitle"
-        Me.panelWindowTitle.Size = New System.Drawing.Size(474, 30)
-        Me.panelWindowTitle.TabIndex = 0
-        '
-        'lblWindowProgramName
-        '
-        Me.lblWindowProgramName.AutoSize = True
-        Me.lblWindowProgramName.BackColor = System.Drawing.Color.Transparent
-        Me.lblWindowProgramName.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblWindowProgramName.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWindowProgramName.Location = New System.Drawing.Point(0, 0)
-        Me.lblWindowProgramName.Margin = New System.Windows.Forms.Padding(6, 0, 6, 3)
-        Me.lblWindowProgramName.Name = "lblWindowProgramName"
-        Me.lblWindowProgramName.Padding = New System.Windows.Forms.Padding(6, 6, 6, 3)
-        Me.lblWindowProgramName.Size = New System.Drawing.Size(67, 30)
-        Me.lblWindowProgramName.TabIndex = 1
-        Me.lblWindowProgramName.Text = "search"
-        '
         'frmGDESearch
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(474, 232)
-        Me.ControlBox = False
+        Me.Controls.Add(Me.cmdCancel)
+        Me.Controls.Add(Me.cmdSearch)
         Me.Controls.Add(Me.TableLayoutPanel1)
-        Me.Controls.Add(Me.panelWindowTitle)
-        Me.Controls.Add(Me.flpWindowBottom)
-        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ForeColor = System.Drawing.Color.Black
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Icon = Global.sstatesman.My.Resources.GDE_256x256
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
+        Me.Icon = Global.sstatesman.My.Resources.Resources.GDE_256x256
         Me.Name = "frmGDESearch"
-        Me.ShowInTaskbar = False
-        Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "GameDB Explorer - Search"
-        Me.flpWindowBottom.ResumeLayout(False)
-        Me.flpWindowBottom.PerformLayout()
+        Me.Text = "Search"
+        Me.Controls.SetChildIndex(Me.pnlWindowTop, 0)
+        Me.Controls.SetChildIndex(Me.TableLayoutPanel1, 0)
+        Me.Controls.SetChildIndex(Me.cmdSearch, 0)
+        Me.Controls.SetChildIndex(Me.cmdCancel, 0)
         Me.TableLayoutPanel1.ResumeLayout(False)
         Me.TableLayoutPanel1.PerformLayout()
         Me.FlowLayoutPanel1.ResumeLayout(False)
         Me.FlowLayoutPanel1.PerformLayout()
-        Me.panelWindowTitle.ResumeLayout(False)
-        Me.panelWindowTitle.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents ckbSerial As System.Windows.Forms.CheckBox
-    Friend WithEvents txtSerial As System.Windows.Forms.TextBox
-    Friend WithEvents txtGameTitle As System.Windows.Forms.TextBox
-    Friend WithEvents ckbGameTitle As System.Windows.Forms.CheckBox
-    Friend WithEvents txtGameRegion As System.Windows.Forms.TextBox
-    Friend WithEvents ckbGameRegion As System.Windows.Forms.CheckBox
-    Friend WithEvents ckbGameCompat As System.Windows.Forms.CheckBox
-    Friend WithEvents cmdSearch As System.Windows.Forms.Button
-    Friend WithEvents cmdCancel As System.Windows.Forms.Button
-    Friend WithEvents cbGameCompat As System.Windows.Forms.ComboBox
-    Friend WithEvents flpWindowBottom As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
-    Private WithEvents panelWindowTitle As System.Windows.Forms.Panel
-    Private WithEvents lblWindowProgramName As System.Windows.Forms.Label
-    Friend WithEvents lblSeatchType As System.Windows.Forms.Label
-    Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents optSeatchTypeAND As System.Windows.Forms.RadioButton
-    Friend WithEvents optSeatchTypeOR As System.Windows.Forms.RadioButton
+    Private WithEvents ckbSerial As System.Windows.Forms.CheckBox
+    Private WithEvents txtSerial As System.Windows.Forms.TextBox
+    Private WithEvents txtGameTitle As System.Windows.Forms.TextBox
+    Private WithEvents ckbGameTitle As System.Windows.Forms.CheckBox
+    Private WithEvents txtGameRegion As System.Windows.Forms.TextBox
+    Private WithEvents ckbGameRegion As System.Windows.Forms.CheckBox
+    Private WithEvents ckbGameCompat As System.Windows.Forms.CheckBox
+    Private WithEvents cmdSearch As System.Windows.Forms.Button
+    Private WithEvents cmdCancel As System.Windows.Forms.Button
+    Private WithEvents cbGameCompat As System.Windows.Forms.ComboBox
+    Private WithEvents TableLayoutPanel1 As System.Windows.Forms.TableLayoutPanel
+    Private WithEvents lblSeatchType As System.Windows.Forms.Label
+    Private WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents optSeatchTypeAND As System.Windows.Forms.RadioButton
+    Private WithEvents optSeatchTypeOR As System.Windows.Forms.RadioButton
 End Class

@@ -13,7 +13,7 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
-Public Class frmSettings
+Public NotInheritable Class frmSettings
 
     Dim tmpTab2SettingsFail As Boolean = False
     Dim currentSelectedTheme As mdlTheme.eTheme
@@ -68,7 +68,7 @@ Public Class frmSettings
 
         'Me.applyTheme()
 
-        frmMain.applyTheme2()    'Updating frMain theme
+        frmMain.applyTheme()    'Updating frMain theme
         frmMain.tmrSStatesListRefresh.Enabled = My.Settings.SStatesMan_SStatesListAutoRefresh   'Enabling the timer
 
     End Sub
@@ -219,9 +219,13 @@ Public Class frmSettings
 
 #Region "Form"
     Private Sub frmSettings_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
+        Me.pnlWindowTop.Controls.Add(Me.flpTab)
+        Me.flpTab.Dock = DockStyle.Bottom
+        Me.flpWindowBottom.Controls.AddRange({cmdApply, cmdCancel, cmdOk})
+
         Me.lvwLog.SmallImageList = imlLvwItemIcons
 
-        Me.applyTheme()
+        'Me.applyTheme()
 
         Me.pnlTab0.Dock = DockStyle.Fill
         Me.pnlTab1.Dock = DockStyle.Fill
@@ -560,54 +564,12 @@ Public Class frmSettings
 #End Region
 
 #Region "Theme"
-    Private Sub pnlTopPanel_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlTopPanel.Paint
-        Dim recToolbar As New Rectangle(CInt(8 * DPIxScale), 0, CInt(127 * DPIxScale) + 1, CInt(7 * DPIyScale) + 1)
-        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 0)
-        e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-        If (CType(sender, Panel).Height > 4 * CInt(DPIyScale) + 1) And (CType(sender, Panel).Width > 0) Then
-            If My.Settings.SStatesMan_ThemeGradientEnabled Then
-                recToolbar = New Rectangle(0, CType(sender, Panel).Height - CInt(4 * DPIyScale), CType(sender, Panel).Width, CInt(3 * DPIyScale) + 1)
-                linGrBrushToolbar = New Drawing2D.LinearGradientBrush(recToolbar, Color.Transparent, Color.DarkGray, 90)
-                recToolbar.Y += 1
-                e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-            End If
-            e.Graphics.DrawLine(Pens.DimGray, 0, CType(sender, Panel).Height - 1, CType(sender, Panel).Width, CType(sender, Panel).Height - 1)
-        End If
-    End Sub
-
-    Private Sub flpBottomPanel_Paint(sender As System.Object, e As System.Windows.Forms.PaintEventArgs) Handles flpBottomPanel.Paint
-        If CType(sender, Panel).Height > CInt(4 * DPIyScale) Then
-            If My.Settings.SStatesMan_ThemeGradientEnabled Then
-                Dim recToolbar As New Rectangle(0, 0, CType(sender, Panel).Width + 1, CInt(3 * DPIyScale) + 1)
-                Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
-                e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-            End If
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, CType(sender, Panel).Width, 0)
-        End If
-    End Sub
-
     Private Sub optTabHeader_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optTabHeader0.Paint, optTabHeader1.Paint, optTabHeader2.Paint, optTabHeader3.Paint
         If CType(sender, RadioButton).Checked Then
             e.Graphics.DrawLine(Pens.DimGray, 0, 0, CType(sender, RadioButton).Width, 0)
             e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, CType(sender, RadioButton).Height)
             e.Graphics.DrawLine(Pens.DimGray, CType(sender, RadioButton).Width - 1, 0, CType(sender, RadioButton).Width - 1, CType(sender, RadioButton).Height)
         End If
-    End Sub
-
-    Private Sub applyTheme()
-        Me.BackColor = currentTheme.BgColor
-        Me.pnlTopPanel.BackColor = currentTheme.BgColorTop
-        Me.flpBottomPanel.BackColor = currentTheme.BgColorBottom
-        If My.Settings.SStatesMan_ThemeImageEnabled Then
-            Me.pnlTopPanel.BackgroundImage = currentTheme.BgImageTop
-            Me.pnlTopPanel.BackgroundImageLayout = currentTheme.BgImageTopStyle
-            Me.flpBottomPanel.BackgroundImage = currentTheme.BgImageBottom
-            Me.flpBottomPanel.BackgroundImageLayout = currentTheme.BgImageBottomStyle
-        Else
-            Me.pnlTopPanel.BackgroundImage = Nothing
-            Me.flpBottomPanel.BackgroundImage = Nothing
-        End If
-        Me.Refresh()
     End Sub
 #End Region
 End Class

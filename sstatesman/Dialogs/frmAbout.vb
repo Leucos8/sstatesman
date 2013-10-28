@@ -17,7 +17,9 @@ Public NotInheritable Class frmAbout
 #Region "Form"
     Private Sub frmAbout_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Me.applyTheme()
+        Me.pnlWindowTop.Controls.Add(Me.flpTab)
+        Me.flpTab.Dock = DockStyle.Bottom
+        Me.flpWindowBottom.Controls.Add(Me.OKButton)
 
         Me.lblVersionMain.Text = My.Application.Info.Version.ToString
         Me.lblVersionChannel.Text = My.Settings.SStatesMan_Channel
@@ -70,32 +72,6 @@ Public NotInheritable Class frmAbout
 #End Region
 
 #Region "UI paint"
-    Private Sub pnlTopPanel_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlTopPanel.Paint
-        Dim recToolbar As New Rectangle(CInt(8 * DPIxScale), 0, CInt(127 * DPIxScale) + 1, CInt(7 * DPIyScale) + 1)
-        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 0)
-        e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-        If (CType(sender, Panel).Height > 4 * CInt(DPIyScale) + 1) And (CType(sender, Panel).Width > 0) Then
-            If My.Settings.SStatesMan_ThemeGradientEnabled Then
-                recToolbar = New Rectangle(0, CType(sender, Panel).Height - CInt(4 * DPIyScale), CType(sender, Panel).Width, CInt(3 * DPIyScale) + 1)
-                linGrBrushToolbar = New Drawing2D.LinearGradientBrush(recToolbar, Color.Transparent, Color.DarkGray, 90)
-                recToolbar.Y += 1
-                e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-            End If
-            e.Graphics.DrawLine(Pens.DimGray, 0, CType(sender, Panel).Height - 1, CType(sender, Panel).Width, CType(sender, Panel).Height - 1)
-        End If
-    End Sub
-
-    Private Sub flpBottomPanel_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles flpBottomPanel.Paint
-        If CType(sender, Panel).Height > CInt(4 * DPIyScale) Then
-            If My.Settings.SStatesMan_ThemeGradientEnabled Then
-                Dim recToolbar As New Rectangle(0, 0, CType(sender, Panel).Width + 1, CInt(3 * DPIyScale) + 1)
-                Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(recToolbar, Color.DarkGray, Color.Transparent, 90)
-                e.Graphics.FillRectangle(linGrBrushToolbar, recToolbar)
-            End If
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, CType(sender, Panel).Width, 0)
-        End If
-    End Sub
-
     Private Sub optTabHeader_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optTabHeader0.Paint, optTabHeader2.Paint
         If CType(sender, RadioButton).Checked Then
             e.Graphics.DrawLine(Pens.DimGray, 0, 0, CType(sender, RadioButton).Width, 0)
@@ -104,26 +80,6 @@ Public NotInheritable Class frmAbout
         End If
     End Sub
 
-    Private Sub applyTheme()
-        Dim sw As Stopwatch = Stopwatch.StartNew
-
-        Me.BackColor = currentTheme.BgColor
-        Me.pnlTopPanel.BackColor = currentTheme.BgColorTop
-        Me.flpBottomPanel.BackColor = currentTheme.BgColorBottom
-        If My.Settings.SStatesMan_ThemeImageEnabled Then
-            Me.pnlTopPanel.BackgroundImage = currentTheme.BgImageTop
-            Me.pnlTopPanel.BackgroundImageLayout = currentTheme.BgImageTopStyle
-            Me.flpBottomPanel.BackgroundImage = currentTheme.BgImageBottom
-            Me.flpBottomPanel.BackgroundImageLayout = currentTheme.BgImageBottomStyle
-        Else
-            Me.pnlTopPanel.BackgroundImage = Nothing
-            Me.flpBottomPanel.BackgroundImage = Nothing
-        End If
-        Me.Refresh()
-
-        sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.AboutDialog, eSrcMethod.Theme, "Theme applied.", sw.ElapsedTicks)
-    End Sub
 #End Region
 
 End Class

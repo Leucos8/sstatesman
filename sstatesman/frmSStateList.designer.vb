@@ -246,25 +246,25 @@ Partial Class frmSStateList
         Me.PerformLayout()
 
     End Sub
-    Friend WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
-    Friend WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents ToolStripStatusLabel2 As System.Windows.Forms.ToolStripStatusLabel
-    Friend WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
-    Friend WithEvents ListView1 As System.Windows.Forms.ListView
-    Friend WithEvents tsGames As System.Windows.Forms.ToolStripSplitButton
-    Friend WithEvents tsGamesAll As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsGamesChecked As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsSavestates As System.Windows.Forms.ToolStripSplitButton
-    Friend WithEvents tsSavestatesAll As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsSavestatesCurrent As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsSavestatesChecked As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsStored As System.Windows.Forms.ToolStripSplitButton
-    Friend WithEvents tsStoredAll As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsStoredCurrent As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsStoredChecked As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsSnaps As System.Windows.Forms.ToolStripSplitButton
-    Friend WithEvents tsSnapsAll As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsSnapsCurrent As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents tsSnapsSelected As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
+    Private WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
+    Private WithEvents ToolStripStatusLabel2 As System.Windows.Forms.ToolStripStatusLabel
+    Private WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
+    Private WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
+    Private WithEvents ListView1 As System.Windows.Forms.ListView
+    Private WithEvents tsGames As System.Windows.Forms.ToolStripSplitButton
+    Private WithEvents tsGamesAll As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents tsGamesChecked As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents tsSavestates As System.Windows.Forms.ToolStripSplitButton
+    Private WithEvents tsSavestatesAll As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents tsSavestatesCurrent As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents tsSavestatesChecked As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents tsStored As System.Windows.Forms.ToolStripSplitButton
+    Private WithEvents tsStoredAll As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents tsStoredCurrent As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents tsStoredChecked As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents tsSnaps As System.Windows.Forms.ToolStripSplitButton
+    Private WithEvents tsSnapsAll As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents tsSnapsCurrent As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents tsSnapsSelected As System.Windows.Forms.ToolStripMenuItem
 End Class

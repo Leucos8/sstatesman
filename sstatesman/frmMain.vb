@@ -13,9 +13,7 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
-
-Public Class frmMain
-    Dim lastWindowState As FormWindowState  'Needed to know if a form resize changed the windowstate
+Public NotInheritable Class frmMain
 
     Friend Enum ListMode
         'Iso
@@ -90,7 +88,14 @@ Public Class frmMain
         '-----
         'Theme
         '-----
-        Me.applyTheme()
+
+        Me.flpWindowBottom.Visible = False
+        Me.tlpWindowTop.Controls.Add(Me.flpTitleBarTools, 1, 0)
+        Me.tlpWindowTop.Controls.Add(Me.lblWindowVersion, 1, 1)
+        Me.tlpWindowTop.Controls.Add(Me.tlpTopBar, 0, 2)
+        Me.tlpWindowTop.SetColumnSpan(Me.tlpTopBar, Me.tlpWindowTop.ColumnCount)
+        Me.tlpTopBar.Dock = DockStyle.Fill
+        Me.SplitContainer1.Dock = DockStyle.Fill
 
         'Add version information to the main window
         Me.lblWindowVersion.Text = String.Concat(Me.lblWindowVersion.Text, _
@@ -119,7 +124,6 @@ Public Class frmMain
             My.Settings.frmMain_WindowState = FormWindowState.Normal
         End If
         Me.WindowState = My.Settings.frmMain_WindowState
-        Me.lastWindowState = Me.WindowState
         'Splitter distance
         Me.SplitContainer1.SplitterDistance = My.Settings.frmMain_SplitterDistance
 
@@ -165,7 +169,6 @@ Public Class frmMain
         '===============================
 
         Me.GameList_AddGames()
-        Me.UI_Enable(True, True)
         Me.UI_SwitchMode(ListMode.Savestates)
 
         'Cover image state
@@ -180,6 +183,8 @@ Public Class frmMain
         If My.Settings.SStatesMan_SStatesListShowOnly Then
             Me.cmdSStatesLvwExpand_Click(Nothing, Nothing)
         End If
+
+        Me.UI_Enable(True, True)
 
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "5/5 Post load done.", sw.ElapsedTicks - tmpTicks)
         'tmpTicks = sw.ElapsedTicks
@@ -506,12 +511,12 @@ Public Class frmMain
 
             Me.cmdFileCheckAll.Visible = Me.cmdFileCheckAll.Enabled
             Me.cmdFileCheckNone.Visible = Me.cmdFileCheckNone.Enabled
-            End If
+        End If
 
-            Me.tlpFileListCommands.ResumeLayout()
+        Me.tlpFileListCommands.ResumeLayout()
 
-            sw.Stop()
-            SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
+        sw.Stop()
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
     End Sub
 #End Region
 
@@ -1102,63 +1107,6 @@ Public Class frmMain
     End Sub
 #End Region
 
-#Region "Form - ControlBox & Resize"
-    Private Sub cmdWindowMaximize_Click(sender As Object, e As EventArgs) Handles cmdWindowMaximize.Click
-        If Me.WindowState = FormWindowState.Normal Then
-            Me.WindowState = FormWindowState.Maximized
-        ElseIf Me.WindowState = FormWindowState.Maximized Then
-            Me.WindowState = FormWindowState.Normal
-        End If
-    End Sub
-
-    Private Sub cmdWindowMinimize_Click(sender As Object, e As EventArgs) Handles cmdWindowMinimize.Click
-        Me.WindowState = FormWindowState.Minimized
-    End Sub
-
-    Private Sub cmdWindowClose_Click(sender As Object, e As EventArgs) Handles cmdWindowClose.Click
-        Me.Close()    'Needed for firing the FormClosing event, wich saves some settings.
-    End Sub
-
-    Private Sub cmdWindowMaximize_MouseEnter(sender As Object, e As EventArgs) Handles cmdWindowMaximize.MouseEnter
-        If Me.WindowState = FormWindowState.Normal Then
-            CType(sender, Button).Image = My.Resources.Window_ButtonMaximizeW
-        ElseIf Me.WindowState = FormWindowState.Maximized Then
-            CType(sender, Button).Image = My.Resources.Window_ButtonRestoreW
-        End If
-    End Sub
-
-    Private Sub cmdWindowMaximize_MouseLeave(sender As Object, e As EventArgs) Handles cmdWindowMaximize.MouseLeave
-        If Me.WindowState = FormWindowState.Normal Then
-            CType(sender, Button).Image = My.Resources.Window_ButtonMaximize
-        ElseIf Me.WindowState = FormWindowState.Maximized Then
-            CType(sender, Button).Image = My.Resources.Window_ButtonRestore
-        End If
-    End Sub
-
-    Private Sub cmdWindowMinimize_MouseEnter(sender As Object, e As EventArgs) Handles cmdWindowMinimize.MouseEnter
-        CType(sender, Button).Image = My.Resources.Window_ButtonMinimizeW
-    End Sub
-
-    Private Sub cmdWindowMinimize_MouseLeave(sender As Object, e As EventArgs) Handles cmdWindowMinimize.MouseLeave
-        CType(sender, Button).Image = My.Resources.Window_ButtonMinimize
-    End Sub
-
-    Private Sub frmMain_SizeChanged(sender As Object, e As EventArgs) Handles Me.SizeChanged
-        If Not (Me.lastWindowState = Me.WindowState) Then
-            If Me.WindowState = FormWindowState.Normal Then
-                Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonMaximize
-                Me.flpControlBox.Margin = New Padding(0, 0, CInt(6 * DPIxScale), 0)
-                'Me.Padding = New Padding(1)
-            ElseIf Me.WindowState = FormWindowState.Maximized Then
-                Me.cmdWindowMaximize.Image = My.Resources.Window_ButtonRestore
-                Me.flpControlBox.Margin = New Padding(0, 0, CInt(3 * DPIxScale), 0)
-                'Me.Padding = New Padding(0)
-            End If
-            Me.lastWindowState = Me.WindowState
-        End If
-    End Sub
-#End Region
-
 #Region "Form - Tabs"
     'This common event is fired AFTER the other specific events.
     Private Sub optTabHeader_CheckedChanged(sender As Object, e As EventArgs) Handles optTabHeader0.CheckedChanged, optTabHeader1.CheckedChanged, optTabHeader2.CheckedChanged
@@ -1304,26 +1252,6 @@ Public Class frmMain
 #End Region
 
 #Region "Theme"
-    Private Sub pnlTopPanel_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlTopPanel.Paint
-        Dim rectoolbar As New Rectangle(0, CInt(8 * DPIyScale), CInt(23 * DPIxScale) + 1, CInt(38 * DPIyScale) + 1)
-        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 90)
-        e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
-        If Me.imgWindowGradientIcon.Width > 0 And Me.imgWindowGradientIcon.Height > 0 Then
-            rectoolbar = New Rectangle(Me.imgWindowGradientIcon.Location, Me.imgWindowGradientIcon.Size)
-            linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 90)
-            e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
-        End If
-        If (CType(sender, Panel).Height > CInt(4 * DPIyScale) + 1) And (CType(sender, Panel).Width > 0) Then
-            If My.Settings.SStatesMan_ThemeGradientEnabled Then
-                rectoolbar = New Rectangle(0, CType(sender, Panel).Height - CInt(4 * DPIyScale), CType(sender, Panel).Width + 1, CInt(3 * DPIyScale) + 1)
-                linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, Color.Transparent, Color.DarkGray, 90)
-                rectoolbar.Y += 1
-                e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
-            End If
-            e.Graphics.DrawLine(Pens.DimGray, 0, CType(sender, Panel).Height - 1, CType(sender, Panel).Width, CType(sender, Panel).Height - 1)
-        End If
-    End Sub
-
     Private Sub optTabHeader_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optTabHeader0.Paint, optTabHeader1.Paint, optTabHeader2.Paint
         If CType(sender, RadioButton).Checked Then
             e.Graphics.DrawLine(Pens.DimGray, 0, 0, CType(sender, RadioButton).Width, 0)
@@ -1334,32 +1262,6 @@ Public Class frmMain
 
     Private Sub SplitContainer1_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles SplitContainer1.Paint
         e.Graphics.DrawLine(Pens.DimGray, 0, Me.SplitContainer1.SplitterDistance + 1, Me.SplitContainer1.Width, Me.SplitContainer1.SplitterDistance + 1)
-    End Sub
-
-    Private Sub applyTheme()
-        Dim sw As Stopwatch = Stopwatch.StartNew
-
-        Me.BackColor = currentTheme.BgColor
-        Me.pnlTopPanel.BackColor = currentTheme.BgColorTop
-        'Me.flpWindowBottom.BackColor = currentTheme.BgColorBottom
-        If My.Settings.SStatesMan_ThemeImageEnabled Then
-            Me.pnlTopPanel.BackgroundImage = currentTheme.BgImageTop
-            Me.pnlTopPanel.BackgroundImageLayout = currentTheme.BgImageTopStyle
-            'Me.flpWindowBottom.BackgroundImage = currentTheme.BgImageBottom
-            'Me.flpWindowBottom.BackgroundImageLayout = currentTheme.BgImageBottomStyle
-        Else
-            Me.pnlTopPanel.BackgroundImage = Nothing
-            'Me.flpWindowBottom.BackgroundImage = Nothing
-        End If
-        Me.Refresh()
-
-        sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Theme, "Theme applied.", sw.ElapsedTicks)
-    End Sub
-
-    Friend Sub applyTheme2()
-        'Friend sub for applying theme from another form/procedure
-        Me.applyTheme()
     End Sub
 
     'Private Sub frmMain_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint

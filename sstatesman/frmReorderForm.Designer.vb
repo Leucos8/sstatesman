@@ -14,7 +14,7 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmReorderForm
-    Inherits System.Windows.Forms.Form
+    Inherits frmTemplate
 
     'Form esegue l'override del metodo Dispose per pulire l'elenco dei componenti.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -48,18 +48,8 @@ Partial Class frmReorderForm
         Me.cmdMoveUp = New System.Windows.Forms.Button()
         Me.cmdMoveDown = New System.Windows.Forms.Button()
         Me.lblMove = New System.Windows.Forms.Label()
-        Me.pnlTopPanel = New System.Windows.Forms.Panel()
-        Me.tlpTopPanel = New System.Windows.Forms.TableLayoutPanel()
-        Me.flpTitleBar = New System.Windows.Forms.FlowLayoutPanel()
-        Me.lblWindowTitle = New System.Windows.Forms.Label()
-        Me.blWindowDescription = New System.Windows.Forms.Label()
-        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.cmdWindowMaximize = New System.Windows.Forms.Button()
-        Me.cmdWindowClose = New System.Windows.Forms.Button()
-        Me.imgWindowGradientIcon = New System.Windows.Forms.PictureBox()
-        Me.flpBottomPanel = New System.Windows.Forms.FlowLayoutPanel()
         Me.flpMainListCommands = New System.Windows.Forms.FlowLayoutPanel()
-        Me.pnlWindowContent = New System.Windows.Forms.Panel()
+        Me.pnlFormContent = New System.Windows.Forms.Panel()
         Me.ckbSStatesManReorderBackup = New System.Windows.Forms.CheckBox()
         Me.tlpFileListStatus = New System.Windows.Forms.TableLayoutPanel()
         Me.lblSelected = New System.Windows.Forms.Label()
@@ -69,18 +59,17 @@ Partial Class frmReorderForm
         Me.tlpFileListCommands = New System.Windows.Forms.TableLayoutPanel()
         Me.flpFileListCommandsFiles = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdSortReset = New System.Windows.Forms.Button()
-        Me.pnlTopPanel.SuspendLayout()
-        Me.tlpTopPanel.SuspendLayout()
-        Me.flpTitleBar.SuspendLayout()
-        Me.FlowLayoutPanel1.SuspendLayout()
-        CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.flpBottomPanel.SuspendLayout()
         Me.flpMainListCommands.SuspendLayout()
-        Me.pnlWindowContent.SuspendLayout()
+        Me.pnlFormContent.SuspendLayout()
         Me.tlpFileListStatus.SuspendLayout()
         Me.tlpFileListCommands.SuspendLayout()
         Me.flpFileListCommandsFiles.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'pnlWindowTop
+        '
+        Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.pnlWindowTop.Size = New System.Drawing.Size(628, 48)
         '
         'cmdCancel
         '
@@ -95,7 +84,7 @@ Partial Class frmReorderForm
         Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdCancel.Location = New System.Drawing.Point(518, 6)
+        Me.cmdCancel.Location = New System.Drawing.Point(517, 358)
         Me.cmdCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdCancel.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdCancel.Name = "cmdCancel"
@@ -116,7 +105,7 @@ Partial Class frmReorderForm
         Me.cmdReorder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdReorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdReorder.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdReorder.Location = New System.Drawing.Point(414, 6)
+        Me.cmdReorder.Location = New System.Drawing.Point(413, 358)
         Me.cmdReorder.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdReorder.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdReorder.Name = "cmdReorder"
@@ -141,7 +130,7 @@ Partial Class frmReorderForm
         Me.lvwReorderList.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwReorderList.MultiSelect = False
         Me.lvwReorderList.Name = "lvwReorderList"
-        Me.lvwReorderList.Size = New System.Drawing.Size(612, 174)
+        Me.lvwReorderList.Size = New System.Drawing.Size(588, 129)
         Me.lvwReorderList.TabIndex = 10
         Me.lvwReorderList.UseCompatibleStateImageBehavior = False
         Me.lvwReorderList.View = System.Windows.Forms.View.Details
@@ -257,161 +246,6 @@ Partial Class frmReorderForm
         Me.lblMove.Text = "move checked:"
         Me.lblMove.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'pnlTopPanel
-        '
-        Me.pnlTopPanel.AutoSize = True
-        Me.pnlTopPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.pnlTopPanel.BackColor = System.Drawing.Color.Gainsboro
-        Me.pnlTopPanel.Controls.Add(Me.tlpTopPanel)
-        Me.pnlTopPanel.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlTopPanel.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.pnlTopPanel.Location = New System.Drawing.Point(0, 0)
-        Me.pnlTopPanel.Margin = New System.Windows.Forms.Padding(2)
-        Me.pnlTopPanel.MinimumSize = New System.Drawing.Size(0, 56)
-        Me.pnlTopPanel.Name = "pnlTopPanel"
-        Me.pnlTopPanel.Size = New System.Drawing.Size(628, 56)
-        Me.pnlTopPanel.TabIndex = 0
-        '
-        'tlpTopPanel
-        '
-        Me.tlpTopPanel.AutoSize = True
-        Me.tlpTopPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.tlpTopPanel.BackColor = System.Drawing.Color.Transparent
-        Me.tlpTopPanel.ColumnCount = 3
-        Me.tlpTopPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpTopPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpTopPanel.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpTopPanel.Controls.Add(Me.flpTitleBar, 0, 0)
-        Me.tlpTopPanel.Controls.Add(Me.FlowLayoutPanel1, 2, 0)
-        Me.tlpTopPanel.Controls.Add(Me.imgWindowGradientIcon, 1, 0)
-        Me.tlpTopPanel.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.tlpTopPanel.Location = New System.Drawing.Point(0, 0)
-        Me.tlpTopPanel.Margin = New System.Windows.Forms.Padding(0)
-        Me.tlpTopPanel.Name = "tlpTopPanel"
-        Me.tlpTopPanel.RowCount = 3
-        Me.tlpTopPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpTopPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpTopPanel.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpTopPanel.Size = New System.Drawing.Size(628, 56)
-        Me.tlpTopPanel.TabIndex = 22
-        '
-        'flpTitleBar
-        '
-        Me.flpTitleBar.AutoSize = True
-        Me.flpTitleBar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.flpTitleBar.BackColor = System.Drawing.Color.Transparent
-        Me.flpTitleBar.Controls.Add(Me.lblWindowTitle)
-        Me.flpTitleBar.Controls.Add(Me.blWindowDescription)
-        Me.flpTitleBar.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.flpTitleBar.FlowDirection = System.Windows.Forms.FlowDirection.TopDown
-        Me.flpTitleBar.Location = New System.Drawing.Point(2, 2)
-        Me.flpTitleBar.Margin = New System.Windows.Forms.Padding(2)
-        Me.flpTitleBar.Name = "flpTitleBar"
-        Me.flpTitleBar.Padding = New System.Windows.Forms.Padding(24, 4, 0, 4)
-        Me.tlpTopPanel.SetRowSpan(Me.flpTitleBar, 3)
-        Me.flpTitleBar.Size = New System.Drawing.Size(509, 52)
-        Me.flpTitleBar.TabIndex = 1
-        Me.flpTitleBar.WrapContents = False
-        '
-        'lblWindowTitle
-        '
-        Me.lblWindowTitle.AutoSize = True
-        Me.lblWindowTitle.BackColor = System.Drawing.Color.Transparent
-        Me.lblWindowTitle.Font = New System.Drawing.Font("Segoe UI", 15.75!)
-        Me.lblWindowTitle.Location = New System.Drawing.Point(26, 4)
-        Me.lblWindowTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblWindowTitle.Name = "lblWindowTitle"
-        Me.lblWindowTitle.Size = New System.Drawing.Size(86, 30)
-        Me.lblWindowTitle.TabIndex = 2
-        Me.lblWindowTitle.Text = "Reorder"
-        '
-        'blWindowDescription
-        '
-        Me.blWindowDescription.AutoSize = True
-        Me.blWindowDescription.BackColor = System.Drawing.Color.Transparent
-        Me.blWindowDescription.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.blWindowDescription.Location = New System.Drawing.Point(26, 34)
-        Me.blWindowDescription.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.blWindowDescription.Name = "blWindowDescription"
-        Me.blWindowDescription.Size = New System.Drawing.Size(368, 13)
-        Me.blWindowDescription.TabIndex = 4
-        Me.blWindowDescription.Text = "use the move buttons to reorder the list and click ""reorder"" to confirm."
-        '
-        'FlowLayoutPanel1
-        '
-        Me.FlowLayoutPanel1.AutoSize = True
-        Me.FlowLayoutPanel1.Controls.Add(Me.cmdWindowMaximize)
-        Me.FlowLayoutPanel1.Controls.Add(Me.cmdWindowClose)
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(551, 0)
-        Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0, 0, 6, 0)
-        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(71, 20)
-        Me.FlowLayoutPanel1.TabIndex = 4
-        Me.FlowLayoutPanel1.WrapContents = False
-        '
-        'cmdWindowMaximize
-        '
-        Me.cmdWindowMaximize.BackColor = System.Drawing.Color.Transparent
-        Me.cmdWindowMaximize.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdWindowMaximize.FlatAppearance.BorderSize = 0
-        Me.cmdWindowMaximize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
-        Me.cmdWindowMaximize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.cmdWindowMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdWindowMaximize.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.cmdWindowMaximize.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonMaximize
-        Me.cmdWindowMaximize.Location = New System.Drawing.Point(0, 0)
-        Me.cmdWindowMaximize.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdWindowMaximize.Name = "cmdWindowMaximize"
-        Me.cmdWindowMaximize.Size = New System.Drawing.Size(26, 20)
-        Me.cmdWindowMaximize.TabIndex = 5
-        Me.cmdWindowMaximize.UseVisualStyleBackColor = False
-        '
-        'cmdWindowClose
-        '
-        Me.cmdWindowClose.BackColor = System.Drawing.Color.FromArgb(CType(CType(199, Byte), Integer), CType(CType(80, Byte), Integer), CType(CType(80, Byte), Integer))
-        Me.cmdWindowClose.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdWindowClose.FlatAppearance.BorderSize = 0
-        Me.cmdWindowClose.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(153, Byte), Integer), CType(CType(61, Byte), Integer), CType(CType(61, Byte), Integer))
-        Me.cmdWindowClose.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(67, Byte), Integer), CType(CType(67, Byte), Integer))
-        Me.cmdWindowClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdWindowClose.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.cmdWindowClose.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonCloseW
-        Me.cmdWindowClose.Location = New System.Drawing.Point(26, 0)
-        Me.cmdWindowClose.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdWindowClose.Name = "cmdWindowClose"
-        Me.cmdWindowClose.Size = New System.Drawing.Size(45, 20)
-        Me.cmdWindowClose.TabIndex = 6
-        Me.cmdWindowClose.UseVisualStyleBackColor = False
-        '
-        'imgWindowGradientIcon
-        '
-        Me.imgWindowGradientIcon.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgWindowGradientIcon.Image = Global.sstatesman.My.Resources.Resources.Icon_SSM1ico_24x24
-        Me.imgWindowGradientIcon.Location = New System.Drawing.Point(516, 0)
-        Me.imgWindowGradientIcon.Margin = New System.Windows.Forms.Padding(3, 0, 3, 0)
-        Me.imgWindowGradientIcon.Name = "imgWindowGradientIcon"
-        Me.tlpTopPanel.SetRowSpan(Me.imgWindowGradientIcon, 2)
-        Me.imgWindowGradientIcon.Size = New System.Drawing.Size(32, 32)
-        Me.imgWindowGradientIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.imgWindowGradientIcon.TabIndex = 6
-        Me.imgWindowGradientIcon.TabStop = False
-        '
-        'flpBottomPanel
-        '
-        Me.flpBottomPanel.AutoSize = True
-        Me.flpBottomPanel.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.flpBottomPanel.BackColor = System.Drawing.Color.Gainsboro
-        Me.flpBottomPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.flpBottomPanel.Controls.Add(Me.cmdCancel)
-        Me.flpBottomPanel.Controls.Add(Me.cmdReorder)
-        Me.flpBottomPanel.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.flpBottomPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpBottomPanel.Location = New System.Drawing.Point(0, 312)
-        Me.flpBottomPanel.Name = "flpBottomPanel"
-        Me.flpBottomPanel.Padding = New System.Windows.Forms.Padding(4)
-        Me.flpBottomPanel.Size = New System.Drawing.Size(628, 36)
-        Me.flpBottomPanel.TabIndex = 7
-        '
         'flpMainListCommands
         '
         Me.flpMainListCommands.AutoSize = True
@@ -422,25 +256,24 @@ Partial Class frmReorderForm
         Me.flpMainListCommands.Controls.Add(Me.cmdMoveFirst)
         Me.flpMainListCommands.Controls.Add(Me.lblMove)
         Me.flpMainListCommands.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpMainListCommands.Location = New System.Drawing.Point(298, 0)
+        Me.flpMainListCommands.Location = New System.Drawing.Point(274, 0)
         Me.flpMainListCommands.Margin = New System.Windows.Forms.Padding(0)
         Me.flpMainListCommands.Name = "flpMainListCommands"
         Me.flpMainListCommands.Size = New System.Drawing.Size(298, 22)
         Me.flpMainListCommands.TabIndex = 12
         Me.flpMainListCommands.WrapContents = False
         '
-        'pnlWindowContent
+        'pnlFormContent
         '
-        Me.pnlWindowContent.Controls.Add(Me.lvwReorderList)
-        Me.pnlWindowContent.Controls.Add(Me.ckbSStatesManReorderBackup)
-        Me.pnlWindowContent.Controls.Add(Me.tlpFileListStatus)
-        Me.pnlWindowContent.Controls.Add(Me.tlpFileListCommands)
-        Me.pnlWindowContent.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.pnlWindowContent.Location = New System.Drawing.Point(0, 56)
-        Me.pnlWindowContent.Name = "pnlWindowContent"
-        Me.pnlWindowContent.Padding = New System.Windows.Forms.Padding(8, 0, 8, 0)
-        Me.pnlWindowContent.Size = New System.Drawing.Size(628, 256)
-        Me.pnlWindowContent.TabIndex = 13
+        Me.pnlFormContent.Controls.Add(Me.lvwReorderList)
+        Me.pnlFormContent.Controls.Add(Me.ckbSStatesManReorderBackup)
+        Me.pnlFormContent.Controls.Add(Me.tlpFileListStatus)
+        Me.pnlFormContent.Controls.Add(Me.tlpFileListCommands)
+        Me.pnlFormContent.Location = New System.Drawing.Point(12, 54)
+        Me.pnlFormContent.Name = "pnlFormContent"
+        Me.pnlFormContent.Padding = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.pnlFormContent.Size = New System.Drawing.Size(604, 211)
+        Me.pnlFormContent.TabIndex = 13
         '
         'ckbSStatesManReorderBackup
         '
@@ -450,10 +283,10 @@ Partial Class frmReorderForm
         Me.ckbSStatesManReorderBackup.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ckbSStatesManReorderBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.ckbSStatesManReorderBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbSStatesManReorderBackup.Location = New System.Drawing.Point(8, 196)
+        Me.ckbSStatesManReorderBackup.Location = New System.Drawing.Point(8, 151)
         Me.ckbSStatesManReorderBackup.Name = "ckbSStatesManReorderBackup"
         Me.ckbSStatesManReorderBackup.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
-        Me.ckbSStatesManReorderBackup.Size = New System.Drawing.Size(612, 21)
+        Me.ckbSStatesManReorderBackup.Size = New System.Drawing.Size(588, 21)
         Me.ckbSStatesManReorderBackup.TabIndex = 41
         Me.ckbSStatesManReorderBackup.Text = "Reorder savestates together with their backup."
         Me.ckbSStatesManReorderBackup.UseVisualStyleBackColor = False
@@ -472,13 +305,13 @@ Partial Class frmReorderForm
         Me.tlpFileListStatus.Controls.Add(Me.lblSize, 1, 0)
         Me.tlpFileListStatus.Controls.Add(Me.txtSize, 1, 1)
         Me.tlpFileListStatus.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.tlpFileListStatus.Location = New System.Drawing.Point(8, 217)
+        Me.tlpFileListStatus.Location = New System.Drawing.Point(8, 172)
         Me.tlpFileListStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.tlpFileListStatus.Name = "tlpFileListStatus"
         Me.tlpFileListStatus.RowCount = 2
         Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFileListStatus.Size = New System.Drawing.Size(612, 39)
+        Me.tlpFileListStatus.Size = New System.Drawing.Size(588, 39)
         Me.tlpFileListStatus.TabIndex = 40
         '
         'lblSelected
@@ -548,7 +381,7 @@ Partial Class frmReorderForm
         Me.tlpFileListCommands.Padding = New System.Windows.Forms.Padding(16, 0, 16, 0)
         Me.tlpFileListCommands.RowCount = 1
         Me.tlpFileListCommands.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpFileListCommands.Size = New System.Drawing.Size(612, 22)
+        Me.tlpFileListCommands.Size = New System.Drawing.Size(588, 22)
         Me.tlpFileListCommands.TabIndex = 39
         '
         'flpFileListCommandsFiles
@@ -591,15 +424,11 @@ Partial Class frmReorderForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.CancelButton = Me.cmdCancel
-        Me.ClientSize = New System.Drawing.Size(628, 348)
-        Me.ControlBox = False
-        Me.Controls.Add(Me.pnlWindowContent)
-        Me.Controls.Add(Me.flpBottomPanel)
-        Me.Controls.Add(Me.pnlTopPanel)
-        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.ForeColor = System.Drawing.Color.Black
+        Me.ClientSize = New System.Drawing.Size(628, 441)
+        Me.Controls.Add(Me.pnlFormContent)
+        Me.FormDescription = "use the move buttons to reorder the list and click ""reorder"" to confirm."
         Me.Icon = Global.sstatesman.My.Resources.Resources.SSM_Icon_v2
-        Me.Margin = New System.Windows.Forms.Padding(2)
+        Me.Location = New System.Drawing.Point(0, 0)
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(640, 360)
         Me.Name = "frmReorderForm"
@@ -607,20 +436,12 @@ Partial Class frmReorderForm
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Reorder"
-        Me.pnlTopPanel.ResumeLayout(False)
-        Me.pnlTopPanel.PerformLayout()
-        Me.tlpTopPanel.ResumeLayout(False)
-        Me.tlpTopPanel.PerformLayout()
-        Me.flpTitleBar.ResumeLayout(False)
-        Me.flpTitleBar.PerformLayout()
-        Me.FlowLayoutPanel1.ResumeLayout(False)
-        CType(Me.imgWindowGradientIcon, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.flpBottomPanel.ResumeLayout(False)
-        Me.flpBottomPanel.PerformLayout()
+        Me.Controls.SetChildIndex(Me.pnlWindowTop, 0)
+        Me.Controls.SetChildIndex(Me.pnlFormContent, 0)
         Me.flpMainListCommands.ResumeLayout(False)
         Me.flpMainListCommands.PerformLayout()
-        Me.pnlWindowContent.ResumeLayout(False)
-        Me.pnlWindowContent.PerformLayout()
+        Me.pnlFormContent.ResumeLayout(False)
+        Me.pnlFormContent.PerformLayout()
         Me.tlpFileListStatus.ResumeLayout(False)
         Me.tlpFileListStatus.PerformLayout()
         Me.tlpFileListCommands.ResumeLayout(False)
@@ -641,22 +462,12 @@ Partial Class frmReorderForm
     Private WithEvents cmdMoveFirst As System.Windows.Forms.Button
     Private WithEvents cmdMoveUp As System.Windows.Forms.Button
     Private WithEvents cmdMoveDown As System.Windows.Forms.Button
-    Private WithEvents pnlTopPanel As System.Windows.Forms.Panel
-    Friend WithEvents tlpTopPanel As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents cmdWindowMaximize As System.Windows.Forms.Button
-    Private WithEvents cmdWindowClose As System.Windows.Forms.Button
-    Private WithEvents imgWindowGradientIcon As System.Windows.Forms.PictureBox
-    Friend WithEvents flpTitleBar As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents lblWindowTitle As System.Windows.Forms.Label
-    Friend WithEvents flpBottomPanel As System.Windows.Forms.FlowLayoutPanel
-    Friend WithEvents flpMainListCommands As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents flpMainListCommands As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents StROLvw_NewName As System.Windows.Forms.ColumnHeader
-    Private WithEvents blWindowDescription As System.Windows.Forms.Label
-    Friend WithEvents pnlWindowContent As System.Windows.Forms.Panel
+    Private WithEvents pnlFormContent As System.Windows.Forms.Panel
     Private WithEvents StROLvw_Status As System.Windows.Forms.ColumnHeader
-    Friend WithEvents tlpFileListCommands As System.Windows.Forms.TableLayoutPanel
-    Friend WithEvents flpFileListCommandsFiles As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents tlpFileListCommands As System.Windows.Forms.TableLayoutPanel
+    Private WithEvents flpFileListCommandsFiles As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdSortReset As System.Windows.Forms.Button
     Private WithEvents tlpFileListStatus As System.Windows.Forms.TableLayoutPanel
     Private WithEvents lblSelected As System.Windows.Forms.Label

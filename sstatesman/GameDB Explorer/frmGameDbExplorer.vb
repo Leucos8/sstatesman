@@ -12,7 +12,7 @@
 '
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
-Public Class frmGameDbExplorer
+Public NotInheritable Class frmGameDbExplorer
     Dim CurrentSerial As String = ""
     Dim CurrentGame As New GameInfo With {.Serial = "", .Name = "", .Region = "", .Compat = "0"}
     Dim populationTime As Long
