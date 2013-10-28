@@ -66,11 +66,6 @@ Partial Class frmReorderForm
         Me.flpFileListCommandsFiles.SuspendLayout()
         Me.SuspendLayout()
         '
-        'pnlWindowTop
-        '
-        Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.pnlWindowTop.Size = New System.Drawing.Size(628, 48)
-        '
         'cmdCancel
         '
         Me.cmdCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -159,7 +154,6 @@ Partial Class frmReorderForm
         Me.cmdMoveLast.AutoSize = True
         Me.cmdMoveLast.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdMoveLast.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdMoveLast.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdMoveLast.FlatAppearance.BorderSize = 0
         Me.cmdMoveLast.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdMoveLast.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -179,7 +173,6 @@ Partial Class frmReorderForm
         Me.cmdMoveFirst.AutoSize = True
         Me.cmdMoveFirst.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdMoveFirst.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdMoveFirst.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdMoveFirst.FlatAppearance.BorderSize = 0
         Me.cmdMoveFirst.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdMoveFirst.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -199,7 +192,6 @@ Partial Class frmReorderForm
         Me.cmdMoveUp.AutoSize = True
         Me.cmdMoveUp.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdMoveUp.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdMoveUp.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdMoveUp.FlatAppearance.BorderSize = 0
         Me.cmdMoveUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdMoveUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -219,7 +211,6 @@ Partial Class frmReorderForm
         Me.cmdMoveDown.AutoSize = True
         Me.cmdMoveDown.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdMoveDown.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdMoveDown.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdMoveDown.FlatAppearance.BorderSize = 0
         Me.cmdMoveDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
         Me.cmdMoveDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
@@ -422,7 +413,6 @@ Partial Class frmReorderForm
         Me.AcceptButton = Me.cmdReorder
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.CancelButton = Me.cmdCancel
         Me.ClientSize = New System.Drawing.Size(628, 441)
         Me.Controls.Add(Me.pnlFormContent)

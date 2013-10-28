@@ -151,11 +151,6 @@ Public NotInheritable Class frmDeleteForm
         'Theme
         '-----
 
-        'Me.ApplyTheme()
-        Me.ControlBoxMinimize.Visible = False
-        Me.flpWindowBottom.Controls.AddRange({Me.cmdCancel, Me.cmdFilesDeleteSelected})
-        Me.pnlFormContent.Dock = DockStyle.Fill
-
         'Checked state icons
         Dim tmpLvwCheckboxes As New ImageList With {.ImageSize = mdlTheme.imlLvwCheckboxes.ImageSize}   'Cannot use imlLvwCheckboxes directly because of a bug that makes checkboxes disappear.
         tmpLvwCheckboxes.Images.AddRange({My.Resources.Checkbox_Unchecked_22x22, My.Resources.Checkbox_Checked_22x22})
@@ -672,7 +667,7 @@ Public NotInheritable Class frmDeleteForm
 #End Region
 
 #Region "Form - Commands"
-    Private Sub cmdDelCheckedFiles_Click(sender As Object, e As EventArgs) Handles cmdFilesDeleteSelected.Click
+    Private Sub cmdFilesDeleteSelected_Click(sender As Object, e As EventArgs) Handles cmdFilesDeleteSelected.Click
         Select Case frmMain.currentListMode
             Case frmMain.ListMode.Savestates
                 Me.DeleteSavestates()

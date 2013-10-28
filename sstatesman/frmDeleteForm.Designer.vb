@@ -62,7 +62,7 @@ Partial Class frmDeleteForm
         'pnlWindowTop
         '
         Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.pnlWindowTop.Size = New System.Drawing.Size(628, 48)
+        Me.pnlWindowTop.Size = New System.Drawing.Size(628, 46)
         '
         'lvwDelFilesList
         '
@@ -70,15 +70,12 @@ Partial Class frmDeleteForm
         Me.lvwDelFilesList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lvwDelFilesList.CheckBoxes = True
         Me.lvwDelFilesList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lvwDelFilesList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lvwDelFilesList.ForeColor = System.Drawing.Color.Black
         Me.lvwDelFilesList.FullRowSelect = True
         Me.lvwDelFilesList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
         Me.lvwDelFilesList.Location = New System.Drawing.Point(8, 22)
-        Me.lvwDelFilesList.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwDelFilesList.MultiSelect = False
         Me.lvwDelFilesList.Name = "lvwDelFilesList"
-        Me.lvwDelFilesList.Size = New System.Drawing.Size(588, 203)
+        Me.lvwDelFilesList.Size = New System.Drawing.Size(612, 221)
         Me.lvwDelFilesList.TabIndex = 10
         Me.lvwDelFilesList.UseCompatibleStateImageBehavior = False
         Me.lvwDelFilesList.View = System.Windows.Forms.View.Details
@@ -95,7 +92,7 @@ Partial Class frmDeleteForm
         Me.cmdFileCheckInvert.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdFileCheckInvert.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdFileCheckInvert.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckInvert
-        Me.cmdFileCheckInvert.Location = New System.Drawing.Point(509, 0)
+        Me.cmdFileCheckInvert.Location = New System.Drawing.Point(533, 0)
         Me.cmdFileCheckInvert.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdFileCheckInvert.Name = "cmdFileCheckInvert"
         Me.cmdFileCheckInvert.Size = New System.Drawing.Size(63, 22)
@@ -116,7 +113,7 @@ Partial Class frmDeleteForm
         Me.cmdFileCheckBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdFileCheckBackup.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdFileCheckBackup.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckBackup
-        Me.cmdFileCheckBackup.Location = New System.Drawing.Point(332, 0)
+        Me.cmdFileCheckBackup.Location = New System.Drawing.Point(356, 0)
         Me.cmdFileCheckBackup.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdFileCheckBackup.Name = "cmdFileCheckBackup"
         Me.cmdFileCheckBackup.Size = New System.Drawing.Size(73, 22)
@@ -137,7 +134,7 @@ Partial Class frmDeleteForm
         Me.cmdFileCheckAll.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdFileCheckAll.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdFileCheckAll.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckAll
-        Me.cmdFileCheckAll.Location = New System.Drawing.Point(405, 0)
+        Me.cmdFileCheckAll.Location = New System.Drawing.Point(429, 0)
         Me.cmdFileCheckAll.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdFileCheckAll.Name = "cmdFileCheckAll"
         Me.cmdFileCheckAll.Size = New System.Drawing.Size(47, 22)
@@ -158,7 +155,7 @@ Partial Class frmDeleteForm
         Me.cmdFileCheckNone.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdFileCheckNone.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
         Me.cmdFileCheckNone.Image = Global.sstatesman.My.Resources.Resources.Icon_CheckNone
-        Me.cmdFileCheckNone.Location = New System.Drawing.Point(452, 0)
+        Me.cmdFileCheckNone.Location = New System.Drawing.Point(476, 0)
         Me.cmdFileCheckNone.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdFileCheckNone.Name = "cmdFileCheckNone"
         Me.cmdFileCheckNone.Size = New System.Drawing.Size(57, 22)
@@ -256,7 +253,7 @@ Partial Class frmDeleteForm
         Me.flpFileListCommands.Margin = New System.Windows.Forms.Padding(0)
         Me.flpFileListCommands.Name = "flpFileListCommands"
         Me.flpFileListCommands.Padding = New System.Windows.Forms.Padding(8, 0, 8, 0)
-        Me.flpFileListCommands.Size = New System.Drawing.Size(588, 22)
+        Me.flpFileListCommands.Size = New System.Drawing.Size(612, 22)
         Me.flpFileListCommands.TabIndex = 12
         Me.flpFileListCommands.WrapContents = False
         '
@@ -276,13 +273,13 @@ Partial Class frmDeleteForm
         Me.tlpFileListStatus.Controls.Add(Me.lblSizeBackup, 2, 0)
         Me.tlpFileListStatus.Controls.Add(Me.txtSize, 1, 1)
         Me.tlpFileListStatus.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.tlpFileListStatus.Location = New System.Drawing.Point(8, 246)
+        Me.tlpFileListStatus.Location = New System.Drawing.Point(8, 264)
         Me.tlpFileListStatus.Margin = New System.Windows.Forms.Padding(0)
         Me.tlpFileListStatus.Name = "tlpFileListStatus"
         Me.tlpFileListStatus.RowCount = 2
         Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFileListStatus.Size = New System.Drawing.Size(588, 39)
+        Me.tlpFileListStatus.Size = New System.Drawing.Size(612, 39)
         Me.tlpFileListStatus.TabIndex = 17
         '
         'pnlFormContent
@@ -291,10 +288,10 @@ Partial Class frmDeleteForm
         Me.pnlFormContent.Controls.Add(Me.flpFileListCommands)
         Me.pnlFormContent.Controls.Add(Me.ckbSStatesManMoveToTrash)
         Me.pnlFormContent.Controls.Add(Me.tlpFileListStatus)
-        Me.pnlFormContent.Location = New System.Drawing.Point(12, 54)
+        Me.pnlFormContent.Location = New System.Drawing.Point(0, 46)
         Me.pnlFormContent.Name = "pnlFormContent"
         Me.pnlFormContent.Padding = New System.Windows.Forms.Padding(8, 0, 8, 0)
-        Me.pnlFormContent.Size = New System.Drawing.Size(604, 285)
+        Me.pnlFormContent.Size = New System.Drawing.Size(628, 303)
         Me.pnlFormContent.TabIndex = 18
         '
         'ckbSStatesManMoveToTrash
@@ -306,10 +303,10 @@ Partial Class frmDeleteForm
         Me.ckbSStatesManMoveToTrash.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ckbSStatesManMoveToTrash.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.ckbSStatesManMoveToTrash.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbSStatesManMoveToTrash.Location = New System.Drawing.Point(8, 225)
+        Me.ckbSStatesManMoveToTrash.Location = New System.Drawing.Point(8, 243)
         Me.ckbSStatesManMoveToTrash.Name = "ckbSStatesManMoveToTrash"
         Me.ckbSStatesManMoveToTrash.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
-        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(588, 21)
+        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(612, 21)
         Me.ckbSStatesManMoveToTrash.TabIndex = 18
         Me.ckbSStatesManMoveToTrash.Text = "Send files to the Windows Recycle Bin instead of permanently deleting them."
         Me.ckbSStatesManMoveToTrash.UseVisualStyleBackColor = False
@@ -326,7 +323,7 @@ Partial Class frmDeleteForm
         Me.cmdFilesDeleteSelected.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdFilesDeleteSelected.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdFilesDeleteSelected.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdFilesDeleteSelected.Location = New System.Drawing.Point(413, 358)
+        Me.cmdFilesDeleteSelected.Location = New System.Drawing.Point(413, 406)
         Me.cmdFilesDeleteSelected.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdFilesDeleteSelected.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdFilesDeleteSelected.Name = "cmdFilesDeleteSelected"
@@ -348,7 +345,7 @@ Partial Class frmDeleteForm
         Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdCancel.Location = New System.Drawing.Point(517, 358)
+        Me.cmdCancel.Location = New System.Drawing.Point(517, 406)
         Me.cmdCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdCancel.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdCancel.Name = "cmdCancel"
@@ -365,9 +362,10 @@ Partial Class frmDeleteForm
         Me.CancelButton = Me.cmdCancel
         Me.ClientSize = New System.Drawing.Size(628, 441)
         Me.Controls.Add(Me.pnlFormContent)
+        Me.Controls.Add(Me.cmdCancel)
+        Me.Controls.Add(Me.cmdFilesDeleteSelected)
         Me.FormDescription = "check the files you really want to delete and click ""delete checked""."
         Me.Icon = Global.sstatesman.My.Resources.Resources.SSM_Icon_v2
-        Me.Location = New System.Drawing.Point(0, 0)
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(640, 360)
         Me.Name = "frmDeleteForm"
@@ -375,6 +373,8 @@ Partial Class frmDeleteForm
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Delete confirmation"
+        Me.Controls.SetChildIndex(Me.cmdFilesDeleteSelected, 0)
+        Me.Controls.SetChildIndex(Me.cmdCancel, 0)
         Me.Controls.SetChildIndex(Me.pnlWindowTop, 0)
         Me.Controls.SetChildIndex(Me.pnlFormContent, 0)
         Me.flpFileListCommands.ResumeLayout(False)

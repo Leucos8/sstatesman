@@ -48,7 +48,7 @@ Partial Class frmChooseVersion
         'pnlWindowTop
         '
         Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.pnlWindowTop.Size = New System.Drawing.Size(308, 30)
+        Me.pnlWindowTop.Size = New System.Drawing.Size(344, 46)
         '
         'cmdOk
         '
@@ -64,7 +64,7 @@ Partial Class frmChooseVersion
         Me.cmdOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdOk.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdOk.Location = New System.Drawing.Point(86, 211)
+        Me.cmdOk.Location = New System.Drawing.Point(125, 251)
         Me.cmdOk.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdOk.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdOk.Name = "cmdOk"
@@ -86,7 +86,7 @@ Partial Class frmChooseVersion
         Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdCancel.Location = New System.Drawing.Point(190, 211)
+        Me.cmdCancel.Location = New System.Drawing.Point(233, 251)
         Me.cmdCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdCancel.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdCancel.Name = "cmdCancel"
@@ -103,7 +103,7 @@ Partial Class frmChooseVersion
         Me.lbPCSX2exe.FormattingEnabled = True
         Me.lbPCSX2exe.Location = New System.Drawing.Point(9, 26)
         Me.lbPCSX2exe.Name = "lbPCSX2exe"
-        Me.lbPCSX2exe.Size = New System.Drawing.Size(377, 102)
+        Me.lbPCSX2exe.Size = New System.Drawing.Size(377, 132)
         Me.lbPCSX2exe.TabIndex = 10
         '
         'lblPlease
@@ -121,7 +121,7 @@ Partial Class frmChooseVersion
         Me.lblTroubleshoot.AutoSize = True
         Me.lblTroubleshoot.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblTroubleshoot.ForeColor = System.Drawing.Color.DimGray
-        Me.lblTroubleshoot.Location = New System.Drawing.Point(9, 131)
+        Me.lblTroubleshoot.Location = New System.Drawing.Point(9, 161)
         Me.lblTroubleshoot.Name = "lblTroubleshoot"
         Me.lblTroubleshoot.Size = New System.Drawing.Size(377, 39)
         Me.lblTroubleshoot.TabIndex = 13
@@ -137,29 +137,30 @@ Partial Class frmChooseVersion
         Me.tlpFormContent.Controls.Add(Me.lblTroubleshoot, 0, 2)
         Me.tlpFormContent.Controls.Add(Me.lbPCSX2exe, 0, 1)
         Me.tlpFormContent.Controls.Add(Me.lblPlease, 0, 0)
-        Me.tlpFormContent.Location = New System.Drawing.Point(4, 40)
+        Me.tlpFormContent.Location = New System.Drawing.Point(0, 46)
         Me.tlpFormContent.Name = "tlpFormContent"
         Me.tlpFormContent.Padding = New System.Windows.Forms.Padding(6)
         Me.tlpFormContent.RowCount = 3
         Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFormContent.Size = New System.Drawing.Size(395, 176)
+        Me.tlpFormContent.Size = New System.Drawing.Size(395, 206)
         Me.tlpFormContent.TabIndex = 13
         '
         'frmChooseVersion
         '
         Me.AcceptButton = Me.cmdOk
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.AutoSize = True
-        Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.CancelButton = Me.cmdCancel
-        Me.ClientSize = New System.Drawing.Size(308, 286)
+        Me.ClientSize = New System.Drawing.Size(344, 286)
         Me.Controls.Add(Me.tlpFormContent)
-        Me.DoubleBuffered = True
+        Me.Controls.Add(Me.cmdOk)
+        Me.Controls.Add(Me.cmdCancel)
         Me.Name = "frmChooseVersion"
         Me.Text = "Launch PCSX2"
+        Me.Controls.SetChildIndex(Me.cmdCancel, 0)
+        Me.Controls.SetChildIndex(Me.cmdOk, 0)
         Me.Controls.SetChildIndex(Me.pnlWindowTop, 0)
         Me.Controls.SetChildIndex(Me.tlpFormContent, 0)
         Me.tlpFormContent.ResumeLayout(False)

@@ -14,7 +14,7 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmDialogTemplate
-    Inherits System.Windows.Forms.Form
+    Inherits frmTemplate
 
     'Form esegue l'override del metodo Dispose per pulire l'elenco dei componenti.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -37,79 +37,30 @@ Partial Class frmDialogTemplate
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.flpWindowBottom = New System.Windows.Forms.FlowLayoutPanel()
-        Me.lblWindowTitle = New System.Windows.Forms.Label()
-        Me.pnlWindowTop = New System.Windows.Forms.Panel()
-        Me.pnlWindowTop.SuspendLayout()
         Me.SuspendLayout()
         '
-        'flpWindowBottom
+        'flpControlBox
         '
-        Me.flpWindowBottom.AutoSize = True
-        Me.flpWindowBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.flpWindowBottom.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.flpWindowBottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpWindowBottom.Location = New System.Drawing.Point(0, 360)
-        Me.flpWindowBottom.Name = "flpWindowBottom"
-        Me.flpWindowBottom.Padding = New System.Windows.Forms.Padding(4)
-        Me.flpWindowBottom.Size = New System.Drawing.Size(629, 8)
-        Me.flpWindowBottom.TabIndex = 5
+        Me.flpControlBox.Visible = False
         '
-        'lblWindowTitle
+        'imgWindowGradientIcon
         '
-        Me.lblWindowTitle.AutoSize = True
-        Me.lblWindowTitle.BackColor = System.Drawing.Color.Transparent
-        Me.lblWindowTitle.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblWindowTitle.Font = New System.Drawing.Font("Segoe UI", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWindowTitle.Location = New System.Drawing.Point(0, 0)
-        Me.lblWindowTitle.Margin = New System.Windows.Forms.Padding(6, 0, 6, 3)
-        Me.lblWindowTitle.Name = "lblWindowTitle"
-        Me.lblWindowTitle.Padding = New System.Windows.Forms.Padding(6, 6, 6, 3)
-        Me.lblWindowTitle.Size = New System.Drawing.Size(168, 30)
-        Me.lblWindowTitle.TabIndex = 1
-        Me.lblWindowTitle.Text = "Dialog Template Title"
+        Me.imgWindowGradientIcon.Visible = False
         '
-        'pnlWindowTop
+        'lblWindowDescription
         '
-        Me.pnlWindowTop.AutoSize = True
-        Me.pnlWindowTop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.pnlWindowTop.Controls.Add(Me.lblWindowTitle)
-        Me.pnlWindowTop.Dock = System.Windows.Forms.DockStyle.Top
-        Me.pnlWindowTop.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.pnlWindowTop.Location = New System.Drawing.Point(0, 0)
-        Me.pnlWindowTop.Margin = New System.Windows.Forms.Padding(2)
-        Me.pnlWindowTop.MinimumSize = New System.Drawing.Size(0, 26)
-        Me.pnlWindowTop.Name = "pnlWindowTop"
-        Me.pnlWindowTop.Size = New System.Drawing.Size(629, 30)
-        Me.pnlWindowTop.TabIndex = 0
+        Me.lblWindowDescription.Visible = False
         '
         'frmDialogTemplate
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(629, 368)
-        Me.ControlBox = False
-        Me.Controls.Add(Me.flpWindowBottom)
-        Me.Controls.Add(Me.pnlWindowTop)
-        Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ForeColor = System.Drawing.Color.Black
+        Me.ClientSize = New System.Drawing.Size(344, 284)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog
-        Me.Icon = Global.sstatesman.My.Resources.Resources.SSM_Icon_v2
-        Me.Margin = New System.Windows.Forms.Padding(2)
-        Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "frmDialogTemplate"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "DialogTemplate"
-        Me.pnlWindowTop.ResumeLayout(False)
-        Me.pnlWindowTop.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Private WithEvents lblWindowTitle As System.Windows.Forms.Label
-    Protected WithEvents pnlWindowTop As System.Windows.Forms.Panel
-    Protected WithEvents flpWindowBottom As System.Windows.Forms.FlowLayoutPanel
-
 End Class

@@ -41,42 +41,10 @@ Public Class frmTemplate
         End Set
     End Property
 
-
 #Region "Form"
-    Private Sub frmTemplate_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        '-----
-        'Theme
-        '-----
+    Protected Overrides Sub OnLoad(e As EventArgs)
+        MyBase.OnLoad(e)
         Me.applyTheme()
-
-        '---------------
-        'Window settings
-        '---------------
-
-        ''Main window location, size and state
-        'Me.Location = My.Settings.frmMain_WindowLocation
-        'Me.Size = My.Settings.frmMain_WindowSize
-        'If My.Settings.frmMain_WindowState = FormWindowState.Minimized Then
-        '    My.Settings.frmMain_WindowState = FormWindowState.Normal
-        'End If
-        'Me.WindowState = My.Settings.frmMain_WindowState
-        Me.lastWindowState = Me.WindowState
-
-    End Sub
-
-    Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        '======================
-        'Saving window settings
-        '======================
-
-        'State, location, and size
-        'My.Settings.frmMain_WindowState = Me.WindowState
-        'If Me.WindowState = FormWindowState.Normal Then
-        '    'Location and size saved only when windowstate is normal
-        '    My.Settings.frmMain_WindowLocation = Me.Location
-        '    My.Settings.frmMain_WindowSize = Me.Size
-        'End If
     End Sub
 #End Region
 
@@ -139,22 +107,28 @@ Public Class frmTemplate
 
 #Region "Theme"
     Private Sub pnlWindowTop_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlWindowTop.Paint
-        Dim rectoolbar As New Rectangle(0, CInt(8 * DPIyScale), CInt(11 * DPIxScale) + 1, CInt(31 * DPIyScale) + 1)
-        Dim linGrBrushToolbar As New Drawing2D.LinearGradientBrush(rectoolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 90)
-        e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
-        If Me.imgWindowGradientIcon.Width > 0 And Me.imgWindowGradientIcon.Height > 0 Then
-            rectoolbar = New Rectangle(Me.imgWindowGradientIcon.Location, Me.imgWindowGradientIcon.Size)
-            linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, currentTheme.AccentColor, currentTheme.AccentColorDark, 90)
-            e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
-        End If
+        Me.ApplyThemeAccent(sender, e)
         If (CType(sender, Panel).Height > CInt(4 * DPIyScale) + 1) And (CType(sender, Panel).Width > 0) Then
             If My.Settings.SStatesMan_ThemeGradientEnabled Then
-                rectoolbar = New Rectangle(0, CType(sender, Panel).Height - CInt(4 * DPIyScale), CType(sender, Panel).Width + 1, CInt(3 * DPIyScale) + 1)
-                linGrBrushToolbar = New Drawing2D.LinearGradientBrush(rectoolbar, Color.Transparent, Color.DarkGray, 90)
+                Dim rectoolbar As New Rectangle(0, CType(sender, Panel).Height - (CInt(3 * DPIyScale) + 1), _
+                                                CType(sender, Panel).Width, CInt(3 * DPIyScale) + 1)
+                Dim tmpLiGrBr As New Drawing2D.LinearGradientBrush(rectoolbar, Color.Transparent, Color.DarkGray, 90)
                 rectoolbar.Y += 1
-                e.Graphics.FillRectangle(linGrBrushToolbar, rectoolbar)
+                e.Graphics.FillRectangle(tmpLiGrBr, rectoolbar)
             End If
             e.Graphics.DrawLine(Pens.DimGray, 0, CType(sender, Panel).Height - 1, CType(sender, Panel).Width, CType(sender, Panel).Height - 1)
+        End If
+    End Sub
+
+    Protected Friend Overridable Sub ApplyThemeAccent(sender As Object, e As System.Windows.Forms.PaintEventArgs)
+        Dim tmpRect As New Rectangle(0, Me.flpTitleBar.Padding.Top, _
+                                     Me.flpTitleBar.Padding.Left, _
+                                     Me.flpTitleBar.Height - (Me.flpTitleBar.Padding.Top + Me.flpTitleBar.Padding.Bottom))
+        Dim tmpSBrush As New SolidBrush(currentTheme.AccentColor)
+        e.Graphics.FillRectangle(tmpSBrush, tmpRect)
+        If Me.imgWindowGradientIcon.Width > 0 AndAlso Me.imgWindowGradientIcon.Height > 0 Then
+            tmpRect = New Rectangle(Me.imgWindowGradientIcon.Location, Me.imgWindowGradientIcon.Size)
+            e.Graphics.FillRectangle(tmpSBrush, tmpRect)
         End If
     End Sub
 
@@ -184,7 +158,7 @@ Public Class frmTemplate
             Me.pnlWindowTop.BackgroundImage = Nothing
             Me.flpWindowBottom.BackgroundImage = Nothing
         End If
-        Me.Refresh()
+        'Me.Refresh()
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.Theme, eSrcMethod.Theme, "Theme applied.", sw.ElapsedTicks)

@@ -70,8 +70,10 @@ Public NotInheritable Class frmMain
             mdlMain.FirstRun()
         Else
             'Checks if there are some invalid settings
-            My.Settings.SStatesMan_SettingsOK = PCSX2_PathAll_Check(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_PathInis, _
-                                                                     My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
+            My.Settings.SStatesMan_SettingsOK = PCSX2_PathAll_Check(My.Settings.PCSX2_PathBin, _
+                                                                    My.Settings.PCSX2_PathInis, _
+                                                                    My.Settings.PCSX2_PathSState, _
+                                                                    My.Settings.PCSX2_PathSnaps)
         End If
 
         If Not (My.Settings.SStatesMan_SettingsOK) Then
@@ -88,7 +90,6 @@ Public NotInheritable Class frmMain
         '-----
         'Theme
         '-----
-
         Me.flpWindowBottom.Visible = False
         Me.tlpWindowTop.Controls.Add(Me.flpTitleBarTools, 1, 0)
         Me.tlpWindowTop.Controls.Add(Me.lblWindowVersion, 1, 1)
