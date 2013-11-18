@@ -80,8 +80,8 @@ Public NotInheritable Class frmMain
             frmSettings.ShowDialog(Me)
         End If
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "1/5 General settings & resources.", sw.ElapsedTicks - tmpTicks)
-        tmpTicks = sw.ElapsedTicks
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "SStatesMan settings & resources.", sw.ElapsedTicks - tmpTicks)
+        sw.Restart()
 
         '==================
         'Window preparation
@@ -111,7 +111,7 @@ Public NotInheritable Class frmMain
         'Savestates, backup, and screenshot icons
         Me.lvwFilesList.SmallImageList = mdlTheme.imlLvwItemIcons   'Assigning the imagelist to the Files listview
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "2/5 Theme & resources.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "1/4 Layout & resources.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
 
         '---------------
@@ -149,7 +149,7 @@ Public NotInheritable Class frmMain
         '    End If
         'End If
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "3/5 Saved window sizes applied.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "2/4 Saved window sizes applied.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
 
         '==============
@@ -162,7 +162,7 @@ Public NotInheritable Class frmMain
         'Refreshing the games list
         SSMGameList.LoadAll(My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "4/5 GameDB and Gamelist loaded.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "3/4 GameDB and Gamelist loaded.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
 
         '===============================
@@ -187,7 +187,7 @@ Public NotInheritable Class frmMain
 
         Me.UI_Enable(True, True)
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "5/5 Post load done.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "4/4 Post load done.", sw.ElapsedTicks - tmpTicks)
         'tmpTicks = sw.ElapsedTicks
 
         sw.Stop()

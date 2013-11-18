@@ -162,7 +162,7 @@ Public NotInheritable Class frmDeleteForm
         'Savestates, backup, and screenshot icons
         Me.lvwDelFilesList.SmallImageList = mdlTheme.imlLvwItemIcons     'Assigning the imagelist to the Files listview
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Load, "1/3 Theme & resources.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Load, "1/3 Layout & resources.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
 
         '---------------

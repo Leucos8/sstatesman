@@ -148,7 +148,7 @@ Public NotInheritable Class frmReorderForm
         'Savestates, backup, and screenshot icons
         Me.lvwReorderList.SmallImageList = mdlTheme.imlLvwItemIcons
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Load, "1/2 Theme & resources.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Load, "1/2 Layout & resources.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
 
         '===============================

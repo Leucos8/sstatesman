@@ -161,7 +161,7 @@ Public Class frmTemplate
         'Me.Refresh()
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.Theme, eSrcMethod.Theme, "Theme applied.", sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.Theme, eSrcMethod.Theme, String.Format("Theme applied to {0}.", Me.Name), sw.ElapsedTicks)
     End Sub
 
     'Private Sub frmTemplate_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
