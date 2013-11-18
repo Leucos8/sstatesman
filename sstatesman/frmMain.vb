@@ -723,8 +723,8 @@ Public NotInheritable Class frmMain
                         Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key, _
                                                                                            .Group = tmpLvwSListGroup, _
                                                                                            .Name = tmpSavestate.Key}
-                        tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Slot.ToString, _
-                                                           tmpSavestate.Value.Version, _
+                        tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Number.ToString, _
+                                                           tmpSavestate.Value.ExtraInfo, _
                                                            tmpSavestate.Value.LastWriteTime.ToString, _
                                                            System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2)})
                         If Not (tmpSavestate.Value.isBackup) Then

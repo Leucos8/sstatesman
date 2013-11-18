@@ -117,7 +117,7 @@ Public Class frmSStateList
         For Each tmpGamesListItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In SSMGameList.Games
             For Each tmpSavestate As KeyValuePair(Of String, Savestate) In tmpGamesListItem.Value.Savestates
                 Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestate.Value.GetSerial, .Name = tmpSavestate.Value.Name}
-                tmpListViewItem.SubItems.AddRange({tmpSavestate.Value.Name, tmpSavestate.Value.Slot.ToString, tmpSavestate.Value.Extension, tmpSavestate.Value.Version, tmpSavestate.Value.LastWriteTime.ToString, (tmpSavestate.Value.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
+                tmpListViewItem.SubItems.AddRange({tmpSavestate.Value.Name, tmpSavestate.Value.Number.ToString, tmpSavestate.Value.Extension, tmpSavestate.Value.ExtraInfo, tmpSavestate.Value.LastWriteTime.ToString, (tmpSavestate.Value.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
                 If frmMain.checkedGames.Contains(tmpGamesListItem.Key) Then
                     tmpListViewItem.BackColor = mdlTheme.currentTheme.AccentColorLight
                 End If
@@ -148,7 +148,7 @@ Public Class frmSStateList
             Dim tmpGame As GamesList_Item = SSMGameList.Games(tmpCheckedGame)
             For Each tmpSavestate As KeyValuePair(Of String, Savestate) In tmpGame.Savestates
                 Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestate.Value.GetSerial, .Name = tmpSavestate.Key, .BackColor = mdlTheme.currentTheme.AccentColorLight}
-                tmpListViewItem.SubItems.AddRange({tmpSavestate.Key, tmpSavestate.Value.Slot.ToString, tmpSavestate.Value.Extension, tmpSavestate.Value.Version, tmpSavestate.Value.LastWriteTime.ToString, (tmpSavestate.Value.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
+                tmpListViewItem.SubItems.AddRange({tmpSavestate.Key, tmpSavestate.Value.Number.ToString, tmpSavestate.Value.Extension, tmpSavestate.Value.ExtraInfo, tmpSavestate.Value.LastWriteTime.ToString, (tmpSavestate.Value.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
                 If frmMain.checkedSavestates.Contains(tmpSavestate.Key) Then
                     tmpListViewItem.BackColor = mdlTheme.currentTheme.AccentColor
                 End If
@@ -177,7 +177,7 @@ Public Class frmSStateList
             If SSMGameList.Games.TryGetValue(Savestate.GetSerial(tmpSavestateName), tmpGamesListItem) Then
                 Dim tmpSavestate As New Savestate
                 If tmpGamesListItem.Savestates.TryGetValue(tmpSavestateName, tmpSavestate) Then
-                    tmpListViewItem.SubItems.AddRange({tmpSavestateName, tmpSavestate.Slot.ToString, tmpSavestate.Extension, tmpSavestate.Version, tmpSavestate.LastWriteTime.ToString, (tmpSavestate.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
+                    tmpListViewItem.SubItems.AddRange({tmpSavestateName, tmpSavestate.Number.ToString, tmpSavestate.Extension, tmpSavestate.ExtraInfo, tmpSavestate.LastWriteTime.ToString, (tmpSavestate.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
                 Else : tmpListViewItem.BackColor = Color.FromArgb(255, 255, 224, 192)   'orange
                 End If
             Else : tmpListViewItem.BackColor = Color.FromArgb(255, 255, 192, 192)       'red

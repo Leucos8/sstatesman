@@ -150,6 +150,10 @@ Public NotInheritable Class frmDeleteForm
         '-----
         'Theme
         '-----
+        'Me.ApplyTheme()
+        Me.ControlBoxMinimize.Visible = False
+        Me.flpWindowBottom.Controls.AddRange({Me.cmdCancel, Me.cmdFilesDeleteSelected})
+        Me.pnlFormContent.Dock = DockStyle.Fill
 
         'Checked state icons
         Dim tmpLvwCheckboxes As New ImageList With {.ImageSize = mdlTheme.imlLvwCheckboxes.ImageSize}   'Cannot use imlLvwCheckboxes directly because of a bug that makes checkboxes disappear.
@@ -402,8 +406,8 @@ Public NotInheritable Class frmDeleteForm
                             Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key,
                                                                                                .Group = tmpLvwSListGroup,
                                                                                                .Name = tmpSavestate.Key}
-                            tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Slot.ToString,
-                                                               tmpSavestate.Value.Version,
+                            tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Number.ToString,
+                                                               tmpSavestate.Value.ExtraInfo,
                                                                tmpSavestate.Value.LastWriteTime.ToString,
                                                                System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2)})
                             If File.Exists(Path.Combine(My.Settings.PCSX2_PathSState, tmpSavestate.Key)) Then

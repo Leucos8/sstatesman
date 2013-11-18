@@ -181,8 +181,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="strVersionDB.vb" />
-    <Compile Include="clsSavestate.vb" />
-    <Compile Include="clsSnapshot.vb" />
+    <Compile Include="mdlFileClasses.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FormTemplates\frmDialogTemplate.resx">

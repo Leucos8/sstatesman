@@ -295,7 +295,7 @@ Public NotInheritable Class frmReorderForm
                 ElseIf tmpListItem.Tag.Equals(ReorderFileStatus.RenamePending) Then
                     'A new filename needs to be assigned
 
-                    tmpListItem.SubItems(ReorderListColumns.NewName).Text = Savestate.CreateFileName(currentSerial, currentCRC, _
+                    tmpListItem.SubItems(ReorderListColumns.NewName).Text = Savestate.ToString(currentSerial, currentCRC, _
                                                                                                      tmpListItem.Index \ 2 + My.Settings.PCSX2_SStateSlotLowerBound, _
                                                                                                      CBool(tmpListItem.Index Mod 2))
 
@@ -417,7 +417,7 @@ Public NotInheritable Class frmReorderForm
 
                 'Adding savestates
                 For Each tmpSavestate As KeyValuePair(Of String, Savestate) In SSMGameList.Games(frmMain.checkedGames(0)).Savestates
-                    Dim listRef As Integer = tmpSavestate.Value.Slot    'Used for list index
+                    Dim listRef As Integer = tmpSavestate.Value.Number    'Used for list index
                     If (listRef >= My.Settings.PCSX2_SStateSlotLowerBound) And (listRef <= My.Settings.PCSX2_SStateSlotUpperBound) Then
                         'Even numbers are for savestates
                         listRef -= My.Settings.PCSX2_SStateSlotLowerBound
