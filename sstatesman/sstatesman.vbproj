@@ -182,10 +182,19 @@
     </Compile>
     <Compile Include="strVersionDB.vb" />
     <Compile Include="mdlFileClasses.vb" />
+    <Compile Include="FormTemplates\ucFolderPickerPanel.Designer.vb">
+      <DependentUpon>ucFolderPickerPanel.vb</DependentUpon>
+    </Compile>
+    <Compile Include="FormTemplates\ucFolderPickerPanel.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="FormTemplates\frmDialogTemplate.resx">
       <DependentUpon>frmDialogTemplate.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTemplates\ucFolderPickerPanel.resx">
+      <DependentUpon>ucFolderPickerPanel.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmReorderForm.resx">
       <DependentUpon>frmReorderForm.vb</DependentUpon>

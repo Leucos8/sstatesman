@@ -38,48 +38,18 @@ Partial Class frmSettings
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.cmdOk = New System.Windows.Forms.Button()
-        Me.txtSStatesManPicsPath = New System.Windows.Forms.TextBox()
         Me.cmdCancel = New System.Windows.Forms.Button()
-        Me.cmdSStatesManPicsPathBrowse = New System.Windows.Forms.Button()
-        Me.lblSStatesManPicsPathStatus = New System.Windows.Forms.Label()
-        Me.cmdPCSX2IniPathOpen = New System.Windows.Forms.Button()
-        Me.cmdPCSX2IniPathDetect = New System.Windows.Forms.Button()
-        Me.imgPCSX2IniPathStatus = New System.Windows.Forms.PictureBox()
-        Me.lblPCSX2IniPathStatus = New System.Windows.Forms.Label()
-        Me.cmdPCSX2IniPathBrowse = New System.Windows.Forms.Button()
-        Me.txtPCSX2IniPath = New System.Windows.Forms.TextBox()
-        Me.cmdPCSX2AppPathOpen = New System.Windows.Forms.Button()
-        Me.cmdPCSX2AppPathDetect = New System.Windows.Forms.Button()
-        Me.imgPCSX2AppPathStatus = New System.Windows.Forms.PictureBox()
-        Me.cmdPCSX2AppPathBrowse = New System.Windows.Forms.Button()
         Me.lblPCSX2SStatePath = New System.Windows.Forms.Label()
         Me.lblPCSX2IniPath = New System.Windows.Forms.Label()
         Me.lblPCSX2AppPath = New System.Windows.Forms.Label()
-        Me.txtPCSX2AppPath = New System.Windows.Forms.TextBox()
-        Me.cmdSStatesManPicsPathOpen = New System.Windows.Forms.Button()
-        Me.imgSStatesManPicsPathStatus = New System.Windows.Forms.PictureBox()
         Me.optTabHeader1 = New System.Windows.Forms.RadioButton()
         Me.optTabHeader0 = New System.Windows.Forms.RadioButton()
-        Me.flpSStatesManPicsPath = New System.Windows.Forms.FlowLayoutPanel()
-        Me.tlpPCSX2AppPath = New System.Windows.Forms.TableLayoutPanel()
-        Me.flpPCSX2AppPath = New System.Windows.Forms.FlowLayoutPanel()
-        Me.lblPCSX2AppPathStatus = New System.Windows.Forms.Label()
-        Me.tlpPCSX2SStatePath = New System.Windows.Forms.TableLayoutPanel()
-        Me.flpPCSX2SStatePath = New System.Windows.Forms.FlowLayoutPanel()
-        Me.cmdPCSX2SStatePathBrowse = New System.Windows.Forms.Button()
-        Me.cmdPCSX2SStatePathOpen = New System.Windows.Forms.Button()
-        Me.cmdPCSX2SStatePathDetect = New System.Windows.Forms.Button()
-        Me.txtPCSX2SStatePath = New System.Windows.Forms.TextBox()
-        Me.lblPCSX2SStatePathStatus = New System.Windows.Forms.Label()
-        Me.imgPCSX2SStatePathStatus = New System.Windows.Forms.PictureBox()
-        Me.tlpPCSX2IniPath = New System.Windows.Forms.TableLayoutPanel()
-        Me.flpPCSX2IniPath = New System.Windows.Forms.FlowLayoutPanel()
-        Me.tlpSStatesManPicsPath = New System.Windows.Forms.TableLayoutPanel()
         Me.cmdApply = New System.Windows.Forms.Button()
         Me.flpTab = New System.Windows.Forms.FlowLayoutPanel()
         Me.optTabHeader2 = New System.Windows.Forms.RadioButton()
         Me.optTabHeader3 = New System.Windows.Forms.RadioButton()
         Me.pnlTab0 = New System.Windows.Forms.Panel()
+        Me.fppSStatesManPicsPath = New sstatesman.ucFolderPickerPanel()
         Me.lblSStatesManPicsPath = New System.Windows.Forms.Label()
         Me.ckbSStatesManMoveToTrash = New System.Windows.Forms.CheckBox()
         Me.ckbSStatesManVersionExtract = New System.Windows.Forms.CheckBox()
@@ -89,15 +59,11 @@ Partial Class frmSettings
         Me.ckbFirstRun = New System.Windows.Forms.CheckBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.pnlTab1 = New System.Windows.Forms.Panel()
-        Me.tlpPCSX2SnapsPath = New System.Windows.Forms.TableLayoutPanel()
-        Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
-        Me.cmdPCSX2SnapsPathBrowse = New System.Windows.Forms.Button()
-        Me.cmdPCSX2SnapsPathOpen = New System.Windows.Forms.Button()
-        Me.cmdPCSX2SnapsPathDetect = New System.Windows.Forms.Button()
-        Me.txtPCSX2SnapsPath = New System.Windows.Forms.TextBox()
-        Me.lblPCSX2SnapsPathStatus = New System.Windows.Forms.Label()
-        Me.imgPCSX2SnapsPathStatus = New System.Windows.Forms.PictureBox()
+        Me.fppPCSX2SnapsPath = New sstatesman.ucFolderPickerPanel()
         Me.lblPCSX2SnapsPath = New System.Windows.Forms.Label()
+        Me.fppPCSX2SStatePath = New sstatesman.ucFolderPickerPanel()
+        Me.fppPCSX2IniPath = New sstatesman.ucFolderPickerPanel()
+        Me.fppPCSX2AppPath = New sstatesman.ucFolderPickerPanel()
         Me.pnlTab2 = New System.Windows.Forms.Panel()
         Me.ckbSStatesManThemeGradient = New System.Windows.Forms.CheckBox()
         Me.ckbSStatesManThemeImage = New System.Windows.Forms.CheckBox()
@@ -125,24 +91,9 @@ Partial Class frmSettings
         Me.cmdLogExport = New System.Windows.Forms.Button()
         Me.cmLogFilter = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmiAll = New System.Windows.Forms.ToolStripMenuItem()
-        CType(Me.imgPCSX2IniPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.imgPCSX2AppPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.imgSStatesManPicsPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.flpSStatesManPicsPath.SuspendLayout()
-        Me.tlpPCSX2AppPath.SuspendLayout()
-        Me.flpPCSX2AppPath.SuspendLayout()
-        Me.tlpPCSX2SStatePath.SuspendLayout()
-        Me.flpPCSX2SStatePath.SuspendLayout()
-        CType(Me.imgPCSX2SStatePathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.tlpPCSX2IniPath.SuspendLayout()
-        Me.flpPCSX2IniPath.SuspendLayout()
-        Me.tlpSStatesManPicsPath.SuspendLayout()
         Me.flpTab.SuspendLayout()
         Me.pnlTab0.SuspendLayout()
         Me.pnlTab1.SuspendLayout()
-        Me.tlpPCSX2SnapsPath.SuspendLayout()
-        Me.FlowLayoutPanel1.SuspendLayout()
-        CType(Me.imgPCSX2SnapsPathStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlTab2.SuspendLayout()
         Me.pnlThemeOptions.SuspendLayout()
         Me.pnlTab3.SuspendLayout()
@@ -155,7 +106,7 @@ Partial Class frmSettings
         'pnlWindowTop
         '
         Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.pnlWindowTop.Size = New System.Drawing.Size(574, 30)
+        Me.pnlWindowTop.Size = New System.Drawing.Size(574, 46)
         '
         'cmdOk
         '
@@ -179,21 +130,6 @@ Partial Class frmSettings
         Me.cmdOk.Text = "&OK"
         Me.cmdOk.UseVisualStyleBackColor = False
         '
-        'txtSStatesManPicsPath
-        '
-        Me.txtSStatesManPicsPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtSStatesManPicsPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories
-        Me.txtSStatesManPicsPath.BackColor = System.Drawing.Color.White
-        Me.txtSStatesManPicsPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tlpSStatesManPicsPath.SetColumnSpan(Me.txtSStatesManPicsPath, 3)
-        Me.txtSStatesManPicsPath.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSStatesManPicsPath.ForeColor = System.Drawing.Color.Black
-        Me.txtSStatesManPicsPath.Location = New System.Drawing.Point(10, 4)
-        Me.txtSStatesManPicsPath.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtSStatesManPicsPath.Name = "txtSStatesManPicsPath"
-        Me.txtSStatesManPicsPath.Size = New System.Drawing.Size(110, 22)
-        Me.txtSStatesManPicsPath.TabIndex = 19
-        '
         'cmdCancel
         '
         Me.cmdCancel.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -215,196 +151,6 @@ Partial Class frmSettings
         Me.cmdCancel.TabIndex = 2
         Me.cmdCancel.Text = "&CANCEL"
         Me.cmdCancel.UseVisualStyleBackColor = False
-        '
-        'cmdSStatesManPicsPathBrowse
-        '
-        Me.cmdSStatesManPicsPathBrowse.AutoSize = True
-        Me.cmdSStatesManPicsPathBrowse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdSStatesManPicsPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdSStatesManPicsPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.cmdSStatesManPicsPathBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStatesManPicsPathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdSStatesManPicsPathBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStatesManPicsPathBrowse.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSStatesManPicsPathBrowse.Location = New System.Drawing.Point(61, 2)
-        Me.cmdSStatesManPicsPathBrowse.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdSStatesManPicsPathBrowse.MinimumSize = New System.Drawing.Size(55, 0)
-        Me.cmdSStatesManPicsPathBrowse.Name = "cmdSStatesManPicsPathBrowse"
-        Me.cmdSStatesManPicsPathBrowse.Size = New System.Drawing.Size(55, 24)
-        Me.cmdSStatesManPicsPathBrowse.TabIndex = 22
-        Me.cmdSStatesManPicsPathBrowse.Text = "BROWSE"
-        Me.cmdSStatesManPicsPathBrowse.UseVisualStyleBackColor = False
-        '
-        'lblSStatesManPicsPathStatus
-        '
-        Me.lblSStatesManPicsPathStatus.AutoSize = True
-        Me.lblSStatesManPicsPathStatus.Location = New System.Drawing.Point(35, 28)
-        Me.lblSStatesManPicsPathStatus.Name = "lblSStatesManPicsPathStatus"
-        Me.lblSStatesManPicsPathStatus.Size = New System.Drawing.Size(1, 13)
-        Me.lblSStatesManPicsPathStatus.TabIndex = 20
-        Me.lblSStatesManPicsPathStatus.Text = "<text>"
-        '
-        'cmdPCSX2IniPathOpen
-        '
-        Me.cmdPCSX2IniPathOpen.AutoSize = True
-        Me.cmdPCSX2IniPathOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2IniPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdPCSX2IniPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.cmdPCSX2IniPathOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdPCSX2IniPathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdPCSX2IniPathOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdPCSX2IniPathOpen.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2IniPathOpen.Location = New System.Drawing.Point(61, 2)
-        Me.cmdPCSX2IniPathOpen.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdPCSX2IniPathOpen.MinimumSize = New System.Drawing.Size(55, 0)
-        Me.cmdPCSX2IniPathOpen.Name = "cmdPCSX2IniPathOpen"
-        Me.cmdPCSX2IniPathOpen.Size = New System.Drawing.Size(55, 24)
-        Me.cmdPCSX2IniPathOpen.TabIndex = 37
-        Me.cmdPCSX2IniPathOpen.Text = "OPEN"
-        Me.cmdPCSX2IniPathOpen.UseVisualStyleBackColor = False
-        '
-        'cmdPCSX2IniPathDetect
-        '
-        Me.cmdPCSX2IniPathDetect.AutoSize = True
-        Me.cmdPCSX2IniPathDetect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2IniPathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdPCSX2IniPathDetect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.cmdPCSX2IniPathDetect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdPCSX2IniPathDetect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdPCSX2IniPathDetect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdPCSX2IniPathDetect.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2IniPathDetect.Location = New System.Drawing.Point(2, 2)
-        Me.cmdPCSX2IniPathDetect.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdPCSX2IniPathDetect.MinimumSize = New System.Drawing.Size(55, 0)
-        Me.cmdPCSX2IniPathDetect.Name = "cmdPCSX2IniPathDetect"
-        Me.cmdPCSX2IniPathDetect.Size = New System.Drawing.Size(55, 24)
-        Me.cmdPCSX2IniPathDetect.TabIndex = 38
-        Me.cmdPCSX2IniPathDetect.Text = "DETECT"
-        Me.cmdPCSX2IniPathDetect.UseVisualStyleBackColor = False
-        '
-        'imgPCSX2IniPathStatus
-        '
-        Me.imgPCSX2IniPathStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgPCSX2IniPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation
-        Me.imgPCSX2IniPathStatus.Location = New System.Drawing.Point(8, 28)
-        Me.imgPCSX2IniPathStatus.Margin = New System.Windows.Forms.Padding(0)
-        Me.imgPCSX2IniPathStatus.Name = "imgPCSX2IniPathStatus"
-        Me.imgPCSX2IniPathStatus.Size = New System.Drawing.Size(24, 28)
-        Me.imgPCSX2IniPathStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.imgPCSX2IniPathStatus.TabIndex = 35
-        Me.imgPCSX2IniPathStatus.TabStop = False
-        '
-        'lblPCSX2IniPathStatus
-        '
-        Me.lblPCSX2IniPathStatus.AutoSize = True
-        Me.lblPCSX2IniPathStatus.Location = New System.Drawing.Point(35, 28)
-        Me.lblPCSX2IniPathStatus.Name = "lblPCSX2IniPathStatus"
-        Me.lblPCSX2IniPathStatus.Size = New System.Drawing.Size(1, 13)
-        Me.lblPCSX2IniPathStatus.TabIndex = 39
-        Me.lblPCSX2IniPathStatus.Text = "<text>"
-        '
-        'cmdPCSX2IniPathBrowse
-        '
-        Me.cmdPCSX2IniPathBrowse.AutoSize = True
-        Me.cmdPCSX2IniPathBrowse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2IniPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdPCSX2IniPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.cmdPCSX2IniPathBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdPCSX2IniPathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdPCSX2IniPathBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdPCSX2IniPathBrowse.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2IniPathBrowse.Location = New System.Drawing.Point(120, 2)
-        Me.cmdPCSX2IniPathBrowse.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdPCSX2IniPathBrowse.MinimumSize = New System.Drawing.Size(55, 0)
-        Me.cmdPCSX2IniPathBrowse.Name = "cmdPCSX2IniPathBrowse"
-        Me.cmdPCSX2IniPathBrowse.Size = New System.Drawing.Size(55, 24)
-        Me.cmdPCSX2IniPathBrowse.TabIndex = 36
-        Me.cmdPCSX2IniPathBrowse.Text = "BROWSE"
-        Me.cmdPCSX2IniPathBrowse.UseVisualStyleBackColor = False
-        '
-        'txtPCSX2IniPath
-        '
-        Me.txtPCSX2IniPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPCSX2IniPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories
-        Me.txtPCSX2IniPath.BackColor = System.Drawing.Color.White
-        Me.txtPCSX2IniPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tlpPCSX2IniPath.SetColumnSpan(Me.txtPCSX2IniPath, 3)
-        Me.txtPCSX2IniPath.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtPCSX2IniPath.ForeColor = System.Drawing.Color.Black
-        Me.txtPCSX2IniPath.Location = New System.Drawing.Point(10, 4)
-        Me.txtPCSX2IniPath.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtPCSX2IniPath.Name = "txtPCSX2IniPath"
-        Me.txtPCSX2IniPath.Size = New System.Drawing.Size(122, 22)
-        Me.txtPCSX2IniPath.TabIndex = 34
-        '
-        'cmdPCSX2AppPathOpen
-        '
-        Me.cmdPCSX2AppPathOpen.AutoSize = True
-        Me.cmdPCSX2AppPathOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2AppPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdPCSX2AppPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.cmdPCSX2AppPathOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdPCSX2AppPathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdPCSX2AppPathOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdPCSX2AppPathOpen.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2AppPathOpen.Location = New System.Drawing.Point(61, 2)
-        Me.cmdPCSX2AppPathOpen.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdPCSX2AppPathOpen.MinimumSize = New System.Drawing.Size(55, 0)
-        Me.cmdPCSX2AppPathOpen.Name = "cmdPCSX2AppPathOpen"
-        Me.cmdPCSX2AppPathOpen.Size = New System.Drawing.Size(55, 24)
-        Me.cmdPCSX2AppPathOpen.TabIndex = 30
-        Me.cmdPCSX2AppPathOpen.Text = "OPEN"
-        Me.cmdPCSX2AppPathOpen.UseVisualStyleBackColor = False
-        '
-        'cmdPCSX2AppPathDetect
-        '
-        Me.cmdPCSX2AppPathDetect.AutoSize = True
-        Me.cmdPCSX2AppPathDetect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2AppPathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdPCSX2AppPathDetect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.cmdPCSX2AppPathDetect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdPCSX2AppPathDetect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdPCSX2AppPathDetect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdPCSX2AppPathDetect.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2AppPathDetect.Location = New System.Drawing.Point(2, 2)
-        Me.cmdPCSX2AppPathDetect.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdPCSX2AppPathDetect.MinimumSize = New System.Drawing.Size(55, 0)
-        Me.cmdPCSX2AppPathDetect.Name = "cmdPCSX2AppPathDetect"
-        Me.cmdPCSX2AppPathDetect.Size = New System.Drawing.Size(55, 24)
-        Me.cmdPCSX2AppPathDetect.TabIndex = 31
-        Me.cmdPCSX2AppPathDetect.Text = "DETECT"
-        Me.cmdPCSX2AppPathDetect.UseVisualStyleBackColor = False
-        '
-        'imgPCSX2AppPathStatus
-        '
-        Me.imgPCSX2AppPathStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgPCSX2AppPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation
-        Me.imgPCSX2AppPathStatus.Location = New System.Drawing.Point(8, 28)
-        Me.imgPCSX2AppPathStatus.Margin = New System.Windows.Forms.Padding(0)
-        Me.imgPCSX2AppPathStatus.Name = "imgPCSX2AppPathStatus"
-        Me.imgPCSX2AppPathStatus.Size = New System.Drawing.Size(24, 28)
-        Me.imgPCSX2AppPathStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.imgPCSX2AppPathStatus.TabIndex = 26
-        Me.imgPCSX2AppPathStatus.TabStop = False
-        '
-        'cmdPCSX2AppPathBrowse
-        '
-        Me.cmdPCSX2AppPathBrowse.AutoSize = True
-        Me.cmdPCSX2AppPathBrowse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2AppPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdPCSX2AppPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.cmdPCSX2AppPathBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdPCSX2AppPathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdPCSX2AppPathBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdPCSX2AppPathBrowse.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2AppPathBrowse.Location = New System.Drawing.Point(120, 2)
-        Me.cmdPCSX2AppPathBrowse.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdPCSX2AppPathBrowse.MinimumSize = New System.Drawing.Size(55, 0)
-        Me.cmdPCSX2AppPathBrowse.Name = "cmdPCSX2AppPathBrowse"
-        Me.cmdPCSX2AppPathBrowse.Size = New System.Drawing.Size(55, 24)
-        Me.cmdPCSX2AppPathBrowse.TabIndex = 29
-        Me.cmdPCSX2AppPathBrowse.Text = "BROWSE"
-        Me.cmdPCSX2AppPathBrowse.UseVisualStyleBackColor = False
         '
         'lblPCSX2SStatePath
         '
@@ -441,52 +187,6 @@ Partial Class frmSettings
         Me.lblPCSX2AppPath.Size = New System.Drawing.Size(101, 23)
         Me.lblPCSX2AppPath.TabIndex = 25
         Me.lblPCSX2AppPath.Text = "Program folder"
-        '
-        'txtPCSX2AppPath
-        '
-        Me.txtPCSX2AppPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPCSX2AppPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories
-        Me.txtPCSX2AppPath.BackColor = System.Drawing.Color.White
-        Me.txtPCSX2AppPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tlpPCSX2AppPath.SetColumnSpan(Me.txtPCSX2AppPath, 3)
-        Me.txtPCSX2AppPath.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtPCSX2AppPath.ForeColor = System.Drawing.Color.Black
-        Me.txtPCSX2AppPath.Location = New System.Drawing.Point(10, 4)
-        Me.txtPCSX2AppPath.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtPCSX2AppPath.Name = "txtPCSX2AppPath"
-        Me.txtPCSX2AppPath.Size = New System.Drawing.Size(122, 22)
-        Me.txtPCSX2AppPath.TabIndex = 27
-        '
-        'cmdSStatesManPicsPathOpen
-        '
-        Me.cmdSStatesManPicsPathOpen.AutoSize = True
-        Me.cmdSStatesManPicsPathOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdSStatesManPicsPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdSStatesManPicsPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.cmdSStatesManPicsPathOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSStatesManPicsPathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdSStatesManPicsPathOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSStatesManPicsPathOpen.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdSStatesManPicsPathOpen.Location = New System.Drawing.Point(2, 2)
-        Me.cmdSStatesManPicsPathOpen.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdSStatesManPicsPathOpen.MinimumSize = New System.Drawing.Size(55, 0)
-        Me.cmdSStatesManPicsPathOpen.Name = "cmdSStatesManPicsPathOpen"
-        Me.cmdSStatesManPicsPathOpen.Size = New System.Drawing.Size(55, 24)
-        Me.cmdSStatesManPicsPathOpen.TabIndex = 23
-        Me.cmdSStatesManPicsPathOpen.Text = "OPEN"
-        Me.cmdSStatesManPicsPathOpen.UseVisualStyleBackColor = False
-        '
-        'imgSStatesManPicsPathStatus
-        '
-        Me.imgSStatesManPicsPathStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgSStatesManPicsPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation
-        Me.imgSStatesManPicsPathStatus.Location = New System.Drawing.Point(8, 28)
-        Me.imgSStatesManPicsPathStatus.Margin = New System.Windows.Forms.Padding(0)
-        Me.imgSStatesManPicsPathStatus.Name = "imgSStatesManPicsPathStatus"
-        Me.imgSStatesManPicsPathStatus.Size = New System.Drawing.Size(24, 28)
-        Me.imgSStatesManPicsPathStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.imgSStatesManPicsPathStatus.TabIndex = 2
-        Me.imgSStatesManPicsPathStatus.TabStop = False
         '
         'optTabHeader1
         '
@@ -528,254 +228,6 @@ Partial Class frmSettings
         Me.optTabHeader0.TabStop = True
         Me.optTabHeader0.Text = "SStatesMan"
         Me.optTabHeader0.UseVisualStyleBackColor = False
-        '
-        'flpSStatesManPicsPath
-        '
-        Me.flpSStatesManPicsPath.AutoSize = True
-        Me.flpSStatesManPicsPath.Controls.Add(Me.cmdSStatesManPicsPathBrowse)
-        Me.flpSStatesManPicsPath.Controls.Add(Me.cmdSStatesManPicsPathOpen)
-        Me.flpSStatesManPicsPath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpSStatesManPicsPath.Location = New System.Drawing.Point(4, 28)
-        Me.flpSStatesManPicsPath.Margin = New System.Windows.Forms.Padding(0)
-        Me.flpSStatesManPicsPath.Name = "flpSStatesManPicsPath"
-        Me.flpSStatesManPicsPath.Size = New System.Drawing.Size(118, 28)
-        Me.flpSStatesManPicsPath.TabIndex = 21
-        Me.flpSStatesManPicsPath.WrapContents = False
-        '
-        'tlpPCSX2AppPath
-        '
-        Me.tlpPCSX2AppPath.AutoSize = True
-        Me.tlpPCSX2AppPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.tlpPCSX2AppPath.ColumnCount = 3
-        Me.tlpPCSX2AppPath.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpPCSX2AppPath.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpPCSX2AppPath.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpPCSX2AppPath.Controls.Add(Me.flpPCSX2AppPath, 2, 1)
-        Me.tlpPCSX2AppPath.Controls.Add(Me.imgPCSX2AppPathStatus, 0, 1)
-        Me.tlpPCSX2AppPath.Controls.Add(Me.txtPCSX2AppPath, 0, 0)
-        Me.tlpPCSX2AppPath.Controls.Add(Me.lblPCSX2AppPathStatus, 1, 1)
-        Me.tlpPCSX2AppPath.Dock = System.Windows.Forms.DockStyle.Top
-        Me.tlpPCSX2AppPath.Location = New System.Drawing.Point(8, 27)
-        Me.tlpPCSX2AppPath.Margin = New System.Windows.Forms.Padding(12, 3, 12, 3)
-        Me.tlpPCSX2AppPath.Name = "tlpPCSX2AppPath"
-        Me.tlpPCSX2AppPath.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
-        Me.tlpPCSX2AppPath.RowCount = 2
-        Me.tlpPCSX2AppPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2AppPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2AppPath.Size = New System.Drawing.Size(142, 58)
-        Me.tlpPCSX2AppPath.TabIndex = 26
-        '
-        'flpPCSX2AppPath
-        '
-        Me.flpPCSX2AppPath.AutoSize = True
-        Me.flpPCSX2AppPath.Controls.Add(Me.cmdPCSX2AppPathBrowse)
-        Me.flpPCSX2AppPath.Controls.Add(Me.cmdPCSX2AppPathOpen)
-        Me.flpPCSX2AppPath.Controls.Add(Me.cmdPCSX2AppPathDetect)
-        Me.flpPCSX2AppPath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2AppPath.Location = New System.Drawing.Point(-43, 28)
-        Me.flpPCSX2AppPath.Margin = New System.Windows.Forms.Padding(0)
-        Me.flpPCSX2AppPath.Name = "flpPCSX2AppPath"
-        Me.flpPCSX2AppPath.Size = New System.Drawing.Size(177, 28)
-        Me.flpPCSX2AppPath.TabIndex = 28
-        Me.flpPCSX2AppPath.WrapContents = False
-        '
-        'lblPCSX2AppPathStatus
-        '
-        Me.lblPCSX2AppPathStatus.AutoSize = True
-        Me.lblPCSX2AppPathStatus.Location = New System.Drawing.Point(35, 28)
-        Me.lblPCSX2AppPathStatus.Name = "lblPCSX2AppPathStatus"
-        Me.lblPCSX2AppPathStatus.Size = New System.Drawing.Size(1, 13)
-        Me.lblPCSX2AppPathStatus.TabIndex = 32
-        Me.lblPCSX2AppPathStatus.Text = "<text>"
-        '
-        'tlpPCSX2SStatePath
-        '
-        Me.tlpPCSX2SStatePath.AutoSize = True
-        Me.tlpPCSX2SStatePath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.tlpPCSX2SStatePath.ColumnCount = 3
-        Me.tlpPCSX2SStatePath.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpPCSX2SStatePath.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpPCSX2SStatePath.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpPCSX2SStatePath.Controls.Add(Me.flpPCSX2SStatePath, 2, 1)
-        Me.tlpPCSX2SStatePath.Controls.Add(Me.txtPCSX2SStatePath, 0, 0)
-        Me.tlpPCSX2SStatePath.Controls.Add(Me.lblPCSX2SStatePathStatus, 1, 1)
-        Me.tlpPCSX2SStatePath.Controls.Add(Me.imgPCSX2SStatePathStatus, 0, 1)
-        Me.tlpPCSX2SStatePath.Dock = System.Windows.Forms.DockStyle.Top
-        Me.tlpPCSX2SStatePath.Location = New System.Drawing.Point(8, 189)
-        Me.tlpPCSX2SStatePath.Margin = New System.Windows.Forms.Padding(12, 3, 12, 3)
-        Me.tlpPCSX2SStatePath.Name = "tlpPCSX2SStatePath"
-        Me.tlpPCSX2SStatePath.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
-        Me.tlpPCSX2SStatePath.RowCount = 2
-        Me.tlpPCSX2SStatePath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2SStatePath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2SStatePath.Size = New System.Drawing.Size(142, 58)
-        Me.tlpPCSX2SStatePath.TabIndex = 41
-        '
-        'flpPCSX2SStatePath
-        '
-        Me.flpPCSX2SStatePath.AutoSize = True
-        Me.flpPCSX2SStatePath.Controls.Add(Me.cmdPCSX2SStatePathBrowse)
-        Me.flpPCSX2SStatePath.Controls.Add(Me.cmdPCSX2SStatePathOpen)
-        Me.flpPCSX2SStatePath.Controls.Add(Me.cmdPCSX2SStatePathDetect)
-        Me.flpPCSX2SStatePath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2SStatePath.Location = New System.Drawing.Point(-43, 28)
-        Me.flpPCSX2SStatePath.Margin = New System.Windows.Forms.Padding(0)
-        Me.flpPCSX2SStatePath.Name = "flpPCSX2SStatePath"
-        Me.flpPCSX2SStatePath.Size = New System.Drawing.Size(177, 28)
-        Me.flpPCSX2SStatePath.TabIndex = 43
-        Me.flpPCSX2SStatePath.WrapContents = False
-        '
-        'cmdPCSX2SStatePathBrowse
-        '
-        Me.cmdPCSX2SStatePathBrowse.AutoSize = True
-        Me.cmdPCSX2SStatePathBrowse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2SStatePathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdPCSX2SStatePathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.cmdPCSX2SStatePathBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdPCSX2SStatePathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdPCSX2SStatePathBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdPCSX2SStatePathBrowse.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2SStatePathBrowse.Location = New System.Drawing.Point(120, 2)
-        Me.cmdPCSX2SStatePathBrowse.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdPCSX2SStatePathBrowse.MinimumSize = New System.Drawing.Size(55, 0)
-        Me.cmdPCSX2SStatePathBrowse.Name = "cmdPCSX2SStatePathBrowse"
-        Me.cmdPCSX2SStatePathBrowse.Size = New System.Drawing.Size(55, 24)
-        Me.cmdPCSX2SStatePathBrowse.TabIndex = 44
-        Me.cmdPCSX2SStatePathBrowse.Text = "BROWSE"
-        Me.cmdPCSX2SStatePathBrowse.UseVisualStyleBackColor = False
-        '
-        'cmdPCSX2SStatePathOpen
-        '
-        Me.cmdPCSX2SStatePathOpen.AutoSize = True
-        Me.cmdPCSX2SStatePathOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2SStatePathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdPCSX2SStatePathOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.cmdPCSX2SStatePathOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdPCSX2SStatePathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdPCSX2SStatePathOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdPCSX2SStatePathOpen.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2SStatePathOpen.Location = New System.Drawing.Point(61, 2)
-        Me.cmdPCSX2SStatePathOpen.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdPCSX2SStatePathOpen.MinimumSize = New System.Drawing.Size(55, 0)
-        Me.cmdPCSX2SStatePathOpen.Name = "cmdPCSX2SStatePathOpen"
-        Me.cmdPCSX2SStatePathOpen.Size = New System.Drawing.Size(55, 24)
-        Me.cmdPCSX2SStatePathOpen.TabIndex = 45
-        Me.cmdPCSX2SStatePathOpen.Text = "OPEN"
-        Me.cmdPCSX2SStatePathOpen.UseVisualStyleBackColor = False
-        '
-        'cmdPCSX2SStatePathDetect
-        '
-        Me.cmdPCSX2SStatePathDetect.AutoSize = True
-        Me.cmdPCSX2SStatePathDetect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2SStatePathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdPCSX2SStatePathDetect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.cmdPCSX2SStatePathDetect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdPCSX2SStatePathDetect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdPCSX2SStatePathDetect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdPCSX2SStatePathDetect.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2SStatePathDetect.Location = New System.Drawing.Point(2, 2)
-        Me.cmdPCSX2SStatePathDetect.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdPCSX2SStatePathDetect.MinimumSize = New System.Drawing.Size(55, 0)
-        Me.cmdPCSX2SStatePathDetect.Name = "cmdPCSX2SStatePathDetect"
-        Me.cmdPCSX2SStatePathDetect.Size = New System.Drawing.Size(55, 24)
-        Me.cmdPCSX2SStatePathDetect.TabIndex = 46
-        Me.cmdPCSX2SStatePathDetect.Text = "DETECT"
-        Me.cmdPCSX2SStatePathDetect.UseVisualStyleBackColor = False
-        '
-        'txtPCSX2SStatePath
-        '
-        Me.txtPCSX2SStatePath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPCSX2SStatePath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories
-        Me.txtPCSX2SStatePath.BackColor = System.Drawing.Color.White
-        Me.txtPCSX2SStatePath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tlpPCSX2SStatePath.SetColumnSpan(Me.txtPCSX2SStatePath, 3)
-        Me.txtPCSX2SStatePath.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtPCSX2SStatePath.ForeColor = System.Drawing.Color.Black
-        Me.txtPCSX2SStatePath.Location = New System.Drawing.Point(10, 4)
-        Me.txtPCSX2SStatePath.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtPCSX2SStatePath.Name = "txtPCSX2SStatePath"
-        Me.txtPCSX2SStatePath.Size = New System.Drawing.Size(122, 22)
-        Me.txtPCSX2SStatePath.TabIndex = 42
-        '
-        'lblPCSX2SStatePathStatus
-        '
-        Me.lblPCSX2SStatePathStatus.AutoSize = True
-        Me.lblPCSX2SStatePathStatus.Location = New System.Drawing.Point(35, 28)
-        Me.lblPCSX2SStatePathStatus.Name = "lblPCSX2SStatePathStatus"
-        Me.lblPCSX2SStatePathStatus.Size = New System.Drawing.Size(1, 13)
-        Me.lblPCSX2SStatePathStatus.TabIndex = 47
-        Me.lblPCSX2SStatePathStatus.Text = "<text>"
-        '
-        'imgPCSX2SStatePathStatus
-        '
-        Me.imgPCSX2SStatePathStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgPCSX2SStatePathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation
-        Me.imgPCSX2SStatePathStatus.Location = New System.Drawing.Point(8, 28)
-        Me.imgPCSX2SStatePathStatus.Margin = New System.Windows.Forms.Padding(0)
-        Me.imgPCSX2SStatePathStatus.Name = "imgPCSX2SStatePathStatus"
-        Me.imgPCSX2SStatePathStatus.Size = New System.Drawing.Size(24, 28)
-        Me.imgPCSX2SStatePathStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.imgPCSX2SStatePathStatus.TabIndex = 36
-        Me.imgPCSX2SStatePathStatus.TabStop = False
-        '
-        'tlpPCSX2IniPath
-        '
-        Me.tlpPCSX2IniPath.AutoSize = True
-        Me.tlpPCSX2IniPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.tlpPCSX2IniPath.ColumnCount = 3
-        Me.tlpPCSX2IniPath.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpPCSX2IniPath.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpPCSX2IniPath.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpPCSX2IniPath.Controls.Add(Me.flpPCSX2IniPath, 2, 1)
-        Me.tlpPCSX2IniPath.Controls.Add(Me.txtPCSX2IniPath, 0, 0)
-        Me.tlpPCSX2IniPath.Controls.Add(Me.imgPCSX2IniPathStatus, 0, 1)
-        Me.tlpPCSX2IniPath.Controls.Add(Me.lblPCSX2IniPathStatus, 1, 1)
-        Me.tlpPCSX2IniPath.Dock = System.Windows.Forms.DockStyle.Top
-        Me.tlpPCSX2IniPath.Location = New System.Drawing.Point(8, 108)
-        Me.tlpPCSX2IniPath.Margin = New System.Windows.Forms.Padding(12, 3, 12, 3)
-        Me.tlpPCSX2IniPath.Name = "tlpPCSX2IniPath"
-        Me.tlpPCSX2IniPath.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
-        Me.tlpPCSX2IniPath.RowCount = 2
-        Me.tlpPCSX2IniPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2IniPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2IniPath.Size = New System.Drawing.Size(142, 58)
-        Me.tlpPCSX2IniPath.TabIndex = 30
-        '
-        'flpPCSX2IniPath
-        '
-        Me.flpPCSX2IniPath.AutoSize = True
-        Me.flpPCSX2IniPath.Controls.Add(Me.cmdPCSX2IniPathBrowse)
-        Me.flpPCSX2IniPath.Controls.Add(Me.cmdPCSX2IniPathOpen)
-        Me.flpPCSX2IniPath.Controls.Add(Me.cmdPCSX2IniPathDetect)
-        Me.flpPCSX2IniPath.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpPCSX2IniPath.Location = New System.Drawing.Point(-43, 28)
-        Me.flpPCSX2IniPath.Margin = New System.Windows.Forms.Padding(0)
-        Me.flpPCSX2IniPath.Name = "flpPCSX2IniPath"
-        Me.flpPCSX2IniPath.Size = New System.Drawing.Size(177, 28)
-        Me.flpPCSX2IniPath.TabIndex = 35
-        Me.flpPCSX2IniPath.WrapContents = False
-        '
-        'tlpSStatesManPicsPath
-        '
-        Me.tlpSStatesManPicsPath.AutoSize = True
-        Me.tlpSStatesManPicsPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.tlpSStatesManPicsPath.ColumnCount = 3
-        Me.tlpSStatesManPicsPath.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpSStatesManPicsPath.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpSStatesManPicsPath.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpSStatesManPicsPath.Controls.Add(Me.flpSStatesManPicsPath, 2, 1)
-        Me.tlpSStatesManPicsPath.Controls.Add(Me.txtSStatesManPicsPath, 0, 0)
-        Me.tlpSStatesManPicsPath.Controls.Add(Me.lblSStatesManPicsPathStatus, 1, 1)
-        Me.tlpSStatesManPicsPath.Controls.Add(Me.imgSStatesManPicsPathStatus, 0, 1)
-        Me.tlpSStatesManPicsPath.Dock = System.Windows.Forms.DockStyle.Top
-        Me.tlpSStatesManPicsPath.Location = New System.Drawing.Point(8, 178)
-        Me.tlpSStatesManPicsPath.Name = "tlpSStatesManPicsPath"
-        Me.tlpSStatesManPicsPath.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
-        Me.tlpSStatesManPicsPath.RowCount = 2
-        Me.tlpSStatesManPicsPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpSStatesManPicsPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpSStatesManPicsPath.Size = New System.Drawing.Size(130, 58)
-        Me.tlpSStatesManPicsPath.TabIndex = 18
         '
         'cmdApply
         '
@@ -858,7 +310,7 @@ Partial Class frmSettings
         'pnlTab0
         '
         Me.pnlTab0.AutoScroll = True
-        Me.pnlTab0.Controls.Add(Me.tlpSStatesManPicsPath)
+        Me.pnlTab0.Controls.Add(Me.fppSStatesManPicsPath)
         Me.pnlTab0.Controls.Add(Me.lblSStatesManPicsPath)
         Me.pnlTab0.Controls.Add(Me.ckbSStatesManMoveToTrash)
         Me.pnlTab0.Controls.Add(Me.ckbSStatesManVersionExtract)
@@ -870,8 +322,26 @@ Partial Class frmSettings
         Me.pnlTab0.Location = New System.Drawing.Point(4, 59)
         Me.pnlTab0.Name = "pnlTab0"
         Me.pnlTab0.Padding = New System.Windows.Forms.Padding(8, 4, 8, 4)
-        Me.pnlTab0.Size = New System.Drawing.Size(146, 269)
+        Me.pnlTab0.Size = New System.Drawing.Size(224, 269)
         Me.pnlTab0.TabIndex = 9
+        '
+        'fppSStatesManPicsPath
+        '
+        Me.fppSStatesManPicsPath.AutoSize = True
+        Me.fppSStatesManPicsPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.fppSStatesManPicsPath.BrowserDefaultLocation = System.Environment.SpecialFolder.MyPictures
+        Me.fppSStatesManPicsPath.BrowserShowNewFolder = True
+        Me.fppSStatesManPicsPath.BrowserTip = "BrowserTip"
+        Me.fppSStatesManPicsPath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.fppSStatesManPicsPath.InfoTextError = "ErrorText"
+        Me.fppSStatesManPicsPath.InfoTextInfo = "InfoText"
+        Me.fppSStatesManPicsPath.InfoTextWarning = "WarningText"
+        Me.fppSStatesManPicsPath.Location = New System.Drawing.Point(8, 178)
+        Me.fppSStatesManPicsPath.Name = "fppSStatesManPicsPath"
+        Me.fppSStatesManPicsPath.SettingStatus = sstatesman.ucFolderPickerPanel.eSettingStatus.StatusInfo
+        Me.fppSStatesManPicsPath.ShowDetectButton = False
+        Me.fppSStatesManPicsPath.Size = New System.Drawing.Size(208, 58)
+        Me.fppSStatesManPicsPath.TabIndex = 59
         '
         'lblSStatesManPicsPath
         '
@@ -896,7 +366,7 @@ Partial Class frmSettings
         Me.ckbSStatesManMoveToTrash.Location = New System.Drawing.Point(8, 134)
         Me.ckbSStatesManMoveToTrash.Name = "ckbSStatesManMoveToTrash"
         Me.ckbSStatesManMoveToTrash.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
-        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(130, 21)
+        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(208, 21)
         Me.ckbSStatesManMoveToTrash.TabIndex = 16
         Me.ckbSStatesManMoveToTrash.Text = "Send files to the Windows Recycle Bin instead of permanently deleting them."
         Me.ckbSStatesManMoveToTrash.UseVisualStyleBackColor = False
@@ -912,7 +382,7 @@ Partial Class frmSettings
         Me.ckbSStatesManVersionExtract.Location = New System.Drawing.Point(8, 113)
         Me.ckbSStatesManVersionExtract.Name = "ckbSStatesManVersionExtract"
         Me.ckbSStatesManVersionExtract.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
-        Me.ckbSStatesManVersionExtract.Size = New System.Drawing.Size(130, 21)
+        Me.ckbSStatesManVersionExtract.Size = New System.Drawing.Size(208, 21)
         Me.ckbSStatesManVersionExtract.TabIndex = 15
         Me.ckbSStatesManVersionExtract.Text = "Extract savestates version. (experimental)"
         Me.ckbSStatesManVersionExtract.UseVisualStyleBackColor = False
@@ -938,7 +408,7 @@ Partial Class frmSettings
         Me.ckb_SStatesListAutoRefresh.Location = New System.Drawing.Point(8, 69)
         Me.ckb_SStatesListAutoRefresh.Name = "ckb_SStatesListAutoRefresh"
         Me.ckb_SStatesListAutoRefresh.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
-        Me.ckb_SStatesListAutoRefresh.Size = New System.Drawing.Size(130, 21)
+        Me.ckb_SStatesListAutoRefresh.Size = New System.Drawing.Size(208, 21)
         Me.ckb_SStatesListAutoRefresh.TabIndex = 13
         Me.ckb_SStatesListAutoRefresh.Text = "Automatically refresh the savestates list."
         Me.ckb_SStatesListAutoRefresh.UseVisualStyleBackColor = False
@@ -952,7 +422,7 @@ Partial Class frmSettings
         Me.ckb_SStatesListShowOnly.Location = New System.Drawing.Point(8, 48)
         Me.ckb_SStatesListShowOnly.Name = "ckb_SStatesListShowOnly"
         Me.ckb_SStatesListShowOnly.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
-        Me.ckb_SStatesListShowOnly.Size = New System.Drawing.Size(130, 21)
+        Me.ckb_SStatesListShowOnly.Size = New System.Drawing.Size(208, 21)
         Me.ckb_SStatesListShowOnly.TabIndex = 12
         Me.ckb_SStatesListShowOnly.Text = "Use a single list for files only (hides the game info and game list)."
         Me.ckb_SStatesListShowOnly.UseVisualStyleBackColor = False
@@ -966,7 +436,7 @@ Partial Class frmSettings
         Me.ckbFirstRun.Location = New System.Drawing.Point(8, 27)
         Me.ckbFirstRun.Name = "ckbFirstRun"
         Me.ckbFirstRun.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
-        Me.ckbFirstRun.Size = New System.Drawing.Size(130, 21)
+        Me.ckbFirstRun.Size = New System.Drawing.Size(208, 21)
         Me.ckbFirstRun.TabIndex = 11
         Me.ckbFirstRun.Text = "Reset SStatesMan settings to their defaults on next startup."
         Me.ckbFirstRun.UseVisualStyleBackColor = False
@@ -986,149 +456,37 @@ Partial Class frmSettings
         'pnlTab1
         '
         Me.pnlTab1.AutoScroll = True
-        Me.pnlTab1.Controls.Add(Me.tlpPCSX2SnapsPath)
+        Me.pnlTab1.Controls.Add(Me.fppPCSX2SnapsPath)
         Me.pnlTab1.Controls.Add(Me.lblPCSX2SnapsPath)
-        Me.pnlTab1.Controls.Add(Me.tlpPCSX2SStatePath)
+        Me.pnlTab1.Controls.Add(Me.fppPCSX2SStatePath)
         Me.pnlTab1.Controls.Add(Me.lblPCSX2SStatePath)
-        Me.pnlTab1.Controls.Add(Me.tlpPCSX2IniPath)
+        Me.pnlTab1.Controls.Add(Me.fppPCSX2IniPath)
         Me.pnlTab1.Controls.Add(Me.lblPCSX2IniPath)
-        Me.pnlTab1.Controls.Add(Me.tlpPCSX2AppPath)
+        Me.pnlTab1.Controls.Add(Me.fppPCSX2AppPath)
         Me.pnlTab1.Controls.Add(Me.lblPCSX2AppPath)
-        Me.pnlTab1.Location = New System.Drawing.Point(156, 59)
+        Me.pnlTab1.Location = New System.Drawing.Point(234, 60)
         Me.pnlTab1.Name = "pnlTab1"
         Me.pnlTab1.Padding = New System.Windows.Forms.Padding(8, 4, 8, 4)
-        Me.pnlTab1.Size = New System.Drawing.Size(175, 281)
+        Me.pnlTab1.Size = New System.Drawing.Size(159, 359)
         Me.pnlTab1.TabIndex = 24
         '
-        'tlpPCSX2SnapsPath
+        'fppPCSX2SnapsPath
         '
-        Me.tlpPCSX2SnapsPath.AutoSize = True
-        Me.tlpPCSX2SnapsPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.tlpPCSX2SnapsPath.ColumnCount = 3
-        Me.tlpPCSX2SnapsPath.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpPCSX2SnapsPath.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpPCSX2SnapsPath.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpPCSX2SnapsPath.Controls.Add(Me.FlowLayoutPanel1, 2, 1)
-        Me.tlpPCSX2SnapsPath.Controls.Add(Me.txtPCSX2SnapsPath, 0, 0)
-        Me.tlpPCSX2SnapsPath.Controls.Add(Me.lblPCSX2SnapsPathStatus, 1, 1)
-        Me.tlpPCSX2SnapsPath.Controls.Add(Me.imgPCSX2SnapsPathStatus, 0, 1)
-        Me.tlpPCSX2SnapsPath.Dock = System.Windows.Forms.DockStyle.Top
-        Me.tlpPCSX2SnapsPath.Location = New System.Drawing.Point(8, 270)
-        Me.tlpPCSX2SnapsPath.Margin = New System.Windows.Forms.Padding(12, 3, 12, 3)
-        Me.tlpPCSX2SnapsPath.Name = "tlpPCSX2SnapsPath"
-        Me.tlpPCSX2SnapsPath.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
-        Me.tlpPCSX2SnapsPath.RowCount = 2
-        Me.tlpPCSX2SnapsPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2SnapsPath.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpPCSX2SnapsPath.Size = New System.Drawing.Size(142, 58)
-        Me.tlpPCSX2SnapsPath.TabIndex = 43
-        '
-        'FlowLayoutPanel1
-        '
-        Me.FlowLayoutPanel1.AutoSize = True
-        Me.FlowLayoutPanel1.Controls.Add(Me.cmdPCSX2SnapsPathBrowse)
-        Me.FlowLayoutPanel1.Controls.Add(Me.cmdPCSX2SnapsPathOpen)
-        Me.FlowLayoutPanel1.Controls.Add(Me.cmdPCSX2SnapsPathDetect)
-        Me.FlowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowLayoutPanel1.Location = New System.Drawing.Point(-43, 28)
-        Me.FlowLayoutPanel1.Margin = New System.Windows.Forms.Padding(0)
-        Me.FlowLayoutPanel1.Name = "FlowLayoutPanel1"
-        Me.FlowLayoutPanel1.Size = New System.Drawing.Size(177, 28)
-        Me.FlowLayoutPanel1.TabIndex = 43
-        Me.FlowLayoutPanel1.WrapContents = False
-        '
-        'cmdPCSX2SnapsPathBrowse
-        '
-        Me.cmdPCSX2SnapsPathBrowse.AutoSize = True
-        Me.cmdPCSX2SnapsPathBrowse.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2SnapsPathBrowse.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdPCSX2SnapsPathBrowse.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.cmdPCSX2SnapsPathBrowse.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdPCSX2SnapsPathBrowse.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdPCSX2SnapsPathBrowse.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdPCSX2SnapsPathBrowse.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2SnapsPathBrowse.Location = New System.Drawing.Point(120, 2)
-        Me.cmdPCSX2SnapsPathBrowse.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdPCSX2SnapsPathBrowse.MinimumSize = New System.Drawing.Size(55, 0)
-        Me.cmdPCSX2SnapsPathBrowse.Name = "cmdPCSX2SnapsPathBrowse"
-        Me.cmdPCSX2SnapsPathBrowse.Size = New System.Drawing.Size(55, 24)
-        Me.cmdPCSX2SnapsPathBrowse.TabIndex = 44
-        Me.cmdPCSX2SnapsPathBrowse.Text = "BROWSE"
-        Me.cmdPCSX2SnapsPathBrowse.UseVisualStyleBackColor = False
-        '
-        'cmdPCSX2SnapsPathOpen
-        '
-        Me.cmdPCSX2SnapsPathOpen.AutoSize = True
-        Me.cmdPCSX2SnapsPathOpen.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2SnapsPathOpen.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdPCSX2SnapsPathOpen.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.cmdPCSX2SnapsPathOpen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdPCSX2SnapsPathOpen.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdPCSX2SnapsPathOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdPCSX2SnapsPathOpen.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2SnapsPathOpen.Location = New System.Drawing.Point(61, 2)
-        Me.cmdPCSX2SnapsPathOpen.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdPCSX2SnapsPathOpen.MinimumSize = New System.Drawing.Size(55, 0)
-        Me.cmdPCSX2SnapsPathOpen.Name = "cmdPCSX2SnapsPathOpen"
-        Me.cmdPCSX2SnapsPathOpen.Size = New System.Drawing.Size(55, 24)
-        Me.cmdPCSX2SnapsPathOpen.TabIndex = 45
-        Me.cmdPCSX2SnapsPathOpen.Text = "OPEN"
-        Me.cmdPCSX2SnapsPathOpen.UseVisualStyleBackColor = False
-        '
-        'cmdPCSX2SnapsPathDetect
-        '
-        Me.cmdPCSX2SnapsPathDetect.AutoSize = True
-        Me.cmdPCSX2SnapsPathDetect.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdPCSX2SnapsPathDetect.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdPCSX2SnapsPathDetect.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.cmdPCSX2SnapsPathDetect.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdPCSX2SnapsPathDetect.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdPCSX2SnapsPathDetect.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdPCSX2SnapsPathDetect.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdPCSX2SnapsPathDetect.Location = New System.Drawing.Point(2, 2)
-        Me.cmdPCSX2SnapsPathDetect.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdPCSX2SnapsPathDetect.MinimumSize = New System.Drawing.Size(55, 0)
-        Me.cmdPCSX2SnapsPathDetect.Name = "cmdPCSX2SnapsPathDetect"
-        Me.cmdPCSX2SnapsPathDetect.Size = New System.Drawing.Size(55, 24)
-        Me.cmdPCSX2SnapsPathDetect.TabIndex = 46
-        Me.cmdPCSX2SnapsPathDetect.Text = "DETECT"
-        Me.cmdPCSX2SnapsPathDetect.UseVisualStyleBackColor = False
-        '
-        'txtPCSX2SnapsPath
-        '
-        Me.txtPCSX2SnapsPath.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
-        Me.txtPCSX2SnapsPath.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories
-        Me.txtPCSX2SnapsPath.BackColor = System.Drawing.Color.White
-        Me.txtPCSX2SnapsPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.tlpPCSX2SnapsPath.SetColumnSpan(Me.txtPCSX2SnapsPath, 3)
-        Me.txtPCSX2SnapsPath.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtPCSX2SnapsPath.ForeColor = System.Drawing.Color.Black
-        Me.txtPCSX2SnapsPath.Location = New System.Drawing.Point(10, 4)
-        Me.txtPCSX2SnapsPath.Margin = New System.Windows.Forms.Padding(2)
-        Me.txtPCSX2SnapsPath.Name = "txtPCSX2SnapsPath"
-        Me.txtPCSX2SnapsPath.Size = New System.Drawing.Size(122, 22)
-        Me.txtPCSX2SnapsPath.TabIndex = 42
-        '
-        'lblPCSX2SnapsPathStatus
-        '
-        Me.lblPCSX2SnapsPathStatus.AutoSize = True
-        Me.lblPCSX2SnapsPathStatus.Location = New System.Drawing.Point(35, 28)
-        Me.lblPCSX2SnapsPathStatus.Name = "lblPCSX2SnapsPathStatus"
-        Me.lblPCSX2SnapsPathStatus.Size = New System.Drawing.Size(1, 13)
-        Me.lblPCSX2SnapsPathStatus.TabIndex = 47
-        Me.lblPCSX2SnapsPathStatus.Text = "<text>"
-        '
-        'imgPCSX2SnapsPathStatus
-        '
-        Me.imgPCSX2SnapsPathStatus.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgPCSX2SnapsPathStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation
-        Me.imgPCSX2SnapsPathStatus.Location = New System.Drawing.Point(8, 28)
-        Me.imgPCSX2SnapsPathStatus.Margin = New System.Windows.Forms.Padding(0)
-        Me.imgPCSX2SnapsPathStatus.Name = "imgPCSX2SnapsPathStatus"
-        Me.imgPCSX2SnapsPathStatus.Size = New System.Drawing.Size(24, 28)
-        Me.imgPCSX2SnapsPathStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
-        Me.imgPCSX2SnapsPathStatus.TabIndex = 36
-        Me.imgPCSX2SnapsPathStatus.TabStop = False
+        Me.fppPCSX2SnapsPath.AutoSize = True
+        Me.fppPCSX2SnapsPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.fppPCSX2SnapsPath.BrowserDefaultLocation = System.Environment.SpecialFolder.MyDocuments
+        Me.fppPCSX2SnapsPath.BrowserShowNewFolder = False
+        Me.fppPCSX2SnapsPath.BrowserTip = "BrowserTip"
+        Me.fppPCSX2SnapsPath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.fppPCSX2SnapsPath.InfoTextError = "ErrorText"
+        Me.fppPCSX2SnapsPath.InfoTextInfo = "InfoText"
+        Me.fppPCSX2SnapsPath.InfoTextWarning = "WarningText"
+        Me.fppPCSX2SnapsPath.Location = New System.Drawing.Point(8, 270)
+        Me.fppPCSX2SnapsPath.Name = "fppPCSX2SnapsPath"
+        Me.fppPCSX2SnapsPath.SettingStatus = sstatesman.ucFolderPickerPanel.eSettingStatus.StatusInfo
+        Me.fppPCSX2SnapsPath.ShowDetectButton = True
+        Me.fppPCSX2SnapsPath.Size = New System.Drawing.Size(143, 58)
+        Me.fppPCSX2SnapsPath.TabIndex = 59
         '
         'lblPCSX2SnapsPath
         '
@@ -1142,6 +500,60 @@ Partial Class frmSettings
         Me.lblPCSX2SnapsPath.TabIndex = 42
         Me.lblPCSX2SnapsPath.Text = "Screenshots folder"
         '
+        'fppPCSX2SStatePath
+        '
+        Me.fppPCSX2SStatePath.AutoSize = True
+        Me.fppPCSX2SStatePath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.fppPCSX2SStatePath.BrowserDefaultLocation = System.Environment.SpecialFolder.MyDocuments
+        Me.fppPCSX2SStatePath.BrowserShowNewFolder = False
+        Me.fppPCSX2SStatePath.BrowserTip = "BrowserTip"
+        Me.fppPCSX2SStatePath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.fppPCSX2SStatePath.InfoTextError = "ErrorText"
+        Me.fppPCSX2SStatePath.InfoTextInfo = "InfoText"
+        Me.fppPCSX2SStatePath.InfoTextWarning = "WarningText"
+        Me.fppPCSX2SStatePath.Location = New System.Drawing.Point(8, 189)
+        Me.fppPCSX2SStatePath.Name = "fppPCSX2SStatePath"
+        Me.fppPCSX2SStatePath.SettingStatus = sstatesman.ucFolderPickerPanel.eSettingStatus.StatusInfo
+        Me.fppPCSX2SStatePath.ShowDetectButton = True
+        Me.fppPCSX2SStatePath.Size = New System.Drawing.Size(143, 58)
+        Me.fppPCSX2SStatePath.TabIndex = 59
+        '
+        'fppPCSX2IniPath
+        '
+        Me.fppPCSX2IniPath.AutoSize = True
+        Me.fppPCSX2IniPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.fppPCSX2IniPath.BrowserDefaultLocation = System.Environment.SpecialFolder.MyDocuments
+        Me.fppPCSX2IniPath.BrowserShowNewFolder = False
+        Me.fppPCSX2IniPath.BrowserTip = "BrowserTip"
+        Me.fppPCSX2IniPath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.fppPCSX2IniPath.InfoTextError = "ErrorText"
+        Me.fppPCSX2IniPath.InfoTextInfo = "InfoText"
+        Me.fppPCSX2IniPath.InfoTextWarning = "WarningText"
+        Me.fppPCSX2IniPath.Location = New System.Drawing.Point(8, 108)
+        Me.fppPCSX2IniPath.Name = "fppPCSX2IniPath"
+        Me.fppPCSX2IniPath.SettingStatus = sstatesman.ucFolderPickerPanel.eSettingStatus.StatusInfo
+        Me.fppPCSX2IniPath.ShowDetectButton = True
+        Me.fppPCSX2IniPath.Size = New System.Drawing.Size(143, 58)
+        Me.fppPCSX2IniPath.TabIndex = 59
+        '
+        'fppPCSX2AppPath
+        '
+        Me.fppPCSX2AppPath.AutoSize = True
+        Me.fppPCSX2AppPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.fppPCSX2AppPath.BrowserDefaultLocation = System.Environment.SpecialFolder.ProgramFiles
+        Me.fppPCSX2AppPath.BrowserShowNewFolder = False
+        Me.fppPCSX2AppPath.BrowserTip = "Select your PCSX2 executable folder."
+        Me.fppPCSX2AppPath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.fppPCSX2AppPath.InfoTextError = "ErrorText"
+        Me.fppPCSX2AppPath.InfoTextInfo = "InfoText"
+        Me.fppPCSX2AppPath.InfoTextWarning = "WarningText"
+        Me.fppPCSX2AppPath.Location = New System.Drawing.Point(8, 27)
+        Me.fppPCSX2AppPath.Name = "fppPCSX2AppPath"
+        Me.fppPCSX2AppPath.SettingStatus = sstatesman.ucFolderPickerPanel.eSettingStatus.StatusInfo
+        Me.fppPCSX2AppPath.ShowDetectButton = True
+        Me.fppPCSX2AppPath.Size = New System.Drawing.Size(143, 58)
+        Me.fppPCSX2AppPath.TabIndex = 59
+        '
         'pnlTab2
         '
         Me.pnlTab2.AutoScroll = True
@@ -1150,10 +562,10 @@ Partial Class frmSettings
         Me.pnlTab2.Controls.Add(Me.Label2)
         Me.pnlTab2.Controls.Add(Me.pnlThemeOptions)
         Me.pnlTab2.Controls.Add(Me.Label5)
-        Me.pnlTab2.Location = New System.Drawing.Point(337, 60)
+        Me.pnlTab2.Location = New System.Drawing.Point(347, 59)
         Me.pnlTab2.Name = "pnlTab2"
         Me.pnlTab2.Padding = New System.Windows.Forms.Padding(8, 4, 8, 4)
-        Me.pnlTab2.Size = New System.Drawing.Size(80, 269)
+        Me.pnlTab2.Size = New System.Drawing.Size(120, 269)
         Me.pnlTab2.TabIndex = 48
         '
         'ckbSStatesManThemeGradient
@@ -1165,7 +577,7 @@ Partial Class frmSettings
         Me.ckbSStatesManThemeGradient.Location = New System.Drawing.Point(8, 194)
         Me.ckbSStatesManThemeGradient.Name = "ckbSStatesManThemeGradient"
         Me.ckbSStatesManThemeGradient.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
-        Me.ckbSStatesManThemeGradient.Size = New System.Drawing.Size(64, 21)
+        Me.ckbSStatesManThemeGradient.Size = New System.Drawing.Size(104, 21)
         Me.ckbSStatesManThemeGradient.TabIndex = 57
         Me.ckbSStatesManThemeGradient.Text = "Enable windows gradient backgrounds."
         Me.ckbSStatesManThemeGradient.UseVisualStyleBackColor = False
@@ -1179,7 +591,7 @@ Partial Class frmSettings
         Me.ckbSStatesManThemeImage.Location = New System.Drawing.Point(8, 173)
         Me.ckbSStatesManThemeImage.Name = "ckbSStatesManThemeImage"
         Me.ckbSStatesManThemeImage.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
-        Me.ckbSStatesManThemeImage.Size = New System.Drawing.Size(64, 21)
+        Me.ckbSStatesManThemeImage.Size = New System.Drawing.Size(104, 21)
         Me.ckbSStatesManThemeImage.TabIndex = 50
         Me.ckbSStatesManThemeImage.Text = "Enable windows background image."
         Me.ckbSStatesManThemeImage.UseVisualStyleBackColor = False
@@ -1211,7 +623,7 @@ Partial Class frmSettings
         Me.pnlThemeOptions.Location = New System.Drawing.Point(8, 27)
         Me.pnlThemeOptions.Name = "pnlThemeOptions"
         Me.pnlThemeOptions.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
-        Me.pnlThemeOptions.Size = New System.Drawing.Size(64, 123)
+        Me.pnlThemeOptions.Size = New System.Drawing.Size(104, 123)
         Me.pnlThemeOptions.TabIndex = 51
         '
         'optTheme11
@@ -1221,7 +633,7 @@ Partial Class frmSettings
         Me.optTheme11.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optTheme11.Location = New System.Drawing.Point(12, 104)
         Me.optTheme11.Name = "optTheme11"
-        Me.optTheme11.Size = New System.Drawing.Size(40, 17)
+        Me.optTheme11.Size = New System.Drawing.Size(80, 17)
         Me.optTheme11.TabIndex = 55
         Me.optTheme11.TabStop = True
         Me.optTheme11.Tag = "PCSX2"
@@ -1235,7 +647,7 @@ Partial Class frmSettings
         Me.optTheme6.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optTheme6.Location = New System.Drawing.Point(12, 87)
         Me.optTheme6.Name = "optTheme6"
-        Me.optTheme6.Size = New System.Drawing.Size(40, 17)
+        Me.optTheme6.Size = New System.Drawing.Size(80, 17)
         Me.optTheme6.TabIndex = 58
         Me.optTheme6.TabStop = True
         Me.optTheme6.Tag = "hexagons"
@@ -1249,7 +661,7 @@ Partial Class frmSettings
         Me.optTheme5.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optTheme5.Location = New System.Drawing.Point(12, 70)
         Me.optTheme5.Name = "optTheme5"
-        Me.optTheme5.Size = New System.Drawing.Size(40, 17)
+        Me.optTheme5.Size = New System.Drawing.Size(80, 17)
         Me.optTheme5.TabIndex = 56
         Me.optTheme5.TabStop = True
         Me.optTheme5.Tag = "brushedmetal"
@@ -1263,7 +675,7 @@ Partial Class frmSettings
         Me.optTheme4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optTheme4.Location = New System.Drawing.Point(12, 53)
         Me.optTheme4.Name = "optTheme4"
-        Me.optTheme4.Size = New System.Drawing.Size(40, 17)
+        Me.optTheme4.Size = New System.Drawing.Size(80, 17)
         Me.optTheme4.TabIndex = 57
         Me.optTheme4.TabStop = True
         Me.optTheme4.Tag = "stripes_light"
@@ -1277,7 +689,7 @@ Partial Class frmSettings
         Me.optTheme3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optTheme3.Location = New System.Drawing.Point(12, 36)
         Me.optTheme3.Name = "optTheme3"
-        Me.optTheme3.Size = New System.Drawing.Size(40, 17)
+        Me.optTheme3.Size = New System.Drawing.Size(80, 17)
         Me.optTheme3.TabIndex = 54
         Me.optTheme3.TabStop = True
         Me.optTheme3.Tag = "stripes_dark"
@@ -1291,7 +703,7 @@ Partial Class frmSettings
         Me.optTheme2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.optTheme2.Location = New System.Drawing.Point(12, 19)
         Me.optTheme2.Name = "optTheme2"
-        Me.optTheme2.Size = New System.Drawing.Size(40, 17)
+        Me.optTheme2.Size = New System.Drawing.Size(80, 17)
         Me.optTheme2.TabIndex = 53
         Me.optTheme2.TabStop = True
         Me.optTheme2.Tag = "noise"
@@ -1306,7 +718,7 @@ Partial Class frmSettings
         Me.optTheme1.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.optTheme1.Location = New System.Drawing.Point(12, 2)
         Me.optTheme1.Name = "optTheme1"
-        Me.optTheme1.Size = New System.Drawing.Size(40, 17)
+        Me.optTheme1.Size = New System.Drawing.Size(80, 17)
         Me.optTheme1.TabIndex = 52
         Me.optTheme1.TabStop = True
         Me.optTheme1.Tag = "squares"
@@ -1330,10 +742,10 @@ Partial Class frmSettings
         Me.pnlTab3.AutoScroll = True
         Me.pnlTab3.Controls.Add(Me.lvwLog)
         Me.pnlTab3.Controls.Add(Me.TableLayoutPanel4)
-        Me.pnlTab3.Location = New System.Drawing.Point(423, 59)
+        Me.pnlTab3.Location = New System.Drawing.Point(497, 59)
         Me.pnlTab3.Name = "pnlTab3"
         Me.pnlTab3.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
-        Me.pnlTab3.Size = New System.Drawing.Size(143, 277)
+        Me.pnlTab3.Size = New System.Drawing.Size(69, 277)
         Me.pnlTab3.TabIndex = 58
         '
         'lvwLog
@@ -1348,7 +760,7 @@ Partial Class frmSettings
         Me.lvwLog.Location = New System.Drawing.Point(8, 23)
         Me.lvwLog.Margin = New System.Windows.Forms.Padding(0)
         Me.lvwLog.Name = "lvwLog"
-        Me.lvwLog.Size = New System.Drawing.Size(127, 250)
+        Me.lvwLog.Size = New System.Drawing.Size(53, 250)
         Me.lvwLog.TabIndex = 0
         Me.lvwLog.UseCompatibleStateImageBehavior = False
         Me.lvwLog.View = System.Windows.Forms.View.Details
@@ -1392,7 +804,7 @@ Partial Class frmSettings
         Me.TableLayoutPanel4.RowCount = 1
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.TableLayoutPanel4.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 23.0!))
-        Me.TableLayoutPanel4.Size = New System.Drawing.Size(127, 23)
+        Me.TableLayoutPanel4.Size = New System.Drawing.Size(53, 23)
         Me.TableLayoutPanel4.TabIndex = 39
         '
         'FlowPanelSStatesList
@@ -1401,7 +813,7 @@ Partial Class frmSettings
         Me.FlowPanelSStatesList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.FlowPanelSStatesList.Controls.Add(Me.cmdLogFilter)
         Me.FlowPanelSStatesList.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.FlowPanelSStatesList.Location = New System.Drawing.Point(32, 0)
+        Me.FlowPanelSStatesList.Location = New System.Drawing.Point(-42, 0)
         Me.FlowPanelSStatesList.Margin = New System.Windows.Forms.Padding(0)
         Me.FlowPanelSStatesList.Name = "FlowPanelSStatesList"
         Me.FlowPanelSStatesList.Size = New System.Drawing.Size(79, 22)
@@ -1524,37 +936,12 @@ Partial Class frmSettings
         Me.Controls.SetChildIndex(Me.cmdOk, 0)
         Me.Controls.SetChildIndex(Me.cmdCancel, 0)
         Me.Controls.SetChildIndex(Me.cmdApply, 0)
-        CType(Me.imgPCSX2IniPathStatus, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.imgPCSX2AppPathStatus, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.imgSStatesManPicsPathStatus, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.flpSStatesManPicsPath.ResumeLayout(False)
-        Me.flpSStatesManPicsPath.PerformLayout()
-        Me.tlpPCSX2AppPath.ResumeLayout(False)
-        Me.tlpPCSX2AppPath.PerformLayout()
-        Me.flpPCSX2AppPath.ResumeLayout(False)
-        Me.flpPCSX2AppPath.PerformLayout()
-        Me.tlpPCSX2SStatePath.ResumeLayout(False)
-        Me.tlpPCSX2SStatePath.PerformLayout()
-        Me.flpPCSX2SStatePath.ResumeLayout(False)
-        Me.flpPCSX2SStatePath.PerformLayout()
-        CType(Me.imgPCSX2SStatePathStatus, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.tlpPCSX2IniPath.ResumeLayout(False)
-        Me.tlpPCSX2IniPath.PerformLayout()
-        Me.flpPCSX2IniPath.ResumeLayout(False)
-        Me.flpPCSX2IniPath.PerformLayout()
-        Me.tlpSStatesManPicsPath.ResumeLayout(False)
-        Me.tlpSStatesManPicsPath.PerformLayout()
         Me.flpTab.ResumeLayout(False)
         Me.flpTab.PerformLayout()
         Me.pnlTab0.ResumeLayout(False)
         Me.pnlTab0.PerformLayout()
         Me.pnlTab1.ResumeLayout(False)
         Me.pnlTab1.PerformLayout()
-        Me.tlpPCSX2SnapsPath.ResumeLayout(False)
-        Me.tlpPCSX2SnapsPath.PerformLayout()
-        Me.FlowLayoutPanel1.ResumeLayout(False)
-        Me.FlowLayoutPanel1.PerformLayout()
-        CType(Me.imgPCSX2SnapsPathStatus, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlTab2.ResumeLayout(False)
         Me.pnlTab2.PerformLayout()
         Me.pnlThemeOptions.ResumeLayout(False)
@@ -1572,45 +959,14 @@ Partial Class frmSettings
         Me.PerformLayout()
 
     End Sub
-    Private WithEvents txtSStatesManPicsPath As System.Windows.Forms.TextBox
-    Private WithEvents txtPCSX2AppPath As System.Windows.Forms.TextBox
     Private WithEvents cmdOk As System.Windows.Forms.Button
     Private WithEvents cmdCancel As System.Windows.Forms.Button
-    Private WithEvents cmdSStatesManPicsPathBrowse As System.Windows.Forms.Button
-    Private WithEvents lblSStatesManPicsPathStatus As System.Windows.Forms.Label
     Private WithEvents optTabHeader0 As System.Windows.Forms.RadioButton
-    Private WithEvents lblPCSX2IniPathStatus As System.Windows.Forms.Label
-    Private WithEvents cmdPCSX2IniPathBrowse As System.Windows.Forms.Button
-    Private WithEvents cmdPCSX2AppPathBrowse As System.Windows.Forms.Button
     Private WithEvents lblPCSX2SStatePath As System.Windows.Forms.Label
     Private WithEvents lblPCSX2IniPath As System.Windows.Forms.Label
     Private WithEvents lblPCSX2AppPath As System.Windows.Forms.Label
-    Private WithEvents txtPCSX2IniPath As System.Windows.Forms.TextBox
     Private WithEvents optTabHeader1 As System.Windows.Forms.RadioButton
-    Private WithEvents imgSStatesManPicsPathStatus As System.Windows.Forms.PictureBox
-    Private WithEvents imgPCSX2IniPathStatus As System.Windows.Forms.PictureBox
-    Private WithEvents imgPCSX2AppPathStatus As System.Windows.Forms.PictureBox
-    Private WithEvents cmdPCSX2AppPathDetect As System.Windows.Forms.Button
-    Private WithEvents cmdPCSX2IniPathDetect As System.Windows.Forms.Button
-    Private WithEvents cmdSStatesManPicsPathOpen As System.Windows.Forms.Button
-    Private WithEvents cmdPCSX2AppPathOpen As System.Windows.Forms.Button
-    Private WithEvents cmdPCSX2IniPathOpen As System.Windows.Forms.Button
-    Private WithEvents tlpPCSX2AppPath As System.Windows.Forms.TableLayoutPanel
-    Private WithEvents lblPCSX2AppPathStatus As System.Windows.Forms.Label
-    Private WithEvents tlpPCSX2IniPath As System.Windows.Forms.TableLayoutPanel
-    Private WithEvents flpPCSX2IniPath As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents flpSStatesManPicsPath As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents flpPCSX2AppPath As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents tlpPCSX2SStatePath As System.Windows.Forms.TableLayoutPanel
-    Private WithEvents flpPCSX2SStatePath As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents cmdPCSX2SStatePathBrowse As System.Windows.Forms.Button
-    Private WithEvents cmdPCSX2SStatePathOpen As System.Windows.Forms.Button
-    Private WithEvents cmdPCSX2SStatePathDetect As System.Windows.Forms.Button
-    Private WithEvents txtPCSX2SStatePath As System.Windows.Forms.TextBox
-    Private WithEvents lblPCSX2SStatePathStatus As System.Windows.Forms.Label
-    Private WithEvents imgPCSX2SStatePathStatus As System.Windows.Forms.PictureBox
     Private WithEvents flpTab As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents tlpSStatesManPicsPath As System.Windows.Forms.TableLayoutPanel
     Private WithEvents optTabHeader2 As System.Windows.Forms.RadioButton
     Private WithEvents pnlTab0 As System.Windows.Forms.Panel
     Private WithEvents lblSStatesManPicsPath As System.Windows.Forms.Label
@@ -1647,17 +1003,14 @@ Partial Class frmSettings
     Private WithEvents optTheme4 As System.Windows.Forms.RadioButton
     Private WithEvents optTheme6 As System.Windows.Forms.RadioButton
     Private WithEvents cmdApply As System.Windows.Forms.Button
-    Private WithEvents tlpPCSX2SnapsPath As System.Windows.Forms.TableLayoutPanel
-    Private WithEvents FlowLayoutPanel1 As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents cmdPCSX2SnapsPathBrowse As System.Windows.Forms.Button
-    Private WithEvents cmdPCSX2SnapsPathOpen As System.Windows.Forms.Button
-    Private WithEvents cmdPCSX2SnapsPathDetect As System.Windows.Forms.Button
-    Private WithEvents txtPCSX2SnapsPath As System.Windows.Forms.TextBox
-    Private WithEvents lblPCSX2SnapsPathStatus As System.Windows.Forms.Label
-    Private WithEvents imgPCSX2SnapsPathStatus As System.Windows.Forms.PictureBox
     Private WithEvents lblPCSX2SnapsPath As System.Windows.Forms.Label
     Private WithEvents FlowLayoutPanel2 As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdLogExport As System.Windows.Forms.Button
     Private WithEvents cmLogFilter As System.Windows.Forms.ContextMenuStrip
     Private WithEvents cmiAll As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents fppPCSX2AppPath As sstatesman.ucFolderPickerPanel
+    Friend WithEvents fppPCSX2IniPath As sstatesman.ucFolderPickerPanel
+    Friend WithEvents fppPCSX2SStatePath As sstatesman.ucFolderPickerPanel
+    Friend WithEvents fppPCSX2SnapsPath As sstatesman.ucFolderPickerPanel
+    Friend WithEvents fppSStatesManPicsPath As sstatesman.ucFolderPickerPanel
 End Class
