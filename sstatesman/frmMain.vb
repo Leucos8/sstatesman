@@ -997,7 +997,7 @@ Public NotInheritable Class frmMain
 
 #Region "Form - TitleBar ToolBar"
     Private Sub cmdTools_Click(sender As Object, e As EventArgs) Handles cmdTools.Click
-        Me.cmTools.Show(Point.Add(CType(sender, Button).PointToScreen(Me.cmdTools.Location), New Size(0, CType(sender, Button).Size.Height)))
+        Me.cmTools.Show(Point.Add(CType(sender, Button).PointToScreen(CType(sender, Button).Location), New Size(0, CType(sender, Button).Size.Height)))
     End Sub
 
     Private Sub cmdSettings_Click(sender As Object, e As EventArgs) Handles cmdSettings.Click
