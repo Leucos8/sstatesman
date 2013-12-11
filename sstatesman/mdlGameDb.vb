@@ -89,7 +89,7 @@ Module mdlGameDb
         ''' </returns>
         ''' <remarks>This is the class function.</remarks>
         Friend Function CompatToColor(ByVal pBGcolor As Color) As Color
-            CompatToColor(pBGcolor, Compat)
+            Return CompatToColor(pBGcolor, Compat)
         End Function
         ''' <summary>Converts Compat to a color.</summary>
         ''' <param name="pBGcolor">Default returned color if a match is not found.</param>

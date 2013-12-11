@@ -165,9 +165,8 @@ Partial Class ucFolderPickerPanel
         Me.lblStatus.AutoSize = True
         Me.lblStatus.Location = New System.Drawing.Point(35, 26)
         Me.lblStatus.Name = "lblStatus"
-        Me.lblStatus.Size = New System.Drawing.Size(36, 13)
+        Me.lblStatus.Size = New System.Drawing.Size(0, 13)
         Me.lblStatus.TabIndex = 5
-        Me.lblStatus.Text = "<text>"
         '
         'imgStatus
         '
@@ -180,6 +179,7 @@ Partial Class ucFolderPickerPanel
         Me.imgStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
         Me.imgStatus.TabIndex = 6
         Me.imgStatus.TabStop = False
+        Me.imgStatus.Visible = False
         '
         'tmrCheck
         '

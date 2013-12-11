@@ -22,17 +22,17 @@ Friend Class ucFolderPickerPanel
         End Get
         Set(ByVal value As String)
             Me.txtPath.Text = value
+            Me.CheckState()
         End Set
     End Property
 
+    Public Property DescriptionInfo As String = "Info"
+    Public Property DescriptionWarning As String = "Warning"
+    Public Property DescriptionError As String = "Error"
 
-    Public Property InfoTextInfo As String = "InfoText"
-    Public Property InfoTextWarning As String = "WarningText"
-    Public Property InfoTextError As String = "ErrorText"
-
-    Public Property BrowserTip As String = "BrowserTip"
-    Public Property BrowserDefaultLocation As Environment.SpecialFolder = Environment.SpecialFolder.MyDocuments
-    Public Property BrowserShowNewFolder As Boolean = True
+    Public Property FBDDescription As String = "FolderBrowserDescription"
+    Public Property FBDDefaultPath As Environment.SpecialFolder = Environment.SpecialFolder.MyDocuments
+    Public Property FBDShowNewFolderButton As Boolean = True
 
     Private _detectAllowed As Boolean = False
     Public Property ShowDetectButton() As Boolean
@@ -47,77 +47,81 @@ Friend Class ucFolderPickerPanel
         End Set
     End Property
 
-    Private _settingStatus As eSettingStatus = eSettingStatus.StatusInfo
-    Public Property SettingStatus As eSettingStatus
+    Private _state As eDescState = eDescState.StateIdle
+    Public Property State As eDescState
         Get
-            Me.SettingCheck()
-            Return _settingStatus
+            If Me.tmrCheck.Enabled Then
+                Me.CheckState()
+            End If
+            Return _state
         End Get
-        Set(value As eSettingStatus)
-            _settingStatus = value
+        Set(value As eDescState)
+            If Not (value = _state) Then
+                _state = value
+                Me.OnValidated(Nothing)
+            End If
         End Set
     End Property
 
-    Friend Enum eSettingStatus
-        StatusInfo
-        StatusWarning
-        StatusError
+    Friend Enum eDescState
+        StateIdle
+        StateWarning
+        StateError
     End Enum
 
 
-    Public Event Detect(sender As Object, e As EventArgs)
-    Public Event Check(sender As Object, e As EventArgs)
+    Public Event DetectFolder(sender As Object, e As EventArgs)
 
-    Public Sub UpdateStatus()
-        Select Case _settingStatus
-            Case eSettingStatus.StatusInfo
+    Public Sub UI_Update()
+        Select Case _state
+            Case eDescState.StateIdle
                 Me.tlpWrapper.BackColor = Me.BackColor
                 'Me.imgStatus.Image = My.Resources.InfoIcon_Information
                 Me.imgStatus.Visible = False
-                Me.lblStatus.Text = Me.InfoTextInfo
-            Case eSettingStatus.StatusWarning
+                Me.lblStatus.Text = Me.DescriptionInfo
+            Case eDescState.StateWarning
                 Me.tlpWrapper.BackColor = Color.FromArgb(255, 255, 192)
                 Me.imgStatus.Image = My.Resources.InfoIcon_Exclamation
                 Me.imgStatus.Visible = True
-                Me.lblStatus.Text = Me.InfoTextWarning
-            Case eSettingStatus.StatusError
+                Me.lblStatus.Text = Me.DescriptionWarning
+            Case eDescState.StateError
                 Me.tlpWrapper.BackColor = Color.FromArgb(255, 192, 192)
                 Me.imgStatus.Image = My.Resources.InfoIcon_Error
                 Me.imgStatus.Visible = True
-                Me.lblStatus.Text = Me.InfoTextError
+                Me.lblStatus.Text = Me.DescriptionError
         End Select
         Me.cmdOpen.Enabled = Directory.Exists(Me.txtPath.Text)
     End Sub
 
-    Private Sub SettingCheck()
+    Private Sub CheckState()
         Me.txtPath.Text = mdlMain.TrimBadPathChars(Me.txtPath.Text)
 
         Me.tmrCheck.Stop()
         Me.tmrCheck.Enabled = False
 
-        RaiseEvent Check(Me, Nothing)
+        Me.OnValidating(Nothing)
 
-        UpdateStatus()
+        UI_Update()
     End Sub
 
     Private Sub cmdBrowse_Click(sender As Object, e As EventArgs) Handles cmdBrowse.Click
-        Using tmpFBDlg As New FolderBrowserDialog With {.Description = BrowserTip, .ShowNewFolderButton = BrowserShowNewFolder}
-            If Me.SettingStatus = eSettingStatus.StatusInfo Then
+        Using tmpFBDlg As New FolderBrowserDialog With {.Description = FBDDescription, .ShowNewFolderButton = FBDShowNewFolderButton}
+            If Me.State = eDescState.StateIdle Then
                 tmpFBDlg.SelectedPath = Me.txtPath.Text
-            Else : tmpFBDlg.SelectedPath = Environment.GetFolderPath(Me.BrowserDefaultLocation)
+            Else : tmpFBDlg.SelectedPath = Environment.GetFolderPath(Me.FBDDefaultPath)
             End If
             If tmpFBDlg.ShowDialog(Me) = DialogResult.OK Then
                 Me.txtPath.Text = tmpFBDlg.SelectedPath
             End If
         End Using
-        Me.SettingCheck()
+        Me.CheckState()
     End Sub
 
     Private Sub cmdOpen_Click(sender As Object, e As EventArgs) Handles cmdOpen.Click
         If Directory.Exists(Me.txtPath.Text) Then
-            System.Diagnostics.Process.Start(Me.txtPath.Text)
+            Diagnostics.Process.Start(Me.txtPath.Text)
         Else
-            Me.SettingCheck()
+            Me.CheckState()
         End If
     End Sub
 
@@ -125,11 +129,10 @@ Friend Class ucFolderPickerPanel
         Me.cmdDetect.Visible = Me._detectAllowed
         Me.cmdDetect.Enabled = Me._detectAllowed
         If Not (Me._detectAllowed) Then
-            MessageBox.Show("Detect button should be disabled, something is wrong here!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            SSMAppLog.Append(eType.LogError, eSrc.Settings, eSrcMethod.Detect, "Detect Button was supposed to be disabled here!")
+            SSMAppLog.Append(eType.LogError, eSrc.Settings, eSrcMethod.Detect, "Detect Button was supposed to be disabled!")
         Else
-            RaiseEvent Detect(Me, e)
-            Me.SettingCheck()
+            RaiseEvent DetectFolder(Me, e)
+            Me.CheckState()
         End If
     End Sub
 
@@ -140,10 +143,6 @@ Friend Class ucFolderPickerPanel
     End Sub
 
     Private Sub tmrCheck_Tick(sender As Object, e As EventArgs) Handles tmrCheck.Tick
-        Me.SettingCheck()
-    End Sub
-
-    Private Sub txtPath_Leave(sender As Object, e As EventArgs) Handles txtPath.Leave
-        Me.SettingCheck()
+        Me.CheckState()
     End Sub
 End Class

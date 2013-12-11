@@ -38,50 +38,50 @@ Public NotInheritable Class frmSettings
 
         Me.Settings_LoadTheme()
 
+        SSMAppLog.Append(eType.LogInformation, eSrc.SettingDialog, eSrcMethod.Load, "Settings loaded.")
     End Sub
 
     Private Sub Settings_Apply()
-        Me.Settings_Check()
-        If Not (Me.tmpTab2SettingsFail) Then
-            'General options
-            My.Settings.SStatesMan_FirstRun = Me.ckbFirstRun.Checked
-            My.Settings.SStatesMan_SStatesListShowOnly = Me.ckb_SStatesListShowOnly.Checked
-            My.Settings.SStatesMan_SStatesListAutoRefresh = Me.ckb_SStatesListAutoRefresh.Checked
-            'Savestates management
-            My.Settings.SStatesMan_FileTrash = Me.ckbSStatesManMoveToTrash.Checked
-            My.Settings.SStatesMan_SStatesVersionExtract = Me.ckbSStatesManVersionExtract.Checked
-            'Cover folder
-            My.Settings.SStatesMan_PathPics = Me.fppSStatesManPicsPath.Text
-            'PCSX2 folders
-            My.Settings.PCSX2_PathBin = Me.fppPCSX2AppPath.Text
-            My.Settings.PCSX2_PathInis = Me.fppPCSX2IniPath.Text
-            My.Settings.PCSX2_PathSState = Me.fppPCSX2SStatePath.Text
-            My.Settings.PCSX2_PathSnaps = Me.fppPCSX2SnapsPath.Text
+        'General options
+        My.Settings.SStatesMan_FirstRun = Me.ckbFirstRun.Checked
+        My.Settings.SStatesMan_SStatesListShowOnly = Me.ckb_SStatesListShowOnly.Checked
+        My.Settings.SStatesMan_SStatesListAutoRefresh = Me.ckb_SStatesListAutoRefresh.Checked
+        'Savestates management
+        My.Settings.SStatesMan_FileTrash = Me.ckbSStatesManMoveToTrash.Checked
+        My.Settings.SStatesMan_SStatesVersionExtract = Me.ckbSStatesManVersionExtract.Checked
+        'Cover folder
+        My.Settings.SStatesMan_PathPics = Me.fppSStatesManPicsPath.Text
+        'PCSX2 folders
+        My.Settings.PCSX2_PathBin = Me.fppPCSX2AppPath.Text
+        My.Settings.PCSX2_PathInis = Me.fppPCSX2IniPath.Text
+        My.Settings.PCSX2_PathSState = Me.fppPCSX2SStatePath.Text
+        My.Settings.PCSX2_PathSnaps = Me.fppPCSX2SnapsPath.Text
 
-            'Theme
-            My.Settings.SStatesMan_ThemeImageEnabled = Me.ckbSStatesManThemeImage.Checked
-            My.Settings.SStatesMan_ThemeGradientEnabled = Me.ckbSStatesManThemeGradient.Checked
-            My.Settings.SStatesMan_Theme = currentSelectedTheme.ToString
+        'Theme
+        My.Settings.SStatesMan_ThemeImageEnabled = Me.ckbSStatesManThemeImage.Checked
+        My.Settings.SStatesMan_ThemeGradientEnabled = Me.ckbSStatesManThemeGradient.Checked
+        My.Settings.SStatesMan_Theme = currentSelectedTheme.ToString
 
-            My.Settings.Save()
+        My.Settings.Save()
 
-            'Getting things ready
-            mdlTheme.LoadTheme(currentSelectedTheme.ToString)
+        'Getting things ready
+        mdlTheme.LoadTheme(currentSelectedTheme.ToString)
 
-            'Me.applyTheme()
+        'Me.applyTheme()
 
-            frmMain.applyTheme()    'Updating frMain theme
-            frmMain.tmrSStatesListRefresh.Enabled = My.Settings.SStatesMan_SStatesListAutoRefresh   'Enabling the timer
-        End If
+        frmMain.applyTheme()    'Updating frMain theme
+        frmMain.tmrSStatesListRefresh.Enabled = My.Settings.SStatesMan_SStatesListAutoRefresh   'Enabling the timer
+
+        SSMAppLog.Append(eType.LogInformation, eSrc.SettingDialog, eSrcMethod.Load, "Settings applied.")
     End Sub
 
     Private Sub Settings_Check()
 
 
-        If fppPCSX2AppPath.SettingStatus = ucFolderPickerPanel.eSettingStatus.StatusError Or _
-           fppPCSX2IniPath.SettingStatus = ucFolderPickerPanel.eSettingStatus.StatusError Or _
-           fppPCSX2SStatePath.SettingStatus = ucFolderPickerPanel.eSettingStatus.StatusError Or _
-           fppPCSX2SnapsPath.SettingStatus = ucFolderPickerPanel.eSettingStatus.StatusError Then
+        If fppPCSX2AppPath.State = ucFolderPickerPanel.eDescState.StateError Or _
+           fppPCSX2IniPath.State = ucFolderPickerPanel.eDescState.StateError Or _
+           fppPCSX2SStatePath.State = ucFolderPickerPanel.eDescState.StateError Or _
+           fppPCSX2SnapsPath.State = ucFolderPickerPanel.eDescState.StateError Then
 
             Me.cmdOk.Enabled = False
             Me.cmdApply.Enabled = False
@@ -96,6 +96,7 @@ Public NotInheritable Class frmSettings
             Me.optTabHeader1.BackColor = Color.Transparent
 
         End If
+        SSMAppLog.Append(eType.LogInformation, eSrc.SettingDialog, eSrcMethod.Load, "Settings checked.")
     End Sub
 #End Region
 
@@ -327,76 +328,79 @@ Public NotInheritable Class frmSettings
 
 #Region "Folder Picker Panels"
     Private Sub fppMessagesSetup()
-        Me.fppPCSX2AppPath.InfoTextInfo = String.Concat("The folder where ", My.Application.Info.Title, " will look for """, My.Settings.PCSX2_GameDbFilename, """, usually the folder where PCSX2 is installed.")
-        Me.fppPCSX2AppPath.InfoTextWarning = String.Concat("Unable to find """, My.Settings.PCSX2_GameDbFilename, """ in the specified path.", Environment.NewLine, "Information about games won't be shown in", My.Application.Info.Title, ".")
-        Me.fppPCSX2AppPath.InfoTextError = String.Concat("The specified path is not found or inaccessible.", Environment.NewLine, "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
-        Me.fppPCSX2AppPath.BrowserTip = "Select your PCSX2 executable folder."
+        Me.fppPCSX2AppPath.DescriptionInfo = String.Concat("The folder where PCSX2 is installed. ", My.Application.Info.Title, " will try to load ", My.Settings.PCSX2_GameDbFilename, " from this location.")
+        Me.fppPCSX2AppPath.DescriptionWarning = String.Concat("Unable to find """, My.Settings.PCSX2_GameDbFilename, """ in the specified path.", Environment.NewLine, "Game information (title, region, etc.) won't be shown.")
+        Me.fppPCSX2AppPath.DescriptionError = String.Concat("Path not found or inaccessible.", Environment.NewLine, "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
+        Me.fppPCSX2AppPath.FBDDescription = "Select your PCSX2 application folder."
 
-        Me.fppPCSX2IniPath.InfoTextInfo = String.Concat("The folder where ", My.Application.Info.Title, " will look PCSX2 inis, usually the ""inis"" folder inside PCSX2 user folder.")
-        Me.fppPCSX2IniPath.InfoTextWarning = String.Concat("Unable to find """, My.Settings.PCSX2_PCSX2_uiFilename, """ in the specified path.", Environment.NewLine, "It may not be the correct PCSX2 ""inis"" folder.")
-        Me.fppPCSX2IniPath.InfoTextError = String.Concat("The specified path is not found or inaccessible.", Environment.NewLine, "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
-        Me.fppPCSX2IniPath.BrowserTip = "Select your PCSX2 ""inis"" folder."
+        Me.fppPCSX2IniPath.DescriptionInfo = String.Concat("The folder where ", My.Application.Info.Title, " will look for your PCSX2 configuration files, usually the ""inis"" folder inside PCSX2 user folder.")
+        Me.fppPCSX2IniPath.DescriptionWarning = String.Concat("Unable to find """, My.Settings.PCSX2_PCSX2_uiFilename, """ in the specified path.", Environment.NewLine, "Maybe it's not the correct PCSX2 ""inis"" folder?")
+        Me.fppPCSX2IniPath.DescriptionError = String.Concat("Path not found or inaccessible.", Environment.NewLine, "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
+        Me.fppPCSX2IniPath.FBDDescription = "Select your PCSX2 ""inis"" folder."
 
-        Me.fppPCSX2SStatePath.InfoTextInfo = String.Concat("The folder where ", My.Application.Info.Title, " will look for the savestates, usually the """, My.Settings.PCSX2_SStateFolder, """ folder inside PCSX2 user folder.")
-        Me.fppPCSX2SStatePath.InfoTextError = String.Concat("The specified path is not found or inaccessible.", Environment.NewLine, "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
-        Me.fppPCSX2SStatePath.BrowserTip = "Select your PCSX2 savestates folder."
+        Me.fppPCSX2SStatePath.DescriptionInfo = String.Concat("The folder where ", My.Application.Info.Title, " will look for your savestates files, usually the """, My.Settings.PCSX2_SStateFolder, """ folder inside your PCSX2 user folder.")
+        Me.fppPCSX2SStatePath.DescriptionError = String.Concat("The specified path is not found or inaccessible.", Environment.NewLine, "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
+        Me.fppPCSX2SStatePath.FBDDescription = "Select your PCSX2 savestates folder."
 
-        Me.fppPCSX2SnapsPath.InfoTextInfo = String.Concat("The folder where ", My.Application.Info.Title, " will look for the screenshots, usually the """, My.Settings.PCSX2_SnapsFolder, """ folder inside PCSX2 user folder.")
-        Me.fppPCSX2SnapsPath.InfoTextError = String.Concat("The specified path is not found or inaccessible.", Environment.NewLine, "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
-        Me.fppPCSX2SnapsPath.BrowserTip = "Select your PCSX2 screenshots folder."
+        Me.fppPCSX2SnapsPath.DescriptionInfo = String.Concat("The folder where ", My.Application.Info.Title, " will look for your screenshots files, usually the """, My.Settings.PCSX2_SnapsFolder, """ folder inside your PCSX2 user folder.")
+        Me.fppPCSX2SnapsPath.DescriptionError = String.Concat("Path not found or inaccessible.", Environment.NewLine, "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
+        Me.fppPCSX2SnapsPath.FBDDescription = "Select your PCSX2 screenshots folder."
 
-        Me.fppSStatesManPicsPath.InfoTextInfo = String.Concat("The folder where ", My.Application.Info.Title, " will look for the game covers.", Environment.NewLine, "The image file MUST be named <executable code>.jpg to work.")
-        Me.fppSStatesManPicsPath.InfoTextWarning = String.Concat("The specified path not found or inaccessible.", Environment.NewLine, "Please enter a valid path.")
-        Me.fppSStatesManPicsPath.BrowserTip = "Select your game cover images folder."
+        Me.fppSStatesManPicsPath.DescriptionInfo = String.Concat("The folder where ", My.Application.Info.Title, " will try to load game covers.", Environment.NewLine, "The image files MUST be named <executable code>.jpg for each game.")
+        Me.fppSStatesManPicsPath.DescriptionWarning = String.Concat("Path not found or inaccessible.", Environment.NewLine, "Please enter a valid path.")
+        Me.fppSStatesManPicsPath.FBDDescription = "Select your game cover images folder."
     End Sub
 
-    Private Sub fppPCSX2AppPath_Detect(sender As Object, e As EventArgs) Handles fppPCSX2AppPath.Detect
+    Private Sub fppPCSX2AppPath_DetectFolder(sender As Object, e As EventArgs) Handles fppPCSX2AppPath.DetectFolder
         PCSX2_PathBin_Detect(CType(sender, ucFolderPickerPanel).Text)
     End Sub
 
-    Private Sub fppPCSX2IniPath_Detect(sender As Object, e As EventArgs) Handles fppPCSX2IniPath.Detect
+    Private Sub fppPCSX2IniPath_DetectFolder(sender As Object, e As EventArgs) Handles fppPCSX2IniPath.DetectFolder
         PCSX2_PathInis_Detect(Me.fppPCSX2AppPath.Text, CType(sender, ucFolderPickerPanel).Text)
     End Sub
 
-    Private Sub fppPCSX2SStateSnapsPath_Detect(sender As Object, e As EventArgs) Handles fppPCSX2SStatePath.Detect, fppPCSX2SnapsPath.Detect
+    Private Sub fppPCSX2SStateSnapsPath_DetectFolder(sender As Object, e As EventArgs) Handles fppPCSX2SStatePath.DetectFolder, fppPCSX2SnapsPath.DetectFolder
         PCSX2_PathSettings_Detect(Me.fppPCSX2IniPath.Text, fppPCSX2SStatePath.Text, fppPCSX2SnapsPath.Text)
     End Sub
 
-
-    Private Sub fppPCSX2AppPath_Check(sender As Object, e As EventArgs) Handles fppPCSX2AppPath.Check
+    Private Sub fppPCSX2AppPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles fppPCSX2AppPath.Validating
         If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
-            CType(sender, ucFolderPickerPanel).SettingStatus = ucFolderPickerPanel.eSettingStatus.StatusError
+            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
         ElseIf Not (File.Exists(Path.Combine(CType(sender, ucFolderPickerPanel).Text, My.Settings.PCSX2_GameDbFilename))) Then
-            CType(sender, ucFolderPickerPanel).SettingStatus = ucFolderPickerPanel.eSettingStatus.StatusWarning
+            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
         Else
-            CType(sender, ucFolderPickerPanel).SettingStatus = ucFolderPickerPanel.eSettingStatus.StatusInfo
+            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
         End If
     End Sub
 
-    Private Sub fppIniAppPath_Check(sender As Object, e As EventArgs) Handles fppPCSX2IniPath.Check
+    Private Sub fppPCSX2IniPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles fppPCSX2IniPath.Validating
         If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
-            CType(sender, ucFolderPickerPanel).SettingStatus = ucFolderPickerPanel.eSettingStatus.StatusError
+            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
         ElseIf Not (File.Exists(Path.Combine(CType(sender, ucFolderPickerPanel).Text, My.Settings.PCSX2_PCSX2_uiFilename))) Then
-            CType(sender, ucFolderPickerPanel).SettingStatus = ucFolderPickerPanel.eSettingStatus.StatusWarning
+            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
         Else
-            CType(sender, ucFolderPickerPanel).SettingStatus = ucFolderPickerPanel.eSettingStatus.StatusInfo
+            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
         End If
     End Sub
 
-    Private Sub fppPCSX2SStateSnapsPath_Check(sender As Object, e As EventArgs) Handles fppPCSX2SStatePath.Check, fppPCSX2SnapsPath.Check
+    Private Sub fppPCSX2SStatesSnapsPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles fppPCSX2SStatePath.Validating, fppPCSX2SnapsPath.Validating
         If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
-            CType(sender, ucFolderPickerPanel).SettingStatus = ucFolderPickerPanel.eSettingStatus.StatusError
+            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
         Else
-            CType(sender, ucFolderPickerPanel).SettingStatus = ucFolderPickerPanel.eSettingStatus.StatusInfo
+            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
         End If
     End Sub
 
-    Private Sub fppSStatesManPicsPath_Check(sender As Object, e As EventArgs) Handles fppSStatesManPicsPath.Check
+    Private Sub fppSStatesManPicsPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles fppSStatesManPicsPath.Validating
         If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
-            CType(sender, ucFolderPickerPanel).SettingStatus = ucFolderPickerPanel.eSettingStatus.StatusWarning
+            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
         Else
-            CType(sender, ucFolderPickerPanel).SettingStatus = ucFolderPickerPanel.eSettingStatus.StatusInfo
+            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
         End If
+    End Sub
+
+    Private Sub fpp_Validated(sender As Object, e As EventArgs) Handles fppPCSX2AppPath.Validated, fppPCSX2IniPath.Validated, fppPCSX2SStatePath.Validated, fppPCSX2SnapsPath.Validated, fppSStatesManPicsPath.Validated
+        Me.Settings_Check()
     End Sub
 #End Region
 End Class
