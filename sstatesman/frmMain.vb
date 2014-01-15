@@ -28,9 +28,6 @@ Public NotInheritable Class frmMain
     Friend checkedSavestates As New List(Of String)
     Friend checkedSnapshots As New List(Of String)
 
-    'To avoid refreshing the lists when an operation is running, set by UI_Enabled
-    'Dim listsAreRefreshed As Boolean = False
-
     'Stores the current game information displayed in the game information section
     Dim currentGameInfo As New GameInfo
     'Current snapshot path
@@ -51,7 +48,7 @@ Public NotInheritable Class frmMain
         Dim sw As Stopwatch = Stopwatch.StartNew
         Dim tmpTicks As Long = 0
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "Form load start.")
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "Load start.")
         '===========================
         'Settings, theme & resources
         '===========================
@@ -80,8 +77,22 @@ Public NotInheritable Class frmMain
             frmSettings.ShowDialog(Me)
         End If
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "SStatesMan settings & resources.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "SStatesMan settings & resources.", sw.ElapsedTicks)
         sw.Restart()
+
+        '==============
+        'Loading things
+        '==============
+
+        'Loading the Game database (from PCSX2 directory)
+        PCSX2GameDb.Load(Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
+
+        'Refreshing the games list
+        SSMGameList.LoadAll(My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
+
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "GameDB and Gamelist loaded.", sw.ElapsedTicks)
+        sw.Restart()
+
 
         '==================
         'Window preparation
@@ -111,7 +122,7 @@ Public NotInheritable Class frmMain
         'Savestates, backup, and screenshot icons
         Me.lvwFilesList.SmallImageList = mdlTheme.imlLvwItemIcons   'Assigning the imagelist to the Files listview
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "1/4 Layout & resources.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "1/2 Layout & resources setup.", sw.ElapsedTicks)
         tmpTicks = sw.ElapsedTicks
 
         '---------------
@@ -149,20 +160,17 @@ Public NotInheritable Class frmMain
         '    End If
         'End If
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "2/4 Saved window sizes applied.", sw.ElapsedTicks - tmpTicks)
-        tmpTicks = sw.ElapsedTicks
+        'Cover image state
+        If My.Settings.frmMain_CoverExpanded Then
+            My.Settings.frmMain_CoverExpanded = Not (My.Settings.frmMain_CoverExpanded)
+            Me.imgCover_MouseClick(Me, New MouseEventArgs(Windows.Forms.MouseButtons.Left, 1, 0, 0, 0))
+        End If
 
-        '==============
-        'Loading things
-        '==============
+        If My.Settings.SStatesMan_SStatesListShowOnly Then
+            Me.cmdSStatesLvwExpand_Click(Nothing, Nothing)
+        End If
 
-        'Loading the Game database (from PCSX2 directory)
-        PCSX2GameDb.Load(Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
-
-        'Refreshing the games list
-        SSMGameList.LoadAll(My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
-
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "3/4 GameDB and Gamelist loaded.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "2/3 Saved window sizes applied.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
 
         '===============================
@@ -172,26 +180,17 @@ Public NotInheritable Class frmMain
         Me.GameList_AddGames()
         Me.UI_SwitchMode(ListMode.Savestates)
 
-        'Cover image state
-        If My.Settings.frmMain_CoverExpanded Then
-            My.Settings.frmMain_CoverExpanded = Not (My.Settings.frmMain_CoverExpanded)
-            Me.imgCover_MouseClick(Me, New MouseEventArgs(Windows.Forms.MouseButtons.Left, 1, 0, 0, 0))
-        End If
 
         'Timer auto refresh
         Me.tmrSStatesListRefresh.Enabled = My.Settings.SStatesMan_SStatesListAutoRefresh
 
-        If My.Settings.SStatesMan_SStatesListShowOnly Then
-            Me.cmdSStatesLvwExpand_Click(Nothing, Nothing)
-        End If
-
         Me.UI_Enable(True, True)
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "4/4 Post load done.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "3/3 Listed games/files and other things.", sw.ElapsedTicks - tmpTicks)
         'tmpTicks = sw.ElapsedTicks
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "All done.", sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "Complete.", sw.ElapsedTicks)
     End Sub
 
     Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
@@ -864,7 +863,7 @@ Public NotInheritable Class frmMain
                     tmpColumnWidths = My.Settings.frmMain_flvw_columnwidth
                 End If
             Case ListMode.Snapshots
-                tmpColumnHeaders.AddRange({New ColumnHeader With {.Name = "SnapsCH_FileName", .Text = "Snapshot file name", .Width = 240}, _
+                tmpColumnHeaders.AddRange({New ColumnHeader With {.Name = "SnapsCH_FileName", .Text = "Screenshot file name", .Width = 240}, _
                                            New ColumnHeader With {.Name = "SnapsCH_Number", .Text = "Number", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
                                            New ColumnHeader With {.Name = "SnapsCH_Resolution", .Text = "Resolution", .Width = 120}, _
                                            New ColumnHeader With {.Name = "SnapsCH_Modified", .Text = "Modified", .Width = 120}, _

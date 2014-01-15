@@ -183,7 +183,7 @@ Partial Class ucFolderPickerPanel
         '
         'tmrCheck
         '
-        Me.tmrCheck.Interval = 10000
+        Me.tmrCheck.Interval = 1000
         '
         'ucFolderPickerPanel
         '

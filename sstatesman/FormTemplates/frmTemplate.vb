@@ -158,7 +158,7 @@ Public Class frmTemplate
             Me.pnlWindowTop.BackgroundImage = Nothing
             Me.flpWindowBottom.BackgroundImage = Nothing
         End If
-        'Me.Refresh()
+        Me.Refresh()
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.Theme, eSrcMethod.Theme, String.Format("Theme applied to {0}.", Me.Name), sw.ElapsedTicks)

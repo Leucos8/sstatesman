@@ -329,18 +329,18 @@ Partial Class frmSettings
         '
         Me.fppSStatesManPicsPath.AutoSize = True
         Me.fppSStatesManPicsPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.fppSStatesManPicsPath.FBDDefaultPath = System.Environment.SpecialFolder.MyPictures
-        Me.fppSStatesManPicsPath.FBDShowNewFolderButton = True
-        Me.fppSStatesManPicsPath.FBDDescription = "BrowserTip"
-        Me.fppSStatesManPicsPath.Dock = System.Windows.Forms.DockStyle.Top
         Me.fppSStatesManPicsPath.DescriptionError = "ErrorText"
         Me.fppSStatesManPicsPath.DescriptionInfo = "InfoText"
         Me.fppSStatesManPicsPath.DescriptionWarning = "WarningText"
+        Me.fppSStatesManPicsPath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.fppSStatesManPicsPath.FBDDefaultPath = System.Environment.SpecialFolder.MyPictures
+        Me.fppSStatesManPicsPath.FBDDescription = "BrowserTip"
+        Me.fppSStatesManPicsPath.FBDShowNewFolderButton = True
         Me.fppSStatesManPicsPath.Location = New System.Drawing.Point(8, 178)
         Me.fppSStatesManPicsPath.Name = "fppSStatesManPicsPath"
-        Me.fppSStatesManPicsPath.State = sstatesman.ucFolderPickerPanel.eDescState.StateIdle
         Me.fppSStatesManPicsPath.ShowDetectButton = False
         Me.fppSStatesManPicsPath.Size = New System.Drawing.Size(154, 58)
+        Me.fppSStatesManPicsPath.State = sstatesman.ucFolderPickerPanel.eDescState.StateIdle
         Me.fppSStatesManPicsPath.TabIndex = 59
         '
         'lblSStatesManPicsPath
@@ -474,18 +474,18 @@ Partial Class frmSettings
         '
         Me.fppPCSX2SnapsPath.AutoSize = True
         Me.fppPCSX2SnapsPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.fppPCSX2SnapsPath.FBDDefaultPath = System.Environment.SpecialFolder.MyDocuments
-        Me.fppPCSX2SnapsPath.FBDShowNewFolderButton = False
-        Me.fppPCSX2SnapsPath.FBDDescription = "BrowserTip"
-        Me.fppPCSX2SnapsPath.Dock = System.Windows.Forms.DockStyle.Top
         Me.fppPCSX2SnapsPath.DescriptionError = "ErrorText"
         Me.fppPCSX2SnapsPath.DescriptionInfo = "InfoText"
         Me.fppPCSX2SnapsPath.DescriptionWarning = "WarningText"
+        Me.fppPCSX2SnapsPath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.fppPCSX2SnapsPath.FBDDefaultPath = System.Environment.SpecialFolder.MyDocuments
+        Me.fppPCSX2SnapsPath.FBDDescription = "BrowserTip"
+        Me.fppPCSX2SnapsPath.FBDShowNewFolderButton = False
         Me.fppPCSX2SnapsPath.Location = New System.Drawing.Point(8, 270)
         Me.fppPCSX2SnapsPath.Name = "fppPCSX2SnapsPath"
-        Me.fppPCSX2SnapsPath.State = sstatesman.ucFolderPickerPanel.eDescState.StateIdle
         Me.fppPCSX2SnapsPath.ShowDetectButton = True
         Me.fppPCSX2SnapsPath.Size = New System.Drawing.Size(140, 58)
+        Me.fppPCSX2SnapsPath.State = sstatesman.ucFolderPickerPanel.eDescState.StateIdle
         Me.fppPCSX2SnapsPath.TabIndex = 59
         '
         'lblPCSX2SnapsPath
@@ -504,54 +504,54 @@ Partial Class frmSettings
         '
         Me.fppPCSX2SStatePath.AutoSize = True
         Me.fppPCSX2SStatePath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.fppPCSX2SStatePath.FBDDefaultPath = System.Environment.SpecialFolder.MyDocuments
-        Me.fppPCSX2SStatePath.FBDShowNewFolderButton = False
-        Me.fppPCSX2SStatePath.FBDDescription = "BrowserTip"
-        Me.fppPCSX2SStatePath.Dock = System.Windows.Forms.DockStyle.Top
         Me.fppPCSX2SStatePath.DescriptionError = "ErrorText"
         Me.fppPCSX2SStatePath.DescriptionInfo = "InfoText"
         Me.fppPCSX2SStatePath.DescriptionWarning = "WarningText"
+        Me.fppPCSX2SStatePath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.fppPCSX2SStatePath.FBDDefaultPath = System.Environment.SpecialFolder.MyDocuments
+        Me.fppPCSX2SStatePath.FBDDescription = "BrowserTip"
+        Me.fppPCSX2SStatePath.FBDShowNewFolderButton = False
         Me.fppPCSX2SStatePath.Location = New System.Drawing.Point(8, 189)
         Me.fppPCSX2SStatePath.Name = "fppPCSX2SStatePath"
-        Me.fppPCSX2SStatePath.State = sstatesman.ucFolderPickerPanel.eDescState.StateIdle
         Me.fppPCSX2SStatePath.ShowDetectButton = True
         Me.fppPCSX2SStatePath.Size = New System.Drawing.Size(140, 58)
+        Me.fppPCSX2SStatePath.State = sstatesman.ucFolderPickerPanel.eDescState.StateIdle
         Me.fppPCSX2SStatePath.TabIndex = 59
         '
         'fppPCSX2IniPath
         '
         Me.fppPCSX2IniPath.AutoSize = True
         Me.fppPCSX2IniPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.fppPCSX2IniPath.FBDDefaultPath = System.Environment.SpecialFolder.MyDocuments
-        Me.fppPCSX2IniPath.FBDShowNewFolderButton = False
-        Me.fppPCSX2IniPath.FBDDescription = "BrowserTip"
-        Me.fppPCSX2IniPath.Dock = System.Windows.Forms.DockStyle.Top
         Me.fppPCSX2IniPath.DescriptionError = "ErrorText"
         Me.fppPCSX2IniPath.DescriptionInfo = "InfoText"
         Me.fppPCSX2IniPath.DescriptionWarning = "WarningText"
+        Me.fppPCSX2IniPath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.fppPCSX2IniPath.FBDDefaultPath = System.Environment.SpecialFolder.MyDocuments
+        Me.fppPCSX2IniPath.FBDDescription = "BrowserTip"
+        Me.fppPCSX2IniPath.FBDShowNewFolderButton = False
         Me.fppPCSX2IniPath.Location = New System.Drawing.Point(8, 108)
         Me.fppPCSX2IniPath.Name = "fppPCSX2IniPath"
-        Me.fppPCSX2IniPath.State = sstatesman.ucFolderPickerPanel.eDescState.StateIdle
         Me.fppPCSX2IniPath.ShowDetectButton = True
         Me.fppPCSX2IniPath.Size = New System.Drawing.Size(140, 58)
+        Me.fppPCSX2IniPath.State = sstatesman.ucFolderPickerPanel.eDescState.StateIdle
         Me.fppPCSX2IniPath.TabIndex = 59
         '
         'fppPCSX2AppPath
         '
         Me.fppPCSX2AppPath.AutoSize = True
         Me.fppPCSX2AppPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.fppPCSX2AppPath.FBDDefaultPath = System.Environment.SpecialFolder.ProgramFiles
-        Me.fppPCSX2AppPath.FBDShowNewFolderButton = False
-        Me.fppPCSX2AppPath.FBDDescription = "Select your PCSX2 executable folder."
-        Me.fppPCSX2AppPath.Dock = System.Windows.Forms.DockStyle.Top
         Me.fppPCSX2AppPath.DescriptionError = "ErrorText"
         Me.fppPCSX2AppPath.DescriptionInfo = "InfoText"
         Me.fppPCSX2AppPath.DescriptionWarning = "WarningText"
+        Me.fppPCSX2AppPath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.fppPCSX2AppPath.FBDDefaultPath = System.Environment.SpecialFolder.ProgramFiles
+        Me.fppPCSX2AppPath.FBDDescription = "Select your PCSX2 executable folder."
+        Me.fppPCSX2AppPath.FBDShowNewFolderButton = False
         Me.fppPCSX2AppPath.Location = New System.Drawing.Point(8, 27)
         Me.fppPCSX2AppPath.Name = "fppPCSX2AppPath"
-        Me.fppPCSX2AppPath.State = sstatesman.ucFolderPickerPanel.eDescState.StateIdle
         Me.fppPCSX2AppPath.ShowDetectButton = True
         Me.fppPCSX2AppPath.Size = New System.Drawing.Size(140, 58)
+        Me.fppPCSX2AppPath.State = sstatesman.ucFolderPickerPanel.eDescState.StateIdle
         Me.fppPCSX2AppPath.TabIndex = 59
         '
         'pnlTab2
