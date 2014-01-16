@@ -49,6 +49,8 @@ Partial Class frmSettings
         Me.optTabHeader2 = New System.Windows.Forms.RadioButton()
         Me.optTabHeader3 = New System.Windows.Forms.RadioButton()
         Me.pnlTab0 = New System.Windows.Forms.Panel()
+        Me.fppSStatesManStoredPath = New sstatesman.ucFolderPickerPanel()
+        Me.lblSStatesManStoredPath = New System.Windows.Forms.Label()
         Me.fppSStatesManPicsPath = New sstatesman.ucFolderPickerPanel()
         Me.lblSStatesManPicsPath = New System.Windows.Forms.Label()
         Me.ckbSStatesManMoveToTrash = New System.Windows.Forms.CheckBox()
@@ -310,6 +312,8 @@ Partial Class frmSettings
         'pnlTab0
         '
         Me.pnlTab0.AutoScroll = True
+        Me.pnlTab0.Controls.Add(Me.fppSStatesManStoredPath)
+        Me.pnlTab0.Controls.Add(Me.lblSStatesManStoredPath)
         Me.pnlTab0.Controls.Add(Me.fppSStatesManPicsPath)
         Me.pnlTab0.Controls.Add(Me.lblSStatesManPicsPath)
         Me.pnlTab0.Controls.Add(Me.ckbSStatesManMoveToTrash)
@@ -324,6 +328,36 @@ Partial Class frmSettings
         Me.pnlTab0.Padding = New System.Windows.Forms.Padding(8, 4, 8, 4)
         Me.pnlTab0.Size = New System.Drawing.Size(170, 317)
         Me.pnlTab0.TabIndex = 9
+        '
+        'fppSStatesManStoredPath
+        '
+        Me.fppSStatesManStoredPath.AutoSize = True
+        Me.fppSStatesManStoredPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.fppSStatesManStoredPath.DescriptionError = "ErrorText"
+        Me.fppSStatesManStoredPath.DescriptionInfo = "InfoText"
+        Me.fppSStatesManStoredPath.DescriptionWarning = "WarningText"
+        Me.fppSStatesManStoredPath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.fppSStatesManStoredPath.FBDDefaultPath = System.Environment.SpecialFolder.MyDocuments
+        Me.fppSStatesManStoredPath.FBDDescription = "BrowserTip"
+        Me.fppSStatesManStoredPath.FBDShowNewFolderButton = True
+        Me.fppSStatesManStoredPath.Location = New System.Drawing.Point(8, 259)
+        Me.fppSStatesManStoredPath.Name = "fppSStatesManStoredPath"
+        Me.fppSStatesManStoredPath.ShowDetectButton = False
+        Me.fppSStatesManStoredPath.Size = New System.Drawing.Size(154, 58)
+        Me.fppSStatesManStoredPath.State = sstatesman.ucFolderPickerPanel.eDescState.StateIdle
+        Me.fppSStatesManStoredPath.TabIndex = 61
+        '
+        'lblSStatesManStoredPath
+        '
+        Me.lblSStatesManStoredPath.AutoSize = True
+        Me.lblSStatesManStoredPath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblSStatesManStoredPath.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.lblSStatesManStoredPath.Location = New System.Drawing.Point(8, 236)
+        Me.lblSStatesManStoredPath.Name = "lblSStatesManStoredPath"
+        Me.lblSStatesManStoredPath.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
+        Me.lblSStatesManStoredPath.Size = New System.Drawing.Size(155, 23)
+        Me.lblSStatesManStoredPath.TabIndex = 60
+        Me.lblSStatesManStoredPath.Text = "Stored savestates folder"
         '
         'fppSStatesManPicsPath
         '
@@ -1008,9 +1042,11 @@ Partial Class frmSettings
     Private WithEvents cmdLogExport As System.Windows.Forms.Button
     Private WithEvents cmLogFilter As System.Windows.Forms.ContextMenuStrip
     Private WithEvents cmiAll As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents fppPCSX2AppPath As sstatesman.ucFolderPickerPanel
-    Friend WithEvents fppPCSX2IniPath As sstatesman.ucFolderPickerPanel
-    Friend WithEvents fppPCSX2SStatePath As sstatesman.ucFolderPickerPanel
-    Friend WithEvents fppPCSX2SnapsPath As sstatesman.ucFolderPickerPanel
-    Friend WithEvents fppSStatesManPicsPath As sstatesman.ucFolderPickerPanel
+    Private WithEvents fppSStatesManStoredPath As sstatesman.ucFolderPickerPanel
+    Private WithEvents lblSStatesManStoredPath As System.Windows.Forms.Label
+    Private WithEvents fppPCSX2AppPath As sstatesman.ucFolderPickerPanel
+    Private WithEvents fppPCSX2IniPath As sstatesman.ucFolderPickerPanel
+    Private WithEvents fppPCSX2SStatePath As sstatesman.ucFolderPickerPanel
+    Private WithEvents fppPCSX2SnapsPath As sstatesman.ucFolderPickerPanel
+    Private WithEvents fppSStatesManPicsPath As sstatesman.ucFolderPickerPanel
 End Class

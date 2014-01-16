@@ -27,8 +27,9 @@ Public NotInheritable Class frmSettings
         'Savestates management
         Me.ckbSStatesManMoveToTrash.Checked = My.Settings.SStatesMan_FileTrash
         Me.ckbSStatesManVersionExtract.Checked = My.Settings.SStatesMan_SStatesVersionExtract
-        'Cover folder
+        'SStatesMan folders
         Me.fppSStatesManPicsPath.Text = My.Settings.SStatesMan_PathPics
+        Me.fppSStatesManStoredPath.Text = My.Settings.SStatesMan_PathStored
 
         'PCSX2 folders
         Me.fppPCSX2AppPath.Text = My.Settings.PCSX2_PathBin
@@ -49,8 +50,10 @@ Public NotInheritable Class frmSettings
         'Savestates management
         My.Settings.SStatesMan_FileTrash = Me.ckbSStatesManMoveToTrash.Checked
         My.Settings.SStatesMan_SStatesVersionExtract = Me.ckbSStatesManVersionExtract.Checked
-        'Cover folder
+        'SStatesMan folders
         My.Settings.SStatesMan_PathPics = Me.fppSStatesManPicsPath.Text
+        My.Settings.SStatesMan_PathStored = Me.fppSStatesManStoredPath.Text
+
         'PCSX2 folders
         My.Settings.PCSX2_PathBin = Me.fppPCSX2AppPath.Text
         My.Settings.PCSX2_PathInis = Me.fppPCSX2IniPath.Text
@@ -327,6 +330,7 @@ Public NotInheritable Class frmSettings
 #End Region
 
 #Region "Folder Picker Panels"
+    'This sub will set the description message for each FolderPickerPanels in the settings dialog.
     Private Sub fppMessagesSetup()
         Me.fppPCSX2AppPath.DescriptionInfo = String.Concat("The folder where PCSX2 is installed. ", My.Application.Info.Title, " will try to load ", My.Settings.PCSX2_GameDbFilename, " from this location.")
         Me.fppPCSX2AppPath.DescriptionWarning = String.Concat("Unable to find """, My.Settings.PCSX2_GameDbFilename, """ in the specified path.", Environment.NewLine, "Game information (title, region, etc.) won't be shown.")
@@ -346,11 +350,16 @@ Public NotInheritable Class frmSettings
         Me.fppPCSX2SnapsPath.DescriptionError = String.Concat("Path not found or inaccessible.", Environment.NewLine, "Please enter a valid path or press """, Me.cmdCancel.Text, """.")
         Me.fppPCSX2SnapsPath.FBDDescription = "Select your PCSX2 screenshots folder."
 
-        Me.fppSStatesManPicsPath.DescriptionInfo = String.Concat("The folder where ", My.Application.Info.Title, " will try to load game covers.", Environment.NewLine, "The image files MUST be named <executable code>.jpg for each game.")
+        Me.fppSStatesManPicsPath.DescriptionInfo = String.Concat("The folder where ", My.Application.Info.Title, " will try to load game covers from.", Environment.NewLine, "The image files MUST be named <executable code>.jpg for each game.")
         Me.fppSStatesManPicsPath.DescriptionWarning = String.Concat("Path not found or inaccessible.", Environment.NewLine, "Please enter a valid path.")
         Me.fppSStatesManPicsPath.FBDDescription = "Select your game cover images folder."
+
+        Me.fppSStatesManStoredPath.DescriptionInfo = String.Concat("The folder where ", My.Application.Info.Title, " will move the savestates you want to keep safe so that they aren't overwritten by PCSX2.")
+        Me.fppSStatesManStoredPath.DescriptionWarning = String.Concat("Path not found or inaccessible.", Environment.NewLine, "Please enter a valid path.")
+        Me.fppSStatesManStoredPath.FBDDescription = "Select where your stored savestates will be moved."
     End Sub
 
+    'Detect button
     Private Sub fppPCSX2AppPath_DetectFolder(sender As Object, e As EventArgs) Handles fppPCSX2AppPath.DetectFolder
         PCSX2_PathBin_Detect(CType(sender, ucFolderPickerPanel).Text)
     End Sub
@@ -359,11 +368,16 @@ Public NotInheritable Class frmSettings
         PCSX2_PathInis_Detect(Me.fppPCSX2AppPath.Text, CType(sender, ucFolderPickerPanel).Text)
     End Sub
 
-    Private Sub fppPCSX2SStateSnapsPath_DetectFolder(sender As Object, e As EventArgs) Handles fppPCSX2SStatePath.DetectFolder, fppPCSX2SnapsPath.DetectFolder
+    Private Sub fppPCSX2SStateSnapsPath_DetectFolder(sender As Object, e As EventArgs) _
+        Handles fppPCSX2SStatePath.DetectFolder, fppPCSX2SnapsPath.DetectFolder
+
         PCSX2_PathSettings_Detect(Me.fppPCSX2IniPath.Text, fppPCSX2SStatePath.Text, fppPCSX2SnapsPath.Text)
     End Sub
 
-    Private Sub fppPCSX2AppPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles fppPCSX2AppPath.Validating
+    'These subs provide a custom setting check o determine the FolderPickerPanel state: error, warning, idle
+    Private Sub fppPCSX2AppPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) _
+        Handles fppPCSX2AppPath.Validating
+
         If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
             CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
         ElseIf Not (File.Exists(Path.Combine(CType(sender, ucFolderPickerPanel).Text, My.Settings.PCSX2_GameDbFilename))) Then
@@ -373,7 +387,9 @@ Public NotInheritable Class frmSettings
         End If
     End Sub
 
-    Private Sub fppPCSX2IniPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles fppPCSX2IniPath.Validating
+    Private Sub fppPCSX2IniPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) _
+        Handles fppPCSX2IniPath.Validating
+
         If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
             CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
         ElseIf Not (File.Exists(Path.Combine(CType(sender, ucFolderPickerPanel).Text, My.Settings.PCSX2_PCSX2_uiFilename))) Then
@@ -383,7 +399,9 @@ Public NotInheritable Class frmSettings
         End If
     End Sub
 
-    Private Sub fppPCSX2SStatesSnapsPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles fppPCSX2SStatePath.Validating, fppPCSX2SnapsPath.Validating
+    Private Sub fppPCSX2SStatesSnapsPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) _
+        Handles fppPCSX2SStatePath.Validating, fppPCSX2SnapsPath.Validating
+
         If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
             CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
         Else
@@ -391,7 +409,9 @@ Public NotInheritable Class frmSettings
         End If
     End Sub
 
-    Private Sub fppSStatesManPicsPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles fppSStatesManPicsPath.Validating
+    Private Sub fppSStatesManPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) _
+        Handles fppSStatesManPicsPath.Validating, fppSStatesManStoredPath.Validating
+
         If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
             CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
         Else
@@ -399,7 +419,10 @@ Public NotInheritable Class frmSettings
         End If
     End Sub
 
-    Private Sub fpp_Validated(sender As Object, e As EventArgs) Handles fppPCSX2AppPath.Validated, fppPCSX2IniPath.Validated, fppPCSX2SStatePath.Validated, fppPCSX2SnapsPath.Validated, fppSStatesManPicsPath.Validated
+    Private Sub fpp_Validated(sender As Object, e As EventArgs) _
+        Handles fppPCSX2AppPath.Validated, fppPCSX2IniPath.Validated, fppPCSX2SStatePath.Validated, _
+        fppPCSX2SnapsPath.Validated, fppSStatesManPicsPath.Validated, fppSStatesManStoredPath.Validated
+
         Me.Settings_Check()
     End Sub
 #End Region

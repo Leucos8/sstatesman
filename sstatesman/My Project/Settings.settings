@@ -135,5 +135,8 @@
     <Setting Name="PCSX2_SStateSlotUpperBound" Type="System.Int32" Scope="Application">
       <Value Profile="(Default)">9</Value>
     </Setting>
+    <Setting Name="SStatesMan_PathStored" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

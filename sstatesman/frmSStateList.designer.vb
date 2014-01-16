@@ -151,7 +151,6 @@ Partial Class frmSStateList
         '
         Me.tsStored.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
         Me.tsStored.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsStoredAll, Me.tsStoredCurrent, Me.tsStoredChecked})
-        Me.tsStored.Enabled = False
         Me.tsStored.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsStored.Name = "tsStored"
         Me.tsStored.Size = New System.Drawing.Size(57, 22)
@@ -159,7 +158,6 @@ Partial Class frmSStateList
         '
         'tsStoredAll
         '
-        Me.tsStoredAll.Enabled = False
         Me.tsStoredAll.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tsStoredAll.Name = "tsStoredAll"
         Me.tsStoredAll.Size = New System.Drawing.Size(120, 22)
@@ -167,14 +165,12 @@ Partial Class frmSStateList
         '
         'tsStoredCurrent
         '
-        Me.tsStoredCurrent.Enabled = False
         Me.tsStoredCurrent.Name = "tsStoredCurrent"
         Me.tsStoredCurrent.Size = New System.Drawing.Size(120, 22)
         Me.tsStoredCurrent.Text = "Current"
         '
         'tsStoredChecked
         '
-        Me.tsStoredChecked.Enabled = False
         Me.tsStoredChecked.Name = "tsStoredChecked"
         Me.tsStoredChecked.Size = New System.Drawing.Size(120, 22)
         Me.tsStoredChecked.Text = "Checked"
@@ -218,6 +214,8 @@ Partial Class frmSStateList
         '
         Me.ListView1.BackColor = System.Drawing.Color.White
         Me.ListView1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ListView1.ForeColor = System.Drawing.Color.Black
+        Me.ListView1.FullRowSelect = True
         Me.ListView1.Location = New System.Drawing.Point(0, 25)
         Me.ListView1.Name = "ListView1"
         Me.ListView1.Size = New System.Drawing.Size(744, 395)

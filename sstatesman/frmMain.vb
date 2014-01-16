@@ -26,11 +26,12 @@ Public NotInheritable Class frmMain
     'Main window checked objects list
     Friend checkedGames As New List(Of String)
     Friend checkedSavestates As New List(Of String)
+    Friend checkedStored As New List(Of String)
     Friend checkedSnapshots As New List(Of String)
 
     'Stores the current game information displayed in the game information section
     Dim currentGameInfo As New GameInfo
-    'Current snapshot path
+    'Current snapshot path (for loading current screenshots in the preview)
     Dim currentSnapshotPath As String
 
     'Current size in bytes of the selected items
@@ -88,7 +89,7 @@ Public NotInheritable Class frmMain
         PCSX2GameDb.Load(Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
 
         'Refreshing the games list
-        SSMGameList.LoadAll(My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
+        SSMGameList.LoadAll(My.Settings.PCSX2_PathSState, My.Settings.SStatesMan_PathStored, My.Settings.PCSX2_PathSnaps)
 
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "GameDB and Gamelist loaded.", sw.ElapsedTicks)
         sw.Restart()
@@ -524,7 +525,7 @@ Public NotInheritable Class frmMain
     Friend Sub GameList_Refresh()
         Me.UI_Enable(False, True)
 
-        SSMGameList.LoadAll(My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps)
+        SSMGameList.LoadAll(My.Settings.PCSX2_PathSState, My.Settings.SStatesMan_PathStored, My.Settings.PCSX2_PathSnaps)
 
         Me.GameList_AddGames()
         Me.FileList_Refresh()
@@ -547,7 +548,7 @@ Public NotInheritable Class frmMain
             newLvwItem.SubItems.AddRange({currentGameInfo.Serial, currentGameInfo.Region})
             'Calculating savestates count and displaying size
             If tmpGameListItem.Value.Savestates_SizeTot > 0 Then
-                newLvwItem.SubItems.Add(String.Format("{0:N0} × {1:N2} MB", _
+                newLvwItem.SubItems.Add(String.Format("{0:N0}x{1:N2}MB", _
                                                       tmpGameListItem.Value.Savestates.Where(Function(extfilter) extfilter.Value.Extension.Equals(My.Settings.PCSX2_SStateExt)).Count, _
                                                       tmpGameListItem.Value.Savestates_SizeTot / 1024 ^ 2))
             Else
@@ -556,16 +557,25 @@ Public NotInheritable Class frmMain
 
             'Calculating backups count and displaying size
             If tmpGameListItem.Value.SavestatesBackup_SizeTot > 0 Then
-                newLvwItem.SubItems.Add(String.Format("{0:N0} × {1:N2} MB", _
+                newLvwItem.SubItems.Add(String.Format("{0:N0}×{1:N2}MB", _
                                                       tmpGameListItem.Value.Savestates.Where(Function(extfilter) extfilter.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Count, _
                                                       tmpGameListItem.Value.SavestatesBackup_SizeTot / 1024 ^ 2))
             Else
                 newLvwItem.SubItems.Add("None")
             End If
 
+            'Calculating stored savestates count and displaying size
+            If tmpGameListItem.Value.SavestatesStored_SizeTot > 0 Then
+                newLvwItem.SubItems.Add(String.Format("{0:N0}×{1:N2}MB", _
+                                                      tmpGameListItem.Value.SavestatesStored.Count, _
+                                                      tmpGameListItem.Value.SavestatesStored_SizeTot / 1024 ^ 2))
+            Else
+                newLvwItem.SubItems.Add("None")
+            End If
+
             'Calculating snapshots count and displaying size
             If tmpGameListItem.Value.Snapshots_SizeTot > 0 Then
-                newLvwItem.SubItems.Add(String.Format("{0:N0} × {1:N2} MB", _
+                newLvwItem.SubItems.Add(String.Format("{0:N0}×{1:N2}MB", _
                                                       tmpGameListItem.Value.Snapshots.Count, _
                                                       tmpGameListItem.Value.Snapshots_SizeTot / 1024 ^ 2))
             Else
@@ -662,6 +672,8 @@ Public NotInheritable Class frmMain
         Select Case Me.currentListMode
             Case ListMode.Savestates
                 Me.FileList_AddSavestates()
+            Case ListMode.Stored
+                Me.FileList_AddStored()
             Case ListMode.Snapshots
                 Me.FileList_AddSnapshots()
         End Select
@@ -758,6 +770,90 @@ Public NotInheritable Class frmMain
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.FileListview, String.Format("Listed {0:N0} savestates.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
+    End Sub
+
+    Private Sub FileList_AddStored()
+        Dim sw As New Stopwatch
+        sw.Start()
+
+        'Preparation for the update
+        Me.GameList_SelectedSize = 0
+        Me.FileList_SelectedSize = 0
+
+        'clear items and group, lvwSStatesList refresh in fact begins here
+        Me.lvwFilesList.Items.Clear()
+        Me.lvwFilesList.Groups.Clear()
+
+        'if more than one game is checked groups are shown
+        If Me.checkedGames.Count > 1 Then
+            Me.lvwFilesList.ShowGroups = True
+        Else
+            Me.lvwFilesList.ShowGroups = False
+        End If
+
+        Dim tmpGroups As New List(Of ListViewGroup)
+        Dim tmpLvwItems As New List(Of ListViewItem)
+        Dim lastSStateIndex As Integer = -1
+        Dim lastSStateDate As Date = Date.MinValue
+
+        For Each tmpSerial As String In Me.checkedGames
+
+            Dim tmpGamesListItem As New GamesList_Item
+            If SSMGameList.Games.TryGetValue(tmpSerial, tmpGamesListItem) Then
+
+                'Creation of the header group
+                currentGameInfo = PCSX2GameDb.Extract(tmpSerial)
+                Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With { _
+                    .Header = currentGameInfo.ToString, _
+                    .HeaderAlignment = HorizontalAlignment.Left, _
+                    .Name = currentGameInfo.Serial}
+
+                tmpGroups.Add(tmpLvwSListGroup)
+
+                'Calculating checked games savestate size
+                GameList_SelectedSize += tmpGamesListItem.SavestatesStored_SizeTot
+
+                If tmpGamesListItem.SavestatesStored.Values.Count > 0 Then
+
+                    lastSStateDate = Date.MinValue
+
+                    For Each tmpSavestate As KeyValuePair(Of String, Savestate) In tmpGamesListItem.SavestatesStored
+
+                        Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key, _
+                                                                                           .Group = tmpLvwSListGroup, _
+                                                                                           .Name = tmpSavestate.Key}
+                        tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Number.ToString, _
+                                                           tmpSavestate.Value.ExtraInfo, _
+                                                           tmpSavestate.Value.LastWriteTime.ToString, _
+                                                           System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2)})
+                        tmpLvwSListItem.ImageIndex = 0
+
+                        If checkedStored.Contains(tmpSavestate.Key) Then
+                            tmpLvwSListItem.Checked = True
+                        End If
+
+                        tmpLvwItems.Add(tmpLvwSListItem)
+
+                        If tmpSavestate.Value.LastWriteTime > lastSStateDate Then
+                            lastSStateIndex = tmpLvwItems.Count - 1
+                            lastSStateDate = tmpSavestate.Value.LastWriteTime
+                        End If
+                    Next
+                End If
+
+            End If
+
+            If lastSStateIndex > -1 Then
+                tmpLvwItems.Item(lastSStateIndex).ForeColor = mdlTheme.currentTheme.AccentColorDark
+            End If
+        Next
+
+        Me.lvwFilesList.Groups.AddRange(tmpGroups.ToArray)
+        mdlTheme.ListAlternateColors(tmpLvwItems)
+        Me.lvwFilesList.Items.AddRange(tmpLvwItems.ToArray)
+
+        sw.Stop()
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.FileListview, String.Format("Listed {0:N0} stored savestates.", Me.lvwFilesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
     Private Sub FileList_AddSnapshots()
@@ -903,6 +999,19 @@ Public NotInheritable Class frmMain
                         Else
                             FileList_SelectedSize += tmpSavestate.Length
                         End If
+                    Next
+                End If
+            Case ListMode.Stored
+                checkedStored.Clear()
+
+                If Me.lvwFilesList.CheckedItems.Count > 0 Then
+                    For Each tmpCheckedItem As ListViewItem In Me.lvwFilesList.CheckedItems
+
+                        Dim tmpSerial As String = Savestate.GetSerial(tmpCheckedItem.Name)
+                        Dim tmpSavestate As Savestate = SSMGameList.Games(tmpSerial).SavestatesStored(tmpCheckedItem.Name)
+                        checkedStored.Add(tmpSavestate.Name)
+
+                        FileList_SelectedSize += tmpSavestate.Length
                     Next
                 End If
             Case ListMode.Snapshots

@@ -193,6 +193,92 @@ Public Class frmSStateList
         ShowStatus()
     End Sub
 
+    Private Sub tsStoredAll_Click(sender As System.Object, e As System.EventArgs) Handles tsStored.ButtonClick, tsStoredAll.Click
+        Dim sw As New Stopwatch
+        sw.Start()
+
+        Me.ListView1.BeginUpdate()
+        AddHeader(1)
+
+        For Each tmpGamesListItem As KeyValuePair(Of String, mdlFileList.GamesList_Item) In SSMGameList.Games
+            For Each tmpSavestate As KeyValuePair(Of String, Savestate) In tmpGamesListItem.Value.SavestatesStored
+                Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestate.Value.GetSerial, .Name = tmpSavestate.Value.Name}
+                tmpListViewItem.SubItems.AddRange({tmpSavestate.Value.Name, tmpSavestate.Value.Number.ToString, tmpSavestate.Value.Extension, tmpSavestate.Value.ExtraInfo, tmpSavestate.Value.LastWriteTime.ToString, (tmpSavestate.Value.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
+                If frmMain.checkedGames.Contains(tmpGamesListItem.Key) Then
+                    tmpListViewItem.BackColor = mdlTheme.currentTheme.AccentColorLight
+                End If
+                If frmMain.checkedStored.Contains(tmpSavestate.Value.Name) Then
+                    tmpListViewItem.BackColor = mdlTheme.currentTheme.AccentColor
+                End If
+                Me.ListView1.Items.Add(tmpListViewItem)
+
+            Next
+        Next
+
+        Me.ListView1.EndUpdate()
+
+        sw.Stop()
+        Me.populationTime = sw.ElapsedTicks
+
+        ShowStatus()
+    End Sub
+
+    Private Sub tsStoredCurrent_Click(sender As System.Object, e As System.EventArgs) Handles tsStoredCurrent.Click
+        Dim sw As New Stopwatch
+        sw.Start()
+
+        Me.ListView1.BeginUpdate()
+        AddHeader(1)
+
+        For Each tmpCheckedGame As String In frmMain.checkedGames
+            Dim tmpGame As GamesList_Item = SSMGameList.Games(tmpCheckedGame)
+            For Each tmpSavestate As KeyValuePair(Of String, Savestate) In tmpGame.SavestatesStored
+                Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestate.Value.GetSerial, .Name = tmpSavestate.Key, .BackColor = mdlTheme.currentTheme.AccentColorLight}
+                tmpListViewItem.SubItems.AddRange({tmpSavestate.Key, tmpSavestate.Value.Number.ToString, tmpSavestate.Value.Extension, tmpSavestate.Value.ExtraInfo, tmpSavestate.Value.LastWriteTime.ToString, (tmpSavestate.Value.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
+                If frmMain.checkedStored.Contains(tmpSavestate.Key) Then
+                    tmpListViewItem.BackColor = mdlTheme.currentTheme.AccentColor
+                End If
+                Me.ListView1.Items.Add(tmpListViewItem)
+            Next
+        Next
+
+        Me.ListView1.EndUpdate()
+
+        sw.Stop()
+        Me.populationTime = sw.ElapsedTicks
+
+        ShowStatus()
+    End Sub
+
+    Private Sub tsStoredChecked_Click(sender As System.Object, e As System.EventArgs) Handles tsStoredChecked.Click
+        Dim sw As New Stopwatch
+        sw.Start()
+
+        Me.ListView1.BeginUpdate()
+        AddHeader(1)
+
+        For Each tmpSavestateName As String In frmMain.checkedStored
+            Dim tmpListViewItem As New ListViewItem With {.Text = Savestate.GetSerial(tmpSavestateName), .Name = tmpSavestateName, .BackColor = mdlTheme.currentTheme.AccentColor}
+            Dim tmpGamesListItem As New GamesList_Item
+            If SSMGameList.Games.TryGetValue(Savestate.GetSerial(tmpSavestateName), tmpGamesListItem) Then
+                Dim tmpSavestate As New Savestate
+                If tmpGamesListItem.SavestatesStored.TryGetValue(tmpSavestateName, tmpSavestate) Then
+                    tmpListViewItem.SubItems.AddRange({tmpSavestateName, tmpSavestate.Number.ToString, tmpSavestate.Extension, tmpSavestate.ExtraInfo, tmpSavestate.LastWriteTime.ToString, (tmpSavestate.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
+                Else : tmpListViewItem.BackColor = Color.FromArgb(255, 255, 224, 192)   'orange
+                End If
+            Else : tmpListViewItem.BackColor = Color.FromArgb(255, 255, 192, 192)       'red
+            End If
+            Me.ListView1.Items.Add(tmpListViewItem)
+        Next
+
+        Me.ListView1.EndUpdate()
+
+        sw.Stop()
+        Me.populationTime = sw.ElapsedTicks
+
+        ShowStatus()
+    End Sub
+
     Private Sub frmSStateList_Load(sender As System.Object, e As System.EventArgs) Handles MyBase.Load
         Dim ico As Icon = Icon.FromHandle(My.Resources.Icon_Tools.GetHicon())
         Me.Icon = ico
