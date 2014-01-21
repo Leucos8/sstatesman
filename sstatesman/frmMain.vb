@@ -547,26 +547,26 @@ Public NotInheritable Class frmMain
             Dim newLvwItem As New ListViewItem With {.Text = currentGameInfo.Name, .Name = currentGameInfo.Serial}
             newLvwItem.SubItems.AddRange({currentGameInfo.Serial, currentGameInfo.Region})
             'Calculating savestates count and displaying size
-            If tmpGameListItem.Value.Savestates_SizeTot > 0 Then
-                newLvwItem.SubItems.Add(String.Format("{0:N0}x{1:N2}MB", _
+            If tmpGameListItem.Value.Savestates_SizeTot({My.Settings.PCSX2_SStateExt}) > 0 Then
+                newLvwItem.SubItems.Add(String.Format("{0:N0}: {1:N2}MB", _
                                                       tmpGameListItem.Value.Savestates.Where(Function(extfilter) extfilter.Value.Extension.Equals(My.Settings.PCSX2_SStateExt)).Count, _
-                                                      tmpGameListItem.Value.Savestates_SizeTot / 1024 ^ 2))
+                                                      tmpGameListItem.Value.Savestates_SizeTot({My.Settings.PCSX2_SStateExt}) / 1024 ^ 2))
             Else
                 newLvwItem.SubItems.Add("None")
             End If
 
             'Calculating backups count and displaying size
-            If tmpGameListItem.Value.SavestatesBackup_SizeTot > 0 Then
-                newLvwItem.SubItems.Add(String.Format("{0:N0}×{1:N2}MB", _
+            If tmpGameListItem.Value.Savestates_SizeTot({My.Settings.PCSX2_SStateExtBackup}) > 0 Then
+                newLvwItem.SubItems.Add(String.Format("{0:N0}: {1:N2}MB", _
                                                       tmpGameListItem.Value.Savestates.Where(Function(extfilter) extfilter.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Count, _
-                                                      tmpGameListItem.Value.SavestatesBackup_SizeTot / 1024 ^ 2))
+                                                      tmpGameListItem.Value.Savestates_SizeTot({My.Settings.PCSX2_SStateExtBackup}) / 1024 ^ 2))
             Else
                 newLvwItem.SubItems.Add("None")
             End If
 
             'Calculating stored savestates count and displaying size
             If tmpGameListItem.Value.SavestatesStored_SizeTot > 0 Then
-                newLvwItem.SubItems.Add(String.Format("{0:N0}×{1:N2}MB", _
+                newLvwItem.SubItems.Add(String.Format("{0:N0}: {1:N2}MB", _
                                                       tmpGameListItem.Value.SavestatesStored.Count, _
                                                       tmpGameListItem.Value.SavestatesStored_SizeTot / 1024 ^ 2))
             Else
@@ -722,8 +722,8 @@ Public NotInheritable Class frmMain
                 tmpGroups.Add(tmpLvwSListGroup)
 
                 'Calculating checked games savestate size
-                GameList_SelectedSize += tmpGamesListItem.Savestates_SizeTot
-                GameList_SelectedSizeBackup += tmpGamesListItem.SavestatesBackup_SizeTot
+                GameList_SelectedSize += tmpGamesListItem.Savestates_SizeTot({My.Settings.PCSX2_SStateExt})
+                GameList_SelectedSizeBackup += tmpGamesListItem.Savestates_SizeTot({My.Settings.PCSX2_SStateExtBackup})
 
                 If tmpGamesListItem.Savestates.Values.Count > 0 Then
 

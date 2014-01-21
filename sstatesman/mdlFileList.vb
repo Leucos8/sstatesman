@@ -27,24 +27,30 @@ Module mdlFileList
         End Property
 
         Friend Savestates As New Dictionary(Of String, Savestate)
-        Friend ReadOnly Property Savestates_SizeTot() As Long
+        'Friend ReadOnly Property Savestates_SizeTot(Optional ByVal pExts() As String = Nothing) As Long
+        Friend ReadOnly Property Savestates_SizeTot(ByVal pExts() As String) As Long
             Get
                 If Savestates IsNot Nothing AndAlso Savestates.Count > 0 Then
-                    Return Savestates.Where(Function(item) item.Value.Extension.Equals(My.Settings.PCSX2_SStateExt)).Sum(Function(item) item.Value.Length)
+                    If pExts Is Nothing Then
+                        Return Savestates.Sum(Function(item) item.Value.Length)
+                    Else
+                        'Return Savestates.Where(Function(item) item.Value.Extension.Equals(pExts)).Sum(Function(item) item.Value.Length)
+                        Return Savestates.Where(Function(item) pExts.Contains(item.Value.Extension)).Sum(Function(item) item.Value.Length)
+                    End If
                 Else
                     Return 0
                 End If
             End Get
         End Property
-        Friend ReadOnly Property SavestatesBackup_SizeTot() As Long
-            Get
-                If Not (IsNothing(Savestates)) AndAlso Savestates.Count > 0 Then
-                    Return Savestates.Where(Function(item) item.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Sum(Function(item) item.Value.Length)
-                Else
-                    Return 0
-                End If
-            End Get
-        End Property
+        'Friend ReadOnly Property SavestatesBackup_SizeTot() As Long
+        '    Get
+        '        If Not (IsNothing(Savestates)) AndAlso Savestates.Count > 0 Then
+        '            Return Savestates.Where(Function(item) item.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Sum(Function(item) item.Value.Length)
+        '        Else
+        '            Return 0
+        '        End If
+        '    End Get
+        'End Property
 
         Friend SavestatesStored As New Dictionary(Of String, Savestate)
         Friend ReadOnly Property SavestatesStored_SizeTot() As Long
