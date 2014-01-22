@@ -19,6 +19,8 @@ Module mdlMain
     Friend PCSX2GameDb As GameDB
     Friend SSMGameList As New GamesList
 
+    Friend PCSX2StateVerDB As ssVersionDB
+
     Friend SSMAppLog As New AppLog
 
     Friend DPIxScale As Single = 1.0F

@@ -386,7 +386,7 @@ Public NotInheritable Class frmReorderForm
 
                 'Some info of the game checked
                 currentSerial = frmMain.checkedGames(0)
-                currentCRC = SSMGameList.Games(currentSerial).CRC
+                currentCRC = SSMGameList.Games(currentSerial).GameCRC
 
                 'Creation of the header
                 Dim tmpGameInfo As New mdlGameDb.GameInfo
@@ -416,13 +416,13 @@ Public NotInheritable Class frmReorderForm
                 Next
 
                 'Adding savestates
-                For Each tmpSavestate As KeyValuePair(Of String, Savestate) In SSMGameList.Games(frmMain.checkedGames(0)).Savestates
+                For Each tmpSavestate As KeyValuePair(Of String, PCSX2File) In SSMGameList.Games(frmMain.checkedGames(0)).GameFiles(ListMode.Savestates).Files
                     Dim listRef As Integer = tmpSavestate.Value.Number    'Used for list index
                     If (listRef >= My.Settings.PCSX2_SStateSlotLowerBound) And (listRef <= My.Settings.PCSX2_SStateSlotUpperBound) Then
                         'Even numbers are for savestates
                         listRef -= My.Settings.PCSX2_SStateSlotLowerBound
                         listRef *= 2
-                        If tmpSavestate.Value.isBackup Then
+                        If tmpSavestate.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup) Then
                             'Odd numbers are for backups
                             listRef += 1
                         End If
@@ -447,7 +447,7 @@ Public NotInheritable Class frmReorderForm
 
                 mdlTheme.ListAlternateColors(tmpSListItems)
 
-                Count_Files = SSMGameList.Games(frmMain.checkedGames(0)).Savestates.Count
+                Count_Files = SSMGameList.Games(frmMain.checkedGames(0)).GameFiles(ListMode.Savestates).Files.Count
 
                 Me.lvwReorderList.Groups.Add(tmpLvwSListGroup)
                 Me.lvwReorderList.Items.AddRange(tmpSListItems.ToArray)

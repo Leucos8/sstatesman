@@ -36,13 +36,15 @@ Partial Class frmSStateList
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.DTStatusStrip = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripStatusLabel3 = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.DTToolStrip = New System.Windows.Forms.ToolStrip()
         Me.tsGames = New System.Windows.Forms.ToolStripSplitButton()
         Me.tsGamesAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsGamesChecked = New System.Windows.Forms.ToolStripMenuItem()
+        Me.tsCoverCache = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsSavestates = New System.Windows.Forms.ToolStripSplitButton()
         Me.tsSavestatesAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsSavestatesCurrent = New System.Windows.Forms.ToolStripMenuItem()
@@ -55,51 +57,56 @@ Partial Class frmSStateList
         Me.tsSnapsAll = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsSnapsCurrent = New System.Windows.Forms.ToolStripMenuItem()
         Me.tsSnapsSelected = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ListView1 = New System.Windows.Forms.ListView()
-        Me.StatusStrip1.SuspendLayout()
-        Me.ToolStrip1.SuspendLayout()
+        Me.lvwDT = New System.Windows.Forms.ListView()
+        Me.DTStatusStrip.SuspendLayout()
+        Me.DTToolStrip.SuspendLayout()
         Me.SuspendLayout()
         '
-        'StatusStrip1
+        'DTStatusStrip
         '
-        Me.StatusStrip1.BackColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 420)
-        Me.StatusStrip1.Name = "StatusStrip1"
-        Me.StatusStrip1.Size = New System.Drawing.Size(744, 22)
-        Me.StatusStrip1.TabIndex = 7
-        Me.StatusStrip1.Text = "StatusStrip1"
+        Me.DTStatusStrip.BackColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
+        Me.DTStatusStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel1, Me.ToolStripStatusLabel2, Me.ToolStripStatusLabel3})
+        Me.DTStatusStrip.Location = New System.Drawing.Point(0, 420)
+        Me.DTStatusStrip.Name = "DTStatusStrip"
+        Me.DTStatusStrip.Size = New System.Drawing.Size(744, 22)
+        Me.DTStatusStrip.TabIndex = 7
         '
         'ToolStripStatusLabel1
         '
         Me.ToolStripStatusLabel1.ForeColor = System.Drawing.Color.White
         Me.ToolStripStatusLabel1.Name = "ToolStripStatusLabel1"
-        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(12, 17)
-        Me.ToolStripStatusLabel1.Text = "_"
+        Me.ToolStripStatusLabel1.Size = New System.Drawing.Size(19, 17)
+        Me.ToolStripStatusLabel1.Text = "L1"
         '
         'ToolStripStatusLabel2
         '
         Me.ToolStripStatusLabel2.ForeColor = System.Drawing.Color.White
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(10, 17)
-        Me.ToolStripStatusLabel2.Text = " "
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(22, 17)
+        Me.ToolStripStatusLabel2.Text = " L2"
         '
-        'ToolStrip1
+        'ToolStripStatusLabel3
         '
-        Me.ToolStrip1.BackColor = System.Drawing.Color.Gainsboro
-        Me.ToolStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
-        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsGames, Me.tsSavestates, Me.tsStored, Me.tsSnaps})
-        Me.ToolStrip1.Location = New System.Drawing.Point(0, 0)
-        Me.ToolStrip1.Name = "ToolStrip1"
-        Me.ToolStrip1.Size = New System.Drawing.Size(744, 25)
-        Me.ToolStrip1.TabIndex = 17
-        Me.ToolStrip1.Text = "ToolStrip1"
+        Me.ToolStripStatusLabel3.ForeColor = System.Drawing.Color.White
+        Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
+        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(19, 17)
+        Me.ToolStripStatusLabel3.Text = "L3"
+        '
+        'DTToolStrip
+        '
+        Me.DTToolStrip.BackColor = System.Drawing.Color.Gainsboro
+        Me.DTToolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden
+        Me.DTToolStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsGames, Me.tsSavestates, Me.tsStored, Me.tsSnaps})
+        Me.DTToolStrip.Location = New System.Drawing.Point(0, 0)
+        Me.DTToolStrip.Name = "DTToolStrip"
+        Me.DTToolStrip.Size = New System.Drawing.Size(744, 25)
+        Me.DTToolStrip.TabIndex = 17
+        Me.DTToolStrip.Text = "ToolStrip1"
         '
         'tsGames
         '
         Me.tsGames.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
-        Me.tsGames.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsGamesAll, Me.tsGamesChecked})
+        Me.tsGames.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.tsGamesAll, Me.tsGamesChecked, Me.tsCoverCache})
         Me.tsGames.ImageTransparentColor = System.Drawing.Color.Magenta
         Me.tsGames.Name = "tsGames"
         Me.tsGames.Size = New System.Drawing.Size(59, 22)
@@ -109,14 +116,20 @@ Partial Class frmSStateList
         '
         Me.tsGamesAll.Font = New System.Drawing.Font("Segoe UI", 9.0!, System.Drawing.FontStyle.Bold)
         Me.tsGamesAll.Name = "tsGamesAll"
-        Me.tsGamesAll.Size = New System.Drawing.Size(120, 22)
+        Me.tsGamesAll.Size = New System.Drawing.Size(138, 22)
         Me.tsGamesAll.Text = "All"
         '
         'tsGamesChecked
         '
         Me.tsGamesChecked.Name = "tsGamesChecked"
-        Me.tsGamesChecked.Size = New System.Drawing.Size(120, 22)
+        Me.tsGamesChecked.Size = New System.Drawing.Size(138, 22)
         Me.tsGamesChecked.Text = "Checked"
+        '
+        'tsCoverCache
+        '
+        Me.tsCoverCache.Name = "tsCoverCache"
+        Me.tsCoverCache.Size = New System.Drawing.Size(138, 22)
+        Me.tsCoverCache.Text = "CoverCache"
         '
         'tsSavestates
         '
@@ -193,35 +206,28 @@ Partial Class frmSStateList
         '
         'tsSnapsCurrent
         '
-        Me.tsSnapsCurrent.Enabled = False
         Me.tsSnapsCurrent.Name = "tsSnapsCurrent"
         Me.tsSnapsCurrent.Size = New System.Drawing.Size(118, 22)
         Me.tsSnapsCurrent.Text = "Current"
         '
         'tsSnapsSelected
         '
-        Me.tsSnapsSelected.Enabled = False
         Me.tsSnapsSelected.Name = "tsSnapsSelected"
         Me.tsSnapsSelected.Size = New System.Drawing.Size(118, 22)
         Me.tsSnapsSelected.Text = "Selected"
         '
-        'ToolStripSeparator3
+        'lvwDT
         '
-        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
-        Me.ToolStripSeparator3.Size = New System.Drawing.Size(6, 6)
-        '
-        'ListView1
-        '
-        Me.ListView1.BackColor = System.Drawing.Color.White
-        Me.ListView1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ListView1.ForeColor = System.Drawing.Color.Black
-        Me.ListView1.FullRowSelect = True
-        Me.ListView1.Location = New System.Drawing.Point(0, 25)
-        Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(744, 395)
-        Me.ListView1.TabIndex = 18
-        Me.ListView1.UseCompatibleStateImageBehavior = False
-        Me.ListView1.View = System.Windows.Forms.View.Details
+        Me.lvwDT.BackColor = System.Drawing.Color.White
+        Me.lvwDT.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lvwDT.ForeColor = System.Drawing.Color.Black
+        Me.lvwDT.FullRowSelect = True
+        Me.lvwDT.Location = New System.Drawing.Point(0, 25)
+        Me.lvwDT.Name = "lvwDT"
+        Me.lvwDT.Size = New System.Drawing.Size(744, 395)
+        Me.lvwDT.TabIndex = 18
+        Me.lvwDT.UseCompatibleStateImageBehavior = False
+        Me.lvwDT.View = System.Windows.Forms.View.Details
         '
         'frmSStateList
         '
@@ -229,27 +235,26 @@ Partial Class frmSStateList
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(744, 442)
-        Me.Controls.Add(Me.ListView1)
-        Me.Controls.Add(Me.ToolStrip1)
-        Me.Controls.Add(Me.StatusStrip1)
+        Me.Controls.Add(Me.lvwDT)
+        Me.Controls.Add(Me.DTToolStrip)
+        Me.Controls.Add(Me.DTStatusStrip)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ForeColor = System.Drawing.Color.Black
         Me.Name = "frmSStateList"
         Me.Text = "Developer Tools"
-        Me.StatusStrip1.ResumeLayout(False)
-        Me.StatusStrip1.PerformLayout()
-        Me.ToolStrip1.ResumeLayout(False)
-        Me.ToolStrip1.PerformLayout()
+        Me.DTStatusStrip.ResumeLayout(False)
+        Me.DTStatusStrip.PerformLayout()
+        Me.DTToolStrip.ResumeLayout(False)
+        Me.DTToolStrip.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
-    Private WithEvents StatusStrip1 As System.Windows.Forms.StatusStrip
+    Private WithEvents DTStatusStrip As System.Windows.Forms.StatusStrip
     Private WithEvents ToolStripStatusLabel1 As System.Windows.Forms.ToolStripStatusLabel
     Private WithEvents ToolStripStatusLabel2 As System.Windows.Forms.ToolStripStatusLabel
-    Private WithEvents ToolStrip1 As System.Windows.Forms.ToolStrip
-    Private WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
-    Private WithEvents ListView1 As System.Windows.Forms.ListView
+    Private WithEvents DTToolStrip As System.Windows.Forms.ToolStrip
+    Private WithEvents lvwDT As System.Windows.Forms.ListView
     Private WithEvents tsGames As System.Windows.Forms.ToolStripSplitButton
     Private WithEvents tsGamesAll As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents tsGamesChecked As System.Windows.Forms.ToolStripMenuItem
@@ -265,4 +270,6 @@ Partial Class frmSStateList
     Private WithEvents tsSnapsAll As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents tsSnapsCurrent As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents tsSnapsSelected As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents tsCoverCache As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripStatusLabel3 As System.Windows.Forms.ToolStripStatusLabel
 End Class

@@ -15,9 +15,6 @@
 Module mdlFileClasses
     Friend MustInherit Class PCSX2File
         Friend Name As String
-        Friend Length As Long
-        Friend LastWriteTime As DateTime
-
         Friend ReadOnly Property Extension As String
             Get
                 Dim DotPosition As Integer = Name.LastIndexOf("."c)
@@ -28,12 +25,30 @@ Module mdlFileClasses
                 End If
             End Get
         End Property
+        Friend Length As Long
+        Friend LastWriteTime As DateTime
+
         Friend Overridable ReadOnly Property Number As Integer
             Get
                 Return -1
             End Get
         End Property
         Friend Overridable Property ExtraInfo As String = ""
+        Friend Overridable Sub GetExtraInfo(pPath As String)
+            ExtraInfo = ""
+        End Sub
+
+        Friend MustOverride Function GetGameSerial() As String
+        Friend Overridable Function GetGameCRC() As String
+            Return String.Format("{0:N8}", 0)
+        End Function
+
+        Friend Enum PCSX2FileType
+            OtherFileType = 0
+            PCSX2Savestate = 1
+            PCSX2SavestateBackup = 2
+            PCSX2Screenshot = 3
+        End Enum
     End Class
 
 
@@ -52,11 +67,11 @@ Module mdlFileClasses
         End Property
         Friend Overrides Property ExtraInfo As String = ""
 
-        Friend Function GetSerial() As String
-            Return Savestate.GetSerial(Name)
+        Friend Overrides Function GetGameSerial() As String
+            Return Savestate.GetGameSerial(Name)
         End Function
 
-        Friend Shared Function GetSerial(ByVal pFilename As String) As String
+        Friend Overloads Shared Function GetGameSerial(pFilename As String) As String
             Dim SpacePosition As Integer = pFilename.IndexOf(" "c, 0)
             If SpacePosition > 0 Then
                 Return pFilename.Remove(SpacePosition)
@@ -65,12 +80,20 @@ Module mdlFileClasses
             End If
         End Function
 
+        Friend Overrides Sub GetExtraInfo(pPath As String)
+            If My.Settings.SStatesMan_SStatesVersionExtract Then
+                Dim tmpFile As New IO.FileInfo(IO.Path.Combine(pPath, Name))
+                ExtraInfo = mdlSimpleZipExtractor.ExtractFirstFile(tmpFile)
+                ExtraInfo &= " " & PCSX2StateVerDB.GetRevisions(ExtraInfo)
+            Else : ExtraInfo = "-"
+            End If
+        End Sub
 
-        Friend Function GetCRC() As String
-            Return Savestate.GetCRC(Name)
+        Friend Overrides Function GetGameCRC() As String
+            Return Savestate.GetGameCRC(Name)
         End Function
 
-        Friend Shared Function GetCRC(ByVal pFilename As String) As String
+        Friend Overloads Shared Function GetGameCRC(pFilename As String) As String
             Dim ParOPosition As Integer = pFilename.IndexOf("("c, 0)
             Dim ParCPosition As Integer = pFilename.IndexOf(")"c, 0)
             If (ParOPosition > 0) AndAlso (ParCPosition > ParOPosition) Then
@@ -78,19 +101,6 @@ Module mdlFileClasses
             Else
                 Return String.Format("N8", 0)
             End If
-        End Function
-
-        Friend Function isBackup() As Boolean
-            If Extension = My.Settings.PCSX2_SStateExtBackup Then
-                Return True
-            Else
-                Return False
-            End If
-        End Function
-
-        Friend Shared Function isBackup(ByVal pFilename As String) As Boolean
-            Dim tmpSavestate As New Savestate With {.Name = pFilename}
-            Return tmpSavestate.isBackup
         End Function
 
         Friend Overloads Shared Function ToString(pSerial As String, pCRC As String, pSlot As Integer, pSlotType As Boolean) As String
@@ -117,11 +127,11 @@ Module mdlFileClasses
         End Property
         Friend Overrides Property ExtraInfo As String = ""
 
-        Friend Function GetSerial() As String
-            Return Snapshot.GetSerial(Name)
+        Friend Overrides Function GetGameSerial() As String
+            Return Snapshot.GetGameSerial(Name)
         End Function
 
-        Friend Shared Function GetSerial(ByVal pFilename As String) As String
+        Friend Overloads Shared Function GetGameSerial(ByVal pFilename As String) As String
             'Dim SpacePosition As Int32 = Name.IndexOf(" "c, 0)
             'If Name.ToLower.StartsWith("gsdx") Then
             '    Return "GSdX"

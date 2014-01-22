@@ -15,7 +15,15 @@
 Imports System.IO
 
 Module mdlFileList
-    Friend Class GamesList_Item
+    Friend Enum ListMode
+        Savestates
+        Stored
+        Snapshots
+    End Enum
+
+    Dim Files_Count() As Integer = {0, 0, 0}
+
+    Friend Class GameListItem
         Friend ReadOnly Property HasCoverFile(pDirectory As String, pSerial As String) As Boolean
             Get
                 If File.Exists(Path.Combine(pDirectory, mdlMain.TrimBadPathChars(pSerial) & ".jpg")) Then
@@ -25,166 +33,99 @@ Module mdlFileList
                 End If
             End Get
         End Property
+        'Friend ReadOnly Property HasIsoFile
+        Friend Property GameCRC As String = ""
 
-        Friend Savestates As New Dictionary(Of String, Savestate)
-        'Friend ReadOnly Property Savestates_SizeTot(Optional ByVal pExts() As String = Nothing) As Long
-        Friend ReadOnly Property Savestates_SizeTot(ByVal pExts() As String) As Long
-            Get
-                If Savestates IsNot Nothing AndAlso Savestates.Count > 0 Then
-                    If pExts Is Nothing Then
-                        Return Savestates.Sum(Function(item) item.Value.Length)
+        Friend GameFiles As New Dictionary(Of Integer, GameFileList(Of PCSX2File))
+
+        Friend Class GameFileList(Of T As PCSX2File)
+            Friend Files As New Dictionary(Of String, T)
+            Friend ReadOnly Property SizeTot(ByVal pExts() As String) As Long
+                Get
+                    If Files IsNot Nothing AndAlso Files.Count > 0 Then
+                        If pExts Is Nothing Then
+                            Return Files.Sum(Function(item) item.Value.Length)
+                        Else
+                            Return Files.Where(Function(item) pExts.Contains(item.Value.Extension)).Sum(Function(item) item.Value.Length)
+                        End If
                     Else
-                        'Return Savestates.Where(Function(item) item.Value.Extension.Equals(pExts)).Sum(Function(item) item.Value.Length)
-                        Return Savestates.Where(Function(item) pExts.Contains(item.Value.Extension)).Sum(Function(item) item.Value.Length)
+                        Return 0
                     End If
-                Else
-                    Return 0
-                End If
-            End Get
-        End Property
-        'Friend ReadOnly Property SavestatesBackup_SizeTot() As Long
-        '    Get
-        '        If Not (IsNothing(Savestates)) AndAlso Savestates.Count > 0 Then
-        '            Return Savestates.Where(Function(item) item.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Sum(Function(item) item.Value.Length)
-        '        Else
-        '            Return 0
-        '        End If
-        '    End Get
-        'End Property
+                End Get
+            End Property
+        End Class
 
-        Friend SavestatesStored As New Dictionary(Of String, Savestate)
-        Friend ReadOnly Property SavestatesStored_SizeTot() As Long
-            Get
-                If SavestatesStored IsNot Nothing AndAlso SavestatesStored.Count > 0 Then
-                    Return SavestatesStored.Sum(Function(item) item.Value.Length)
-                Else
-                    Return 0
-                End If
-            End Get
-        End Property
-
-        Friend Snapshots As New Dictionary(Of String, Snapshot)
-        Friend ReadOnly Property Snapshots_SizeTot() As Long
-            Get
-                If Snapshots IsNot Nothing AndAlso Snapshots.Count > 0 Then
-                    Return Snapshots.Sum(Function(item) item.Value.Length)
-                Else
-                    Return 0
-                End If
-            End Get
-        End Property
-
-        Friend CRC As String = ""
     End Class
 
     Friend Class GamesList
-        Friend Games As New Dictionary(Of String, GamesList_Item)
-        Friend Status As mdlMain.LoadStatus = LoadStatus.StatusNotLoaded
+        Friend Games As New Dictionary(Of String, GameListItem)
         Friend LoadTime As Long
         Friend SStatesFolder_LastModified As DateTime
         Friend SStatesStored_FolderLastModified As DateTime
         Friend SnapsFolder_LastModified As DateTime
 
-        Friend Sub LoadAll(ByVal pSStatesPath As String, _
-                           ByVal pSStatesStoredPath As String, _
-                           ByVal pSnapsPath As String)
+        Friend Sub Load(ByVal pSStatesPath As String, _
+                        ByVal pSStatesStoredPath As String, _
+                        ByVal pSnapsPath As String)
 
-            Dim sw As New Stopwatch
-            sw.Start()
+            Dim sw As Stopwatch = Stopwatch.StartNew
+
+            Files_Count = {0, 0, 0}
 
             Games.Clear()
 
-            Dim tmpDirectoryInfo As New DirectoryInfo(pSStatesPath)
-            Savestates_Load(tmpDirectoryInfo)
-            tmpDirectoryInfo = New DirectoryInfo(pSStatesStoredPath)
-            SavestatesStored_Load(tmpDirectoryInfo)
-            tmpDirectoryInfo = New DirectoryInfo(pSnapsPath)
-            SnapsList_Load(tmpDirectoryInfo)
+            LoadFiles(Of Savestate)(pSStatesPath, {My.Settings.PCSX2_SStateExt, My.Settings.PCSX2_SStateExtBackup}, ListMode.Savestates, SStatesFolder_LastModified)
+
+            LoadFiles(Of Savestate)(pSStatesStoredPath, {My.Settings.PCSX2_SStateExt}, ListMode.Stored, SStatesStored_FolderLastModified)
+
+            LoadFiles(Of Snapshot)(pSnapsPath, My.Settings.SStatesMan_ScreenshotExts, ListMode.Snapshots, SnapsFolder_LastModified)
+
 
             sw.Stop()
             LoadTime = sw.ElapsedTicks
             If Games.Count = 0 Then
                 SSMAppLog.Append(eType.LogWarning, eSrc.FileList, eSrcMethod.File_LoadAll, "No games, the list is empty.", LoadTime)
-                Status = LoadStatus.StatusEmpty
             Else
-                Dim SStates_Count As Integer = Games.Sum(Function(item) item.Value.Savestates.Count)
-                Dim SStatesStored_Count = Games.Sum(Function(item) item.Value.SavestatesStored.Count)
-                Dim Snaps_Count As Integer = Games.Sum(Function(item) item.Value.Snapshots.Count)
-                SSMAppLog.Append(eType.LogInformation, eSrc.FileList, eSrcMethod.File_LoadAll, String.Format("{0:N0} games > {1:N0} sstates - {2:N0} stored - {3:N0} screenshots.", Games.Count, SStates_Count, SStatesStored_Count, Snaps_Count), LoadTime)
-                Status = LoadStatus.StatusLoadedOK
+                SSMAppLog.Append(eType.LogInformation, eSrc.FileList, eSrcMethod.File_LoadAll, String.Format("{0:N0} games > {1:N0} sstates - {2:N0} stored - {3:N0} screenshots.", Games.Count, Files_Count(ListMode.Savestates), Files_Count(ListMode.Stored), Files_Count(ListMode.Snapshots)), LoadTime)
             End If
         End Sub
 
-        Friend Sub Savestates_Load(ByVal pDirectory As DirectoryInfo)
+        Friend Sub LoadFiles(Of T As {New, PCSX2File})(pDirectory As String, pExts() As String, pListKey As ListMode, ByRef pLastWriteTime As Date)
+            Try
+                Dim tmpDirectoryInfo As New DirectoryInfo(pDirectory)
+                pLastWriteTime = tmpDirectoryInfo.LastWriteTime
 
-            'Version DB
-            Dim PCSX2_VersionDB As New ssVersionDB
-            PCSX2_VersionDB.Load(My.Resources.ssversion)
+                Dim tmpFileInfos As IEnumerable(Of FileInfo) = tmpDirectoryInfo.EnumerateFiles().Where(Function(item) pExts.Contains(item.Extension.ToLower))
 
-            SStatesFolder_LastModified = pDirectory.LastWriteTime
+                If tmpFileInfos.Count > 0 Then
 
-            Dim tmpSStateFileInfos As IEnumerable(Of FileInfo) = pDirectory.EnumerateFiles().Where(Function(item) {My.Settings.PCSX2_SStateExt, My.Settings.PCSX2_SStateExtBackup}.Contains(item.Extension.ToLower))
+                    Files_Count(pListKey) += tmpFileInfos.Count
 
-            For Each tmpFileInfo As FileInfo In tmpSStateFileInfos
-                'A temporary of Savestates is created
-                Dim tmpSavestate As New Savestate With {.Name = tmpFileInfo.Name, .Length = tmpFileInfo.Length, .LastWriteTime = tmpFileInfo.LastWriteTime}
-                If My.Settings.SStatesMan_SStatesVersionExtract Then
-                    tmpSavestate.ExtraInfo = mdlSimpleZipExtractor.ExtractFirstFile(tmpFileInfo)
-                    tmpSavestate.ExtraInfo &= " " & PCSX2_VersionDB.GetRevisions(tmpSavestate.ExtraInfo)
-                Else : tmpSavestate.ExtraInfo = "-"
+                    For Each tmpFileInfo As FileInfo In tmpFileInfos
+                        Dim tmpFile As New T With {.Name = tmpFileInfo.Name, .Length = tmpFileInfo.Length, .LastWriteTime = tmpFileInfo.LastWriteTime}
+
+                        tmpFile.GetExtraInfo(pDirectory)
+
+                        Dim tmpSerial As String = tmpFile.GetGameSerial()
+
+                        If Not (Games.ContainsKey(tmpSerial)) Then
+                            Games.Add(tmpSerial, New GameListItem With {.GameCRC = tmpFile.GetGameCRC})
+                        End If
+
+                        If Not (Games(tmpSerial).GameFiles.ContainsKey(pListKey)) Then
+                            Games(tmpSerial).GameFiles.Add(pListKey, New GameListItem.GameFileList(Of PCSX2File))
+                        End If
+
+                        Games(tmpSerial).GameFiles(pListKey).Files.Add(tmpFile.Name, tmpFile)
+
+                    Next
+
                 End If
-                Dim tmpSerial As String = tmpSavestate.GetSerial()
-                If Not (Games.ContainsKey(tmpSerial)) Then
-                    'Savestates are loaded first, so we get the CRC here. If a game is added during screenshots loading it means there are no savestates (and no crc)
-                    Games.Add(tmpSerial, New GamesList_Item With {.CRC = tmpSavestate.GetCRC})
-                End If
-                Games(tmpSerial).Savestates.Add(tmpSavestate.Name, tmpSavestate)
-            Next
+
+            Catch ex As Exception
+                SSMAppLog.Append(eType.LogError, eSrc.FileList, eSrcMethod.List, String.Format("Error retrieving {0}." & Environment.NewLine & " {1}", pListKey.ToString, ex.Message))
+            End Try
         End Sub
 
-        Friend Sub SavestatesStored_Load(ByVal pDirectory As DirectoryInfo)
-
-            'Version DB
-            Dim PCSX2_VersionDB As New ssVersionDB
-            PCSX2_VersionDB.Load(My.Resources.ssversion)
-
-            SStatesStored_FolderLastModified = pDirectory.LastWriteTime
-
-            Dim tmpSStateFileInfos As IEnumerable(Of FileInfo) = pDirectory.EnumerateFiles().Where(Function(item) {My.Settings.PCSX2_SStateExt}.Contains(item.Extension.ToLower))
-
-            For Each tmpFileInfo As FileInfo In tmpSStateFileInfos
-                'A temporary of Savestates is created
-                Dim tmpSavestate As New Savestate With {.Name = tmpFileInfo.Name, .Length = tmpFileInfo.Length, .LastWriteTime = tmpFileInfo.LastWriteTime}
-                If My.Settings.SStatesMan_SStatesVersionExtract Then
-                    tmpSavestate.ExtraInfo = mdlSimpleZipExtractor.ExtractFirstFile(tmpFileInfo)
-                    tmpSavestate.ExtraInfo &= " " & PCSX2_VersionDB.GetRevisions(tmpSavestate.ExtraInfo)
-                Else : tmpSavestate.ExtraInfo = "-"
-                End If
-                Dim tmpSerial As String = tmpSavestate.GetSerial()
-                If Not (Games.ContainsKey(tmpSerial)) Then
-                    'Savestates are loaded first, so we get the CRC here. If a game is added during screenshots loading it means there are no savestates (and no crc)
-                    Games.Add(tmpSerial, New GamesList_Item With {.CRC = tmpSavestate.GetCRC})
-                End If
-                Games(tmpSerial).SavestatesStored.Add(tmpSavestate.Name, tmpSavestate)
-            Next
-        End Sub
-
-        Friend Sub SnapsList_Load(ByVal pDirectory As DirectoryInfo)
-
-            SnapsFolder_LastModified = pDirectory.LastWriteTime
-
-            Dim tmpSnapsFileInfos As IEnumerable(Of FileInfo) = pDirectory.EnumerateFiles().Where(Function(item) {".bmp", ".jpg", ".png"}.Contains(item.Extension.ToLower))
-
-
-            For Each tmpFileInfo As FileInfo In tmpSnapsFileInfos
-                'A temporary of Savestates is created
-                Dim tmpSnap As New Snapshot With {.Name = tmpFileInfo.Name, .Length = tmpFileInfo.Length, .LastWriteTime = tmpFileInfo.LastWriteTime}
-                Dim tmpSerial As String = tmpSnap.GetSerial()
-                If Not (Games.ContainsKey(tmpSerial)) Then
-                    Games.Add(tmpSerial, New GamesList_Item)
-                End If
-                Games(tmpSerial).Snapshots.Add(tmpSnap.Name, tmpSnap)
-            Next
-        End Sub
     End Class
 End Module

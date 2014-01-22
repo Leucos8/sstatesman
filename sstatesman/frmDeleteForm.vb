@@ -30,154 +30,56 @@ Public NotInheritable Class frmDeleteForm
     End Enum
 
 #Region "Delete"
-    Private Sub DeleteSavestates()
+    Private Sub DeleteFiles(pPath As String)
         Me.UI_Enable(False)
-        For Each tmpItem As ListViewItem In Me.lvwDelFilesList.CheckedItems
-            Dim tmpGamesListItem As New mdlFileList.GamesList_Item
-            Dim tmpSavestate As New Savestate
-            If SSMGameList.Games.TryGetValue(tmpItem.Group.Name, tmpGamesListItem) Then
-                If tmpGamesListItem.Savestates.TryGetValue(tmpItem.Name, tmpSavestate) Then
+        For Each tmpCheckedItem As ListViewItem In Me.lvwDelFilesList.CheckedItems
+            Dim tmpGamesListItem As New mdlFileList.GameListItem
+            If SSMGameList.Games.TryGetValue(tmpCheckedItem.Group.Name, tmpGamesListItem) Then
+                If tmpGamesListItem.GameFiles.ContainsKey(frmMain.currentListMode) AndAlso _
+                    tmpGamesListItem.GameFiles(frmMain.currentListMode).Files.ContainsKey(tmpCheckedItem.Name) Then
+                    Dim tmpFile As PCSX2File = tmpGamesListItem.GameFiles(frmMain.currentListMode).Files(tmpCheckedItem.Name)
                     Try
                         If My.Settings.SStatesMan_FileTrash = True Then
-                            My.Computer.FileSystem.DeleteFile(Path.Combine(My.Settings.PCSX2_PathSState, tmpSavestate.Name),
+                            My.Computer.FileSystem.DeleteFile(Path.Combine(pPath, tmpFile.Name),
                                                               FileIO.UIOption.OnlyErrorDialogs,
                                                               FileIO.RecycleOption.SendToRecycleBin)
-                            SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Delete, tmpItem.Text & " moved to recycle bin.")
+                            SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Delete, tmpCheckedItem.Text & " moved to recycle bin.")
                         Else
-                            File.Delete(Path.Combine(My.Settings.PCSX2_PathSState, tmpSavestate.Name))
-                            SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Delete, tmpItem.Text & " deleted succesfully.")
+                            File.Delete(Path.Combine(pPath, tmpFile.Name))
+                            SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Delete, tmpCheckedItem.Text & " deleted succesfully.")
                         End If
 
-                        If tmpSavestate.isBackup Then
-                            FileList_TotalSizeBackup -= tmpSavestate.Length
+                        If tmpFile.Extension = My.Settings.PCSX2_SStateExtBackup Then
+                            FileList_TotalSizeBackup -= tmpFile.Length
                         Else
-                            FileList_TotalSize -= tmpSavestate.Length
+                            FileList_TotalSize -= tmpFile.Length
                         End If
                         'tmpGamesListItem.Savestates.Remove(tmpSavestate.Name)
 
-                        tmpItem.Tag = DelFileStatus.DeletedOk
-                        tmpItem.SubItems(statusColumnHeaderRef.Index).Text = "File deleted successfully."
-                        tmpItem.BackColor = Color.FromArgb(255, 150, 200, 130)
+                        tmpCheckedItem.Tag = DelFileStatus.DeletedOk
+                        tmpCheckedItem.SubItems(statusColumnHeaderRef.Index).Text = "File deleted successfully."
+                        tmpCheckedItem.BackColor = Color.FromArgb(255, 150, 200, 130)
                     Catch ex As Exception
-                        tmpItem.Tag = DelFileStatus.OtherError
-                        tmpItem.SubItems(statusColumnHeaderRef.Index).Text = ex.Message
-                        tmpItem.BackColor = Color.FromArgb(255, 255, 192, 192)
-                        SSMAppLog.Append(eType.LogError, eSrc.DeleteWindow, eSrcMethod.Delete, tmpItem.Text & " not deleted. " & ex.Message)
+                        tmpCheckedItem.Tag = DelFileStatus.OtherError
+                        tmpCheckedItem.SubItems(statusColumnHeaderRef.Index).Text = ex.Message
+                        tmpCheckedItem.BackColor = Color.FromArgb(255, 255, 192, 192)
+                        SSMAppLog.Append(eType.LogError, eSrc.DeleteWindow, eSrcMethod.Delete, tmpCheckedItem.Text & " not deleted. " & ex.Message)
                     Finally
-                        tmpItem.Checked = False
+                        tmpCheckedItem.Checked = False
                     End Try
                 Else
-                    tmpItem.Tag = DelFileStatus.OtherError
-                    tmpItem.BackColor = Color.FromArgb(255, 255, 192, 192)
-                    tmpItem.SubItems(statusColumnHeaderRef.Index).Text = "File information not found in list."
-                    SSMAppLog.Append(eType.LogError, eSrc.DeleteWindow, eSrcMethod.Delete, "File information not found for " & tmpItem.Name & ".")
+                    tmpCheckedItem.Tag = DelFileStatus.OtherError
+                    tmpCheckedItem.BackColor = Color.FromArgb(255, 255, 192, 192)
+                    tmpCheckedItem.SubItems(statusColumnHeaderRef.Index).Text = "File information not found in list."
+                    tmpCheckedItem.Checked = False
+                    SSMAppLog.Append(eType.LogError, eSrc.DeleteWindow, eSrcMethod.Delete, "File information not found for " & tmpCheckedItem.Name & ".")
                 End If
             Else
-                tmpItem.Tag = DelFileStatus.OtherError
-                tmpItem.BackColor = Color.FromArgb(255, 255, 192, 192)
-                tmpItem.SubItems(statusColumnHeaderRef.Index).Text = "Game information not found in list."
-                SSMAppLog.Append(eType.LogError, eSrc.DeleteWindow, eSrcMethod.Delete, "Game " & tmpItem.Group.Name & " not found for file " & tmpItem.Name & ".")
-            End If
-
-
-        Next
-        Me.UI_UpdateFileInfo()
-        Me.UI_Enable(True)
-    End Sub
-
-    Private Sub DeleteStored()
-        Me.UI_Enable(False)
-        For Each tmpItem As ListViewItem In Me.lvwDelFilesList.CheckedItems
-            Dim tmpGamesListItem As New mdlFileList.GamesList_Item
-            Dim tmpSavestate As New Savestate
-            If SSMGameList.Games.TryGetValue(tmpItem.Group.Name, tmpGamesListItem) Then
-                If tmpGamesListItem.SavestatesStored.TryGetValue(tmpItem.Name, tmpSavestate) Then
-                    Try
-                        If My.Settings.SStatesMan_FileTrash = True Then
-                            My.Computer.FileSystem.DeleteFile(Path.Combine(My.Settings.SStatesMan_PathStored, tmpSavestate.Name),
-                                                              FileIO.UIOption.OnlyErrorDialogs,
-                                                              FileIO.RecycleOption.SendToRecycleBin)
-                            SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Delete, tmpItem.Text & " moved to recycle bin.")
-                        Else
-                            File.Delete(Path.Combine(My.Settings.SStatesMan_PathStored, tmpSavestate.Name))
-                            SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Delete, tmpItem.Text & " deleted succesfully.")
-                        End If
-
-                        FileList_TotalSize -= tmpSavestate.Length
-                        'tmpGamesListItem.SavestatesStored.Remove(tmpSavestate.Name)
-
-                        tmpItem.Tag = DelFileStatus.DeletedOk
-                        tmpItem.SubItems(statusColumnHeaderRef.Index).Text = "File deleted successfully."
-                        tmpItem.BackColor = Color.FromArgb(255, 150, 200, 130)
-                    Catch ex As Exception
-                        tmpItem.Tag = DelFileStatus.OtherError
-                        tmpItem.SubItems(statusColumnHeaderRef.Index).Text = ex.Message
-                        tmpItem.BackColor = Color.FromArgb(255, 255, 192, 192)
-                        SSMAppLog.Append(eType.LogError, eSrc.DeleteWindow, eSrcMethod.Delete, tmpItem.Text & " not deleted. " & ex.Message)
-                    Finally
-                        tmpItem.Checked = False
-                    End Try
-                Else
-                    tmpItem.Tag = DelFileStatus.OtherError
-                    tmpItem.BackColor = Color.FromArgb(255, 255, 192, 192)
-                    tmpItem.SubItems(statusColumnHeaderRef.Index).Text = "File information not found in list."
-                    SSMAppLog.Append(eType.LogError, eSrc.DeleteWindow, eSrcMethod.Delete, "File information not found for " & tmpItem.Name & ".")
-                End If
-            Else
-                tmpItem.Tag = DelFileStatus.OtherError
-                tmpItem.BackColor = Color.FromArgb(255, 255, 192, 192)
-                tmpItem.SubItems(statusColumnHeaderRef.Index).Text = "Game information not found in list."
-                SSMAppLog.Append(eType.LogError, eSrc.DeleteWindow, eSrcMethod.Delete, "Game " & tmpItem.Group.Name & " not found for file " & tmpItem.Name & ".")
-            End If
-
-
-        Next
-        Me.UI_UpdateFileInfo()
-        Me.UI_Enable(True)
-    End Sub
-
-    Private Sub DeleteSnapshots()
-        Me.UI_Enable(False)
-        For Each tmpItem As ListViewItem In Me.lvwDelFilesList.CheckedItems
-            Dim tmpGamesListItem As New mdlFileList.GamesList_Item
-            Dim tmpSnap As New Snapshot
-            If SSMGameList.Games.TryGetValue(tmpItem.Group.Name, tmpGamesListItem) Then
-                If tmpGamesListItem.Snapshots.TryGetValue(tmpItem.Name, tmpSnap) Then
-                    Try
-                        If My.Settings.SStatesMan_FileTrash = True Then
-                            My.Computer.FileSystem.DeleteFile(Path.Combine(My.Settings.PCSX2_PathSnaps, tmpSnap.Name),
-                                                              FileIO.UIOption.OnlyErrorDialogs,
-                                                              FileIO.RecycleOption.SendToRecycleBin)
-                            SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Delete, tmpItem.Text & " moved to recycle bin.")
-                        Else
-                            File.Delete(Path.Combine(My.Settings.PCSX2_PathSnaps, tmpSnap.Name))
-                            SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Delete, tmpItem.Text & " deleted succesfully.")
-                        End If
-                        FileList_TotalSize -= tmpSnap.Length
-                        'tmpGamesListItem.Snapshots.Remove(tmpSnap.Name)
-
-                        tmpItem.Tag = DelFileStatus.DeletedOk
-                        tmpItem.SubItems(statusColumnHeaderRef.Index).Text = "File deleted successfully."
-                        tmpItem.BackColor = Color.FromArgb(255, 150, 200, 130)
-                    Catch ex As Exception
-                        tmpItem.Tag = DelFileStatus.OtherError
-                        tmpItem.SubItems(statusColumnHeaderRef.Index).Text = ex.Message
-                        tmpItem.BackColor = Color.FromArgb(255, 255, 192, 192)
-                        SSMAppLog.Append(eType.LogError, eSrc.DeleteWindow, eSrcMethod.Delete, tmpItem.Text & " not deleted. " & ex.Message)
-                    Finally
-                        tmpItem.Checked = False
-                    End Try
-                Else
-                    tmpItem.Tag = DelFileStatus.OtherError
-                    tmpItem.BackColor = Color.FromArgb(255, 255, 192, 192)
-                    tmpItem.SubItems(statusColumnHeaderRef.Index).Text = "File information not found in list."
-                    SSMAppLog.Append(eType.LogError, eSrc.DeleteWindow, eSrcMethod.Delete, "File information not found for " & tmpItem.Name & ".")
-                End If
-            Else
-                tmpItem.Tag = DelFileStatus.OtherError
-                tmpItem.BackColor = Color.FromArgb(255, 255, 192, 192)
-                tmpItem.SubItems(statusColumnHeaderRef.Index).Text = "Game information not found in list."
-                SSMAppLog.Append(eType.LogError, eSrc.DeleteWindow, eSrcMethod.Delete, "Game " & tmpItem.Group.Name & " not found for file " & tmpItem.Name & ".")
+                tmpCheckedItem.Tag = DelFileStatus.OtherError
+                tmpCheckedItem.BackColor = Color.FromArgb(255, 255, 192, 192)
+                tmpCheckedItem.SubItems(statusColumnHeaderRef.Index).Text = "Game information not found in list."
+                tmpCheckedItem.Checked = False
+                SSMAppLog.Append(eType.LogError, eSrc.DeleteWindow, eSrcMethod.Delete, "Game " & tmpCheckedItem.Group.Name & " not found for file " & tmpCheckedItem.Name & ".")
             End If
 
 
@@ -296,21 +198,21 @@ Public NotInheritable Class frmDeleteForm
 #End Region
 
 #Region "UI - General"
-    Private Sub UI_SwitchMode(pListMode As frmMain.ListMode)
+    Private Sub UI_SwitchMode(pListMode As ListMode)
         Me.UI_Enable(False)
 
         Select Case pListMode
-            Case frmMain.ListMode.Savestates
+            Case ListMode.Savestates
                 Me.cmdFileCheckBackup.Visible = True
                 Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = True
                 Me.txtSizeBackup.Visible = True
-            Case frmMain.ListMode.Stored
+            Case ListMode.Stored
                 Me.cmdFileCheckBackup.Visible = False
                 Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
-            Case frmMain.ListMode.Snapshots
+            Case ListMode.Snapshots
                 Me.cmdFileCheckBackup.Visible = False
                 Me.lblSize.Text = "screenshots size"
                 Me.lblSizeBackup.Visible = False
@@ -412,19 +314,12 @@ Public NotInheritable Class frmDeleteForm
 
 #Region "UI - FilesList"
     Private Sub DelFileList_Refresh()
-        Select Case frmMain.currentListMode
-            Case frmMain.ListMode.Savestates
-                Me.DelFileList_AddSavestates()
-            Case frmMain.ListMode.Stored
-                Me.DelFileList_AddStored()
-            Case frmMain.ListMode.Snapshots
-                Me.DelFileList_AddSnapshots()
-        End Select
+        Me.DelFileList_AddFiles()
         Me.DelFileList_indexChecked()
         Me.UI_UpdateFileInfo()
     End Sub
 
-    Private Sub DelFileList_AddSavestates()
+    Private Sub DelFileList_AddFiles()
         Dim sw As New Stopwatch
         sw.Start()
 
@@ -436,226 +331,107 @@ Public NotInheritable Class frmDeleteForm
         Me.lvwDelFilesList.Groups.Clear()
 
         Dim tmpGameInfo As New GameInfo
-        Dim tmpSListGroups As New List(Of ListViewGroup)
-        Dim tmpSListItems As New List(Of ListViewItem)
+        Dim tmpListGroups As New List(Of ListViewGroup)
+        Dim tmpListItems As New List(Of ListViewItem)
 
         For Each tmpSerial As System.String In frmMain.checkedGames
 
             If SSMGameList.Games.ContainsKey(tmpSerial) Then
+                If SSMGameList.Games(tmpSerial).GameFiles.ContainsKey(frmMain.currentListMode) AndAlso _
+                    SSMGameList.Games(tmpSerial).GameFiles(frmMain.currentListMode).Files.Count > 0 Then
+                    'Creation of the header
+                    tmpGameInfo = PCSX2GameDb.Extract(tmpSerial)
+                    Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With {
+                        .Header = tmpGameInfo.ToString(),
+                        .HeaderAlignment = HorizontalAlignment.Left,
+                        .Name = tmpGameInfo.Serial}
 
-                'Creation of the header
-                tmpGameInfo = PCSX2GameDb.Extract(tmpSerial)
-                Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With {
-                    .Header = tmpGameInfo.ToString(),
-                    .HeaderAlignment = HorizontalAlignment.Left,
-                    .Name = tmpGameInfo.Serial}
+                    tmpListGroups.Add(tmpLvwSListGroup)
 
-                tmpSListGroups.Add(tmpLvwSListGroup)
-
-                If SSMGameList.Games(tmpSerial).Savestates.Values.Count > 0 Then
-                    For Each tmpSavestate As KeyValuePair(Of String, Savestate) In SSMGameList.Games(tmpSerial).Savestates
-
-                        If frmMain.checkedSavestates.Contains(tmpSavestate.Key) Then
-                            Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key,
-                                                                                               .Group = tmpLvwSListGroup,
-                                                                                               .Name = tmpSavestate.Key}
-                            tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Number.ToString,
-                                                               tmpSavestate.Value.ExtraInfo,
-                                                               tmpSavestate.Value.LastWriteTime.ToString,
-                                                               System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2)})
-                            If File.Exists(Path.Combine(My.Settings.PCSX2_PathSState, tmpSavestate.Key)) Then
-                                tmpLvwSListItem.SubItems.Add("")
-                                tmpLvwSListItem.Checked = True
-                                If Not (tmpSavestate.Value.isBackup) Then
-                                    tmpLvwSListItem.ImageIndex = 0
-                                    FileList_TotalSize += tmpSavestate.Value.Length
-                                Else
-                                    tmpLvwSListItem.ImageIndex = 1
-                                    FileList_TotalSizeBackup += tmpSavestate.Value.Length
-                                End If
-                                tmpLvwSListItem.BackColor = Color.Transparent
-                                tmpLvwSListItem.Tag = DelFileStatus.Ready
-                            Else
-                                tmpLvwSListItem.SubItems.Add("File not found or inaccessible.")
-                                tmpLvwSListItem.Checked = False
-                                tmpLvwSListItem.BackColor = Color.FromArgb(255, 255, 192, 192)
-                                tmpLvwSListItem.Tag = DelFileStatus.NotFound
-                                SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "File not found: " & tmpSavestate.Value.Name & ".")
-                            End If
-
-                            tmpSListItems.Add(tmpLvwSListItem)
-                        End If
-                    Next
+                    Me.DelFileList_AddFileListItems(SSMGameList.Games(tmpSerial).GameFiles(frmMain.currentListMode).Files, tmpLvwSListGroup, tmpListItems)
                 Else
                     SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "Checked game " & tmpSerial & " has no savestates.")
                 End If
+
             Else
                 SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "Game not found in list: " & tmpSerial & ".")
             End If
         Next
 
-        Me.lvwDelFilesList.Groups.AddRange(tmpSListGroups.ToArray)
-        mdlTheme.ListAlternateColors(tmpSListItems)
-        Me.lvwDelFilesList.Items.AddRange(tmpSListItems.ToArray)
+        Me.lvwDelFilesList.Groups.AddRange(tmpListGroups.ToArray)
+        mdlTheme.ListAlternateColors(tmpListItems)
+        Me.lvwDelFilesList.Items.AddRange(tmpListItems.ToArray)
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.FileListview, String.Format("Listed {0:N0} savestates.", Me.lvwDelFilesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
-    Private Sub DelFileList_AddStored()
-        Dim sw As New Stopwatch
-        sw.Start()
+    Private Sub DelFileList_AddFileListItems(pFile As Dictionary(Of String, PCSX2File), pLvwGroup As ListViewGroup, ByRef pLwvItems As List(Of ListViewItem))
 
-        Me.FileList_TotalSize = 0
+        For Each tmpFile As KeyValuePair(Of String, PCSX2File) In pFile
 
-        'clear items and groups.
-        Me.lvwDelFilesList.Items.Clear()
-        Me.lvwDelFilesList.Groups.Clear()
+            If frmMain.checkedFiles(frmMain.currentListMode).Contains(tmpFile.Key) Then
+                Dim tmpLvwItem As New System.Windows.Forms.ListViewItem With {.Text = tmpFile.Key,
+                                                                                   .Group = pLvwGroup,
+                                                                                   .Name = tmpFile.Key}
+                tmpLvwItem.SubItems.AddRange({tmpFile.Value.Number.ToString,
+                                              tmpFile.Value.ExtraInfo,
+                                              tmpFile.Value.LastWriteTime.ToString,
+                                              System.String.Format("{0:N2} MB", tmpFile.Value.Length / 1024 ^ 2)})
 
-        Dim tmpGameInfo As New GameInfo
-        Dim tmpSListGroups As New List(Of ListViewGroup)
-        Dim tmpSListItems As New List(Of ListViewItem)
+                Dim tmpPath As String = ""
+                Select Case frmMain.currentListMode
+                    Case ListMode.Savestates
+                        tmpPath = My.Settings.PCSX2_PathSState
+                    Case ListMode.Stored
+                        tmpPath = My.Settings.SStatesMan_PathStored
+                    Case ListMode.Snapshots
+                        tmpPath = My.Settings.PCSX2_PathSnaps
+                End Select
 
-        For Each tmpSerial As System.String In frmMain.checkedGames
+                If File.Exists(Path.Combine(tmpPath, tmpFile.Key)) Then
+                    tmpLvwItem.SubItems.Add("")
+                    tmpLvwItem.Checked = True
 
-            If SSMGameList.Games.ContainsKey(tmpSerial) Then
-
-                'Creation of the header
-                tmpGameInfo = PCSX2GameDb.Extract(tmpSerial)
-                Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With {
-                    .Header = tmpGameInfo.ToString(),
-                    .HeaderAlignment = HorizontalAlignment.Left,
-                    .Name = tmpGameInfo.Serial}
-
-                tmpSListGroups.Add(tmpLvwSListGroup)
-
-                If SSMGameList.Games(tmpSerial).SavestatesStored.Values.Count > 0 Then
-                    For Each tmpSavestate As KeyValuePair(Of String, Savestate) In SSMGameList.Games(tmpSerial).SavestatesStored
-
-                        If frmMain.checkedStored.Contains(tmpSavestate.Key) Then
-                            Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSavestate.Key,
-                                                                                               .Group = tmpLvwSListGroup,
-                                                                                               .Name = tmpSavestate.Key}
-                            tmpLvwSListItem.SubItems.AddRange({tmpSavestate.Value.Number.ToString,
-                                                               tmpSavestate.Value.ExtraInfo,
-                                                               tmpSavestate.Value.LastWriteTime.ToString,
-                                                               System.String.Format("{0:N2} MB", tmpSavestate.Value.Length / 1024 ^ 2)})
-                            If File.Exists(Path.Combine(My.Settings.SStatesMan_PathStored, tmpSavestate.Key)) Then
-                                tmpLvwSListItem.SubItems.Add("")
-                                tmpLvwSListItem.Checked = True
-
-                                tmpLvwSListItem.ImageIndex = 0
-                                FileList_TotalSize += tmpSavestate.Value.Length
-
-                                tmpLvwSListItem.BackColor = Color.Transparent
-                                tmpLvwSListItem.Tag = DelFileStatus.Ready
+                    Select Case frmMain.currentListMode
+                        Case ListMode.Savestates
+                            If tmpLvwItem.Name.EndsWith(My.Settings.PCSX2_SStateExtBackup) Then
+                                tmpLvwItem.ImageIndex = 1
+                                FileList_TotalSizeBackup += tmpFile.Value.Length
                             Else
-                                tmpLvwSListItem.SubItems.Add("File not found or inaccessible.")
-                                tmpLvwSListItem.Checked = False
-                                tmpLvwSListItem.BackColor = Color.FromArgb(255, 255, 192, 192)
-                                tmpLvwSListItem.Tag = DelFileStatus.NotFound
-                                SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "File not found: " & tmpSavestate.Value.Name & ".")
+                                tmpLvwItem.ImageIndex = 0
+                                FileList_TotalSize += tmpFile.Value.Length
                             End If
+                        Case ListMode.Stored
+                            tmpLvwItem.ImageIndex = 0
+                            FileList_TotalSize += tmpFile.Value.Length
+                        Case ListMode.Snapshots
+                            tmpLvwItem.ImageIndex = 2
+                            FileList_TotalSize += tmpFile.Value.Length
+                    End Select
 
-                            tmpSListItems.Add(tmpLvwSListItem)
-                        End If
-                    Next
+                    tmpLvwItem.BackColor = Color.Transparent
+                    tmpLvwItem.Tag = DelFileStatus.Ready
                 Else
-                    SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "Checked game " & tmpSerial & " has no savestates.")
+                    tmpLvwItem.SubItems.Add("File not found or inaccessible.")
+                    tmpLvwItem.Checked = False
+                    tmpLvwItem.BackColor = Color.FromArgb(255, 255, 192, 192)
+                    tmpLvwItem.Tag = DelFileStatus.NotFound
+                    SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "File not found: " & tmpFile.Value.Name & ".")
                 End If
-            Else
-                SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "Game not found in list: " & tmpSerial & ".")
+
+                pLwvItems.Add(tmpLvwItem)
             End If
         Next
-
-        Me.lvwDelFilesList.Groups.AddRange(tmpSListGroups.ToArray)
-        mdlTheme.ListAlternateColors(tmpSListItems)
-        Me.lvwDelFilesList.Items.AddRange(tmpSListItems.ToArray)
-
-        sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.FileListview, String.Format("Listed {0:N0} savestates.", Me.lvwDelFilesList.Items.Count), sw.ElapsedTicks)
     End Sub
 
-    Private Sub DelFileList_AddSnapshots()
-        Dim sw As New Stopwatch
-        sw.Start()
-
-        Me.FileList_TotalSize = 0
-        Me.FileList_TotalSizeBackup = 0
-
-        'clear items and group.
-        Me.lvwDelFilesList.Items.Clear()
-        Me.lvwDelFilesList.Groups.Clear()
-
-        Dim tmpGameInfo As New GameInfo
-        Dim tmpSListGroups As New List(Of ListViewGroup)
-        Dim tmpSListItems As New List(Of ListViewItem)
-
-        For Each tmpSerial As System.String In frmMain.checkedGames
-
-            If SSMGameList.Games.ContainsKey(tmpSerial) Then
-
-                'Creation of the header
-                tmpGameInfo = PCSX2GameDb.Extract(tmpSerial)
-                Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With {
-                    .Header = tmpGameInfo.ToString(),
-                    .HeaderAlignment = HorizontalAlignment.Left,
-                    .Name = tmpGameInfo.Serial}
-
-                tmpSListGroups.Add(tmpLvwSListGroup)
-
-                If SSMGameList.Games(tmpSerial).Snapshots.Values.Count > 0 Then
-                    For Each tmpSnap As KeyValuePair(Of String, Snapshot) In SSMGameList.Games(tmpSerial).Snapshots
-
-                        If frmMain.checkedSnapshots.Contains(tmpSnap.Key) Then
-                            Dim tmpLvwSListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpSnap.Key,
-                                                                                               .Group = tmpLvwSListGroup,
-                                                                                               .Name = tmpSnap.Key}
-                            tmpLvwSListItem.SubItems.AddRange({"",
-                                                               "",
-                                                               tmpSnap.Value.LastWriteTime.ToString,
-                                                               System.String.Format("{0:N2} MB", tmpSnap.Value.Length / 1024 ^ 2)})
-                            If File.Exists(Path.Combine(My.Settings.PCSX2_PathSnaps, tmpSnap.Key)) Then
-                                tmpLvwSListItem.SubItems.Add("")
-                                tmpLvwSListItem.Checked = True
-                                tmpLvwSListItem.ImageIndex = 2
-                                FileList_TotalSize += tmpSnap.Value.Length
-                                tmpLvwSListItem.BackColor = Color.Transparent
-                                tmpLvwSListItem.Tag = DelFileStatus.Ready
-                            Else
-                                tmpLvwSListItem.SubItems.Add("File not found or inaccessible.")
-                                tmpLvwSListItem.Checked = False
-                                tmpLvwSListItem.BackColor = Color.FromArgb(255, 255, 192, 192)
-                                tmpLvwSListItem.Tag = DelFileStatus.NotFound
-                                SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "File not found: " & tmpSnap.Value.Name & ".")
-                            End If
-
-                            tmpSListItems.Add(tmpLvwSListItem)
-                        End If
-                    Next
-                Else
-                    SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "Checked game " & tmpSerial & " has no snapshots.")
-                End If
-            Else
-                SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "Game not found in list: " & tmpSerial & ".")
-            End If
-        Next
-
-        Me.lvwDelFilesList.Groups.AddRange(tmpSListGroups.ToArray)
-        mdlTheme.ListAlternateColors(tmpSListItems)
-        Me.lvwDelFilesList.Items.AddRange(tmpSListItems.ToArray)
-
-        sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.FileListview, String.Format("Listed {0:N0} snapshots.", Me.lvwDelFilesList.Items.Count), sw.ElapsedTicks)
-    End Sub
-
-    Private Sub FileList_AddColumns(pListMode As frmMain.ListMode)
+    Private Sub FileList_AddColumns(pListMode As ListMode)
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         Dim tmpColumnHeaders As New List(Of ColumnHeader)
         Dim tmpColumnWidths() As Integer = {0}
         Select Case pListMode
-            Case frmMain.ListMode.Savestates, frmMain.ListMode.Stored
+            Case ListMode.Savestates, ListMode.Stored
                 tmpColumnHeaders.AddRange({New ColumnHeader With {.Name = "SStatesCH_FileName", .Text = "Savestate file name", .Width = 240}, _
                                            New ColumnHeader With {.Name = "SStatesCH_Slot", .Text = "Slot", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
                                            New ColumnHeader With {.Name = "SStatesCH_Version", .Text = "Version", .Width = 80}, _
@@ -666,7 +442,7 @@ Public NotInheritable Class frmDeleteForm
                 If My.Settings.frmMain_flvw_columnwidth IsNot Nothing Then
                     tmpColumnWidths = My.Settings.frmMain_flvw_columnwidth
                 End If
-            Case frmMain.ListMode.Snapshots
+            Case ListMode.Snapshots
                 tmpColumnHeaders.AddRange({New ColumnHeader With {.Name = "SnapsCH_FileName", .Text = "Snapshot file name", .Width = 240}, _
                                            New ColumnHeader With {.Name = "SnapsCH_Number", .Text = "Number", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
                                            New ColumnHeader With {.Name = "SnapsCH_Resolution", .Text = "Resolution", .Width = 80}, _
@@ -690,64 +466,41 @@ Public NotInheritable Class frmDeleteForm
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.AddColumns, String.Format("Added columns to files listview for {0}.", pListMode), sw.ElapsedTicks)
     End Sub
 
-    Private Sub DelFileList_indexChecked()
+    Private Sub DelFileList_IndexChecked()
+        Me.FileList_SelectedSize = 0
+        Me.FileList_SelectedSizeBackup = 0
+        Select Case frmMain.currentListMode
+            Case ListMode.Savestates
+                Me.DelFileList_indexChecked2(Of Savestate)()
+            Case ListMode.Stored
+                Me.DelFileList_indexChecked2(Of Savestate)()
+            Case ListMode.Snapshots
+                Me.DelFileList_indexChecked2(Of Snapshot)()
+        End Select
+    End Sub
+
+    Private Sub DelFileList_indexChecked2(Of T As {New, PCSX2File})()
         Me.FileList_SelectedSize = 0
         Me.FileList_SelectedSizeBackup = 0
 
-        Select Case frmMain.currentListMode
-            Case frmMain.ListMode.Savestates
 
-                If Me.lvwDelFilesList.CheckedItems.Count > 0 Then
-                    For Each tmpLvwSListItemChecked As ListViewItem In Me.lvwDelFilesList.CheckedItems
+        If Me.lvwDelFilesList.CheckedItems.Count > 0 Then
+            For Each tmpCheckedItem As ListViewItem In Me.lvwDelFilesList.CheckedItems
 
-                        Dim tmpGamesListItem As New GamesList_Item
-                        If SSMGameList.Games.TryGetValue(Savestate.GetSerial(tmpLvwSListItemChecked.Name), tmpGamesListItem) Then
-                            Dim tmpSavestate As New Savestate
-                            If tmpGamesListItem.Savestates.TryGetValue(tmpLvwSListItemChecked.Name, tmpSavestate) Then
-                                If tmpSavestate.isBackup Then
-                                    FileList_SelectedSizeBackup += tmpSavestate.Length
-                                Else
-                                    FileList_SelectedSize += tmpSavestate.Length
-                                End If
-                            End If
+                Dim tmpSerial As String = (New T With {.Name = tmpCheckedItem.Name}).GetGameSerial
+                If SSMGameList.Games.ContainsKey(tmpSerial) AndAlso SSMGameList.Games(tmpSerial).GameFiles.ContainsKey(frmMain.currentListMode) Then
+                    If SSMGameList.Games(tmpSerial).GameFiles(frmMain.currentListMode).Files.ContainsKey(tmpCheckedItem.Name) Then
+                        If frmMain.currentListMode = ListMode.Savestates AndAlso _
+                            SSMGameList.Games(tmpSerial).GameFiles(frmMain.currentListMode).Files(tmpCheckedItem.Name).Extension.Equals(My.Settings.PCSX2_SStateExtBackup) Then
+                            FileList_SelectedSizeBackup += SSMGameList.Games(tmpSerial).GameFiles(frmMain.currentListMode).Files(tmpCheckedItem.Name).Length
+                        Else
+                            FileList_SelectedSize += SSMGameList.Games(tmpSerial).GameFiles(frmMain.currentListMode).Files(tmpCheckedItem.Name).Length
                         End If
-
-                    Next
+                    End If
                 End If
 
-            Case frmMain.ListMode.Stored
-
-                If Me.lvwDelFilesList.CheckedItems.Count > 0 Then
-                    For Each tmpLvwSListItemChecked As ListViewItem In Me.lvwDelFilesList.CheckedItems
-
-                        Dim tmpGamesListItem As New GamesList_Item
-                        If SSMGameList.Games.TryGetValue(Savestate.GetSerial(tmpLvwSListItemChecked.Name), tmpGamesListItem) Then
-                            Dim tmpSavestate As New Savestate
-                            If tmpGamesListItem.SavestatesStored.TryGetValue(tmpLvwSListItemChecked.Name, tmpSavestate) Then
-                                FileList_SelectedSize += tmpSavestate.Length
-                            End If
-                        End If
-
-                    Next
-                End If
-
-            Case frmMain.ListMode.Snapshots
-
-                If Me.lvwDelFilesList.CheckedItems.Count > 0 Then
-                    For Each tmpLvwSListItemChecked As ListViewItem In Me.lvwDelFilesList.CheckedItems
-
-                        Dim tmpGamesListItem As New GamesList_Item
-                        If SSMGameList.Games.TryGetValue(Snapshot.GetSerial(tmpLvwSListItemChecked.Name), tmpGamesListItem) Then
-                            Dim tmpSnap As New Snapshot
-                            If tmpGamesListItem.Snapshots.TryGetValue(tmpLvwSListItemChecked.Name, tmpSnap) Then
-                                FileList_SelectedSize += tmpSnap.Length
-                            End If
-                        End If
-
-                    Next
-                End If
-
-        End Select
+            Next
+        End If
     End Sub
 
     Private Sub cmdFileCheckAll_Click(sender As Object, e As EventArgs) Handles cmdFileCheckAll.Click
@@ -789,7 +542,7 @@ Public NotInheritable Class frmDeleteForm
     Private Sub cmdFileCheckBackup_Click(sender As Object, e As EventArgs) Handles cmdFileCheckBackup.Click
         Me.UI_Enable(False)
         For lvwItemIndex As Integer = 0 To Me.lvwDelFilesList.Items.Count - 1
-            If Savestate.isBackup(Me.lvwDelFilesList.Items.Item(lvwItemIndex).Name) Then
+            If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Name.EndsWith(My.Settings.PCSX2_SStateExtBackup) Then
                 If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag.Equals(DelFileStatus.Ready) Then
                     Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = True
                 End If
@@ -816,12 +569,12 @@ Public NotInheritable Class frmDeleteForm
 #Region "Form - Commands"
     Private Sub cmdFilesDeleteSelected_Click(sender As Object, e As EventArgs) Handles cmdFilesDeleteSelected.Click
         Select Case frmMain.currentListMode
-            Case frmMain.ListMode.Savestates
-                Me.DeleteSavestates()
-            Case frmMain.ListMode.Stored
-                Me.DeleteStored()
-            Case frmMain.ListMode.Snapshots
-                Me.DeleteSnapshots()
+            Case ListMode.Savestates
+                Me.DeleteFiles(My.Settings.PCSX2_PathSState)
+            Case ListMode.Stored
+                Me.DeleteFiles(My.Settings.SStatesMan_PathStored)
+            Case ListMode.Snapshots
+                Me.DeleteFiles(My.Settings.PCSX2_PathSnaps)
         End Select
     End Sub
 
