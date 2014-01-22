@@ -149,5 +149,8 @@
   &lt;string&gt;.gif&lt;/string&gt;
 &lt;/ArrayOfString&gt;</Value>
     </Setting>
+    <Setting Name="SStatesMan_LastPCSX2Executable" Type="System.String" Scope="User">
+      <Value Profile="(Default)">pcsx2.exe</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

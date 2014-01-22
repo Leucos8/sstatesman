@@ -25,8 +25,13 @@ Public NotInheritable Class frmChooseVersion
             If PCSX2exe_files.Length > 0 Then
                 For i = 0 To PCSX2exe_files.Length - 1
                     lbPCSX2exe.Items.Add(PCSX2exe_files(i).Name)
+                    If PCSX2exe_files(i).Name = My.Settings.SStatesMan_LastPCSX2Executable Then
+                        Me.lbPCSX2exe.SetSelected(i, True)
+                    End If
                 Next
-                Me.lbPCSX2exe.SetSelected(0, True)
+                If lbPCSX2exe.SelectedItems.Count = 0 Then
+                    Me.lbPCSX2exe.SetSelected(0, True)
+                End If
                 If PCSX2exe_files.Count = 1 Then
                     PCSX2EXE_start(pPCSX2_PathBin, Me.lbPCSX2exe.Text)
                     Me.Close()
@@ -34,11 +39,11 @@ Public NotInheritable Class frmChooseVersion
                     Me.cmdOk.Enabled = True
                 End If
             Else
-                lbPCSX2exe.Items.Add("No PCSX2 executables found")
+                lbPCSX2exe.Items.Add("No PCSX2 executables found.")
                 Me.cmdOk.Enabled = False
             End If
         Else
-            lbPCSX2exe.Items.Add("The specified path does not exist")
+            lbPCSX2exe.Items.Add("The specified path does not exist.")
             Me.cmdOk.Enabled = False
         End If
         lbPCSX2exe.EndUpdate()
@@ -48,6 +53,7 @@ Public NotInheritable Class frmChooseVersion
         Dim tmpPath As String = Path.Combine(pPCSX2_PathBin, pPCSX2_ExeName)
         If File.Exists(tmpPath) Then
             Diagnostics.Process.Start(tmpPath)
+            My.Settings.SStatesMan_LastPCSX2Executable = pPCSX2_ExeName
         Else
             MessageBox.Show("The specified executable does not exist. Please close this window and try again to refresh the list." & tmpPath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
@@ -56,6 +62,7 @@ Public NotInheritable Class frmChooseVersion
     Private Sub frmChooseVersion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.flpWindowBottom.Controls.AddRange({cmdCancel, cmdOk})
         Me.tlpFormContent.Dock = DockStyle.Fill
+        Me.lblPath.Text = My.Settings.PCSX2_PathBin
 
         Me.PCSX2EXE_ListCreate(My.Settings.PCSX2_PathBin)
     End Sub
