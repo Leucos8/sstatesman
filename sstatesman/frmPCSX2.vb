@@ -13,7 +13,7 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
-Public NotInheritable Class frmChooseVersion
+Public NotInheritable Class frmPCSX2
     Dim PCSX2exe_files As List(Of FileInfo)
 
     Private Sub PCSX2EXE_ListCreate(ByVal pPCSX2_PathBin As String)

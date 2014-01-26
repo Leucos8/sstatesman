@@ -701,14 +701,14 @@ Public NotInheritable Class frmMain
 
             Dim tmpGamesListItem As New GameListItem
             If SSMGameList.Games.TryGetValue(tmpSerial, tmpGamesListItem) Then
-                If tmpGamesListItem.GameFiles.ContainsKey(Me.currentListMode) AndAlso tmpGamesListItem.GameFiles(Me.currentListMode).Files.Count > 0 Then
+                'Creation of the header group
+                currentGameInfo = PCSX2GameDb.Extract(tmpSerial)
+                Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With { _
+                    .Header = currentGameInfo.ToString, _
+                    .HeaderAlignment = HorizontalAlignment.Left, _
+                    .Name = currentGameInfo.Serial}
 
-                    'Creation of the header group
-                    currentGameInfo = PCSX2GameDb.Extract(tmpSerial)
-                    Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With { _
-                        .Header = currentGameInfo.ToString, _
-                        .HeaderAlignment = HorizontalAlignment.Left, _
-                        .Name = currentGameInfo.Serial}
+                If tmpGamesListItem.GameFiles.ContainsKey(Me.currentListMode) AndAlso tmpGamesListItem.GameFiles(Me.currentListMode).Files.Count > 0 Then
 
                     tmpGroups.Add(tmpLvwSListGroup)
 
@@ -952,7 +952,7 @@ Public NotInheritable Class frmMain
     End Sub
 
     Private Sub cmiPCSX2Launch_Click(sender As Object, e As EventArgs) Handles cmiPCSX2Launch.Click
-        frmChooseVersion.ShowDialog(Me)
+        frmPCSX2.ShowDialog(Me)
     End Sub
 
     Private Sub cmiPCSX2BinFolderOpen_Click(sender As Object, e As EventArgs) Handles cmiPCSX2BinFolderOpen.Click

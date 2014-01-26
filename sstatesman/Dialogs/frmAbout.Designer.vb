@@ -66,7 +66,7 @@ Partial Class frmAbout
         'pnlWindowTop
         '
         Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.pnlWindowTop.Size = New System.Drawing.Size(414, 30)
+        Me.pnlWindowTop.Size = New System.Drawing.Size(414, 46)
         '
         'OKButton
         '

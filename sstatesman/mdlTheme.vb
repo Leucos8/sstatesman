@@ -175,11 +175,12 @@ Module mdlTheme
         SSMAppLog.Append(eType.LogInformation, eSrc.Theme, eSrcMethod.Refresh, "Theme refreshed: " & pTheme.ToString, sw.ElapsedTicks)
     End Sub
 
-    Public Sub ListAlternateColors(ByRef pListView As List(Of ListViewItem))
+    Public Sub ListAlternateColors(ByRef pListView As List(Of ListViewItem), Optional pStep As Integer = 1)
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         If pListView IsNot Nothing Then
             Dim colorswitch As Boolean = True
+            Dim stepCounter As Integer = 1
             For i As Integer = 0 To pListView.Count - 1
                 If pListView(i).BackColor = SystemColors.Window Then
                     If colorswitch Then
@@ -188,7 +189,11 @@ Module mdlTheme
                         pListView(i).BackColor = Color.Gainsboro
                     End If
                 End If
-                colorswitch = Not colorswitch
+                If stepCounter >= pStep Then
+                    colorswitch = Not colorswitch
+                    stepCounter = 1
+                Else : stepCounter += 1
+                End If
             Next
         End If
 

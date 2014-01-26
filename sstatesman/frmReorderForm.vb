@@ -445,7 +445,7 @@ Public NotInheritable Class frmReorderForm
                     End If
                 Next
 
-                mdlTheme.ListAlternateColors(tmpSListItems)
+                mdlTheme.ListAlternateColors(tmpSListItems, 2)
 
                 Count_Files = SSMGameList.Games(frmMain.checkedGames(0)).GameFiles(ListMode.Savestates).Files.Count
 

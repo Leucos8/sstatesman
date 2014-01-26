@@ -13,7 +13,7 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmChooseVersion
+Partial Class frmPCSX2
     Inherits frmDialogTemplate
 
     'Form esegue l'override del metodo Dispose per pulire l'elenco dei componenti.
@@ -102,9 +102,9 @@ Partial Class frmChooseVersion
         Me.lbPCSX2exe.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lbPCSX2exe.ForeColor = System.Drawing.Color.Black
         Me.lbPCSX2exe.FormattingEnabled = True
-        Me.lbPCSX2exe.Location = New System.Drawing.Point(9, 43)
+        Me.lbPCSX2exe.Location = New System.Drawing.Point(9, 26)
         Me.lbPCSX2exe.Name = "lbPCSX2exe"
-        Me.lbPCSX2exe.Size = New System.Drawing.Size(381, 132)
+        Me.lbPCSX2exe.Size = New System.Drawing.Size(381, 134)
         Me.lbPCSX2exe.TabIndex = 10
         '
         'lblPlease
@@ -122,7 +122,7 @@ Partial Class frmChooseVersion
         Me.lblTroubleshoot.AutoSize = True
         Me.lblTroubleshoot.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblTroubleshoot.ForeColor = System.Drawing.Color.DimGray
-        Me.lblTroubleshoot.Location = New System.Drawing.Point(9, 178)
+        Me.lblTroubleshoot.Location = New System.Drawing.Point(9, 180)
         Me.lblTroubleshoot.Name = "lblTroubleshoot"
         Me.lblTroubleshoot.Size = New System.Drawing.Size(381, 39)
         Me.lblTroubleshoot.TabIndex = 13
@@ -135,32 +135,32 @@ Partial Class frmChooseVersion
         Me.tlpFormContent.AutoSize = True
         Me.tlpFormContent.ColumnCount = 1
         Me.tlpFormContent.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpFormContent.Controls.Add(Me.lblPath, 0, 1)
         Me.tlpFormContent.Controls.Add(Me.lblTroubleshoot, 0, 3)
-        Me.tlpFormContent.Controls.Add(Me.lbPCSX2exe, 0, 2)
+        Me.tlpFormContent.Controls.Add(Me.lbPCSX2exe, 0, 1)
         Me.tlpFormContent.Controls.Add(Me.lblPlease, 0, 0)
+        Me.tlpFormContent.Controls.Add(Me.lblPath, 0, 2)
         Me.tlpFormContent.Location = New System.Drawing.Point(0, 49)
         Me.tlpFormContent.Name = "tlpFormContent"
         Me.tlpFormContent.Padding = New System.Windows.Forms.Padding(6)
         Me.tlpFormContent.RowCount = 4
         Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFormContent.Size = New System.Drawing.Size(399, 223)
+        Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpFormContent.Size = New System.Drawing.Size(399, 225)
         Me.tlpFormContent.TabIndex = 13
         '
         'lblPath
         '
         Me.lblPath.AutoSize = True
-        Me.lblPath.Location = New System.Drawing.Point(9, 23)
+        Me.lblPath.Location = New System.Drawing.Point(9, 163)
         Me.lblPath.Name = "lblPath"
         Me.lblPath.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.lblPath.Size = New System.Drawing.Size(31, 17)
         Me.lblPath.TabIndex = 14
         Me.lblPath.Text = "path"
         '
-        'frmChooseVersion
+        'frmPCSX2
         '
         Me.AcceptButton = Me.cmdOk
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -170,7 +170,7 @@ Partial Class frmChooseVersion
         Me.Controls.Add(Me.tlpFormContent)
         Me.Controls.Add(Me.cmdOk)
         Me.Controls.Add(Me.cmdCancel)
-        Me.Name = "frmChooseVersion"
+        Me.Name = "frmPCSX2"
         Me.Text = "Launch PCSX2"
         Me.Controls.SetChildIndex(Me.cmdCancel, 0)
         Me.Controls.SetChildIndex(Me.cmdOk, 0)
