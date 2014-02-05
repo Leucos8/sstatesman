@@ -531,6 +531,24 @@ Namespace My
                 Me("SStatesMan_LastPCSX2Executable") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("10")>  _
+        Public ReadOnly Property SStatesMan_StoredSlotLowerBound() As Integer
+            Get
+                Return CType(Me("SStatesMan_StoredSlotLowerBound"),Integer)
+            End Get
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("99")>  _
+        Public ReadOnly Property SStatesMan_StoredSlotUpperBound() As Integer
+            Get
+                Return CType(Me("SStatesMan_StoredSlotUpperBound"),Integer)
+            End Get
+        End Property
     End Class
 End Namespace
 

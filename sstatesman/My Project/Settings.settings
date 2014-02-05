@@ -152,5 +152,11 @@
     <Setting Name="SStatesMan_LastPCSX2Executable" Type="System.String" Scope="User">
       <Value Profile="(Default)">pcsx2.exe</Value>
     </Setting>
+    <Setting Name="SStatesMan_StoredSlotLowerBound" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="SStatesMan_StoredSlotUpperBound" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">99</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

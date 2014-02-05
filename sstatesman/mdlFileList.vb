@@ -60,9 +60,8 @@ Module mdlFileList
     Friend Class GamesList
         Friend Games As New Dictionary(Of String, GameListItem)
         Friend LoadTime As Long
-        Friend SStatesFolder_LastModified As DateTime
-        Friend SStatesStored_FolderLastModified As DateTime
-        Friend SnapsFolder_LastModified As DateTime
+        Friend Folder() As String = {"", "", ""}
+        Friend FolderLastWrite() As DateTime = {DateTime.MinValue, DateTime.MinValue, DateTime.MinValue}
 
         Friend Sub Load(ByVal pSStatesPath As String, _
                         ByVal pSStatesStoredPath As String, _
@@ -70,15 +69,16 @@ Module mdlFileList
 
             Dim sw As Stopwatch = Stopwatch.StartNew
 
+            Folder = {pSStatesPath, pSStatesStoredPath, pSnapsPath}
             Files_Count = {0, 0, 0}
 
             Games.Clear()
 
-            LoadFiles(Of Savestate)(pSStatesPath, {My.Settings.PCSX2_SStateExt, My.Settings.PCSX2_SStateExtBackup}, ListMode.Savestates, SStatesFolder_LastModified)
+            LoadFiles(Of Savestate)(ListMode.Savestates, {My.Settings.PCSX2_SStateExt, My.Settings.PCSX2_SStateExtBackup}, pSStatesPath)
 
-            LoadFiles(Of Savestate)(pSStatesStoredPath, {My.Settings.PCSX2_SStateExt}, ListMode.Stored, SStatesStored_FolderLastModified)
+            LoadFiles(Of Savestate)(ListMode.Stored, {My.Settings.PCSX2_SStateExt}, pSStatesStoredPath)
 
-            LoadFiles(Of Snapshot)(pSnapsPath, My.Settings.SStatesMan_ScreenshotExts, ListMode.Snapshots, SnapsFolder_LastModified)
+            LoadFiles(Of Snapshot)(ListMode.Snapshots, My.Settings.SStatesMan_ScreenshotExts, pSnapsPath)
 
 
             sw.Stop()
@@ -90,40 +90,51 @@ Module mdlFileList
             End If
         End Sub
 
-        Friend Sub LoadFiles(Of T As {New, PCSX2File})(pDirectory As String, pExts() As String, pListKey As ListMode, ByRef pLastWriteTime As Date)
+        Friend Sub LoadFiles(Of T As {New, PCSX2File})(pListMode As ListMode, pExts() As String, pDirectory As String)
+            Dim sw As Stopwatch = Stopwatch.StartNew
             Try
-                Dim tmpDirectoryInfo As New DirectoryInfo(pDirectory)
-                pLastWriteTime = tmpDirectoryInfo.LastWriteTime
 
-                Dim tmpFileInfos As IEnumerable(Of FileInfo) = tmpDirectoryInfo.EnumerateFiles().Where(Function(item) pExts.Contains(item.Extension.ToLower))
+                'DirectoryInfo object for retrieving files via EnumerateFiles() and accessing LastWriteTime.
+                Dim tmpDI As New DirectoryInfo(pDirectory)
+                FolderLastWrite(pListMode) = tmpDI.LastWriteTime
 
-                If tmpFileInfos.Count > 0 Then
+                Dim tmpFIs As IEnumerable(Of FileInfo) = tmpDI.EnumerateFiles().Where(Function(item) pExts.Contains(item.Extension.ToLower))
 
-                    Files_Count(pListKey) += tmpFileInfos.Count
+                If tmpFIs.Count > 0 Then
 
-                    For Each tmpFileInfo As FileInfo In tmpFileInfos
-                        Dim tmpFile As New T With {.Name = tmpFileInfo.Name, .Length = tmpFileInfo.Length, .LastWriteTime = tmpFileInfo.LastWriteTime}
+                    'Number of files that matched the extension given by pExts
+                    Files_Count(pListMode) += tmpFIs.Count
 
-                        tmpFile.GetExtraInfo(pDirectory)
+                    'Load FileInfo into PCSX2File class
+                    For Each tmpFI As FileInfo In tmpFIs
+                        Dim tmpPF As New T With {.Name = tmpFI.Name, .Length = tmpFI.Length, .LastWriteTime = tmpFI.LastWriteTime}
 
-                        Dim tmpSerial As String = tmpFile.GetGameSerial()
+                        tmpPF.GetExtraInfo(pDirectory)
 
+                        Dim tmpSerial As String = tmpPF.GetGameSerial()
+
+                        'If the game is not present is added to the dictionary of GameListItem in GameList
                         If Not (Games.ContainsKey(tmpSerial)) Then
-                            Games.Add(tmpSerial, New GameListItem With {.GameCRC = tmpFile.GetGameCRC})
+                            Games.Add(tmpSerial, New GameListItem With {.GameCRC = tmpPF.GetGameCRC})
+                        End If
+                        'If the FileList type is not present yet is added to the GameListItem
+                        If Not (Games(tmpSerial).GameFiles.ContainsKey(pListMode)) Then
+                            Games(tmpSerial).GameFiles.Add(pListMode, New GameListItem.GameFileList(Of PCSX2File))
                         End If
 
-                        If Not (Games(tmpSerial).GameFiles.ContainsKey(pListKey)) Then
-                            Games(tmpSerial).GameFiles.Add(pListKey, New GameListItem.GameFileList(Of PCSX2File))
-                        End If
-
-                        Games(tmpSerial).GameFiles(pListKey).Files.Add(tmpFile.Name, tmpFile)
+                        'Adds the files loaded from the directory.
+                        Games(tmpSerial).GameFiles(pListMode).Files.Add(tmpPF.Name, tmpPF)
 
                     Next
 
                 End If
 
             Catch ex As Exception
-                SSMAppLog.Append(eType.LogError, eSrc.FileList, eSrcMethod.List, String.Format("Error retrieving {0}." & Environment.NewLine & " {1}", pListKey.ToString, ex.Message))
+                SSMAppLog.Append(eType.LogError, eSrc.FileList, eSrcMethod.List, String.Format("Error retrieving {0}." & Environment.NewLine & " {1}", pListMode.ToString, ex.Message))
+            Finally
+                sw.Stop()
+                LoadTime = sw.ElapsedTicks
+                SSMAppLog.Append(eType.LogInformation, eSrc.FileList, eSrcMethod.File_LoadAll, String.Format("Loaded {0:N0} {1} from ""{2}"".", Files_Count(pListMode), pListMode.ToString, pDirectory), LoadTime)
             End Try
         End Sub
 

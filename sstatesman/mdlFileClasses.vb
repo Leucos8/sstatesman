@@ -59,8 +59,8 @@ Module mdlFileClasses
             Get
                 If Not (Integer.TryParse(Name.Substring(Name.IndexOf("."c, 0) + 1, 2), Number)) Then
                     Number = -1
-                ElseIf Not ((Number >= My.Settings.PCSX2_SStateSlotLowerBound) And (Number <= My.Settings.PCSX2_SStateSlotUpperBound)) Then
-                    Number = -1
+                    'ElseIf Not ((Number >= My.Settings.PCSX2_SStateSlotLowerBound) And (Number <= My.Settings.PCSX2_SStateSlotUpperBound)) Then
+                    '    Number = -1
                 End If
                 Return Number
             End Get
@@ -103,8 +103,8 @@ Module mdlFileClasses
             End If
         End Function
 
-        Friend Overloads Shared Function ToString(pSerial As String, pCRC As String, pSlot As Integer, pSlotType As Boolean) As String
-            If (pSlot >= My.Settings.PCSX2_SStateSlotLowerBound) And (pSlot <= My.Settings.PCSX2_SStateSlotUpperBound) Then
+        Friend Overloads Shared Function ToString(pSerial As String, pCRC As String, pSlot As Integer, pMinSlot As Integer, pMaxSlot As Integer, pSlotType As Boolean) As String
+            If (pSlot >= pMinSlot) And (pSlot <= pMaxSlot) Then
                 ToString = String.Format("{0} ({1}).{2:00}{3}", pSerial, pCRC, pSlot, My.Settings.PCSX2_SStateExt)
                 If pSlotType Then
                     ToString &= My.Settings.PCSX2_SStateExtBackup

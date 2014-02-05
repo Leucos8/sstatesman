@@ -17,6 +17,7 @@ Public NotInheritable Class frmSettings
 
     Dim tmpTab2SettingsFail As Boolean = False
     Dim currentSelectedTheme As mdlTheme.eTheme
+    Dim GameListNeedRefresh As Boolean = False
 
 #Region "Settings management"
     Private Sub Settings_Load()
@@ -43,6 +44,15 @@ Public NotInheritable Class frmSettings
     End Sub
 
     Private Sub Settings_Apply()
+
+        If Not (My.Settings.PCSX2_PathSState = Me.fppPCSX2SStatePath.Text And _
+                My.Settings.PCSX2_PathSnaps = Me.fppPCSX2SnapsPath.Text And _
+                My.Settings.SStatesMan_PathPics = Me.fppSStatesManPicsPath.Text) Then
+            GameListNeedRefresh = True
+        Else
+            GameListNeedRefresh = False
+        End If
+
         'General options
         My.Settings.SStatesMan_FirstRun = Me.ckbFirstRun.Checked
         My.Settings.SStatesMan_SStatesListShowOnly = Me.ckb_SStatesListShowOnly.Checked
@@ -72,7 +82,12 @@ Public NotInheritable Class frmSettings
 
         'Me.applyTheme()
 
+        'frmMain
         frmMain.applyTheme()    'Updating frMain theme
+        If GameListNeedRefresh Then
+            frmMain.GameList_Refresh()
+            GameListNeedRefresh = False
+        End If
         frmMain.tmrSStatesListRefresh.Enabled = My.Settings.SStatesMan_SStatesListAutoRefresh   'Enabling the timer
 
         SSMAppLog.Append(eType.LogInformation, eSrc.SettingDialog, eSrcMethod.Load, "Settings applied.")

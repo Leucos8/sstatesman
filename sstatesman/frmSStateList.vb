@@ -167,7 +167,7 @@ Public Class frmSStateList
                         tmpListViewItem.BackColor = mdlTheme.currentTheme.AccentColorLight
                         tmpTotals(1) += 1
                     End If
-                    If frmMain.checkedFiles(frmMain.currentListMode).Contains(tmpFile.Value.Name) Then
+                    If frmMain.checkedFiles(frmMain.frmMainListMode).Contains(tmpFile.Value.Name) Then
                         tmpListViewItem.BackColor = mdlTheme.currentTheme.AccentColor
                         tmpTotals(2) += 1
                     End If
@@ -201,7 +201,7 @@ Public Class frmSStateList
                     For Each tmpSavestate As KeyValuePair(Of String, PCSX2File) In tmpGame.GameFiles(pFileListMode).Files
                         Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestate.Value.GetGameSerial, .Name = tmpSavestate.Key, .BackColor = mdlTheme.currentTheme.AccentColorLight}
                         tmpListViewItem.SubItems.AddRange({tmpSavestate.Key, tmpSavestate.Value.Number.ToString, tmpSavestate.Value.Extension, tmpSavestate.Value.ExtraInfo, tmpSavestate.Value.LastWriteTime.ToString, (tmpSavestate.Value.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
-                        If frmMain.checkedFiles(frmMain.currentListMode).Contains(tmpSavestate.Key) Then
+                        If frmMain.checkedFiles(frmMain.frmMainListMode).Contains(tmpSavestate.Key) Then
                             tmpListViewItem.BackColor = mdlTheme.currentTheme.AccentColor
                             tmpTotals(1) += 1
                         End If
@@ -229,7 +229,7 @@ Public Class frmSStateList
         Me.CurrentListMode = pDTListMode
         AddHeader()
 
-        For Each tmpSavestateName As String In frmMain.checkedFiles(frmMain.currentListMode)
+        For Each tmpSavestateName As String In frmMain.checkedFiles(frmMain.frmMainListMode)
             Dim tmpListViewItem As New ListViewItem With {.Text = Savestate.GetGameSerial(tmpSavestateName), .Name = tmpSavestateName, .BackColor = mdlTheme.currentTheme.AccentColor}
             Dim tmpGamesListItem As New GameListItem
             If SSMGameList.Games.TryGetValue(Savestate.GetGameSerial(tmpSavestateName), tmpGamesListItem) AndAlso tmpGamesListItem.GameFiles.ContainsKey(pFileListMode) Then
