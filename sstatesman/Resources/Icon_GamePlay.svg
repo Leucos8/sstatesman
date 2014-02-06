@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="64"
+   height="64"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Icon_FolderGames.svg"
+   inkscape:export-filename="Icon_FolderGames.png"
+   inkscape:export-xdpi="22.5"
+   inkscape:export-ydpi="22.5">
+  <title
+     id="title3774">Icon Game Play DS2</title>
+  <sodipodi:namedview
+     id="base"
+     showgrid="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2996"
+       empspacing="4"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Icon Game Play DS2</dc:title>
+        <dc:date>2014-02-06</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Leucos</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:prohibits
+           rdf:resource="http://creativecommons.org/ns#CommercialUse" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <path
+       id="path3073-7"
+       style="fill:#8296c8"
+       d="m 34.688398,39.787745 c 1.680158,4.091147 4.704453,4.773061 7.056709,4.773061 3.696504,0 5.040614,-2.727431 5.040614,-2.727431 1.67137,2.86982 3.360401,6.818604 5.712627,9.20512 1.643959,1.667807 4.588346,2.475671 6.805784,1.608821 2.867823,-1.121147 5.147084,-3.158205 4.619556,-7.063766 -0.943771,-6.988653 -1.518924,-14.946986 -3.024325,-21.819501 -0.67204,-3.068344 -4.032413,-5.113947 -4.704537,-5.795804 -0.135781,-0.829124 0,-3.409231 -1.008061,-3.750203 -0.672097,-1.022828 -1.897917,-2.045629 -3.696506,-2.045629 -2.016207,0 -4.368489,0 -5.04053,2.045629 -1.008118,0.341253 -1.680158,4.091089 -1.680158,4.091089 l -25.539067,0 c 0,0 -0.672096,-3.750117 -1.680158,-4.091089 -0.672125,-2.045629 -3.02438,-2.045629 -5.040586,-2.045629 -1.798589,0 -3.0243521,1.022801 -3.6964779,2.045629 -1.0081169,0.341253 -0.8719117,2.921079 -1.0081169,3.750203 -0.6720403,0.68169 -4.0324408,2.72746 -4.7045096,5.795804 -1.5052878,6.872515 -2.0805247,14.830848 -3.02435194,21.819501 -0.52750134,3.905561 1.75181784,5.942619 4.61964004,7.063766 2.2174387,0.86685 5.1617688,0.06204 6.8056983,-1.608821 2.352285,-2.386516 4.041258,-6.3353 5.712657,-9.20512 0,0 1.344109,2.727431 5.040643,2.727431 2.352226,0 5.376578,-0.681689 7.056736,-4.773061 z m -12.433456,-20.796727 8.400901,0 m -0.336047,-0.681717 c -1.344167,-3.409232 -5.712628,-2.386459 -8.40093,0 l -3.360458,0 c 3.024408,-3.750175 11.425339,-7.159491 14.449748,0 z" />
+  </g>
+</svg>

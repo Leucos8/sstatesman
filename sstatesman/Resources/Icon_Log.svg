@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="64"
+   height="64"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Icon_Log.svg"
+   inkscape:export-filename="Icon_Log.png"
+   inkscape:export-xdpi="22.5"
+   inkscape:export-ydpi="22.5">
+  <title
+     id="title2989">Icon Log</title>
+  <sodipodi:namedview
+     id="base"
+     showgrid="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2996"
+       empspacing="4"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Icon Log</dc:title>
+        <dc:date>2014-02-06</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Leucos</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:prohibits
+           rdf:resource="http://creativecommons.org/ns#CommercialUse" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <path
+       style="fill:#696969"
+       d="m 8,4 2,-2 44,0 0,56 -2,2 z"
+       id="path3831" />
+    <rect
+       style="fill:#ffffff;stroke:#424242;stroke-width:4;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4"
+       id="rect3768"
+       width="40"
+       height="52"
+       x="10"
+       y="6" />
+    <path
+       style="fill:none;stroke:#424242;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
+       id="path3772"
+       d="M 24.619398,19.14805 A 5,3 0 1 1 20,15"
+       transform="translate(-11,-7)" />
+    <path
+       style="fill:none;stroke:#424242;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
+       id="path3772-1"
+       d="M 24.619398,19.14805 A 5,3 0 1 1 20,15"
+       transform="translate(-11,1)" />
+    <path
+       style="fill:none;stroke:#424242;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
+       id="path3772-1-7"
+       d="M 24.619398,19.14805 A 5,3 0 1 1 20,15"
+       transform="translate(-11,9)" />
+    <path
+       style="fill:none;stroke:#424242;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
+       id="path3772-1-4"
+       d="M 24.619398,19.14805 A 5,3 0 1 1 20,15"
+       transform="translate(-11,17)" />
+    <path
+       style="fill:none;stroke:#424242;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
+       id="path3772-1-0"
+       d="M 24.619398,19.14805 A 5,3 0 1 1 20,15"
+       transform="translate(-11,25)" />
+    <path
+       style="fill:none;stroke:#424242;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1"
+       id="path3772-1-9"
+       d="M 24.619398,19.14805 A 5,3 0 1 1 20,15"
+       transform="translate(-11,33)"
+ />
+    <rect
+       style="fill:#424242"
+       id="rect3833"
+       width="24"
+       height="4"
+       x="20"
+       y="16" />
+    <rect
+       style="fill:#424242"
+       id="rect3835"
+       width="24"
+       height="4"
+       x="20"
+       y="24" />
+    <rect
+       style="fill:#424242"
+       id="rect3837"
+       width="24"
+       height="4"
+       x="20"
+       y="32" />
+    <rect
+       style="fill:#424242"
+       id="rect3839"
+       width="24"
+       height="4"
+       x="20"
+       y="40" />
+    <rect
+       style="fill:#424242"
+       id="rect3841"
+       width="24"
+       height="4"
+       x="20"
+       y="48" />
+  </g>
+</svg>

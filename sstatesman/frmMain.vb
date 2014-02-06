@@ -66,6 +66,7 @@ Public NotInheritable Class frmMain
         End If
 
         If Not (My.Settings.SStatesMan_SettingsOK) Then
+            frmSettings.currentTab = 1
             frmSettings.ShowDialog(Me)
         End If
 
@@ -98,7 +99,7 @@ Public NotInheritable Class frmMain
         'Theme
         '-----
         Me.flpWindowBottom.Visible = False
-        Me.tlpWindowTop.Controls.Add(Me.flpTitleBarTools, 1, 0)
+        Me.tlpWindowTop.Controls.Add(Me.flpTitleBarToolbar, 1, 0)
         Me.tlpWindowTop.Controls.Add(Me.lblWindowVersion, 1, 1)
         Me.tlpWindowTop.Controls.Add(Me.tlpTopBar, 0, 2)
         Me.tlpWindowTop.SetColumnSpan(Me.tlpTopBar, Me.tlpWindowTop.ColumnCount)
@@ -931,24 +932,23 @@ Public NotInheritable Class frmMain
 #End Region
 
 #Region "Form - TitleBar ToolBar"
-    Private Sub cmdTools_Click(sender As Object, e As EventArgs) Handles cmdTools.Click
-        Me.cmTools.Show(Point.Add(CType(sender, Button).PointToScreen(CType(sender, Button).Location), New Size(0, CType(sender, Button).Size.Height)))
+    Private Sub cmdToolbarPCSX2_Click(sender As Object, e As EventArgs) Handles cmdToolbarPCSX2.Click
+        Me.cmPCSX2.Show(Point.Add(CType(sender, Button).Parent.PointToScreen(CType(sender, Button).Location), New Size(0, CType(sender, Button).Size.Height)))
     End Sub
 
-    Private Sub cmdSettings_Click(sender As Object, e As EventArgs) Handles cmdSettings.Click
-        frmSettings.ShowDialog(Me)
+    Private Sub cmdToolbarConfig_Click(sender As Object, e As EventArgs) Handles cmdToolbarConfig.Click
+        Me.cmConfig.Show(Point.Add(CType(sender, Button).Parent.PointToScreen(CType(sender, Button).Location), New Size(0, CType(sender, Button).Size.Height)))
     End Sub
 
-    Private Sub cmdAbout_Click(sender As Object, e As EventArgs) Handles cmdAbout.Click
-        frmAbout.ShowDialog(Me)
+    Private Sub cmdToolbarUser_Click(sender As Object, e As EventArgs) Handles cmdToolbarUser.Click
+        Me.cmFolders.Show(Point.Add(CType(sender, Button).Parent.PointToScreen(CType(sender, Button).Location), New Size(0, CType(sender, Button).Size.Height)))
     End Sub
 #End Region
 
-#Region "Form - Tools menu"
-    Private Sub cmTools_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmTools.Opening
-        Me.cmiPCSX2BinFolderOpen.Enabled = Directory.Exists(My.Settings.PCSX2_PathBin)
-        Me.cmiPCSX2SStatesFolderOpen.Enabled = Directory.Exists(My.Settings.PCSX2_PathSState)
-        Me.cmiPCSX2SnapsFolderOpen.Enabled = Directory.Exists(My.Settings.PCSX2_PathSnaps)
+#Region "Form - PCSX2 menu"
+    Private Sub cmPCSX2_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmPCSX2.Opening
+        Me.cmiPCSX2BinFolderOpen.Enabled = SafeExistFolder(My.Settings.PCSX2_PathBin)
+        Me.cmiPCSX2IniFolderOpen.Enabled = SafeExistFolder(My.Settings.PCSX2_PathInis)
     End Sub
 
     Private Sub cmiPCSX2Launch_Click(sender As Object, e As EventArgs) Handles cmiPCSX2Launch.Click
@@ -956,38 +956,88 @@ Public NotInheritable Class frmMain
     End Sub
 
     Private Sub cmiPCSX2BinFolderOpen_Click(sender As Object, e As EventArgs) Handles cmiPCSX2BinFolderOpen.Click
-        If Directory.Exists(My.Settings.PCSX2_PathBin) Then
-            Diagnostics.Process.Start(My.Settings.PCSX2_PathBin)
-        Else
-            MessageBox.Show("The specified folder  does not exist. " & My.Settings.PCSX2_PathBin, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End If
+        Me.SafeOpenFolder(My.Settings.PCSX2_PathBin, 1)
     End Sub
 
-    Private Sub cmiPCSX2SStatesFolderOpen_Click(sender As Object, e As EventArgs) Handles cmiPCSX2SStatesFolderOpen.Click
-        If Directory.Exists(My.Settings.PCSX2_PathSState) Then
-            Diagnostics.Process.Start(My.Settings.PCSX2_PathSState)
-        Else
-            MessageBox.Show("The specified folder  does not exist. " & My.Settings.PCSX2_PathSState, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End If
+    Private Sub cmiPCSX2IniFolderOpen_Click(sender As Object, e As EventArgs) Handles cmiPCSX2IniFolderOpen.Click
+        Me.SafeOpenFolder(My.Settings.PCSX2_PathInis, 1)
     End Sub
 
-    Private Sub cmiPCSX2SnapsFolderOpen_Click(sender As Object, e As EventArgs) Handles cmiPCSX2SnapsFolderOpen.Click
-        If Directory.Exists(My.Settings.PCSX2_PathSnaps) Then
-            Diagnostics.Process.Start(My.Settings.PCSX2_PathSnaps)
-        Else
-            MessageBox.Show("The specified folder  does not exist. " & My.Settings.PCSX2_PathSnaps, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End If
+    Private Function SafeExistFolder(pPath As String) As Boolean
+        Try
+            If Directory.Exists(pPath) Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            'MessageBox.Show(String.Format("The folder ""{0}"" is not accessible, please reconfigure. {1}", pPath, ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
+    Private Sub SafeOpenFolder(pPath As String, Optional pSettingTab As Integer = 0)
+        Try
+            If Directory.Exists(pPath) Then
+                Diagnostics.Process.Start(pPath)
+            Else
+                MessageBox.Show(String.Format("The folder ""{0}"" does not exist, please reconfigure. ", pPath), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                frmSettings.currentTab = pSettingTab
+                frmSettings.ShowDialog(Me)
+            End If
+        Catch ex As Exception
+            MessageBox.Show(String.Format("The folder ""{0}"" is not accessible, please reconfigure. {1}", pPath, ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            frmSettings.currentTab = pSettingTab
+            frmSettings.ShowDialog(Me)
+        End Try
+
     End Sub
 
-    Private Sub GameDBExplorerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles GameDBExplorerToolStripMenuItem.Click
+    Private Sub cmiPCSX2GDE_Click(sender As Object, e As EventArgs) Handles cmiPCSX2GDE.Click
         If Not frmGameDbExplorer.Visible Then
             frmGameDbExplorer.Show(Me)
         Else
             frmGameDbExplorer.BringToFront()
         End If
     End Sub
+#End Region
 
-    Private Sub DeveloperToolsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeveloperToolsToolStripMenuItem.Click
+#Region "Form - User Folders Menu"
+    Private Sub cmFolders_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmFolders.Opening
+        Me.cmiFoldersSStatesOpen.Enabled = SafeExistFolder(My.Settings.PCSX2_PathSState)
+        Me.cmiFoldersSnapsOpen.Enabled = SafeExistFolder(My.Settings.PCSX2_PathSnaps)
+        Me.cmiFoldersStoredOpen.Enabled = SafeExistFolder(My.Settings.SStatesMan_PathStored)
+        Me.cmiFoldersCoverOpen.Enabled = SafeExistFolder(My.Settings.SStatesMan_PathPics)
+    End Sub
+
+    Private Sub cmiFoldersSStatesOpen_Click(sender As Object, e As EventArgs) Handles cmiFoldersSStatesOpen.Click
+        Me.SafeOpenFolder(My.Settings.PCSX2_PathSState, 1)
+    End Sub
+
+    Private Sub cmiFoldersSnapsOpen_Click(sender As Object, e As EventArgs) Handles cmiFoldersSnapsOpen.Click
+        Me.SafeOpenFolder(My.Settings.PCSX2_PathSnaps, 1)
+    End Sub
+
+    Private Sub cmiFoldersStoredOpen_Click(sender As Object, e As EventArgs) Handles cmiFoldersStoredOpen.Click
+        Me.SafeOpenFolder(My.Settings.SStatesMan_PathStored, 0)
+    End Sub
+
+    Private Sub cmiFoldersCoverOpen_Click(sender As Object, e As EventArgs) Handles cmiFoldersCoverOpen.Click
+        Me.SafeOpenFolder(My.Settings.SStatesMan_PathPics, 0)
+    End Sub
+#End Region
+
+#Region "Form - Config Menu"
+    Private Sub cmiConfigSettings_Click(sender As Object, e As EventArgs) Handles cmiConfigSettings.Click
+        frmSettings.ShowDialog(Me)
+    End Sub
+
+    Private Sub cmiConfigLog_Click(sender As Object, e As EventArgs) Handles cmiConfigLog.Click
+        frmSettings.currentTab = 3
+        frmSettings.ShowDialog(Me)
+    End Sub
+
+    Private Sub cmiConfigDevTools_Click(sender As Object, e As EventArgs) Handles cmiConfigDevTools.Click
         If Not frmSStateList.Visible Then
             frmSStateList.Show(Me)
         Else
@@ -995,6 +1045,9 @@ Public NotInheritable Class frmMain
         End If
     End Sub
 
+    Private Sub cmiConfigAbout_Click(sender As Object, e As EventArgs) Handles cmiConfigAbout.Click
+        frmAbout.ShowDialog(Me)
+    End Sub
 #End Region
 
 #Region "Form - Commands"
@@ -1178,12 +1231,7 @@ Public NotInheritable Class frmMain
     End Sub
 
     Private Sub cmiCoverOpenPicsFolder_Click(sender As Object, e As EventArgs) Handles cmiCoverOpenPicsFolder.Click
-        If Directory.Exists(My.Settings.SStatesMan_PathPics) Then
-            Diagnostics.Process.Start(My.Settings.SStatesMan_PathPics)
-        Else
-            MessageBox.Show("The specified folder does not exist. " & My.Settings.SStatesMan_PathPics & vbCrLf & "Please use the Settings dialog to set a valid path.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            frmSettings.ShowDialog(Me)
-        End If
+        SafeOpenFolder(My.Settings.SStatesMan_PathPics)
     End Sub
 #End Region
 
@@ -1252,5 +1300,4 @@ Public NotInheritable Class frmMain
         End If
     End Sub
 #End Region
-
 End Class

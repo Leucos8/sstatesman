@@ -15,6 +15,7 @@
 Imports System.IO
 Public NotInheritable Class frmSettings
 
+    Friend currentTab As Integer = 0
     Dim tmpTab2SettingsFail As Boolean = False
     Dim currentSelectedTheme As mdlTheme.eTheme
     Dim GameListNeedRefresh As Boolean = False
@@ -128,6 +129,19 @@ Public NotInheritable Class frmSettings
         Me.pnlTab1.Dock = DockStyle.Fill
         Me.pnlTab2.Dock = DockStyle.Fill
         Me.pnlTab3.Dock = DockStyle.Fill
+
+        Select Case currentTab
+            Case 0
+                Me.optTabHeader0.Checked = True
+            Case 1
+                Me.optTabHeader1.Checked = True
+            Case 2
+                Me.optTabHeader2.Checked = True
+            Case 3
+                Me.optTabHeader3.Checked = True
+            Case Else
+                Me.optTabHeader0.Checked = True
+        End Select
 
         Me.pnlTab0.Visible = Me.optTabHeader0.Checked
         Me.pnlTab1.Visible = Me.optTabHeader1.Checked

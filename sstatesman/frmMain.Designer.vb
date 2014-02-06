@@ -37,10 +37,10 @@ Partial Class frmMain
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.flpTitleBarTools = New System.Windows.Forms.FlowLayoutPanel()
-        Me.cmdAbout = New System.Windows.Forms.Button()
-        Me.cmdSettings = New System.Windows.Forms.Button()
-        Me.cmdTools = New System.Windows.Forms.Button()
+        Me.flpTitleBarToolbar = New System.Windows.Forms.FlowLayoutPanel()
+        Me.cmdToolbarConfig = New System.Windows.Forms.Button()
+        Me.cmdToolbarUser = New System.Windows.Forms.Button()
+        Me.cmdToolbarPCSX2 = New System.Windows.Forms.Button()
         Me.lblWindowVersion = New System.Windows.Forms.Label()
         Me.tlpTopBar = New System.Windows.Forms.TableLayoutPanel()
         Me.flpTab = New System.Windows.Forms.FlowLayoutPanel()
@@ -100,18 +100,29 @@ Partial Class frmMain
         Me.lblSStateListCheck = New System.Windows.Forms.Label()
         Me.pnlScreenshotThumb = New System.Windows.Forms.Panel()
         Me.imgScreenshotThumb = New System.Windows.Forms.PictureBox()
-        Me.cmTools = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmPCSX2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmiPCSX2Launch = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmiPCSX2Play = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmiPCSX2GDE = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmiPCSX2BinFolderOpen = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmiPCSX2SStatesFolderOpen = New System.Windows.Forms.ToolStripMenuItem()
-        Me.cmiPCSX2SnapsFolderOpen = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.GameDBExplorerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.DeveloperToolsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmiPCSX2IniFolderOpen = New System.Windows.Forms.ToolStripMenuItem()
         Me.tmrSelectedItemChanged = New System.Windows.Forms.Timer(Me.components)
         Me.bwLoadScreenshot = New System.ComponentModel.BackgroundWorker()
-        Me.flpTitleBarTools.SuspendLayout()
+        Me.cmConfig = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmiConfigSettings = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmiConfigLog = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmiConfigDevTools = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmiConfigAbout = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmFolders = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.cmiFoldersSStatesOpen = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmiFoldersSnapsOpen = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.cmiFoldersStoredOpen = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmiFoldersIsoOpen = New System.Windows.Forms.ToolStripMenuItem()
+        Me.cmiFoldersCoverOpen = New System.Windows.Forms.ToolStripMenuItem()
+        Me.flpTitleBarToolbar.SuspendLayout()
         Me.tlpTopBar.SuspendLayout()
         Me.flpTab.SuspendLayout()
         Me.FlowLayoutPanel3.SuspendLayout()
@@ -131,7 +142,9 @@ Partial Class frmMain
         Me.flpFileListCommandsCheck.SuspendLayout()
         Me.pnlScreenshotThumb.SuspendLayout()
         CType(Me.imgScreenshotThumb, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.cmTools.SuspendLayout()
+        Me.cmPCSX2.SuspendLayout()
+        Me.cmConfig.SuspendLayout()
+        Me.cmFolders.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlWindowTop
@@ -139,83 +152,87 @@ Partial Class frmMain
         Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.pnlWindowTop.Size = New System.Drawing.Size(632, 46)
         '
-        'flpTitleBarTools
+        'flpTitleBarToolbar
         '
-        Me.flpTitleBarTools.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.flpTitleBarTools.AutoSize = True
-        Me.flpTitleBarTools.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.flpTitleBarTools.Controls.Add(Me.cmdAbout)
-        Me.flpTitleBarTools.Controls.Add(Me.cmdSettings)
-        Me.flpTitleBarTools.Controls.Add(Me.cmdTools)
-        Me.flpTitleBarTools.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpTitleBarTools.Location = New System.Drawing.Point(350, 51)
-        Me.flpTitleBarTools.Margin = New System.Windows.Forms.Padding(0)
-        Me.flpTitleBarTools.Name = "flpTitleBarTools"
-        Me.flpTitleBarTools.Size = New System.Drawing.Size(154, 22)
-        Me.flpTitleBarTools.TabIndex = 5
-        Me.flpTitleBarTools.WrapContents = False
+        Me.flpTitleBarToolbar.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.flpTitleBarToolbar.AutoSize = True
+        Me.flpTitleBarToolbar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpTitleBarToolbar.Controls.Add(Me.cmdToolbarConfig)
+        Me.flpTitleBarToolbar.Controls.Add(Me.cmdToolbarUser)
+        Me.flpTitleBarToolbar.Controls.Add(Me.cmdToolbarPCSX2)
+        Me.flpTitleBarToolbar.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
+        Me.flpTitleBarToolbar.Location = New System.Drawing.Point(420, 49)
+        Me.flpTitleBarToolbar.Margin = New System.Windows.Forms.Padding(0)
+        Me.flpTitleBarToolbar.Name = "flpTitleBarToolbar"
+        Me.flpTitleBarToolbar.Size = New System.Drawing.Size(169, 22)
+        Me.flpTitleBarToolbar.TabIndex = 5
+        Me.flpTitleBarToolbar.WrapContents = False
         '
-        'cmdAbout
+        'cmdToolbarConfig
         '
-        Me.cmdAbout.AutoSize = True
-        Me.cmdAbout.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdAbout.BackColor = System.Drawing.Color.Transparent
-        Me.cmdAbout.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdAbout.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdAbout.FlatAppearance.BorderSize = 0
-        Me.cmdAbout.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdAbout.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdAbout.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdAbout.Location = New System.Drawing.Point(108, 0)
-        Me.cmdAbout.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdAbout.Name = "cmdAbout"
-        Me.cmdAbout.Size = New System.Drawing.Size(46, 22)
-        Me.cmdAbout.TabIndex = 7
-        Me.cmdAbout.Text = "ABOUT"
-        Me.cmdAbout.UseVisualStyleBackColor = False
+        Me.cmdToolbarConfig.AutoSize = True
+        Me.cmdToolbarConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdToolbarConfig.BackColor = System.Drawing.Color.Transparent
+        Me.cmdToolbarConfig.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.cmdToolbarConfig.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdToolbarConfig.FlatAppearance.BorderSize = 0
+        Me.cmdToolbarConfig.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdToolbarConfig.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdToolbarConfig.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdToolbarConfig.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdToolbarConfig.Image = Global.sstatesman.My.Resources.Resources.Button_Dropdown_6x3
+        Me.cmdToolbarConfig.Location = New System.Drawing.Point(112, 0)
+        Me.cmdToolbarConfig.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdToolbarConfig.Name = "cmdToolbarConfig"
+        Me.cmdToolbarConfig.Size = New System.Drawing.Size(57, 22)
+        Me.cmdToolbarConfig.TabIndex = 6
+        Me.cmdToolbarConfig.Text = " &CONFIG"
+        Me.cmdToolbarConfig.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
+        Me.cmdToolbarConfig.UseVisualStyleBackColor = False
         '
-        'cmdSettings
+        'cmdToolbarUser
         '
-        Me.cmdSettings.AutoSize = True
-        Me.cmdSettings.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdSettings.BackColor = System.Drawing.Color.Transparent
-        Me.cmdSettings.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdSettings.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdSettings.FlatAppearance.BorderSize = 0
-        Me.cmdSettings.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSettings.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSettings.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSettings.Location = New System.Drawing.Point(50, 0)
-        Me.cmdSettings.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdSettings.Name = "cmdSettings"
-        Me.cmdSettings.Size = New System.Drawing.Size(58, 22)
-        Me.cmdSettings.TabIndex = 6
-        Me.cmdSettings.Text = " &SETTINGS"
-        Me.cmdSettings.UseVisualStyleBackColor = False
+        Me.cmdToolbarUser.AutoSize = True
+        Me.cmdToolbarUser.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdToolbarUser.BackColor = System.Drawing.Color.Transparent
+        Me.cmdToolbarUser.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.cmdToolbarUser.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdToolbarUser.FlatAppearance.BorderSize = 0
+        Me.cmdToolbarUser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdToolbarUser.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdToolbarUser.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdToolbarUser.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdToolbarUser.Image = Global.sstatesman.My.Resources.Resources.Button_Dropdown_6x3
+        Me.cmdToolbarUser.Location = New System.Drawing.Point(49, 0)
+        Me.cmdToolbarUser.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdToolbarUser.Name = "cmdToolbarUser"
+        Me.cmdToolbarUser.Size = New System.Drawing.Size(63, 22)
+        Me.cmdToolbarUser.TabIndex = 13
+        Me.cmdToolbarUser.Text = " &FOLDERS"
+        Me.cmdToolbarUser.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
+        Me.cmdToolbarUser.UseVisualStyleBackColor = False
         '
-        'cmdTools
+        'cmdToolbarPCSX2
         '
-        Me.cmdTools.AutoSize = True
-        Me.cmdTools.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdTools.BackColor = System.Drawing.Color.Transparent
-        Me.cmdTools.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdTools.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdTools.FlatAppearance.BorderSize = 0
-        Me.cmdTools.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdTools.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdTools.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdTools.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdTools.Image = Global.sstatesman.My.Resources.Resources.Button_Dropdown_6x3
-        Me.cmdTools.Location = New System.Drawing.Point(0, 0)
-        Me.cmdTools.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdTools.Name = "cmdTools"
-        Me.cmdTools.Size = New System.Drawing.Size(50, 22)
-        Me.cmdTools.TabIndex = 12
-        Me.cmdTools.Text = "&TOOLS"
-        Me.cmdTools.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
-        Me.cmdTools.UseVisualStyleBackColor = False
+        Me.cmdToolbarPCSX2.AutoSize = True
+        Me.cmdToolbarPCSX2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdToolbarPCSX2.BackColor = System.Drawing.Color.Transparent
+        Me.cmdToolbarPCSX2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.cmdToolbarPCSX2.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdToolbarPCSX2.FlatAppearance.BorderSize = 0
+        Me.cmdToolbarPCSX2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdToolbarPCSX2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdToolbarPCSX2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdToolbarPCSX2.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdToolbarPCSX2.Image = Global.sstatesman.My.Resources.Resources.Button_Dropdown_6x3
+        Me.cmdToolbarPCSX2.Location = New System.Drawing.Point(0, 0)
+        Me.cmdToolbarPCSX2.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdToolbarPCSX2.Name = "cmdToolbarPCSX2"
+        Me.cmdToolbarPCSX2.Size = New System.Drawing.Size(49, 22)
+        Me.cmdToolbarPCSX2.TabIndex = 12
+        Me.cmdToolbarPCSX2.Text = "&PCSX2"
+        Me.cmdToolbarPCSX2.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
+        Me.cmdToolbarPCSX2.UseVisualStyleBackColor = False
         '
         'lblWindowVersion
         '
@@ -223,7 +240,7 @@ Partial Class frmMain
         Me.lblWindowVersion.AutoSize = True
         Me.lblWindowVersion.BackColor = System.Drawing.Color.Transparent
         Me.lblWindowVersion.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWindowVersion.Location = New System.Drawing.Point(520, 56)
+        Me.lblWindowVersion.Location = New System.Drawing.Point(591, 49)
         Me.lblWindowVersion.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblWindowVersion.Name = "lblWindowVersion"
         Me.lblWindowVersion.Size = New System.Drawing.Size(35, 12)
@@ -512,10 +529,11 @@ Partial Class frmMain
         'cmCover
         '
         Me.cmCover.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmCover.BackgroundImage = Global.sstatesman.My.Resources.Resources.BgStripesLight
         Me.cmCover.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiCoverAdd, Me.cmiCoverOpenPicsFolder})
         Me.cmCover.Name = "cmCover"
         Me.cmCover.Size = New System.Drawing.Size(215, 48)
-        Me.cmCover.Text = "Cover menu"
+        Me.cmCover.Text = "Cover Image Menu"
         '
         'cmiCoverAdd
         '
@@ -1118,65 +1136,56 @@ Partial Class frmMain
         Me.imgScreenshotThumb.TabIndex = 0
         Me.imgScreenshotThumb.TabStop = False
         '
-        'cmTools
+        'cmPCSX2
         '
-        Me.cmTools.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmTools.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiPCSX2Launch, Me.ToolStripSeparator1, Me.cmiPCSX2BinFolderOpen, Me.cmiPCSX2SStatesFolderOpen, Me.cmiPCSX2SnapsFolderOpen, Me.ToolStripSeparator2, Me.GameDBExplorerToolStripMenuItem, Me.DeveloperToolsToolStripMenuItem})
-        Me.cmTools.Name = "cmPCSX2"
-        Me.cmTools.Size = New System.Drawing.Size(210, 148)
-        Me.cmTools.Text = "Tools menu"
+        Me.cmPCSX2.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmPCSX2.BackgroundImage = Global.sstatesman.My.Resources.Resources.BgStripesLight
+        Me.cmPCSX2.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiPCSX2Launch, Me.cmiPCSX2Play, Me.ToolStripSeparator1, Me.cmiPCSX2GDE, Me.cmiPCSX2BinFolderOpen, Me.cmiPCSX2IniFolderOpen})
+        Me.cmPCSX2.Name = "cmPCSX2"
+        Me.cmPCSX2.Size = New System.Drawing.Size(200, 120)
+        Me.cmPCSX2.Text = "Title Toolbar PCSX2 Menu"
         '
         'cmiPCSX2Launch
         '
         Me.cmiPCSX2Launch.Image = Global.sstatesman.My.Resources.Resources.Icon_PCSX2
         Me.cmiPCSX2Launch.Name = "cmiPCSX2Launch"
-        Me.cmiPCSX2Launch.Size = New System.Drawing.Size(209, 22)
-        Me.cmiPCSX2Launch.Text = " launch PCSX2..."
+        Me.cmiPCSX2Launch.Size = New System.Drawing.Size(199, 22)
+        Me.cmiPCSX2Launch.Text = "Launch PCSX2..."
+        '
+        'cmiPCSX2Play
+        '
+        Me.cmiPCSX2Play.Enabled = False
+        Me.cmiPCSX2Play.Image = Global.sstatesman.My.Resources.Resources.Icon_GamePlay
+        Me.cmiPCSX2Play.Name = "cmiPCSX2Play"
+        Me.cmiPCSX2Play.Size = New System.Drawing.Size(199, 22)
+        Me.cmiPCSX2Play.Text = "Play <game>..."
+        Me.cmiPCSX2Play.Visible = False
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(206, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(196, 6)
+        '
+        'cmiPCSX2GDE
+        '
+        Me.cmiPCSX2GDE.Image = Global.sstatesman.My.Resources.Resources.Icon_GDE
+        Me.cmiPCSX2GDE.Name = "cmiPCSX2GDE"
+        Me.cmiPCSX2GDE.Size = New System.Drawing.Size(199, 22)
+        Me.cmiPCSX2GDE.Text = "GameDB Explorer..."
         '
         'cmiPCSX2BinFolderOpen
         '
         Me.cmiPCSX2BinFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderPCSX2
         Me.cmiPCSX2BinFolderOpen.Name = "cmiPCSX2BinFolderOpen"
-        Me.cmiPCSX2BinFolderOpen.Size = New System.Drawing.Size(209, 22)
-        Me.cmiPCSX2BinFolderOpen.Text = "open PCSX2 folder..."
+        Me.cmiPCSX2BinFolderOpen.Size = New System.Drawing.Size(199, 22)
+        Me.cmiPCSX2BinFolderOpen.Text = "Open PCSX2 folder..."
         '
-        'cmiPCSX2SStatesFolderOpen
+        'cmiPCSX2IniFolderOpen
         '
-        Me.cmiPCSX2SStatesFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderSStates
-        Me.cmiPCSX2SStatesFolderOpen.Name = "cmiPCSX2SStatesFolderOpen"
-        Me.cmiPCSX2SStatesFolderOpen.Size = New System.Drawing.Size(209, 22)
-        Me.cmiPCSX2SStatesFolderOpen.Text = "open savestates folder..."
-        '
-        'cmiPCSX2SnapsFolderOpen
-        '
-        Me.cmiPCSX2SnapsFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderScreenshots
-        Me.cmiPCSX2SnapsFolderOpen.Name = "cmiPCSX2SnapsFolderOpen"
-        Me.cmiPCSX2SnapsFolderOpen.Size = New System.Drawing.Size(209, 22)
-        Me.cmiPCSX2SnapsFolderOpen.Text = "open screenshots folder..."
-        '
-        'ToolStripSeparator2
-        '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(206, 6)
-        '
-        'GameDBExplorerToolStripMenuItem
-        '
-        Me.GameDBExplorerToolStripMenuItem.Image = Global.sstatesman.My.Resources.Resources.Icon_GDE
-        Me.GameDBExplorerToolStripMenuItem.Name = "GameDBExplorerToolStripMenuItem"
-        Me.GameDBExplorerToolStripMenuItem.Size = New System.Drawing.Size(209, 22)
-        Me.GameDBExplorerToolStripMenuItem.Text = "GameDB Explorer..."
-        '
-        'DeveloperToolsToolStripMenuItem
-        '
-        Me.DeveloperToolsToolStripMenuItem.Image = Global.sstatesman.My.Resources.Resources.Icon_Tools
-        Me.DeveloperToolsToolStripMenuItem.Name = "DeveloperToolsToolStripMenuItem"
-        Me.DeveloperToolsToolStripMenuItem.Size = New System.Drawing.Size(209, 22)
-        Me.DeveloperToolsToolStripMenuItem.Text = "Developer Tools..."
+        Me.cmiPCSX2IniFolderOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderIni
+        Me.cmiPCSX2IniFolderOpen.Name = "cmiPCSX2IniFolderOpen"
+        Me.cmiPCSX2IniFolderOpen.Size = New System.Drawing.Size(199, 22)
+        Me.cmiPCSX2IniFolderOpen.Text = "Open PCSX2 ini folder..."
         '
         'tmrSelectedItemChanged
         '
@@ -1186,13 +1195,106 @@ Partial Class frmMain
         '
         Me.bwLoadScreenshot.WorkerSupportsCancellation = True
         '
+        'cmConfig
+        '
+        Me.cmConfig.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmConfig.BackgroundImage = Global.sstatesman.My.Resources.Resources.BgStripesLight
+        Me.cmConfig.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiConfigSettings, Me.cmiConfigLog, Me.cmiConfigDevTools, Me.ToolStripSeparator4, Me.cmiConfigAbout})
+        Me.cmConfig.Name = "cmPCSX2"
+        Me.cmConfig.Size = New System.Drawing.Size(133, 98)
+        Me.cmConfig.Text = "Title Toolbar Config Menu"
+        '
+        'cmiConfigSettings
+        '
+        Me.cmiConfigSettings.Image = Global.sstatesman.My.Resources.Resources.Icon_Gear
+        Me.cmiConfigSettings.Name = "cmiConfigSettings"
+        Me.cmiConfigSettings.Size = New System.Drawing.Size(132, 22)
+        Me.cmiConfigSettings.Text = "Settings..."
+        '
+        'cmiConfigLog
+        '
+        Me.cmiConfigLog.Image = Global.sstatesman.My.Resources.Resources.Icon_Log
+        Me.cmiConfigLog.Name = "cmiConfigLog"
+        Me.cmiConfigLog.Size = New System.Drawing.Size(132, 22)
+        Me.cmiConfigLog.Text = "Log..."
+        '
+        'cmiConfigDevTools
+        '
+        Me.cmiConfigDevTools.Image = Global.sstatesman.My.Resources.Resources.Icon_Tools
+        Me.cmiConfigDevTools.Name = "cmiConfigDevTools"
+        Me.cmiConfigDevTools.Size = New System.Drawing.Size(132, 22)
+        Me.cmiConfigDevTools.Text = "DevTools..."
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(129, 6)
+        '
+        'cmiConfigAbout
+        '
+        Me.cmiConfigAbout.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Information
+        Me.cmiConfigAbout.Name = "cmiConfigAbout"
+        Me.cmiConfigAbout.Size = New System.Drawing.Size(132, 22)
+        Me.cmiConfigAbout.Text = "About..."
+        '
+        'cmFolders
+        '
+        Me.cmFolders.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmFolders.BackgroundImage = Global.sstatesman.My.Resources.Resources.BgStripesLight
+        Me.cmFolders.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiFoldersSStatesOpen, Me.cmiFoldersSnapsOpen, Me.ToolStripSeparator2, Me.cmiFoldersStoredOpen, Me.cmiFoldersIsoOpen, Me.cmiFoldersCoverOpen})
+        Me.cmFolders.Name = "cmPCSX2"
+        Me.cmFolders.Size = New System.Drawing.Size(239, 142)
+        Me.cmFolders.Text = "Title Toolbar Folders Menu"
+        '
+        'cmiFoldersSStatesOpen
+        '
+        Me.cmiFoldersSStatesOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderSStates
+        Me.cmiFoldersSStatesOpen.Name = "cmiFoldersSStatesOpen"
+        Me.cmiFoldersSStatesOpen.Size = New System.Drawing.Size(238, 22)
+        Me.cmiFoldersSStatesOpen.Text = "Open savestates folder..."
+        '
+        'cmiFoldersSnapsOpen
+        '
+        Me.cmiFoldersSnapsOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderScreenshots
+        Me.cmiFoldersSnapsOpen.Name = "cmiFoldersSnapsOpen"
+        Me.cmiFoldersSnapsOpen.Size = New System.Drawing.Size(238, 22)
+        Me.cmiFoldersSnapsOpen.Text = "Open screenshots folder..."
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(235, 6)
+        '
+        'cmiFoldersStoredOpen
+        '
+        Me.cmiFoldersStoredOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderSStates
+        Me.cmiFoldersStoredOpen.Name = "cmiFoldersStoredOpen"
+        Me.cmiFoldersStoredOpen.Size = New System.Drawing.Size(238, 22)
+        Me.cmiFoldersStoredOpen.Text = "Open stored savestates folder..."
+        '
+        'cmiFoldersIsoOpen
+        '
+        Me.cmiFoldersIsoOpen.Enabled = False
+        Me.cmiFoldersIsoOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderIso
+        Me.cmiFoldersIsoOpen.Name = "cmiFoldersIsoOpen"
+        Me.cmiFoldersIsoOpen.Size = New System.Drawing.Size(238, 22)
+        Me.cmiFoldersIsoOpen.Text = "Open ISO image folder..."
+        Me.cmiFoldersIsoOpen.Visible = False
+        '
+        'cmiFoldersCoverOpen
+        '
+        Me.cmiFoldersCoverOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderCover
+        Me.cmiFoldersCoverOpen.Name = "cmiFoldersCoverOpen"
+        Me.cmiFoldersCoverOpen.Size = New System.Drawing.Size(238, 22)
+        Me.cmiFoldersCoverOpen.Text = "Open cover image folder..."
+        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(632, 472)
+        Me.Controls.Add(Me.flpTitleBarToolbar)
         Me.Controls.Add(Me.SplitContainer1)
-        Me.Controls.Add(Me.flpTitleBarTools)
         Me.Controls.Add(Me.lblWindowVersion)
         Me.Controls.Add(Me.tlpTopBar)
         Me.FormDescription = "a savestate managing tool for PCSX2"
@@ -1200,13 +1302,13 @@ Partial Class frmMain
         Me.MinimumSize = New System.Drawing.Size(640, 480)
         Me.Name = "frmMain"
         Me.Text = "SStatesMan"
+        Me.Controls.SetChildIndex(Me.pnlWindowTop, 0)
         Me.Controls.SetChildIndex(Me.tlpTopBar, 0)
         Me.Controls.SetChildIndex(Me.lblWindowVersion, 0)
-        Me.Controls.SetChildIndex(Me.flpTitleBarTools, 0)
-        Me.Controls.SetChildIndex(Me.pnlWindowTop, 0)
         Me.Controls.SetChildIndex(Me.SplitContainer1, 0)
-        Me.flpTitleBarTools.ResumeLayout(False)
-        Me.flpTitleBarTools.PerformLayout()
+        Me.Controls.SetChildIndex(Me.flpTitleBarToolbar, 0)
+        Me.flpTitleBarToolbar.ResumeLayout(False)
+        Me.flpTitleBarToolbar.PerformLayout()
         Me.tlpTopBar.ResumeLayout(False)
         Me.tlpTopBar.PerformLayout()
         Me.flpTab.ResumeLayout(False)
@@ -1238,7 +1340,9 @@ Partial Class frmMain
         Me.flpFileListCommandsCheck.PerformLayout()
         Me.pnlScreenshotThumb.ResumeLayout(False)
         CType(Me.imgScreenshotThumb, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.cmTools.ResumeLayout(False)
+        Me.cmPCSX2.ResumeLayout(False)
+        Me.cmConfig.ResumeLayout(False)
+        Me.cmFolders.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1277,10 +1381,9 @@ Partial Class frmMain
     Private WithEvents flpGameListCommandsCheck As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents tlpGameListCommands As System.Windows.Forms.TableLayoutPanel
     Private WithEvents tlpGameList As System.Windows.Forms.TableLayoutPanel
-    Private WithEvents flpTitleBarTools As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents cmdAbout As System.Windows.Forms.Button
-    Private WithEvents cmdSettings As System.Windows.Forms.Button
-    Private WithEvents cmdTools As System.Windows.Forms.Button
+    Private WithEvents flpTitleBarToolbar As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents cmdToolbarConfig As System.Windows.Forms.Button
+    Private WithEvents cmdToolbarPCSX2 As System.Windows.Forms.Button
     Private WithEvents lblWindowVersion As System.Windows.Forms.Label
     Private WithEvents tlpFileListCommands As System.Windows.Forms.TableLayoutPanel
     Private WithEvents tlpFileListStatus As System.Windows.Forms.TableLayoutPanel
@@ -1296,15 +1399,11 @@ Partial Class frmMain
     Private WithEvents tlpTopBar As System.Windows.Forms.TableLayoutPanel
     Private WithEvents cmdRefresh As System.Windows.Forms.Button
     Private WithEvents FlowLayoutPanel3 As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents cmTools As System.Windows.Forms.ContextMenuStrip
+    Private WithEvents cmPCSX2 As System.Windows.Forms.ContextMenuStrip
     Private WithEvents cmiPCSX2Launch As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents cmiPCSX2BinFolderOpen As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents cmiPCSX2SStatesFolderOpen As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents cmiPCSX2SnapsFolderOpen As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
-    Private WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
-    Private WithEvents GameDBExplorerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents DeveloperToolsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents cmiPCSX2GDE As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents txtSelected As System.Windows.Forms.TextBox
     Private WithEvents GameLvw_SnapsInfo As System.Windows.Forms.ColumnHeader
     Private WithEvents flpFileListCommandsFiles As System.Windows.Forms.FlowLayoutPanel
@@ -1317,4 +1416,20 @@ Partial Class frmMain
     Private WithEvents imgScreenshotThumb As System.Windows.Forms.PictureBox
     Private WithEvents bwLoadScreenshot As System.ComponentModel.BackgroundWorker
     Private WithEvents GameLvw_Stored_Info As System.Windows.Forms.ColumnHeader
+    Private WithEvents cmdToolbarUser As System.Windows.Forms.Button
+    Private WithEvents cmConfig As System.Windows.Forms.ContextMenuStrip
+    Private WithEvents cmiConfigSettings As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents cmiConfigAbout As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents cmiConfigDevTools As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents cmiConfigLog As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents ToolStripSeparator4 As System.Windows.Forms.ToolStripSeparator
+    Private WithEvents cmFolders As System.Windows.Forms.ContextMenuStrip
+    Private WithEvents cmiFoldersStoredOpen As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents cmiFoldersCoverOpen As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents cmiFoldersSStatesOpen As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents cmiFoldersSnapsOpen As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
+    Private WithEvents cmiPCSX2Play As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents cmiPCSX2IniFolderOpen As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents cmiFoldersIsoOpen As System.Windows.Forms.ToolStripMenuItem
 End Class

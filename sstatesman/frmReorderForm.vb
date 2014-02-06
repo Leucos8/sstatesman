@@ -404,8 +404,8 @@ Public NotInheritable Class frmReorderForm
                 'Creation of the available slots
                 Select Case frmMain.frmMainListMode
                     Case ListMode.Savestates
-                        minSlot = minSlot
-                        maxSlot = maxSlot
+                        minSlot = My.Settings.PCSX2_SStateSlotLowerBound
+                        maxSlot = My.Settings.PCSX2_SStateSlotUpperBound
                     Case ListMode.Stored
                         minSlot = My.Settings.SStatesMan_StoredSlotLowerBound
                         maxSlot = My.Settings.SStatesMan_StoredSlotUpperBound

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="64"
+   height="64"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="Icon_FolderIni.svg"
+   inkscape:export-filename="Icon_FolderIni.png"
+   inkscape:export-xdpi="22.5"
+   inkscape:export-ydpi="22.5">
+  <title
+     id="title2986">Icon Folder Ini</title>
+  <sodipodi:namedview
+     id="base"
+     showgrid="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid2996"
+       empspacing="4"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>Icon Folder Ini</dc:title>
+        <dc:date>2014-02-06</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Leucos</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-nc-sa/3.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-nc-sa/3.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:prohibits
+           rdf:resource="http://creativecommons.org/ns#CommercialUse" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#ShareAlike" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1">
+    <path
+       style="fill:#bf9352"
+       d="M 25 8 L 17 16 L 4 16 L 4 52 L 21.84375 52 C 20.662846 49.231372 20 46.200107 20 43 C 20 30.297451 30.297451 20 43 20 C 47.821122 20 52.303286 21.496044 56 24.03125 L 56 8 L 25 8 z M 27 12 L 52 12 L 52 16 L 23 16 L 27 12 z "
+       id="path3000" />
+    <path
+       style="fill:#424242"
+       d="m 40,22 0,6.328125 6,0 L 46,22 z m -9.75,4.03125 -4.21875,4.21875 4.453125,4.453125 4.21875,-4.21875 z m 25.5,0 -4.453125,4.453125 4.21875,4.21875 L 59.96875,30.25 z M 22,40 l 0,6 6.328125,0 0,-6 z m 35.671875,0 0,6 L 64,46 64,40 z M 30.484375,51.296875 26.03125,55.75 30.25,59.96875 34.703125,55.515625 z m 25.03125,0 -4.21875,4.21875 L 55.75,59.96875 59.96875,55.75 z M 40,57.671875 40,64 l 6,0 0,-6.328125 z"
+       id="rect3000-1" />
+    <path
+       style="fill:#424242"
+       d="m 43,26.5 c -9.112698,0 -16.5,7.387302 -16.5,16.5 0,9.112698 7.387302,16.5 16.5,16.5 9.112698,0 16.5,-7.387302 16.5,-16.5 0,-9.112698 -7.387302,-16.5 -16.5,-16.5 z m 0,6 c 5.798989,0 10.5,4.701011 10.5,10.5 0,5.79899 -4.701011,10.5 -10.5,10.5 -5.798989,0 -10.5,-4.70101 -10.5,-10.5 0,-5.798989 4.701011,-10.5 10.5,-10.5 z"
+       id="path3059" />
+    <path
+       style="fill:#424242"
+       id="path2987"
+       d="m 63.5,57.5 a 6,6 0 1 1 -12,0 6,6 0 1 1 12,0 z"
+       transform="scale(0.75,0.75)" />
+  </g>
+</svg>
