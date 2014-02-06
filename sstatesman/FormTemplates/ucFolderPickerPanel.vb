@@ -118,11 +118,15 @@ Friend Class ucFolderPickerPanel
     End Sub
 
     Private Sub cmdOpen_Click(sender As Object, e As EventArgs) Handles cmdOpen.Click
-        If Directory.Exists(Me.txtPath.Text) Then
-            Diagnostics.Process.Start(Me.txtPath.Text)
-        Else
-            Me.CheckState()
-        End If
+        Try
+            If Directory.Exists(Me.txtPath.Text) Then
+                Diagnostics.Process.Start(Me.txtPath.Text)
+            Else
+                MessageBox.Show(String.Format("The folder ""{0}"" does not exist, please reconfigure. ", Me.txtPath.Text), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        Catch ex As Exception
+            MessageBox.Show(String.Format("The folder ""{0}"" is not accessible, please reconfigure. {1}", Me.txtPath.Text, ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
     End Sub
 
     Private Sub cmdDetect_Click(sender As Object, e As EventArgs) Handles cmdDetect.Click
