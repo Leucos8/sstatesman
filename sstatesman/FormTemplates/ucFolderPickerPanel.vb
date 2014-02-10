@@ -90,7 +90,12 @@ Friend Class ucFolderPickerPanel
                 Me.imgStatus.Visible = True
                 Me.lblStatus.Text = Me.DescriptionError
         End Select
-        Me.cmdOpen.Enabled = Directory.Exists(Me.txtPath.Text)
+        Try
+            Me.cmdOpen.Enabled = Directory.Exists(Me.txtPath.Text)
+        Catch ex As Exception
+            Me.cmdOpen.Enabled = False
+            Me.lblStatus.Text = ex.Message
+        End Try
     End Sub
 
     Private Sub CheckState()

@@ -32,6 +32,7 @@ Public NotInheritable Class frmSettings
         'SStatesMan folders
         Me.fppSStatesManPicsPath.Text = My.Settings.SStatesMan_PathPics
         Me.fppSStatesManStoredPath.Text = My.Settings.SStatesMan_PathStored
+        Me.fppSStatesManIsoPath.Text = My.Settings.SStatesMan_PathIso
 
         'PCSX2 folders
         Me.fppPCSX2AppPath.Text = My.Settings.PCSX2_PathBin
@@ -48,7 +49,9 @@ Public NotInheritable Class frmSettings
 
         If Not (My.Settings.PCSX2_PathSState = Me.fppPCSX2SStatePath.Text And _
                 My.Settings.PCSX2_PathSnaps = Me.fppPCSX2SnapsPath.Text And _
-                My.Settings.SStatesMan_PathPics = Me.fppSStatesManPicsPath.Text) Then
+                My.Settings.SStatesMan_PathPics = Me.fppSStatesManPicsPath.Text And _
+                My.Settings.SStatesMan_PathStored = Me.fppSStatesManStoredPath.Text And _
+                My.Settings.SStatesMan_PathIso = Me.fppSStatesManIsoPath.Text) Then
             GameListNeedRefresh = True
         Else
             GameListNeedRefresh = False
@@ -64,6 +67,7 @@ Public NotInheritable Class frmSettings
         'SStatesMan folders
         My.Settings.SStatesMan_PathPics = Me.fppSStatesManPicsPath.Text
         My.Settings.SStatesMan_PathStored = Me.fppSStatesManStoredPath.Text
+        My.Settings.SStatesMan_PathIso = Me.fppSStatesManIsoPath.Text
 
         'PCSX2 folders
         My.Settings.PCSX2_PathBin = Me.fppPCSX2AppPath.Text
@@ -386,6 +390,10 @@ Public NotInheritable Class frmSettings
         Me.fppSStatesManStoredPath.DescriptionInfo = String.Concat("The folder where ", My.Application.Info.Title, " will move the savestates you want to keep safe so that they aren't overwritten by PCSX2.")
         Me.fppSStatesManStoredPath.DescriptionWarning = String.Concat("Path not found or inaccessible.", Environment.NewLine, "Please enter a valid path.")
         Me.fppSStatesManStoredPath.FBDDescription = "Select where your stored savestates will be moved."
+
+        Me.fppSStatesManIsoPath.DescriptionInfo = String.Concat("The folder where ", My.Application.Info.Title, " will look for your game disc image files.", Environment.NewLine, "Valid filenames examples: ""SLES-#####.iso"", ""GameName [SLES-#####].iso"".")
+        Me.fppSStatesManIsoPath.DescriptionWarning = String.Concat("Path not found or inaccessible.", Environment.NewLine, "Please enter a valid path.")
+        Me.fppSStatesManIsoPath.FBDDescription = "Select your game iso image files folder."
     End Sub
 
     'Detect button
@@ -407,50 +415,69 @@ Public NotInheritable Class frmSettings
     Private Sub fppPCSX2AppPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) _
         Handles fppPCSX2AppPath.Validating
 
-        If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
+        Try
+            If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
+                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
+            ElseIf Not (File.Exists(Path.Combine(CType(sender, ucFolderPickerPanel).Text, My.Settings.PCSX2_GameDbFilename))) Then
+                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
+            Else
+                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
-        ElseIf Not (File.Exists(Path.Combine(CType(sender, ucFolderPickerPanel).Text, My.Settings.PCSX2_GameDbFilename))) Then
-            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
-        Else
-            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
-        End If
+        End Try
     End Sub
 
     Private Sub fppPCSX2IniPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) _
         Handles fppPCSX2IniPath.Validating
 
-        If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
+        Try
+            If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
+                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
+            ElseIf Not (File.Exists(Path.Combine(CType(sender, ucFolderPickerPanel).Text, My.Settings.PCSX2_PCSX2_uiFilename))) Then
+                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
+            Else
+                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
-        ElseIf Not (File.Exists(Path.Combine(CType(sender, ucFolderPickerPanel).Text, My.Settings.PCSX2_PCSX2_uiFilename))) Then
-            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
-        Else
-            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
-        End If
+        End Try
     End Sub
 
     Private Sub fppPCSX2SStatesSnapsPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) _
         Handles fppPCSX2SStatePath.Validating, fppPCSX2SnapsPath.Validating
-
-        If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
+        Try
+            If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
+                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
+            Else
+                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
-        Else
-            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
-        End If
+        End Try
     End Sub
 
     Private Sub fppSStatesManPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) _
-        Handles fppSStatesManPicsPath.Validating, fppSStatesManStoredPath.Validating
-
-        If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
-            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
-        Else
+        Handles fppSStatesManPicsPath.Validating, fppSStatesManStoredPath.Validating, fppSStatesManIsoPath.Validating
+        Try
+            If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
+                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
+            Else
+                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
+            End If
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
-        End If
+        End Try
     End Sub
 
     Private Sub fpp_Validated(sender As Object, e As EventArgs) _
         Handles fppPCSX2AppPath.Validated, fppPCSX2IniPath.Validated, fppPCSX2SStatePath.Validated, _
-        fppPCSX2SnapsPath.Validated, fppSStatesManPicsPath.Validated, fppSStatesManStoredPath.Validated
+        fppPCSX2SnapsPath.Validated, fppSStatesManPicsPath.Validated, fppSStatesManStoredPath.Validated, _
+        fppSStatesManIsoPath.Validated
 
         Me.Settings_Check()
     End Sub

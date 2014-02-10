@@ -50,10 +50,11 @@ Public Class frmSStateList
                                                New ColumnHeader With {.Text = "Region", .Width = 60},
                                                New ColumnHeader With {.Text = "Compat", .Width = 60},
                                                New ColumnHeader With {.Text = "CRC", .Width = 80},
-                                               New ColumnHeader With {.Text = "Cover", .Width = 40},
-                                               New ColumnHeader With {.Text = "Savestates", .Width = 40},
-                                               New ColumnHeader With {.Text = "Stored", .Width = 40},
-                                               New ColumnHeader With {.Text = "Snapshots", .Width = 40}
+                                               New ColumnHeader With {.Text = "IsoName", .Width = 80},
+                                               New ColumnHeader With {.Text = "HasCover", .Width = 60},
+                                               New ColumnHeader With {.Text = "Savestates", .Width = 60},
+                                               New ColumnHeader With {.Text = "Stored", .Width = 60},
+                                               New ColumnHeader With {.Text = "Snapshots", .Width = 60}
                                               })
             Case DTListMode.Savestates, DTListMode.Stored, DTListMode.Snapshots
                 Me.lvwDT.Columns.AddRange({New ColumnHeader With {.Text = "Serial", .Width = 80},
@@ -91,6 +92,7 @@ Public Class frmSStateList
             Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Name, .Name = tmpGame.Serial}
             tmpListViewItem.SubItems.AddRange({tmpGame.Serial, tmpGame.Region, tmpGame.CompatToText, _
                                                SSMGameList.Games(tmpGamesListKey).GameCRC, _
+                                               SSMGameList.Games(tmpGamesListKey).GameIso, _
                                                SSMGameList.Games(tmpGamesListKey).HasCoverFile(My.Settings.SStatesMan_PathPics, tmpGamesListKey).ToString, _
                                                SSMGameList.Games(tmpGamesListKey).GameFiles.ContainsKey(ListMode.Savestates).ToString, _
                                                SSMGameList.Games(tmpGamesListKey).GameFiles.ContainsKey(ListMode.Stored).ToString, _

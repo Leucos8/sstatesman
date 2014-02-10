@@ -26,15 +26,20 @@ Module mdlFileList
     Friend Class GameListItem
         Friend ReadOnly Property HasCoverFile(pDirectory As String, pSerial As String) As Boolean
             Get
-                If File.Exists(Path.Combine(pDirectory, mdlMain.TrimBadPathChars(pSerial) & ".jpg")) Then
-                    Return True
-                Else
+                Try
+                    If File.Exists(Path.Combine(pDirectory, mdlMain.TrimBadPathChars(pSerial) & ".jpg")) Then
+                        Return True
+                    Else
+                        Return False
+                    End If
+                Catch ex As Exception
                     Return False
-                End If
+                End Try
             End Get
         End Property
         'Friend ReadOnly Property HasIsoFile
         Friend Property GameCRC As String = ""
+        Friend Property GameIso As String = ""
 
         Friend GameFiles As New Dictionary(Of Integer, GameFileList(Of PCSX2File))
 
@@ -75,6 +80,8 @@ Module mdlFileList
             Games.Clear()
 
             LoadFiles(Of Savestate)(ListMode.Savestates, {My.Settings.PCSX2_SStateExt, My.Settings.PCSX2_SStateExtBackup}, pSStatesPath)
+
+            LoadIso(My.Settings.SStatesMan_IsoExts, My.Settings.SStatesMan_PathIso)
 
             LoadFiles(Of Savestate)(ListMode.Stored, {My.Settings.PCSX2_SStateExt}, pSStatesStoredPath)
 
@@ -138,5 +145,47 @@ Module mdlFileList
             End Try
         End Sub
 
+        Friend Sub LoadIso(pExts() As String, pDirectory As String)
+            Dim sw As Stopwatch = Stopwatch.StartNew
+            Dim isoCount As Integer = 0
+            Try
+                Dim tmpDI As New DirectoryInfo(pDirectory)
+
+                Dim tmpFIs As IEnumerable(Of FileInfo) = tmpDI.EnumerateFiles().Where(Function(item) pExts.Contains(item.Extension.ToLower))
+                If tmpFIs.Count > 0 Then
+                    'Load FileInfo into PCSX2File class
+                    For Each tmpFI As FileInfo In tmpFIs
+                        Dim tmpSerial As String = ""
+                        Dim ParOPosition As Integer = tmpFI.Name.IndexOf("["c, 0)
+                        Dim ParCPosition As Integer = tmpFI.Name.IndexOf("]"c, 0)
+                        If (ParOPosition > 0) AndAlso (ParCPosition > ParOPosition) Then
+                            tmpSerial = tmpFI.Name.Substring(ParOPosition + 1, ParCPosition - ParOPosition - 1)
+                        Else
+                            tmpSerial = tmpFI.Name.Remove(tmpFI.Name.Length - tmpFI.Extension.Length)
+                        End If
+
+                        If PCSX2GameDb.Records.ContainsKey(tmpSerial) Then
+                            If Not Games.ContainsKey(tmpSerial) Then
+                                Games.Add(tmpSerial, New GameListItem With {.GameCRC = 0.ToString("N8"), .GameIso = tmpFI.Name})
+                            Else
+                                Games(tmpSerial).GameIso = tmpFI.Name
+                            End If
+                        End If
+
+
+                    Next
+
+                End If
+
+            Catch ex As Exception
+                SSMAppLog.Append(eType.LogError, eSrc.FileList, eSrcMethod.List, String.Format("Error retrieving iso files." & Environment.NewLine & " {0}", ex.Message))
+
+            Finally
+                sw.Stop()
+                LoadTime = sw.ElapsedTicks
+                SSMAppLog.Append(eType.LogInformation, eSrc.FileList, eSrcMethod.File_LoadAll, String.Format("Loaded {0:N0} iso images from ""{1}"".", isoCount, pDirectory), LoadTime)
+            End Try
+
+        End Sub
     End Class
 End Module

@@ -49,10 +49,12 @@ Partial Class frmSettings
         Me.optTabHeader2 = New System.Windows.Forms.RadioButton()
         Me.optTabHeader3 = New System.Windows.Forms.RadioButton()
         Me.pnlTab0 = New System.Windows.Forms.Panel()
-        Me.fppSStatesManStoredPath = New sstatesman.ucFolderPickerPanel()
-        Me.lblSStatesManStoredPath = New System.Windows.Forms.Label()
         Me.fppSStatesManPicsPath = New sstatesman.ucFolderPickerPanel()
         Me.lblSStatesManPicsPath = New System.Windows.Forms.Label()
+        Me.fppSStatesManStoredPath = New sstatesman.ucFolderPickerPanel()
+        Me.lblSStatesManStoredPath = New System.Windows.Forms.Label()
+        Me.fppSStatesManIsoPath = New sstatesman.ucFolderPickerPanel()
+        Me.lblSStatesManIsoPath = New System.Windows.Forms.Label()
         Me.ckbSStatesManMoveToTrash = New System.Windows.Forms.CheckBox()
         Me.ckbSStatesManVersionExtract = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -312,10 +314,12 @@ Partial Class frmSettings
         'pnlTab0
         '
         Me.pnlTab0.AutoScroll = True
-        Me.pnlTab0.Controls.Add(Me.fppSStatesManStoredPath)
-        Me.pnlTab0.Controls.Add(Me.lblSStatesManStoredPath)
         Me.pnlTab0.Controls.Add(Me.fppSStatesManPicsPath)
         Me.pnlTab0.Controls.Add(Me.lblSStatesManPicsPath)
+        Me.pnlTab0.Controls.Add(Me.fppSStatesManStoredPath)
+        Me.pnlTab0.Controls.Add(Me.lblSStatesManStoredPath)
+        Me.pnlTab0.Controls.Add(Me.fppSStatesManIsoPath)
+        Me.pnlTab0.Controls.Add(Me.lblSStatesManIsoPath)
         Me.pnlTab0.Controls.Add(Me.ckbSStatesManMoveToTrash)
         Me.pnlTab0.Controls.Add(Me.ckbSStatesManVersionExtract)
         Me.pnlTab0.Controls.Add(Me.Label1)
@@ -328,6 +332,36 @@ Partial Class frmSettings
         Me.pnlTab0.Padding = New System.Windows.Forms.Padding(8, 4, 8, 4)
         Me.pnlTab0.Size = New System.Drawing.Size(170, 317)
         Me.pnlTab0.TabIndex = 9
+        '
+        'fppSStatesManPicsPath
+        '
+        Me.fppSStatesManPicsPath.AutoSize = True
+        Me.fppSStatesManPicsPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.fppSStatesManPicsPath.DescriptionError = "ErrorText"
+        Me.fppSStatesManPicsPath.DescriptionInfo = "InfoText"
+        Me.fppSStatesManPicsPath.DescriptionWarning = "WarningText"
+        Me.fppSStatesManPicsPath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.fppSStatesManPicsPath.FBDDefaultPath = System.Environment.SpecialFolder.MyPictures
+        Me.fppSStatesManPicsPath.FBDDescription = "BrowserTip"
+        Me.fppSStatesManPicsPath.FBDShowNewFolderButton = True
+        Me.fppSStatesManPicsPath.Location = New System.Drawing.Point(8, 340)
+        Me.fppSStatesManPicsPath.Name = "fppSStatesManPicsPath"
+        Me.fppSStatesManPicsPath.ShowDetectButton = False
+        Me.fppSStatesManPicsPath.Size = New System.Drawing.Size(137, 58)
+        Me.fppSStatesManPicsPath.State = sstatesman.ucFolderPickerPanel.eDescState.StateIdle
+        Me.fppSStatesManPicsPath.TabIndex = 59
+        '
+        'lblSStatesManPicsPath
+        '
+        Me.lblSStatesManPicsPath.AutoSize = True
+        Me.lblSStatesManPicsPath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblSStatesManPicsPath.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.lblSStatesManPicsPath.Location = New System.Drawing.Point(8, 317)
+        Me.lblSStatesManPicsPath.Name = "lblSStatesManPicsPath"
+        Me.lblSStatesManPicsPath.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
+        Me.lblSStatesManPicsPath.Size = New System.Drawing.Size(189, 23)
+        Me.lblSStatesManPicsPath.TabIndex = 17
+        Me.lblSStatesManPicsPath.Text = "Game cover image files folder"
         '
         'fppSStatesManStoredPath
         '
@@ -343,7 +377,7 @@ Partial Class frmSettings
         Me.fppSStatesManStoredPath.Location = New System.Drawing.Point(8, 259)
         Me.fppSStatesManStoredPath.Name = "fppSStatesManStoredPath"
         Me.fppSStatesManStoredPath.ShowDetectButton = False
-        Me.fppSStatesManStoredPath.Size = New System.Drawing.Size(154, 58)
+        Me.fppSStatesManStoredPath.Size = New System.Drawing.Size(137, 58)
         Me.fppSStatesManStoredPath.State = sstatesman.ucFolderPickerPanel.eDescState.StateIdle
         Me.fppSStatesManStoredPath.TabIndex = 61
         '
@@ -359,35 +393,35 @@ Partial Class frmSettings
         Me.lblSStatesManStoredPath.TabIndex = 60
         Me.lblSStatesManStoredPath.Text = "Stored savestates folder"
         '
-        'fppSStatesManPicsPath
+        'fppSStatesManIsoPath
         '
-        Me.fppSStatesManPicsPath.AutoSize = True
-        Me.fppSStatesManPicsPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.fppSStatesManPicsPath.DescriptionError = "ErrorText"
-        Me.fppSStatesManPicsPath.DescriptionInfo = "InfoText"
-        Me.fppSStatesManPicsPath.DescriptionWarning = "WarningText"
-        Me.fppSStatesManPicsPath.Dock = System.Windows.Forms.DockStyle.Top
-        Me.fppSStatesManPicsPath.FBDDefaultPath = System.Environment.SpecialFolder.MyPictures
-        Me.fppSStatesManPicsPath.FBDDescription = "BrowserTip"
-        Me.fppSStatesManPicsPath.FBDShowNewFolderButton = True
-        Me.fppSStatesManPicsPath.Location = New System.Drawing.Point(8, 178)
-        Me.fppSStatesManPicsPath.Name = "fppSStatesManPicsPath"
-        Me.fppSStatesManPicsPath.ShowDetectButton = False
-        Me.fppSStatesManPicsPath.Size = New System.Drawing.Size(154, 58)
-        Me.fppSStatesManPicsPath.State = sstatesman.ucFolderPickerPanel.eDescState.StateIdle
-        Me.fppSStatesManPicsPath.TabIndex = 59
+        Me.fppSStatesManIsoPath.AutoSize = True
+        Me.fppSStatesManIsoPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.fppSStatesManIsoPath.DescriptionError = "ErrorText"
+        Me.fppSStatesManIsoPath.DescriptionInfo = "InfoText"
+        Me.fppSStatesManIsoPath.DescriptionWarning = "WarningText"
+        Me.fppSStatesManIsoPath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.fppSStatesManIsoPath.FBDDefaultPath = System.Environment.SpecialFolder.MyDocuments
+        Me.fppSStatesManIsoPath.FBDDescription = "BrowserTip"
+        Me.fppSStatesManIsoPath.FBDShowNewFolderButton = True
+        Me.fppSStatesManIsoPath.Location = New System.Drawing.Point(8, 178)
+        Me.fppSStatesManIsoPath.Name = "fppSStatesManIsoPath"
+        Me.fppSStatesManIsoPath.ShowDetectButton = False
+        Me.fppSStatesManIsoPath.Size = New System.Drawing.Size(137, 58)
+        Me.fppSStatesManIsoPath.State = sstatesman.ucFolderPickerPanel.eDescState.StateIdle
+        Me.fppSStatesManIsoPath.TabIndex = 63
         '
-        'lblSStatesManPicsPath
+        'lblSStatesManIsoPath
         '
-        Me.lblSStatesManPicsPath.AutoSize = True
-        Me.lblSStatesManPicsPath.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblSStatesManPicsPath.Font = New System.Drawing.Font("Segoe UI", 10.0!)
-        Me.lblSStatesManPicsPath.Location = New System.Drawing.Point(8, 155)
-        Me.lblSStatesManPicsPath.Name = "lblSStatesManPicsPath"
-        Me.lblSStatesManPicsPath.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
-        Me.lblSStatesManPicsPath.Size = New System.Drawing.Size(189, 23)
-        Me.lblSStatesManPicsPath.TabIndex = 17
-        Me.lblSStatesManPicsPath.Text = "Game cover image files folder"
+        Me.lblSStatesManIsoPath.AutoSize = True
+        Me.lblSStatesManIsoPath.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblSStatesManIsoPath.Font = New System.Drawing.Font("Segoe UI", 10.0!)
+        Me.lblSStatesManIsoPath.Location = New System.Drawing.Point(8, 155)
+        Me.lblSStatesManIsoPath.Name = "lblSStatesManIsoPath"
+        Me.lblSStatesManIsoPath.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
+        Me.lblSStatesManIsoPath.Size = New System.Drawing.Size(158, 23)
+        Me.lblSStatesManIsoPath.TabIndex = 62
+        Me.lblSStatesManIsoPath.Text = "Game disc images folder"
         '
         'ckbSStatesManMoveToTrash
         '
@@ -400,7 +434,7 @@ Partial Class frmSettings
         Me.ckbSStatesManMoveToTrash.Location = New System.Drawing.Point(8, 134)
         Me.ckbSStatesManMoveToTrash.Name = "ckbSStatesManMoveToTrash"
         Me.ckbSStatesManMoveToTrash.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
-        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(154, 21)
+        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(137, 21)
         Me.ckbSStatesManMoveToTrash.TabIndex = 16
         Me.ckbSStatesManMoveToTrash.Text = "Send files to the Windows Recycle Bin instead of permanently deleting them."
         Me.ckbSStatesManMoveToTrash.UseVisualStyleBackColor = False
@@ -416,7 +450,7 @@ Partial Class frmSettings
         Me.ckbSStatesManVersionExtract.Location = New System.Drawing.Point(8, 113)
         Me.ckbSStatesManVersionExtract.Name = "ckbSStatesManVersionExtract"
         Me.ckbSStatesManVersionExtract.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
-        Me.ckbSStatesManVersionExtract.Size = New System.Drawing.Size(154, 21)
+        Me.ckbSStatesManVersionExtract.Size = New System.Drawing.Size(137, 21)
         Me.ckbSStatesManVersionExtract.TabIndex = 15
         Me.ckbSStatesManVersionExtract.Text = "Extract savestates version. (experimental)"
         Me.ckbSStatesManVersionExtract.UseVisualStyleBackColor = False
@@ -442,7 +476,7 @@ Partial Class frmSettings
         Me.ckb_SStatesListAutoRefresh.Location = New System.Drawing.Point(8, 69)
         Me.ckb_SStatesListAutoRefresh.Name = "ckb_SStatesListAutoRefresh"
         Me.ckb_SStatesListAutoRefresh.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
-        Me.ckb_SStatesListAutoRefresh.Size = New System.Drawing.Size(154, 21)
+        Me.ckb_SStatesListAutoRefresh.Size = New System.Drawing.Size(137, 21)
         Me.ckb_SStatesListAutoRefresh.TabIndex = 13
         Me.ckb_SStatesListAutoRefresh.Text = "Automatically refresh the savestates list."
         Me.ckb_SStatesListAutoRefresh.UseVisualStyleBackColor = False
@@ -456,7 +490,7 @@ Partial Class frmSettings
         Me.ckb_SStatesListShowOnly.Location = New System.Drawing.Point(8, 48)
         Me.ckb_SStatesListShowOnly.Name = "ckb_SStatesListShowOnly"
         Me.ckb_SStatesListShowOnly.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
-        Me.ckb_SStatesListShowOnly.Size = New System.Drawing.Size(154, 21)
+        Me.ckb_SStatesListShowOnly.Size = New System.Drawing.Size(137, 21)
         Me.ckb_SStatesListShowOnly.TabIndex = 12
         Me.ckb_SStatesListShowOnly.Text = "Use a single list for files only (hides the game info and game list)."
         Me.ckb_SStatesListShowOnly.UseVisualStyleBackColor = False
@@ -470,7 +504,7 @@ Partial Class frmSettings
         Me.ckbFirstRun.Location = New System.Drawing.Point(8, 27)
         Me.ckbFirstRun.Name = "ckbFirstRun"
         Me.ckbFirstRun.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
-        Me.ckbFirstRun.Size = New System.Drawing.Size(154, 21)
+        Me.ckbFirstRun.Size = New System.Drawing.Size(137, 21)
         Me.ckbFirstRun.TabIndex = 11
         Me.ckbFirstRun.Text = "Reset SStatesMan settings to their defaults on next startup."
         Me.ckbFirstRun.UseVisualStyleBackColor = False
@@ -1049,4 +1083,6 @@ Partial Class frmSettings
     Private WithEvents fppPCSX2SStatePath As sstatesman.ucFolderPickerPanel
     Private WithEvents fppPCSX2SnapsPath As sstatesman.ucFolderPickerPanel
     Private WithEvents fppSStatesManPicsPath As sstatesman.ucFolderPickerPanel
+    Private WithEvents fppSStatesManIsoPath As sstatesman.ucFolderPickerPanel
+    Private WithEvents lblSStatesManIsoPath As System.Windows.Forms.Label
 End Class

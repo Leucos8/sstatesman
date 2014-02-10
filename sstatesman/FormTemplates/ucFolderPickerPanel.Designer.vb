@@ -170,7 +170,7 @@ Partial Class ucFolderPickerPanel
         '
         'imgStatus
         '
-        Me.imgStatus.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.imgStatus.Dock = System.Windows.Forms.DockStyle.Top
         Me.imgStatus.Image = Global.sstatesman.My.Resources.Resources.InfoIcon_Exclamation
         Me.imgStatus.Location = New System.Drawing.Point(8, 26)
         Me.imgStatus.Margin = New System.Windows.Forms.Padding(0)
