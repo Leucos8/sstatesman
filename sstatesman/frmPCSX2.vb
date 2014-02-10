@@ -14,57 +14,147 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
 Public NotInheritable Class frmPCSX2
+    Dim PCSX2BinPathValid As Boolean = False
+    Friend IsoFilename As String = ""
+    Dim IsoPathValid As Boolean = False
+    Dim IsoFilenameValid As Boolean = False
+
     Dim PCSX2exe_files As List(Of FileInfo)
 
-    Private Sub PCSX2EXE_ListCreate(ByVal pPCSX2_PathBin As String)
-        lbPCSX2exe.BeginUpdate()
-        lbPCSX2exe.Items.Clear()
-        If Directory.Exists(pPCSX2_PathBin) Then
-            Dim tmpDirectory As New DirectoryInfo(My.Settings.PCSX2_PathBin)
-            Dim PCSX2exe_files As FileInfo() = tmpDirectory.GetFiles("PCSX2*.exe")
-            If PCSX2exe_files.Length > 0 Then
-                For i = 0 To PCSX2exe_files.Length - 1
-                    lbPCSX2exe.Items.Add(PCSX2exe_files(i).Name)
-                    If PCSX2exe_files(i).Name = My.Settings.SStatesMan_LastPCSX2Executable Then
-                        Me.lbPCSX2exe.SetSelected(i, True)
+    Private Sub PCSX2Bin_ListCreate(pPCSX2_PathBin As String, Optional pLastSelectedExe As String = "")
+        Me.lbPCSX2Bin.BeginUpdate()
+
+        Try
+            If Directory.Exists(pPCSX2_PathBin) Then
+                Dim tmpDI As New DirectoryInfo(My.Settings.PCSX2_PathBin)
+                Dim tmpFI As IEnumerable(Of FileInfo) = tmpDI.EnumerateFiles("PCSX2*.exe")
+                If tmpFI.Count > 0 Then
+                    For i As Integer = 0 To tmpFI.Count - 1
+                        lbPCSX2Bin.Items.Add(tmpFI(i).Name)
+                        If tmpFI(i).Name = pLastSelectedExe Then
+                            Me.lbPCSX2Bin.SetSelected(i, True)
+                        End If
+                    Next
+                    If Me.lbPCSX2Bin.Items.Count > 1 Then
+                        Me.cmdOk.Enabled = True
                     End If
-                Next
-                If lbPCSX2exe.SelectedItems.Count = 0 Then
-                    Me.lbPCSX2exe.SetSelected(0, True)
-                End If
-                If PCSX2exe_files.Count = 1 Then
-                    PCSX2EXE_start(pPCSX2_PathBin, Me.lbPCSX2exe.Text)
-                    Me.Close()
                 Else
-                    Me.cmdOk.Enabled = True
+                    lbPCSX2Bin.Items.Add("No PCSX2 executables found.")
+                    Me.cmdOk.Enabled = False
                 End If
             Else
-                lbPCSX2exe.Items.Add("No PCSX2 executables found.")
-                Me.cmdOk.Enabled = False
+                Me.UI_Update()
             End If
-        Else
-            lbPCSX2exe.Items.Add("The specified path does not exist.")
-            Me.cmdOk.Enabled = False
-        End If
-        lbPCSX2exe.EndUpdate()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Me.UI_Update()
+        End Try
+
+        Me.lbPCSX2Bin.EndUpdate()
     End Sub
 
-    Private Sub PCSX2EXE_start(ByVal pPCSX2_PathBin As String, ByVal pPCSX2_ExeName As String)
+    Private Sub PCSX2Bin_TestLaunch(pPCSX2_PathBin As String, pPCSX2_ExeName As String, _
+                                    pISO_Path As String, pISO_Filename As String)
+        If Me.lbPCSX2Bin.Items.Count = 1 Then
+            PCSX2Bin_Launch(pPCSX2_PathBin, Me.lbPCSX2Bin.Text, pISO_Path, pISO_Filename)
+            Me.Close()
+        End If
+
+    End Sub
+
+    Private Sub PCSX2Bin_Launch(pPCSX2_PathBin As String, pPCSX2_ExeName As String, _
+                                pIso_Path As String, pIso_Filename As String)
         Dim tmpPath As String = Path.Combine(pPCSX2_PathBin, pPCSX2_ExeName)
-        If File.Exists(tmpPath) Then
-            Diagnostics.Process.Start(tmpPath)
+        Dim tmpArgs As String = """" & Path.Combine(pIso_Path, pIso_Filename) & """"
+        If mdlMain.SafeExistFile(tmpPath) Then
+            If IsoFilename = "" Then
+                Diagnostics.Process.Start(tmpPath)
+            Else
+                Diagnostics.Process.Start(tmpPath, tmpArgs)
+            End If
             My.Settings.SStatesMan_LastPCSX2Executable = pPCSX2_ExeName
         Else
-            MessageBox.Show("The specified executable does not exist. Please close this window and try again to refresh the list." & tmpPath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Me.UI_Update()
         End If
     End Sub
 
-    Private Sub frmChooseVersion_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.flpWindowBottom.Controls.AddRange({cmdCancel, cmdOk})
-        Me.tlpFormContent.Dock = DockStyle.Fill
-        Me.lblPath.Text = My.Settings.PCSX2_PathBin
+    Private Sub UI_Update()
+        'PCSX2 binaries path.
+        Me.txtPCSX2PathBin.Text = My.Settings.PCSX2_PathBin
 
-        Me.PCSX2EXE_ListCreate(My.Settings.PCSX2_PathBin)
+        Me.PCSX2BinPathValid = mdlMain.SafeExistFolder(My.Settings.PCSX2_PathBin)
+
+        'Status for PCSX2 binaries path.
+        If Me.PCSX2BinPathValid Then
+            Me.txtPCSX2PathBin.BackColor = Me.BackColor
+        Else
+            Me.txtPCSX2PathBin.BackColor = Color.FromArgb(255, 192, 192)
+        End If
+
+        'If user has pressed Play.
+        If Not (Me.IsoFilename = "") Then
+
+            'Iso path and filename.
+            Me.txtSStatesManPathIso.Text = Path.Combine(My.Settings.SStatesMan_PathIso, Me.IsoFilename)
+            Me.txtSStatesManPathIso.Visible = True
+            Me.lblIsoPath.Visible = True
+
+            'Check iso path.
+            Me.IsoPathValid = mdlMain.SafeExistFolder(My.Settings.SStatesMan_PathIso)
+            If Me.IsoPathValid Then
+                'Check iso filename if path is valid.
+                Me.IsoFilenameValid = mdlMain.SafeExistFile(Path.Combine(My.Settings.SStatesMan_PathIso, Me.IsoFilename))
+                'Status for Iso filename check.
+                If Me.IsoFilenameValid Then
+                    Me.txtSStatesManPathIso.BackColor = Me.BackColor
+                Else
+                    Me.txtSStatesManPathIso.BackColor = Color.FromArgb(255, 192, 192)
+                End If
+            Else
+                'Status for Iso path check.
+                Me.txtSStatesManPathIso.BackColor = Color.FromArgb(255, 192, 192)
+                Me.IsoFilenameValid = False
+            End If
+        Else
+            'User wants to start PCSX2 only.
+            Me.txtSStatesManPathIso.Visible = False
+            Me.lblIsoPath.Visible = False
+            Me.IsoPathValid = True
+            Me.IsoFilenameValid = True
+        End If
+        'If everything is fine OK button is enabled.
+        Me.cmdOk.Enabled = Me.PCSX2BinPathValid And Me.IsoPathValid And Me.IsoFilenameValid
+    End Sub
+
+    Private Sub frmPCSX2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.flpWindowBottom.Controls.AddRange({Me.cmdCancel, Me.cmdOk})
+        Me.tlpFormContent.Dock = DockStyle.Fill
+        Me.lblTroubleshoot.MaximumSize = Me.tlpFormContent.Size
+        Me.lblTroubleshoot.AutoSize = True
+
+        Me.lbPCSX2Bin.BeginUpdate()
+        Me.lbPCSX2Bin.Items.Clear()
+        Me.lbPCSX2Bin.EndUpdate()
+
+        Me.UI_Update()
+        If Me.cmdOk.Enabled Then
+            Me.PCSX2Bin_ListCreate(My.Settings.PCSX2_PathBin, My.Settings.SStatesMan_LastPCSX2Executable)
+            Me.PCSX2Bin_TestLaunch(My.Settings.PCSX2_PathBin, My.Settings.SStatesMan_LastPCSX2Executable, My.Settings.SStatesMan_PathIso, Me.IsoFilename)
+        Else
+            Me.lbPCSX2Bin.Items.Add("Some settings are not valid. Please close this window.")
+        End If
+    End Sub
+
+    Private Sub frmPCSX2_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+        If Not (Me.PCSX2BinPathValid) Then
+            frmSettings.currentTab = 1
+            frmSettings.ShowDialog(frmMain)
+        ElseIf Not (Me.IsoPathValid) Then
+            frmSettings.currentTab = 0
+            frmSettings.ShowDialog(frmMain)
+        ElseIf Not (Me.IsoFilenameValid) Then
+            frmMain.GameList_Refresh()
+        End If
     End Sub
 
     Private Sub cmdCancel_Click(sender As Object, e As EventArgs) Handles cmdCancel.Click
@@ -72,7 +162,7 @@ Public NotInheritable Class frmPCSX2
     End Sub
 
     Private Sub cmdOk_Click(sender As Object, e As EventArgs) Handles cmdOk.Click
-        Me.PCSX2EXE_start(My.Settings.PCSX2_PathBin, Me.lbPCSX2exe.Text)
+        Me.PCSX2Bin_Launch(My.Settings.PCSX2_PathBin, Me.lbPCSX2Bin.Text, My.Settings.SStatesMan_PathIso, Me.IsoFilename)
         Me.Close()
     End Sub
 End Class

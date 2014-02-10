@@ -248,6 +248,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\Icon_GameIso.svg" />
+    <None Include="Resources\Icon_GameIso.png" />
     <None Include="Resources\Button_Dropdown.svg" />
     <None Include="Resources\Checkbox_Checked.svg" />
     <None Include="Resources\Checkbox_UnChecked.svg" />

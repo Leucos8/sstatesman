@@ -118,4 +118,30 @@ Module mdlMain
         End If
         Return pInputPath
     End Function
+
+    Friend Function SafeExistFolder(pPath As String) As Boolean
+        Try
+            If Directory.Exists(pPath) Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            'MessageBox.Show(String.Format("The folder ""{0}"" is not accessible, please reconfigure. {1}", pPath, ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
+    Friend Function SafeExistFile(pPath As String) As Boolean
+        Try
+            If File.Exists(pPath) Then
+                Return True
+            Else
+                Return False
+            End If
+        Catch ex As Exception
+            'MessageBox.Show(String.Format("The folder ""{0}"" is not accessible, please reconfigure. {1}", pPath, ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
 End Module

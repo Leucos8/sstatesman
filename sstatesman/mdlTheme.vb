@@ -75,7 +75,9 @@ Module mdlTheme
                                          My.Resources.InfoIcon_Information, _
                                          My.Resources.InfoIcon_Warning, _
                                          My.Resources.InfoIcon_Exclamation, _
-                                         My.Resources.InfoIcon_Error})
+                                         My.Resources.InfoIcon_Error, _
+                                         My.Resources.Icon_Cover, _
+                                         My.Resources.Icon_GameIso})
 
         Select Case pTheme
             Case eTheme.squares

@@ -31,7 +31,9 @@ Public NotInheritable Class frmDeleteForm
 
 #Region "Delete"
     Private Sub DeleteFiles(pPath As String)
-        Me.UI_Enable(False)
+        RemoveHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
+        Me.lvwDelFilesList.BeginUpdate()
+
         For Each tmpCheckedItem As ListViewItem In Me.lvwDelFilesList.CheckedItems
             Dim tmpGamesListItem As New mdlFileList.GameListItem
             If SSMGameList.Games.TryGetValue(tmpCheckedItem.Group.Name, tmpGamesListItem) Then
@@ -84,8 +86,11 @@ Public NotInheritable Class frmDeleteForm
 
 
         Next
+
+        AddHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
+        Me.lvwDelFilesList.EndUpdate()
+
         Me.UI_UpdateFileInfo()
-        Me.UI_Enable(True)
     End Sub
 #End Region
 
@@ -157,8 +162,6 @@ Public NotInheritable Class frmDeleteForm
     Private Sub frmDeleteForm_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         Dim sw As Stopwatch = Stopwatch.StartNew
 
-        Me.UI_Enable(False)
-
         '================
         'Resetting values
         '================
@@ -185,7 +188,8 @@ Public NotInheritable Class frmDeleteForm
         '                                                     Me.SStatesCH_Version.Width, Me.SStatesCH_Modified.Width, _
         '                                                     Me.SStatesCH_Size.Width, Me.SStatesCH_Status.Width}
 
-        Me.UI_Enable(True)
+        AddHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
+        Me.lvwDelFilesList.EndUpdate()
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Close, "Form closed.", sw.ElapsedTicks)
@@ -199,7 +203,6 @@ Public NotInheritable Class frmDeleteForm
 
 #Region "UI - General"
     Private Sub UI_SwitchMode(pListMode As ListMode)
-        Me.UI_Enable(False)
 
         Select Case pListMode
             Case ListMode.Savestates
@@ -223,7 +226,6 @@ Public NotInheritable Class frmDeleteForm
 
         SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.ListMode, String.Format("Switched to {0}.", pListMode.ToString))
         Me.DelFileList_Refresh()
-        Me.UI_Enable(True)
     End Sub
 
     ''' <summary>Handles the filelist beginupdate and endupdate methods</summary>
@@ -314,8 +316,14 @@ Public NotInheritable Class frmDeleteForm
 
 #Region "UI - FilesList"
     Private Sub DelFileList_Refresh()
+
+
         Me.DelFileList_AddFiles()
-        Me.DelFileList_indexChecked()
+
+        AddHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
+        Me.lvwDelFilesList.EndUpdate()
+
+        Me.DelFileList_IndexChecked()
         Me.UI_UpdateFileInfo()
     End Sub
 
@@ -449,8 +457,14 @@ Public NotInheritable Class frmDeleteForm
             Next
         End If
 
+        RemoveHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
+        Me.lvwDelFilesList.BeginUpdate()
+
         Me.lvwDelFilesList.Columns.Clear()
         Me.lvwDelFilesList.Columns.AddRange(tmpColumnHeaders.ToArray)
+
+        AddHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
+        Me.lvwDelFilesList.EndUpdate()
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.AddColumns, String.Format("Added columns to files listview for {0}.", pListMode), sw.ElapsedTicks)
@@ -494,7 +508,9 @@ Public NotInheritable Class frmDeleteForm
     End Sub
 
     Private Sub cmdFileCheckAll_Click(sender As Object, e As EventArgs) Handles cmdFileCheckAll.Click
-        Me.UI_Enable(False)
+        RemoveHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
+        Me.lvwDelFilesList.BeginUpdate()
+
         For lvwItemIndex = 0 To Me.lvwDelFilesList.Items.Count - 1
             If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag.Equals(DelFileStatus.Ready) Then
                 Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = True
@@ -502,21 +518,29 @@ Public NotInheritable Class frmDeleteForm
         Next
         Me.DelFileList_indexChecked()
         Me.UI_UpdateFileInfo()
-        Me.UI_Enable(True)
+
+        AddHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
+        Me.lvwDelFilesList.EndUpdate()
     End Sub
 
     Private Sub cmdFileCheckNone_Click(sender As Object, e As EventArgs) Handles cmdFileCheckNone.Click
-        Me.UI_Enable(False)
+        RemoveHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
+        Me.lvwDelFilesList.BeginUpdate()
+
         For lvwItemIndex = 0 To Me.lvwDelFilesList.Items.Count - 1
             Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = False
         Next
         Me.DelFileList_indexChecked()
         Me.UI_UpdateFileInfo()
-        Me.UI_Enable(True)
+
+        AddHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
+        Me.lvwDelFilesList.EndUpdate()
     End Sub
 
     Private Sub cmdFileCheckInvert_Click(sender As Object, e As EventArgs) Handles cmdFileCheckInvert.Click
-        Me.UI_Enable(False)
+        RemoveHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
+        Me.lvwDelFilesList.BeginUpdate()
+
         For lvwItemIndex = 0 To Me.lvwDelFilesList.Items.Count - 1
             If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag.Equals(DelFileStatus.Ready) Then
                 Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = Not (Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked)
@@ -526,11 +550,15 @@ Public NotInheritable Class frmDeleteForm
         Next
         Me.DelFileList_indexChecked()
         Me.UI_UpdateFileInfo()
-        Me.UI_Enable(True)
+
+        AddHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
+        Me.lvwDelFilesList.EndUpdate()
     End Sub
 
     Private Sub cmdFileCheckBackup_Click(sender As Object, e As EventArgs) Handles cmdFileCheckBackup.Click
-        Me.UI_Enable(False)
+        RemoveHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
+        Me.lvwDelFilesList.BeginUpdate()
+
         For lvwItemIndex As Integer = 0 To Me.lvwDelFilesList.Items.Count - 1
             If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Name.EndsWith(My.Settings.PCSX2_SStateExtBackup) Then
                 If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag.Equals(DelFileStatus.Ready) Then
@@ -542,7 +570,9 @@ Public NotInheritable Class frmDeleteForm
         Next
         Me.DelFileList_indexChecked()
         Me.UI_UpdateFileInfo()
-        Me.UI_Enable(True)
+
+        AddHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
+        Me.lvwDelFilesList.EndUpdate()
     End Sub
 
     Private Sub lvwDelFilesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs)

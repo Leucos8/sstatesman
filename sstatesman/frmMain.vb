@@ -22,8 +22,9 @@ Public NotInheritable Class frmMain
 
     'Stores the current game information displayed in the game information section
     Dim currentGameInfo As New GameInfo
+    'Dim currentIsoFileName As String = ""
     'Current snapshot path (for loading current screenshots in the preview)
-    Dim currentSnapshotPath As String
+    Dim currentSnapshotFullname As String = ""
 
     'Current size in bytes of the selected items
     Dim GameList_SelectedSize As Long = 0
@@ -38,9 +39,9 @@ Public NotInheritable Class frmMain
 #Region "Form"
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Dim sw As Stopwatch = Stopwatch.StartNew
-        Dim tmpTicks As Long = 0
+        Dim tmpPartialTicks As Long = 0
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "Load start.")
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "Start.")
         '===========================
         'Settings, theme & resources
         '===========================
@@ -59,10 +60,10 @@ Public NotInheritable Class frmMain
             mdlMain.FirstRun()
         Else
             'Checks if there are some invalid settings
-            My.Settings.SStatesMan_SettingsOK = PCSX2_PathAll_Check(My.Settings.PCSX2_PathBin, _
-                                                                    My.Settings.PCSX2_PathInis, _
-                                                                    My.Settings.PCSX2_PathSState, _
-                                                                    My.Settings.PCSX2_PathSnaps)
+            My.Settings.SStatesMan_SettingsOK = mdlPCSX2Settings.PCSX2_PathAll_Check(My.Settings.PCSX2_PathBin, _
+                                                                                     My.Settings.PCSX2_PathInis, _
+                                                                                     My.Settings.PCSX2_PathSState, _
+                                                                                     My.Settings.PCSX2_PathSnaps)
         End If
 
         If Not (My.Settings.SStatesMan_SettingsOK) Then
@@ -98,6 +99,7 @@ Public NotInheritable Class frmMain
         '-----
         'Theme
         '-----
+        Me.FormDescription = My.Application.Info.Description
         Me.flpWindowBottom.Visible = False
         Me.tlpWindowTop.Controls.Add(Me.flpTitleBarToolbar, 1, 0)
         Me.tlpWindowTop.Controls.Add(Me.lblWindowVersion, 1, 1)
@@ -116,11 +118,9 @@ Public NotInheritable Class frmMain
         Me.lvwGamesList.StateImageList = mdlTheme.imlLvwCheckboxes  'Assigning the imagelist to the Games listview
         Me.lvwFilesList.StateImageList = mdlTheme.imlLvwCheckboxes  'Assigning the imagelist to the Files listview
 
-        'Savestates, backup, and screenshot icons
+        'ListViewItem icons
+        Me.lvwGamesList.SmallImageList = mdlTheme.imlLvwItemIcons   'Assigning the imagelist to the Files listview
         Me.lvwFilesList.SmallImageList = mdlTheme.imlLvwItemIcons   'Assigning the imagelist to the Files listview
-
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "1/2 Layout & resources setup.", sw.ElapsedTicks)
-        tmpTicks = sw.ElapsedTicks
 
         '---------------
         'Window settings
@@ -137,9 +137,12 @@ Public NotInheritable Class frmMain
         Me.SplitContainer1.SplitterDistance = My.Settings.frmMain_SplitterDistance
 
 
-        Me.UI_Enable(False, True)
 
         'Games list columns size
+        RemoveHandler Me.lvwGamesList.ItemChecked, AddressOf Me.lvwGamesList_ItemChecked
+        RemoveHandler Me.lvwGamesList.ItemSelectionChanged, AddressOf Me.lvwGamesList_ItemSelectionChanged
+        Me.lvwGamesList.BeginUpdate()
+
         If My.Settings.frmMain_glvw_columnwidth IsNot Nothing Then
             If My.Settings.frmMain_glvw_columnwidth.Length = Me.lvwGamesList.Columns.Count Then
                 For i As Integer = 0 To Me.lvwGamesList.Columns.Count - 1
@@ -167,8 +170,8 @@ Public NotInheritable Class frmMain
             Me.cmdSStatesLvwExpand_Click(Nothing, Nothing)
         End If
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "2/3 Saved window sizes applied.", sw.ElapsedTicks - tmpTicks)
-        tmpTicks = sw.ElapsedTicks
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "Saved window settings applied.", sw.ElapsedTicks - tmpPartialTicks)
+        tmpPartialTicks = sw.ElapsedTicks
 
         '===============================
         'Post file load form preparation
@@ -177,13 +180,16 @@ Public NotInheritable Class frmMain
         Me.GameList_AddGames()
         Me.UI_SwitchMode(ListMode.Savestates)
 
+        AddHandler Me.lvwGamesList.ItemChecked, AddressOf Me.lvwGamesList_ItemChecked
+        AddHandler Me.lvwGamesList.ItemSelectionChanged, AddressOf Me.lvwGamesList_ItemSelectionChanged
+        Me.lvwGamesList.EndUpdate()
 
         'Timer auto refresh
         Me.tmrSStatesListRefresh.Enabled = My.Settings.SStatesMan_SStatesListAutoRefresh
 
-        Me.UI_Enable(True, True)
+        'Me.UI_Enable(True, True)
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "3/3 Listed games/files and other things.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "Listed games/files and other things.", sw.ElapsedTicks - tmpPartialTicks)
         'tmpTicks = sw.ElapsedTicks
 
         sw.Stop()
@@ -215,7 +221,6 @@ Public NotInheritable Class frmMain
 
 #Region "UI - General"
     Private Sub UI_SwitchMode(pListMode As ListMode)
-        Me.UI_Enable(False)
 
         Select Case pListMode
             Case ListMode.Savestates
@@ -249,38 +254,12 @@ Public NotInheritable Class frmMain
 
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.ListMode, String.Format("Switched to {0}.", pListMode.ToString))
         Me.FileList_Refresh()
-        Me.UI_Enable(True)
-    End Sub
-
-    ''' <summary>Handles the gamelist and file list beginupdate and endupdate methods</summary>
-    ''' <param name="pSwitch">True to end the update, False to begin the update</param>
-    Private Sub UI_Enable(pSwitch As Boolean, Optional pGamesList_included As Boolean = False)
-        If pSwitch Then
-            If pGamesList_included Then
-                AddHandler Me.lvwGamesList.ItemChecked, AddressOf Me.lvwGamesList_ItemChecked
-                AddHandler Me.lvwGamesList.ItemSelectionChanged, AddressOf Me.lvwGamesList_ItemSelectionChanged
-                Me.lvwGamesList.EndUpdate()
-            End If
-            AddHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
-            AddHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
-            Me.lvwFilesList.EndUpdate()
-        Else
-            If pGamesList_included Then
-                Me.lvwGamesList.BeginUpdate()
-                RemoveHandler Me.lvwGamesList.ItemChecked, AddressOf Me.lvwGamesList_ItemChecked
-                RemoveHandler Me.lvwGamesList.ItemSelectionChanged, AddressOf Me.lvwGamesList_ItemSelectionChanged
-            End If
-            Me.lvwFilesList.BeginUpdate()
-            RemoveHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
-            RemoveHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
-        End If
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.UI_Enable, pSwitch.ToString)
+        'Me.UI_Enable(True)
     End Sub
 
     ''' <summary>Updates the UI status, game info and file info.</summary>
     Private Sub UI_Update()
         Dim sw As Stopwatch = Stopwatch.StartNew
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.UI_Update, "Status update start.")
 
         Me.UI_UpdateGameInfo()
         Me.UI_UpdateFileInfo()
@@ -353,6 +332,12 @@ Public NotInheritable Class frmMain
                     Me.imgCover.Dock = DockStyle.None
                 End If
 
+                'IsoFiles
+                Me.cmdGamePlay.Enabled = False
+                Me.cmiPCSX2Play.Enabled = False
+                Me.cmiPCSX2Play.Text = "(Multiple games)"
+                Me.cmiPCSX2Play.ToolTipText = ""
+
             Else
                 '---------------------------------
                 'No more than one game is selected/checked
@@ -386,6 +371,18 @@ Public NotInheritable Class frmMain
                     End If
                     Me.imgCover.Dock = DockStyle.None
                 End If
+
+                'IsoFile
+                If SSMGameList.Games(currentGameInfo.Serial).GameIso = "" Then
+                    Me.cmdGamePlay.Enabled = False
+                    Me.cmiPCSX2Play.Enabled = False
+                    Me.cmiPCSX2Play.Text = "(No Iso file found)"
+                Else
+                    Me.cmdGamePlay.Enabled = True
+                    Me.cmiPCSX2Play.Enabled = True
+                    Me.cmiPCSX2Play.Text = String.Format("Play {0}...", currentGameInfo.Serial)
+                End If
+                Me.cmiPCSX2Play.ToolTipText = SSMGameList.Games(currentGameInfo.Serial).GameIso
             End If
 
         Else
@@ -416,6 +413,11 @@ Public NotInheritable Class frmMain
 
             Me.cmdGameSelectNone.Enabled = False
             Me.cmdGameSelectNone.Visible = False
+
+            Me.cmdGamePlay.Enabled = False
+            Me.cmiPCSX2Play.Enabled = False
+            Me.cmiPCSX2Play.Text = "(No game selected)"
+            Me.cmiPCSX2Play.ToolTipText = ""
 
             If SSMGameList.Games.Count = 0 Then
                 '================
@@ -519,13 +521,19 @@ Public NotInheritable Class frmMain
 
 #Region "UI - Gamelist"
     Friend Sub GameList_Refresh()
-        Me.UI_Enable(False, True)
-
         SSMGameList.Load(My.Settings.PCSX2_PathSState, My.Settings.SStatesMan_PathStored, My.Settings.PCSX2_PathSnaps)
 
+        RemoveHandler Me.lvwGamesList.ItemChecked, AddressOf Me.lvwGamesList_ItemChecked
+        RemoveHandler Me.lvwGamesList.ItemSelectionChanged, AddressOf Me.lvwGamesList_ItemSelectionChanged
+        Me.lvwGamesList.BeginUpdate()
+
         Me.GameList_AddGames()
+
+        AddHandler Me.lvwGamesList.ItemChecked, AddressOf Me.lvwGamesList_ItemChecked
+        AddHandler Me.lvwGamesList.ItemSelectionChanged, AddressOf Me.lvwGamesList_ItemSelectionChanged
+        Me.lvwGamesList.EndUpdate()
+
         Me.FileList_Refresh()
-        Me.UI_Enable(True, True)
     End Sub
 
     Private Sub GameList_AddGames()
@@ -582,6 +590,13 @@ Public NotInheritable Class frmMain
                 newLvwItem.SubItems.Add("None")
             End If
 
+            'Icon
+            If tmpGameListItem.Value.GameIso = "" Then
+                newLvwItem.ImageIndex = 7
+            Else
+                newLvwItem.ImageIndex = 8
+            End If
+
             'If it was previously checked/selected the check/select it again
             If Me.checkedGames.Contains(currentGameInfo.Serial) Then
                 If Me.checkedGames.Count = 1 Then
@@ -620,37 +635,47 @@ Public NotInheritable Class frmMain
     End Sub
 
     Private Sub cmdGameSelectAll_Click(sender As Object, e As EventArgs) Handles cmdGameSelectAll.Click
-        Me.UI_Enable(False, True)
+        RemoveHandler Me.lvwGamesList.ItemChecked, AddressOf Me.lvwGamesList_ItemChecked
+        RemoveHandler Me.lvwGamesList.ItemSelectionChanged, AddressOf Me.lvwGamesList_ItemSelectionChanged
+        Me.lvwGamesList.BeginUpdate()
+
         For i = 0 To Me.lvwGamesList.Items.Count - 1
             Me.lvwGamesList.Items.Item(i).Checked = True
         Next
+
+        AddHandler Me.lvwGamesList.ItemChecked, AddressOf Me.lvwGamesList_ItemChecked
+        AddHandler Me.lvwGamesList.ItemSelectionChanged, AddressOf Me.lvwGamesList_ItemSelectionChanged
+        Me.lvwGamesList.EndUpdate()
+
         Me.FileList_Refresh()
-        Me.UI_Enable(True, True)
     End Sub
 
     Private Sub cmdGameSelectNone_Click(sender As Object, e As EventArgs) Handles cmdGameSelectNone.Click
-        Me.UI_Enable(False, True)
+        RemoveHandler Me.lvwGamesList.ItemChecked, AddressOf Me.lvwGamesList_ItemChecked
+        RemoveHandler Me.lvwGamesList.ItemSelectionChanged, AddressOf Me.lvwGamesList_ItemSelectionChanged
+        Me.lvwGamesList.BeginUpdate()
+
         For i = 0 To Me.lvwGamesList.Items.Count - 1
             Me.lvwGamesList.Items.Item(i).Checked = False
         Next
+
+        AddHandler Me.lvwGamesList.ItemChecked, AddressOf Me.lvwGamesList_ItemChecked
+        AddHandler Me.lvwGamesList.ItemSelectionChanged, AddressOf Me.lvwGamesList_ItemSelectionChanged
+        Me.lvwGamesList.EndUpdate()
+
         Me.FileList_Refresh()
-        Me.UI_Enable(True, True)
     End Sub
 
     Private Sub lvwGamesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs)
         'SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.GameListview, "Checked games changed.")
-        Me.UI_Enable(False)
         Me.FileList_Refresh()
-        Me.UI_Enable(True)
     End Sub
 
     Private Sub lvwGamesList_ItemSelectionChanged(sender As Object, e As ListViewItemSelectionChangedEventArgs)
         'If (Me.lvwGamesList.CheckedItems.Count = 0) And ((Me.lvwGamesList.SelectedItems.Count > 0) Or (Me.lvwGamesList.Items.Count = 0)) Then
         If Me.lvwGamesList.CheckedItems.Count = 0 Then
             'SSMAppLog.Append(LogEventType.tInformation, eSrc.MainWindow, "GamesList", "Selected game changed.")
-            'Me.UI_Enable(False)
             'Me.List_RefreshFiles()
-            'Me.UI_Enable(True)
             Me.tmrSelectedItemChanged.Enabled = True
         End If
     End Sub
@@ -659,9 +684,7 @@ Public NotInheritable Class frmMain
         Me.tmrSelectedItemChanged.Enabled = False
         If Me.lvwGamesList.CheckedItems.Count = 0 Then
             'SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.GameListview, "Selected game changed.")
-            Me.UI_Enable(False)
             Me.FileList_Refresh()
-            Me.UI_Enable(True)
         End If
     End Sub
 #End Region
@@ -669,7 +692,17 @@ Public NotInheritable Class frmMain
 #Region "UI - FileList"
     Private Sub FileList_Refresh()
         Me.GameList_IndexChecked()
+
+        RemoveHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
+        RemoveHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
+        Me.lvwFilesList.BeginUpdate()
+
         Me.FileList_AddFiles()
+
+        AddHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
+        AddHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
+        Me.lvwFilesList.EndUpdate()
+
         Me.FileList_IndexChecked()
         Me.UI_Update()
     End Sub
@@ -819,8 +852,16 @@ Public NotInheritable Class frmMain
             Next
         End If
 
+        RemoveHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
+        RemoveHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
+        Me.lvwFilesList.BeginUpdate()
+
         Me.lvwFilesList.Columns.Clear()
         Me.lvwFilesList.Columns.AddRange(tmpColumnHeaders.ToArray)
+
+        AddHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
+        AddHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
+        Me.lvwFilesList.EndUpdate()
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.AddColumns, String.Format("Added columns to files listview for {0}.", pListMode), sw.ElapsedTicks)
@@ -859,37 +900,58 @@ Public NotInheritable Class frmMain
     End Sub
 
     Private Sub cmdFileCheckAll_Click(sender As Object, e As EventArgs) Handles cmdFileCheckAll.Click
-        Me.UI_Enable(False)
+        RemoveHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
+        RemoveHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
+        Me.lvwFilesList.BeginUpdate()
+
         For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
             Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = True
         Next
         Me.FileList_IndexChecked()
         Me.UI_UpdateFileInfo()
-        Me.UI_Enable(True)
+
+        AddHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
+        AddHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
+        Me.lvwFilesList.EndUpdate()
     End Sub
 
     Private Sub cmdFileCheckNone_Click(sender As Object, e As EventArgs) Handles cmdFileCheckNone.Click
-        Me.UI_Enable(False)
+        RemoveHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
+        RemoveHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
+        Me.lvwFilesList.BeginUpdate()
+
         For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
             Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = False
         Next
         Me.FileList_IndexChecked()
         Me.UI_UpdateFileInfo()
-        Me.UI_Enable(True)
+
+        AddHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
+        AddHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
+        Me.lvwFilesList.EndUpdate()
     End Sub
 
     Private Sub cmdFileCheckInvert_Click(sender As Object, e As EventArgs) Handles cmdFileCheckInvert.Click
-        Me.UI_Enable(False)
+        RemoveHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
+        RemoveHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
+        Me.lvwFilesList.BeginUpdate()
+
         For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
             Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = Not (Me.lvwFilesList.Items.Item(lvwItemIndex).Checked)
         Next
         Me.FileList_IndexChecked()
         Me.UI_UpdateFileInfo()
-        Me.UI_Enable(True)
+
+        AddHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
+        AddHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
+        Me.lvwFilesList.EndUpdate()
     End Sub
 
     Private Sub cmdFileCheckBackup_Click(sender As Object, e As EventArgs) Handles cmdFileCheckBackup.Click
-        Me.UI_Enable(False)
+        RemoveHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
+        RemoveHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
+        Me.lvwFilesList.BeginUpdate()
+
         For lvwItemIndex = 0 To Me.lvwFilesList.Items.Count - 1
             If Me.lvwFilesList.Items.Item(lvwItemIndex).Name.EndsWith(My.Settings.PCSX2_SStateExtBackup) Then
                 Me.lvwFilesList.Items.Item(lvwItemIndex).Checked = True
@@ -899,7 +961,10 @@ Public NotInheritable Class frmMain
         Next
         Me.FileList_IndexChecked()
         Me.UI_UpdateFileInfo()
-        Me.UI_Enable(True)
+
+        AddHandler Me.lvwFilesList.ItemChecked, AddressOf Me.lvwFilesList_ItemChecked
+        AddHandler Me.lvwFilesList.SelectedIndexChanged, AddressOf Me.lvwFilesList_SelectedIndexChanged
+        Me.lvwFilesList.EndUpdate()
     End Sub
 
     Private Sub lvwFilesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs)
@@ -911,19 +976,17 @@ Public NotInheritable Class frmMain
     Private Sub lvwFilesList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvwFilesList.SelectedIndexChanged
         If Me.frmMainListMode = ListMode.Snapshots Then
             If CType(sender, ListView).SelectedItems.Count = 1 Then
-                Me.UI_Enable(False)
 
-                Me.currentSnapshotPath = Path.Combine(My.Settings.PCSX2_PathSnaps, Me.lvwFilesList.SelectedItems(0).Name)
+                Me.currentSnapshotFullname = Path.Combine(My.Settings.PCSX2_PathSnaps, Me.lvwFilesList.SelectedItems(0).Name)
 
                 If bwLoadScreenshot.IsBusy = False Then
-                    bwLoadScreenshot.RunWorkerAsync(Me.currentSnapshotPath)
+                    bwLoadScreenshot.RunWorkerAsync(Me.currentSnapshotFullname)
                 ElseIf bwLoadScreenshot.WorkerSupportsCancellation Then
                     bwLoadScreenshot.CancelAsync()
                 End If
 
                 Me.FileList_IndexChecked()
                 Me.UI_UpdateFileInfo()
-                Me.UI_Enable(True)
             Else
                 Me.imgScreenshotThumb.Image = My.Resources.Extra_ClearImage_30x20
             End If
@@ -947,11 +1010,21 @@ Public NotInheritable Class frmMain
 
 #Region "Form - PCSX2 menu"
     Private Sub cmPCSX2_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmPCSX2.Opening
-        Me.cmiPCSX2BinFolderOpen.Enabled = SafeExistFolder(My.Settings.PCSX2_PathBin)
-        Me.cmiPCSX2IniFolderOpen.Enabled = SafeExistFolder(My.Settings.PCSX2_PathInis)
+        Me.cmiPCSX2BinFolderOpen.Enabled = mdlMain.SafeExistFolder(My.Settings.PCSX2_PathBin)
+        Me.cmiPCSX2IniFolderOpen.Enabled = mdlMain.SafeExistFolder(My.Settings.PCSX2_PathInis)
+        Me.cmiPCSX2Launch.Enabled = Me.cmiPCSX2BinFolderOpen.Enabled
+        If Not (Me.cmiPCSX2BinFolderOpen.Enabled) Then
+            Me.cmiPCSX2Play.Enabled = Me.cmiPCSX2BinFolderOpen.Enabled
+        End If
     End Sub
 
     Private Sub cmiPCSX2Launch_Click(sender As Object, e As EventArgs) Handles cmiPCSX2Launch.Click
+        frmPCSX2.IsoFilename = ""
+        frmPCSX2.ShowDialog(Me)
+    End Sub
+
+    Private Sub cmiPCSX2Play_Click(sender As Object, e As EventArgs) Handles cmiPCSX2Play.Click, cmdGamePlay.Click
+        frmPCSX2.IsoFilename = Me.cmiPCSX2Play.ToolTipText
         frmPCSX2.ShowDialog(Me)
     End Sub
 
@@ -962,19 +1035,6 @@ Public NotInheritable Class frmMain
     Private Sub cmiPCSX2IniFolderOpen_Click(sender As Object, e As EventArgs) Handles cmiPCSX2IniFolderOpen.Click
         Me.SafeOpenFolder(My.Settings.PCSX2_PathInis, 1)
     End Sub
-
-    Private Function SafeExistFolder(pPath As String) As Boolean
-        Try
-            If Directory.Exists(pPath) Then
-                Return True
-            Else
-                Return False
-            End If
-        Catch ex As Exception
-            'MessageBox.Show(String.Format("The folder ""{0}"" is not accessible, please reconfigure. {1}", pPath, ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            Return False
-        End Try
-    End Function
 
     Private Sub SafeOpenFolder(pPath As String, Optional pSettingTab As Integer = 0)
         Try
@@ -1004,10 +1064,11 @@ Public NotInheritable Class frmMain
 
 #Region "Form - User Folders Menu"
     Private Sub cmFolders_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmFolders.Opening
-        Me.cmiFoldersSStatesOpen.Enabled = SafeExistFolder(My.Settings.PCSX2_PathSState)
-        Me.cmiFoldersSnapsOpen.Enabled = SafeExistFolder(My.Settings.PCSX2_PathSnaps)
-        Me.cmiFoldersStoredOpen.Enabled = SafeExistFolder(My.Settings.SStatesMan_PathStored)
-        Me.cmiFoldersCoverOpen.Enabled = SafeExistFolder(My.Settings.SStatesMan_PathPics)
+        Me.cmiFoldersSStatesOpen.Enabled = mdlMain.SafeExistFolder(My.Settings.PCSX2_PathSState)
+        Me.cmiFoldersSnapsOpen.Enabled = mdlMain.SafeExistFolder(My.Settings.PCSX2_PathSnaps)
+        Me.cmiFoldersStoredOpen.Enabled = mdlMain.SafeExistFolder(My.Settings.SStatesMan_PathStored)
+        Me.cmiFoldersIsoOpen.Enabled = mdlMain.SafeExistFolder(My.Settings.SStatesMan_PathIso)
+        Me.cmiFoldersCoverOpen.Enabled = mdlMain.SafeExistFolder(My.Settings.SStatesMan_PathPics)
     End Sub
 
     Private Sub cmiFoldersSStatesOpen_Click(sender As Object, e As EventArgs) Handles cmiFoldersSStatesOpen.Click
@@ -1020,6 +1081,10 @@ Public NotInheritable Class frmMain
 
     Private Sub cmiFoldersStoredOpen_Click(sender As Object, e As EventArgs) Handles cmiFoldersStoredOpen.Click
         Me.SafeOpenFolder(My.Settings.SStatesMan_PathStored, 0)
+    End Sub
+
+    Private Sub cmiFoldersIsoOpen_Click(sender As Object, e As EventArgs) Handles cmiFoldersIsoOpen.Click
+        Me.SafeOpenFolder(My.Settings.SStatesMan_PathIso, 0)
     End Sub
 
     Private Sub cmiFoldersCoverOpen_Click(sender As Object, e As EventArgs) Handles cmiFoldersCoverOpen.Click
@@ -1295,8 +1360,8 @@ Public NotInheritable Class frmMain
         If Not (e.Cancelled) Then
             Me.imgScreenshotThumb.Image = CType(ConvertedResults(0), Image)
         End If
-        If (CType(ConvertedResults(1), String) <> Me.currentSnapshotPath) AndAlso Not bwLoadScreenshot.IsBusy Then
-            bwLoadScreenshot.RunWorkerAsync(Me.currentSnapshotPath)
+        If (CType(ConvertedResults(1), String) <> Me.currentSnapshotFullname) AndAlso Not bwLoadScreenshot.IsBusy Then
+            bwLoadScreenshot.RunWorkerAsync(Me.currentSnapshotFullname)
         End If
     End Sub
 #End Region

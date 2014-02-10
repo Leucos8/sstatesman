@@ -38,18 +38,20 @@ Partial Class frmPCSX2
     Private Sub InitializeComponent()
         Me.cmdOk = New System.Windows.Forms.Button()
         Me.cmdCancel = New System.Windows.Forms.Button()
-        Me.lbPCSX2exe = New System.Windows.Forms.ListBox()
+        Me.lbPCSX2Bin = New System.Windows.Forms.ListBox()
         Me.lblPlease = New System.Windows.Forms.Label()
         Me.lblTroubleshoot = New System.Windows.Forms.Label()
         Me.tlpFormContent = New System.Windows.Forms.TableLayoutPanel()
-        Me.lblPath = New System.Windows.Forms.Label()
+        Me.txtSStatesManPathIso = New System.Windows.Forms.TextBox()
+        Me.lblIsoPath = New System.Windows.Forms.Label()
+        Me.txtPCSX2PathBin = New System.Windows.Forms.TextBox()
         Me.tlpFormContent.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlWindowTop
         '
         Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.pnlWindowTop.Size = New System.Drawing.Size(344, 46)
+        Me.pnlWindowTop.Size = New System.Drawing.Size(404, 46)
         '
         'cmdOk
         '
@@ -65,7 +67,7 @@ Partial Class frmPCSX2
         Me.cmdOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdOk.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdOk.Location = New System.Drawing.Point(125, 251)
+        Me.cmdOk.Location = New System.Drawing.Point(185, 286)
         Me.cmdOk.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdOk.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdOk.Name = "cmdOk"
@@ -87,7 +89,7 @@ Partial Class frmPCSX2
         Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdCancel.Location = New System.Drawing.Point(233, 251)
+        Me.cmdCancel.Location = New System.Drawing.Point(293, 286)
         Me.cmdCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdCancel.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdCancel.Name = "cmdCancel"
@@ -96,16 +98,16 @@ Partial Class frmPCSX2
         Me.cmdCancel.Text = "&CANCEL"
         Me.cmdCancel.UseVisualStyleBackColor = False
         '
-        'lbPCSX2exe
+        'lbPCSX2Bin
         '
-        Me.lbPCSX2exe.BackColor = System.Drawing.Color.White
-        Me.lbPCSX2exe.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lbPCSX2exe.ForeColor = System.Drawing.Color.Black
-        Me.lbPCSX2exe.FormattingEnabled = True
-        Me.lbPCSX2exe.Location = New System.Drawing.Point(9, 26)
-        Me.lbPCSX2exe.Name = "lbPCSX2exe"
-        Me.lbPCSX2exe.Size = New System.Drawing.Size(381, 134)
-        Me.lbPCSX2exe.TabIndex = 10
+        Me.lbPCSX2Bin.BackColor = System.Drawing.Color.White
+        Me.lbPCSX2Bin.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lbPCSX2Bin.ForeColor = System.Drawing.Color.Black
+        Me.lbPCSX2Bin.FormattingEnabled = True
+        Me.lbPCSX2Bin.Location = New System.Drawing.Point(9, 26)
+        Me.lbPCSX2Bin.Name = "lbPCSX2Bin"
+        Me.lbPCSX2Bin.Size = New System.Drawing.Size(302, 96)
+        Me.lbPCSX2Bin.TabIndex = 10
         '
         'lblPlease
         '
@@ -119,46 +121,71 @@ Partial Class frmPCSX2
         '
         'lblTroubleshoot
         '
-        Me.lblTroubleshoot.AutoSize = True
-        Me.lblTroubleshoot.Dock = System.Windows.Forms.DockStyle.Top
+        Me.lblTroubleshoot.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lblTroubleshoot.ForeColor = System.Drawing.Color.DimGray
-        Me.lblTroubleshoot.Location = New System.Drawing.Point(9, 180)
+        Me.lblTroubleshoot.Location = New System.Drawing.Point(9, 153)
         Me.lblTroubleshoot.Name = "lblTroubleshoot"
-        Me.lblTroubleshoot.Size = New System.Drawing.Size(381, 39)
+        Me.lblTroubleshoot.Size = New System.Drawing.Size(302, 23)
         Me.lblTroubleshoot.TabIndex = 13
-        Me.lblTroubleshoot.Text = "If your current PCSX2 version is not listed here then:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "1. check your currently c" & _
-    "onfigured PCSX2 path in Settings > PCSX2 paths," & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "2. make sure the PCSX2 executab" & _
-    "le file name starts with ""PCSX2""."
+        Me.lblTroubleshoot.Text = "You can change the configured PCSX2 path in Config > Settings > PCSX2 paths tab. " & _
+    "In order to be listed here, PCSX2 executables must have a filename starting with" & _
+    " ""PCSX2""."
         '
         'tlpFormContent
         '
         Me.tlpFormContent.AutoSize = True
         Me.tlpFormContent.ColumnCount = 1
         Me.tlpFormContent.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpFormContent.Controls.Add(Me.txtSStatesManPathIso, 0, 5)
+        Me.tlpFormContent.Controls.Add(Me.lblIsoPath, 0, 4)
         Me.tlpFormContent.Controls.Add(Me.lblTroubleshoot, 0, 3)
-        Me.tlpFormContent.Controls.Add(Me.lbPCSX2exe, 0, 1)
+        Me.tlpFormContent.Controls.Add(Me.lbPCSX2Bin, 0, 1)
         Me.tlpFormContent.Controls.Add(Me.lblPlease, 0, 0)
-        Me.tlpFormContent.Controls.Add(Me.lblPath, 0, 2)
-        Me.tlpFormContent.Location = New System.Drawing.Point(0, 49)
+        Me.tlpFormContent.Controls.Add(Me.txtPCSX2PathBin, 0, 2)
+        Me.tlpFormContent.Location = New System.Drawing.Point(11, 52)
         Me.tlpFormContent.Name = "tlpFormContent"
         Me.tlpFormContent.Padding = New System.Windows.Forms.Padding(6)
-        Me.tlpFormContent.RowCount = 4
+        Me.tlpFormContent.RowCount = 6
         Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFormContent.Size = New System.Drawing.Size(399, 225)
+        Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpFormContent.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpFormContent.Size = New System.Drawing.Size(320, 231)
         Me.tlpFormContent.TabIndex = 13
         '
-        'lblPath
+        'txtSStatesManPathIso
         '
-        Me.lblPath.AutoSize = True
-        Me.lblPath.Location = New System.Drawing.Point(9, 163)
-        Me.lblPath.Name = "lblPath"
-        Me.lblPath.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
-        Me.lblPath.Size = New System.Drawing.Size(31, 17)
-        Me.lblPath.TabIndex = 14
-        Me.lblPath.Text = "path"
+        Me.txtSStatesManPathIso.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtSStatesManPathIso.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtSStatesManPathIso.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtSStatesManPathIso.Location = New System.Drawing.Point(9, 200)
+        Me.txtSStatesManPathIso.Name = "txtSStatesManPathIso"
+        Me.txtSStatesManPathIso.Size = New System.Drawing.Size(302, 22)
+        Me.txtSStatesManPathIso.TabIndex = 17
+        '
+        'lblIsoPath
+        '
+        Me.lblIsoPath.AutoSize = True
+        Me.lblIsoPath.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblIsoPath.Location = New System.Drawing.Point(9, 176)
+        Me.lblIsoPath.Name = "lblIsoPath"
+        Me.lblIsoPath.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
+        Me.lblIsoPath.Size = New System.Drawing.Size(123, 21)
+        Me.lblIsoPath.TabIndex = 15
+        Me.lblIsoPath.Text = "Disc image file path"
+        '
+        'txtPCSX2PathBin
+        '
+        Me.txtPCSX2PathBin.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtPCSX2PathBin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtPCSX2PathBin.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtPCSX2PathBin.Location = New System.Drawing.Point(9, 128)
+        Me.txtPCSX2PathBin.Name = "txtPCSX2PathBin"
+        Me.txtPCSX2PathBin.Size = New System.Drawing.Size(302, 22)
+        Me.txtPCSX2PathBin.TabIndex = 16
         '
         'frmPCSX2
         '
@@ -166,7 +193,7 @@ Partial Class frmPCSX2
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoSize = True
         Me.CancelButton = Me.cmdCancel
-        Me.ClientSize = New System.Drawing.Size(344, 286)
+        Me.ClientSize = New System.Drawing.Size(404, 321)
         Me.Controls.Add(Me.tlpFormContent)
         Me.Controls.Add(Me.cmdOk)
         Me.Controls.Add(Me.cmdCancel)
@@ -183,10 +210,12 @@ Partial Class frmPCSX2
 
     End Sub
     Private WithEvents cmdOk As System.Windows.Forms.Button
-    Private WithEvents lbPCSX2exe As System.Windows.Forms.ListBox
+    Private WithEvents lbPCSX2Bin As System.Windows.Forms.ListBox
     Private WithEvents cmdCancel As System.Windows.Forms.Button
     Private WithEvents lblPlease As System.Windows.Forms.Label
     Private WithEvents lblTroubleshoot As System.Windows.Forms.Label
     Private WithEvents tlpFormContent As System.Windows.Forms.TableLayoutPanel
-    Private WithEvents lblPath As System.Windows.Forms.Label
+    Private WithEvents lblIsoPath As System.Windows.Forms.Label
+    Private WithEvents txtPCSX2PathBin As System.Windows.Forms.TextBox
+    Private WithEvents txtSStatesManPathIso As System.Windows.Forms.TextBox
 End Class

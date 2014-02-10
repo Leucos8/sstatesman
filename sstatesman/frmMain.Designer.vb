@@ -74,6 +74,7 @@ Partial Class frmMain
         Me.lblGameList_Serial = New System.Windows.Forms.Label()
         Me.txtGameList_Serial = New System.Windows.Forms.TextBox()
         Me.tlpGameListCommands = New System.Windows.Forms.TableLayoutPanel()
+        Me.cmdGamePlay = New System.Windows.Forms.Button()
         Me.flpGameListCommandsCheck = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdGameSelectInvert = New System.Windows.Forms.Button()
         Me.cmdGameSelectNone = New System.Windows.Forms.Button()
@@ -487,7 +488,6 @@ Partial Class frmMain
         'GameLvw_GameRegion
         '
         Me.GameLvw_GameRegion.Text = "Region"
-        Me.GameLvw_GameRegion.Width = 40
         '
         'GameLvw_SStatesInfo
         '
@@ -677,9 +677,10 @@ Partial Class frmMain
         Me.tlpGameListCommands.AutoSize = True
         Me.tlpGameListCommands.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.tlpGameListCommands.ColumnCount = 3
-        Me.tlpGameListCommands.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
+        Me.tlpGameListCommands.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.tlpGameListCommands.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpGameListCommands.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpGameListCommands.Controls.Add(Me.cmdGamePlay, 0, 0)
         Me.tlpGameListCommands.Controls.Add(Me.flpGameListCommandsCheck, 2, 0)
         Me.tlpGameListCommands.Dock = System.Windows.Forms.DockStyle.Top
         Me.tlpGameListCommands.Location = New System.Drawing.Point(8, 0)
@@ -690,6 +691,27 @@ Partial Class frmMain
         Me.tlpGameListCommands.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpGameListCommands.Size = New System.Drawing.Size(590, 22)
         Me.tlpGameListCommands.TabIndex = 31
+        '
+        'cmdGamePlay
+        '
+        Me.cmdGamePlay.AutoSize = True
+        Me.cmdGamePlay.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdGamePlay.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.cmdGamePlay.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdGamePlay.FlatAppearance.BorderSize = 0
+        Me.cmdGamePlay.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdGamePlay.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdGamePlay.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdGamePlay.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdGamePlay.Image = Global.sstatesman.My.Resources.Resources.Icon_GamePlay
+        Me.cmdGamePlay.Location = New System.Drawing.Point(16, 0)
+        Me.cmdGamePlay.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdGamePlay.Name = "cmdGamePlay"
+        Me.cmdGamePlay.Size = New System.Drawing.Size(57, 22)
+        Me.cmdGamePlay.TabIndex = 35
+        Me.cmdGamePlay.Text = "PLAY..."
+        Me.cmdGamePlay.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.cmdGamePlay.UseVisualStyleBackColor = False
         '
         'flpGameListCommandsCheck
         '
@@ -1159,7 +1181,6 @@ Partial Class frmMain
         Me.cmiPCSX2Play.Name = "cmiPCSX2Play"
         Me.cmiPCSX2Play.Size = New System.Drawing.Size(199, 22)
         Me.cmiPCSX2Play.Text = "Play <game>..."
-        Me.cmiPCSX2Play.Visible = False
         '
         'ToolStripSeparator1
         '
@@ -1243,49 +1264,47 @@ Partial Class frmMain
         Me.cmFolders.BackgroundImage = Global.sstatesman.My.Resources.Resources.BgStripesLight
         Me.cmFolders.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiFoldersSStatesOpen, Me.cmiFoldersSnapsOpen, Me.ToolStripSeparator2, Me.cmiFoldersStoredOpen, Me.cmiFoldersIsoOpen, Me.cmiFoldersCoverOpen})
         Me.cmFolders.Name = "cmPCSX2"
-        Me.cmFolders.Size = New System.Drawing.Size(239, 142)
+        Me.cmFolders.Size = New System.Drawing.Size(240, 142)
         Me.cmFolders.Text = "Title Toolbar Folders Menu"
         '
         'cmiFoldersSStatesOpen
         '
         Me.cmiFoldersSStatesOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderSStates
         Me.cmiFoldersSStatesOpen.Name = "cmiFoldersSStatesOpen"
-        Me.cmiFoldersSStatesOpen.Size = New System.Drawing.Size(238, 22)
+        Me.cmiFoldersSStatesOpen.Size = New System.Drawing.Size(239, 22)
         Me.cmiFoldersSStatesOpen.Text = "Open savestates folder..."
         '
         'cmiFoldersSnapsOpen
         '
         Me.cmiFoldersSnapsOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderScreenshots
         Me.cmiFoldersSnapsOpen.Name = "cmiFoldersSnapsOpen"
-        Me.cmiFoldersSnapsOpen.Size = New System.Drawing.Size(238, 22)
+        Me.cmiFoldersSnapsOpen.Size = New System.Drawing.Size(239, 22)
         Me.cmiFoldersSnapsOpen.Text = "Open screenshots folder..."
         '
         'ToolStripSeparator2
         '
         Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(235, 6)
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(236, 6)
         '
         'cmiFoldersStoredOpen
         '
         Me.cmiFoldersStoredOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderSStates
         Me.cmiFoldersStoredOpen.Name = "cmiFoldersStoredOpen"
-        Me.cmiFoldersStoredOpen.Size = New System.Drawing.Size(238, 22)
+        Me.cmiFoldersStoredOpen.Size = New System.Drawing.Size(239, 22)
         Me.cmiFoldersStoredOpen.Text = "Open stored savestates folder..."
         '
         'cmiFoldersIsoOpen
         '
-        Me.cmiFoldersIsoOpen.Enabled = False
         Me.cmiFoldersIsoOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderIso
         Me.cmiFoldersIsoOpen.Name = "cmiFoldersIsoOpen"
-        Me.cmiFoldersIsoOpen.Size = New System.Drawing.Size(238, 22)
-        Me.cmiFoldersIsoOpen.Text = "Open ISO image folder..."
-        Me.cmiFoldersIsoOpen.Visible = False
+        Me.cmiFoldersIsoOpen.Size = New System.Drawing.Size(239, 22)
+        Me.cmiFoldersIsoOpen.Text = "Open game disc image folder..."
         '
         'cmiFoldersCoverOpen
         '
         Me.cmiFoldersCoverOpen.Image = Global.sstatesman.My.Resources.Resources.Icon_FolderCover
         Me.cmiFoldersCoverOpen.Name = "cmiFoldersCoverOpen"
-        Me.cmiFoldersCoverOpen.Size = New System.Drawing.Size(238, 22)
+        Me.cmiFoldersCoverOpen.Size = New System.Drawing.Size(239, 22)
         Me.cmiFoldersCoverOpen.Text = "Open cover image folder..."
         '
         'frmMain
@@ -1297,7 +1316,6 @@ Partial Class frmMain
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.lblWindowVersion)
         Me.Controls.Add(Me.tlpTopBar)
-        Me.FormDescription = "a savestate managing tool for PCSX2"
         Me.Icon = Global.sstatesman.My.Resources.Resources.SSM_Icon_v2
         Me.MinimumSize = New System.Drawing.Size(640, 480)
         Me.Name = "frmMain"
@@ -1432,4 +1450,5 @@ Partial Class frmMain
     Private WithEvents cmiPCSX2Play As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents cmiPCSX2IniFolderOpen As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents cmiFoldersIsoOpen As System.Windows.Forms.ToolStripMenuItem
+    Private WithEvents cmdGamePlay As System.Windows.Forms.Button
 End Class
