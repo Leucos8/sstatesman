@@ -55,16 +55,14 @@ Public Class frmTemplate
 
     Protected Overrides Sub OnDeactivate(e As EventArgs)
         Me.hasFocus = False
-        Me.lblWindowTitle.ForeColor = Color.DimGray
-        Me.lblWindowDescription.ForeColor = Color.DimGray
+        Me.pnlWindowTop.ForeColor = Color.DimGray
         'Me.InvokePaint(Me, New PaintEventArgs(Me.CreateGraphics, Me.DisplayRectangle))
         MyBase.OnDeactivate(e)
     End Sub
 
     Protected Overrides Sub OnActivated(e As EventArgs)
         Me.hasFocus = True
-        Me.lblWindowTitle.ForeColor = Me.ForeColor
-        Me.lblWindowDescription.ForeColor = Me.ForeColor
+        Me.pnlWindowTop.ForeColor = Me.ForeColor
         'Me.InvokePaint(Me, New PaintEventArgs(Me.CreateGraphics, Me.DisplayRectangle))
         MyBase.OnActivated(e)
     End Sub
@@ -114,11 +112,12 @@ Public Class frmTemplate
 
     Protected Overrides Sub OnSizeChanged(e As EventArgs)
         If Not (Me.lastWindowState = Me.WindowState) Then
-            If Me.WindowState = FormWindowState.Normal Then
+            Me.lastWindowState = Me.WindowState
+            If Me.lastWindowState = FormWindowState.Normal Then
                 Me.ControlBoxMaximize.Image = My.Resources.Window_ButtonMaximize
                 Me.flpControlBox.Margin = New Padding(0, 0, CInt(6 * DPIxScale), 0)
                 'Me.Padding = New Padding(1)
-            ElseIf Me.WindowState = FormWindowState.Maximized Then
+            ElseIf Me.lastWindowState = FormWindowState.Maximized Then
                 Me.ControlBoxMaximize.Image = My.Resources.Window_ButtonRestore
                 Me.flpControlBox.Margin = New Padding(0, 0, CInt(3 * DPIxScale), 0)
                 'Me.Padding = New Padding(Windows.Forms.SystemInformation.FrameBorderSize.Width, _
@@ -126,7 +125,6 @@ Public Class frmTemplate
                 '                         Windows.Forms.SystemInformation.FrameBorderSize.Width, _
                 '                         Windows.Forms.SystemInformation.FrameBorderSize.Height)
             End If
-            Me.lastWindowState = Me.WindowState
         End If
         MyBase.OnSizeChanged(e)
     End Sub
@@ -194,11 +192,12 @@ Public Class frmTemplate
     'Protected Overrides Sub OnPaint(e As PaintEventArgs)
     '    If Me.WindowState = FormWindowState.Normal Then
     '        If e.ClipRectangle.Width > 0 And e.ClipRectangle.Height > 0 Then
+    '            e.Graphics.DrawRectangle(New Pen(Color.DimGray, 2), e.ClipRectangle)
     '            If Me.hasFocus Then
-    '                e.Graphics.DrawRectangle(New Pen(Color.DimGray, 2), 0, Me.pnlWindowTop.Height, Me.Width, Me.Height - Me.pnlWindowTop.Height)
-    '                e.Graphics.DrawRectangle(New Pen(currentTheme.AccentColor, 2), Me.pnlWindowTop.Location.X, Me.pnlWindowTop.Location.Y, Me.pnlWindowTop.Size.Width, Me.pnlWindowTop.Size.Height - 2)
-    '            Else
-    '                e.Graphics.DrawRectangle(New Pen(Color.DimGray, 2), e.ClipRectangle)
+    '                e.Graphics.DrawRectangle(New Pen(currentTheme.AccentColor, 2), 0, 0, Me.Width, Me.pnlWindowTop.Size.Height - 1)
+    '                If Me.flpWindowBottom.Visible Then
+    '                    e.Graphics.DrawRectangle(New Pen(currentTheme.AccentColor, 2), 0, Me.flpWindowBottom.Location.Y + 1, Me.Width, Me.flpWindowBottom.Size.Height)
+    '                End If
     '            End If
     '        End If
     '    End If
