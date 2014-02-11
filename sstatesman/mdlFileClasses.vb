@@ -1,5 +1,5 @@
-﻿'   SStatesMan - a savestate managing tool for PCSX2
-'   Copyright (C) 2011-2013 - Leucos
+﻿'   SStatesMan - a small frontend for PCSX2
+'   Copyright (C) 2011-2014 - Leucos
 '
 '   SStatesMan is free software: you can redistribute it and/or modify it under
 '   the terms of the GNU Lesser General Public License as published by the Free
