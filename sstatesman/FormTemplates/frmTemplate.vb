@@ -13,7 +13,9 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Public Class frmTemplate
-    Dim lastWindowState As FormWindowState  'Needed to know if a form resize changed the windowstate
+
+    Private lastWindowState As FormWindowState  'Needed to know if a form resize changed the windowstate
+    Private hasFocus As Boolean = False
 
     Public Overrides Property Text As String
         Get
@@ -21,7 +23,9 @@ Public Class frmTemplate
         End Get
         Set(value As String)
             MyBase.Text = value
-            Me.lblWindowTitle.Text = value
+            If Me.lblWindowTitle IsNot Nothing Then
+                Me.lblWindowTitle.Text = value
+            End If
         End Set
     End Property
 
@@ -37,7 +41,9 @@ Public Class frmTemplate
         End Get
         Set(ByVal value As String)
             _formDescription = value
-            Me.lblWindowDescription.Text = value
+            If Me.lblWindowDescription IsNot Nothing Then
+                Me.lblWindowDescription.Text = value
+            End If
         End Set
     End Property
 
@@ -46,6 +52,23 @@ Public Class frmTemplate
         MyBase.OnLoad(e)
         Me.applyTheme()
     End Sub
+
+    Protected Overrides Sub OnDeactivate(e As EventArgs)
+        Me.hasFocus = False
+        Me.lblWindowTitle.ForeColor = Color.DimGray
+        Me.lblWindowDescription.ForeColor = Color.DimGray
+        'Me.InvokePaint(Me, New PaintEventArgs(Me.CreateGraphics, Me.DisplayRectangle))
+        MyBase.OnDeactivate(e)
+    End Sub
+
+    Protected Overrides Sub OnActivated(e As EventArgs)
+        Me.hasFocus = True
+        Me.lblWindowTitle.ForeColor = Me.ForeColor
+        Me.lblWindowDescription.ForeColor = Me.ForeColor
+        'Me.InvokePaint(Me, New PaintEventArgs(Me.CreateGraphics, Me.DisplayRectangle))
+        MyBase.OnActivated(e)
+    End Sub
+
 #End Region
 
 #Region "Form - ControlBox & Resize"
@@ -89,7 +112,7 @@ Public Class frmTemplate
         CType(sender, Button).Image = My.Resources.Window_ButtonMinimize
     End Sub
 
-    Private Sub frmMain_SizeChanged(sender As Object, e As EventArgs) Handles Me.SizeChanged
+    Protected Overrides Sub OnSizeChanged(e As EventArgs)
         If Not (Me.lastWindowState = Me.WindowState) Then
             If Me.WindowState = FormWindowState.Normal Then
                 Me.ControlBoxMaximize.Image = My.Resources.Window_ButtonMaximize
@@ -98,10 +121,14 @@ Public Class frmTemplate
             ElseIf Me.WindowState = FormWindowState.Maximized Then
                 Me.ControlBoxMaximize.Image = My.Resources.Window_ButtonRestore
                 Me.flpControlBox.Margin = New Padding(0, 0, CInt(3 * DPIxScale), 0)
-                'Me.Padding = New Padding(0)
+                'Me.Padding = New Padding(Windows.Forms.SystemInformation.FrameBorderSize.Width, _
+                '                         Windows.Forms.SystemInformation.FrameBorderSize.Height, _
+                '                         Windows.Forms.SystemInformation.FrameBorderSize.Width, _
+                '                         Windows.Forms.SystemInformation.FrameBorderSize.Height)
             End If
             Me.lastWindowState = Me.WindowState
         End If
+        MyBase.OnSizeChanged(e)
     End Sub
 #End Region
 
@@ -164,11 +191,18 @@ Public Class frmTemplate
         SSMAppLog.Append(eType.LogInformation, eSrc.Theme, eSrcMethod.Theme, String.Format("Theme applied to {0}.", Me.Name), sw.ElapsedTicks)
     End Sub
 
-    'Private Sub frmTemplate_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
-    '    If Me.Width > 8 And Me.Height > 8 Then
-    '        e.Graphics.DrawRectangle(New Pen(Color.FromArgb(130, 150, 200)), 0, 0, Me.ClientSize.Width - 1, Me.ClientSize.Height - 1)
+    'Protected Overrides Sub OnPaint(e As PaintEventArgs)
+    '    If Me.WindowState = FormWindowState.Normal Then
+    '        If e.ClipRectangle.Width > 0 And e.ClipRectangle.Height > 0 Then
+    '            If Me.hasFocus Then
+    '                e.Graphics.DrawRectangle(New Pen(Color.DimGray, 2), 0, Me.pnlWindowTop.Height, Me.Width, Me.Height - Me.pnlWindowTop.Height)
+    '                e.Graphics.DrawRectangle(New Pen(currentTheme.AccentColor, 2), Me.pnlWindowTop.Location.X, Me.pnlWindowTop.Location.Y, Me.pnlWindowTop.Size.Width, Me.pnlWindowTop.Size.Height - 2)
+    '            Else
+    '                e.Graphics.DrawRectangle(New Pen(Color.DimGray, 2), e.ClipRectangle)
+    '            End If
+    '        End If
     '    End If
+    '    MyBase.OnPaint(e)
     'End Sub
 #End Region
-
 End Class
