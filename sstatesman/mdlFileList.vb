@@ -37,7 +37,6 @@ Module mdlFileList
                 End Try
             End Get
         End Property
-        'Friend ReadOnly Property HasIsoFile
         Friend Property GameCRC As String = ""
         Friend Property GameIso As String = ""
 
@@ -155,22 +154,32 @@ Module mdlFileList
                 If tmpFIs.Count > 0 Then
                     'Load FileInfo into PCSX2File class
                     For Each tmpFI As FileInfo In tmpFIs
-                        Dim tmpSerial As String = ""
-                        Dim ParOPosition As Integer = tmpFI.Name.IndexOf("["c, 0)
-                        Dim ParCPosition As Integer = tmpFI.Name.IndexOf("]"c, 0)
-                        If (ParOPosition > 0) AndAlso (ParCPosition > ParOPosition) Then
-                            tmpSerial = tmpFI.Name.Substring(ParOPosition + 1, ParCPosition - ParOPosition - 1)
-                        Else
-                            tmpSerial = tmpFI.Name.Remove(tmpFI.Name.Length - tmpFI.Extension.Length)
-                        End If
+                        Dim tmpSerial As String = tmpFI.Name.Remove(tmpFI.Name.Length - tmpFI.Extension.Length)
+                        Dim tmpString As String = tmpSerial
+                        Dim ParOPosition As Integer = 0
+                        Dim ParCPosition As Integer = 0
+                        Do
 
-                        If PCSX2GameDb.Records.ContainsKey(tmpSerial) Then
-                            If Not Games.ContainsKey(tmpSerial) Then
-                                Games.Add(tmpSerial, New GameListItem With {.GameCRC = 0.ToString("N8"), .GameIso = tmpFI.Name})
+                            If PCSX2GameDb.Records.ContainsKey(tmpSerial) Then
+                                If Not Games.ContainsKey(tmpSerial) Then
+                                    Games.Add(tmpSerial, New GameListItem With {.GameCRC = 0.ToString("N8"), .GameIso = tmpFI.Name})
+                                Else
+                                    Games(tmpSerial).GameIso = tmpFI.Name
+                                End If
+                                isoCount += 1
+                                Exit Do
                             Else
-                                Games(tmpSerial).GameIso = tmpFI.Name
+                                ParOPosition = tmpString.IndexOf("["c, 0)
+                                ParCPosition = tmpString.IndexOf("]"c, 0)
+                                If (ParOPosition >= 0) AndAlso (ParCPosition > ParOPosition) Then
+                                    tmpSerial = tmpString.Substring(ParOPosition + 1, ParCPosition - ParOPosition - 1)
+                                    tmpString = tmpString.Substring(ParOPosition + 1, tmpString.Length - ParOPosition - 1)
+                                Else
+                                    tmpString = tmpString.Substring(ParCPosition + 1, tmpString.Length - ParCPosition - 1)
+                                    tmpSerial = tmpString
+                                End If
                             End If
-                        End If
+                        Loop Until ParOPosition < 0
 
 
                     Next

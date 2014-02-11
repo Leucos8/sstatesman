@@ -51,7 +51,7 @@ Partial Class frmPCSX2
         'pnlWindowTop
         '
         Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.pnlWindowTop.Size = New System.Drawing.Size(404, 46)
+        Me.pnlWindowTop.Size = New System.Drawing.Size(402, 46)
         '
         'cmdOk
         '
@@ -192,7 +192,7 @@ Partial Class frmPCSX2
         Me.AcceptButton = Me.cmdOk
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.CancelButton = Me.cmdCancel
-        Me.ClientSize = New System.Drawing.Size(404, 321)
+        Me.ClientSize = New System.Drawing.Size(400, 320)
         Me.Controls.Add(Me.tlpFormContent)
         Me.Controls.Add(Me.cmdOk)
         Me.Controls.Add(Me.cmdCancel)

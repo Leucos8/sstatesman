@@ -116,10 +116,10 @@
     <Compile Include="Dialogs\frmAbout.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmPCSX2.Designer.vb">
+    <Compile Include="Dialogs\frmPCSX2.Designer.vb">
       <DependentUpon>frmPCSX2.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmPCSX2.vb">
+    <Compile Include="Dialogs\frmPCSX2.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmDeleteForm.Designer.vb">
@@ -202,7 +202,7 @@
     <EmbeddedResource Include="Dialogs\frmAbout.resx">
       <DependentUpon>frmAbout.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmPCSX2.resx">
+    <EmbeddedResource Include="Dialogs\frmPCSX2.resx">
       <DependentUpon>frmPCSX2.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDeleteForm.resx">
