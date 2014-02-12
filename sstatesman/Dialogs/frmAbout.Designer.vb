@@ -50,7 +50,6 @@ Partial Class frmAbout
         Me.lblCopyright = New System.Windows.Forms.Label()
         Me.llbAuthor = New System.Windows.Forms.LinkLabel()
         Me.lblAuthorTitle = New System.Windows.Forms.Label()
-        Me.lblVersionChannel = New System.Windows.Forms.Label()
         Me.lblVersionMain = New System.Windows.Forms.Label()
         Me.lblVersionTitle = New System.Windows.Forms.Label()
         Me.pnlTab2 = New System.Windows.Forms.Panel()
@@ -66,7 +65,7 @@ Partial Class frmAbout
         'pnlWindowTop
         '
         Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.pnlWindowTop.Size = New System.Drawing.Size(414, 46)
+        Me.pnlWindowTop.Size = New System.Drawing.Size(398, 46)
         '
         'OKButton
         '
@@ -174,7 +173,6 @@ Partial Class frmAbout
         Me.pnlTab0.Controls.Add(Me.lblCopyright)
         Me.pnlTab0.Controls.Add(Me.llbAuthor)
         Me.pnlTab0.Controls.Add(Me.lblAuthorTitle)
-        Me.pnlTab0.Controls.Add(Me.lblVersionChannel)
         Me.pnlTab0.Controls.Add(Me.lblVersionMain)
         Me.pnlTab0.Controls.Add(Me.lblVersionTitle)
         Me.pnlTab0.Location = New System.Drawing.Point(4, 59)
@@ -188,7 +186,7 @@ Partial Class frmAbout
         Me.llbPCSX2net.AutoSize = True
         Me.llbPCSX2net.Dock = System.Windows.Forms.DockStyle.Top
         Me.llbPCSX2net.LinkColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.llbPCSX2net.Location = New System.Drawing.Point(6, 151)
+        Me.llbPCSX2net.Location = New System.Drawing.Point(6, 134)
         Me.llbPCSX2net.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbPCSX2net.Name = "llbPCSX2net"
         Me.llbPCSX2net.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
@@ -202,7 +200,7 @@ Partial Class frmAbout
         Me.llbPCSX2Forum.AutoSize = True
         Me.llbPCSX2Forum.Dock = System.Windows.Forms.DockStyle.Top
         Me.llbPCSX2Forum.LinkColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.llbPCSX2Forum.Location = New System.Drawing.Point(6, 134)
+        Me.llbPCSX2Forum.Location = New System.Drawing.Point(6, 117)
         Me.llbPCSX2Forum.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbPCSX2Forum.Name = "llbPCSX2Forum"
         Me.llbPCSX2Forum.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
@@ -216,7 +214,7 @@ Partial Class frmAbout
         Me.lblLinksTitle.AutoSize = True
         Me.lblLinksTitle.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblLinksTitle.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblLinksTitle.Location = New System.Drawing.Point(6, 113)
+        Me.lblLinksTitle.Location = New System.Drawing.Point(6, 96)
         Me.lblLinksTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblLinksTitle.Name = "lblLinksTitle"
         Me.lblLinksTitle.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
@@ -228,7 +226,7 @@ Partial Class frmAbout
         '
         Me.lblCopyright.AutoSize = True
         Me.lblCopyright.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblCopyright.Location = New System.Drawing.Point(6, 96)
+        Me.lblCopyright.Location = New System.Drawing.Point(6, 79)
         Me.lblCopyright.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblCopyright.Name = "lblCopyright"
         Me.lblCopyright.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
@@ -241,7 +239,7 @@ Partial Class frmAbout
         Me.llbAuthor.AutoSize = True
         Me.llbAuthor.Dock = System.Windows.Forms.DockStyle.Top
         Me.llbAuthor.LinkColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.llbAuthor.Location = New System.Drawing.Point(6, 79)
+        Me.llbAuthor.Location = New System.Drawing.Point(6, 62)
         Me.llbAuthor.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.llbAuthor.Name = "llbAuthor"
         Me.llbAuthor.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
@@ -255,25 +253,13 @@ Partial Class frmAbout
         Me.lblAuthorTitle.AutoSize = True
         Me.lblAuthorTitle.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblAuthorTitle.Font = New System.Drawing.Font("Segoe UI", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAuthorTitle.Location = New System.Drawing.Point(6, 58)
+        Me.lblAuthorTitle.Location = New System.Drawing.Point(6, 41)
         Me.lblAuthorTitle.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblAuthorTitle.Name = "lblAuthorTitle"
         Me.lblAuthorTitle.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.lblAuthorTitle.Size = New System.Drawing.Size(47, 21)
         Me.lblAuthorTitle.TabIndex = 3
         Me.lblAuthorTitle.Text = "Author"
-        '
-        'lblVersionChannel
-        '
-        Me.lblVersionChannel.AutoSize = True
-        Me.lblVersionChannel.Dock = System.Windows.Forms.DockStyle.Top
-        Me.lblVersionChannel.Location = New System.Drawing.Point(6, 41)
-        Me.lblVersionChannel.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblVersionChannel.Name = "lblVersionChannel"
-        Me.lblVersionChannel.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
-        Me.lblVersionChannel.Size = New System.Drawing.Size(76, 17)
-        Me.lblVersionChannel.TabIndex = 2
-        Me.lblVersionChannel.Text = "<channel>"
         '
         'lblVersionMain
         '
@@ -357,7 +343,7 @@ Partial Class frmAbout
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ClientSize = New System.Drawing.Size(414, 272)
+        Me.ClientSize = New System.Drawing.Size(400, 300)
         Me.Controls.Add(Me.pnlTab2)
         Me.Controls.Add(Me.pnlTab1)
         Me.Controls.Add(Me.pnlTab0)
@@ -393,7 +379,6 @@ Partial Class frmAbout
     Private WithEvents lblLinksTitle As System.Windows.Forms.Label
     Private WithEvents lblCopyright As System.Windows.Forms.Label
     Private WithEvents lblAuthorTitle As System.Windows.Forms.Label
-    Private WithEvents lblVersionChannel As System.Windows.Forms.Label
     Private WithEvents lblVersionMain As System.Windows.Forms.Label
     Private WithEvents lblVersionTitle As System.Windows.Forms.Label
     Private WithEvents pnlTab2 As System.Windows.Forms.Panel

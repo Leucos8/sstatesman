@@ -21,8 +21,7 @@ Public NotInheritable Class frmAbout
         Me.flpTab.Dock = DockStyle.Bottom
         Me.flpWindowBottom.Controls.Add(Me.OKButton)
 
-        Me.lblVersionMain.Text = My.Application.Info.Version.ToString
-        Me.lblVersionChannel.Text = My.Settings.SStatesMan_Channel
+        Me.lblVersionMain.Text = String.Concat(My.Application.Info.Version.ToString, " ", My.Settings.SStatesMan_Channel)
 
         Me.llbAuthor.Text = My.Application.Info.CompanyName
         Me.lblCopyright.Text = My.Application.Info.Copyright
