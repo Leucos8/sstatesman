@@ -21,7 +21,7 @@ Public Class frmDialogTemplate
 #Region "Theme"
     Protected Friend Overrides Sub ApplyThemeAccent(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles pnlWindowTop.Paint
         Dim tmpRect As New Rectangle(Me.flpTitleBar.Padding.Left, 0, _
-                                     CInt(127 * DPIxScale) + 1, Me.flpTitleBar.Padding.Top)
+                                     CInt(159 * DPIxScale) + 1, Me.flpTitleBar.Padding.Top)
         Dim tmpSBrush As New SolidBrush(currentTheme.AccentColor)
         e.Graphics.FillRectangle(tmpSBrush, tmpRect)
     End Sub

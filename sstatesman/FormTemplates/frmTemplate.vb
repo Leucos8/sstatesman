@@ -54,17 +54,17 @@ Public Class frmTemplate
     End Sub
 
     Protected Overrides Sub OnDeactivate(e As EventArgs)
+        MyBase.OnDeactivate(e)
         Me.hasFocus = False
         Me.pnlWindowTop.ForeColor = Color.DimGray
         'Me.InvokePaint(Me, New PaintEventArgs(Me.CreateGraphics, Me.DisplayRectangle))
-        MyBase.OnDeactivate(e)
     End Sub
 
     Protected Overrides Sub OnActivated(e As EventArgs)
+        MyBase.OnActivated(e)
         Me.hasFocus = True
         Me.pnlWindowTop.ForeColor = Me.ForeColor
         'Me.InvokePaint(Me, New PaintEventArgs(Me.CreateGraphics, Me.DisplayRectangle))
-        MyBase.OnActivated(e)
     End Sub
 
 #End Region
@@ -111,6 +111,7 @@ Public Class frmTemplate
     End Sub
 
     Protected Overrides Sub OnSizeChanged(e As EventArgs)
+        MyBase.OnSizeChanged(e)
         If Not (Me.lastWindowState = Me.WindowState) Then
             Me.lastWindowState = Me.WindowState
             If Me.lastWindowState = FormWindowState.Normal Then
@@ -126,7 +127,6 @@ Public Class frmTemplate
                 '                         Windows.Forms.SystemInformation.FrameBorderSize.Height)
             End If
         End If
-        MyBase.OnSizeChanged(e)
     End Sub
 #End Region
 
@@ -190,6 +190,7 @@ Public Class frmTemplate
     End Sub
 
     'Protected Overrides Sub OnPaint(e As PaintEventArgs)
+    '    MyBase.OnPaint(e)
     '    If Me.WindowState = FormWindowState.Normal Then
     '        If e.ClipRectangle.Width > 0 And e.ClipRectangle.Height > 0 Then
     '            e.Graphics.DrawRectangle(New Pen(Color.DimGray, 2), e.ClipRectangle)
@@ -201,7 +202,6 @@ Public Class frmTemplate
     '            End If
     '        End If
     '    End If
-    '    MyBase.OnPaint(e)
     'End Sub
 #End Region
 End Class
