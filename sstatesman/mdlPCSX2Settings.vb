@@ -19,7 +19,7 @@ Module mdlPCSX2Settings
     Friend Function PCSX2_PathAll_Detect() As Boolean
         If PCSX2_PathBin_Detect(My.Settings.PCSX2_PathBin) And _
             PCSX2_PathInis_Detect(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_PathInis) And _
-            PCSX2_PathSettings_Detect(My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps) Then
+            PCSX2_PathSettings_Detect(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_PathInis, My.Settings.PCSX2_PathSState, My.Settings.PCSX2_PathSnaps) Then
             Return True
         Else : Return False
         End If
@@ -114,10 +114,19 @@ Module mdlPCSX2Settings
     ''' <param name="pReturnPathSStates">Out parameter that returns the detected path. Returns empty string if detection fails.</param>
     ''' <param name="pReturnPathSnaps">Out parameter that returns the detected path. Returns empty string if detection fails.</param>
     ''' <returns>Boolean value. True: both paths are detected and valid, false: one path is not valid.</returns>
-    Friend Function PCSX2_PathSettings_Detect(ByVal pPCSX2_PathInis As String, ByRef pReturnPathSStates As String, ByRef pReturnPathSnaps As String) As Boolean
+    Friend Function PCSX2_PathSettings_Detect(ByVal pPCSX2_PathBin As String, ByVal pPCSX2_PathInis As String, ByRef pReturnPathSStates As String, ByRef pReturnPathSnaps As String) As Boolean
         pReturnPathSStates = ""
         pReturnPathSnaps = ""
+        Dim tmpPortableMode As Boolean = False
+        Dim tmpSStatesUseDefault As Boolean = False
+        Dim tmpSnapsUseDefault As Boolean = False
         Try
+            'Check if portable mode is enabled
+            If File.Exists(Path.Combine(pPCSX2_PathBin, "portable.ini")) Then
+                tmpPortableMode = True
+            Else
+                tmpPortableMode = False
+            End If
 
             'If PCSX2_UI.ini is present in the set inis directory
             If File.Exists(Path.Combine(pPCSX2_PathInis, My.Settings.PCSX2_PCSX2_uiFilename)) Then
@@ -126,17 +135,33 @@ Module mdlPCSX2Settings
                     While Not PCSX2UI_reader.EndOfStream
                         Dim tmpLine As String = PCSX2UI_reader.ReadLine.Trim.ToLower
 
-                        If tmpLine.StartsWith("savestates=") Then
+                        If tmpLine = "UseDefaultSavestates=enabled".ToLower Then
+                            tmpSStatesUseDefault = True
+                            SSMAppLog.Append(eType.LogInformation, eSrc.Settings, eSrcMethod.Detect, My.Settings.PCSX2_PCSX2_uiFilename & " > UseDefaultSavestates=enabled")
+                        ElseIf tmpLine = "UseDefaultSnapshots=enabled".ToLower Then
+                            tmpSnapsUseDefault = True
+                            SSMAppLog.Append(eType.LogInformation, eSrc.Settings, eSrcMethod.Detect, My.Settings.PCSX2_PCSX2_uiFilename & " > UseDefaultSnapshots=enabled")
+                        ElseIf tmpLine.StartsWith("savestates=") Then
                             Dim tmpStrings As String() = tmpLine.Split({"="c}, 2, StringSplitOptions.RemoveEmptyEntries)
                             pReturnPathSStates = tmpStrings(1).Replace("\\", "\")
-                            SSMAppLog.Append(eType.LogInformation, eSrc.Settings, eSrcMethod.Detect, "PCSX2 savestates path detected: " & pReturnPathSStates)
+                            SSMAppLog.Append(eType.LogInformation, eSrc.Settings, eSrcMethod.Detect, My.Settings.PCSX2_PCSX2_uiFilename & " > Savestates=" & pReturnPathSStates)
                         ElseIf tmpLine.StartsWith("snapshots=") Then
                             Dim tmpStrings As String() = tmpLine.Split({"="c}, 2, StringSplitOptions.RemoveEmptyEntries)
                             pReturnPathSnaps = tmpStrings(1).Replace("\\", "\")
-                            SSMAppLog.Append(eType.LogInformation, eSrc.Settings, eSrcMethod.Detect, "PCSX2 sceenshots path detected: " & pReturnPathSnaps)
+                            SSMAppLog.Append(eType.LogInformation, eSrc.Settings, eSrcMethod.Detect, My.Settings.PCSX2_PCSX2_uiFilename & " > Savestates=" & pReturnPathSnaps)
                         End If
 
                     End While
+
+                    If tmpPortableMode Then
+                        If tmpSStatesUseDefault Then
+                            pReturnPathSStates = Path.Combine(pPCSX2_PathBin, pReturnPathSStates)
+                        End If
+                        If tmpSnapsUseDefault Then
+                            pReturnPathSnaps = Path.Combine(pPCSX2_PathBin, pReturnPathSnaps)
+                        End If
+                    End If
+
                     PCSX2UI_reader.Close()
                 End Using
                 Return Directory.Exists(pReturnPathSStates) And Directory.Exists(pReturnPathSnaps)

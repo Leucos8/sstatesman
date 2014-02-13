@@ -408,7 +408,7 @@ Public NotInheritable Class frmSettings
     Private Sub fppPCSX2SStateSnapsPath_DetectFolder(sender As Object, e As EventArgs) _
         Handles fppPCSX2SStatePath.DetectFolder, fppPCSX2SnapsPath.DetectFolder
 
-        PCSX2_PathSettings_Detect(Me.fppPCSX2IniPath.Text, fppPCSX2SStatePath.Text, fppPCSX2SnapsPath.Text)
+        PCSX2_PathSettings_Detect(Me.fppPCSX2AppPath.Text, Me.fppPCSX2IniPath.Text, Me.fppPCSX2SStatePath.Text, Me.fppPCSX2SnapsPath.Text)
     End Sub
 
     'These subs provide a custom setting check o determine the FolderPickerPanel state: error, warning, idle
