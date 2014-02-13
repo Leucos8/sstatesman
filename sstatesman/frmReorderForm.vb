@@ -60,7 +60,7 @@ Public NotInheritable Class frmReorderForm
                 If tmpListItem.Tag.Equals(ReorderFileStatus.RenamePending) Then
                     tmpListItem.Tag = Me.Rename_Move(tmpListItem.SubItems(ReorderListColumns.OldName).Text, _
                                                      Me.AddTmpExtension(tmpListItem.SubItems(ReorderListColumns.OldName).Text), _
-                                                     SSMGameList.Folder(frmMain.frmMainListMode), _
+                                                     SSMGameList.Folder(frmMain.CurrentListMode), _
                                                      tmpListItem.SubItems(ReorderListColumns.Status).Text)
                 End If
             Next
@@ -71,7 +71,7 @@ Public NotInheritable Class frmReorderForm
                 If tmpListItem.Tag.Equals(ReorderFileStatus.Renamed) Then
                     tmpListItem.Tag = Me.Rename_Move(Me.AddTmpExtension(tmpListItem.SubItems(ReorderListColumns.OldName).Text), _
                                                      tmpListItem.SubItems(ReorderListColumns.NewName).Text, _
-                                                     SSMGameList.Folder(frmMain.frmMainListMode), _
+                                                     SSMGameList.Folder(frmMain.CurrentListMode), _
                                                      tmpListItem.SubItems(ReorderListColumns.Status).Text)
                 End If
             Next
@@ -402,7 +402,7 @@ Public NotInheritable Class frmReorderForm
                 Dim tmpSListItems As New List(Of ListViewItem)
 
                 'Creation of the available slots
-                Select Case frmMain.frmMainListMode
+                Select Case frmMain.CurrentListMode
                     Case ListMode.Savestates
                         minSlot = My.Settings.PCSX2_SStateSlotLowerBound
                         maxSlot = My.Settings.PCSX2_SStateSlotUpperBound
@@ -429,7 +429,7 @@ Public NotInheritable Class frmReorderForm
                 Next
 
                 'Adding files
-                For Each tmpFile As KeyValuePair(Of String, PCSX2File) In SSMGameList.Games(frmMain.checkedGames(0)).GameFiles(frmMain.frmMainListMode).Files
+                For Each tmpFile As KeyValuePair(Of String, PCSX2File) In SSMGameList.Games(frmMain.checkedGames(0)).GameFiles(frmMain.CurrentListMode).Files
                     Dim listRef As Integer = tmpFile.Value.Number    'Used for list index
                     If (listRef >= minSlot) And (listRef <= maxSlot) Then
                         'Even numbers are for files
@@ -460,7 +460,7 @@ Public NotInheritable Class frmReorderForm
 
                 mdlTheme.ListAlternateColors(tmpSListItems, 2)
 
-                Count_Files = SSMGameList.Games(frmMain.checkedGames(0)).GameFiles(frmMain.frmMainListMode).Files.Count
+                Count_Files = SSMGameList.Games(frmMain.checkedGames(0)).GameFiles(frmMain.CurrentListMode).Files.Count
 
                 Me.lvwReorderList.Groups.Add(tmpLvwSListGroup)
                 Me.lvwReorderList.Items.AddRange(tmpSListItems.ToArray)
@@ -475,7 +475,7 @@ Public NotInheritable Class frmReorderForm
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.FileListview, _
-                         String.Format("Listed {0:N0} {1}.", Me.lvwReorderList.Items.Count, frmMain.frmMainListMode.ToString), sw.ElapsedTicks)
+                         String.Format("Listed {0:N0} {1}.", Me.lvwReorderList.Items.Count, frmMain.CurrentListMode.ToString), sw.ElapsedTicks)
     End Sub
 
     Private Sub lvwReorderLisst_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs)

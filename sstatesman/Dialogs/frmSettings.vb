@@ -88,12 +88,14 @@ Public NotInheritable Class frmSettings
         'Me.applyTheme()
 
         'frmMain
-        frmMain.applyTheme()    'Updating frMain theme
-        If GameListNeedRefresh Then
-            frmMain.GameList_Refresh()
-            GameListNeedRefresh = False
+        If frmMain.LoadComplete Then
+            frmMain.applyTheme()    'Updating frmMain theme
+            If Me.GameListNeedRefresh Then
+                frmMain.GameList_Refresh()
+                GameListNeedRefresh = False
+            End If
+            frmMain.tmrSStatesListRefresh.Enabled = My.Settings.SStatesMan_SStatesListAutoRefresh   'Enabling the timer
         End If
-        frmMain.tmrSStatesListRefresh.Enabled = My.Settings.SStatesMan_SStatesListAutoRefresh   'Enabling the timer
 
         SSMAppLog.Append(eType.LogInformation, eSrc.SettingDialog, eSrcMethod.Load, "Settings applied.")
     End Sub

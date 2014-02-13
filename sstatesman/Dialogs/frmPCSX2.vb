@@ -36,6 +36,9 @@ Public NotInheritable Class frmPCSX2
                         End If
                     Next
                     If Me.lbPCSX2Bin.Items.Count > 1 Then
+                        If Not (Me.lbPCSX2Bin.SelectedItems.Count > 0) Then
+                            Me.lbPCSX2Bin.SetSelected(0, True)
+                        End If
                         Me.cmdOk.Enabled = True
                     End If
                 Else
@@ -56,6 +59,7 @@ Public NotInheritable Class frmPCSX2
     Private Sub PCSX2Bin_TestLaunch(pPCSX2_PathBin As String, pPCSX2_ExeName As String, _
                                     pISO_Path As String, pISO_Filename As String)
         If Me.lbPCSX2Bin.Items.Count = 1 Then
+            Me.lbPCSX2Bin.SetSelected(0, True)
             PCSX2Bin_Launch(pPCSX2_PathBin, Me.lbPCSX2Bin.Text, pISO_Path, pISO_Filename)
             Me.Close()
         End If
@@ -74,7 +78,7 @@ Public NotInheritable Class frmPCSX2
             End If
             My.Settings.SStatesMan_LastPCSX2Executable = pPCSX2_ExeName
         Else
-            Me.UI_Update()
+            MessageBox.Show("Unable to find " & tmpPath, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
     End Sub
 
@@ -86,7 +90,7 @@ Public NotInheritable Class frmPCSX2
 
         'Status for PCSX2 binaries path.
         If Me.PCSX2BinPathValid Then
-            Me.txtPCSX2PathBin.BackColor = Me.BackColor
+            Me.txtPCSX2PathBin.BackColor = currentTheme.BgColor
         Else
             Me.txtPCSX2PathBin.BackColor = Color.FromArgb(255, 192, 192)
         End If
@@ -106,7 +110,7 @@ Public NotInheritable Class frmPCSX2
                 Me.IsoFilenameValid = mdlMain.SafeExistFile(Path.Combine(My.Settings.SStatesMan_PathIso, Me.IsoFilename))
                 'Status for Iso filename check.
                 If Me.IsoFilenameValid Then
-                    Me.txtSStatesManPathIso.BackColor = Me.BackColor
+                    Me.txtSStatesManPathIso.BackColor = currentTheme.BgColor
                 Else
                     Me.txtSStatesManPathIso.BackColor = Color.FromArgb(255, 192, 192)
                 End If

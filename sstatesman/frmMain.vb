@@ -14,7 +14,8 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
 Public NotInheritable Class frmMain
-    Friend frmMainListMode As ListMode = ListMode.Savestates
+    Friend Property CurrentListMode As ListMode = ListMode.Savestates
+    Friend Property LoadComplete As Boolean = False
 
     'Main window checked objects list
     Friend checkedGames As New List(Of String)
@@ -194,6 +195,7 @@ Public NotInheritable Class frmMain
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "Complete.", sw.ElapsedTicks)
+        Me.LoadComplete = True
     End Sub
 
     Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
@@ -249,7 +251,7 @@ Public NotInheritable Class frmMain
                 Me.pnlScreenshotThumb.Visible = True
         End Select
 
-        Me.frmMainListMode = pListMode
+        Me.CurrentListMode = pListMode
         Me.FileList_AddColumns(pListMode)
 
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.ListMode, String.Format("Switched to {0}.", pListMode.ToString))
@@ -742,21 +744,21 @@ Public NotInheritable Class frmMain
                     .HeaderAlignment = HorizontalAlignment.Left, _
                     .Name = currentGameInfo.Serial}
 
-                If tmpGamesListItem.GameFiles.ContainsKey(Me.frmMainListMode) AndAlso tmpGamesListItem.GameFiles(Me.frmMainListMode).Files.Count > 0 Then
+                If tmpGamesListItem.GameFiles.ContainsKey(Me.CurrentListMode) AndAlso tmpGamesListItem.GameFiles(Me.CurrentListMode).Files.Count > 0 Then
 
                     tmpGroups.Add(tmpLvwSListGroup)
 
                     'Calculating checked games savestate size
-                    Select Case Me.frmMainListMode
+                    Select Case Me.CurrentListMode
                         Case ListMode.Savestates
-                            GameList_SelectedSize += tmpGamesListItem.GameFiles(Me.frmMainListMode).SizeTot({My.Settings.PCSX2_SStateExt})
-                            GameList_SelectedSizeBackup += tmpGamesListItem.GameFiles(Me.frmMainListMode).SizeTot({My.Settings.PCSX2_SStateExtBackup})
+                            GameList_SelectedSize += tmpGamesListItem.GameFiles(Me.CurrentListMode).SizeTot({My.Settings.PCSX2_SStateExt})
+                            GameList_SelectedSizeBackup += tmpGamesListItem.GameFiles(Me.CurrentListMode).SizeTot({My.Settings.PCSX2_SStateExtBackup})
                         Case ListMode.Stored, ListMode.Snapshots
-                            GameList_SelectedSize += tmpGamesListItem.GameFiles(Me.frmMainListMode).SizeTot(Nothing)
+                            GameList_SelectedSize += tmpGamesListItem.GameFiles(Me.CurrentListMode).SizeTot(Nothing)
                     End Select
 
 
-                    Me.FileList_AddFileListItems(tmpGamesListItem.GameFiles(Me.frmMainListMode).Files, tmpLvwSListGroup, tmpLvwItems)
+                    Me.FileList_AddFileListItems(tmpGamesListItem.GameFiles(Me.CurrentListMode).Files, tmpLvwSListGroup, tmpLvwItems)
 
 
                 End If
@@ -772,7 +774,7 @@ Public NotInheritable Class frmMain
         Me.lvwFilesList.Items.AddRange(tmpLvwItems.ToArray)
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.FileListview, String.Format("Listed {0:N0} {1}.", Me.lvwFilesList.Items.Count, Me.frmMainListMode.ToString), sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.FileListview, String.Format("Listed {0:N0} {1}.", Me.lvwFilesList.Items.Count, Me.CurrentListMode.ToString), sw.ElapsedTicks)
     End Sub
 
     Private Sub FileList_AddFileListItems(pFile As Dictionary(Of String, PCSX2File), pLvwGroup As ListViewGroup, ByRef pLwvItems As List(Of ListViewItem))
@@ -789,7 +791,7 @@ Public NotInheritable Class frmMain
                                           tmpFile.Value.ExtraInfo, _
                                           tmpFile.Value.LastWriteTime.ToString, _
                                           String.Format("{0:N2} MB", tmpFile.Value.Length / 1024 ^ 2)})
-            Select Case Me.frmMainListMode
+            Select Case Me.CurrentListMode
                 Case ListMode.Savestates
                     If tmpLvwItem.Name.EndsWith(My.Settings.PCSX2_SStateExtBackup) Then
                         tmpLvwItem.ImageIndex = 1
@@ -802,7 +804,7 @@ Public NotInheritable Class frmMain
                     tmpLvwItem.ImageIndex = 2
             End Select
 
-            If checkedFiles(Me.frmMainListMode).Contains(tmpFile.Key) Then
+            If checkedFiles(Me.CurrentListMode).Contains(tmpFile.Key) Then
                 tmpLvwItem.Checked = True
             End If
 
@@ -870,11 +872,11 @@ Public NotInheritable Class frmMain
     Private Sub FileList_IndexChecked()
         Me.FileList_SelectedSize = 0
         Me.FileList_SelectedSizeBackup = 0
-        Select Case Me.frmMainListMode
+        Select Case Me.CurrentListMode
             Case ListMode.Savestates, ListMode.Stored
-                Me.FileList_IndexChecked2(Of Savestate)(Me.checkedFiles(Me.frmMainListMode))
+                Me.FileList_IndexChecked2(Of Savestate)(Me.checkedFiles(Me.CurrentListMode))
             Case ListMode.Snapshots
-                Me.FileList_IndexChecked2(Of Snapshot)(Me.checkedFiles(Me.frmMainListMode))
+                Me.FileList_IndexChecked2(Of Snapshot)(Me.checkedFiles(Me.CurrentListMode))
         End Select
     End Sub
 
@@ -885,11 +887,11 @@ Public NotInheritable Class frmMain
             For Each tmpCheckedItem As ListViewItem In Me.lvwFilesList.CheckedItems
 
                 Dim tmpSerial As String = (New T With {.Name = tmpCheckedItem.Name}).GetGameSerial
-                If SSMGameList.Games.ContainsKey(tmpSerial) AndAlso SSMGameList.Games(tmpSerial).GameFiles.ContainsKey(Me.frmMainListMode) Then
-                    Dim tmpFile As PCSX2File = SSMGameList.Games(tmpSerial).GameFiles(Me.frmMainListMode).Files(tmpCheckedItem.Name)
+                If SSMGameList.Games.ContainsKey(tmpSerial) AndAlso SSMGameList.Games(tmpSerial).GameFiles.ContainsKey(Me.CurrentListMode) Then
+                    Dim tmpFile As PCSX2File = SSMGameList.Games(tmpSerial).GameFiles(Me.CurrentListMode).Files(tmpCheckedItem.Name)
                     pIndex.Add(tmpFile.Name)
 
-                    If Me.frmMainListMode = ListMode.Savestates AndAlso tmpFile.Extension = My.Settings.PCSX2_SStateExtBackup Then
+                    If Me.CurrentListMode = ListMode.Savestates AndAlso tmpFile.Extension = My.Settings.PCSX2_SStateExtBackup Then
                         FileList_SelectedSizeBackup += tmpFile.Length
                     Else
                         FileList_SelectedSize += tmpFile.Length
@@ -974,7 +976,7 @@ Public NotInheritable Class frmMain
     End Sub
 
     Private Sub lvwFilesList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvwFilesList.SelectedIndexChanged
-        If Me.frmMainListMode = ListMode.Snapshots Then
+        If Me.CurrentListMode = ListMode.Snapshots Then
             If CType(sender, ListView).SelectedItems.Count = 1 Then
 
                 Me.currentSnapshotFullname = Path.Combine(My.Settings.PCSX2_PathSnaps, Me.lvwFilesList.SelectedItems(0).Name)

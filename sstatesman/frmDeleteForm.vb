@@ -37,9 +37,9 @@ Public NotInheritable Class frmDeleteForm
         For Each tmpCheckedItem As ListViewItem In Me.lvwDelFilesList.CheckedItems
             Dim tmpGamesListItem As New mdlFileList.GameListItem
             If SSMGameList.Games.TryGetValue(tmpCheckedItem.Group.Name, tmpGamesListItem) Then
-                If tmpGamesListItem.GameFiles.ContainsKey(frmMain.frmMainListMode) AndAlso _
-                    tmpGamesListItem.GameFiles(frmMain.frmMainListMode).Files.ContainsKey(tmpCheckedItem.Name) Then
-                    Dim tmpFile As PCSX2File = tmpGamesListItem.GameFiles(frmMain.frmMainListMode).Files(tmpCheckedItem.Name)
+                If tmpGamesListItem.GameFiles.ContainsKey(frmMain.CurrentListMode) AndAlso _
+                    tmpGamesListItem.GameFiles(frmMain.CurrentListMode).Files.ContainsKey(tmpCheckedItem.Name) Then
+                    Dim tmpFile As PCSX2File = tmpGamesListItem.GameFiles(frmMain.CurrentListMode).Files(tmpCheckedItem.Name)
                     Try
                         If My.Settings.SStatesMan_FileTrash = True Then
                             My.Computer.FileSystem.DeleteFile(Path.Combine(pPath, tmpFile.Name),
@@ -150,7 +150,7 @@ Public NotInheritable Class frmDeleteForm
         'Post file load form preparation
         '===============================
 
-        Me.UI_SwitchMode(frmMain.frmMainListMode)
+        Me.UI_SwitchMode(frmMain.CurrentListMode)
         SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Load, "3/3 Post load done.", sw.ElapsedTicks - tmpTicks)
         'tmpTicks = sw.ElapsedTicks
 
@@ -344,8 +344,8 @@ Public NotInheritable Class frmDeleteForm
         For Each tmpSerial As System.String In frmMain.checkedGames
 
             If SSMGameList.Games.ContainsKey(tmpSerial) Then
-                If SSMGameList.Games(tmpSerial).GameFiles.ContainsKey(frmMain.frmMainListMode) AndAlso _
-                    SSMGameList.Games(tmpSerial).GameFiles(frmMain.frmMainListMode).Files.Count > 0 Then
+                If SSMGameList.Games(tmpSerial).GameFiles.ContainsKey(frmMain.CurrentListMode) AndAlso _
+                    SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Files.Count > 0 Then
                     'Creation of the header
                     tmpGameInfo = PCSX2GameDb.Extract(tmpSerial)
                     Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With {
@@ -355,7 +355,7 @@ Public NotInheritable Class frmDeleteForm
 
                     tmpListGroups.Add(tmpLvwSListGroup)
 
-                    Me.DelFileList_AddFileListItems(SSMGameList.Games(tmpSerial).GameFiles(frmMain.frmMainListMode).Files, tmpLvwSListGroup, tmpListItems)
+                    Me.DelFileList_AddFileListItems(SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Files, tmpLvwSListGroup, tmpListItems)
                 Else
                     SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "Checked game " & tmpSerial & " has no savestates.")
                 End If
@@ -377,7 +377,7 @@ Public NotInheritable Class frmDeleteForm
 
         For Each tmpFile As KeyValuePair(Of String, PCSX2File) In pFile
 
-            If frmMain.checkedFiles(frmMain.frmMainListMode).Contains(tmpFile.Key) Then
+            If frmMain.checkedFiles(frmMain.CurrentListMode).Contains(tmpFile.Key) Then
                 Dim tmpLvwItem As New System.Windows.Forms.ListViewItem With {.Text = tmpFile.Key,
                                                                                    .Group = pLvwGroup,
                                                                                    .Name = tmpFile.Key}
@@ -386,11 +386,11 @@ Public NotInheritable Class frmDeleteForm
                                               tmpFile.Value.LastWriteTime.ToString,
                                               System.String.Format("{0:N2} MB", tmpFile.Value.Length / 1024 ^ 2)})
 
-                If File.Exists(Path.Combine(SSMGameList.Folder(frmMain.frmMainListMode), tmpFile.Key)) Then
+                If File.Exists(Path.Combine(SSMGameList.Folder(frmMain.CurrentListMode), tmpFile.Key)) Then
                     tmpLvwItem.SubItems.Add("")
                     tmpLvwItem.Checked = True
 
-                    Select Case frmMain.frmMainListMode
+                    Select Case frmMain.CurrentListMode
                         Case ListMode.Savestates
                             If tmpLvwItem.Name.EndsWith(My.Settings.PCSX2_SStateExtBackup) Then
                                 tmpLvwItem.ImageIndex = 1
@@ -472,7 +472,7 @@ Public NotInheritable Class frmDeleteForm
     Private Sub DelFileList_IndexChecked()
         Me.FileList_SelectedSize = 0
         Me.FileList_SelectedSizeBackup = 0
-        Select Case frmMain.frmMainListMode
+        Select Case frmMain.CurrentListMode
             Case ListMode.Savestates
                 Me.DelFileList_indexChecked2(Of Savestate)()
             Case ListMode.Stored
@@ -491,13 +491,13 @@ Public NotInheritable Class frmDeleteForm
             For Each tmpCheckedItem As ListViewItem In Me.lvwDelFilesList.CheckedItems
 
                 Dim tmpSerial As String = (New T With {.Name = tmpCheckedItem.Name}).GetGameSerial
-                If SSMGameList.Games.ContainsKey(tmpSerial) AndAlso SSMGameList.Games(tmpSerial).GameFiles.ContainsKey(frmMain.frmMainListMode) Then
-                    If SSMGameList.Games(tmpSerial).GameFiles(frmMain.frmMainListMode).Files.ContainsKey(tmpCheckedItem.Name) Then
-                        If frmMain.frmMainListMode = ListMode.Savestates AndAlso _
-                            SSMGameList.Games(tmpSerial).GameFiles(frmMain.frmMainListMode).Files(tmpCheckedItem.Name).Extension.Equals(My.Settings.PCSX2_SStateExtBackup) Then
-                            FileList_SelectedSizeBackup += SSMGameList.Games(tmpSerial).GameFiles(frmMain.frmMainListMode).Files(tmpCheckedItem.Name).Length
+                If SSMGameList.Games.ContainsKey(tmpSerial) AndAlso SSMGameList.Games(tmpSerial).GameFiles.ContainsKey(frmMain.CurrentListMode) Then
+                    If SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Files.ContainsKey(tmpCheckedItem.Name) Then
+                        If frmMain.CurrentListMode = ListMode.Savestates AndAlso _
+                            SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Files(tmpCheckedItem.Name).Extension.Equals(My.Settings.PCSX2_SStateExtBackup) Then
+                            FileList_SelectedSizeBackup += SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Files(tmpCheckedItem.Name).Length
                         Else
-                            FileList_SelectedSize += SSMGameList.Games(tmpSerial).GameFiles(frmMain.frmMainListMode).Files(tmpCheckedItem.Name).Length
+                            FileList_SelectedSize += SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Files(tmpCheckedItem.Name).Length
                         End If
                     End If
                 End If
@@ -587,7 +587,7 @@ Public NotInheritable Class frmDeleteForm
 
 #Region "Form - Commands"
     Private Sub cmdFilesDeleteSelected_Click(sender As Object, e As EventArgs) Handles cmdFilesDeleteSelected.Click
-        Me.DeleteFiles(SSMGameList.Folder(frmMain.frmMainListMode))
+        Me.DeleteFiles(SSMGameList.Folder(frmMain.CurrentListMode))
     End Sub
 
     Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
