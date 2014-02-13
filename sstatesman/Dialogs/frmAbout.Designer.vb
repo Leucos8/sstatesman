@@ -344,7 +344,8 @@ Partial Class frmAbout
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(400, 300)
-        Me.Controls.Add(Me.pnlTab2)
+		Me.ControlBox = False
+		Me.Controls.Add(Me.pnlTab2)
         Me.Controls.Add(Me.pnlTab1)
         Me.Controls.Add(Me.pnlTab0)
         Me.Controls.Add(Me.flpTab)

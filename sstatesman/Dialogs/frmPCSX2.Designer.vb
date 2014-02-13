@@ -193,6 +193,7 @@ Partial Class frmPCSX2
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.CancelButton = Me.cmdCancel
         Me.ClientSize = New System.Drawing.Size(400, 320)
+        Me.ControlBox = False
         Me.Controls.Add(Me.tlpFormContent)
         Me.Controls.Add(Me.cmdOk)
         Me.Controls.Add(Me.cmdCancel)

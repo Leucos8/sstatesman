@@ -39,10 +39,6 @@ Partial Class frmDialogTemplate
     Private Sub InitializeComponent()
         Me.SuspendLayout()
         '
-        'flpControlBox
-        '
-        Me.flpControlBox.Visible = False
-        '
         'imgWindowGradientIcon
         '
         Me.imgWindowGradientIcon.Visible = False

@@ -109,7 +109,6 @@ Public NotInheritable Class frmDeleteForm
         'Theme
         '-----
         'Me.ApplyTheme()
-        Me.ControlBoxMinimize.Visible = False
         Me.flpWindowBottom.Controls.AddRange({Me.cmdCancel, Me.cmdFilesDeleteSelected})
         Me.pnlFormContent.Dock = DockStyle.Fill
 

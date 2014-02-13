@@ -213,7 +213,6 @@ Partial Class frmTemplate
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.ClientSize = New System.Drawing.Size(344, 261)
-        Me.ControlBox = False
         Me.Controls.Add(Me.pnlWindowTop)
         Me.Controls.Add(Me.flpWindowBottom)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
@@ -235,15 +234,15 @@ Partial Class frmTemplate
         Me.PerformLayout()
 
     End Sub
-    Protected Friend WithEvents flpControlBox As System.Windows.Forms.FlowLayoutPanel
-    Protected Friend WithEvents ControlBoxClose As System.Windows.Forms.Button
     Protected Friend WithEvents flpWindowBottom As System.Windows.Forms.FlowLayoutPanel
     Protected Friend WithEvents pnlWindowTop As System.Windows.Forms.Panel
     Private WithEvents lblWindowTitle As System.Windows.Forms.Label
     Protected Friend WithEvents lblWindowDescription As System.Windows.Forms.Label
-    Protected Friend WithEvents ControlBoxMinimize As System.Windows.Forms.Button
-    Protected Friend WithEvents ControlBoxMaximize As System.Windows.Forms.Button
     Protected Friend WithEvents tlpWindowTop As System.Windows.Forms.TableLayoutPanel
     Protected Friend WithEvents imgWindowGradientIcon As System.Windows.Forms.PictureBox
     Protected Friend WithEvents flpTitleBar As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents flpControlBox As System.Windows.Forms.FlowLayoutPanel
+    Private WithEvents ControlBoxClose As System.Windows.Forms.Button
+    Private WithEvents ControlBoxMinimize As System.Windows.Forms.Button
+    Private WithEvents ControlBoxMaximize As System.Windows.Forms.Button
 End Class

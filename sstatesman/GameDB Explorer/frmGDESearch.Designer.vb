@@ -288,6 +288,7 @@ Partial Class frmGDESearch
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(474, 232)
+		Me.ControlBox = False
         Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.cmdSearch)
         Me.Controls.Add(Me.TableLayoutPanel1)

@@ -983,6 +983,7 @@ Partial Class frmSettings
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.WhiteSmoke
         Me.ClientSize = New System.Drawing.Size(574, 432)
+        Me.ControlBox = False
         Me.Controls.Add(Me.cmdApply)
         Me.Controls.Add(Me.cmdCancel)
         Me.Controls.Add(Me.cmdOk)

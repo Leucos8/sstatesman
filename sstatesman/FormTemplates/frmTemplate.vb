@@ -29,6 +29,45 @@ Public Class frmTemplate
         End Set
     End Property
 
+    Public Shadows Property ControlBox As Boolean
+        Get
+            Return MyBase.ControlBox
+        End Get
+        Set(value As Boolean)
+            MyBase.ControlBox = value
+            If Me.flpControlBox IsNot Nothing Then
+                Me.flpControlBox.Visible = value
+                Me.flpControlBox.Enabled = value
+            End If
+        End Set
+    End Property
+
+    Public Shadows Property MinimizeBox As Boolean
+        Get
+            Return MyBase.MinimizeBox
+        End Get
+        Set(ByVal value As Boolean)
+            MyBase.MinimizeBox = value
+            If Me.ControlBoxMinimize IsNot Nothing Then
+                Me.ControlBoxMinimize.Visible = value
+                Me.ControlBoxMinimize.Enabled = value
+            End If
+        End Set
+    End Property
+
+    Public Shadows Property MaximizeBox As Boolean
+        Get
+            Return MyBase.MaximizeBox
+        End Get
+        Set(ByVal value As Boolean)
+            MyBase.MaximizeBox = value
+            If Me.ControlBoxMaximize IsNot Nothing Then
+                Me.ControlBoxMaximize.Visible = value
+                Me.ControlBoxMaximize.Enabled = value
+            End If
+        End Set
+    End Property
+
     Private _formDescription As String
     Public Property FormDescription As String
         Get
