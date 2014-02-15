@@ -45,13 +45,14 @@ Partial Class frmPCSX2
         Me.txtSStatesManPathIso = New System.Windows.Forms.TextBox()
         Me.lblIsoPath = New System.Windows.Forms.Label()
         Me.txtPCSX2PathBin = New System.Windows.Forms.TextBox()
+        Me.lblStatus = New System.Windows.Forms.Label()
         Me.tlpFormContent.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlWindowTop
         '
         Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.pnlWindowTop.Size = New System.Drawing.Size(402, 46)
+        Me.pnlWindowTop.Size = New System.Drawing.Size(398, 46)
         '
         'cmdOk
         '
@@ -60,7 +61,6 @@ Partial Class frmPCSX2
         Me.cmdOk.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdOk.BackColor = System.Drawing.Color.White
         Me.cmdOk.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdOk.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.cmdOk.Enabled = False
         Me.cmdOk.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
         Me.cmdOk.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -187,6 +187,19 @@ Partial Class frmPCSX2
         Me.txtPCSX2PathBin.Size = New System.Drawing.Size(302, 22)
         Me.txtPCSX2PathBin.TabIndex = 16
         '
+        'lblStatus
+        '
+        Me.lblStatus.AutoSize = True
+        Me.lblStatus.BackColor = System.Drawing.Color.White
+        Me.lblStatus.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lblStatus.Location = New System.Drawing.Point(337, 58)
+        Me.lblStatus.Name = "lblStatus"
+        Me.lblStatus.Size = New System.Drawing.Size(54, 15)
+        Me.lblStatus.TabIndex = 14
+        Me.lblStatus.Text = "lblStatus"
+        Me.lblStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblStatus.Visible = False
+        '
         'frmPCSX2
         '
         Me.AcceptButton = Me.cmdOk
@@ -194,6 +207,7 @@ Partial Class frmPCSX2
         Me.CancelButton = Me.cmdCancel
         Me.ClientSize = New System.Drawing.Size(400, 320)
         Me.ControlBox = False
+        Me.Controls.Add(Me.lblStatus)
         Me.Controls.Add(Me.tlpFormContent)
         Me.Controls.Add(Me.cmdOk)
         Me.Controls.Add(Me.cmdCancel)
@@ -203,6 +217,7 @@ Partial Class frmPCSX2
         Me.Controls.SetChildIndex(Me.cmdOk, 0)
         Me.Controls.SetChildIndex(Me.pnlWindowTop, 0)
         Me.Controls.SetChildIndex(Me.tlpFormContent, 0)
+        Me.Controls.SetChildIndex(Me.lblStatus, 0)
         Me.tlpFormContent.ResumeLayout(False)
         Me.tlpFormContent.PerformLayout()
         Me.ResumeLayout(False)
@@ -218,4 +233,5 @@ Partial Class frmPCSX2
     Private WithEvents lblIsoPath As System.Windows.Forms.Label
     Private WithEvents txtPCSX2PathBin As System.Windows.Forms.TextBox
     Private WithEvents txtSStatesManPathIso As System.Windows.Forms.TextBox
+    Private WithEvents lblStatus As System.Windows.Forms.Label
 End Class
