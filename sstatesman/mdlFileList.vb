@@ -82,7 +82,7 @@ Module mdlFileList
 
             LoadIso(My.Settings.SStatesMan_IsoExts, My.Settings.SStatesMan_PathIso)
 
-            LoadFiles(Of Savestate)(ListMode.Stored, {My.Settings.PCSX2_SStateExt}, pSStatesStoredPath)
+            LoadFiles(Of Savestate)(ListMode.Stored, {My.Settings.SStatesMan_StoredExt}, pSStatesStoredPath)
 
             LoadFiles(Of Snapshot)(ListMode.Snapshots, My.Settings.SStatesMan_ScreenshotExts, pSnapsPath)
 
@@ -162,7 +162,7 @@ Module mdlFileList
 
                             If PCSX2GameDb.Records.ContainsKey(tmpSerial) Then
                                 If Not Games.ContainsKey(tmpSerial) Then
-                                    Games.Add(tmpSerial, New GameListItem With {.GameCRC = 0.ToString("N8"), .GameIso = tmpFI.Name})
+                                    Games.Add(tmpSerial, New GameListItem With {.GameCRC = "00000000", .GameIso = tmpFI.Name})
                                 Else
                                     Games(tmpSerial).GameIso = tmpFI.Name
                                 End If
@@ -179,7 +179,7 @@ Module mdlFileList
                                     tmpSerial = tmpString
                                 End If
                             End If
-                        Loop Until ParOPosition < 0
+                        Loop While ParOPosition >= 0
 
 
                     Next

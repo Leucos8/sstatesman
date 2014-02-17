@@ -40,15 +40,8 @@ Module mdlFileClasses
 
         Friend MustOverride Function GetGameSerial() As String
         Friend Overridable Function GetGameCRC() As String
-            Return String.Format("{0:N8}", 0)
+            Return "00000000"
         End Function
-
-        Friend Enum PCSX2FileType
-            OtherFileType = 0
-            PCSX2Savestate = 1
-            PCSX2SavestateBackup = 2
-            PCSX2Screenshot = 3
-        End Enum
     End Class
 
 
@@ -137,13 +130,15 @@ Module mdlFileClasses
             '    Return "GSdX"
             Dim SpacePosition As Integer = pFilename.IndexOf(" "c, 0)
             If SpacePosition > 0 Then
-                Return pFilename.Remove(SpacePosition)
+                If PCSX2GameDb.Status = LoadStatus.StatusLoadedOK AndAlso PCSX2GameDb.Records.ContainsKey(pFilename.Remove(SpacePosition)) Then
+                    Return pFilename.Remove(SpacePosition)
+                Else
+                    Return "Screenshots"
+                End If
             Else
                 Return "Screenshots"
             End If
 
         End Function
     End Class
-
-
 End Module
