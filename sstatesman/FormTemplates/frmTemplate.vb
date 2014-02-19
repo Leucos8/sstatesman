@@ -86,10 +86,22 @@ Public Class frmTemplate
         End Set
     End Property
 
+    Private _Shown As Boolean = False
+    Public ReadOnly Property IsShown As Boolean
+        Get
+            Return _Shown
+        End Get
+    End Property
+
 #Region "Form"
     Protected Overrides Sub OnLoad(e As EventArgs)
         MyBase.OnLoad(e)
         Me.applyTheme()
+    End Sub
+
+    Protected Overrides Sub OnShown(e As EventArgs)
+        MyBase.OnShown(e)
+        Me._Shown = True
     End Sub
 
     Protected Overrides Sub OnDeactivate(e As EventArgs)

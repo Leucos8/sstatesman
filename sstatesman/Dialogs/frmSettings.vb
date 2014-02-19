@@ -88,7 +88,7 @@ Public NotInheritable Class frmSettings
         'Me.applyTheme()
 
         'frmMain
-        If frmMain.LoadComplete Then
+        If frmMain.IsShown Then
             frmMain.applyTheme()    'Updating frmMain theme
             If Me.GameListNeedRefresh Then
                 frmMain.GameList_Refresh()
