@@ -22,7 +22,7 @@ Friend Class ucFolderPickerPanel
         End Get
         Set(ByVal value As String)
             Me.txtPath.Text = value
-            Me.CheckState()
+            RaiseEvent UpdateState(Me)
         End Set
     End Property
 
@@ -51,14 +51,14 @@ Friend Class ucFolderPickerPanel
     Public Property State As eDescState
         Get
             If Me.tmrCheck.Enabled Then
-                Me.CheckState()
+                RaiseEvent UpdateState(Me)
             End If
             Return _state
         End Get
         Set(value As eDescState)
             If Not (value = _state) Then
                 _state = value
-                Me.OnValidated(Nothing)
+                Me.OnValidated(New System.ComponentModel.CancelEventArgs With {.Cancel = False})
             End If
         End Set
     End Property
@@ -69,10 +69,11 @@ Friend Class ucFolderPickerPanel
         StateError
     End Enum
 
-
+    Private Event UpdateUI(sender As Object)
+    Private Event UpdateState(sender As Object)
     Public Event DetectFolder(sender As Object, e As EventArgs)
 
-    Public Sub UI_Update()
+    Public Sub ucFolderPickerPanel_UpdateUI(sender As Object) Handles Me.UpdateUI
         Select Case _state
             Case eDescState.StateIdle
                 Me.tlpWrapper.BackColor = Me.BackColor
@@ -98,15 +99,14 @@ Friend Class ucFolderPickerPanel
         End Try
     End Sub
 
-    Private Sub CheckState()
-        Me.txtPath.Text = mdlMain.TrimBadPathChars(Me.txtPath.Text)
+    Private Sub ucFolderPickerPanel_UpdateState(sender As Object) Handles Me.UpdateState
 
         Me.tmrCheck.Stop()
         Me.tmrCheck.Enabled = False
 
-        Me.OnValidating(Nothing)
+        Me.OnValidating(New System.ComponentModel.CancelEventArgs With {.Cancel = False})
 
-        UI_Update()
+        RaiseEvent UpdateUI(Me)
     End Sub
 
     Private Sub cmdBrowse_Click(sender As Object, e As EventArgs) Handles cmdBrowse.Click
@@ -119,7 +119,7 @@ Friend Class ucFolderPickerPanel
                 Me.txtPath.Text = tmpFBDlg.SelectedPath
             End If
         End Using
-        Me.CheckState()
+        RaiseEvent UpdateState(Me)
     End Sub
 
     Private Sub cmdOpen_Click(sender As Object, e As EventArgs) Handles cmdOpen.Click
@@ -132,16 +132,15 @@ Friend Class ucFolderPickerPanel
         Catch ex As Exception
             MessageBox.Show(String.Format("The folder ""{0}"" is not accessible, please reconfigure. {1}", Me.txtPath.Text, ex.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
+        RaiseEvent UpdateState(Me)
     End Sub
 
     Private Sub cmdDetect_Click(sender As Object, e As EventArgs) Handles cmdDetect.Click
         Me.cmdDetect.Visible = Me._detectAllowed
         Me.cmdDetect.Enabled = Me._detectAllowed
-        If Not (Me._detectAllowed) Then
-            SSMAppLog.Append(eType.LogError, eSrc.Settings, eSrcMethod.Detect, "Detect Button was supposed to be disabled!")
-        Else
+        If Me._detectAllowed Then
             RaiseEvent DetectFolder(Me, e)
-            Me.CheckState()
+            RaiseEvent UpdateState(Me)
         End If
     End Sub
 
@@ -152,6 +151,15 @@ Friend Class ucFolderPickerPanel
     End Sub
 
     Private Sub tmrCheck_Tick(sender As Object, e As EventArgs) Handles tmrCheck.Tick
-        Me.CheckState()
+        RaiseEvent UpdateState(Me)
     End Sub
+
+    Private Sub lblStatus_TextChanged(sender As Object, e As EventArgs) Handles lblStatus.TextChanged
+        Me.MaximumSize = New Size(Me.Width, Me.Height * 2)
+        Me.tlpWrapper.MaximumSize = Me.MaximumSize
+        Me.tlpWrapper.Dock = DockStyle.None
+        Me.Height = Me.tlpWrapper.Height
+        Me.tlpWrapper.Dock = DockStyle.Fill
+    End Sub
+
 End Class

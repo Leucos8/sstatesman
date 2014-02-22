@@ -69,8 +69,8 @@ Partial Class ucFolderPickerPanel
         Me.tlpWrapper.Padding = New System.Windows.Forms.Padding(8, 2, 8, 2)
         Me.tlpWrapper.RowCount = 2
         Me.tlpWrapper.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpWrapper.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpWrapper.Size = New System.Drawing.Size(280, 56)
+        Me.tlpWrapper.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpWrapper.Size = New System.Drawing.Size(300, 56)
         Me.tlpWrapper.TabIndex = 0
         '
         'flpCmds
@@ -80,7 +80,7 @@ Partial Class ucFolderPickerPanel
         Me.flpCmds.Controls.Add(Me.cmdOpen)
         Me.flpCmds.Controls.Add(Me.cmdDetect)
         Me.flpCmds.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpCmds.Location = New System.Drawing.Point(95, 26)
+        Me.flpCmds.Location = New System.Drawing.Point(115, 26)
         Me.flpCmds.Margin = New System.Windows.Forms.Padding(0)
         Me.flpCmds.Name = "flpCmds"
         Me.flpCmds.Size = New System.Drawing.Size(177, 28)
@@ -157,7 +157,7 @@ Partial Class ucFolderPickerPanel
         Me.txtPath.Location = New System.Drawing.Point(10, 4)
         Me.txtPath.Margin = New System.Windows.Forms.Padding(2)
         Me.txtPath.Name = "txtPath"
-        Me.txtPath.Size = New System.Drawing.Size(260, 20)
+        Me.txtPath.Size = New System.Drawing.Size(280, 20)
         Me.txtPath.TabIndex = 1
         '
         'lblStatus
@@ -183,16 +183,15 @@ Partial Class ucFolderPickerPanel
         '
         'tmrCheck
         '
-        Me.tmrCheck.Interval = 1000
+        Me.tmrCheck.Interval = 2000
         '
         'ucFolderPickerPanel
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit
-        Me.AutoSize = True
         Me.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.Controls.Add(Me.tlpWrapper)
         Me.Name = "ucFolderPickerPanel"
-        Me.Size = New System.Drawing.Size(280, 56)
+        Me.Size = New System.Drawing.Size(300, 56)
         Me.tlpWrapper.ResumeLayout(False)
         Me.tlpWrapper.PerformLayout()
         Me.flpCmds.ResumeLayout(False)
