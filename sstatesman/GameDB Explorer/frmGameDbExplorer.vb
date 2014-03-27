@@ -13,8 +13,8 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Public NotInheritable Class frmGameDbExplorer
-    Dim CurrentSerial As String = ""
-    Dim CurrentGame As New GameInfo With {.Serial = "", .Name = "", .Region = "", .Compat = "0"}
+    Dim CurrentSerial As String = String.Empty
+    Dim CurrentGame As New GameInfo With {.Serial = String.Empty, .Name = String.Empty, .Region = String.Empty, .Compat = "0"}
     Dim populationTime As Long
 
 
@@ -29,30 +29,30 @@ Public NotInheritable Class frmGameDbExplorer
         Me.tsTxtSearchSerial.Enabled = False
         Me.tsExport.Enabled = False
 
-        Me.txtGameList_Title.Text = ""
-        Me.txtGameList_Serial.Text = ""
-        Me.txtGameList_Region.Text = ""
-        Me.txtGameList_Compat.Text = ""
+        Me.txtGameList_Title.Text = String.Empty
+        Me.txtGameList_Serial.Text = String.Empty
+        Me.txtGameList_Region.Text = String.Empty
+        Me.txtGameList_Compat.Text = String.Empty
         Me.imgFlag.Image = My.Resources.Extra_ClearImage_30x20
 
-        Me.ToolStripStatusLabel1.Text = ""
-        Me.ToolStripStatusLabel3.Text = ""
+        Me.ToolStripStatusLabel1.Text = String.Empty
+        Me.ToolStripStatusLabel3.Text = String.Empty
 
-        Select Case PCSX2GameDb.Status
+        Select Case PCSX2GameDb.DBState
             Case LoadStatus.StatusLoadedOK
-                Me.CurrentGame = PCSX2GameDb.Extract(Me.CurrentSerial)
-                Me.ToolStripStatusLabel2.Text = String.Format("GameDB loaded in {0:N2}ms.", PCSX2GameDb.LoadTime / Stopwatch.Frequency * 1000)
+                Me.CurrentGame = PCSX2GameDb.GetGameInfo(Me.CurrentSerial)
+                Me.ToolStripStatusLabel2.Text = String.Format("GameDB loaded in {0:N2}ms.", PCSX2GameDb.LoadTimeTicks / Stopwatch.Frequency * 1000)
                 Me.ToolStripStatusLabel3.Text = String.Format("List created in {0:N2}ms.", Me.populationTime / Stopwatch.Frequency * 1000)
                 If Not (SearchIsActive) Then
-                    Me.ToolStripStatusLabel1.Text = String.Format("{0} games.", PCSX2GameDb.Records.Count.ToString("N0"))
+                    Me.ToolStripStatusLabel1.Text = String.Format("{0} games.", PCSX2GameDb.Count.ToString("N0"))
                 Else
                     Select Case Me.SearchResultRef.Count
                         Case Is > 0
-                            Me.ToolStripStatusLabel1.Text = String.Format("Found {0:N0} in {1:N0} games.", Me.SearchResultRef.Count, PCSX2GameDb.Records.Count.ToString)
+                            Me.ToolStripStatusLabel1.Text = String.Format("Found {0:N0} in {1:N0} games.", Me.SearchResultRef.Count, PCSX2GameDb.Count.ToString)
                             Me.tsListShow.Enabled = True
                             Me.tsListShow.Visible = True
                         Case 0
-                            Me.ToolStripStatusLabel1.Text = String.Format("No result found in {1:N0} games.", Me.SearchResultRef.Count, PCSX2GameDb.Records.Count.ToString)
+                            Me.ToolStripStatusLabel1.Text = String.Format("No result found in {1:N0} games.", Me.SearchResultRef.Count, PCSX2GameDb.Count.ToString)
                             Me.tsListShow.Enabled = True
                             Me.tsListShow.Visible = True
                     End Select
@@ -67,7 +67,7 @@ Public NotInheritable Class frmGameDbExplorer
                 Me.txtGameList_Title.Text = CurrentGame.Name
                 Me.txtGameList_Serial.Text = CurrentGame.Serial
                 Me.txtGameList_Region.Text = CurrentGame.Region
-                Me.txtGameList_Compat.Text = CurrentGame.CompatToText
+                Me.txtGameList_Compat.Text = CurrentGame.CompatText
                 Me.imgFlag.Image = mdlMain.assignFlag(CurrentGame.Region, CurrentGame.Serial)
 
 
@@ -85,9 +85,9 @@ Public NotInheritable Class frmGameDbExplorer
     End Sub
 
     Private Sub LoadGameDB(ByVal pPath As String)
-        PCSX2GameDb.Load(pPath)
+        PCSX2GameDb.LoadDB(pPath)
 
-        Me.CurrentSerial = ""
+        Me.CurrentSerial = String.Empty
         Me.SearchResultRef.Clear()
         Me.SearchIsActive = False
 
@@ -98,7 +98,7 @@ Public NotInheritable Class frmGameDbExplorer
 
     Private Sub frmGameDb_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
 
-        Me.CurrentSerial = ""
+        Me.CurrentSerial = String.Empty
         Me.SearchResultRef.Clear()
         Me.SearchIsActive = False
 
@@ -163,11 +163,11 @@ Public NotInheritable Class frmGameDbExplorer
                     .Title = "Save found records to..."
                 End With
                 If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                    Dim GameDbExtract As New Dictionary(Of String, GameInfo)
+                    Dim GameDbExtract As New List(Of GameInfo)
                     Dim GameDbExtract_ArrayStatus As Byte = LoadStatus.StatusNotLoaded
 
-                    GameDbExtract_ArrayStatus = PCSX2GameDb.Extract(SearchResultRef, GameDbExtract)
-                    GameDB.ExportTxt(SaveDialog.FileName, vbTab, GameDbExtract)
+                    GameDbExtract_ArrayStatus = PCSX2GameDb.GetGameInfo(SearchResultRef, GameDbExtract)
+                    GameDB.SaveTxt(SaveDialog.FileName, vbTab, GameDbExtract)
                 End If
             Else
                 With SaveDialog
@@ -175,7 +175,7 @@ Public NotInheritable Class frmGameDbExplorer
                     .Title = "Save records to..."
                 End With
                 If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                    PCSX2GameDb.ExportTxt(SaveDialog.FileName, vbTab)
+                    PCSX2GameDb.SaveTxt(SaveDialog.FileName, vbTab)
                 End If
             End If
         End Using
@@ -201,11 +201,11 @@ Public NotInheritable Class frmGameDbExplorer
                 End With
                 If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
                     If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                        Dim GameDbExtract As New Dictionary(Of String, GameInfo)
+                        Dim GameDbExtract As New List(Of GameInfo)
                         Dim GameDbExtract_ArrayStatus As Byte = LoadStatus.StatusNotLoaded
 
-                        GameDbExtract_ArrayStatus = PCSX2GameDb.Extract(SearchResultRef, GameDbExtract)
-                        GameDB.ExportTxt(SaveDialog.FileName, Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator, GameDbExtract)
+                        GameDbExtract_ArrayStatus = PCSX2GameDb.GetGameInfo(SearchResultRef, GameDbExtract)
+                        GameDB.SaveTxt(SaveDialog.FileName, Globalization.CultureInfo.CurrentCulture.TextInfo.ListSeparator, GameDbExtract)
                     End If
                 End If
             Else
@@ -214,7 +214,7 @@ Public NotInheritable Class frmGameDbExplorer
                     .Title = "Save records to..."
                 End With
                 If SaveDialog.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-                    PCSX2GameDb.ExportTxt(SaveDialog.FileName, ";")
+                    PCSX2GameDb.SaveTxt(SaveDialog.FileName, ";")
                 End If
             End If
         End Using
@@ -222,12 +222,12 @@ Public NotInheritable Class frmGameDbExplorer
 
     Private Sub tsTxtSearchSerial_GotFocus(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsTxtSearchSerial.GotFocus
         If Me.tsTxtSearchSerial.Text = "Serial" Then
-            Me.tsTxtSearchSerial.Text = ""
+            Me.tsTxtSearchSerial.Text = String.Empty
         End If
     End Sub
 
     Private Sub tsTxtSearchSerial_LostFocus(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tsTxtSearchSerial.LostFocus
-        If Me.tsTxtSearchSerial.Text = "" Then
+        If Me.tsTxtSearchSerial.Text = String.Empty Then
             Me.tsTxtSearchSerial.Text = "Serial"
         End If
     End Sub
@@ -246,24 +246,24 @@ Public NotInheritable Class frmGameDbExplorer
 
     Private Sub tsCmdSearch_Click(sender As System.Object, e As System.EventArgs) Handles tsCmdSearch.Click
         If frmGDESearch.ShowDialog(Me) = Windows.Forms.DialogResult.OK Then
-            Dim SearchGameDb As New Dictionary(Of String, GameInfo)
-            PCSX2GameDb.Extract(Me.SearchResultRef, SearchGameDb)
+            Dim SearchGameDb As New List(Of GameInfo)
+            PCSX2GameDb.GetGameInfo(Me.SearchResultRef, SearchGameDb)
             Me.PopulateList(SearchGameDb)
 
             Me.UI_Updater()
         End If
     End Sub
 
-    Private Sub PopulateList(ByVal pList As Dictionary(Of String, GameInfo))
+    Private Sub PopulateList(ByVal pList As List(Of GameInfo))
         Dim sw As New Stopwatch
         sw.Start()
         Me.lvwGameDBList.Items.Clear()
         Dim myLvwItems As New List(Of ListViewItem)
-        For Each myTmpGame As KeyValuePair(Of String, GameInfo) In pList
-            Dim myTmpItem As New ListViewItem With {.Text = myTmpGame.Value.Name}
-            myTmpItem.SubItems.AddRange({myTmpGame.Key,
-                                         myTmpGame.Value.Region,
-                                         myTmpGame.Value.CompatToText})
+        For Each myTmpGame As GameInfo In pList
+            Dim myTmpItem As New ListViewItem With {.Text = myTmpGame.Name}
+            myTmpItem.SubItems.AddRange({myTmpGame.Serial,
+                                         myTmpGame.Region,
+                                         myTmpGame.CompatText})
             myLvwItems.Add(myTmpItem)
         Next
         mdlTheme.ListAlternateColors(myLvwItems)

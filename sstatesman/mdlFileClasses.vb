@@ -21,7 +21,7 @@ Module mdlFileClasses
                 If DotPosition > 0 Then
                     Return Name.Remove(0, DotPosition)
                 Else
-                    Return ""
+                    Return String.Empty
                 End If
             End Get
         End Property
@@ -33,9 +33,9 @@ Module mdlFileClasses
                 Return -1
             End Get
         End Property
-        Friend Overridable Property ExtraInfo As String = ""
+        Friend Overridable Property ExtraInfo As String = String.Empty
         Friend Overridable Sub GetExtraInfo(pPath As String)
-            ExtraInfo = ""
+            ExtraInfo = String.Empty
         End Sub
 
         Friend MustOverride Function GetGameSerial() As String
@@ -58,7 +58,7 @@ Module mdlFileClasses
                 Return Number
             End Get
         End Property
-        Friend Overrides Property ExtraInfo As String = ""
+        Friend Overrides Property ExtraInfo As String = String.Empty
 
         Friend Overrides Function GetGameSerial() As String
             Return Savestate.GetGameSerial(Name)
@@ -92,7 +92,7 @@ Module mdlFileClasses
             If (ParOPosition > 0) AndAlso (ParCPosition > ParOPosition) Then
                 Return pFilename.Substring(ParOPosition + 1, ParCPosition - ParOPosition - 1)
             Else
-                Return String.Format("N8", 0)
+                Return "00000000"
             End If
         End Function
 
@@ -118,19 +118,19 @@ Module mdlFileClasses
                 Return -1
             End Get
         End Property
-        Friend Overrides Property ExtraInfo As String = ""
+        Friend Overrides Property ExtraInfo As String = String.Empty
 
         Friend Overrides Function GetGameSerial() As String
             Return Snapshot.GetGameSerial(Name)
         End Function
 
-        Friend Overloads Shared Function GetGameSerial(ByVal pFilename As String) As String
-            'Dim SpacePosition As Int32 = Name.IndexOf(" "c, 0)
+        Friend Overloads Shared Function GetGameSerial(pFilename As String) As String
+            'Dim SpacePosition As Integer = Name.IndexOf(" "c, 0)
             'If Name.ToLower.StartsWith("gsdx") Then
             '    Return "GSdX"
             Dim SpacePosition As Integer = pFilename.IndexOf(" "c, 0)
             If SpacePosition > 0 Then
-                If PCSX2GameDb.Status = LoadStatus.StatusLoadedOK AndAlso PCSX2GameDb.Records.ContainsKey(pFilename.Remove(SpacePosition)) Then
+                If PCSX2GameDb.DBState = LoadStatus.StatusLoadedOK AndAlso PCSX2GameDb.ContainsGame(pFilename.Remove(SpacePosition)) Then
                     Return pFilename.Remove(SpacePosition)
                 Else
                     Return "Screenshots"
@@ -141,4 +141,6 @@ Module mdlFileClasses
 
         End Function
     End Class
+
+
 End Module

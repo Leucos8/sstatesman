@@ -103,20 +103,13 @@ Module mdlMain
         Return My.Resources.Extra_ClearImage_30x20
     End Function
 
-    Friend Function TrimBadPathChars(ByVal pInputPath As String, Optional ByVal pTrimBadChars As Boolean = False) As String
-        If (Not (pInputPath = "")) Then
-            Dim badChars() As Char = {" "c, "\"c, "/"c, ":"c}
-            Dim invalidChars() As Char = {""""c, "*"c, "?"c, "|"c, "<"c, ">"c}
-            If pTrimBadChars Then
-                pInputPath = pInputPath.Trim(badChars)
-            Else
-                pInputPath = pInputPath.Trim
-            End If
-            For Each tmpChar As Char In invalidChars
-                pInputPath = pInputPath.Replace(tmpChar, "_"c)
+    Friend Function ReplaceChars(pInput As String, pChars() As Char, Optional pReplaceChar As Char = "_"c) As String
+        If Not String.IsNullOrEmpty(pInput) AndAlso Not String.IsNullOrEmpty(pReplaceChar) Then
+            For Each tmpChar As Char In pChars
+                pInput.Replace(tmpChar, pReplaceChar)
             Next
         End If
-        Return pInputPath
+        Return pInput
     End Function
 
     Friend Function SafeExistFolder(pPath As String) As Boolean

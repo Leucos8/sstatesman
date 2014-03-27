@@ -29,8 +29,8 @@ Public Class frmSStateList
         Dim ico As Icon = Icon.FromHandle(My.Resources.Icon_Tools.GetHicon())
         Me.Icon = ico
         'ShowStatus()
-        Me.ToolStripStatusLabel1.Text = String.Format("GameDB loaded in {0:N2}ms.", PCSX2GameDb.LoadTime / Stopwatch.Frequency * 1000)
-        Me.ToolStripStatusLabel2.Text = String.Format("Files scanned in {0:N2}ms.", SSMGameList.LoadTime / Stopwatch.Frequency * 1000)
+        Me.ToolStripStatusLabel1.Text = String.Format("GameDB loaded in {0:N2}ms.", PCSX2GameDb.LoadTimeTicks / Stopwatch.Frequency * 1000)
+        Me.ToolStripStatusLabel2.Text = String.Format("Files scanned in {0:N2}ms.", SSMGameList.LoadTimeTicks / Stopwatch.Frequency * 1000)
         Me.ToolStripStatusLabel3.Text = ""
     End Sub
 
@@ -88,9 +88,9 @@ Public Class frmSStateList
         AddHeader()
 
         For Each tmpGamesListKey As String In SSMGameList.Games.Keys
-            Dim tmpGame As GameInfo = PCSX2GameDb.Extract(tmpGamesListKey)
+            Dim tmpGame As GameInfo = PCSX2GameDb.GetGameInfo(tmpGamesListKey)
             Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Name, .Name = tmpGame.Serial}
-            tmpListViewItem.SubItems.AddRange({tmpGame.Serial, tmpGame.Region, tmpGame.CompatToText, _
+            tmpListViewItem.SubItems.AddRange({tmpGame.Serial, tmpGame.Region, tmpGame.CompatText, _
                                                SSMGameList.Games(tmpGamesListKey).GameCRC, _
                                                SSMGameList.Games(tmpGamesListKey).GameIso, _
                                                SSMGameList.Games(tmpGamesListKey).HasCoverFile(My.Settings.SStatesMan_PathPics, tmpGamesListKey).ToString, _
@@ -123,10 +123,10 @@ Public Class frmSStateList
         AddHeader()
 
         For Each tmpCheckedSerial As String In frmMain.checkedGames
-            Dim tmpGame As GameInfo = PCSX2GameDb.Extract(tmpCheckedSerial)
+            Dim tmpGame As GameInfo = PCSX2GameDb.GetGameInfo(tmpCheckedSerial)
             Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Name, .Name = tmpGame.Serial, .BackColor = mdlTheme.currentTheme.AccentColor}
-            tmpListViewItem.SubItems.AddRange({tmpGame.Serial, tmpGame.Region, tmpGame.CompatToText})
-            Dim tmpGamesListItem As New mdlFileList.GameListItem
+            tmpListViewItem.SubItems.AddRange({tmpGame.Serial, tmpGame.Region, tmpGame.CompatText})
+            Dim tmpGamesListItem As New mdlFileList.GamesList.GameListItem
             If SSMGameList.Games.TryGetValue(tmpGame.Serial, tmpGamesListItem) Then
                 tmpListViewItem.SubItems.AddRange({SSMGameList.Games(tmpCheckedSerial).GameCRC, _
                                                    SSMGameList.Games(tmpCheckedSerial).HasCoverFile(My.Settings.SStatesMan_PathPics, tmpCheckedSerial).ToString, _
@@ -160,9 +160,9 @@ Public Class frmSStateList
         Me.CurrentListMode = pDTListMode
         AddHeader()
 
-        For Each tmpGamesListItem As KeyValuePair(Of String, mdlFileList.GameListItem) In SSMGameList.Games
+        For Each tmpGamesListItem As KeyValuePair(Of String, mdlFileList.GamesList.GameListItem) In SSMGameList.Games
             If tmpGamesListItem.Value.GameFiles.ContainsKey(pFileListMode) Then
-                For Each tmpFile As KeyValuePair(Of String, PCSX2File) In tmpGamesListItem.Value.GameFiles(pFileListMode).Files
+                For Each tmpFile As KeyValuePair(Of String, PCSX2File) In tmpGamesListItem.Value.GameFiles(pFileListMode)
                     Dim tmpListViewItem As New ListViewItem With {.Text = tmpFile.Value.GetGameSerial, .Name = tmpFile.Value.Name}
                     tmpListViewItem.SubItems.AddRange({tmpFile.Value.Name, tmpFile.Value.Number.ToString, tmpFile.Value.Extension, tmpFile.Value.ExtraInfo, tmpFile.Value.LastWriteTime.ToString, (tmpFile.Value.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
                     If frmMain.checkedGames.Contains(tmpGamesListItem.Key) Then
@@ -197,10 +197,10 @@ Public Class frmSStateList
         AddHeader()
 
         For Each tmpCheckedGame As String In frmMain.checkedGames
-            Dim tmpGame As New GameListItem
+            Dim tmpGame As New mdlFileList.GamesList.GameListItem
             If SSMGameList.Games.TryGetValue(tmpCheckedGame, tmpGame) Then
                 If tmpGame.GameFiles.ContainsKey(pFileListMode) Then
-                    For Each tmpSavestate As KeyValuePair(Of String, PCSX2File) In tmpGame.GameFiles(pFileListMode).Files
+                    For Each tmpSavestate As KeyValuePair(Of String, PCSX2File) In tmpGame.GameFiles(pFileListMode)
                         Dim tmpListViewItem As New ListViewItem With {.Text = tmpSavestate.Value.GetGameSerial, .Name = tmpSavestate.Key, .BackColor = mdlTheme.currentTheme.AccentColorLight}
                         tmpListViewItem.SubItems.AddRange({tmpSavestate.Key, tmpSavestate.Value.Number.ToString, tmpSavestate.Value.Extension, tmpSavestate.Value.ExtraInfo, tmpSavestate.Value.LastWriteTime.ToString, (tmpSavestate.Value.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
                         If frmMain.checkedFiles(frmMain.CurrentListMode).Contains(tmpSavestate.Key) Then
@@ -233,10 +233,10 @@ Public Class frmSStateList
 
         For Each tmpSavestateName As String In frmMain.checkedFiles(frmMain.CurrentListMode)
             Dim tmpListViewItem As New ListViewItem With {.Text = Savestate.GetGameSerial(tmpSavestateName), .Name = tmpSavestateName, .BackColor = mdlTheme.currentTheme.AccentColor}
-            Dim tmpGamesListItem As New GameListItem
+            Dim tmpGamesListItem As New mdlFileList.GamesList.GameListItem
             If SSMGameList.Games.TryGetValue(Savestate.GetGameSerial(tmpSavestateName), tmpGamesListItem) AndAlso tmpGamesListItem.GameFiles.ContainsKey(pFileListMode) Then
-                If tmpGamesListItem.GameFiles(pFileListMode).Files.ContainsKey(tmpSavestateName) Then
-                    Dim tmpSavestate As PCSX2File = tmpGamesListItem.GameFiles(pFileListMode).Files(tmpSavestateName)
+                If tmpGamesListItem.GameFiles(pFileListMode).ContainsKey(tmpSavestateName) Then
+                    Dim tmpSavestate As PCSX2File = tmpGamesListItem.GameFiles(pFileListMode).Item(tmpSavestateName)
                     tmpListViewItem.SubItems.AddRange({tmpSavestateName, tmpSavestate.Number.ToString, tmpSavestate.Extension, tmpSavestate.ExtraInfo, tmpSavestate.LastWriteTime.ToString, (tmpSavestate.Length / 1024 ^ 2).ToString("#,##0.00 MB")})
                 Else
                     tmpListViewItem.BackColor = Color.FromArgb(255, 255, 224, 192)   'orange
@@ -324,9 +324,9 @@ Public Class frmSStateList
             tmpTotals(1) += 1
         End If
 
-        For Each tmpGame As KeyValuePair(Of String, GameListItem) In SSMGameList.Games
+        For Each tmpGame As KeyValuePair(Of String, mdlFileList.GamesList.GameListItem) In SSMGameList.Games
             Dim tmpListViewItem As New ListViewItem With {.Text = tmpGame.Key, .Name = tmpGame.Key}
-            tmpListViewItem.SubItems.AddRange({PCSX2GameDb.Extract(tmpGame.Key).Name, tmpGame.Value.HasCoverFile(My.Settings.SStatesMan_PathPics, tmpGame.Key).ToString})
+            tmpListViewItem.SubItems.AddRange({PCSX2GameDb.GetGameInfo(tmpGame.Key).Name, tmpGame.Value.HasCoverFile(My.Settings.SStatesMan_PathPics, tmpGame.Key).ToString})
             If CoverCache.ContainsKey(tmpGame.Key) Then
                 tmpListViewItem.SubItems.AddRange({"True", CoverCache(tmpGame.Key).LastHit.ToString})
                 tmpListViewItem.BackColor = currentTheme.AccentColor

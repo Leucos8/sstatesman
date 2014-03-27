@@ -15,7 +15,6 @@
 Imports System.IO
 Public NotInheritable Class frmMain
     Friend Property CurrentListMode As ListMode = ListMode.Savestates
-    Friend Property LoadComplete As Boolean = False
 
     'Main window checked objects list
     Friend checkedGames As New List(Of String)
@@ -23,9 +22,7 @@ Public NotInheritable Class frmMain
 
     'Stores the current game information displayed in the game information section
     Dim currentGameInfo As New GameInfo
-    'Dim currentIsoFileName As String = ""
-    'Current snapshot path (for loading current screenshots in the preview)
-    Dim currentSnapshotFullname As String = ""
+    Dim currentSnapshotFullname As String = String.Empty
 
     'Current size in bytes of the selected items
     Dim GameList_SelectedSize As Long = 0
@@ -72,7 +69,7 @@ Public NotInheritable Class frmMain
             frmSettings.ShowDialog(Me)
         End If
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "SStatesMan settings & resources.", sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "Settings and resources.", sw.ElapsedTicks)
         sw.Restart()
 
         '==============
@@ -80,16 +77,16 @@ Public NotInheritable Class frmMain
         '==============
 
         'Loading the Game database (from PCSX2 directory)
-        PCSX2GameDb.Load(Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
+        PCSX2GameDb.LoadDB(Path.Combine(My.Settings.PCSX2_PathBin, My.Settings.PCSX2_GameDbFilename))
         'Loading the internal savestate version database
         PCSX2StateVerDB.Load(My.Resources.ssversion)
 
 
         'Refreshing the games list
-        SSMGameList.Load(My.Settings.PCSX2_PathSState, My.Settings.SStatesMan_PathStored, My.Settings.PCSX2_PathSnaps)
+        SSMGameList.Load(My.Settings.PCSX2_PathSState, My.Settings.SStatesMan_PathStored, My.Settings.PCSX2_PathSnaps, My.Settings.SStatesMan_PathIso)
 
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "GameDB and Gamelist loaded.", sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "GameDB and games files.", sw.ElapsedTicks)
         sw.Restart()
 
 
@@ -129,7 +126,7 @@ Public NotInheritable Class frmMain
 
         'Main window location, size and state
         Me.Location = My.Settings.frmMain_WindowLocation
-        Me.Size = My.Settings.frmMain_WindowSize
+        Me.ClientSize = My.Settings.frmMain_WindowSize
         If My.Settings.frmMain_WindowState = FormWindowState.Minimized Then
             My.Settings.frmMain_WindowState = FormWindowState.Normal
         End If
@@ -171,7 +168,7 @@ Public NotInheritable Class frmMain
             Me.cmdSStatesLvwExpand_Click(Nothing, Nothing)
         End If
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "Saved window settings applied.", sw.ElapsedTicks - tmpPartialTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "Main window prepared.", sw.ElapsedTicks - tmpPartialTicks)
         tmpPartialTicks = sw.ElapsedTicks
 
         '===============================
@@ -195,7 +192,6 @@ Public NotInheritable Class frmMain
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Load, "Complete.", sw.ElapsedTicks)
-        Me.LoadComplete = True
     End Sub
 
     Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
@@ -208,7 +204,7 @@ Public NotInheritable Class frmMain
         If Me.WindowState = FormWindowState.Normal Then
             'Location and size saved only when windowstate is normal
             My.Settings.frmMain_WindowLocation = Me.Location
-            My.Settings.frmMain_WindowSize = Me.Size
+            My.Settings.frmMain_WindowSize = Me.ClientSize
         End If
         'Splitter distance
         My.Settings.frmMain_SplitterDistance = Me.SplitContainer1.SplitterDistance
@@ -277,7 +273,9 @@ Public NotInheritable Class frmMain
         Me.tlpGameList.SuspendLayout()
         Me.tlpGameListCommands.SuspendLayout()
 
-        If SSMGameList.Games.Count > 0 And checkedGames.Count > 0 Then
+        If SSMGameList.Games.Count > 0 AndAlso _
+            (Me.lvwGamesList.SelectedItems.Count > 0 OrElse _
+             Me.lvwGamesList.CheckedItems.Count > 0) Then
             '========================
             'Game checked or selected
             '========================
@@ -290,7 +288,7 @@ Public NotInheritable Class frmMain
                 Me.cmdGameSelectNone.Enabled = False
             End If
 
-            If SSMGameList.Games.Count = checkedGames.Count Then
+            If SSMGameList.Games.Count = Me.lvwGamesList.CheckedItems.Count Then
                 'All the games are checked
                 Me.cmdGameSelectAll.Enabled = False
             Else
@@ -300,45 +298,41 @@ Public NotInheritable Class frmMain
             Me.cmdGameSelectAll.Visible = Me.cmdGameSelectAll.Enabled
             Me.cmdGameSelectNone.Visible = Me.cmdGameSelectNone.Enabled
 
-            If checkedGames.Count > 1 Then
+            If Me.lvwGamesList.CheckedItems.Count > 1 Then
                 '--------------------------
                 'More than one game checked
                 '--------------------------
 
                 'Game info
                 Me.txtGameList_Title.Text = "(multiple games selected)"
-                Me.txtGameList_Serial.Text = ""
-                Me.txtGameList_Region.Text = ""
-                Me.txtGameList_Compat.Text = ""
+                Me.txtGameList_Serial.Text = String.Empty
+                Me.txtGameList_Region.Text = String.Empty
+                Me.txtGameList_Compat.Text = String.Empty
                 Me.txtGameList_Compat.BackColor = Color.WhiteSmoke
                 Me.imgFlag.Image = My.Resources.Extra_ClearImage_30x20
 
                 'Cover image
                 Me.imgCover.SizeMode = PictureBoxSizeMode.Normal
 
+
+                Dim tmpCover_Size As Size = Nothing
                 If My.Settings.frmMain_CoverExpanded Then
-                    Me.imgCover.Image = FetchCover(checkedGames, My.Settings.SStatesMan_PathPics, _
-                                                 CInt(Cover_SizeExpanded.Width * DPIxScale), _
-                                                 CInt(Cover_SizeExpanded.Height * DPIyScale), _
-                                                 My.Settings.frmMain_CoverExpanded)
-                    Me.imgCover.Width = CInt(Cover_SizeExpanded.Width * DPIxScale) + 2
-                    Me.imgCover.Height = CInt(Cover_SizeExpanded.Height * DPIxScale) + 2
+                    tmpCover_Size = New Size(CInt(Cover_SizeExpanded.Width * DPIxScale), CInt(Cover_SizeExpanded.Height * DPIyScale))
                     Me.imgCover.Dock = DockStyle.Bottom
                 Else
-                    Me.imgCover.Image = FetchCover(checkedGames, My.Settings.SStatesMan_PathPics, _
-                                                 CInt(Cover_SizeReduced.Height * DPIxScale), _
-                                                 CInt(Cover_SizeReduced.Height * DPIyScale), _
-                                                 My.Settings.frmMain_CoverExpanded)
-                    Me.imgCover.Width = CInt(Cover_SizeReduced.Height * DPIyScale) + 2
-                    Me.imgCover.Height = CInt(Cover_SizeReduced.Height * DPIyScale) + 2
+                    tmpCover_Size = New Size(CInt(Cover_SizeReduced.Height * DPIxScale), CInt(Cover_SizeReduced.Height * DPIyScale))
                     Me.imgCover.Dock = DockStyle.None
                 End If
+                Me.imgCover.Image = mdlCoverCache.RetrieveCover(checkedGames, My.Settings.SStatesMan_PathPics, _
+                                                                tmpCover_Size, My.Settings.frmMain_CoverExpanded)
+                Me.imgCover.Width = tmpCover_Size.Width + 2
+                Me.imgCover.Height = tmpCover_Size.Height + 2
 
                 'IsoFiles
                 Me.cmdGamePlay.Enabled = False
                 Me.cmiPCSX2Play.Enabled = False
                 Me.cmiPCSX2Play.Text = "(Multiple games)"
-                Me.cmiPCSX2Play.ToolTipText = ""
+                Me.cmiPCSX2Play.ToolTipText = String.Empty
 
             Else
                 '---------------------------------
@@ -349,8 +343,8 @@ Public NotInheritable Class frmMain
                 Me.txtGameList_Title.Text = currentGameInfo.Name
                 Me.txtGameList_Serial.Text = currentGameInfo.Serial
                 Me.txtGameList_Region.Text = currentGameInfo.Region
-                Me.txtGameList_Compat.Text = currentGameInfo.CompatToText
-                Me.txtGameList_Compat.BackColor = currentGameInfo.CompatToColor(Color.WhiteSmoke)
+                Me.txtGameList_Compat.Text = currentGameInfo.CompatText
+                Me.txtGameList_Compat.BackColor = currentGameInfo.CompatColor(Color.WhiteSmoke)
                 Me.imgFlag.Image = mdlMain.assignFlag(currentGameInfo.Region, currentGameInfo.Serial)
                 Me.imgFlag.Size = New Size(CInt(Me.imgFlag.Image.PhysicalDimension.Width * DPIxScale) + 2, _
                                            CInt(Me.imgFlag.Image.PhysicalDimension.Height * DPIyScale) + 2)
@@ -359,12 +353,12 @@ Public NotInheritable Class frmMain
                 Me.imgCover.SizeMode = PictureBoxSizeMode.StretchImage
 
                 If My.Settings.frmMain_CoverExpanded Then
-                    Me.imgCover.Image = mdlCoverCache.FetchCover(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, My.Settings.frmMain_CoverExpanded)
+                    Me.imgCover.Image = mdlCoverCache.RetrieveCover(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, My.Settings.frmMain_CoverExpanded)
                     Me.imgCover.Width = CInt(Cover_SizeExpanded.Width * DPIxScale) + 2
                     Me.imgCover.Height = CInt((Cover_SizeExpanded.Width * Me.imgCover.Image.PhysicalDimension.Height / Me.imgCover.Image.PhysicalDimension.Width) * DPIyScale) + 2
                     Me.imgCover.Dock = DockStyle.Bottom
                 Else
-                    Me.imgCover.Image = mdlCoverCache.FetchCover(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, My.Settings.frmMain_CoverExpanded)
+                    Me.imgCover.Image = mdlCoverCache.RetrieveCover(currentGameInfo.Serial, My.Settings.SStatesMan_PathPics, My.Settings.frmMain_CoverExpanded)
                     Me.imgCover.Width = CInt((Cover_SizeReduced.Height * Me.imgCover.Image.PhysicalDimension.Width / Me.imgCover.Image.PhysicalDimension.Height) * DPIxScale) + 2
                     If Me.imgCover.Image.PhysicalDimension.Width < Me.imgCover.Image.PhysicalDimension.Height Then
                         Me.imgCover.Height = CInt(Cover_SizeReduced.Height * DPIxScale) + 2
@@ -375,7 +369,7 @@ Public NotInheritable Class frmMain
                 End If
 
                 'IsoFile
-                If SSMGameList.Games(currentGameInfo.Serial).GameIso = "" Then
+                If String.IsNullOrEmpty(SSMGameList.Games(currentGameInfo.Serial).GameIso) Then
                     Me.cmdGamePlay.Enabled = False
                     Me.cmiPCSX2Play.Enabled = False
                     Me.cmiPCSX2Play.Text = "(No Iso file found)"
@@ -393,10 +387,10 @@ Public NotInheritable Class frmMain
             '=========================
 
             'Game info cleared
-            Me.txtGameList_Title.Text = ""
-            Me.txtGameList_Serial.Text = ""
-            Me.txtGameList_Region.Text = ""
-            Me.txtGameList_Compat.Text = ""
+            Me.txtGameList_Title.Text = String.Empty
+            Me.txtGameList_Serial.Text = String.Empty
+            Me.txtGameList_Region.Text = String.Empty
+            Me.txtGameList_Compat.Text = String.Empty
             Me.txtGameList_Compat.BackColor = Color.WhiteSmoke
             Me.imgFlag.Image = My.Resources.Extra_ClearImage_30x20
 
@@ -419,7 +413,7 @@ Public NotInheritable Class frmMain
             Me.cmdGamePlay.Enabled = False
             Me.cmiPCSX2Play.Enabled = False
             Me.cmiPCSX2Play.Text = "(No game selected)"
-            Me.cmiPCSX2Play.ToolTipText = ""
+            Me.cmiPCSX2Play.ToolTipText = String.Empty
 
             If SSMGameList.Games.Count = 0 Then
                 '================
@@ -469,6 +463,8 @@ Public NotInheritable Class frmMain
 
             Me.cmdFilesDelete.Enabled = False
             Me.cmdFilesReorder.Enabled = False
+
+            Me.imgScreenshotThumb.Image = My.Resources.Extra_ClearImage_30x20
         Else
             '=================
             'Files are present
@@ -523,7 +519,7 @@ Public NotInheritable Class frmMain
 
 #Region "UI - Gamelist"
     Friend Sub GameList_Refresh()
-        SSMGameList.Load(My.Settings.PCSX2_PathSState, My.Settings.SStatesMan_PathStored, My.Settings.PCSX2_PathSnaps)
+        SSMGameList.Load(My.Settings.PCSX2_PathSState, My.Settings.SStatesMan_PathStored, My.Settings.PCSX2_PathSnaps, My.Settings.SStatesMan_PathIso)
 
         RemoveHandler Me.lvwGamesList.ItemChecked, AddressOf Me.lvwGamesList_ItemChecked
         RemoveHandler Me.lvwGamesList.ItemSelectionChanged, AddressOf Me.lvwGamesList_ItemSelectionChanged
@@ -546,54 +542,54 @@ Public NotInheritable Class frmMain
 
         Dim tmpLvwItems As New List(Of ListViewItem)
 
-        For Each tmpGameListItem As KeyValuePair(Of String, mdlFileList.GameListItem) In SSMGameList.Games
-            currentGameInfo = PCSX2GameDb.Extract(tmpGameListItem.Key)
+        For Each tmpGameListItem As KeyValuePair(Of String, mdlFileList.GamesList.GameListItem) In SSMGameList.Games
+            currentGameInfo = PCSX2GameDb.GetGameInfo(tmpGameListItem.Key)
 
             'Creating the listviewitem
             Dim newLvwItem As New ListViewItem With {.Text = currentGameInfo.Name, .Name = currentGameInfo.Serial}
             newLvwItem.SubItems.AddRange({currentGameInfo.Serial, currentGameInfo.Region})
             'Calculating savestates count and displaying size
             If tmpGameListItem.Value.GameFiles.ContainsKey(ListMode.Savestates) AndAlso _
-                tmpGameListItem.Value.GameFiles(ListMode.Savestates).Files.Where(Function(tmp) tmp.Value.Extension.Equals(My.Settings.PCSX2_SStateExt)).Count > 0 Then
+                tmpGameListItem.Value.GameFiles(ListMode.Savestates).Where(Function(tmp) tmp.Value.Extension.Equals(My.Settings.PCSX2_SStateExt)).Count > 0 Then
                 newLvwItem.SubItems.Add(String.Format("{0:N0}: {1:N2}MB", _
-                                                      tmpGameListItem.Value.GameFiles(ListMode.Savestates).Files.Where(Function(tmp) tmp.Value.Extension.Equals(My.Settings.PCSX2_SStateExt)).Count, _
-                                                      tmpGameListItem.Value.GameFiles(ListMode.Savestates).SizeTot({My.Settings.PCSX2_SStateExt}) / 1024 ^ 2))
+                                                      tmpGameListItem.Value.GameFiles(ListMode.Savestates).Where(Function(tmp) tmp.Value.Extension.Equals(My.Settings.PCSX2_SStateExt)).Count, _
+                                                      tmpGameListItem.Value.GetFilesLenght(ListMode.Savestates, {My.Settings.PCSX2_SStateExt}) / 1024 ^ 2))
             Else
                 newLvwItem.SubItems.Add("None")
             End If
 
             'Calculating backups count and displaying size
             If tmpGameListItem.Value.GameFiles.ContainsKey(ListMode.Savestates) AndAlso _
-                tmpGameListItem.Value.GameFiles(ListMode.Savestates).Files.Where(Function(tmp) tmp.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Count > 0 Then
+                tmpGameListItem.Value.GameFiles(ListMode.Savestates).Where(Function(tmp) tmp.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Count > 0 Then
                 newLvwItem.SubItems.Add(String.Format("{0:N0}: {1:N2}MB", _
-                                                      tmpGameListItem.Value.GameFiles(ListMode.Savestates).Files.Where(Function(tmp) tmp.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Count, _
-                                                      tmpGameListItem.Value.GameFiles(ListMode.Savestates).SizeTot({My.Settings.PCSX2_SStateExtBackup}) / 1024 ^ 2))
+                                                      tmpGameListItem.Value.GameFiles(ListMode.Savestates).Where(Function(tmp) tmp.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Count, _
+                                                      tmpGameListItem.Value.GetFilesLenght(ListMode.Savestates, {My.Settings.PCSX2_SStateExtBackup}) / 1024 ^ 2))
             Else
                 newLvwItem.SubItems.Add("None")
             End If
 
             'Calculating stored savestates count and displaying size
             If tmpGameListItem.Value.GameFiles.ContainsKey(ListMode.Stored) AndAlso _
-                tmpGameListItem.Value.GameFiles(ListMode.Stored).Files.Count > 0 Then
+                tmpGameListItem.Value.GameFiles(ListMode.Stored).Count > 0 Then
                 newLvwItem.SubItems.Add(String.Format("{0:N0}: {1:N2}MB", _
-                                                      tmpGameListItem.Value.GameFiles(ListMode.Stored).Files.Count, _
-                                                      tmpGameListItem.Value.GameFiles(ListMode.Stored).SizeTot(Nothing) / 1024 ^ 2))
+                                                      tmpGameListItem.Value.GameFiles(ListMode.Stored).Count, _
+                                                      tmpGameListItem.Value.GetFilesLenght(ListMode.Stored) / 1024 ^ 2))
             Else
                 newLvwItem.SubItems.Add("None")
             End If
 
             'Calculating snapshots count and displaying size
             If tmpGameListItem.Value.GameFiles.ContainsKey(ListMode.Snapshots) AndAlso _
-                tmpGameListItem.Value.GameFiles(ListMode.Snapshots).Files.Count > 0 Then
+                tmpGameListItem.Value.GameFiles(ListMode.Snapshots).Count > 0 Then
                 newLvwItem.SubItems.Add(String.Format("{0:N0}: {1:N2}MB", _
-                                                      tmpGameListItem.Value.GameFiles(ListMode.Snapshots).Files.Count, _
-                                                      tmpGameListItem.Value.GameFiles(ListMode.Snapshots).SizeTot(Nothing) / 1024 ^ 2))
+                                                      tmpGameListItem.Value.GameFiles(ListMode.Snapshots).Count, _
+                                                      tmpGameListItem.Value.GetFilesLenght(ListMode.Snapshots) / 1024 ^ 2))
             Else
                 newLvwItem.SubItems.Add("None")
             End If
 
             'Icon
-            If tmpGameListItem.Value.GameIso = "" Then
+            If String.IsNullOrEmpty(tmpGameListItem.Value.GameIso) Then
                 newLvwItem.ImageIndex = 7
             Else
                 newLvwItem.ImageIndex = 8
@@ -735,30 +731,30 @@ Public NotInheritable Class frmMain
 
         For Each tmpSerial As String In Me.checkedGames
 
-            Dim tmpGamesListItem As New GameListItem
+            Dim tmpGamesListItem As New mdlFileList.GamesList.GameListItem
             If SSMGameList.Games.TryGetValue(tmpSerial, tmpGamesListItem) Then
                 'Creation of the header group
-                currentGameInfo = PCSX2GameDb.Extract(tmpSerial)
+                currentGameInfo = PCSX2GameDb.GetGameInfo(tmpSerial)
                 Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With { _
                     .Header = currentGameInfo.ToString, _
                     .HeaderAlignment = HorizontalAlignment.Left, _
                     .Name = currentGameInfo.Serial}
 
-                If tmpGamesListItem.GameFiles.ContainsKey(Me.CurrentListMode) AndAlso tmpGamesListItem.GameFiles(Me.CurrentListMode).Files.Count > 0 Then
+                If tmpGamesListItem.GameFiles.ContainsKey(Me.CurrentListMode) AndAlso tmpGamesListItem.GameFiles(Me.CurrentListMode).Count > 0 Then
 
                     tmpGroups.Add(tmpLvwSListGroup)
 
                     'Calculating checked games savestate size
                     Select Case Me.CurrentListMode
                         Case ListMode.Savestates
-                            GameList_SelectedSize += tmpGamesListItem.GameFiles(Me.CurrentListMode).SizeTot({My.Settings.PCSX2_SStateExt})
-                            GameList_SelectedSizeBackup += tmpGamesListItem.GameFiles(Me.CurrentListMode).SizeTot({My.Settings.PCSX2_SStateExtBackup})
+                            GameList_SelectedSize += tmpGamesListItem.GetFilesLenght(Me.CurrentListMode, {My.Settings.PCSX2_SStateExt})
+                            GameList_SelectedSizeBackup += tmpGamesListItem.GetFilesLenght(Me.CurrentListMode, {My.Settings.PCSX2_SStateExtBackup})
                         Case ListMode.Stored, ListMode.Snapshots
-                            GameList_SelectedSize += tmpGamesListItem.GameFiles(Me.CurrentListMode).SizeTot(Nothing)
+                            GameList_SelectedSize += tmpGamesListItem.GetFilesLenght(Me.CurrentListMode)
                     End Select
 
 
-                    Me.FileList_AddFileListItems(tmpGamesListItem.GameFiles(Me.CurrentListMode).Files, tmpLvwSListGroup, tmpLvwItems)
+                    Me.FileList_AddFileListItems(tmpGamesListItem.GameFiles(Me.CurrentListMode), tmpLvwSListGroup, tmpLvwItems)
 
 
                 End If
@@ -888,7 +884,7 @@ Public NotInheritable Class frmMain
 
                 Dim tmpSerial As String = (New T With {.Name = tmpCheckedItem.Name}).GetGameSerial
                 If SSMGameList.Games.ContainsKey(tmpSerial) AndAlso SSMGameList.Games(tmpSerial).GameFiles.ContainsKey(Me.CurrentListMode) Then
-                    Dim tmpFile As PCSX2File = SSMGameList.Games(tmpSerial).GameFiles(Me.CurrentListMode).Files(tmpCheckedItem.Name)
+                    Dim tmpFile As PCSX2File = SSMGameList.Games(tmpSerial).GameFiles(Me.CurrentListMode).Item(tmpCheckedItem.Name)
                     pIndex.Add(tmpFile.Name)
 
                     If Me.CurrentListMode = ListMode.Savestates AndAlso tmpFile.Extension = My.Settings.PCSX2_SStateExtBackup Then
@@ -1021,7 +1017,7 @@ Public NotInheritable Class frmMain
     End Sub
 
     Private Sub cmiPCSX2Launch_Click(sender As Object, e As EventArgs) Handles cmiPCSX2Launch.Click
-        frmPCSX2.IsoFilename = ""
+        frmPCSX2.IsoFilename = String.Empty
         frmPCSX2.ShowDialog(Me)
     End Sub
 
@@ -1149,7 +1145,7 @@ Public NotInheritable Class frmMain
                 Not frmSettings.Visible And _
                 Not (Me.WindowState = FormWindowState.Minimized) Then   'Directory and windows check
 
-                If Not (Directory.GetLastWriteTime(My.Settings.PCSX2_PathSState) = SSMGameList.FolderLastWrite(ListMode.Savestates)) Then 'Different time
+                If Not (Directory.GetLastWriteTime(My.Settings.PCSX2_PathSState) = SSMGameList.FoldersLastWrite(ListMode.Savestates)) Then 'Different time
 
                     SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.Timer, "Scheduled lists refresh.")
 
@@ -1284,8 +1280,8 @@ Public NotInheritable Class frmMain
             If openDialog.ShowDialog(Me) = DialogResult.OK Then
                 Try
                     Dim tmpImage As Image = Image.FromFile(openDialog.FileName)
-                    tmpImage = mdlCoverCache.ResizeCover(tmpImage, CoverThumb_SizeLarge.Width, CoverThumb_SizeLarge.Height)
-                    tmpImage.Save(Path.Combine(My.Settings.SStatesMan_PathPics, mdlMain.TrimBadPathChars(Me.checkedGames(0)) & ".jpg"), Imaging.ImageFormat.Jpeg)
+                    tmpImage = mdlCoverCache.ResizeCover(tmpImage, CoverThumb_SizeLarge)
+                    tmpImage.Save(Path.Combine(My.Settings.SStatesMan_PathPics, SSMGameList.Games(Me.checkedGames(0)).GetCoverFileName(Me.checkedGames(0)) & ".jpg"), Imaging.ImageFormat.Jpeg)
                     SSMAppLog.Append(eType.LogInformation, eSrc.MainWindow, eSrcMethod.CoverImage, "Converted the file """ & openDialog.FileName & """ for " & Me.checkedGames(0) & ".")
                     Me.UI_UpdateGameInfo()
                 Catch ex As Exception

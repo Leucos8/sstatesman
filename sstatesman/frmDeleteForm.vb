@@ -35,11 +35,11 @@ Public NotInheritable Class frmDeleteForm
         Me.lvwDelFilesList.BeginUpdate()
 
         For Each tmpCheckedItem As ListViewItem In Me.lvwDelFilesList.CheckedItems
-            Dim tmpGamesListItem As New mdlFileList.GameListItem
+            Dim tmpGamesListItem As New mdlFileList.GamesList.GameListItem
             If SSMGameList.Games.TryGetValue(tmpCheckedItem.Group.Name, tmpGamesListItem) Then
                 If tmpGamesListItem.GameFiles.ContainsKey(frmMain.CurrentListMode) AndAlso _
-                    tmpGamesListItem.GameFiles(frmMain.CurrentListMode).Files.ContainsKey(tmpCheckedItem.Name) Then
-                    Dim tmpFile As PCSX2File = tmpGamesListItem.GameFiles(frmMain.CurrentListMode).Files(tmpCheckedItem.Name)
+                    tmpGamesListItem.GameFiles(frmMain.CurrentListMode).ContainsKey(tmpCheckedItem.Name) Then
+                    Dim tmpFile As PCSX2File = tmpGamesListItem.GameFiles(frmMain.CurrentListMode).Item(tmpCheckedItem.Name)
                     Try
                         If My.Settings.SStatesMan_FileTrash = True Then
                             My.Computer.FileSystem.DeleteFile(Path.Combine(pPath, tmpFile.Name),
@@ -126,13 +126,13 @@ Public NotInheritable Class frmDeleteForm
         'Window settings
         '---------------
 
-        ''Main window location, size and state
-        'Me.Location = My.Settings.frmDel_WindowLocation
-        'Me.Size = My.Settings.frmDel_WindowSize
-        'If My.Settings.frmDel_WindowState = FormWindowState.Minimized Then
-        '    My.Settings.frmDel_WindowState = FormWindowState.Normal
-        'End If
-        'Me.WindowState = My.Settings.frmDel_WindowState
+        'Main window location, size and state
+        Me.Location = My.Settings.frmDel_WindowLocation
+        'Me.ClientSize = My.Settings.frmDel_WindowSize
+        If My.Settings.frmDel_WindowState = FormWindowState.Minimized Then
+            My.Settings.frmDel_WindowState = FormWindowState.Normal
+        End If
+        Me.WindowState = My.Settings.frmDel_WindowState
         'Me.lastWindowState = Me.WindowState
 
         'If My.Settings.frmDel_flvw_columnwidth IsNot Nothing Then
@@ -178,8 +178,8 @@ Public NotInheritable Class frmDeleteForm
         My.Settings.frmDel_WindowState = Me.WindowState
         If Me.WindowState = FormWindowState.Normal Then
             'Location and size saved only when windowstate is normal
-            My.Settings.frmDel_WindowLocation = Me.Location
-            My.Settings.frmDel_WindowSize = Me.Size
+            'My.Settings.frmDel_WindowLocation = Me.Location
+            My.Settings.frmDel_WindowSize = Me.ClientSize
         End If
 
         'Column widths
@@ -345,9 +345,9 @@ Public NotInheritable Class frmDeleteForm
 
             If SSMGameList.Games.ContainsKey(tmpSerial) Then
                 If SSMGameList.Games(tmpSerial).GameFiles.ContainsKey(frmMain.CurrentListMode) AndAlso _
-                    SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Files.Count > 0 Then
+                    SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Count > 0 Then
                     'Creation of the header
-                    tmpGameInfo = PCSX2GameDb.Extract(tmpSerial)
+                    tmpGameInfo = PCSX2GameDb.GetGameInfo(tmpSerial)
                     Dim tmpLvwSListGroup As New System.Windows.Forms.ListViewGroup With {
                         .Header = tmpGameInfo.ToString(),
                         .HeaderAlignment = HorizontalAlignment.Left,
@@ -355,7 +355,7 @@ Public NotInheritable Class frmDeleteForm
 
                     tmpListGroups.Add(tmpLvwSListGroup)
 
-                    Me.DelFileList_AddFileListItems(SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Files, tmpLvwSListGroup, tmpListItems)
+                    Me.DelFileList_AddFileListItems(SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode), tmpLvwSListGroup, tmpListItems)
                 Else
                     SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "Checked game " & tmpSerial & " has no savestates.")
                 End If
@@ -386,8 +386,8 @@ Public NotInheritable Class frmDeleteForm
                                               tmpFile.Value.LastWriteTime.ToString,
                                               System.String.Format("{0:N2} MB", tmpFile.Value.Length / 1024 ^ 2)})
 
-                If File.Exists(Path.Combine(SSMGameList.Folder(frmMain.CurrentListMode), tmpFile.Key)) Then
-                    tmpLvwItem.SubItems.Add("")
+                If File.Exists(Path.Combine(SSMGameList.Folders(frmMain.CurrentListMode), tmpFile.Key)) Then
+                    tmpLvwItem.SubItems.Add(String.Empty)
                     tmpLvwItem.Checked = True
 
                     Select Case frmMain.CurrentListMode
@@ -492,12 +492,12 @@ Public NotInheritable Class frmDeleteForm
 
                 Dim tmpSerial As String = (New T With {.Name = tmpCheckedItem.Name}).GetGameSerial
                 If SSMGameList.Games.ContainsKey(tmpSerial) AndAlso SSMGameList.Games(tmpSerial).GameFiles.ContainsKey(frmMain.CurrentListMode) Then
-                    If SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Files.ContainsKey(tmpCheckedItem.Name) Then
+                    If SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).ContainsKey(tmpCheckedItem.Name) Then
                         If frmMain.CurrentListMode = ListMode.Savestates AndAlso _
-                            SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Files(tmpCheckedItem.Name).Extension.Equals(My.Settings.PCSX2_SStateExtBackup) Then
-                            FileList_SelectedSizeBackup += SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Files(tmpCheckedItem.Name).Length
+                            SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Item(tmpCheckedItem.Name).Extension.Equals(My.Settings.PCSX2_SStateExtBackup) Then
+                            FileList_SelectedSizeBackup += SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Item(tmpCheckedItem.Name).Length
                         Else
-                            FileList_SelectedSize += SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Files(tmpCheckedItem.Name).Length
+                            FileList_SelectedSize += SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Item(tmpCheckedItem.Name).Length
                         End If
                     End If
                 End If
@@ -515,7 +515,7 @@ Public NotInheritable Class frmDeleteForm
                 Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = True
             End If
         Next
-        Me.DelFileList_indexChecked()
+        Me.DelFileList_IndexChecked()
         Me.UI_UpdateFileInfo()
 
         AddHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
@@ -529,7 +529,7 @@ Public NotInheritable Class frmDeleteForm
         For lvwItemIndex = 0 To Me.lvwDelFilesList.Items.Count - 1
             Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = False
         Next
-        Me.DelFileList_indexChecked()
+        Me.DelFileList_IndexChecked()
         Me.UI_UpdateFileInfo()
 
         AddHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
@@ -547,7 +547,7 @@ Public NotInheritable Class frmDeleteForm
                 Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = False
             End If
         Next
-        Me.DelFileList_indexChecked()
+        Me.DelFileList_IndexChecked()
         Me.UI_UpdateFileInfo()
 
         AddHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
@@ -567,7 +567,7 @@ Public NotInheritable Class frmDeleteForm
                 Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = False
             End If
         Next
-        Me.DelFileList_indexChecked()
+        Me.DelFileList_IndexChecked()
         Me.UI_UpdateFileInfo()
 
         AddHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
@@ -579,7 +579,7 @@ Public NotInheritable Class frmDeleteForm
             If Not (e.Item.Tag.Equals(DelFileStatus.Ready)) Then
                 e.Item.Checked = False
             End If
-            Me.DelFileList_indexChecked()
+            Me.DelFileList_IndexChecked()
             Me.UI_UpdateFileInfo()
         End If
     End Sub
@@ -587,7 +587,7 @@ Public NotInheritable Class frmDeleteForm
 
 #Region "Form - Commands"
     Private Sub cmdFilesDeleteSelected_Click(sender As Object, e As EventArgs) Handles cmdFilesDeleteSelected.Click
-        Me.DeleteFiles(SSMGameList.Folder(frmMain.CurrentListMode))
+        Me.DeleteFiles(SSMGameList.Folders(frmMain.CurrentListMode))
     End Sub
 
     Private Sub cmdCancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdCancel.Click
