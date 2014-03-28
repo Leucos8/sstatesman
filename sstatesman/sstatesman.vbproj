@@ -248,6 +248,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\template\Palette.htm" />
+    <None Include="Resources\template\SStatesMan_Badge3.png" />
+    <None Include="Resources\ico\SSM_Icon_v2_16x16.png" />
+    <None Include="Resources\ico\SSM_Icon_v2_256x256.png" />
+    <None Include="Resources\ico\SSM_Icon_v2_32x32.png" />
+    <None Include="Resources\ico\SSM_Icon_v2_48x48.png" />
+    <None Include="Resources\ico\SSM_Icon_v2_64x64.png" />
+    <None Include="Resources\ico\SSM_Icon_v2_96x96.png" />
     <None Include="Resources\Icon_GameIso.svg" />
     <None Include="Resources\Icon_GameIso.png" />
     <None Include="Resources\Button_Dropdown.svg" />
@@ -290,6 +298,8 @@
     <None Include="Resources\InfoIcon_Exclamation.svg" />
     <None Include="Resources\InfoIcon_Information.svg" />
     <None Include="Resources\InfoIcon_Warning.svg" />
+    <None Include="Resources\themes\BgHexagon.xcf.bz2" />
+    <None Include="Resources\themes\BgSquares.xcf.bz2" />
     <None Include="Resources\Window_ButtonClose.svg" />
     <None Include="Resources\Window_ButtonMaximize.svg" />
     <None Include="Resources\Window_ButtonRestore.svg" />
