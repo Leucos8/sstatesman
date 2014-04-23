@@ -61,7 +61,6 @@ Partial Class frmDeleteForm
         '
         'pnlWindowTop
         '
-        Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.pnlWindowTop.Size = New System.Drawing.Size(628, 46)
         '
         'lvwDelFilesList
@@ -356,10 +355,8 @@ Partial Class frmDeleteForm
         '
         'frmDeleteForm
         '
-        Me.AcceptButton = Me.cmdFilesDeleteSelected
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.CancelButton = Me.cmdCancel
         Me.ClientSize = New System.Drawing.Size(628, 441)
         Me.Controls.Add(Me.pnlFormContent)
         Me.Controls.Add(Me.cmdCancel)

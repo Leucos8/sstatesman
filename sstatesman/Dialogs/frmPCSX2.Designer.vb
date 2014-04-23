@@ -51,7 +51,6 @@ Partial Class frmPCSX2
         '
         'pnlWindowTop
         '
-        Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.pnlWindowTop.Size = New System.Drawing.Size(398, 46)
         '
         'cmdOk
@@ -102,7 +101,6 @@ Partial Class frmPCSX2
         '
         Me.lbPCSX2Bin.BackColor = System.Drawing.Color.White
         Me.lbPCSX2Bin.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lbPCSX2Bin.ForeColor = System.Drawing.Color.Black
         Me.lbPCSX2Bin.FormattingEnabled = True
         Me.lbPCSX2Bin.Location = New System.Drawing.Point(9, 26)
         Me.lbPCSX2Bin.Name = "lbPCSX2Bin"
@@ -202,9 +200,7 @@ Partial Class frmPCSX2
         '
         'frmPCSX2
         '
-        Me.AcceptButton = Me.cmdOk
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
-        Me.CancelButton = Me.cmdCancel
         Me.ClientSize = New System.Drawing.Size(400, 320)
         Me.ControlBox = False
         Me.Controls.Add(Me.lblStatus)

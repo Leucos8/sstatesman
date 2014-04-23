@@ -150,7 +150,6 @@ Partial Class frmMain
         '
         'pnlWindowTop
         '
-        Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.pnlWindowTop.Size = New System.Drawing.Size(632, 46)
         '
         'flpTitleBarToolbar

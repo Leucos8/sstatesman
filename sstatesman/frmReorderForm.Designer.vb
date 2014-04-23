@@ -410,10 +410,8 @@ Partial Class frmReorderForm
         '
         'frmReorderForm
         '
-        Me.AcceptButton = Me.cmdReorder
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.CancelButton = Me.cmdCancel
         Me.ClientSize = New System.Drawing.Size(628, 441)
         Me.Controls.Add(Me.pnlFormContent)
         Me.FormDescription = "use the move buttons to reorder the list and click ""reorder"" to confirm."

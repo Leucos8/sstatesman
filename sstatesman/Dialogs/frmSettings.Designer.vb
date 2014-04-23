@@ -335,7 +335,6 @@ Partial Class frmSettings
         '
         'fppSStatesManPicsPath
         '
-        Me.fppSStatesManPicsPath.AutoSize = True
         Me.fppSStatesManPicsPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.fppSStatesManPicsPath.DescriptionError = "ErrorText"
         Me.fppSStatesManPicsPath.DescriptionInfo = "InfoText"
@@ -353,19 +352,17 @@ Partial Class frmSettings
         '
         'lblSStatesManPicsPath
         '
-        Me.lblSStatesManPicsPath.AutoSize = True
         Me.lblSStatesManPicsPath.Dock = System.Windows.Forms.DockStyle.Top
         Me.lblSStatesManPicsPath.Font = New System.Drawing.Font("Segoe UI", 10.0!)
         Me.lblSStatesManPicsPath.Location = New System.Drawing.Point(8, 317)
         Me.lblSStatesManPicsPath.Name = "lblSStatesManPicsPath"
         Me.lblSStatesManPicsPath.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
-        Me.lblSStatesManPicsPath.Size = New System.Drawing.Size(189, 23)
+        Me.lblSStatesManPicsPath.Size = New System.Drawing.Size(137, 23)
         Me.lblSStatesManPicsPath.TabIndex = 17
         Me.lblSStatesManPicsPath.Text = "Game cover image files folder"
         '
         'fppSStatesManStoredPath
         '
-        Me.fppSStatesManStoredPath.AutoSize = True
         Me.fppSStatesManStoredPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.fppSStatesManStoredPath.DescriptionError = "ErrorText"
         Me.fppSStatesManStoredPath.DescriptionInfo = "InfoText"
@@ -395,7 +392,6 @@ Partial Class frmSettings
         '
         'fppSStatesManIsoPath
         '
-        Me.fppSStatesManIsoPath.AutoSize = True
         Me.fppSStatesManIsoPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.fppSStatesManIsoPath.DescriptionError = "ErrorText"
         Me.fppSStatesManIsoPath.DescriptionInfo = "InfoText"
@@ -540,7 +536,6 @@ Partial Class frmSettings
         '
         'fppPCSX2SnapsPath
         '
-        Me.fppPCSX2SnapsPath.AutoSize = True
         Me.fppPCSX2SnapsPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.fppPCSX2SnapsPath.DescriptionError = "ErrorText"
         Me.fppPCSX2SnapsPath.DescriptionInfo = "InfoText"
@@ -570,7 +565,6 @@ Partial Class frmSettings
         '
         'fppPCSX2SStatePath
         '
-        Me.fppPCSX2SStatePath.AutoSize = True
         Me.fppPCSX2SStatePath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.fppPCSX2SStatePath.DescriptionError = "ErrorText"
         Me.fppPCSX2SStatePath.DescriptionInfo = "InfoText"
@@ -588,7 +582,6 @@ Partial Class frmSettings
         '
         'fppPCSX2IniPath
         '
-        Me.fppPCSX2IniPath.AutoSize = True
         Me.fppPCSX2IniPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.fppPCSX2IniPath.DescriptionError = "ErrorText"
         Me.fppPCSX2IniPath.DescriptionInfo = "InfoText"
@@ -606,7 +599,6 @@ Partial Class frmSettings
         '
         'fppPCSX2AppPath
         '
-        Me.fppPCSX2AppPath.AutoSize = True
         Me.fppPCSX2AppPath.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.fppPCSX2AppPath.DescriptionError = "ErrorText"
         Me.fppPCSX2AppPath.DescriptionInfo = "InfoText"
