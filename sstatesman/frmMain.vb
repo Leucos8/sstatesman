@@ -1140,10 +1140,8 @@ Public NotInheritable Class frmMain
 
     Private Sub tmrSStatesListRefresh_Tick(sender As Object, e As EventArgs) Handles tmrSStatesListRefresh.Tick
         If My.Settings.SStatesMan_SStatesListAutoRefresh Then   'Setting check
-            If Directory.Exists(My.Settings.PCSX2_PathSState) And _
-                Not frmDeleteForm.Visible And _
-                Not frmSettings.Visible And _
-                Not (Me.WindowState = FormWindowState.Minimized) Then   'Directory and windows check
+            If Directory.Exists(My.Settings.PCSX2_PathSState) AndAlso _
+                Me.HasFocus AndAlso Not (Me.WindowState = FormWindowState.Minimized) Then   'Directory and windows check
 
                 If Not (Directory.GetLastWriteTime(My.Settings.PCSX2_PathSState) = SSMGameList.FoldersLastWrite(ListMode.Savestates)) Then 'Different time
 
