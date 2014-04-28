@@ -20,6 +20,11 @@ MinimumVisualStudioVersion = 10.0.40219.1
 #   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 #
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "sstatesman", "sstatesman\sstatesman.vbproj", "{802799F5-CB85-4AFB-B2D7-213D87BC48CB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2BFC06C0-7B19-488F-B04D-E6449132B885} = {2BFC06C0-7B19-488F-B04D-E6449132B885}
+	EndProjectSection
+EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "ModernUIForm", "ModernUIForm\ModernUIForm.vbproj", "{2BFC06C0-7B19-488F-B04D-E6449132B885}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +36,10 @@ Global
 		{802799F5-CB85-4AFB-B2D7-213D87BC48CB}.Debug|x86.Build.0 = Debug|x86
 		{802799F5-CB85-4AFB-B2D7-213D87BC48CB}.Release|x86.ActiveCfg = Release|x86
 		{802799F5-CB85-4AFB-B2D7-213D87BC48CB}.Release|x86.Build.0 = Release|x86
+		{2BFC06C0-7B19-488F-B04D-E6449132B885}.Debug|x86.ActiveCfg = Debug|x86
+		{2BFC06C0-7B19-488F-B04D-E6449132B885}.Debug|x86.Build.0 = Debug|x86
+		{2BFC06C0-7B19-488F-B04D-E6449132B885}.Release|x86.ActiveCfg = Release|x86
+		{2BFC06C0-7B19-488F-B04D-E6449132B885}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

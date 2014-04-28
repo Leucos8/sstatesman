@@ -390,6 +390,12 @@
   <ItemGroup>
     <None Include="Data\ssversion.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModernUIForm\ModernUIForm.vbproj">
+      <Project>{2bfc06c0-7b19-488f-b04d-e6449132b885}</Project>
+      <Name>ModernUIForm</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
