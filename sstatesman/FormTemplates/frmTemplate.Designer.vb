@@ -14,7 +14,7 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class frmTemplate
-    Inherits System.Windows.Forms.Form
+    Inherits ModernUIForm.TemplateForm
 
     'Form esegue l'override del metodo Dispose per pulire l'elenco dei componenti.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -75,7 +75,7 @@ Partial Class frmTemplate
         Me.tlpWindowTop.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpWindowTop.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpWindowTop.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpWindowTop.Size = New System.Drawing.Size(342, 46)
+        Me.tlpWindowTop.Size = New System.Drawing.Size(358, 46)
         Me.tlpWindowTop.TabIndex = 0
         '
         'flpControlBox
@@ -84,7 +84,7 @@ Partial Class frmTemplate
         Me.flpControlBox.Controls.Add(Me.ControlBoxMinimize)
         Me.flpControlBox.Controls.Add(Me.ControlBoxMaximize)
         Me.flpControlBox.Controls.Add(Me.ControlBoxClose)
-        Me.flpControlBox.Location = New System.Drawing.Point(239, 0)
+        Me.flpControlBox.Location = New System.Drawing.Point(255, 0)
         Me.flpControlBox.Margin = New System.Windows.Forms.Padding(0, 0, 6, 0)
         Me.flpControlBox.Name = "flpControlBox"
         Me.flpControlBox.Size = New System.Drawing.Size(97, 20)
@@ -139,7 +139,7 @@ Partial Class frmTemplate
         'imgWindowGradientIcon
         '
         Me.imgWindowGradientIcon.Image = Global.sstatesman.My.Resources.Resources.Icon_SSM1ico_24x24
-        Me.imgWindowGradientIcon.Location = New System.Drawing.Point(203, 0)
+        Me.imgWindowGradientIcon.Location = New System.Drawing.Point(219, 0)
         Me.imgWindowGradientIcon.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.imgWindowGradientIcon.Name = "imgWindowGradientIcon"
         Me.tlpWindowTop.SetRowSpan(Me.imgWindowGradientIcon, 2)
@@ -161,7 +161,7 @@ Partial Class frmTemplate
         Me.flpTitleBar.Name = "flpTitleBar"
         Me.flpTitleBar.Padding = New System.Windows.Forms.Padding(8, 4, 4, 8)
         Me.tlpWindowTop.SetRowSpan(Me.flpTitleBar, 2)
-        Me.flpTitleBar.Size = New System.Drawing.Size(199, 46)
+        Me.flpTitleBar.Size = New System.Drawing.Size(215, 46)
         Me.flpTitleBar.TabIndex = 0
         '
         'lblWindowTitle
@@ -191,10 +191,10 @@ Partial Class frmTemplate
         Me.flpWindowBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.flpWindowBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.flpWindowBottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpWindowBottom.Location = New System.Drawing.Point(1, 254)
+        Me.flpWindowBottom.Location = New System.Drawing.Point(1, 293)
         Me.flpWindowBottom.Name = "flpWindowBottom"
         Me.flpWindowBottom.Padding = New System.Windows.Forms.Padding(4, 4, 4, 2)
-        Me.flpWindowBottom.Size = New System.Drawing.Size(342, 6)
+        Me.flpWindowBottom.Size = New System.Drawing.Size(358, 6)
         Me.flpWindowBottom.TabIndex = 0
         '
         'pnlWindowTop
@@ -205,22 +205,24 @@ Partial Class frmTemplate
         Me.pnlWindowTop.Dock = System.Windows.Forms.DockStyle.Top
         Me.pnlWindowTop.Location = New System.Drawing.Point(1, 1)
         Me.pnlWindowTop.Name = "pnlWindowTop"
-        Me.pnlWindowTop.Size = New System.Drawing.Size(342, 46)
+        Me.pnlWindowTop.Size = New System.Drawing.Size(358, 46)
         Me.pnlWindowTop.TabIndex = 0
         '
         'frmTemplate
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(344, 261)
+        Me.ClientSize = New System.Drawing.Size(360, 300)
         Me.Controls.Add(Me.pnlWindowTop)
         Me.Controls.Add(Me.flpWindowBottom)
+        Me.DWMMargins = New System.Windows.Forms.Padding(1)
         Me.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.ForeColor = System.Drawing.Color.Black
         Me.Icon = Global.sstatesman.My.Resources.Resources.SSM_Icon_v2
         Me.Margin = New System.Windows.Forms.Padding(2)
         Me.MinimumSize = New System.Drawing.Size(360, 300)
         Me.Name = "frmTemplate"
+        Me.Padding = New System.Windows.Forms.Padding(1)
         Me.Text = "WindowTitle"
         Me.tlpWindowTop.ResumeLayout(False)
         Me.tlpWindowTop.PerformLayout()

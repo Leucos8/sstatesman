@@ -89,7 +89,7 @@ Public NotInheritable Class frmSettings
 
         'frmMain
         If frmMain.IsShown Then
-            frmMain.applyTheme()    'Updating frmMain theme
+            frmMain.ApplyTheme()    'Updating frmMain theme
             If Me.GameListNeedRefresh Then
                 frmMain.GameList_Refresh()
                 GameListNeedRefresh = False
@@ -197,7 +197,7 @@ Public NotInheritable Class frmSettings
 
     Private Sub cmdApply_Click(sender As System.Object, e As System.EventArgs) Handles cmdApply.Click
         Me.Settings_Apply()
-        Me.applyTheme()
+        Me.ApplyTheme()
         Me.Settings_Load()
     End Sub
 
