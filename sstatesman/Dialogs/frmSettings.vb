@@ -183,7 +183,7 @@ Public NotInheritable Class frmSettings
             For Each tmpMenuItem As ToolStripMenuItem In cmLogFilter.Items
                 tmpMenuItem.Checked = False
             Next
-            CType(cmLogFilter.Items(0), ToolStripMenuItem).Checked = True
+            DirectCast(cmLogFilter.Items(0), ToolStripMenuItem).Checked = True
             cmLogFilter.ResumeLayout()
         End If
 
@@ -221,7 +221,7 @@ Public NotInheritable Class frmSettings
         Me.ckbSStatesManThemeGradient.Checked = My.Settings.SStatesMan_ThemeGradientEnabled
 
         'Dim tmpObject As Object = Me.pnlThemeOptions.Controls("optTheme" & CInt(mdlTheme.currentThemeSetting))
-        'CType(tmpObject, RadioButton).Checked = True
+        'DirectCast(tmpObject, RadioButton).Checked = True
 
         Select Case mdlTheme.currentThemeSetting
             Case eTheme.squares
@@ -243,12 +243,12 @@ Public NotInheritable Class frmSettings
     End Sub
 
     Private Sub optTheme_CheckedChanged(sender As Object, e As EventArgs) Handles optTheme1.CheckedChanged, optTheme2.CheckedChanged, optTheme3.CheckedChanged, optTheme4.CheckedChanged, optTheme5.CheckedChanged, optTheme6.CheckedChanged, optTheme11.CheckedChanged
-        If CType(sender, RadioButton).Checked Then
+        If DirectCast(sender, RadioButton).Checked Then
             Dim tmpTheme As mdlTheme.eTheme
-            If [Enum].TryParse(Of eTheme)(CType(sender, RadioButton).Tag.ToString, tmpTheme) Then
+            If [Enum].TryParse(Of eTheme)(DirectCast(sender, RadioButton).Tag.ToString, tmpTheme) Then
                 Me.currentSelectedTheme = tmpTheme
             Else
-                SSMAppLog.Append(eType.LogError, eSrc.SettingDialog, eSrcMethod.SettingChanged, "Unable to load the specified theme: " & CType(sender, RadioButton).Tag.ToString)
+                SSMAppLog.Append(eType.LogError, eSrc.SettingDialog, eSrcMethod.SettingChanged, "Unable to load the specified theme: " & DirectCast(sender, RadioButton).Tag.ToString)
                 Me.Settings_LoadTheme()
             End If
             SSMAppLog.Append(eType.LogInformation, eSrc.SettingDialog, eSrcMethod.SettingChanged, "Selected theme changed to: " & Me.currentSelectedTheme.ToString)
@@ -313,14 +313,14 @@ Public NotInheritable Class frmSettings
         If GetType(ToolStripMenuItem).Equals(sender.GetType) Then
             'Try to convert the string from the text properties in an enum value.
             Dim tmpESrc As mdlApplicationLog.eSrc
-            If [Enum].TryParse(CType(sender, ToolStripMenuItem).Text, tmpESrc) Then
+            If [Enum].TryParse(DirectCast(sender, ToolStripMenuItem).Text, tmpESrc) Then
                 'Uncheck all others menu items.
                 cmLogFilter.SuspendLayout()
                 For Each tmpMenuItem As ToolStripMenuItem In cmLogFilter.Items
                     tmpMenuItem.Checked = False
                 Next
                 'Check only the one needed
-                CType(sender, ToolStripMenuItem).Checked = True
+                DirectCast(sender, ToolStripMenuItem).Checked = True
                 cmLogFilter.ResumeLayout()
 
                 'Applying the filter
@@ -336,14 +336,14 @@ Public NotInheritable Class frmSettings
     Private Sub optTabHeader_CheckedChanged(sender As Object, e As EventArgs) Handles optTabHeader0.CheckedChanged, optTabHeader1.CheckedChanged, optTabHeader2.CheckedChanged, optTabHeader3.CheckedChanged
         'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to kwnow 
         'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
-        If CType(sender, RadioButton).IsHandleCreated Then
-            If CType(sender, RadioButton).Checked Then
+        If DirectCast(sender, RadioButton).IsHandleCreated Then
+            If DirectCast(sender, RadioButton).Checked Then
                 Me.optTabHeader0.FlatAppearance.MouseDownBackColor = Color.White
                 Me.optTabHeader1.FlatAppearance.MouseDownBackColor = Color.White
                 Me.optTabHeader2.FlatAppearance.MouseDownBackColor = Color.White
                 Me.optTabHeader3.FlatAppearance.MouseDownBackColor = Color.White
 
-                CType(sender, RadioButton).FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+                DirectCast(sender, RadioButton).FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
 
                 Me.pnlTab0.Visible = Me.optTabHeader0.Checked
                 Me.pnlTab1.Visible = Me.optTabHeader1.Checked
@@ -356,10 +356,10 @@ Public NotInheritable Class frmSettings
 
 #Region "Theme"
     Private Sub optTabHeader_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optTabHeader0.Paint, optTabHeader1.Paint, optTabHeader2.Paint, optTabHeader3.Paint
-        If CType(sender, RadioButton).Checked Then
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, CType(sender, RadioButton).Width, 0)
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, CType(sender, RadioButton).Height)
-            e.Graphics.DrawLine(Pens.DimGray, CType(sender, RadioButton).Width - 1, 0, CType(sender, RadioButton).Width - 1, CType(sender, RadioButton).Height)
+        If DirectCast(sender, RadioButton).Checked Then
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, DirectCast(sender, RadioButton).Width, 0)
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, DirectCast(sender, RadioButton).Height)
+            e.Graphics.DrawLine(Pens.DimGray, DirectCast(sender, RadioButton).Width - 1, 0, DirectCast(sender, RadioButton).Width - 1, DirectCast(sender, RadioButton).Height)
         End If
     End Sub
 #End Region
@@ -400,11 +400,11 @@ Public NotInheritable Class frmSettings
 
     'Detect button
     Private Sub fppPCSX2AppPath_DetectFolder(sender As Object, e As EventArgs) Handles fppPCSX2AppPath.DetectFolder
-        PCSX2_PathBin_Detect(CType(sender, ucFolderPickerPanel).Text)
+        PCSX2_PathBin_Detect(DirectCast(sender, ucFolderPickerPanel).Text)
     End Sub
 
     Private Sub fppPCSX2IniPath_DetectFolder(sender As Object, e As EventArgs) Handles fppPCSX2IniPath.DetectFolder
-        PCSX2_PathInis_Detect(Me.fppPCSX2AppPath.Text, CType(sender, ucFolderPickerPanel).Text)
+        PCSX2_PathInis_Detect(Me.fppPCSX2AppPath.Text, DirectCast(sender, ucFolderPickerPanel).Text)
     End Sub
 
     Private Sub fppPCSX2SStateSnapsPath_DetectFolder(sender As Object, e As EventArgs) _
@@ -418,16 +418,16 @@ Public NotInheritable Class frmSettings
         Handles fppPCSX2AppPath.Validating
 
         Try
-            If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
-                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
-            ElseIf Not (File.Exists(Path.Combine(CType(sender, ucFolderPickerPanel).Text, My.Settings.PCSX2_GameDbFilename))) Then
-                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
+            If Not (Directory.Exists(DirectCast(sender, ucFolderPickerPanel).Text)) Then
+                DirectCast(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
+            ElseIf Not (File.Exists(Path.Combine(DirectCast(sender, ucFolderPickerPanel).Text, My.Settings.PCSX2_GameDbFilename))) Then
+                DirectCast(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
             Else
-                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
+                DirectCast(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
+            DirectCast(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
         End Try
     End Sub
 
@@ -435,44 +435,44 @@ Public NotInheritable Class frmSettings
         Handles fppPCSX2IniPath.Validating
 
         Try
-            If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
-                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
-            ElseIf Not (File.Exists(Path.Combine(CType(sender, ucFolderPickerPanel).Text, My.Settings.PCSX2_PCSX2_uiFilename))) Then
-                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
+            If Not (Directory.Exists(DirectCast(sender, ucFolderPickerPanel).Text)) Then
+                DirectCast(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
+            ElseIf Not (File.Exists(Path.Combine(DirectCast(sender, ucFolderPickerPanel).Text, My.Settings.PCSX2_PCSX2_uiFilename))) Then
+                DirectCast(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
             Else
-                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
+                DirectCast(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
+            DirectCast(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
         End Try
     End Sub
 
     Private Sub fppPCSX2SStatesSnapsPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) _
         Handles fppPCSX2SStatePath.Validating, fppPCSX2SnapsPath.Validating
         Try
-            If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
-                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
+            If Not (Directory.Exists(DirectCast(sender, ucFolderPickerPanel).Text)) Then
+                DirectCast(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
             Else
-                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
+                DirectCast(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
+            DirectCast(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateError
         End Try
     End Sub
 
     Private Sub fppSStatesManPath_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) _
         Handles fppSStatesManPicsPath.Validating, fppSStatesManStoredPath.Validating, fppSStatesManIsoPath.Validating
         Try
-            If Not (Directory.Exists(CType(sender, ucFolderPickerPanel).Text)) Then
-                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
+            If Not (Directory.Exists(DirectCast(sender, ucFolderPickerPanel).Text)) Then
+                DirectCast(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateWarning
             Else
-                CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
+                DirectCast(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
             End If
         Catch ex As Exception
             MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            CType(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
+            DirectCast(sender, ucFolderPickerPanel).State = ucFolderPickerPanel.eDescState.StateIdle
         End Try
     End Sub
 

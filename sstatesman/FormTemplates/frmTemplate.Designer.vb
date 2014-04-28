@@ -95,8 +95,6 @@ Partial Class frmTemplate
         '
         Me.ControlBoxMinimize.BackColor = System.Drawing.Color.Transparent
         Me.ControlBoxMinimize.FlatAppearance.BorderSize = 0
-        Me.ControlBoxMinimize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
-        Me.ControlBoxMinimize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.ControlBoxMinimize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ControlBoxMinimize.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonMinimize
         Me.ControlBoxMinimize.Location = New System.Drawing.Point(0, 0)
@@ -110,8 +108,6 @@ Partial Class frmTemplate
         '
         Me.ControlBoxMaximize.BackColor = System.Drawing.Color.Transparent
         Me.ControlBoxMaximize.FlatAppearance.BorderSize = 0
-        Me.ControlBoxMaximize.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
-        Me.ControlBoxMaximize.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
         Me.ControlBoxMaximize.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.ControlBoxMaximize.Image = Global.sstatesman.My.Resources.Resources.Window_ButtonMaximize
         Me.ControlBoxMaximize.Location = New System.Drawing.Point(26, 0)

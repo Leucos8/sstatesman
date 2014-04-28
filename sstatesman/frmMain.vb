@@ -973,7 +973,7 @@ Public NotInheritable Class frmMain
 
     Private Sub lvwFilesList_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvwFilesList.SelectedIndexChanged
         If Me.CurrentListMode = ListMode.Snapshots Then
-            If CType(sender, ListView).SelectedItems.Count = 1 Then
+            If DirectCast(sender, ListView).SelectedItems.Count = 1 Then
 
                 Me.currentSnapshotFullname = Path.Combine(My.Settings.PCSX2_PathSnaps, Me.lvwFilesList.SelectedItems(0).Name)
 
@@ -994,15 +994,15 @@ Public NotInheritable Class frmMain
 
 #Region "Form - TitleBar ToolBar"
     Private Sub cmdToolbarPCSX2_Click(sender As Object, e As EventArgs) Handles cmdToolbarPCSX2.Click
-        Me.cmPCSX2.Show(Point.Add(CType(sender, Button).Parent.PointToScreen(CType(sender, Button).Location), New Size(0, CType(sender, Button).Size.Height)))
+        Me.cmPCSX2.Show(Point.Add(DirectCast(sender, Button).Parent.PointToScreen(DirectCast(sender, Button).Location), New Size(0, DirectCast(sender, Button).Size.Height)))
     End Sub
 
     Private Sub cmdToolbarConfig_Click(sender As Object, e As EventArgs) Handles cmdToolbarConfig.Click
-        Me.cmConfig.Show(Point.Add(CType(sender, Button).Parent.PointToScreen(CType(sender, Button).Location), New Size(0, CType(sender, Button).Size.Height)))
+        Me.cmConfig.Show(Point.Add(DirectCast(sender, Button).Parent.PointToScreen(DirectCast(sender, Button).Location), New Size(0, DirectCast(sender, Button).Size.Height)))
     End Sub
 
     Private Sub cmdToolbarUser_Click(sender As Object, e As EventArgs) Handles cmdToolbarUser.Click
-        Me.cmFolders.Show(Point.Add(CType(sender, Button).Parent.PointToScreen(CType(sender, Button).Location), New Size(0, CType(sender, Button).Size.Height)))
+        Me.cmFolders.Show(Point.Add(DirectCast(sender, Button).Parent.PointToScreen(DirectCast(sender, Button).Location), New Size(0, DirectCast(sender, Button).Size.Height)))
     End Sub
 #End Region
 
@@ -1164,14 +1164,12 @@ Public NotInheritable Class frmMain
     Private Sub optTabHeader_CheckedChanged(sender As Object, e As EventArgs) Handles optTabHeader0.CheckedChanged, optTabHeader1.CheckedChanged, optTabHeader2.CheckedChanged
         'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to know 
         'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
-        If CType(sender, RadioButton).IsHandleCreated Then
-            If CType(sender, RadioButton).Checked Then
+        If DirectCast(sender, RadioButton).IsHandleCreated Then
+            If DirectCast(sender, RadioButton).Checked Then
                 Me.optTabHeader0.FlatAppearance.MouseDownBackColor = Color.White
                 Me.optTabHeader1.FlatAppearance.MouseDownBackColor = Color.White
                 Me.optTabHeader2.FlatAppearance.MouseDownBackColor = Color.White
-                CType(sender, RadioButton).FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
-
-                'Me.UI_SwitchMode(CType(CType(sender, RadioButton).Tag, ListMode))
+                DirectCast(sender, RadioButton).FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
             End If
         End If
     End Sub
@@ -1179,8 +1177,8 @@ Public NotInheritable Class frmMain
     Private Sub optTabHeader0_CheckedChanged(sender As Object, e As EventArgs) Handles optTabHeader0.CheckedChanged
         'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to know 
         'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
-        If CType(sender, RadioButton).IsHandleCreated Then
-            If CType(sender, RadioButton).Checked Then
+        If DirectCast(sender, RadioButton).IsHandleCreated Then
+            If DirectCast(sender, RadioButton).Checked Then
                 Me.UI_SwitchMode(ListMode.Savestates)
             End If
         End If
@@ -1189,8 +1187,8 @@ Public NotInheritable Class frmMain
     Private Sub optTabHeader1_CheckedChanged(sender As Object, e As EventArgs) Handles optTabHeader1.CheckedChanged
         'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to know 
         'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
-        If CType(sender, RadioButton).IsHandleCreated Then
-            If CType(sender, RadioButton).Checked Then
+        If DirectCast(sender, RadioButton).IsHandleCreated Then
+            If DirectCast(sender, RadioButton).Checked Then
                 Me.UI_SwitchMode(ListMode.Stored)
             End If
         End If
@@ -1199,8 +1197,8 @@ Public NotInheritable Class frmMain
     Private Sub optTabHeader2_CheckedChanged(sender As Object, e As EventArgs) Handles optTabHeader2.CheckedChanged
         'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to know 
         'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
-        If CType(sender, RadioButton).IsHandleCreated Then
-            If CType(sender, RadioButton).Checked Then
+        If DirectCast(sender, RadioButton).IsHandleCreated Then
+            If DirectCast(sender, RadioButton).Checked Then
                 Me.UI_SwitchMode(ListMode.Snapshots)
             End If
         End If
@@ -1300,10 +1298,10 @@ Public NotInheritable Class frmMain
 
 #Region "Theme"
     Private Sub optTabHeader_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optTabHeader0.Paint, optTabHeader1.Paint, optTabHeader2.Paint
-        If CType(sender, RadioButton).Checked Then
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, CType(sender, RadioButton).Width, 0)
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, CType(sender, RadioButton).Height)
-            e.Graphics.DrawLine(Pens.DimGray, CType(sender, RadioButton).Width - 1, 0, CType(sender, RadioButton).Width - 1, CType(sender, RadioButton).Height)
+        If DirectCast(sender, RadioButton).Checked Then
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, DirectCast(sender, RadioButton).Width, 0)
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, DirectCast(sender, RadioButton).Height)
+            e.Graphics.DrawLine(Pens.DimGray, DirectCast(sender, RadioButton).Width - 1, 0, DirectCast(sender, RadioButton).Width - 1, DirectCast(sender, RadioButton).Height)
         End If
     End Sub
 
@@ -1356,7 +1354,7 @@ Public NotInheritable Class frmMain
     Private Sub bwLoadScreenshot_RunWorkerCompleted(sender As Object, e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwLoadScreenshot.RunWorkerCompleted
         Dim ConvertedResults() As Object = CType(e.Result, Object())
         If Not (e.Cancelled) Then
-            Me.imgScreenshotThumb.Image = CType(ConvertedResults(0), Image)
+            Me.imgScreenshotThumb.Image = DirectCast(ConvertedResults(0), Image)
         End If
         If (CType(ConvertedResults(1), String) <> Me.currentSnapshotFullname) AndAlso Not bwLoadScreenshot.IsBusy Then
             bwLoadScreenshot.RunWorkerAsync(Me.currentSnapshotFullname)

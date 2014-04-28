@@ -575,7 +575,7 @@ Public NotInheritable Class frmDeleteForm
     End Sub
 
     Private Sub lvwDelFilesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs)
-        If CType(sender, ListView).Items(CType(sender, ListView).Items.Count - 1) IsNot Nothing Then
+        If DirectCast(sender, ListView).Items(DirectCast(sender, ListView).Items.Count - 1) IsNot Nothing Then
             If Not (e.Item.Tag.Equals(DelFileStatus.Ready)) Then
                 e.Item.Checked = False
             End If

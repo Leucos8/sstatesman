@@ -54,12 +54,12 @@ Public NotInheritable Class frmAbout
     Private Sub optTabHeader_CheckedChanged(sender As Object, e As EventArgs) Handles optTabHeader0.CheckedChanged, optTabHeader1.CheckedChanged, optTabHeader2.CheckedChanged
         'CheckedChanged event is fired during initialization, the IsHandleCreated property check allows to know 
         'whether the control is shown (form is loaded and every object has an handle) or not (an handle is not yet assigned).
-        If CType(sender, RadioButton).IsHandleCreated Then
-            If CType(sender, RadioButton).Checked Then
+        If DirectCast(sender, RadioButton).IsHandleCreated Then
+            If DirectCast(sender, RadioButton).Checked Then
                 Me.optTabHeader0.FlatAppearance.MouseDownBackColor = Color.White
                 Me.optTabHeader1.FlatAppearance.MouseDownBackColor = Color.White
                 Me.optTabHeader2.FlatAppearance.MouseDownBackColor = Color.White
-                CType(sender, RadioButton).FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
+                DirectCast(sender, RadioButton).FlatAppearance.MouseDownBackColor = Color.WhiteSmoke
 
                 Me.pnlTab0.Visible = Me.optTabHeader0.Checked
                 Me.pnlTab1.Visible = Me.optTabHeader1.Checked
@@ -72,10 +72,10 @@ Public NotInheritable Class frmAbout
 
 #Region "UI paint"
     Private Sub optTabHeader_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles optTabHeader0.Paint, optTabHeader1.Paint, optTabHeader2.Paint
-        If CType(sender, RadioButton).Checked Then
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, CType(sender, RadioButton).Width, 0)
-            e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, CType(sender, RadioButton).Height)
-            e.Graphics.DrawLine(Pens.DimGray, CType(sender, RadioButton).Width - 1, 0, CType(sender, RadioButton).Width - 1, CType(sender, RadioButton).Height)
+        If DirectCast(sender, RadioButton).Checked Then
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, DirectCast(sender, RadioButton).Width, 0)
+            e.Graphics.DrawLine(Pens.DimGray, 0, 0, 0, DirectCast(sender, RadioButton).Height)
+            e.Graphics.DrawLine(Pens.DimGray, DirectCast(sender, RadioButton).Width - 1, 0, DirectCast(sender, RadioButton).Width - 1, DirectCast(sender, RadioButton).Height)
         End If
     End Sub
 

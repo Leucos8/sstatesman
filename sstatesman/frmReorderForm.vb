@@ -349,7 +349,7 @@ Public NotInheritable Class frmReorderForm
 
     Private Sub ckbSStatesManReorderBackup_CheckedChanged(sender As Object, e As EventArgs) Handles ckbSStatesManReorderBackup.CheckedChanged
         'Prevent firing during load
-        If CType(sender, CheckBox).IsHandleCreated Then
+        If DirectCast(sender, CheckBox).IsHandleCreated Then
 
             RemoveHandler Me.lvwReorderList.ItemChecked, AddressOf Me.lvwReorderList_ItemChecked
             Me.lvwReorderList.BeginUpdate()
@@ -359,7 +359,7 @@ Public NotInheritable Class frmReorderForm
             Next
 
             'MoveStep (1 = move one item each time, 2 = move two items together - savestate and backup)
-            If CType(sender, CheckBox).Checked Then
+            If DirectCast(sender, CheckBox).Checked Then
                 Me.MoveStep = 2
             Else
                 Me.MoveStep = 1
@@ -500,7 +500,7 @@ Public NotInheritable Class frmReorderForm
         '- if I try to access the items (in fact only the items added after the one in e.Item are inaccessible) in the ItemChecked Sub I get a 
         '  System.NullReference exception, while accessing the Items.Count property says that all the items have been added.
         'Solution: check if the last item is nothing!
-        If CType(sender, ListView).Items(CType(sender, ListView).Items.Count - 1) Is Nothing Then
+        If DirectCast(sender, ListView).Items(DirectCast(sender, ListView).Items.Count - 1) Is Nothing Then
             Exit Sub
         Else
             'If user wants the savestate to be moved together with its backup
@@ -525,9 +525,9 @@ Public NotInheritable Class frmReorderForm
 
                 RemoveHandler Me.lvwReorderList.ItemChecked, AddressOf Me.lvwReorderList_ItemChecked
 
-                If CType(sender, ListView).Items(tmpToBeCheckedIndex) IsNot Nothing AndAlso _
-                    Not (CType(sender, ListView).Items(tmpToBeCheckedIndex).Checked = e.Item.Checked) Then
-                    CType(sender, ListView).Items(tmpToBeCheckedIndex).Checked = e.Item.Checked
+                If DirectCast(sender, ListView).Items(tmpToBeCheckedIndex) IsNot Nothing AndAlso _
+                    Not (DirectCast(sender, ListView).Items(tmpToBeCheckedIndex).Checked = e.Item.Checked) Then
+                    DirectCast(sender, ListView).Items(tmpToBeCheckedIndex).Checked = e.Item.Checked
                 End If
 
                 AddHandler Me.lvwReorderList.ItemChecked, AddressOf Me.lvwReorderList_ItemChecked
@@ -607,7 +607,7 @@ Public NotInheritable Class frmReorderForm
                 'Backing up swapped values
                 Dim tmpPosition As Integer = tmpItemChecked.Index
                 Dim tmpOldName As String = tmpItemChecked.SubItems(ReorderListColumns.OldName).Text
-                Dim tmpTag As ReorderFileStatus = CType(tmpItemChecked.Tag, ReorderFileStatus)
+                Dim tmpTag As ReorderFileStatus = DirectCast(tmpItemChecked.Tag, ReorderFileStatus)
                 'Swapping names
                 tmpItemChecked.SubItems(ReorderListColumns.OldName).Text = tmpItemSwapped.SubItems(ReorderListColumns.OldName).Text
                 tmpItemSwapped.SubItems(ReorderListColumns.OldName).Text = tmpOldName
