@@ -104,11 +104,6 @@ Public NotInheritable Class frmDeleteForm
         '==================
         'Window preparation
         '==================
-
-        '-----
-        'Theme
-        '-----
-        'Me.ApplyTheme()
         Me.flpWindowBottom.Controls.AddRange({Me.cmdCancel, Me.cmdFilesDeleteSelected})
         Me.pnlFormContent.Dock = DockStyle.Fill
 
@@ -127,21 +122,12 @@ Public NotInheritable Class frmDeleteForm
         '---------------
 
         'Main window location, size and state
-        Me.Location = My.Settings.frmDel_WindowLocation
-        'Me.ClientSize = My.Settings.frmDel_WindowSize
+        'Me.Location = My.Settings.frmDel_WindowLocation
+        Me.Size = My.Settings.frmDel_WindowSize
         If My.Settings.frmDel_WindowState = FormWindowState.Minimized Then
             My.Settings.frmDel_WindowState = FormWindowState.Normal
         End If
         Me.WindowState = My.Settings.frmDel_WindowState
-        'Me.lastWindowState = Me.WindowState
-
-        'If My.Settings.frmDel_flvw_columnwidth IsNot Nothing Then
-        '    If My.Settings.frmDel_flvw_columnwidth.Length = Me.lvwDelFilesList.Columns.Count Then
-        '        For i As Integer = 0 To Me.lvwDelFilesList.Columns.Count - 1
-        '            Me.lvwDelFilesList.Columns(i).Width = My.Settings.frmDel_flvw_columnwidth(i)
-        '        Next
-        '    End If
-        'End If
 
         SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Load, "2/3 Saved window sizes applied.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
@@ -165,8 +151,12 @@ Public NotInheritable Class frmDeleteForm
         'Resetting values
         '================
 
+        Me.lvwDelFilesList.BeginUpdate()
         Me.lvwDelFilesList.Items.Clear()
         Me.lvwDelFilesList.Groups.Clear()
+        RemoveHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
+        'Me.lvwDelFilesList.EndUpdate()
+
         Me.FileList_TotalSize = 0
         Me.FileList_TotalSizeBackup = 0
 
@@ -179,7 +169,7 @@ Public NotInheritable Class frmDeleteForm
         If Me.WindowState = FormWindowState.Normal Then
             'Location and size saved only when windowstate is normal
             'My.Settings.frmDel_WindowLocation = Me.Location
-            My.Settings.frmDel_WindowSize = Me.ClientSize
+            My.Settings.frmDel_WindowSize = Me.Size
         End If
 
         'Column widths
@@ -187,8 +177,6 @@ Public NotInheritable Class frmDeleteForm
         '                                                     Me.SStatesCH_Version.Width, Me.SStatesCH_Modified.Width, _
         '                                                     Me.SStatesCH_Size.Width, Me.SStatesCH_Status.Width}
 
-        AddHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
-        Me.lvwDelFilesList.EndUpdate()
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Close, "Form closed.", sw.ElapsedTicks)
@@ -225,19 +213,6 @@ Public NotInheritable Class frmDeleteForm
 
         SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.ListMode, String.Format("Switched to {0}.", pListMode.ToString))
         Me.DelFileList_Refresh()
-    End Sub
-
-    ''' <summary>Handles the filelist beginupdate and endupdate methods</summary>
-    ''' <param name="pSwitch">True to end the update, False to begin the update</param>
-    Private Sub UI_Enable(pSwitch As Boolean)
-        If pSwitch Then
-            AddHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
-            Me.lvwDelFilesList.EndUpdate()
-        Else
-            RemoveHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
-            Me.lvwDelFilesList.BeginUpdate()
-        End If
-        SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.UI_Enable, pSwitch.ToString)
     End Sub
 
     ''' <summary>Updates the UI status.</summary>
@@ -426,7 +401,7 @@ Public NotInheritable Class frmDeleteForm
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         Dim tmpColumnHeaders As New List(Of ColumnHeader)
-        Dim tmpColumnWidths() As Integer = {0}
+        'Dim tmpColumnWidths() As Integer = {0}
         Select Case pListMode
             Case ListMode.Savestates, ListMode.Stored
                 tmpColumnHeaders.AddRange({New ColumnHeader With {.Name = "SStatesCH_FileName", .Text = "Savestate file name", .Width = 240}, _
@@ -436,9 +411,6 @@ Public NotInheritable Class frmDeleteForm
                                            New ColumnHeader With {.Name = "SStatesCH_Size", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
                                            })
 
-                If My.Settings.frmMain_flvw_columnwidth IsNot Nothing Then
-                    tmpColumnWidths = My.Settings.frmMain_flvw_columnwidth
-                End If
             Case ListMode.Snapshots
                 tmpColumnHeaders.AddRange({New ColumnHeader With {.Name = "SnapsCH_FileName", .Text = "Snapshot file name", .Width = 240}, _
                                            New ColumnHeader With {.Name = "SnapsCH_Number", .Text = "Number", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
@@ -449,12 +421,6 @@ Public NotInheritable Class frmDeleteForm
         End Select
         tmpColumnHeaders.Add(New ColumnHeader With {.Name = "FileCH_Status", .Text = "Status", .Width = 140})
         statusColumnHeaderRef = tmpColumnHeaders(tmpColumnHeaders.Count - 1)
-
-        If tmpColumnWidths.Length = tmpColumnHeaders.Count Then
-            For i As Integer = 0 To tmpColumnHeaders.Count - 1
-                tmpColumnHeaders(i).Width = tmpColumnWidths(i)
-            Next
-        End If
 
         RemoveHandler Me.lvwDelFilesList.ItemChecked, AddressOf Me.lvwDelFilesList_ItemChecked
         Me.lvwDelFilesList.BeginUpdate()
@@ -491,13 +457,14 @@ Public NotInheritable Class frmDeleteForm
             For Each tmpCheckedItem As ListViewItem In Me.lvwDelFilesList.CheckedItems
 
                 Dim tmpSerial As String = (New T With {.Name = tmpCheckedItem.Name}).GetGameSerial
-                If SSMGameList.Games.ContainsKey(tmpSerial) AndAlso SSMGameList.Games(tmpSerial).GameFiles.ContainsKey(frmMain.CurrentListMode) Then
-                    If SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).ContainsKey(tmpCheckedItem.Name) Then
+                Dim tmpFD As New Dictionary(Of String, PCSX2File)
+                If SSMGameList.Games.ContainsKey(tmpSerial) AndAlso SSMGameList.Games(tmpSerial).GameFiles.TryGetValue(frmMain.CurrentListMode, tmpFD) Then
+                    If tmpFD.ContainsKey(tmpCheckedItem.Name) Then
                         If frmMain.CurrentListMode = ListMode.Savestates AndAlso _
-                            SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Item(tmpCheckedItem.Name).Extension.Equals(My.Settings.PCSX2_SStateExtBackup) Then
-                            FileList_SelectedSizeBackup += SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Item(tmpCheckedItem.Name).Length
+                            tmpFD.Item(tmpCheckedItem.Name).Extension.Equals(My.Settings.PCSX2_SStateExtBackup) Then
+                            FileList_SelectedSizeBackup += tmpFD.Item(tmpCheckedItem.Name).Length
                         Else
-                            FileList_SelectedSize += SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode).Item(tmpCheckedItem.Name).Length
+                            FileList_SelectedSize += tmpFD.Item(tmpCheckedItem.Name).Length
                         End If
                     End If
                 End If
