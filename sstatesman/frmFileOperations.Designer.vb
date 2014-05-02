@@ -13,7 +13,7 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 <Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmReorderForm
+Partial Class frmFileOperations
     Inherits frmTemplate
 
     'Form esegue l'override del metodo Dispose per pulire l'elenco dei componenti.
@@ -38,23 +38,25 @@ Partial Class frmReorderForm
     Private Sub InitializeComponent()
         Me.cmdCancel = New System.Windows.Forms.Button()
         Me.cmdReorder = New System.Windows.Forms.Button()
-        Me.lvwReorderList = New System.Windows.Forms.ListView()
+        Me.lvwFileList = New System.Windows.Forms.ListView()
         Me.StROLvw_Slot = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StROLvw_OldName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StROLvw_NewName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.StROLvw_Status = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.cmdMoveLast = New System.Windows.Forms.Button()
-        Me.cmdMoveFirst = New System.Windows.Forms.Button()
-        Me.cmdMoveUp = New System.Windows.Forms.Button()
-        Me.cmdMoveDown = New System.Windows.Forms.Button()
-        Me.lblMove = New System.Windows.Forms.Label()
+        Me.cmdCommand1 = New System.Windows.Forms.Button()
+        Me.cmdCommand2 = New System.Windows.Forms.Button()
+        Me.cmdCommand3 = New System.Windows.Forms.Button()
+        Me.cmdCommand4 = New System.Windows.Forms.Button()
+        Me.lblAction = New System.Windows.Forms.Label()
         Me.flpMainListCommands = New System.Windows.Forms.FlowLayoutPanel()
         Me.pnlFormContent = New System.Windows.Forms.Panel()
         Me.ckbSStatesManReorderBackup = New System.Windows.Forms.CheckBox()
         Me.tlpFileListStatus = New System.Windows.Forms.TableLayoutPanel()
         Me.lblSelected = New System.Windows.Forms.Label()
         Me.txtSelected = New System.Windows.Forms.TextBox()
+        Me.txtSizeBackup = New System.Windows.Forms.TextBox()
         Me.lblSize = New System.Windows.Forms.Label()
+        Me.lblSizeBackup = New System.Windows.Forms.Label()
         Me.txtSize = New System.Windows.Forms.TextBox()
         Me.tlpFileListCommands = New System.Windows.Forms.TableLayoutPanel()
         Me.flpFileListCommandsFiles = New System.Windows.Forms.FlowLayoutPanel()
@@ -65,6 +67,11 @@ Partial Class frmReorderForm
         Me.tlpFileListCommands.SuspendLayout()
         Me.flpFileListCommandsFiles.SuspendLayout()
         Me.SuspendLayout()
+        '
+        'pnlWindowTop
+        '
+        Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.pnlWindowTop.Size = New System.Drawing.Size(638, 46)
         '
         'cmdCancel
         '
@@ -79,7 +86,7 @@ Partial Class frmReorderForm
         Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdCancel.Location = New System.Drawing.Point(517, 358)
+        Me.cmdCancel.Location = New System.Drawing.Point(533, 328)
         Me.cmdCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdCancel.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdCancel.Name = "cmdCancel"
@@ -100,7 +107,7 @@ Partial Class frmReorderForm
         Me.cmdReorder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdReorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdReorder.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdReorder.Location = New System.Drawing.Point(413, 358)
+        Me.cmdReorder.Location = New System.Drawing.Point(429, 328)
         Me.cmdReorder.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdReorder.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdReorder.Name = "cmdReorder"
@@ -109,26 +116,26 @@ Partial Class frmReorderForm
         Me.cmdReorder.Text = "REORDER"
         Me.cmdReorder.UseVisualStyleBackColor = False
         '
-        'lvwReorderList
+        'lvwFileList
         '
-        Me.lvwReorderList.BackColor = System.Drawing.Color.White
-        Me.lvwReorderList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.lvwReorderList.CheckBoxes = True
-        Me.lvwReorderList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StROLvw_Slot, Me.StROLvw_OldName, Me.StROLvw_NewName, Me.StROLvw_Status})
-        Me.lvwReorderList.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lvwReorderList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
-        Me.lvwReorderList.ForeColor = System.Drawing.Color.Black
-        Me.lvwReorderList.FullRowSelect = True
-        Me.lvwReorderList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
-        Me.lvwReorderList.HideSelection = False
-        Me.lvwReorderList.Location = New System.Drawing.Point(8, 22)
-        Me.lvwReorderList.Margin = New System.Windows.Forms.Padding(2)
-        Me.lvwReorderList.MultiSelect = False
-        Me.lvwReorderList.Name = "lvwReorderList"
-        Me.lvwReorderList.Size = New System.Drawing.Size(588, 129)
-        Me.lvwReorderList.TabIndex = 10
-        Me.lvwReorderList.UseCompatibleStateImageBehavior = False
-        Me.lvwReorderList.View = System.Windows.Forms.View.Details
+        Me.lvwFileList.BackColor = System.Drawing.Color.White
+        Me.lvwFileList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.lvwFileList.CheckBoxes = True
+        Me.lvwFileList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StROLvw_Slot, Me.StROLvw_OldName, Me.StROLvw_NewName, Me.StROLvw_Status})
+        Me.lvwFileList.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lvwFileList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
+        Me.lvwFileList.ForeColor = System.Drawing.Color.Black
+        Me.lvwFileList.FullRowSelect = True
+        Me.lvwFileList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable
+        Me.lvwFileList.HideSelection = False
+        Me.lvwFileList.Location = New System.Drawing.Point(8, 22)
+        Me.lvwFileList.Margin = New System.Windows.Forms.Padding(2)
+        Me.lvwFileList.MultiSelect = False
+        Me.lvwFileList.Name = "lvwFileList"
+        Me.lvwFileList.Size = New System.Drawing.Size(588, 129)
+        Me.lvwFileList.TabIndex = 10
+        Me.lvwFileList.UseCompatibleStateImageBehavior = False
+        Me.lvwFileList.View = System.Windows.Forms.View.Details
         '
         'StROLvw_Slot
         '
@@ -149,114 +156,110 @@ Partial Class frmReorderForm
         Me.StROLvw_Status.Text = "Status"
         Me.StROLvw_Status.Width = 120
         '
-        'cmdMoveLast
+        'cmdCommand1
         '
-        Me.cmdMoveLast.AutoSize = True
-        Me.cmdMoveLast.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdMoveLast.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdMoveLast.FlatAppearance.BorderSize = 0
-        Me.cmdMoveLast.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdMoveLast.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdMoveLast.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdMoveLast.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdMoveLast.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderLast
-        Me.cmdMoveLast.Location = New System.Drawing.Point(246, 0)
-        Me.cmdMoveLast.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdMoveLast.Name = "cmdMoveLast"
-        Me.cmdMoveLast.Size = New System.Drawing.Size(52, 22)
-        Me.cmdMoveLast.TabIndex = 16
-        Me.cmdMoveLast.Text = "LAST"
-        Me.cmdMoveLast.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.cmdCommand1.AutoSize = True
+        Me.cmdCommand1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdCommand1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.cmdCommand1.FlatAppearance.BorderSize = 0
+        Me.cmdCommand1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdCommand1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdCommand1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdCommand1.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdCommand1.Location = New System.Drawing.Point(43, 0)
+        Me.cmdCommand1.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdCommand1.Name = "cmdCommand1"
+        Me.cmdCommand1.Size = New System.Drawing.Size(37, 22)
+        Me.cmdCommand1.TabIndex = 13
+        Me.cmdCommand1.Text = "CMD"
+        Me.cmdCommand1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         '
-        'cmdMoveFirst
+        'cmdCommand2
         '
-        Me.cmdMoveFirst.AutoSize = True
-        Me.cmdMoveFirst.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdMoveFirst.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdMoveFirst.FlatAppearance.BorderSize = 0
-        Me.cmdMoveFirst.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdMoveFirst.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdMoveFirst.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdMoveFirst.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdMoveFirst.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderFirst
-        Me.cmdMoveFirst.Location = New System.Drawing.Point(86, 0)
-        Me.cmdMoveFirst.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdMoveFirst.Name = "cmdMoveFirst"
-        Me.cmdMoveFirst.Size = New System.Drawing.Size(55, 22)
-        Me.cmdMoveFirst.TabIndex = 13
-        Me.cmdMoveFirst.Text = "FIRST"
-        Me.cmdMoveFirst.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.cmdCommand2.AutoSize = True
+        Me.cmdCommand2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdCommand2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.cmdCommand2.FlatAppearance.BorderSize = 0
+        Me.cmdCommand2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdCommand2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdCommand2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdCommand2.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdCommand2.Location = New System.Drawing.Point(80, 0)
+        Me.cmdCommand2.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdCommand2.Name = "cmdCommand2"
+        Me.cmdCommand2.Size = New System.Drawing.Size(37, 22)
+        Me.cmdCommand2.TabIndex = 14
+        Me.cmdCommand2.Text = "CMD"
+        Me.cmdCommand2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         '
-        'cmdMoveUp
+        'cmdCommand3
         '
-        Me.cmdMoveUp.AutoSize = True
-        Me.cmdMoveUp.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdMoveUp.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdMoveUp.FlatAppearance.BorderSize = 0
-        Me.cmdMoveUp.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdMoveUp.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdMoveUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdMoveUp.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdMoveUp.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderUp
-        Me.cmdMoveUp.Location = New System.Drawing.Point(141, 0)
-        Me.cmdMoveUp.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdMoveUp.Name = "cmdMoveUp"
-        Me.cmdMoveUp.Size = New System.Drawing.Size(44, 22)
-        Me.cmdMoveUp.TabIndex = 14
-        Me.cmdMoveUp.Text = "UP"
-        Me.cmdMoveUp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.cmdCommand3.AutoSize = True
+        Me.cmdCommand3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdCommand3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.cmdCommand3.FlatAppearance.BorderSize = 0
+        Me.cmdCommand3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdCommand3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdCommand3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdCommand3.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdCommand3.Location = New System.Drawing.Point(117, 0)
+        Me.cmdCommand3.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdCommand3.Name = "cmdCommand3"
+        Me.cmdCommand3.Size = New System.Drawing.Size(37, 22)
+        Me.cmdCommand3.TabIndex = 15
+        Me.cmdCommand3.Text = "CMD"
+        Me.cmdCommand3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         '
-        'cmdMoveDown
+        'cmdCommand4
         '
-        Me.cmdMoveDown.AutoSize = True
-        Me.cmdMoveDown.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdMoveDown.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdMoveDown.FlatAppearance.BorderSize = 0
-        Me.cmdMoveDown.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdMoveDown.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdMoveDown.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdMoveDown.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdMoveDown.Image = Global.sstatesman.My.Resources.Resources.Icon_OrderDown
-        Me.cmdMoveDown.Location = New System.Drawing.Point(185, 0)
-        Me.cmdMoveDown.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdMoveDown.Name = "cmdMoveDown"
-        Me.cmdMoveDown.Size = New System.Drawing.Size(61, 22)
-        Me.cmdMoveDown.TabIndex = 15
-        Me.cmdMoveDown.Text = "DOWN"
-        Me.cmdMoveDown.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.cmdCommand4.AutoSize = True
+        Me.cmdCommand4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdCommand4.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.cmdCommand4.FlatAppearance.BorderSize = 0
+        Me.cmdCommand4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdCommand4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdCommand4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdCommand4.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdCommand4.Location = New System.Drawing.Point(154, 0)
+        Me.cmdCommand4.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdCommand4.Name = "cmdCommand4"
+        Me.cmdCommand4.Size = New System.Drawing.Size(37, 22)
+        Me.cmdCommand4.TabIndex = 16
+        Me.cmdCommand4.Text = "CMD"
+        Me.cmdCommand4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         '
-        'lblMove
+        'lblAction
         '
-        Me.lblMove.AutoSize = True
-        Me.lblMove.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblMove.Location = New System.Drawing.Point(2, 0)
-        Me.lblMove.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
-        Me.lblMove.Name = "lblMove"
-        Me.lblMove.Size = New System.Drawing.Size(82, 22)
-        Me.lblMove.TabIndex = 32
-        Me.lblMove.Text = "move checked:"
-        Me.lblMove.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        Me.lblAction.AutoSize = True
+        Me.lblAction.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblAction.Location = New System.Drawing.Point(2, 0)
+        Me.lblAction.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.lblAction.Name = "lblAction"
+        Me.lblAction.Size = New System.Drawing.Size(39, 22)
+        Me.lblAction.TabIndex = 32
+        Me.lblAction.Text = "action"
+        Me.lblAction.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'flpMainListCommands
         '
         Me.flpMainListCommands.AutoSize = True
         Me.flpMainListCommands.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.flpMainListCommands.Controls.Add(Me.cmdMoveLast)
-        Me.flpMainListCommands.Controls.Add(Me.cmdMoveDown)
-        Me.flpMainListCommands.Controls.Add(Me.cmdMoveUp)
-        Me.flpMainListCommands.Controls.Add(Me.cmdMoveFirst)
-        Me.flpMainListCommands.Controls.Add(Me.lblMove)
+        Me.flpMainListCommands.Controls.Add(Me.cmdCommand4)
+        Me.flpMainListCommands.Controls.Add(Me.cmdCommand3)
+        Me.flpMainListCommands.Controls.Add(Me.cmdCommand2)
+        Me.flpMainListCommands.Controls.Add(Me.cmdCommand1)
+        Me.flpMainListCommands.Controls.Add(Me.lblAction)
         Me.flpMainListCommands.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpMainListCommands.Location = New System.Drawing.Point(274, 0)
+        Me.flpMainListCommands.Location = New System.Drawing.Point(381, 0)
         Me.flpMainListCommands.Margin = New System.Windows.Forms.Padding(0)
         Me.flpMainListCommands.Name = "flpMainListCommands"
-        Me.flpMainListCommands.Size = New System.Drawing.Size(298, 22)
+        Me.flpMainListCommands.Size = New System.Drawing.Size(191, 22)
         Me.flpMainListCommands.TabIndex = 12
         Me.flpMainListCommands.WrapContents = False
         '
         'pnlFormContent
         '
-        Me.pnlFormContent.Controls.Add(Me.lvwReorderList)
+        Me.pnlFormContent.Controls.Add(Me.lvwFileList)
         Me.pnlFormContent.Controls.Add(Me.ckbSStatesManReorderBackup)
         Me.pnlFormContent.Controls.Add(Me.tlpFileListStatus)
         Me.pnlFormContent.Controls.Add(Me.tlpFileListCommands)
@@ -286,14 +289,16 @@ Partial Class frmReorderForm
         '
         Me.tlpFileListStatus.AutoSize = True
         Me.tlpFileListStatus.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.tlpFileListStatus.ColumnCount = 3
+        Me.tlpFileListStatus.ColumnCount = 4
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20.0!))
         Me.tlpFileListStatus.Controls.Add(Me.lblSelected, 0, 0)
         Me.tlpFileListStatus.Controls.Add(Me.txtSelected, 0, 1)
+        Me.tlpFileListStatus.Controls.Add(Me.txtSizeBackup, 2, 1)
         Me.tlpFileListStatus.Controls.Add(Me.lblSize, 1, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.lblSizeBackup, 2, 0)
         Me.tlpFileListStatus.Controls.Add(Me.txtSize, 1, 1)
         Me.tlpFileListStatus.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.tlpFileListStatus.Location = New System.Drawing.Point(8, 172)
@@ -303,7 +308,7 @@ Partial Class frmReorderForm
         Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpFileListStatus.Size = New System.Drawing.Size(588, 39)
-        Me.tlpFileListStatus.TabIndex = 40
+        Me.tlpFileListStatus.TabIndex = 17
         '
         'lblSelected
         '
@@ -330,6 +335,21 @@ Partial Class frmReorderForm
         Me.txtSelected.TabStop = False
         Me.txtSelected.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
+        'txtSizeBackup
+        '
+        Me.txtSizeBackup.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.txtSizeBackup.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtSizeBackup.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtSizeBackup.ForeColor = System.Drawing.Color.Black
+        Me.txtSizeBackup.Location = New System.Drawing.Point(264, 15)
+        Me.txtSizeBackup.Margin = New System.Windows.Forms.Padding(0, 2, 4, 2)
+        Me.txtSizeBackup.Name = "txtSizeBackup"
+        Me.txtSizeBackup.ReadOnly = True
+        Me.txtSizeBackup.Size = New System.Drawing.Size(128, 22)
+        Me.txtSizeBackup.TabIndex = 23
+        Me.txtSizeBackup.TabStop = False
+        Me.txtSizeBackup.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
         'lblSize
         '
         Me.lblSize.AutoSize = True
@@ -339,6 +359,16 @@ Partial Class frmReorderForm
         Me.lblSize.Size = New System.Drawing.Size(66, 13)
         Me.lblSize.TabIndex = 20
         Me.lblSize.Text = "active | files"
+        '
+        'lblSizeBackup
+        '
+        Me.lblSizeBackup.AutoSize = True
+        Me.lblSizeBackup.Location = New System.Drawing.Point(264, 0)
+        Me.lblSizeBackup.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
+        Me.lblSizeBackup.Name = "lblSizeBackup"
+        Me.lblSizeBackup.Size = New System.Drawing.Size(72, 13)
+        Me.lblSizeBackup.TabIndex = 22
+        Me.lblSizeBackup.Text = "backups size"
         '
         'txtSize
         '
@@ -412,18 +442,24 @@ Partial Class frmReorderForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(628, 441)
+        Me.BorderColorActive = System.Drawing.Color.Empty
+        Me.BorderColorInactive = System.Drawing.Color.Empty
+        Me.CaptionColorActive = System.Drawing.Color.Empty
+        Me.CaptionColorInactive = System.Drawing.Color.Empty
+        Me.CaptionHeight = 46
+        Me.ClientSize = New System.Drawing.Size(640, 360)
         Me.Controls.Add(Me.pnlFormContent)
-        Me.FormDescription = "use the move buttons to reorder the list and click ""reorder"" to confirm."
+        Me.Controls.Add(Me.cmdReorder)
+        Me.Controls.Add(Me.cmdCancel)
         Me.Icon = Global.sstatesman.My.Resources.Resources.SSM_Icon_v2
-        Me.Location = New System.Drawing.Point(0, 0)
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(640, 360)
         Me.Name = "frmReorderForm"
         Me.ShowInTaskbar = False
-        Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Reorder"
+        Me.Controls.SetChildIndex(Me.cmdCancel, 0)
+        Me.Controls.SetChildIndex(Me.cmdReorder, 0)
         Me.Controls.SetChildIndex(Me.pnlWindowTop, 0)
         Me.Controls.SetChildIndex(Me.pnlFormContent, 0)
         Me.flpMainListCommands.ResumeLayout(False)
@@ -440,16 +476,16 @@ Partial Class frmReorderForm
         Me.PerformLayout()
 
     End Sub
-    Private WithEvents lblMove As System.Windows.Forms.Label
+    Private WithEvents lblAction As System.Windows.Forms.Label
     Private WithEvents cmdCancel As System.Windows.Forms.Button
     Private WithEvents cmdReorder As System.Windows.Forms.Button
-    Private WithEvents lvwReorderList As System.Windows.Forms.ListView
+    Private WithEvents lvwFileList As System.Windows.Forms.ListView
     Private WithEvents StROLvw_Slot As System.Windows.Forms.ColumnHeader
     Private WithEvents StROLvw_OldName As System.Windows.Forms.ColumnHeader
-    Private WithEvents cmdMoveLast As System.Windows.Forms.Button
-    Private WithEvents cmdMoveFirst As System.Windows.Forms.Button
-    Private WithEvents cmdMoveUp As System.Windows.Forms.Button
-    Private WithEvents cmdMoveDown As System.Windows.Forms.Button
+    Private WithEvents cmdCommand1 As System.Windows.Forms.Button
+    Private WithEvents cmdCommand2 As System.Windows.Forms.Button
+    Private WithEvents cmdCommand3 As System.Windows.Forms.Button
+    Private WithEvents cmdCommand4 As System.Windows.Forms.Button
     Private WithEvents flpMainListCommands As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents StROLvw_NewName As System.Windows.Forms.ColumnHeader
     Private WithEvents pnlFormContent As System.Windows.Forms.Panel
@@ -462,5 +498,7 @@ Partial Class frmReorderForm
     Private WithEvents txtSelected As System.Windows.Forms.TextBox
     Private WithEvents lblSize As System.Windows.Forms.Label
     Private WithEvents txtSize As System.Windows.Forms.TextBox
+    Private WithEvents lblSizeBackup As System.Windows.Forms.Label
+    Private WithEvents txtSizeBackup As System.Windows.Forms.TextBox
     Private WithEvents ckbSStatesManReorderBackup As System.Windows.Forms.CheckBox
 End Class

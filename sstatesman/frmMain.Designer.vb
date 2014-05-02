@@ -90,6 +90,7 @@ Partial Class frmMain
         Me.txtSize = New System.Windows.Forms.TextBox()
         Me.tlpFileListCommands = New System.Windows.Forms.TableLayoutPanel()
         Me.flpFileListCommandsFiles = New System.Windows.Forms.FlowLayoutPanel()
+        Me.cmdFilesStore = New System.Windows.Forms.Button()
         Me.cmdFilesReorder = New System.Windows.Forms.Button()
         Me.cmdFilesDelete = New System.Windows.Forms.Button()
         Me.cmdExpandFilesList = New System.Windows.Forms.Button()
@@ -150,7 +151,8 @@ Partial Class frmMain
         '
         'pnlWindowTop
         '
-        Me.pnlWindowTop.Size = New System.Drawing.Size(632, 46)
+        Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
+        Me.pnlWindowTop.Size = New System.Drawing.Size(638, 46)
         '
         'flpTitleBarToolbar
         '
@@ -173,7 +175,6 @@ Partial Class frmMain
         Me.cmdToolbarConfig.AutoSize = True
         Me.cmdToolbarConfig.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdToolbarConfig.BackColor = System.Drawing.Color.Transparent
-        Me.cmdToolbarConfig.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdToolbarConfig.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdToolbarConfig.FlatAppearance.BorderSize = 0
         Me.cmdToolbarConfig.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -195,7 +196,6 @@ Partial Class frmMain
         Me.cmdToolbarUser.AutoSize = True
         Me.cmdToolbarUser.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdToolbarUser.BackColor = System.Drawing.Color.Transparent
-        Me.cmdToolbarUser.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdToolbarUser.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdToolbarUser.FlatAppearance.BorderSize = 0
         Me.cmdToolbarUser.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -217,7 +217,6 @@ Partial Class frmMain
         Me.cmdToolbarPCSX2.AutoSize = True
         Me.cmdToolbarPCSX2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdToolbarPCSX2.BackColor = System.Drawing.Color.Transparent
-        Me.cmdToolbarPCSX2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdToolbarPCSX2.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdToolbarPCSX2.FlatAppearance.BorderSize = 0
         Me.cmdToolbarPCSX2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -410,7 +409,7 @@ Partial Class frmMain
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnlScreenshotThumb)
         Me.SplitContainer1.Panel2.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
         Me.SplitContainer1.Panel2MinSize = 120
-        Me.SplitContainer1.Size = New System.Drawing.Size(606, 360)
+        Me.SplitContainer1.Size = New System.Drawing.Size(611, 360)
         Me.SplitContainer1.SplitterDistance = 200
         Me.SplitContainer1.SplitterWidth = 3
         Me.SplitContainer1.TabIndex = 20
@@ -448,7 +447,7 @@ Partial Class frmMain
         Me.tlpGameList.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
         Me.tlpGameList.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpGameList.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpGameList.Size = New System.Drawing.Size(590, 174)
+        Me.tlpGameList.Size = New System.Drawing.Size(595, 174)
         Me.tlpGameList.TabIndex = 21
         '
         'lvwGamesList
@@ -468,7 +467,7 @@ Partial Class frmMain
         Me.lvwGamesList.Margin = New System.Windows.Forms.Padding(0, 0, 0, 4)
         Me.lvwGamesList.MultiSelect = False
         Me.lvwGamesList.Name = "lvwGamesList"
-        Me.lvwGamesList.Size = New System.Drawing.Size(590, 120)
+        Me.lvwGamesList.Size = New System.Drawing.Size(595, 120)
         Me.lvwGamesList.TabIndex = 22
         Me.lvwGamesList.TileSize = New System.Drawing.Size(480, 96)
         Me.lvwGamesList.UseCompatibleStateImageBehavior = False
@@ -572,7 +571,7 @@ Partial Class frmMain
         Me.txtGameList_Title.Margin = New System.Windows.Forms.Padding(0, 0, 0, 2)
         Me.txtGameList_Title.Name = "txtGameList_Title"
         Me.txtGameList_Title.ReadOnly = True
-        Me.txtGameList_Title.Size = New System.Drawing.Size(462, 22)
+        Me.txtGameList_Title.Size = New System.Drawing.Size(467, 22)
         Me.txtGameList_Title.TabIndex = 24
         Me.txtGameList_Title.TabStop = False
         '
@@ -688,7 +687,7 @@ Partial Class frmMain
         Me.tlpGameListCommands.Padding = New System.Windows.Forms.Padding(16, 0, 16, 0)
         Me.tlpGameListCommands.RowCount = 1
         Me.tlpGameListCommands.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpGameListCommands.Size = New System.Drawing.Size(590, 22)
+        Me.tlpGameListCommands.Size = New System.Drawing.Size(595, 22)
         Me.tlpGameListCommands.TabIndex = 31
         '
         'cmdGamePlay
@@ -722,7 +721,7 @@ Partial Class frmMain
         Me.flpGameListCommandsCheck.Controls.Add(Me.lblGameListCheck)
         Me.flpGameListCommandsCheck.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flpGameListCommandsCheck.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpGameListCommandsCheck.Location = New System.Drawing.Point(328, 0)
+        Me.flpGameListCommandsCheck.Location = New System.Drawing.Point(333, 0)
         Me.flpGameListCommandsCheck.Margin = New System.Windows.Forms.Padding(0)
         Me.flpGameListCommandsCheck.Name = "flpGameListCommandsCheck"
         Me.flpGameListCommandsCheck.Size = New System.Drawing.Size(246, 22)
@@ -733,7 +732,6 @@ Partial Class frmMain
         '
         Me.cmdGameSelectInvert.AutoSize = True
         Me.cmdGameSelectInvert.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdGameSelectInvert.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdGameSelectInvert.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdGameSelectInvert.FlatAppearance.BorderSize = 0
         Me.cmdGameSelectInvert.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -754,7 +752,6 @@ Partial Class frmMain
         '
         Me.cmdGameSelectNone.AutoSize = True
         Me.cmdGameSelectNone.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdGameSelectNone.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdGameSelectNone.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdGameSelectNone.FlatAppearance.BorderSize = 0
         Me.cmdGameSelectNone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -775,7 +772,6 @@ Partial Class frmMain
         '
         Me.cmdGameSelectAll.AutoSize = True
         Me.cmdGameSelectAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdGameSelectAll.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdGameSelectAll.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdGameSelectAll.FlatAppearance.BorderSize = 0
         Me.cmdGameSelectAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -818,7 +814,7 @@ Partial Class frmMain
         Me.lvwFilesList.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwFilesList.MultiSelect = False
         Me.lvwFilesList.Name = "lvwFilesList"
-        Me.lvwFilesList.Size = New System.Drawing.Size(390, 92)
+        Me.lvwFilesList.Size = New System.Drawing.Size(395, 92)
         Me.lvwFilesList.TabIndex = 37
         Me.lvwFilesList.UseCompatibleStateImageBehavior = False
         Me.lvwFilesList.View = System.Windows.Forms.View.Details
@@ -845,7 +841,7 @@ Partial Class frmMain
         Me.tlpFileListStatus.RowCount = 2
         Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFileListStatus.Size = New System.Drawing.Size(390, 39)
+        Me.tlpFileListStatus.Size = New System.Drawing.Size(395, 39)
         Me.tlpFileListStatus.TabIndex = 48
         '
         'lblSelected
@@ -942,13 +938,14 @@ Partial Class frmMain
         Me.tlpFileListCommands.Padding = New System.Windows.Forms.Padding(16, 0, 0, 0)
         Me.tlpFileListCommands.RowCount = 1
         Me.tlpFileListCommands.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpFileListCommands.Size = New System.Drawing.Size(390, 22)
+        Me.tlpFileListCommands.Size = New System.Drawing.Size(395, 22)
         Me.tlpFileListCommands.TabIndex = 38
         '
         'flpFileListCommandsFiles
         '
         Me.flpFileListCommandsFiles.AutoSize = True
         Me.flpFileListCommandsFiles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.flpFileListCommandsFiles.Controls.Add(Me.cmdFilesStore)
         Me.flpFileListCommandsFiles.Controls.Add(Me.cmdFilesReorder)
         Me.flpFileListCommandsFiles.Controls.Add(Me.cmdFilesDelete)
         Me.flpFileListCommandsFiles.Dock = System.Windows.Forms.DockStyle.Fill
@@ -956,15 +953,33 @@ Partial Class frmMain
         Me.flpFileListCommandsFiles.Location = New System.Drawing.Point(16, 0)
         Me.flpFileListCommandsFiles.Margin = New System.Windows.Forms.Padding(0)
         Me.flpFileListCommandsFiles.Name = "flpFileListCommandsFiles"
-        Me.flpFileListCommandsFiles.Size = New System.Drawing.Size(148, 22)
+        Me.flpFileListCommandsFiles.Size = New System.Drawing.Size(213, 22)
         Me.flpFileListCommandsFiles.TabIndex = 50
         Me.flpFileListCommandsFiles.WrapContents = False
+        '
+        'cmdFilesStore
+        '
+        Me.cmdFilesStore.AutoSize = True
+        Me.cmdFilesStore.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdFilesStore.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
+        Me.cmdFilesStore.FlatAppearance.BorderSize = 0
+        Me.cmdFilesStore.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdFilesStore.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
+        Me.cmdFilesStore.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdFilesStore.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdFilesStore.Location = New System.Drawing.Point(148, 0)
+        Me.cmdFilesStore.Margin = New System.Windows.Forms.Padding(0)
+        Me.cmdFilesStore.Name = "cmdFilesStore"
+        Me.cmdFilesStore.Size = New System.Drawing.Size(65, 22)
+        Me.cmdFilesStore.TabIndex = 50
+        Me.cmdFilesStore.Text = "&STORE..."
+        Me.cmdFilesStore.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.cmdFilesStore.UseVisualStyleBackColor = False
         '
         'cmdFilesReorder
         '
         Me.cmdFilesReorder.AutoSize = True
         Me.cmdFilesReorder.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdFilesReorder.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdFilesReorder.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdFilesReorder.FlatAppearance.BorderSize = 0
         Me.cmdFilesReorder.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -985,7 +1000,6 @@ Partial Class frmMain
         '
         Me.cmdFilesDelete.AutoSize = True
         Me.cmdFilesDelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdFilesDelete.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdFilesDelete.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdFilesDelete.FlatAppearance.BorderSize = 0
         Me.cmdFilesDelete.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -1007,7 +1021,6 @@ Partial Class frmMain
         Me.cmdExpandFilesList.AutoSize = True
         Me.cmdExpandFilesList.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.cmdExpandFilesList.BackColor = System.Drawing.Color.Transparent
-        Me.cmdExpandFilesList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdExpandFilesList.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdExpandFilesList.FlatAppearance.BorderSize = 0
         Me.cmdExpandFilesList.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -1015,10 +1028,10 @@ Partial Class frmMain
         Me.cmdExpandFilesList.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdExpandFilesList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.cmdExpandFilesList.Image = Global.sstatesman.My.Resources.Resources.Icon_ExpandTop_12x12
-        Me.cmdExpandFilesList.Location = New System.Drawing.Point(372, 0)
+        Me.cmdExpandFilesList.Location = New System.Drawing.Point(377, 0)
         Me.cmdExpandFilesList.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdExpandFilesList.Name = "cmdExpandFilesList"
-        Me.cmdExpandFilesList.Size = New System.Drawing.Size(18, 22)
+        Me.cmdExpandFilesList.Size = New System.Drawing.Size(18, 18)
         Me.cmdExpandFilesList.TabIndex = 47
         Me.cmdExpandFilesList.UseVisualStyleBackColor = False
         '
@@ -1033,7 +1046,7 @@ Partial Class frmMain
         Me.flpFileListCommandsCheck.Controls.Add(Me.lblSStateListCheck)
         Me.flpFileListCommandsCheck.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flpFileListCommandsCheck.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpFileListCommandsCheck.Location = New System.Drawing.Point(34, 0)
+        Me.flpFileListCommandsCheck.Location = New System.Drawing.Point(39, 0)
         Me.flpFileListCommandsCheck.Margin = New System.Windows.Forms.Padding(0)
         Me.flpFileListCommandsCheck.Name = "flpFileListCommandsCheck"
         Me.flpFileListCommandsCheck.Size = New System.Drawing.Size(338, 22)
@@ -1044,7 +1057,6 @@ Partial Class frmMain
         '
         Me.cmdFileCheckInvert.AutoSize = True
         Me.cmdFileCheckInvert.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdFileCheckInvert.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdFileCheckInvert.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdFileCheckInvert.FlatAppearance.BorderSize = 0
         Me.cmdFileCheckInvert.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -1065,7 +1077,6 @@ Partial Class frmMain
         '
         Me.cmdFileCheckNone.AutoSize = True
         Me.cmdFileCheckNone.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdFileCheckNone.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdFileCheckNone.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdFileCheckNone.FlatAppearance.BorderSize = 0
         Me.cmdFileCheckNone.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -1086,7 +1097,6 @@ Partial Class frmMain
         '
         Me.cmdFileCheckAll.AutoSize = True
         Me.cmdFileCheckAll.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdFileCheckAll.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdFileCheckAll.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdFileCheckAll.FlatAppearance.BorderSize = 0
         Me.cmdFileCheckAll.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -1107,7 +1117,6 @@ Partial Class frmMain
         '
         Me.cmdFileCheckBackup.AutoSize = True
         Me.cmdFileCheckBackup.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdFileCheckBackup.Dock = System.Windows.Forms.DockStyle.Fill
         Me.cmdFileCheckBackup.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
         Me.cmdFileCheckBackup.FlatAppearance.BorderSize = 0
         Me.cmdFileCheckBackup.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
@@ -1140,7 +1149,7 @@ Partial Class frmMain
         '
         Me.pnlScreenshotThumb.Controls.Add(Me.imgScreenshotThumb)
         Me.pnlScreenshotThumb.Dock = System.Windows.Forms.DockStyle.Right
-        Me.pnlScreenshotThumb.Location = New System.Drawing.Point(398, 0)
+        Me.pnlScreenshotThumb.Location = New System.Drawing.Point(403, 0)
         Me.pnlScreenshotThumb.Name = "pnlScreenshotThumb"
         Me.pnlScreenshotThumb.Padding = New System.Windows.Forms.Padding(4, 2, 0, 0)
         Me.pnlScreenshotThumb.Size = New System.Drawing.Size(200, 153)
@@ -1263,7 +1272,7 @@ Partial Class frmMain
         Me.cmFolders.BackgroundImage = Global.sstatesman.My.Resources.Resources.BgStripesLight
         Me.cmFolders.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.cmiFoldersSStatesOpen, Me.cmiFoldersSnapsOpen, Me.ToolStripSeparator2, Me.cmiFoldersStoredOpen, Me.cmiFoldersIsoOpen, Me.cmiFoldersCoverOpen})
         Me.cmFolders.Name = "cmPCSX2"
-        Me.cmFolders.Size = New System.Drawing.Size(240, 142)
+        Me.cmFolders.Size = New System.Drawing.Size(240, 120)
         Me.cmFolders.Text = "Title Toolbar Folders Menu"
         '
         'cmiFoldersSStatesOpen
@@ -1310,7 +1319,12 @@ Partial Class frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        Me.ClientSize = New System.Drawing.Size(632, 472)
+        Me.BorderColorActive = System.Drawing.Color.Empty
+        Me.BorderColorInactive = System.Drawing.Color.Empty
+        Me.CaptionColorActive = System.Drawing.Color.Empty
+        Me.CaptionColorInactive = System.Drawing.Color.Empty
+        Me.CaptionHeight = 46
+        Me.ClientSize = New System.Drawing.Size(640, 480)
         Me.Controls.Add(Me.flpTitleBarToolbar)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.lblWindowVersion)
@@ -1450,4 +1464,5 @@ Partial Class frmMain
     Private WithEvents cmiPCSX2IniFolderOpen As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents cmiFoldersIsoOpen As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents cmdGamePlay As System.Windows.Forms.Button
+    Private WithEvents cmdFilesStore As System.Windows.Forms.Button
 End Class

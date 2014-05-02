@@ -23,10 +23,10 @@ Public NotInheritable Class frmDeleteForm
     Dim FileList_TotalSizeBackup As Long = 0
 
     Enum DelFileStatus
-        Ready
-        DeletedOk
-        NotFound
-        OtherError
+        FileReady       'The file is ready to be deleted
+        FileDeleted     'The file has been successfully deleted
+        FileNotFound    'The file has not been found during the initial load process or the delete operation
+        OtherError      'Another error has been encountered
     End Enum
 
 #Region "Delete"
@@ -58,7 +58,7 @@ Public NotInheritable Class frmDeleteForm
                         End If
                         'tmpGamesListItem.Savestates.Remove(tmpSavestate.Name)
 
-                        tmpCheckedItem.Tag = DelFileStatus.DeletedOk
+                        tmpCheckedItem.Tag = DelFileStatus.FileDeleted
                         tmpCheckedItem.SubItems(statusColumnHeaderRef.Index).Text = "File deleted successfully."
                         tmpCheckedItem.BackColor = Color.FromArgb(255, 150, 200, 130)
                     Catch ex As Exception
@@ -383,12 +383,12 @@ Public NotInheritable Class frmDeleteForm
                     End Select
 
                     tmpLvwItem.BackColor = Color.Transparent
-                    tmpLvwItem.Tag = DelFileStatus.Ready
+                    tmpLvwItem.Tag = DelFileStatus.FileReady
                 Else
                     tmpLvwItem.SubItems.Add("File not found or inaccessible.")
                     tmpLvwItem.Checked = False
                     tmpLvwItem.BackColor = Color.FromArgb(255, 255, 192, 192)
-                    tmpLvwItem.Tag = DelFileStatus.NotFound
+                    tmpLvwItem.Tag = DelFileStatus.FileNotFound
                     SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "File not found: " & tmpFile.Value.Name & ".")
                 End If
 
@@ -478,7 +478,7 @@ Public NotInheritable Class frmDeleteForm
         Me.lvwDelFilesList.BeginUpdate()
 
         For lvwItemIndex = 0 To Me.lvwDelFilesList.Items.Count - 1
-            If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag.Equals(DelFileStatus.Ready) Then
+            If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag.Equals(DelFileStatus.FileReady) Then
                 Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = True
             End If
         Next
@@ -508,7 +508,7 @@ Public NotInheritable Class frmDeleteForm
         Me.lvwDelFilesList.BeginUpdate()
 
         For lvwItemIndex = 0 To Me.lvwDelFilesList.Items.Count - 1
-            If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag.Equals(DelFileStatus.Ready) Then
+            If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag.Equals(DelFileStatus.FileReady) Then
                 Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = Not (Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked)
             Else
                 Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = False
@@ -527,7 +527,7 @@ Public NotInheritable Class frmDeleteForm
 
         For lvwItemIndex As Integer = 0 To Me.lvwDelFilesList.Items.Count - 1
             If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Name.EndsWith(My.Settings.PCSX2_SStateExtBackup) Then
-                If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag.Equals(DelFileStatus.Ready) Then
+                If Me.lvwDelFilesList.Items.Item(lvwItemIndex).Tag.Equals(DelFileStatus.FileReady) Then
                     Me.lvwDelFilesList.Items.Item(lvwItemIndex).Checked = True
                 End If
             Else
@@ -543,7 +543,7 @@ Public NotInheritable Class frmDeleteForm
 
     Private Sub lvwDelFilesList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs)
         If DirectCast(sender, ListView).Items(DirectCast(sender, ListView).Items.Count - 1) IsNot Nothing Then
-            If Not (e.Item.Tag.Equals(DelFileStatus.Ready)) Then
+            If Not (e.Item.Tag.Equals(DelFileStatus.FileReady)) Then
                 e.Item.Checked = False
             End If
             Me.DelFileList_IndexChecked()

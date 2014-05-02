@@ -225,6 +225,9 @@ Public NotInheritable Class frmMain
                 Me.lblSStateListCheck.Text = "check savestates:"
                 Me.cmdFileCheckBackup.Visible = True
                 Me.cmdFilesReorder.Visible = True
+                Me.cmdFilesStore.Text = "STORE"
+                Me.cmdFilesStore.Image = My.Resources.Icon_SavestateStore
+                Me.cmdFilesStore.Visible = True
                 Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = True
                 Me.txtSizeBackup.Visible = True
@@ -232,7 +235,10 @@ Public NotInheritable Class frmMain
             Case ListMode.Stored
                 Me.lblSStateListCheck.Text = "check savestates:"
                 Me.cmdFileCheckBackup.Visible = False
+                Me.cmdFilesStore.Text = "RESTORE"
+                Me.cmdFilesStore.Image = My.Resources.Icon_SavestateRestore
                 Me.cmdFilesReorder.Visible = True
+                Me.cmdFilesStore.Visible = True
                 Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
@@ -241,6 +247,7 @@ Public NotInheritable Class frmMain
                 Me.lblSStateListCheck.Text = "check screenshots:"
                 Me.cmdFileCheckBackup.Visible = False
                 Me.cmdFilesReorder.Visible = False
+                Me.cmdFilesStore.Visible = False
                 Me.lblSize.Text = "screenshots size"
                 Me.lblSizeBackup.Visible = False
                 Me.txtSizeBackup.Visible = False
@@ -463,6 +470,7 @@ Public NotInheritable Class frmMain
 
             Me.cmdFilesDelete.Enabled = False
             Me.cmdFilesReorder.Enabled = False
+            Me.cmdFilesStore.Enabled = False
 
             Me.imgScreenshotThumb.Image = My.Resources.Extra_ClearImage_30x20
         Else
@@ -491,6 +499,7 @@ Public NotInheritable Class frmMain
                 'At least one file is checked
                 Me.cmdFileCheckNone.Enabled = True
                 Me.cmdFilesDelete.Enabled = True
+                Me.cmdFilesStore.Enabled = True
 
                 If Me.lvwFilesList.Items.Count = Me.lvwFilesList.CheckedItems.Count Then
                     'All files are checked
@@ -504,6 +513,7 @@ Public NotInheritable Class frmMain
                 Me.cmdFileCheckNone.Enabled = False
                 Me.cmdFileCheckAll.Enabled = True
                 Me.cmdFilesDelete.Enabled = False
+                Me.cmdFilesStore.Enabled = False
             End If
 
             Me.cmdFileCheckAll.Visible = Me.cmdFileCheckAll.Enabled
@@ -1123,8 +1133,20 @@ Public NotInheritable Class frmMain
     End Sub
 
     Private Sub cmdSStateReorder_Click(sender As Object, e As EventArgs) Handles cmdFilesReorder.Click
-        frmReorderForm.ShowDialog(Me)
+        frmFileOperations.FileListMode = frmFileOperations.FileOperations.Reorder
+        frmFileOperations.ShowDialog(Me)
     End Sub
+
+    Private Sub cmdFilesStore_Click(sender As Object, e As EventArgs) Handles cmdFilesStore.Click
+        Select Case Me.CurrentListMode
+            Case ListMode.Savestates
+                frmFileOperations.FileListMode = frmFileOperations.FileOperations.Store
+            Case ListMode.Stored
+                frmFileOperations.FileListMode = frmFileOperations.FileOperations.Restore
+        End Select
+        frmFileOperations.ShowDialog(Me)
+    End Sub
+
 
     Private Sub cmdSStatesLvwExpand_Click(sender As Object, e As EventArgs) Handles cmdExpandFilesList.Click
         If Me.SplitContainer1.Panel1Collapsed Then
