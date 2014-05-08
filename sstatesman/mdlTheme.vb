@@ -160,9 +160,9 @@ Module mdlTheme
                 End With
             Case eTheme.PCSX2
                 With currentTheme
-                    .AccentColor = Color.Gainsboro
-                    .AccentColorLight = Color.WhiteSmoke
-                    .AccentColorDark = Color.Silver
+                    .AccentColor = Color.FromArgb(32, 32, 32)
+                    .AccentColorLight = Color.FromArgb(64, 64, 64)
+                    .AccentColorDark = Color.Black
                     .BgColor = Color.WhiteSmoke
                     .BgColorTop = Color.FromArgb(&HFF82DDF8)
                     .BgColorBottom = Color.FromArgb(&HFF1EBAFB)

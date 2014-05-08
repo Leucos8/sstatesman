@@ -75,7 +75,7 @@
        d="M 25 8 L 17 16 L 4 16 L 4 52 L 24.84375 52 C 24.302781 50.090218 24 48.083058 24 46 C 24 33.849736 33.849736 24 46 24 C 49.602274 24 52.998884 24.871426 56 26.40625 L 56 8 L 25 8 z M 27 12 L 52 12 L 52 16 L 23 16 L 27 12 z "
        id="path3000-1" />
     <path
-       style="fill:#d7dcff;stroke:#424242;stroke-width:4;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4"
+       style="fill:#dcdcdc;stroke:#424242;stroke-width:4;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4"
        d="M 46 30 C 37.163444 30 30 37.163444 30 46 C 30 54.836556 37.163444 62 46 62 C 54.836556 62 62 54.836556 62 46 C 62 37.163444 54.836556 30 46 30 z M 46 43 C 47.656854 43 49 44.343146 49 46 C 49 47.656854 47.656854 49 46 49 C 44.343146 49 43 47.656854 43 46 C 43 44.343146 44.343146 43 46 43 z "
        id="path2991" />
   </g>

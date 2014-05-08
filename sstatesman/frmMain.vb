@@ -225,32 +225,26 @@ Public NotInheritable Class frmMain
                 Me.lblSStateListCheck.Text = "check savestates:"
                 Me.cmdFileCheckBackup.Visible = True
                 Me.cmdFilesReorder.Visible = True
-                Me.cmdFilesStore.Text = "STORE"
+                Me.cmdFilesStore.Text = "&store...".ToUpper
                 Me.cmdFilesStore.Image = My.Resources.Icon_SavestateStore
                 Me.cmdFilesStore.Visible = True
-                Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = True
-                Me.txtSizeBackup.Visible = True
                 Me.pnlScreenshotThumb.Visible = False
             Case ListMode.Stored
                 Me.lblSStateListCheck.Text = "check savestates:"
                 Me.cmdFileCheckBackup.Visible = False
-                Me.cmdFilesStore.Text = "RESTORE"
+                Me.cmdFilesStore.Text = "re&store...".ToUpper
                 Me.cmdFilesStore.Image = My.Resources.Icon_SavestateRestore
                 Me.cmdFilesReorder.Visible = True
                 Me.cmdFilesStore.Visible = True
-                Me.lblSize.Text = "savestates size"
                 Me.lblSizeBackup.Visible = False
-                Me.txtSizeBackup.Visible = False
                 Me.pnlScreenshotThumb.Visible = False
             Case ListMode.Snapshots
                 Me.lblSStateListCheck.Text = "check screenshots:"
                 Me.cmdFileCheckBackup.Visible = False
                 Me.cmdFilesReorder.Visible = False
                 Me.cmdFilesStore.Visible = False
-                Me.lblSize.Text = "screenshots size"
                 Me.lblSizeBackup.Visible = False
-                Me.txtSizeBackup.Visible = False
                 Me.pnlScreenshotThumb.Visible = True
         End Select
 
@@ -311,7 +305,7 @@ Public NotInheritable Class frmMain
                 '--------------------------
 
                 'Game info
-                Me.txtGameList_Title.Text = "(multiple games selected)"
+                Me.txtGameList_Title.Text = String.Format("({0:N0} games, {1:N0} checked)", Me.lvwGamesList.Items.Count, Me.lvwGamesList.CheckedItems.Count)
                 Me.txtGameList_Serial.Text = String.Empty
                 Me.txtGameList_Region.Text = String.Empty
                 Me.txtGameList_Compat.Text = String.Empty
@@ -338,7 +332,7 @@ Public NotInheritable Class frmMain
                 'IsoFiles
                 Me.cmdGamePlay.Enabled = False
                 Me.cmiPCSX2Play.Enabled = False
-                Me.cmiPCSX2Play.Text = "(Multiple games)"
+                Me.cmiPCSX2Play.Text = "(multiple games)"
                 Me.cmiPCSX2Play.ToolTipText = String.Empty
 
             Else
@@ -379,7 +373,7 @@ Public NotInheritable Class frmMain
                 If String.IsNullOrEmpty(SSMGameList.Games(currentGameInfo.Serial).GameIso) Then
                     Me.cmdGamePlay.Enabled = False
                     Me.cmiPCSX2Play.Enabled = False
-                    Me.cmiPCSX2Play.Text = "(No Iso file found)"
+                    Me.cmiPCSX2Play.Text = "(no disk image file found)"
                 Else
                     Me.cmdGamePlay.Enabled = True
                     Me.cmiPCSX2Play.Enabled = True
@@ -419,7 +413,7 @@ Public NotInheritable Class frmMain
 
             Me.cmdGamePlay.Enabled = False
             Me.cmiPCSX2Play.Enabled = False
-            Me.cmiPCSX2Play.Text = "(No game selected)"
+            Me.cmiPCSX2Play.Text = "(no games selected)"
             Me.cmiPCSX2Play.ToolTipText = String.Empty
 
             If SSMGameList.Games.Count = 0 Then
@@ -449,16 +443,16 @@ Public NotInheritable Class frmMain
     Private Sub UI_UpdateFileInfo()
         Dim sw As Stopwatch = Stopwatch.StartNew
 
-        Me.txtSelected.Text = System.String.Format("{0:N0} | {1:N0} files", Me.lvwFilesList.CheckedItems.Count, Me.lvwFilesList.Items.Count)
-        Me.txtSize.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.FileList_SelectedSize / 1024 ^ 2, Me.GameList_SelectedSize / 1024 ^ 2)
-        Me.txtSizeBackup.Text = System.String.Format("{0:N2} | {1:N2} MB", Me.FileList_SelectedSizeBackup / 1024 ^ 2, Me.GameList_SelectedSizeBackup / 1024 ^ 2)
-
         Me.tlpFileListCommands.SuspendLayout()
 
         If Me.lvwFilesList.Items.Count = 0 Then
             '================
             'No files in list
             '================
+            Me.lblSelected.Text = "0 items"
+            Me.lblSize.Text = ""
+            Me.lblSizeBackup.Text = ""
+
             Me.cmdFileCheckAll.Enabled = False
             Me.cmdFileCheckInvert.Enabled = False
             Me.cmdFileCheckNone.Enabled = False
@@ -497,6 +491,10 @@ Public NotInheritable Class frmMain
 
             If Me.lvwFilesList.CheckedItems.Count > 0 Then
                 'At least one file is checked
+                Me.lblSelected.Text = System.String.Format("{0:N0} items ({1:N0} checked)", Me.lvwFilesList.Items.Count, Me.lvwFilesList.CheckedItems.Count)
+                Me.lblSize.Text = System.String.Format("{0:N2} MB ({1:N2} MB)", Me.GameList_SelectedSize / 1024 ^ 2, Me.FileList_SelectedSize / 1024 ^ 2)
+                Me.lblSizeBackup.Text = System.String.Format("+ {0:N2} MB ({1:N2} MB)", Me.GameList_SelectedSizeBackup / 1024 ^ 2, Me.FileList_SelectedSizeBackup / 1024 ^ 2)
+
                 Me.cmdFileCheckNone.Enabled = True
                 Me.cmdFilesDelete.Enabled = True
                 Me.cmdFilesStore.Enabled = True
@@ -510,6 +508,10 @@ Public NotInheritable Class frmMain
 
             Else
                 'No files are checked
+                Me.lblSelected.Text = System.String.Format("{0:N0} items", Me.lvwFilesList.Items.Count)
+                Me.lblSize.Text = System.String.Format("{0:N2} MB", Me.GameList_SelectedSize / 1024 ^ 2)
+                Me.lblSizeBackup.Text = System.String.Format("+ {0:N2} MB", Me.GameList_SelectedSizeBackup / 1024 ^ 2)
+
                 Me.cmdFileCheckNone.Enabled = False
                 Me.cmdFileCheckAll.Enabled = True
                 Me.cmdFilesDelete.Enabled = False
@@ -1329,11 +1331,9 @@ Public NotInheritable Class frmMain
         e.Graphics.DrawLine(Pens.DimGray, 0, Me.SplitContainer1.SplitterDistance + 1, Me.SplitContainer1.Width, Me.SplitContainer1.SplitterDistance + 1)
     End Sub
 
-    'Private Sub frmMain_Paint(sender As Object, e As System.Windows.Forms.PaintEventArgs) Handles MyBase.Paint
-    '    If Me.Width > 8 And Me.Height > 8 Then
-    '        e.Graphics.DrawRectangle(Pens.DimGray, 0, 0, Me.ClientSize.Width - 1, Me.ClientSize.Height - 1)
-    '    End If
-    'End Sub
+    Private Sub frmMain_ThemeApplied(sender As Object, e As EventArgs) Handles MyBase.ThemeApplied
+        Me.tlpFileListStatus.BackColor = Me.BorderColorActive
+    End Sub
 #End Region
 
 #Region "Snapshot load async"

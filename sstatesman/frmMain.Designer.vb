@@ -81,13 +81,8 @@ Partial Class frmMain
         Me.cmdGameSelectAll = New System.Windows.Forms.Button()
         Me.lblGameListCheck = New System.Windows.Forms.Label()
         Me.lvwFilesList = New System.Windows.Forms.ListView()
-        Me.tlpFileListStatus = New System.Windows.Forms.TableLayoutPanel()
-        Me.lblSelected = New System.Windows.Forms.Label()
-        Me.txtSelected = New System.Windows.Forms.TextBox()
-        Me.txtSizeBackup = New System.Windows.Forms.TextBox()
-        Me.lblSize = New System.Windows.Forms.Label()
-        Me.lblSizeBackup = New System.Windows.Forms.Label()
-        Me.txtSize = New System.Windows.Forms.TextBox()
+        Me.pnlScreenshotThumb = New System.Windows.Forms.Panel()
+        Me.imgScreenshotThumb = New System.Windows.Forms.PictureBox()
         Me.tlpFileListCommands = New System.Windows.Forms.TableLayoutPanel()
         Me.flpFileListCommandsFiles = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdFilesStore = New System.Windows.Forms.Button()
@@ -100,8 +95,10 @@ Partial Class frmMain
         Me.cmdFileCheckAll = New System.Windows.Forms.Button()
         Me.cmdFileCheckBackup = New System.Windows.Forms.Button()
         Me.lblSStateListCheck = New System.Windows.Forms.Label()
-        Me.pnlScreenshotThumb = New System.Windows.Forms.Panel()
-        Me.imgScreenshotThumb = New System.Windows.Forms.PictureBox()
+        Me.tlpFileListStatus = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblSelected = New System.Windows.Forms.Label()
+        Me.lblSize = New System.Windows.Forms.Label()
+        Me.lblSizeBackup = New System.Windows.Forms.Label()
         Me.cmPCSX2 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmiPCSX2Launch = New System.Windows.Forms.ToolStripMenuItem()
         Me.cmiPCSX2Play = New System.Windows.Forms.ToolStripMenuItem()
@@ -138,12 +135,12 @@ Partial Class frmMain
         CType(Me.imgFlag, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpGameListCommands.SuspendLayout()
         Me.flpGameListCommandsCheck.SuspendLayout()
-        Me.tlpFileListStatus.SuspendLayout()
+        Me.pnlScreenshotThumb.SuspendLayout()
+        CType(Me.imgScreenshotThumb, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tlpFileListCommands.SuspendLayout()
         Me.flpFileListCommandsFiles.SuspendLayout()
         Me.flpFileListCommandsCheck.SuspendLayout()
-        Me.pnlScreenshotThumb.SuspendLayout()
-        CType(Me.imgScreenshotThumb, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tlpFileListStatus.SuspendLayout()
         Me.cmPCSX2.SuspendLayout()
         Me.cmConfig.SuspendLayout()
         Me.cmFolders.SuspendLayout()
@@ -163,7 +160,7 @@ Partial Class frmMain
         Me.flpTitleBarToolbar.Controls.Add(Me.cmdToolbarUser)
         Me.flpTitleBarToolbar.Controls.Add(Me.cmdToolbarPCSX2)
         Me.flpTitleBarToolbar.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpTitleBarToolbar.Location = New System.Drawing.Point(420, 49)
+        Me.flpTitleBarToolbar.Location = New System.Drawing.Point(460, 49)
         Me.flpTitleBarToolbar.Margin = New System.Windows.Forms.Padding(0)
         Me.flpTitleBarToolbar.Name = "flpTitleBarToolbar"
         Me.flpTitleBarToolbar.Size = New System.Drawing.Size(169, 22)
@@ -239,7 +236,7 @@ Partial Class frmMain
         Me.lblWindowVersion.AutoSize = True
         Me.lblWindowVersion.BackColor = System.Drawing.Color.Transparent
         Me.lblWindowVersion.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblWindowVersion.Location = New System.Drawing.Point(591, 49)
+        Me.lblWindowVersion.Location = New System.Drawing.Point(631, 49)
         Me.lblWindowVersion.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblWindowVersion.Name = "lblWindowVersion"
         Me.lblWindowVersion.Size = New System.Drawing.Size(35, 12)
@@ -404,9 +401,8 @@ Partial Class frmMain
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.lvwFilesList)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.tlpFileListStatus)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.tlpFileListCommands)
         Me.SplitContainer1.Panel2.Controls.Add(Me.pnlScreenshotThumb)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.tlpFileListCommands)
         Me.SplitContainer1.Panel2.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
         Me.SplitContainer1.Panel2MinSize = 120
         Me.SplitContainer1.Size = New System.Drawing.Size(611, 360)
@@ -814,110 +810,31 @@ Partial Class frmMain
         Me.lvwFilesList.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwFilesList.MultiSelect = False
         Me.lvwFilesList.Name = "lvwFilesList"
-        Me.lvwFilesList.Size = New System.Drawing.Size(395, 92)
+        Me.lvwFilesList.Size = New System.Drawing.Size(395, 131)
         Me.lvwFilesList.TabIndex = 37
         Me.lvwFilesList.UseCompatibleStateImageBehavior = False
         Me.lvwFilesList.View = System.Windows.Forms.View.Details
         '
-        'tlpFileListStatus
+        'pnlScreenshotThumb
         '
-        Me.tlpFileListStatus.AutoSize = True
-        Me.tlpFileListStatus.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.tlpFileListStatus.ColumnCount = 4
-        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpFileListStatus.Controls.Add(Me.lblSelected, 0, 0)
-        Me.tlpFileListStatus.Controls.Add(Me.txtSelected, 0, 1)
-        Me.tlpFileListStatus.Controls.Add(Me.txtSizeBackup, 2, 1)
-        Me.tlpFileListStatus.Controls.Add(Me.lblSize, 1, 0)
-        Me.tlpFileListStatus.Controls.Add(Me.lblSizeBackup, 2, 0)
-        Me.tlpFileListStatus.Controls.Add(Me.txtSize, 1, 1)
-        Me.tlpFileListStatus.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.tlpFileListStatus.Location = New System.Drawing.Point(8, 114)
-        Me.tlpFileListStatus.Margin = New System.Windows.Forms.Padding(0)
-        Me.tlpFileListStatus.Name = "tlpFileListStatus"
-        Me.tlpFileListStatus.RowCount = 2
-        Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFileListStatus.Size = New System.Drawing.Size(395, 39)
-        Me.tlpFileListStatus.TabIndex = 48
+        Me.pnlScreenshotThumb.Controls.Add(Me.imgScreenshotThumb)
+        Me.pnlScreenshotThumb.Dock = System.Windows.Forms.DockStyle.Right
+        Me.pnlScreenshotThumb.Location = New System.Drawing.Point(403, 22)
+        Me.pnlScreenshotThumb.Name = "pnlScreenshotThumb"
+        Me.pnlScreenshotThumb.Padding = New System.Windows.Forms.Padding(4, 2, 0, 0)
+        Me.pnlScreenshotThumb.Size = New System.Drawing.Size(200, 131)
+        Me.pnlScreenshotThumb.TabIndex = 49
         '
-        'lblSelected
+        'imgScreenshotThumb
         '
-        Me.lblSelected.AutoSize = True
-        Me.lblSelected.Location = New System.Drawing.Point(0, 0)
-        Me.lblSelected.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
-        Me.lblSelected.Name = "lblSelected"
-        Me.lblSelected.Size = New System.Drawing.Size(49, 13)
-        Me.lblSelected.TabIndex = 49
-        Me.lblSelected.Text = "selected"
-        '
-        'txtSelected
-        '
-        Me.txtSelected.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.txtSelected.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtSelected.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSelected.ForeColor = System.Drawing.Color.Black
-        Me.txtSelected.Location = New System.Drawing.Point(0, 15)
-        Me.txtSelected.Margin = New System.Windows.Forms.Padding(0, 2, 4, 2)
-        Me.txtSelected.Name = "txtSelected"
-        Me.txtSelected.ReadOnly = True
-        Me.txtSelected.Size = New System.Drawing.Size(128, 22)
-        Me.txtSelected.TabIndex = 50
-        Me.txtSelected.TabStop = False
-        Me.txtSelected.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'txtSizeBackup
-        '
-        Me.txtSizeBackup.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.txtSizeBackup.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtSizeBackup.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSizeBackup.ForeColor = System.Drawing.Color.Black
-        Me.txtSizeBackup.Location = New System.Drawing.Point(264, 15)
-        Me.txtSizeBackup.Margin = New System.Windows.Forms.Padding(0, 2, 4, 2)
-        Me.txtSizeBackup.Name = "txtSizeBackup"
-        Me.txtSizeBackup.ReadOnly = True
-        Me.txtSizeBackup.Size = New System.Drawing.Size(128, 22)
-        Me.txtSizeBackup.TabIndex = 54
-        Me.txtSizeBackup.TabStop = False
-        Me.txtSizeBackup.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'lblSize
-        '
-        Me.lblSize.AutoSize = True
-        Me.lblSize.Location = New System.Drawing.Point(132, 0)
-        Me.lblSize.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
-        Me.lblSize.Name = "lblSize"
-        Me.lblSize.Size = New System.Drawing.Size(81, 13)
-        Me.lblSize.TabIndex = 51
-        Me.lblSize.Text = "savestates size"
-        '
-        'lblSizeBackup
-        '
-        Me.lblSizeBackup.AutoSize = True
-        Me.lblSizeBackup.Location = New System.Drawing.Point(264, 0)
-        Me.lblSizeBackup.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
-        Me.lblSizeBackup.Name = "lblSizeBackup"
-        Me.lblSizeBackup.Size = New System.Drawing.Size(72, 13)
-        Me.lblSizeBackup.TabIndex = 53
-        Me.lblSizeBackup.Text = "backups size"
-        '
-        'txtSize
-        '
-        Me.txtSize.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.txtSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtSize.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSize.ForeColor = System.Drawing.Color.Black
-        Me.txtSize.Location = New System.Drawing.Point(132, 15)
-        Me.txtSize.Margin = New System.Windows.Forms.Padding(0, 2, 4, 2)
-        Me.txtSize.Name = "txtSize"
-        Me.txtSize.ReadOnly = True
-        Me.txtSize.Size = New System.Drawing.Size(128, 22)
-        Me.txtSize.TabIndex = 52
-        Me.txtSize.TabStop = False
-        Me.txtSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        Me.imgScreenshotThumb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.imgScreenshotThumb.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.imgScreenshotThumb.Location = New System.Drawing.Point(4, 2)
+        Me.imgScreenshotThumb.Name = "imgScreenshotThumb"
+        Me.imgScreenshotThumb.Size = New System.Drawing.Size(196, 129)
+        Me.imgScreenshotThumb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
+        Me.imgScreenshotThumb.TabIndex = 0
+        Me.imgScreenshotThumb.TabStop = False
         '
         'tlpFileListCommands
         '
@@ -938,7 +855,7 @@ Partial Class frmMain
         Me.tlpFileListCommands.Padding = New System.Windows.Forms.Padding(16, 0, 0, 0)
         Me.tlpFileListCommands.RowCount = 1
         Me.tlpFileListCommands.RowStyles.Add(New System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpFileListCommands.Size = New System.Drawing.Size(395, 22)
+        Me.tlpFileListCommands.Size = New System.Drawing.Size(595, 22)
         Me.tlpFileListCommands.TabIndex = 38
         '
         'flpFileListCommandsFiles
@@ -953,7 +870,7 @@ Partial Class frmMain
         Me.flpFileListCommandsFiles.Location = New System.Drawing.Point(16, 0)
         Me.flpFileListCommandsFiles.Margin = New System.Windows.Forms.Padding(0)
         Me.flpFileListCommandsFiles.Name = "flpFileListCommandsFiles"
-        Me.flpFileListCommandsFiles.Size = New System.Drawing.Size(213, 22)
+        Me.flpFileListCommandsFiles.Size = New System.Drawing.Size(197, 22)
         Me.flpFileListCommandsFiles.TabIndex = 50
         Me.flpFileListCommandsFiles.WrapContents = False
         '
@@ -970,7 +887,7 @@ Partial Class frmMain
         Me.cmdFilesStore.Location = New System.Drawing.Point(148, 0)
         Me.cmdFilesStore.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdFilesStore.Name = "cmdFilesStore"
-        Me.cmdFilesStore.Size = New System.Drawing.Size(65, 22)
+        Me.cmdFilesStore.Size = New System.Drawing.Size(49, 22)
         Me.cmdFilesStore.TabIndex = 50
         Me.cmdFilesStore.Text = "&STORE..."
         Me.cmdFilesStore.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
@@ -1028,7 +945,7 @@ Partial Class frmMain
         Me.cmdExpandFilesList.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdExpandFilesList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.cmdExpandFilesList.Image = Global.sstatesman.My.Resources.Resources.Icon_ExpandTop_12x12
-        Me.cmdExpandFilesList.Location = New System.Drawing.Point(377, 0)
+        Me.cmdExpandFilesList.Location = New System.Drawing.Point(577, 0)
         Me.cmdExpandFilesList.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdExpandFilesList.Name = "cmdExpandFilesList"
         Me.cmdExpandFilesList.Size = New System.Drawing.Size(18, 18)
@@ -1046,7 +963,7 @@ Partial Class frmMain
         Me.flpFileListCommandsCheck.Controls.Add(Me.lblSStateListCheck)
         Me.flpFileListCommandsCheck.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flpFileListCommandsCheck.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpFileListCommandsCheck.Location = New System.Drawing.Point(39, 0)
+        Me.flpFileListCommandsCheck.Location = New System.Drawing.Point(239, 0)
         Me.flpFileListCommandsCheck.Margin = New System.Windows.Forms.Padding(0)
         Me.flpFileListCommandsCheck.Name = "flpFileListCommandsCheck"
         Me.flpFileListCommandsCheck.Size = New System.Drawing.Size(338, 22)
@@ -1145,26 +1062,66 @@ Partial Class frmMain
         Me.lblSStateListCheck.Text = "check savestates:"
         Me.lblSStateListCheck.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
-        'pnlScreenshotThumb
+        'tlpFileListStatus
         '
-        Me.pnlScreenshotThumb.Controls.Add(Me.imgScreenshotThumb)
-        Me.pnlScreenshotThumb.Dock = System.Windows.Forms.DockStyle.Right
-        Me.pnlScreenshotThumb.Location = New System.Drawing.Point(403, 0)
-        Me.pnlScreenshotThumb.Name = "pnlScreenshotThumb"
-        Me.pnlScreenshotThumb.Padding = New System.Windows.Forms.Padding(4, 2, 0, 0)
-        Me.pnlScreenshotThumb.Size = New System.Drawing.Size(200, 153)
-        Me.pnlScreenshotThumb.TabIndex = 49
+        Me.tlpFileListStatus.AutoSize = True
+        Me.tlpFileListStatus.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.tlpFileListStatus.BackColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
+        Me.tlpFileListStatus.ColumnCount = 4
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpFileListStatus.Controls.Add(Me.lblSelected, 0, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.lblSize, 1, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.lblSizeBackup, 2, 0)
+        Me.tlpFileListStatus.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.tlpFileListStatus.ForeColor = System.Drawing.Color.White
+        Me.tlpFileListStatus.Location = New System.Drawing.Point(1, 449)
+        Me.tlpFileListStatus.Margin = New System.Windows.Forms.Padding(0)
+        Me.tlpFileListStatus.MinimumSize = New System.Drawing.Size(0, 24)
+        Me.tlpFileListStatus.Name = "tlpFileListStatus"
+        Me.tlpFileListStatus.Padding = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.tlpFileListStatus.RowCount = 1
+        Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpFileListStatus.Size = New System.Drawing.Size(638, 24)
+        Me.tlpFileListStatus.TabIndex = 48
         '
-        'imgScreenshotThumb
+        'lblSelected
         '
-        Me.imgScreenshotThumb.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.imgScreenshotThumb.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.imgScreenshotThumb.Location = New System.Drawing.Point(4, 2)
-        Me.imgScreenshotThumb.Name = "imgScreenshotThumb"
-        Me.imgScreenshotThumb.Size = New System.Drawing.Size(196, 151)
-        Me.imgScreenshotThumb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
-        Me.imgScreenshotThumb.TabIndex = 0
-        Me.imgScreenshotThumb.TabStop = False
+        Me.lblSelected.AutoSize = True
+        Me.lblSelected.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSelected.Location = New System.Drawing.Point(4, 0)
+        Me.lblSelected.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
+        Me.lblSelected.Name = "lblSelected"
+        Me.lblSelected.Size = New System.Drawing.Size(49, 24)
+        Me.lblSelected.TabIndex = 49
+        Me.lblSelected.Text = "selected"
+        Me.lblSelected.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblSize
+        '
+        Me.lblSize.AutoSize = True
+        Me.lblSize.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSize.Location = New System.Drawing.Point(57, 0)
+        Me.lblSize.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
+        Me.lblSize.Name = "lblSize"
+        Me.lblSize.Size = New System.Drawing.Size(81, 24)
+        Me.lblSize.TabIndex = 51
+        Me.lblSize.Text = "savestates size"
+        Me.lblSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblSizeBackup
+        '
+        Me.lblSizeBackup.AutoSize = True
+        Me.lblSizeBackup.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSizeBackup.Location = New System.Drawing.Point(142, 0)
+        Me.lblSizeBackup.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
+        Me.lblSizeBackup.Name = "lblSizeBackup"
+        Me.lblSizeBackup.Size = New System.Drawing.Size(72, 24)
+        Me.lblSizeBackup.TabIndex = 53
+        Me.lblSizeBackup.Text = "backups size"
+        Me.lblSizeBackup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'cmPCSX2
         '
@@ -1328,6 +1285,7 @@ Partial Class frmMain
         Me.Controls.Add(Me.flpTitleBarToolbar)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.lblWindowVersion)
+        Me.Controls.Add(Me.tlpFileListStatus)
         Me.Controls.Add(Me.tlpTopBar)
         Me.Icon = Global.sstatesman.My.Resources.Resources.SSM_Icon_v2
         Me.MinimumSize = New System.Drawing.Size(640, 480)
@@ -1335,6 +1293,7 @@ Partial Class frmMain
         Me.Text = "SStatesMan"
         Me.Controls.SetChildIndex(Me.pnlWindowTop, 0)
         Me.Controls.SetChildIndex(Me.tlpTopBar, 0)
+        Me.Controls.SetChildIndex(Me.tlpFileListStatus, 0)
         Me.Controls.SetChildIndex(Me.lblWindowVersion, 0)
         Me.Controls.SetChildIndex(Me.SplitContainer1, 0)
         Me.Controls.SetChildIndex(Me.flpTitleBarToolbar, 0)
@@ -1361,16 +1320,16 @@ Partial Class frmMain
         Me.tlpGameListCommands.PerformLayout()
         Me.flpGameListCommandsCheck.ResumeLayout(False)
         Me.flpGameListCommandsCheck.PerformLayout()
-        Me.tlpFileListStatus.ResumeLayout(False)
-        Me.tlpFileListStatus.PerformLayout()
+        Me.pnlScreenshotThumb.ResumeLayout(False)
+        CType(Me.imgScreenshotThumb, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tlpFileListCommands.ResumeLayout(False)
         Me.tlpFileListCommands.PerformLayout()
         Me.flpFileListCommandsFiles.ResumeLayout(False)
         Me.flpFileListCommandsFiles.PerformLayout()
         Me.flpFileListCommandsCheck.ResumeLayout(False)
         Me.flpFileListCommandsCheck.PerformLayout()
-        Me.pnlScreenshotThumb.ResumeLayout(False)
-        CType(Me.imgScreenshotThumb, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tlpFileListStatus.ResumeLayout(False)
+        Me.tlpFileListStatus.PerformLayout()
         Me.cmPCSX2.ResumeLayout(False)
         Me.cmConfig.ResumeLayout(False)
         Me.cmFolders.ResumeLayout(False)
@@ -1419,10 +1378,8 @@ Partial Class frmMain
     Private WithEvents tlpFileListCommands As System.Windows.Forms.TableLayoutPanel
     Private WithEvents tlpFileListStatus As System.Windows.Forms.TableLayoutPanel
     Private WithEvents lblSelected As System.Windows.Forms.Label
-    Private WithEvents txtSizeBackup As System.Windows.Forms.TextBox
     Private WithEvents lblSize As System.Windows.Forms.Label
     Private WithEvents lblSizeBackup As System.Windows.Forms.Label
-    Private WithEvents txtSize As System.Windows.Forms.TextBox
     Private WithEvents flpTab As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents optTabHeader0 As System.Windows.Forms.RadioButton
     Private WithEvents optTabHeader1 As System.Windows.Forms.RadioButton
@@ -1435,7 +1392,6 @@ Partial Class frmMain
     Private WithEvents cmiPCSX2BinFolderOpen As System.Windows.Forms.ToolStripMenuItem
     Private WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
     Private WithEvents cmiPCSX2GDE As System.Windows.Forms.ToolStripMenuItem
-    Private WithEvents txtSelected As System.Windows.Forms.TextBox
     Private WithEvents GameLvw_SnapsInfo As System.Windows.Forms.ColumnHeader
     Private WithEvents flpFileListCommandsFiles As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdFilesReorder As System.Windows.Forms.Button

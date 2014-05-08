@@ -405,8 +405,8 @@ Public NotInheritable Class frmFileOperations
     Private Sub ReorderList_UpdateUI()
         Dim sw As Stopwatch = Stopwatch.StartNew
 
-        Me.txtSelected.Text = String.Format("{0:N0} | {1:N0} items", Me.lvwFileList.CheckedItems.Count, Me.lvwFileList.Items.Count)
-        Me.txtSize.Text = String.Format("{0:N0} | {1:N0} files", Me.Count_RenamePending, Me.Count_Files)
+        Me.lblSelected.Text = String.Format("{0:N0} items ({1:N0} checked)", Me.lvwFileList.Items.Count, Me.lvwFileList.CheckedItems.Count)
+        Me.lblSize.Text = String.Format("{0:N0} file ({1:N0} active)", Me.Count_Files, Me.Count_RenamePending)
 
         Me.flpFileListCommandsFiles.SuspendLayout()
 
@@ -414,6 +414,8 @@ Public NotInheritable Class frmFileOperations
             '==========================================
             'No files in list or file have been renamed
             '==========================================
+            Me.lblSelected.Text = String.Empty
+            Me.lblSize.Text = String.Empty
 
             Me.cmdMoveUp.Enabled = False
             Me.cmdMoveLast.Enabled = False
@@ -428,14 +430,17 @@ Public NotInheritable Class frmFileOperations
             'Files are present
             '=================
             If Me.Count_RenamePending > 0 Then
+                Me.lblSize.Text = String.Format("{0:N0} file ({1:N0} active)", Me.Count_Files, Me.Count_RenamePending)
                 Me.cmdReorder.Enabled = True
                 Me.cmdSortReset.Enabled = True
             Else
+                Me.lblSize.Text = String.Format("{0:N0} file", Me.Count_Files)
                 Me.cmdReorder.Enabled = False
                 Me.cmdSortReset.Enabled = False
             End If
 
             If Me.lvwFileList.CheckedItems.Count > 0 Then
+                Me.lblSelected.Text = String.Format("{0:N0} items ({1:N0} checked)", Me.lvwFileList.Items.Count, Me.lvwFileList.CheckedItems.Count)
                 'First item checked
                 If Me.lvwFileList.Items(0).Checked Then
                     Me.cmdMoveFirst.Enabled = False
@@ -463,6 +468,7 @@ Public NotInheritable Class frmFileOperations
 
 
             ElseIf Me.lvwFileList.CheckedItems.Count = 0 Then
+                Me.lblSelected.Text = String.Format("{0:N0} items", Me.lvwFileList.Items.Count)
                 Me.cmdMoveUp.Enabled = False
                 Me.cmdMoveLast.Enabled = False
                 Me.cmdMoveDown.Enabled = False
@@ -815,8 +821,8 @@ Public NotInheritable Class frmFileOperations
     Private Sub StoreList_UpdateUI()
         Dim sw As Stopwatch = Stopwatch.StartNew
 
-        Me.txtSelected.Text = String.Format("{0:N0} | {1:N0} files", Me.lvwFileList.CheckedItems.Count, Me.lvwFileList.Items.Count)
-        'Me.txtSize.Text = String.Format("{0:N0} | {1:N0} files", Me.Count_RenamePending, Me.lvwFileList.Items.Count)
+        Me.lblSelected.Text = String.Format("{0:N0} files ({1:N0} checked)", Me.lvwFileList.Items.Count, Me.lvwFileList.CheckedItems.Count)
+        'Me.lblSize.Text = String.Format("{0:N0} | {1:N0} files", Me.Count_RenamePending, Me.lvwFileList.Items.Count)
 
         If Me.OperationDone OrElse Me.lvwFileList.Items.Count = 0 Then
             '================
@@ -1007,7 +1013,6 @@ Public NotInheritable Class frmFileOperations
 
         Me.cmdReorder.Text = pOperationMode.ToString.ToUpper
         Me.lblSizeBackup.Visible = False
-        Me.txtSizeBackup.Visible = False
 
         Select Case pOperationMode
             Case FileOperations.Reorder
@@ -1015,7 +1020,6 @@ Public NotInheritable Class frmFileOperations
                 Me.lblSelected.Text = "selection"
                 Me.lblSize.Text = "active"
                 Me.lblSize.Visible = True
-                Me.txtSize.Visible = True
 
                 Me.cmdMoveUp.Text = "UP"
                 Me.cmdMoveUp.Image = My.Resources.Icon_OrderUp
@@ -1052,9 +1056,7 @@ Public NotInheritable Class frmFileOperations
                 Me.FormDescription = String.Format("check the savestates you want to {0} and press ""{0}"" to confirm.", Me.cmdReorder.Text.ToLower)
                 Me.lblSelected.Text = "selection"
                 Me.lblSize.Visible = False
-                Me.txtSize.Visible = False
                 Me.lblSizeBackup.Visible = False
-                Me.txtSizeBackup.Visible = False
                 Me.lblAction.Text = Me.cmdReorder.Text.ToLower & " checked"
 
                 Me.cmdFileCheckAll.Text = "ALL"
@@ -1113,6 +1115,10 @@ Public NotInheritable Class frmFileOperations
 
         'SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.ListMode, String.Format("Switched to {0}.", pListMode.ToString))
         'Me.DelFileList_Refresh()
+    End Sub
+
+    Private Sub frmMain_ThemeApplied(sender As Object, e As EventArgs) Handles MyBase.ThemeApplied
+        Me.tlpFileListStatus.BackColor = Me.BorderColorActive
     End Sub
 #End Region
 

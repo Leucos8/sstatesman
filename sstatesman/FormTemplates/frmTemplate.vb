@@ -93,6 +93,8 @@ Public Class frmTemplate
         End Get
     End Property
 
+    Public Event ThemeApplied(sender As Object, e As EventArgs)
+
 #Region "Form"
     Public Sub New()
         Me.ResizeBorderThickness = New System.Drawing.Size(SystemInformation.HorizontalResizeBorderThickness, SystemInformation.VerticalResizeBorderThickness)
@@ -248,7 +250,7 @@ Public Class frmTemplate
         End If
     End Sub
 
-    Friend Sub ApplyTheme()
+    Public Sub ApplyTheme()
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         Me.BackColor = currentTheme.BgColor
@@ -277,6 +279,8 @@ Public Class frmTemplate
 
 
         Me.Refresh()
+
+        RaiseEvent ThemeApplied(Me, New EventArgs)
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.Theme, eSrcMethod.Theme, String.Format("Theme applied to {0}.", Me.Name), sw.ElapsedTicks)

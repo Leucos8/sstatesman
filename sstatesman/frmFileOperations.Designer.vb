@@ -51,21 +51,18 @@ Partial Class frmFileOperations
         Me.flpMainListCommands = New System.Windows.Forms.FlowLayoutPanel()
         Me.pnlFormContent = New System.Windows.Forms.Panel()
         Me.ckbSStatesManReorderBackup = New System.Windows.Forms.CheckBox()
-        Me.tlpFileListStatus = New System.Windows.Forms.TableLayoutPanel()
-        Me.lblSelected = New System.Windows.Forms.Label()
-        Me.txtSelected = New System.Windows.Forms.TextBox()
-        Me.txtSizeBackup = New System.Windows.Forms.TextBox()
-        Me.lblSize = New System.Windows.Forms.Label()
-        Me.lblSizeBackup = New System.Windows.Forms.Label()
-        Me.txtSize = New System.Windows.Forms.TextBox()
         Me.tlpFileListCommands = New System.Windows.Forms.TableLayoutPanel()
         Me.flpFileListCommandsFiles = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdSortReset = New System.Windows.Forms.Button()
+        Me.tlpFileListStatus = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblSelected = New System.Windows.Forms.Label()
+        Me.lblSize = New System.Windows.Forms.Label()
+        Me.lblSizeBackup = New System.Windows.Forms.Label()
         Me.flpMainListCommands.SuspendLayout()
         Me.pnlFormContent.SuspendLayout()
-        Me.tlpFileListStatus.SuspendLayout()
         Me.tlpFileListCommands.SuspendLayout()
         Me.flpFileListCommandsFiles.SuspendLayout()
+        Me.tlpFileListStatus.SuspendLayout()
         Me.SuspendLayout()
         '
         'pnlWindowTop
@@ -86,7 +83,7 @@ Partial Class frmFileOperations
         Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdCancel.Location = New System.Drawing.Point(533, 328)
+        Me.cmdCancel.Location = New System.Drawing.Point(549, 344)
         Me.cmdCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdCancel.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdCancel.Name = "cmdCancel"
@@ -107,7 +104,7 @@ Partial Class frmFileOperations
         Me.cmdReorder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdReorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdReorder.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdReorder.Location = New System.Drawing.Point(429, 328)
+        Me.cmdReorder.Location = New System.Drawing.Point(445, 344)
         Me.cmdReorder.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdReorder.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdReorder.Name = "cmdReorder"
@@ -132,7 +129,7 @@ Partial Class frmFileOperations
         Me.lvwFileList.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwFileList.MultiSelect = False
         Me.lvwFileList.Name = "lvwFileList"
-        Me.lvwFileList.Size = New System.Drawing.Size(588, 129)
+        Me.lvwFileList.Size = New System.Drawing.Size(588, 164)
         Me.lvwFileList.TabIndex = 10
         Me.lvwFileList.UseCompatibleStateImageBehavior = False
         Me.lvwFileList.View = System.Windows.Forms.View.Details
@@ -261,11 +258,10 @@ Partial Class frmFileOperations
         '
         Me.pnlFormContent.Controls.Add(Me.lvwFileList)
         Me.pnlFormContent.Controls.Add(Me.ckbSStatesManReorderBackup)
-        Me.pnlFormContent.Controls.Add(Me.tlpFileListStatus)
         Me.pnlFormContent.Controls.Add(Me.tlpFileListCommands)
         Me.pnlFormContent.Location = New System.Drawing.Point(12, 54)
         Me.pnlFormContent.Name = "pnlFormContent"
-        Me.pnlFormContent.Padding = New System.Windows.Forms.Padding(8, 0, 8, 0)
+        Me.pnlFormContent.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
         Me.pnlFormContent.Size = New System.Drawing.Size(604, 211)
         Me.pnlFormContent.TabIndex = 13
         '
@@ -277,113 +273,13 @@ Partial Class frmFileOperations
         Me.ckbSStatesManReorderBackup.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ckbSStatesManReorderBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.ckbSStatesManReorderBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbSStatesManReorderBackup.Location = New System.Drawing.Point(8, 151)
+        Me.ckbSStatesManReorderBackup.Location = New System.Drawing.Point(8, 186)
         Me.ckbSStatesManReorderBackup.Name = "ckbSStatesManReorderBackup"
         Me.ckbSStatesManReorderBackup.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.ckbSStatesManReorderBackup.Size = New System.Drawing.Size(588, 21)
         Me.ckbSStatesManReorderBackup.TabIndex = 41
         Me.ckbSStatesManReorderBackup.Text = "Reorder savestates together with their backup."
         Me.ckbSStatesManReorderBackup.UseVisualStyleBackColor = False
-        '
-        'tlpFileListStatus
-        '
-        Me.tlpFileListStatus.AutoSize = True
-        Me.tlpFileListStatus.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.tlpFileListStatus.ColumnCount = 4
-        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
-        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpFileListStatus.Controls.Add(Me.lblSelected, 0, 0)
-        Me.tlpFileListStatus.Controls.Add(Me.txtSelected, 0, 1)
-        Me.tlpFileListStatus.Controls.Add(Me.txtSizeBackup, 2, 1)
-        Me.tlpFileListStatus.Controls.Add(Me.lblSize, 1, 0)
-        Me.tlpFileListStatus.Controls.Add(Me.lblSizeBackup, 2, 0)
-        Me.tlpFileListStatus.Controls.Add(Me.txtSize, 1, 1)
-        Me.tlpFileListStatus.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.tlpFileListStatus.Location = New System.Drawing.Point(8, 172)
-        Me.tlpFileListStatus.Margin = New System.Windows.Forms.Padding(0)
-        Me.tlpFileListStatus.Name = "tlpFileListStatus"
-        Me.tlpFileListStatus.RowCount = 2
-        Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
-        Me.tlpFileListStatus.Size = New System.Drawing.Size(588, 39)
-        Me.tlpFileListStatus.TabIndex = 17
-        '
-        'lblSelected
-        '
-        Me.lblSelected.AutoSize = True
-        Me.lblSelected.Location = New System.Drawing.Point(0, 0)
-        Me.lblSelected.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
-        Me.lblSelected.Name = "lblSelected"
-        Me.lblSelected.Size = New System.Drawing.Size(53, 13)
-        Me.lblSelected.TabIndex = 18
-        Me.lblSelected.Text = "selection"
-        '
-        'txtSelected
-        '
-        Me.txtSelected.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.txtSelected.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtSelected.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSelected.ForeColor = System.Drawing.Color.Black
-        Me.txtSelected.Location = New System.Drawing.Point(0, 15)
-        Me.txtSelected.Margin = New System.Windows.Forms.Padding(0, 2, 4, 2)
-        Me.txtSelected.Name = "txtSelected"
-        Me.txtSelected.ReadOnly = True
-        Me.txtSelected.Size = New System.Drawing.Size(128, 22)
-        Me.txtSelected.TabIndex = 19
-        Me.txtSelected.TabStop = False
-        Me.txtSelected.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'txtSizeBackup
-        '
-        Me.txtSizeBackup.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.txtSizeBackup.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtSizeBackup.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSizeBackup.ForeColor = System.Drawing.Color.Black
-        Me.txtSizeBackup.Location = New System.Drawing.Point(264, 15)
-        Me.txtSizeBackup.Margin = New System.Windows.Forms.Padding(0, 2, 4, 2)
-        Me.txtSizeBackup.Name = "txtSizeBackup"
-        Me.txtSizeBackup.ReadOnly = True
-        Me.txtSizeBackup.Size = New System.Drawing.Size(128, 22)
-        Me.txtSizeBackup.TabIndex = 23
-        Me.txtSizeBackup.TabStop = False
-        Me.txtSizeBackup.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
-        'lblSize
-        '
-        Me.lblSize.AutoSize = True
-        Me.lblSize.Location = New System.Drawing.Point(132, 0)
-        Me.lblSize.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
-        Me.lblSize.Name = "lblSize"
-        Me.lblSize.Size = New System.Drawing.Size(66, 13)
-        Me.lblSize.TabIndex = 20
-        Me.lblSize.Text = "active | files"
-        '
-        'lblSizeBackup
-        '
-        Me.lblSizeBackup.AutoSize = True
-        Me.lblSizeBackup.Location = New System.Drawing.Point(264, 0)
-        Me.lblSizeBackup.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
-        Me.lblSizeBackup.Name = "lblSizeBackup"
-        Me.lblSizeBackup.Size = New System.Drawing.Size(72, 13)
-        Me.lblSizeBackup.TabIndex = 22
-        Me.lblSizeBackup.Text = "backups size"
-        '
-        'txtSize
-        '
-        Me.txtSize.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.txtSize.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtSize.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtSize.ForeColor = System.Drawing.Color.Black
-        Me.txtSize.Location = New System.Drawing.Point(132, 15)
-        Me.txtSize.Margin = New System.Windows.Forms.Padding(0, 2, 4, 2)
-        Me.txtSize.Name = "txtSize"
-        Me.txtSize.ReadOnly = True
-        Me.txtSize.Size = New System.Drawing.Size(128, 22)
-        Me.txtSize.TabIndex = 21
-        Me.txtSize.TabStop = False
-        Me.txtSize.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'tlpFileListCommands
         '
@@ -438,7 +334,67 @@ Partial Class frmFileOperations
         Me.cmdSortReset.Text = "&RESET"
         Me.cmdSortReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         '
-        'frmReorderForm
+        'tlpFileListStatus
+        '
+        Me.tlpFileListStatus.AutoSize = True
+        Me.tlpFileListStatus.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.tlpFileListStatus.BackColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
+        Me.tlpFileListStatus.ColumnCount = 4
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
+        Me.tlpFileListStatus.Controls.Add(Me.lblSelected, 0, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.lblSize, 1, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.lblSizeBackup, 2, 0)
+        Me.tlpFileListStatus.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.tlpFileListStatus.ForeColor = System.Drawing.Color.White
+        Me.tlpFileListStatus.Location = New System.Drawing.Point(1, 329)
+        Me.tlpFileListStatus.MinimumSize = New System.Drawing.Size(0, 24)
+        Me.tlpFileListStatus.Name = "tlpFileListStatus"
+        Me.tlpFileListStatus.Padding = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.tlpFileListStatus.RowCount = 1
+        Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
+        Me.tlpFileListStatus.Size = New System.Drawing.Size(638, 24)
+        Me.tlpFileListStatus.TabIndex = 17
+        '
+        'lblSelected
+        '
+        Me.lblSelected.AutoSize = True
+        Me.lblSelected.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSelected.Location = New System.Drawing.Point(4, 0)
+        Me.lblSelected.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
+        Me.lblSelected.Name = "lblSelected"
+        Me.lblSelected.Size = New System.Drawing.Size(53, 24)
+        Me.lblSelected.TabIndex = 18
+        Me.lblSelected.Text = "selection"
+        Me.lblSelected.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblSize
+        '
+        Me.lblSize.AutoSize = True
+        Me.lblSize.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSize.Location = New System.Drawing.Point(61, 0)
+        Me.lblSize.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
+        Me.lblSize.Name = "lblSize"
+        Me.lblSize.Size = New System.Drawing.Size(66, 24)
+        Me.lblSize.TabIndex = 20
+        Me.lblSize.Text = "active | files"
+        Me.lblSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'lblSizeBackup
+        '
+        Me.lblSizeBackup.AutoSize = True
+        Me.lblSizeBackup.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblSizeBackup.Location = New System.Drawing.Point(131, 0)
+        Me.lblSizeBackup.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
+        Me.lblSizeBackup.Name = "lblSizeBackup"
+        Me.lblSizeBackup.Size = New System.Drawing.Size(72, 24)
+        Me.lblSizeBackup.TabIndex = 22
+        Me.lblSizeBackup.Text = "backups size"
+        Me.lblSizeBackup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        '
+        'frmFileOperations
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
@@ -449,29 +405,31 @@ Partial Class frmFileOperations
         Me.CaptionHeight = 46
         Me.ClientSize = New System.Drawing.Size(640, 360)
         Me.Controls.Add(Me.pnlFormContent)
+        Me.Controls.Add(Me.tlpFileListStatus)
         Me.Controls.Add(Me.cmdReorder)
         Me.Controls.Add(Me.cmdCancel)
         Me.Icon = Global.sstatesman.My.Resources.Resources.SSM_Icon_v2
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(640, 360)
-        Me.Name = "frmReorderForm"
+        Me.Name = "frmFileOperations"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Reorder"
         Me.Controls.SetChildIndex(Me.cmdCancel, 0)
         Me.Controls.SetChildIndex(Me.cmdReorder, 0)
+        Me.Controls.SetChildIndex(Me.tlpFileListStatus, 0)
         Me.Controls.SetChildIndex(Me.pnlWindowTop, 0)
         Me.Controls.SetChildIndex(Me.pnlFormContent, 0)
         Me.flpMainListCommands.ResumeLayout(False)
         Me.flpMainListCommands.PerformLayout()
         Me.pnlFormContent.ResumeLayout(False)
         Me.pnlFormContent.PerformLayout()
-        Me.tlpFileListStatus.ResumeLayout(False)
-        Me.tlpFileListStatus.PerformLayout()
         Me.tlpFileListCommands.ResumeLayout(False)
         Me.tlpFileListCommands.PerformLayout()
         Me.flpFileListCommandsFiles.ResumeLayout(False)
         Me.flpFileListCommandsFiles.PerformLayout()
+        Me.tlpFileListStatus.ResumeLayout(False)
+        Me.tlpFileListStatus.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -495,10 +453,7 @@ Partial Class frmFileOperations
     Private WithEvents cmdSortReset As System.Windows.Forms.Button
     Private WithEvents tlpFileListStatus As System.Windows.Forms.TableLayoutPanel
     Private WithEvents lblSelected As System.Windows.Forms.Label
-    Private WithEvents txtSelected As System.Windows.Forms.TextBox
     Private WithEvents lblSize As System.Windows.Forms.Label
-    Private WithEvents txtSize As System.Windows.Forms.TextBox
     Private WithEvents lblSizeBackup As System.Windows.Forms.Label
-    Private WithEvents txtSizeBackup As System.Windows.Forms.TextBox
     Private WithEvents ckbSStatesManReorderBackup As System.Windows.Forms.CheckBox
 End Class
