@@ -106,6 +106,14 @@
     <Compile Include="frmFileOperations.Designer.vb">
       <DependentUpon>frmFileOperations.vb</DependentUpon>
     </Compile>
+    <Compile Include="frmFileOperations.Reorder.vb">
+      <DependentUpon>frmFileOperations.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFileOperations.Store.vb">
+      <DependentUpon>frmFileOperations.vb</DependentUpon>
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="frmFileOperations.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -160,6 +168,7 @@
     </Compile>
     <Compile Include="mdlApplicationLog.vb" />
     <Compile Include="mdlFileList.vb" />
+    <Compile Include="mdlFileOperations.vb" />
     <Compile Include="mdlGameDb.vb" />
     <Compile Include="mdlMain.vb" />
     <Compile Include="mdlPCSX2Settings.vb" />
