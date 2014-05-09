@@ -39,7 +39,7 @@ Partial Public NotInheritable Class frmFileOperations
                 Me.DestFileNames.Add(tmpListItem.SubItems(FileListColumns.NewName).Text)
             End If
         Next
-        FileOp_MoveFiles(SourceFileNames, DestFileNames, SourcePath, DestPath, OperationResults, OperationResultMessages)
+        FileOps_MoveFiles(SourceFileNames, DestFileNames, SourcePath, DestPath, OperationResults, OperationResultMessages)
         Me.OperationDone = True
 
         Dim i As Integer = 0
@@ -130,7 +130,7 @@ Partial Public NotInheritable Class frmFileOperations
                     'minSlot + i \ 2 = current slot number
                     Dim tmpLvItem As New ListViewItem With {.Text = (minSlot + i \ 2).ToString, _
                                                             .Group = tmpListGroup, _
-                                                            .Tag = FileStatus.FreeSlot}
+                                                            .Tag = FileStatus.NoFile}
                     If Not ((i Mod 2) > 0) Then
                         tmpLvItem.ImageIndex = 0
                     Else
@@ -210,7 +210,7 @@ Partial Public NotInheritable Class frmFileOperations
 
             For Each tmpListItem As ListViewItem In Me.lvwFileList.Items
 
-                If FileStatus.FreeSlot.Equals(tmpListItem.Tag) Then
+                If FileStatus.NoFile.Equals(tmpListItem.Tag) Then
                     'Free slot, no savestate
                     tmpListItem.SubItems(FileListColumns.NewName).Text = "-"
                     tmpListItem.ForeColor = Color.DimGray
@@ -238,7 +238,7 @@ Partial Public NotInheritable Class frmFileOperations
                         Count_RenamePending += 1
                     End If
 
-                ElseIf FileStatus.Renamed.Equals(tmpListItem.Tag) Then
+                ElseIf FileStatus.FileRenamed.Equals(tmpListItem.Tag) Then
                     tmpListItem.BackColor = Color.FromArgb(150, 200, 130)
 
                 ElseIf FileStatus.FileAlreadyExist.Equals(tmpListItem.Tag) Then
@@ -333,18 +333,18 @@ Partial Public NotInheritable Class frmFileOperations
 
             Me.cmdSortReset.Enabled = False
 
-            Me.cmdReorder.Enabled = False
+            Me.cmdOperation.Enabled = False
         Else
             '=================
             'Files are present
             '=================
             If Me.Count_RenamePending > 0 Then
                 Me.lblSize.Text = String.Format("{0:N0} file ({1:N0} active)", Me.Count_Files, Me.Count_RenamePending)
-                Me.cmdReorder.Enabled = True
+                Me.cmdOperation.Enabled = True
                 Me.cmdSortReset.Enabled = True
             Else
                 Me.lblSize.Text = String.Format("{0:N0} file", Me.Count_Files)
-                Me.cmdReorder.Enabled = False
+                Me.cmdOperation.Enabled = False
                 Me.cmdSortReset.Enabled = False
             End If
 

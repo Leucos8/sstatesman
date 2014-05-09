@@ -14,10 +14,10 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
 Partial Public NotInheritable Class frmFileOperations
-    Dim cmdFileCheckAll As Button
-    Dim cmdFileCheckNone As Button
-    Dim cmdFileCheckInvert As Button
-    Dim cmdFileCheckBackup As Button
+    Dim cmdStoreCheckAll As Button
+    Dim cmdStoreCheckNone As Button
+    Dim cmdStoreCheckInvert As Button
+    Dim cmdStoreCheckBackup As Button
 
     Private Sub cmdStore_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
@@ -32,7 +32,7 @@ Partial Public NotInheritable Class frmFileOperations
             End If
         Next
 
-        FileOp_MoveFiles(SourceFileNames, DestFileNames, SourcePath, DestPath, OperationResults, OperationResultMessages, True)
+        FileOps_MoveFiles(SourceFileNames, DestFileNames, SourcePath, DestPath, OperationResults, OperationResultMessages, True)
         Me.OperationDone = True
 
         Dim i As Integer = 0
@@ -108,8 +108,8 @@ Partial Public NotInheritable Class frmFileOperations
         For Each tmpFile As KeyValuePair(Of String, PCSX2File) In pFile
 
             If frmMain.checkedFiles(frmMain.CurrentListMode).Contains(tmpFile.Key) Then
-                Dim tmpListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpFile.Value.Number.ToString,
-                                                                               .Group = pListGroup,
+                Dim tmpListItem As New System.Windows.Forms.ListViewItem With {.Text = tmpFile.Value.Number.ToString, _
+                                                                               .Group = pListGroup, _
                                                                                .Name = tmpFile.Key}
                 tmpListItem.SubItems.AddRange({tmpFile.Key, tmpFile.Key})
 
@@ -162,7 +162,7 @@ Partial Public NotInheritable Class frmFileOperations
 
                 If FileStatus.RenamePending.Equals(tmpListItem.Tag) Then
                     'A new filename needs to be assigned
-                    Select Case Me.FileListMode
+                    Select Case Me.currentOperationMode
                         Case FileOperations.Store
                             tmpListItem.SubItems(FileListColumns.NewName).Text = tmpListItem.SubItems(FileListColumns.OldName).Text & My.Settings.SStatesMan_StoredExt
                         Case FileOperations.Restore
@@ -176,7 +176,7 @@ Partial Public NotInheritable Class frmFileOperations
                     tmpListItem.SubItems(FileListColumns.Status).Text = "Rename pending."
                     Count_RenamePending += 1
 
-                ElseIf FileStatus.Renamed.Equals(tmpListItem.Tag) Then
+                ElseIf FileStatus.FileRenamed.Equals(tmpListItem.Tag) Then
                     tmpListItem.BackColor = Color.FromArgb(150, 200, 130)
 
                 ElseIf FileStatus.FileNotFound.Equals(tmpListItem.Tag) Or _
@@ -222,46 +222,46 @@ Partial Public NotInheritable Class frmFileOperations
             'No files in list
             '================
 
-            Me.cmdFileCheckAll.Enabled = False
-            Me.cmdFileCheckInvert.Enabled = False
-            Me.cmdFileCheckNone.Enabled = False
+            Me.cmdStoreCheckAll.Enabled = False
+            Me.cmdStoreCheckInvert.Enabled = False
+            Me.cmdStoreCheckNone.Enabled = False
 
-            Me.cmdFileCheckAll.Visible = True
-            Me.cmdFileCheckInvert.Visible = True
-            Me.cmdFileCheckNone.Visible = True
+            Me.cmdStoreCheckAll.Visible = True
+            Me.cmdStoreCheckInvert.Visible = True
+            Me.cmdStoreCheckNone.Visible = True
 
-            Me.cmdReorder.Enabled = False
+            Me.cmdOperation.Enabled = False
 
             SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "No files in list. This shouldn't be happening.")
         Else
             '=================
             'Files are present
             '=================
-            Me.cmdFileCheckInvert.Enabled = True
+            Me.cmdStoreCheckInvert.Enabled = True
 
             If Me.lvwFileList.CheckedItems.Count > 0 Then
                 'At least one file is checked
-                Me.cmdFileCheckNone.Enabled = True
+                Me.cmdStoreCheckNone.Enabled = True
 
-                Me.cmdReorder.Enabled = True
+                Me.cmdOperation.Enabled = True
 
                 If Me.lvwFileList.Items.Count = Me.lvwFileList.CheckedItems.Count Then
                     'All files are checked
-                    Me.cmdFileCheckAll.Enabled = False
+                    Me.cmdStoreCheckAll.Enabled = False
                 Else
-                    Me.cmdFileCheckAll.Enabled = True
+                    Me.cmdStoreCheckAll.Enabled = True
                 End If
 
             Else
                 'No files are checked
-                Me.cmdFileCheckNone.Enabled = False
-                Me.cmdFileCheckAll.Enabled = True
+                Me.cmdStoreCheckNone.Enabled = False
+                Me.cmdStoreCheckAll.Enabled = True
 
-                Me.cmdReorder.Enabled = False
+                Me.cmdOperation.Enabled = False
             End If
 
-            Me.cmdFileCheckAll.Visible = Me.cmdFileCheckAll.Enabled
-            Me.cmdFileCheckNone.Visible = Me.cmdFileCheckNone.Enabled
+            Me.cmdStoreCheckAll.Visible = Me.cmdStoreCheckAll.Enabled
+            Me.cmdStoreCheckNone.Visible = Me.cmdStoreCheckNone.Enabled
         End If
 
         sw.Stop()
@@ -312,6 +312,5 @@ Partial Public NotInheritable Class frmFileOperations
         AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
         Me.lvwFileList.EndUpdate()
     End Sub
-
 #End Region
 End Class

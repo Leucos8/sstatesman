@@ -37,12 +37,8 @@ Partial Class frmFileOperations
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.cmdCancel = New System.Windows.Forms.Button()
-        Me.cmdReorder = New System.Windows.Forms.Button()
+        Me.cmdOperation = New System.Windows.Forms.Button()
         Me.lvwFileList = New System.Windows.Forms.ListView()
-        Me.StROLvw_Slot = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.StROLvw_OldName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.StROLvw_NewName = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.StROLvw_Status = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.cmdCommand1 = New System.Windows.Forms.Button()
         Me.cmdCommand2 = New System.Windows.Forms.Button()
         Me.cmdCommand3 = New System.Windows.Forms.Button()
@@ -51,6 +47,7 @@ Partial Class frmFileOperations
         Me.flpMainListCommands = New System.Windows.Forms.FlowLayoutPanel()
         Me.pnlFormContent = New System.Windows.Forms.Panel()
         Me.ckbSStatesManReorderBackup = New System.Windows.Forms.CheckBox()
+        Me.ckbSStatesManMoveToTrash = New System.Windows.Forms.CheckBox()
         Me.tlpFileListCommands = New System.Windows.Forms.TableLayoutPanel()
         Me.flpFileListCommandsFiles = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdSortReset = New System.Windows.Forms.Button()
@@ -92,33 +89,32 @@ Partial Class frmFileOperations
         Me.cmdCancel.Text = "CLOSE"
         Me.cmdCancel.UseVisualStyleBackColor = False
         '
-        'cmdReorder
+        'cmdOperation
         '
-        Me.cmdReorder.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.cmdReorder.AutoSize = True
-        Me.cmdReorder.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdReorder.BackColor = System.Drawing.Color.White
-        Me.cmdReorder.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
-        Me.cmdReorder.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
-        Me.cmdReorder.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdReorder.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.cmdReorder.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdReorder.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdReorder.Location = New System.Drawing.Point(445, 344)
-        Me.cmdReorder.Margin = New System.Windows.Forms.Padding(2)
-        Me.cmdReorder.MinimumSize = New System.Drawing.Size(100, 0)
-        Me.cmdReorder.Name = "cmdReorder"
-        Me.cmdReorder.Size = New System.Drawing.Size(100, 24)
-        Me.cmdReorder.TabIndex = 8
-        Me.cmdReorder.Text = "REORDER"
-        Me.cmdReorder.UseVisualStyleBackColor = False
+        Me.cmdOperation.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.cmdOperation.AutoSize = True
+        Me.cmdOperation.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.cmdOperation.BackColor = System.Drawing.Color.White
+        Me.cmdOperation.BackgroundImage = Global.sstatesman.My.Resources.Resources.Button_Bg
+        Me.cmdOperation.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(CType(CType(65, Byte), Integer), CType(CType(74, Byte), Integer), CType(CType(100, Byte), Integer))
+        Me.cmdOperation.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
+        Me.cmdOperation.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.cmdOperation.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.cmdOperation.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
+        Me.cmdOperation.Location = New System.Drawing.Point(445, 344)
+        Me.cmdOperation.Margin = New System.Windows.Forms.Padding(2)
+        Me.cmdOperation.MinimumSize = New System.Drawing.Size(100, 0)
+        Me.cmdOperation.Name = "cmdOperation"
+        Me.cmdOperation.Size = New System.Drawing.Size(100, 24)
+        Me.cmdOperation.TabIndex = 8
+        Me.cmdOperation.Text = "REORDER"
+        Me.cmdOperation.UseVisualStyleBackColor = False
         '
         'lvwFileList
         '
         Me.lvwFileList.BackColor = System.Drawing.Color.White
         Me.lvwFileList.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.lvwFileList.CheckBoxes = True
-        Me.lvwFileList.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.StROLvw_Slot, Me.StROLvw_OldName, Me.StROLvw_NewName, Me.StROLvw_Status})
         Me.lvwFileList.Dock = System.Windows.Forms.DockStyle.Fill
         Me.lvwFileList.Font = New System.Drawing.Font("Segoe UI", 8.25!)
         Me.lvwFileList.ForeColor = System.Drawing.Color.Black
@@ -133,25 +129,6 @@ Partial Class frmFileOperations
         Me.lvwFileList.TabIndex = 10
         Me.lvwFileList.UseCompatibleStateImageBehavior = False
         Me.lvwFileList.View = System.Windows.Forms.View.Details
-        '
-        'StROLvw_Slot
-        '
-        Me.StROLvw_Slot.Text = "Slot"
-        '
-        'StROLvw_OldName
-        '
-        Me.StROLvw_OldName.Text = "Old name"
-        Me.StROLvw_OldName.Width = 200
-        '
-        'StROLvw_NewName
-        '
-        Me.StROLvw_NewName.Text = "New name"
-        Me.StROLvw_NewName.Width = 200
-        '
-        'StROLvw_Status
-        '
-        Me.StROLvw_Status.Text = "Status"
-        Me.StROLvw_Status.Width = 120
         '
         'cmdCommand1
         '
@@ -258,6 +235,7 @@ Partial Class frmFileOperations
         '
         Me.pnlFormContent.Controls.Add(Me.lvwFileList)
         Me.pnlFormContent.Controls.Add(Me.ckbSStatesManReorderBackup)
+        Me.pnlFormContent.Controls.Add(Me.ckbSStatesManMoveToTrash)
         Me.pnlFormContent.Controls.Add(Me.tlpFileListCommands)
         Me.pnlFormContent.Location = New System.Drawing.Point(12, 54)
         Me.pnlFormContent.Name = "pnlFormContent"
@@ -280,6 +258,23 @@ Partial Class frmFileOperations
         Me.ckbSStatesManReorderBackup.TabIndex = 41
         Me.ckbSStatesManReorderBackup.Text = "Reorder savestates together with their backup."
         Me.ckbSStatesManReorderBackup.UseVisualStyleBackColor = False
+        '
+        'ckbSStatesManMoveToTrash
+        '
+        Me.ckbSStatesManMoveToTrash.AutoSize = True
+        Me.ckbSStatesManMoveToTrash.Checked = Global.sstatesman.My.MySettings.Default.SStatesMan_FileTrash
+        Me.ckbSStatesManMoveToTrash.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ckbSStatesManMoveToTrash.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.sstatesman.My.MySettings.Default, "SStatesMan_FileTrash", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.ckbSStatesManMoveToTrash.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.ckbSStatesManMoveToTrash.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.ckbSStatesManMoveToTrash.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ckbSStatesManMoveToTrash.Location = New System.Drawing.Point(8, 243)
+        Me.ckbSStatesManMoveToTrash.Name = "ckbSStatesManMoveToTrash"
+        Me.ckbSStatesManMoveToTrash.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
+        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(612, 21)
+        Me.ckbSStatesManMoveToTrash.TabIndex = 18
+        Me.ckbSStatesManMoveToTrash.Text = "Send files to the Windows Recycle Bin instead of permanently deleting them."
+        Me.ckbSStatesManMoveToTrash.UseVisualStyleBackColor = False
         '
         'tlpFileListCommands
         '
@@ -406,7 +401,7 @@ Partial Class frmFileOperations
         Me.ClientSize = New System.Drawing.Size(640, 360)
         Me.Controls.Add(Me.pnlFormContent)
         Me.Controls.Add(Me.tlpFileListStatus)
-        Me.Controls.Add(Me.cmdReorder)
+        Me.Controls.Add(Me.cmdOperation)
         Me.Controls.Add(Me.cmdCancel)
         Me.Icon = Global.sstatesman.My.Resources.Resources.SSM_Icon_v2
         Me.MinimizeBox = False
@@ -416,7 +411,7 @@ Partial Class frmFileOperations
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "Reorder"
         Me.Controls.SetChildIndex(Me.cmdCancel, 0)
-        Me.Controls.SetChildIndex(Me.cmdReorder, 0)
+        Me.Controls.SetChildIndex(Me.cmdOperation, 0)
         Me.Controls.SetChildIndex(Me.tlpFileListStatus, 0)
         Me.Controls.SetChildIndex(Me.pnlWindowTop, 0)
         Me.Controls.SetChildIndex(Me.pnlFormContent, 0)
@@ -436,18 +431,14 @@ Partial Class frmFileOperations
     End Sub
     Private WithEvents lblAction As System.Windows.Forms.Label
     Private WithEvents cmdCancel As System.Windows.Forms.Button
-    Private WithEvents cmdReorder As System.Windows.Forms.Button
+    Private WithEvents cmdOperation As System.Windows.Forms.Button
     Private WithEvents lvwFileList As System.Windows.Forms.ListView
-    Private WithEvents StROLvw_Slot As System.Windows.Forms.ColumnHeader
-    Private WithEvents StROLvw_OldName As System.Windows.Forms.ColumnHeader
     Private WithEvents cmdCommand1 As System.Windows.Forms.Button
     Private WithEvents cmdCommand2 As System.Windows.Forms.Button
     Private WithEvents cmdCommand3 As System.Windows.Forms.Button
     Private WithEvents cmdCommand4 As System.Windows.Forms.Button
     Private WithEvents flpMainListCommands As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents StROLvw_NewName As System.Windows.Forms.ColumnHeader
     Private WithEvents pnlFormContent As System.Windows.Forms.Panel
-    Private WithEvents StROLvw_Status As System.Windows.Forms.ColumnHeader
     Private WithEvents tlpFileListCommands As System.Windows.Forms.TableLayoutPanel
     Private WithEvents flpFileListCommandsFiles As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdSortReset As System.Windows.Forms.Button
@@ -456,4 +447,5 @@ Partial Class frmFileOperations
     Private WithEvents lblSize As System.Windows.Forms.Label
     Private WithEvents lblSizeBackup As System.Windows.Forms.Label
     Private WithEvents ckbSStatesManReorderBackup As System.Windows.Forms.CheckBox
+    Private WithEvents ckbSStatesManMoveToTrash As System.Windows.Forms.CheckBox
 End Class

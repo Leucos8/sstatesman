@@ -14,7 +14,7 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
 Partial Public NotInheritable Class frmFileOperations
-    Friend FileListMode As FileOperations = FileOperations.Reorder
+    Friend currentOperationMode As FileOperations = FileOperations.Reorder
 
     Dim SourcePath As String = String.Empty
     Dim DestPath As String = String.Empty
@@ -49,7 +49,7 @@ Partial Public NotInheritable Class frmFileOperations
         'Window preparation
         '==================
         If Not (Me.IsShown) Then
-            Me.flpWindowBottom.Controls.AddRange({Me.cmdCancel, Me.cmdReorder})
+            Me.flpWindowBottom.Controls.AddRange({Me.cmdCancel, Me.cmdOperation})
             Me.pnlFormContent.Dock = DockStyle.Fill
 
             'Savestates, backup, and screenshot icons
@@ -59,33 +59,32 @@ Partial Public NotInheritable Class frmFileOperations
         Me.lvwFileList.StateImageList = New ImageList With {.ImageSize = mdlTheme.imlLvwCheckboxes.ImageSize}        'Cannot use imlLvwCheckboxes directly because of a bug that makes checkboxes disappear.
         Me.lvwFileList.StateImageList.Images.AddRange({mdlTheme.imlLvwCheckboxes.Images(0), mdlTheme.imlLvwCheckboxes.Images(1)})
 
-        Me.cmdMoveFirst = Me.cmdCommand1
-        Me.cmdMoveUp = Me.cmdCommand2
-        Me.cmdMoveDown = Me.cmdCommand3
-        Me.cmdMoveLast = Me.cmdCommand4
+        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Load, "1/3 Layout & resources.", sw.ElapsedTicks - tmpTicks)
+        tmpTicks = sw.ElapsedTicks
 
-        Me.cmdFileCheckAll = Me.cmdCommand2
-        Me.cmdFileCheckNone = Me.cmdCommand3
-        Me.cmdFileCheckInvert = Me.cmdCommand4
-        Me.cmdFileCheckBackup = Me.cmdCommand1
+        '---------------
+        'Window settings
+        '---------------
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Load, "1/2 Layout & resources.", sw.ElapsedTicks - tmpTicks)
+        'Main window location, size and state
+        'Me.Location = My.Settings.frmDel_WindowLocation
+        Me.Size = My.Settings.frmDel_WindowSize
+        If My.Settings.frmDel_WindowState = FormWindowState.Minimized Then
+            My.Settings.frmDel_WindowState = FormWindowState.Normal
+        End If
+        Me.WindowState = My.Settings.frmDel_WindowState
+
+        SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Load, "2/3 Saved window sizes applied.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
 
         '===============================
         'Post file load form preparation
         '===============================
-        If My.Settings.SStatesMan_SStateReorderBackup Then
-            Me.MoveStep = 2
-        Else
-            Me.MoveStep = 1
-        End If
-
-        Me.UI_SwitchOperationMode(Me.FileListMode)
+        Me.UI_SwitchOperationMode(Me.currentOperationMode)
 
 
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Load, "2/2 Post load done.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Load, "3/3 Post load done.", sw.ElapsedTicks - tmpTicks)
         'tmpTicks = sw.ElapsedTicks
 
         sw.Stop()
@@ -93,6 +92,8 @@ Partial Public NotInheritable Class frmFileOperations
     End Sub
 
     Private Sub frmFileOperations_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
+        Dim sw As Stopwatch = Stopwatch.StartNew
+
         Me.OperationDone = False
 
         RemoveHandler cmdMoveFirst.Click, AddressOf cmdMoveFirst_Click
@@ -100,22 +101,53 @@ Partial Public NotInheritable Class frmFileOperations
         RemoveHandler cmdMoveDown.Click, AddressOf cmdMoveDown_Click
         RemoveHandler cmdMoveLast.Click, AddressOf cmdMoveLast_Click
 
-        RemoveHandler cmdFileCheckAll.Click, AddressOf cmdStoreCheckAll_Click
-        RemoveHandler cmdFileCheckNone.Click, AddressOf cmdStoreCheckNone_Click
-        RemoveHandler cmdFileCheckInvert.Click, AddressOf cmdStoreCheckInvert_Click
+        RemoveHandler cmdStoreCheckAll.Click, AddressOf cmdStoreCheckAll_Click
+        RemoveHandler cmdStoreCheckNone.Click, AddressOf cmdStoreCheckNone_Click
+        RemoveHandler cmdStoreCheckInvert.Click, AddressOf cmdStoreCheckInvert_Click
 
-        RemoveHandler cmdReorder.Click, AddressOf cmdReorder_Click
-        RemoveHandler cmdReorder.Click, AddressOf cmdStore_Click
+        RemoveHandler cmdDeleteCheckAll.Click, AddressOf cmdDeleteCheckAll_Click
+        RemoveHandler cmdDeleteCheckNone.Click, AddressOf cmdDeleteCheckNone_Click
+        RemoveHandler cmdDeleteCheckInvert.Click, AddressOf cmdDeleteCheckInvert_Click
+        RemoveHandler cmdDeleteCheckBackup.Click, AddressOf cmdDeleteCheckBackup_Click
+
+        RemoveHandler cmdOperation.Click, AddressOf cmdReorder_Click
+        RemoveHandler cmdOperation.Click, AddressOf cmdStore_Click
+        RemoveHandler cmdOperation.Click, AddressOf cmdDelete_Click
 
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
-
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
+        RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
+
+        '======================
+        'Saving window settings
+        '======================
+
+        'State, location, and size
+        My.Settings.frmDel_WindowState = Me.WindowState
+        If Me.WindowState = FormWindowState.Normal Then
+            'Location and size saved only when windowstate is normal
+            'My.Settings.frmDel_WindowLocation = Me.Location
+            My.Settings.frmDel_WindowSize = Me.Size
+        End If
+
+        'Column widths
+        'My.Settings.frmDel_flvw_columnwidth = New Integer() {Me.chFileName.Width, Me.chSlot.Width, _
+        '                                                     Me.chVersion.Width, Me.chModified.Width, _
+        '                                                     Me.chSize.Width, Me.chStatus.Width}
+
 
         Me.lvwFileList.BeginUpdate()
 
         Me.lvwFileList.Items.Clear()
         Me.lvwFileList.Groups.Clear()
+        Me.lvwFileList.Columns.Clear()
 
+        sw.Stop()
+        SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Close, "Form closed.", sw.ElapsedTicks)
+
+        '====================
+        'Refreshing all lists
+        '====================
         frmMain.GameList_Refresh()
     End Sub
 
@@ -124,16 +156,105 @@ Partial Public NotInheritable Class frmFileOperations
     End Sub
 
     Private Sub UI_SwitchOperationMode(pOperationMode As FileOperations)
-        'Me.UI_SwitchFileMode(frmMain.CurrentListMode)
+        Me.lvwFileList.Items.Clear()
+        Me.lvwFileList.Groups.Clear()
+        Me.lvwFileList.Columns.Clear()
 
-        Me.cmdReorder.Text = pOperationMode.ToString.ToUpper
+        Me.Text = pOperationMode.ToString
+        Me.cmdOperation.Text = pOperationMode.ToString.ToUpper
+        Me.cmdSortReset.Visible = False
+        Me.ckbSStatesManReorderBackup.Visible = False
+        Me.ckbSStatesManMoveToTrash.Visible = False
+        Me.lblSizeBackup.Visible = True
         Me.lblSizeBackup.Visible = False
 
+        Me.cmdDeleteCheckAll = Me.cmdCommand2
+        Me.cmdDeleteCheckNone = Me.cmdCommand3
+        Me.cmdDeleteCheckInvert = Me.cmdCommand4
+        Me.cmdDeleteCheckBackup = Me.cmdCommand1
+
+        Me.cmdMoveFirst = Me.cmdCommand1
+        Me.cmdMoveUp = Me.cmdCommand2
+        Me.cmdMoveDown = Me.cmdCommand3
+        Me.cmdMoveLast = Me.cmdCommand4
+
+        Me.cmdStoreCheckAll = Me.cmdCommand2
+        Me.cmdStoreCheckNone = Me.cmdCommand3
+        Me.cmdStoreCheckInvert = Me.cmdCommand4
+        Me.cmdStoreCheckBackup = Me.cmdCommand1
+
         Select Case pOperationMode
+            Case FileOperations.Delete
+                Me.lblAction.Text = Me.cmdOperation.Text.ToLower & " checked"
+                Me.FormDescription = String.Format("check the files you really want to {0} and press ""{0}"" to confirm.", Me.cmdOperation.Text.ToLower)
+                Me.lblSize.Visible = True
+                Me.lblSizeBackup.Visible = True
+
+                Me.cmdDeleteCheckAll.Text = "ALL"
+                Me.cmdDeleteCheckAll.Image = My.Resources.Icon_CheckAll
+                AddHandler cmdDeleteCheckAll.Click, AddressOf cmdDeleteCheckAll_Click
+
+                Me.cmdDeleteCheckNone.Text = "NONE"
+                Me.cmdDeleteCheckNone.Image = My.Resources.Icon_CheckNone
+                AddHandler cmdDeleteCheckNone.Click, AddressOf cmdDeleteCheckNone_Click
+
+                Me.cmdDeleteCheckInvert.Text = "INVERT"
+                Me.cmdDeleteCheckInvert.Image = My.Resources.Icon_CheckInvert
+                AddHandler cmdDeleteCheckInvert.Click, AddressOf cmdDeleteCheckInvert_Click
+
+                Me.cmdDeleteCheckBackup.Text = "BACKUP"
+                Me.cmdDeleteCheckBackup.Image = My.Resources.Icon_CheckBackup
+                AddHandler cmdDeleteCheckBackup.Click, AddressOf cmdDeleteCheckBackup_Click
+
+                Me.cmdDeleteCheckBackup.Visible = True
+                Me.ckbSStatesManMoveToTrash.Visible = True
+
+                AddHandler cmdOperation.Click, AddressOf cmdDelete_Click
+                ' TODO safer call to SSMGameList.Folders
+                ' If the stored folder isn't set there may be exceptions.
+                Me.SourcePath = SSMGameList.Folders(frmMain.CurrentListMode)
+                Select Case frmMain.CurrentListMode
+                    Case ListMode.Savestates
+                        Me.cmdDeleteCheckBackup.Visible = True
+                        Me.lblSize.Text = "savestates size"
+                        Me.lblSizeBackup.Visible = True
+                    Case ListMode.Stored
+                        Me.cmdDeleteCheckBackup.Visible = False
+                        Me.lblSize.Text = "savestates size"
+                        Me.lblSizeBackup.Visible = False
+                    Case ListMode.Snapshots
+                        Me.cmdDeleteCheckBackup.Visible = False
+                        Me.lblSize.Text = "screenshots size"
+                        Me.lblSizeBackup.Visible = False
+                End Select
+
+                'Dim tmpColumnWidths() As Integer = {0}
+                Select Case frmMain.CurrentListMode
+                    Case ListMode.Savestates, ListMode.Stored
+                        Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chFileName", .Text = "Savestate file name", .Width = 240}, _
+                                                         New ColumnHeader With {.Name = "chSlot", .Text = "Slot", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
+                                                         New ColumnHeader With {.Name = "chVersion", .Text = "Version", .Width = 80}, _
+                                                         New ColumnHeader With {.Name = "chModified", .Text = "Modified", .Width = 0}, _
+                                                         New ColumnHeader With {.Name = "chSize", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
+                                                        })
+
+                    Case ListMode.Snapshots
+                        Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chFileName", .Text = "Snapshot file name", .Width = 240}, _
+                                                         New ColumnHeader With {.Name = "chNumber", .Text = "Number", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
+                                                         New ColumnHeader With {.Name = "chResolution", .Text = "Resolution", .Width = 80}, _
+                                                         New ColumnHeader With {.Name = "chModified", .Text = "Modified", .Width = 0}, _
+                                                         New ColumnHeader With {.Name = "chSize", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
+                                                        })
+                End Select
+                Me.lvwFileList.Columns.Add(New ColumnHeader With {.Name = "chStatus", .Text = "Status", .Width = 140})
+
+                Me.DeleteList_AddFiles()
+                Me.DeleteList_Preview()
+                Me.DeleteList_IndexChecked()
+                Me.DeleteList_UpdateUI()
             Case FileOperations.Reorder
                 Me.FormDescription = "use the move buttons to reorder the list and click ""reorder"" to confirm."
-                Me.lblSelected.Text = "selection"
-                Me.lblSize.Text = "active"
+
                 Me.lblSize.Visible = True
 
                 Me.cmdMoveUp.Text = "UP"
@@ -159,40 +280,46 @@ Partial Public NotInheritable Class frmFileOperations
                 Me.ckbSStatesManReorderBackup.Visible = True
                 Me.cmdSortReset.Visible = True
 
-                AddHandler cmdReorder.Click, AddressOf cmdReorder_Click
+                AddHandler cmdOperation.Click, AddressOf cmdReorder_Click
 
                 Me.SourcePath = SSMGameList.Folders(frmMain.CurrentListMode)
                 Me.DestPath = Me.SourcePath
+
+                If My.Settings.SStatesMan_SStateReorderBackup Then
+                    Me.MoveStep = 2
+                Else
+                    Me.MoveStep = 1
+                End If
+
+                Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chSlot", .Text = "Slot"}, _
+                                                 New ColumnHeader With {.Name = "chOldName", .Text = "Old name", .Width = 200}, _
+                                                 New ColumnHeader With {.Name = "chNewName", .Text = "New name", .Width = 200}, _
+                                                 New ColumnHeader With {.Name = "chStatus", .Text = "Status", .Width = 160} _
+                                                })
 
                 Me.ReorderList_AddFiles()
                 Me.ReorderList_Preview()
                 Me.ReorderList_UpdateUI()
             Case FileOperations.Store, FileOperations.Restore
-                Me.FormDescription = String.Format("check the savestates you want to {0} and press ""{0}"" to confirm.", Me.cmdReorder.Text.ToLower)
-                Me.lblSelected.Text = "selection"
-                Me.lblSize.Visible = False
-                Me.lblSizeBackup.Visible = False
-                Me.lblAction.Text = Me.cmdReorder.Text.ToLower & " checked"
+                Me.lblAction.Text = Me.cmdOperation.Text.ToLower & " checked"
+                Me.FormDescription = String.Format("check the savestates you want to {0} and press ""{0}"" to confirm.", Me.cmdOperation.Text.ToLower)
 
-                Me.cmdFileCheckAll.Text = "ALL"
-                Me.cmdFileCheckAll.Image = My.Resources.Icon_CheckAll
-                AddHandler cmdFileCheckAll.Click, AddressOf cmdStoreCheckAll_Click
+                Me.cmdStoreCheckAll.Text = "ALL"
+                Me.cmdStoreCheckAll.Image = My.Resources.Icon_CheckAll
+                AddHandler cmdStoreCheckAll.Click, AddressOf cmdStoreCheckAll_Click
 
-                Me.cmdFileCheckNone.Text = "NONE"
-                Me.cmdFileCheckNone.Image = My.Resources.Icon_CheckNone
-                AddHandler cmdFileCheckNone.Click, AddressOf cmdStoreCheckNone_Click
+                Me.cmdStoreCheckNone.Text = "NONE"
+                Me.cmdStoreCheckNone.Image = My.Resources.Icon_CheckNone
+                AddHandler cmdStoreCheckNone.Click, AddressOf cmdStoreCheckNone_Click
 
-                Me.cmdFileCheckInvert.Text = "INVERT"
-                Me.cmdFileCheckInvert.Image = My.Resources.Icon_CheckInvert
-                AddHandler cmdFileCheckInvert.Click, AddressOf cmdStoreCheckInvert_Click
+                Me.cmdStoreCheckInvert.Text = "INVERT"
+                Me.cmdStoreCheckInvert.Image = My.Resources.Icon_CheckInvert
+                AddHandler cmdStoreCheckInvert.Click, AddressOf cmdStoreCheckInvert_Click
 
-                Me.cmdFileCheckBackup.Visible = False
+                Me.cmdStoreCheckBackup.Visible = False
 
-                Me.ckbSStatesManReorderBackup.Visible = False
-                Me.cmdSortReset.Visible = False
-
-                AddHandler cmdReorder.Click, AddressOf cmdStore_Click
-                Select Case Me.FileListMode
+                AddHandler cmdOperation.Click, AddressOf cmdStore_Click
+                Select Case Me.currentOperationMode
                     Case FileOperations.Store
                         Me.SourcePath = SSMGameList.Folders(ListMode.Savestates)
                         Me.DestPath = SSMGameList.Folders(ListMode.Stored)
@@ -200,6 +327,12 @@ Partial Public NotInheritable Class frmFileOperations
                         Me.SourcePath = SSMGameList.Folders(ListMode.Stored)
                         Me.DestPath = SSMGameList.Folders(ListMode.Savestates)
                 End Select
+
+                Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chSlot", .Text = "Slot"}, _
+                                                 New ColumnHeader With {.Name = "chOldName", .Text = "Old name", .Width = 200}, _
+                                                 New ColumnHeader With {.Name = "chNewName", .Text = "New name", .Width = 200}, _
+                                                 New ColumnHeader With {.Name = "chStatus", .Text = "Status", .Width = 160} _
+                                                })
 
                 Me.StoreList_AddFiles()
                 Me.StoreList_Preview()
@@ -212,24 +345,7 @@ Partial Public NotInheritable Class frmFileOperations
                 'Me.UI_AssignPreview()
         End Select
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.ListMode, String.Format("Switched to {0}.", pOperationMode.ToString))
-    End Sub
-
-    Private Sub UI_SwitchFileMode(pListMode As ListMode)
-
-        Select Case pListMode
-            Case ListMode.Savestates
-
-            Case ListMode.Stored
-
-            Case ListMode.Snapshots
-
-        End Select
-
-        'Me.FileList_AddColumns(pListMode)
-
-        'SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.ListMode, String.Format("Switched to {0}.", pListMode.ToString))
-        'Me.DelFileList_Refresh()
+        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.ListMode, String.Format("Switched to {0} operation mode.", pOperationMode.ToString))
     End Sub
 
     Private Sub frmMain_ThemeApplied(sender As Object, e As EventArgs) Handles MyBase.ThemeApplied

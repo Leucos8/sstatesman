@@ -103,6 +103,10 @@
     <Compile Include="FormTemplates\frmTemplate.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmFileOperations.Delete.vb">
+      <SubType>Form</SubType>
+      <DependentUpon>frmFileOperations.vb</DependentUpon>
+    </Compile>
     <Compile Include="frmFileOperations.Designer.vb">
       <DependentUpon>frmFileOperations.vb</DependentUpon>
     </Compile>
@@ -128,12 +132,6 @@
       <DependentUpon>frmPCSX2.vb</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\frmPCSX2.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmDeleteForm.Designer.vb">
-      <DependentUpon>frmDeleteForm.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmDeleteForm.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="GameDB Explorer\frmGDESearch.Designer.vb">
@@ -213,9 +211,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\frmPCSX2.resx">
       <DependentUpon>frmPCSX2.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmDeleteForm.resx">
-      <DependentUpon>frmDeleteForm.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTemplates\frmTemplate.resx">
       <DependentUpon>frmTemplate.vb</DependentUpon>
