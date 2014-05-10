@@ -19,7 +19,6 @@ Public NotInheritable Class frmPCSX2
     Dim IsoPathValid As Boolean = False
     Dim IsoFilenameValid As Boolean = False
 
-    Dim PCSX2exe_process As Process
     Dim PCSX2exe_files As List(Of FileInfo)
 
     Private Sub PCSX2Bin_ListCreate(pPCSX2_PathBin As String, Optional pLastSelectedExe As String = "")
@@ -63,7 +62,7 @@ Public NotInheritable Class frmPCSX2
                                     Optional ByRef pProcess As Process = Nothing)
         If Me.lbPCSX2Bin.Items.Count = 1 Then
             Me.lbPCSX2Bin.SetSelected(0, True)
-            PCSX2Bin_Launch(pPCSX2_PathBin, Me.lbPCSX2Bin.Text, pISO_Path, pISO_Filename, pProcess)
+            Me.PCSX2Bin_Launch(pPCSX2_PathBin, Me.lbPCSX2Bin.Text, pISO_Path, pISO_Filename, pProcess)
             If pProcess IsNot Nothing Then
                 Me.Close()
             End If
@@ -84,7 +83,7 @@ Public NotInheritable Class frmPCSX2
             End If
             My.Settings.SStatesMan_LastPCSX2Executable = pPCSX2_ExeName
         Else
-            Me.UI_Status("Unable to find " & tmpPath)
+            Me.UI_Status("Unable to find " & tmpPath & ".")
             Me.cmdOk.Enabled = False
         End If
     End Sub
@@ -156,11 +155,17 @@ Public NotInheritable Class frmPCSX2
         Me.lbPCSX2Bin.EndUpdate()
 
         Me.UI_Update()
-        If Me.cmdOk.Enabled Then
-            Me.PCSX2Bin_ListCreate(My.Settings.PCSX2_PathBin, My.Settings.SStatesMan_LastPCSX2Executable)
-            Me.PCSX2Bin_TestLaunch(My.Settings.PCSX2_PathBin, My.Settings.SStatesMan_LastPCSX2Executable, My.Settings.SStatesMan_PathIso, Me.IsoFilename, PCSX2exe_process)
+        'PCSX2 is already running.
+        If mdlMain.PCSX2exe_process Is Nothing OrElse mdlMain.PCSX2exe_process.HasExited Then
+            If Me.cmdOk.Enabled Then
+                Me.PCSX2Bin_ListCreate(My.Settings.PCSX2_PathBin, My.Settings.SStatesMan_LastPCSX2Executable)
+                Me.PCSX2Bin_TestLaunch(My.Settings.PCSX2_PathBin, My.Settings.SStatesMan_LastPCSX2Executable, My.Settings.SStatesMan_PathIso, Me.IsoFilename, PCSX2exe_process)
+            Else
+                Me.UI_Status("Some settings are not valid. Please close this window.")
+            End If
         Else
-            Me.UI_Status("Some settings are not valid. Please close this window.")
+            Me.UI_Status("An instance of PCSX2 is already running.")
+            Me.cmdOk.Enabled = False
         End If
     End Sub
 
@@ -183,7 +188,7 @@ Public NotInheritable Class frmPCSX2
     End Sub
 
     Private Sub cmdOk_Click(sender As Object, e As EventArgs) Handles cmdOk.Click
-        Me.PCSX2Bin_Launch(My.Settings.PCSX2_PathBin, Me.lbPCSX2Bin.Text, My.Settings.SStatesMan_PathIso, Me.IsoFilename, Me.PCSX2exe_process)
+        Me.PCSX2Bin_Launch(My.Settings.PCSX2_PathBin, Me.lbPCSX2Bin.Text, My.Settings.SStatesMan_PathIso, Me.IsoFilename, mdlMain.PCSX2exe_process)
         If PCSX2exe_process IsNot Nothing Then
             Me.Close()
         End If

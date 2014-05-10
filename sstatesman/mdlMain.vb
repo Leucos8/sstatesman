@@ -21,6 +21,8 @@ Module mdlMain
 
     Friend PCSX2StateVerDB As ssVersionDB
 
+    Friend PCSX2exe_process As Process
+
     Friend SSMAppLog As New AppLog
 
     Friend DPIxScale As Single = 1.0F
