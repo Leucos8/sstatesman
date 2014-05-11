@@ -25,12 +25,97 @@ Partial Public NotInheritable Class frmFileOperations
     Dim DeleteList_TotalSize As Long = 0
     Dim DeleteList_TotalSizeBackup As Long = 0
 
+    Private Sub DeleteList_FormLoad()
+        ' TODO safer call to SSMGameList.Folders
+        ' If the stored folder isn't set there may be exceptions.
+        Me.SourcePath = SSMGameList.Folders(frmMain.CurrentListMode)
+
+        Me.Text = "Delete confirmation"
+        Me.FormDescription = "check the files you really want to delete and press ""delete checked"" to confirm."
+        Me.cmdSortReset.Visible = False
+        Me.ckbSStatesManReorderBackup.Visible = False
+        Me.ckbSStatesManMoveToTrash.Visible = True
+        Me.ckbStoreCopy.Visible = False
+        Me.lblStatus2.Visible = True
+
+        Me.cmdDeleteCheckAll = Me.cmdCommand2
+        Me.cmdDeleteCheckAll.Text = "ALL"
+        Me.cmdDeleteCheckAll.Image = My.Resources.Icon_CheckAll
+        AddHandler cmdDeleteCheckAll.Click, AddressOf cmdDeleteCheckAll_Click
+
+        Me.cmdDeleteCheckNone = Me.cmdCommand3
+        Me.cmdDeleteCheckNone.Text = "NONE"
+        Me.cmdDeleteCheckNone.Image = My.Resources.Icon_CheckNone
+        AddHandler cmdDeleteCheckNone.Click, AddressOf cmdDeleteCheckNone_Click
+
+        Me.cmdDeleteCheckInvert = Me.cmdCommand4
+        Me.cmdDeleteCheckInvert.Text = "INVERT"
+        Me.cmdDeleteCheckInvert.Image = My.Resources.Icon_CheckInvert
+        AddHandler cmdDeleteCheckInvert.Click, AddressOf cmdDeleteCheckInvert_Click
+
+        Me.cmdDeleteCheckBackup = Me.cmdCommand1
+        Me.cmdDeleteCheckBackup.Text = "BACKUP"
+        Me.cmdDeleteCheckBackup.Image = My.Resources.Icon_CheckBackup
+        AddHandler cmdDeleteCheckBackup.Click, AddressOf cmdDeleteCheckBackup_Click
+
+        Me.cmdOperation.Text = "Delete checked".ToUpper
+        AddHandler cmdOperation.Click, AddressOf cmdDelete_Click
+
+        Select Case frmMain.CurrentListMode
+            Case ListMode.Savestates
+                Me.lblAction.Text = "check savestates"
+                Me.cmdDeleteCheckBackup.Visible = True
+                Me.lblStatus3.Visible = True
+            Case ListMode.Stored
+                Me.lblAction.Text = "check savestates"
+                Me.cmdDeleteCheckBackup.Visible = False
+                Me.lblStatus3.Visible = False
+            Case ListMode.Snapshots
+                Me.lblAction.Text = "check screenshots"
+                Me.cmdDeleteCheckBackup.Visible = False
+                Me.lblStatus3.Visible = False
+        End Select
+
+        Select Case frmMain.CurrentListMode
+            Case ListMode.Savestates, ListMode.Stored
+                Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chFileName", .Text = "Savestate file name", .Width = 240}, _
+                                                 New ColumnHeader With {.Name = "chSlot", .Text = "Slot", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
+                                                 New ColumnHeader With {.Name = "chVersion", .Text = "Version", .Width = 80}, _
+                                                 New ColumnHeader With {.Name = "chModified", .Text = "Modified", .Width = 0}, _
+                                                 New ColumnHeader With {.Name = "chSize", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
+                                                })
+
+            Case ListMode.Snapshots
+                Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chFileName", .Text = "Snapshot file name", .Width = 240}, _
+                                                 New ColumnHeader With {.Name = "chNumber", .Text = "Number", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
+                                                 New ColumnHeader With {.Name = "chResolution", .Text = "Resolution", .Width = 80}, _
+                                                 New ColumnHeader With {.Name = "chModified", .Text = "Modified", .Width = 0}, _
+                                                 New ColumnHeader With {.Name = "chSize", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
+                                                })
+        End Select
+        Me.lvwFileList.Columns.Add(New ColumnHeader With {.Name = "chStatus", .Text = "Status", .Width = 140})
+
+        Me.DeleteList_AddFiles()
+        Me.DeleteList_Preview()
+        Me.DeleteList_IndexChecked()
+        Me.DeleteList_UpdateUI()
+    End Sub
+
+    Private Sub DeleteList_FormUnload()
+        RemoveHandler cmdDeleteCheckAll.Click, AddressOf cmdDeleteCheckAll_Click
+        RemoveHandler cmdDeleteCheckNone.Click, AddressOf cmdDeleteCheckNone_Click
+        RemoveHandler cmdDeleteCheckInvert.Click, AddressOf cmdDeleteCheckInvert_Click
+        RemoveHandler cmdDeleteCheckBackup.Click, AddressOf cmdDeleteCheckBackup_Click
+
+        RemoveHandler cmdOperation.Click, AddressOf cmdDelete_Click
+        RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
+    End Sub
+
     Private Sub cmdDelete_Click(sender As Object, e As EventArgs)
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
-        Me.SourceFileNames.Clear()
-        Me.DestFileNames.Clear()
+        Me.SourceFileNames = New List(Of String)
         For Each tmpListItem As ListViewItem In Me.lvwFileList.CheckedItems
             If FileStatus.Idle.Equals(tmpListItem.Tag) Then
                 Me.SourceFileNames.Add(tmpListItem.Text)
@@ -227,9 +312,9 @@ Partial Public NotInheritable Class frmFileOperations
             '================
             'No files in list
             '================
-            Me.lblSelected.Text = "0 items"
-            Me.lblSize.Text = ""
-            Me.lblSizeBackup.Text = ""
+            Me.lblStatus1.Text = "0 items"
+            Me.lblStatus2.Text = ""
+            Me.lblStatus3.Text = ""
 
             Me.cmdDeleteCheckAll.Enabled = False
             Me.cmdDeleteCheckInvert.Enabled = False
@@ -259,9 +344,9 @@ Partial Public NotInheritable Class frmFileOperations
 
             If Me.lvwFileList.CheckedItems.Count > 0 Then
                 'At least one file is checked
-                Me.lblSelected.Text = System.String.Format("{0:N0} items ({1:N0} checked)", Me.lvwFileList.Items.Count, Me.lvwFileList.CheckedItems.Count)
-                Me.lblSize.Text = System.String.Format("{0:N2} MB ({1:N2} MB)", Me.DeleteList_TotalSize / 1024 ^ 2, Me.DeleteList_SelectedSize / 1024 ^ 2)
-                Me.lblSizeBackup.Text = System.String.Format("+ {0:N2} MB ({1:N2} MB)", Me.DeleteList_TotalSizeBackup / 1024 ^ 2, Me.DeleteList_SelectedSizeBackup / 1024 ^ 2)
+                Me.lblStatus1.Text = System.String.Format("{0:N0} items ({1:N0} checked)", Me.lvwFileList.Items.Count, Me.lvwFileList.CheckedItems.Count)
+                Me.lblStatus2.Text = System.String.Format("{0:N2} MB ({1:N2} MB)", Me.DeleteList_TotalSize / 1024 ^ 2, Me.DeleteList_SelectedSize / 1024 ^ 2)
+                Me.lblStatus3.Text = System.String.Format("+ {0:N2} MB ({1:N2} MB)", Me.DeleteList_TotalSizeBackup / 1024 ^ 2, Me.DeleteList_SelectedSizeBackup / 1024 ^ 2)
 
                 Me.cmdDeleteCheckNone.Enabled = True
 
@@ -276,9 +361,9 @@ Partial Public NotInheritable Class frmFileOperations
 
             Else
                 'No files are checked
-                Me.lblSelected.Text = System.String.Format("{0:N0} items", Me.lvwFileList.Items.Count)
-                Me.lblSize.Text = System.String.Format("{0:N2} MB", Me.DeleteList_TotalSize / 1024 ^ 2)
-                Me.lblSizeBackup.Text = System.String.Format("+ {0:N2} MB", Me.DeleteList_TotalSizeBackup / 1024 ^ 2)
+                Me.lblStatus1.Text = System.String.Format("{0:N0} items", Me.lvwFileList.Items.Count)
+                Me.lblStatus2.Text = System.String.Format("{0:N2} MB", Me.DeleteList_TotalSize / 1024 ^ 2)
+                Me.lblStatus3.Text = System.String.Format("+ {0:N2} MB", Me.DeleteList_TotalSizeBackup / 1024 ^ 2)
 
                 Me.cmdDeleteCheckNone.Enabled = False
                 Me.cmdDeleteCheckAll.Enabled = True

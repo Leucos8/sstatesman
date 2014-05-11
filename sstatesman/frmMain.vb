@@ -845,7 +845,7 @@ Public NotInheritable Class frmMain
                                            })
 
                 If My.Settings.frmMain_SStatesListColumnWidth IsNot Nothing Then
-                    tmpColumnWidths = My.Settings.frmMain_SStateListColumnWidth
+                    tmpColumnWidths = My.Settings.frmMain_SStatesListColumnWidth
                 End If
             Case ListMode.Snapshots
                 tmpColumnHeaders.AddRange({New ColumnHeader With {.Name = "SnapsCH_FileName", .Text = "Screenshot file name", .Width = 240}, _

@@ -77,10 +77,11 @@ Module mdlFileOperations
     ''' <param name="pResults">List of results status flag.</param>
     ''' <param name="pResultMessages">List of message detailing the result of the operation.</param>
     ''' <param name="pOverwrite">Specifies how should be handled already existing target files</param>
+    ''' <param name="pCreateCopy">True: a copy is created, False: the file is moved.</param>
     Friend Sub FileOps_MoveFiles(pSourceFilename As List(Of String), pDestFilename As List(Of String), _
                                  pSourcePath As String, pDestPath As String, _
                                  ByRef pResults As List(Of FileStatus), ByRef pResultMessages As List(Of String), _
-                                 Optional pOverwrite As Boolean = False)
+                                 Optional pOverwrite As Boolean = False, Optional pCreateCopy As Boolean = True)
         'Two For Each loops that renames the files.
         'The first loop simply adds the ".tmp" extension to the file that needs to be renamed.
         'The second loop rename the files with their proper target filename.
@@ -96,7 +97,8 @@ Module mdlFileOperations
 
             For i As Integer = 0 To pDestFilename.Count - 1
                 FileOps_MoveFile(pSourceFilename(i), AddTmpExtension(pDestFilename(i)), _
-                                 pSourcePath, pDestPath, tmpResult, tmpResultMessage, pOverwrite)
+                                 pSourcePath, pDestPath, tmpResult, tmpResultMessage, _
+                                 pOverwrite, pCreateCopy)
                 pResults.Add(tmpResult)
                 pResultMessages.Add(tmpResultMessage)
             Next i
@@ -118,10 +120,11 @@ Module mdlFileOperations
     ''' <param name="pResult">Result status flag.</param>
     ''' <param name="pResultMessage">Message detailing the result of the operation.</param>
     ''' <param name="pOverwrite">Specifies how should be handled already existing target files</param>
+    ''' <param name="pCreateCopy">True: a copy is created, False: the file is moved.</param>
     Private Sub FileOps_MoveFile(pSourceFileName As String, pDestFileName As String, _
                                  pSourcePath As String, pDestPath As String, _
                                  ByRef pResult As FileStatus, ByRef pResultMessage As String, _
-                                 Optional pOverwrite As Boolean = False)
+                                 Optional pOverwrite As Boolean = False, Optional pCreateCopy As Boolean = True)
         Try
             Dim tmpSourceFileFullPath As String = Path.Combine(pSourcePath, pSourceFileName)
             Dim tmpDestFileFullPath As String = Path.Combine(pDestPath, pDestFileName)
@@ -134,7 +137,11 @@ Module mdlFileOperations
                                                           FileIO.RecycleOption.SendToRecycleBin)
                     End If
 
-                    File.Move(tmpSourceFileFullPath, tmpDestFileFullPath)
+                    If pCreateCopy Then
+                        File.Copy(tmpSourceFileFullPath, tmpDestFileFullPath)
+                    Else
+                        File.Move(tmpSourceFileFullPath, tmpDestFileFullPath)
+                    End If
                     pResult = FileStatus.FileRenamed
                     pResultMessage = String.Format("File renamed successfully to {0}.", pDestFileName)
                     SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Rename, _

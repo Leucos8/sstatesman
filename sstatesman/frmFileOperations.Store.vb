@@ -19,20 +19,84 @@ Partial Public NotInheritable Class frmFileOperations
     Dim cmdStoreCheckInvert As Button
     Dim cmdStoreCheckBackup As Button
 
+    Private Sub StoreList_FormLoad()
+        Dim tmpAction As String = ""
+        Select Case Me.currentOperationMode
+            Case FileOperations.Store
+                Me.SourcePath = SSMGameList.Folders(ListMode.Savestates)
+                Me.DestPath = SSMGameList.Folders(ListMode.Stored)
+                tmpAction = "store"
+            Case FileOperations.Restore
+                Me.SourcePath = SSMGameList.Folders(ListMode.Stored)
+                Me.DestPath = SSMGameList.Folders(ListMode.Savestates)
+                tmpAction = "restore"
+        End Select
+
+        Me.Text = tmpAction & " savestates"
+        Me.FormDescription = String.Format("check the savestates you want to {0} and press ""{0} checked"" to confirm.", tmpAction)
+        Me.cmdSortReset.Visible = False
+        Me.ckbSStatesManMoveToTrash.Visible = False
+        Me.ckbSStatesManReorderBackup.Visible = False
+        Me.ckbStoreCopy.Visible = True
+        Me.lblAction.Text = "check savestates"
+        Me.lblStatus2.Visible = False
+        Me.lblStatus3.Visible = False
+
+        Me.cmdStoreCheckAll = Me.cmdCommand2
+        Me.cmdStoreCheckAll.Text = "ALL"
+        Me.cmdStoreCheckAll.Image = My.Resources.Icon_CheckAll
+        AddHandler cmdStoreCheckAll.Click, AddressOf cmdStoreCheckAll_Click
+
+        Me.cmdStoreCheckNone = Me.cmdCommand3
+        Me.cmdStoreCheckNone.Text = "NONE"
+        Me.cmdStoreCheckNone.Image = My.Resources.Icon_CheckNone
+        AddHandler cmdStoreCheckNone.Click, AddressOf cmdStoreCheckNone_Click
+
+        Me.cmdStoreCheckInvert = Me.cmdCommand4
+        Me.cmdStoreCheckInvert.Text = "INVERT"
+        Me.cmdStoreCheckInvert.Image = My.Resources.Icon_CheckInvert
+        AddHandler cmdStoreCheckInvert.Click, AddressOf cmdStoreCheckInvert_Click
+
+        Me.cmdStoreCheckBackup = Me.cmdCommand1
+        Me.cmdStoreCheckBackup.Visible = False
+
+        Me.cmdOperation.Text = (tmpAction & " checked").ToUpper
+        AddHandler cmdOperation.Click, AddressOf cmdStore_Click
+
+        Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chSlot", .Text = "Slot"}, _
+                                         New ColumnHeader With {.Name = "chOldName", .Text = "Old name", .Width = 200}, _
+                                         New ColumnHeader With {.Name = "chNewName", .Text = "New name", .Width = 200}, _
+                                         New ColumnHeader With {.Name = "chStatus", .Text = "Status", .Width = 160} _
+                                        })
+
+        Me.StoreList_AddFiles()
+        Me.StoreList_Preview()
+        Me.StoreList_UpdateUI()
+    End Sub
+
+    Private Sub StoreList_FormUnload()
+        RemoveHandler cmdStoreCheckAll.Click, AddressOf cmdStoreCheckAll_Click
+        RemoveHandler cmdStoreCheckNone.Click, AddressOf cmdStoreCheckNone_Click
+        RemoveHandler cmdStoreCheckInvert.Click, AddressOf cmdStoreCheckInvert_Click
+
+        RemoveHandler cmdOperation.Click, AddressOf cmdStore_Click
+        RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
+    End Sub
+
     Private Sub cmdStore_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
-        Me.SourceFileNames.Clear()
-        Me.DestFileNames.Clear()
+        Me.SourceFileNames = New List(Of String)
+        Me.DestFileNames = New List(Of String)
         For Each tmpListItem As ListViewItem In Me.lvwFileList.CheckedItems
-            If FileStatus.RenamePending.Equals(tmpListItem.Tag) Or FileStatus.FileAlreadyExist.Equals(tmpListItem.Tag) Then
+            If FileStatus.RenamePending.Equals(tmpListItem.Tag) Then
                 Me.SourceFileNames.Add(tmpListItem.SubItems(FileListColumns.OldName).Text)
                 Me.DestFileNames.Add(tmpListItem.SubItems(FileListColumns.NewName).Text)
             End If
         Next
 
-        FileOps_MoveFiles(SourceFileNames, DestFileNames, SourcePath, DestPath, OperationResults, OperationResultMessages, True)
+        FileOps_MoveFiles(SourceFileNames, DestFileNames, SourcePath, DestPath, OperationResults, OperationResultMessages, True, My.Settings.SStatesMan_MoveStoredInsteadOfCopy)
         Me.OperationDone = True
 
         Dim i As Integer = 0
@@ -171,9 +235,9 @@ Partial Public NotInheritable Class frmFileOperations
                     tmpListItem.ForeColor = mdlTheme.currentTheme.AccentColorDark
                     If mdlMain.SafeExistFile(Path.Combine(DestPath, tmpListItem.SubItems(FileListColumns.NewName).Text)) Then
                         tmpListItem.SubItems(FileListColumns.Status).Text &= "File already exist, will be overwritten."
-                        tmpListItem.Tag = FileStatus.FileAlreadyExist
+                    Else
+                        tmpListItem.SubItems(FileListColumns.Status).Text = "Rename pending."
                     End If
-                    tmpListItem.SubItems(FileListColumns.Status).Text = "Rename pending."
                     Count_RenamePending += 1
 
                 ElseIf FileStatus.FileRenamed.Equals(tmpListItem.Tag) Then
@@ -214,8 +278,7 @@ Partial Public NotInheritable Class frmFileOperations
     Private Sub StoreList_UpdateUI()
         Dim sw As Stopwatch = Stopwatch.StartNew
 
-        Me.lblSelected.Text = String.Format("{0:N0} files ({1:N0} checked)", Me.lvwFileList.Items.Count, Me.lvwFileList.CheckedItems.Count)
-        'Me.lblSize.Text = String.Format("{0:N0} | {1:N0} files", Me.Count_RenamePending, Me.lvwFileList.Items.Count)
+        Me.lblStatus1.Text = String.Format("{0:N0} files ({1:N0} checked)", Me.lvwFileList.Items.Count, Me.lvwFileList.CheckedItems.Count)
 
         If Me.OperationDone OrElse Me.lvwFileList.Items.Count = 0 Then
             '================

@@ -51,10 +51,11 @@ Partial Class frmFileOperations
         Me.tlpFileListCommands = New System.Windows.Forms.TableLayoutPanel()
         Me.flpFileListCommandsFiles = New System.Windows.Forms.FlowLayoutPanel()
         Me.cmdSortReset = New System.Windows.Forms.Button()
+        Me.ckbStoreCopy = New System.Windows.Forms.CheckBox()
         Me.tlpFileListStatus = New System.Windows.Forms.TableLayoutPanel()
-        Me.lblSelected = New System.Windows.Forms.Label()
-        Me.lblSize = New System.Windows.Forms.Label()
-        Me.lblSizeBackup = New System.Windows.Forms.Label()
+        Me.lblStatus1 = New System.Windows.Forms.Label()
+        Me.lblStatus2 = New System.Windows.Forms.Label()
+        Me.lblStatus3 = New System.Windows.Forms.Label()
         Me.flpMainListCommands.SuspendLayout()
         Me.pnlFormContent.SuspendLayout()
         Me.tlpFileListCommands.SuspendLayout()
@@ -80,7 +81,7 @@ Partial Class frmFileOperations
         Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdCancel.Location = New System.Drawing.Point(549, 344)
+        Me.cmdCancel.Location = New System.Drawing.Point(516, 283)
         Me.cmdCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdCancel.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdCancel.Name = "cmdCancel"
@@ -101,13 +102,13 @@ Partial Class frmFileOperations
         Me.cmdOperation.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdOperation.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdOperation.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdOperation.Location = New System.Drawing.Point(445, 344)
+        Me.cmdOperation.Location = New System.Drawing.Point(412, 283)
         Me.cmdOperation.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdOperation.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdOperation.Name = "cmdOperation"
         Me.cmdOperation.Size = New System.Drawing.Size(100, 24)
         Me.cmdOperation.TabIndex = 8
-        Me.cmdOperation.Text = "REORDER"
+        Me.cmdOperation.Text = "cmdOperation"
         Me.cmdOperation.UseVisualStyleBackColor = False
         '
         'lvwFileList
@@ -125,7 +126,7 @@ Partial Class frmFileOperations
         Me.lvwFileList.Margin = New System.Windows.Forms.Padding(2)
         Me.lvwFileList.MultiSelect = False
         Me.lvwFileList.Name = "lvwFileList"
-        Me.lvwFileList.Size = New System.Drawing.Size(588, 164)
+        Me.lvwFileList.Size = New System.Drawing.Size(588, 122)
         Me.lvwFileList.TabIndex = 10
         Me.lvwFileList.UseCompatibleStateImageBehavior = False
         Me.lvwFileList.View = System.Windows.Forms.View.Details
@@ -140,12 +141,12 @@ Partial Class frmFileOperations
         Me.cmdCommand1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdCommand1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCommand1.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdCommand1.Location = New System.Drawing.Point(43, 0)
+        Me.cmdCommand1.Location = New System.Drawing.Point(57, 0)
         Me.cmdCommand1.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdCommand1.Name = "cmdCommand1"
-        Me.cmdCommand1.Size = New System.Drawing.Size(37, 22)
+        Me.cmdCommand1.Size = New System.Drawing.Size(82, 22)
         Me.cmdCommand1.TabIndex = 13
-        Me.cmdCommand1.Text = "CMD"
+        Me.cmdCommand1.Text = "cmdCommand1"
         Me.cmdCommand1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         '
         'cmdCommand2
@@ -158,12 +159,12 @@ Partial Class frmFileOperations
         Me.cmdCommand2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdCommand2.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCommand2.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdCommand2.Location = New System.Drawing.Point(80, 0)
+        Me.cmdCommand2.Location = New System.Drawing.Point(139, 0)
         Me.cmdCommand2.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdCommand2.Name = "cmdCommand2"
-        Me.cmdCommand2.Size = New System.Drawing.Size(37, 22)
+        Me.cmdCommand2.Size = New System.Drawing.Size(82, 22)
         Me.cmdCommand2.TabIndex = 14
-        Me.cmdCommand2.Text = "CMD"
+        Me.cmdCommand2.Text = "cmdCommand2"
         Me.cmdCommand2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         '
         'cmdCommand3
@@ -176,12 +177,12 @@ Partial Class frmFileOperations
         Me.cmdCommand3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdCommand3.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCommand3.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdCommand3.Location = New System.Drawing.Point(117, 0)
+        Me.cmdCommand3.Location = New System.Drawing.Point(221, 0)
         Me.cmdCommand3.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdCommand3.Name = "cmdCommand3"
-        Me.cmdCommand3.Size = New System.Drawing.Size(37, 22)
+        Me.cmdCommand3.Size = New System.Drawing.Size(82, 22)
         Me.cmdCommand3.TabIndex = 15
-        Me.cmdCommand3.Text = "CMD"
+        Me.cmdCommand3.Text = "cmdCommand3"
         Me.cmdCommand3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         '
         'cmdCommand4
@@ -194,12 +195,12 @@ Partial Class frmFileOperations
         Me.cmdCommand4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
         Me.cmdCommand4.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCommand4.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdCommand4.Location = New System.Drawing.Point(154, 0)
+        Me.cmdCommand4.Location = New System.Drawing.Point(303, 0)
         Me.cmdCommand4.Margin = New System.Windows.Forms.Padding(0)
         Me.cmdCommand4.Name = "cmdCommand4"
-        Me.cmdCommand4.Size = New System.Drawing.Size(37, 22)
+        Me.cmdCommand4.Size = New System.Drawing.Size(82, 22)
         Me.cmdCommand4.TabIndex = 16
-        Me.cmdCommand4.Text = "CMD"
+        Me.cmdCommand4.Text = "cmdCommand4"
         Me.cmdCommand4.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         '
         'lblAction
@@ -209,9 +210,9 @@ Partial Class frmFileOperations
         Me.lblAction.Location = New System.Drawing.Point(2, 0)
         Me.lblAction.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.lblAction.Name = "lblAction"
-        Me.lblAction.Size = New System.Drawing.Size(39, 22)
+        Me.lblAction.Size = New System.Drawing.Size(53, 22)
         Me.lblAction.TabIndex = 32
-        Me.lblAction.Text = "action"
+        Me.lblAction.Text = "lblAction"
         Me.lblAction.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'flpMainListCommands
@@ -224,10 +225,10 @@ Partial Class frmFileOperations
         Me.flpMainListCommands.Controls.Add(Me.cmdCommand1)
         Me.flpMainListCommands.Controls.Add(Me.lblAction)
         Me.flpMainListCommands.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpMainListCommands.Location = New System.Drawing.Point(381, 0)
+        Me.flpMainListCommands.Location = New System.Drawing.Point(187, 0)
         Me.flpMainListCommands.Margin = New System.Windows.Forms.Padding(0)
         Me.flpMainListCommands.Name = "flpMainListCommands"
-        Me.flpMainListCommands.Size = New System.Drawing.Size(191, 22)
+        Me.flpMainListCommands.Size = New System.Drawing.Size(385, 22)
         Me.flpMainListCommands.TabIndex = 12
         Me.flpMainListCommands.WrapContents = False
         '
@@ -237,6 +238,7 @@ Partial Class frmFileOperations
         Me.pnlFormContent.Controls.Add(Me.ckbSStatesManReorderBackup)
         Me.pnlFormContent.Controls.Add(Me.ckbSStatesManMoveToTrash)
         Me.pnlFormContent.Controls.Add(Me.tlpFileListCommands)
+        Me.pnlFormContent.Controls.Add(Me.ckbStoreCopy)
         Me.pnlFormContent.Location = New System.Drawing.Point(12, 54)
         Me.pnlFormContent.Name = "pnlFormContent"
         Me.pnlFormContent.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
@@ -251,7 +253,7 @@ Partial Class frmFileOperations
         Me.ckbSStatesManReorderBackup.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ckbSStatesManReorderBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.ckbSStatesManReorderBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbSStatesManReorderBackup.Location = New System.Drawing.Point(8, 186)
+        Me.ckbSStatesManReorderBackup.Location = New System.Drawing.Point(8, 144)
         Me.ckbSStatesManReorderBackup.Name = "ckbSStatesManReorderBackup"
         Me.ckbSStatesManReorderBackup.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
         Me.ckbSStatesManReorderBackup.Size = New System.Drawing.Size(588, 21)
@@ -268,10 +270,10 @@ Partial Class frmFileOperations
         Me.ckbSStatesManMoveToTrash.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.ckbSStatesManMoveToTrash.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.ckbSStatesManMoveToTrash.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbSStatesManMoveToTrash.Location = New System.Drawing.Point(8, 243)
+        Me.ckbSStatesManMoveToTrash.Location = New System.Drawing.Point(8, 165)
         Me.ckbSStatesManMoveToTrash.Name = "ckbSStatesManMoveToTrash"
         Me.ckbSStatesManMoveToTrash.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
-        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(612, 21)
+        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(588, 21)
         Me.ckbSStatesManMoveToTrash.TabIndex = 18
         Me.ckbSStatesManMoveToTrash.Text = "Send files to the Windows Recycle Bin instead of permanently deleting them."
         Me.ckbSStatesManMoveToTrash.UseVisualStyleBackColor = False
@@ -329,6 +331,22 @@ Partial Class frmFileOperations
         Me.cmdSortReset.Text = "&RESET"
         Me.cmdSortReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         '
+        'ckbStoreCopy
+        '
+        Me.ckbStoreCopy.AutoSize = True
+        Me.ckbStoreCopy.Checked = Global.sstatesman.My.MySettings.Default.SStatesMan_MoveStoredInsteadOfCopy
+        Me.ckbStoreCopy.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.sstatesman.My.MySettings.Default, "SStatesMan_MoveStoredInsteadOfCopy", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.ckbStoreCopy.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.ckbStoreCopy.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.ckbStoreCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ckbStoreCopy.Location = New System.Drawing.Point(8, 186)
+        Me.ckbStoreCopy.Name = "ckbStoreCopy"
+        Me.ckbStoreCopy.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
+        Me.ckbStoreCopy.Size = New System.Drawing.Size(588, 21)
+        Me.ckbStoreCopy.TabIndex = 42
+        Me.ckbStoreCopy.Text = "Move the savestates instead of copying them when storing/restoring."
+        Me.ckbStoreCopy.UseVisualStyleBackColor = False
+        '
         'tlpFileListStatus
         '
         Me.tlpFileListStatus.AutoSize = True
@@ -339,9 +357,9 @@ Partial Class frmFileOperations
         Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpFileListStatus.Controls.Add(Me.lblSelected, 0, 0)
-        Me.tlpFileListStatus.Controls.Add(Me.lblSize, 1, 0)
-        Me.tlpFileListStatus.Controls.Add(Me.lblSizeBackup, 2, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.lblStatus1, 0, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.lblStatus2, 1, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.lblStatus3, 2, 0)
         Me.tlpFileListStatus.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.tlpFileListStatus.ForeColor = System.Drawing.Color.White
         Me.tlpFileListStatus.Location = New System.Drawing.Point(1, 329)
@@ -353,41 +371,41 @@ Partial Class frmFileOperations
         Me.tlpFileListStatus.Size = New System.Drawing.Size(638, 24)
         Me.tlpFileListStatus.TabIndex = 17
         '
-        'lblSelected
+        'lblStatus1
         '
-        Me.lblSelected.AutoSize = True
-        Me.lblSelected.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSelected.Location = New System.Drawing.Point(4, 0)
-        Me.lblSelected.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
-        Me.lblSelected.Name = "lblSelected"
-        Me.lblSelected.Size = New System.Drawing.Size(53, 24)
-        Me.lblSelected.TabIndex = 18
-        Me.lblSelected.Text = "selection"
-        Me.lblSelected.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblStatus1.AutoSize = True
+        Me.lblStatus1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblStatus1.Location = New System.Drawing.Point(4, 0)
+        Me.lblStatus1.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
+        Me.lblStatus1.Name = "lblStatus1"
+        Me.lblStatus1.Size = New System.Drawing.Size(58, 24)
+        Me.lblStatus1.TabIndex = 18
+        Me.lblStatus1.Text = "lblStatus1"
+        Me.lblStatus1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'lblSize
+        'lblStatus2
         '
-        Me.lblSize.AutoSize = True
-        Me.lblSize.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSize.Location = New System.Drawing.Point(61, 0)
-        Me.lblSize.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
-        Me.lblSize.Name = "lblSize"
-        Me.lblSize.Size = New System.Drawing.Size(66, 24)
-        Me.lblSize.TabIndex = 20
-        Me.lblSize.Text = "active | files"
-        Me.lblSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblStatus2.AutoSize = True
+        Me.lblStatus2.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblStatus2.Location = New System.Drawing.Point(66, 0)
+        Me.lblStatus2.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
+        Me.lblStatus2.Name = "lblStatus2"
+        Me.lblStatus2.Size = New System.Drawing.Size(58, 24)
+        Me.lblStatus2.TabIndex = 20
+        Me.lblStatus2.Text = "lblStatus2"
+        Me.lblStatus2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
-        'lblSizeBackup
+        'lblStatus3
         '
-        Me.lblSizeBackup.AutoSize = True
-        Me.lblSizeBackup.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.lblSizeBackup.Location = New System.Drawing.Point(131, 0)
-        Me.lblSizeBackup.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
-        Me.lblSizeBackup.Name = "lblSizeBackup"
-        Me.lblSizeBackup.Size = New System.Drawing.Size(72, 24)
-        Me.lblSizeBackup.TabIndex = 22
-        Me.lblSizeBackup.Text = "backups size"
-        Me.lblSizeBackup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.lblStatus3.AutoSize = True
+        Me.lblStatus3.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblStatus3.Location = New System.Drawing.Point(128, 0)
+        Me.lblStatus3.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
+        Me.lblStatus3.Name = "lblStatus3"
+        Me.lblStatus3.Size = New System.Drawing.Size(58, 24)
+        Me.lblStatus3.TabIndex = 22
+        Me.lblStatus3.Text = "lblStatus3"
+        Me.lblStatus3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'frmFileOperations
         '
@@ -409,7 +427,7 @@ Partial Class frmFileOperations
         Me.Name = "frmFileOperations"
         Me.ShowInTaskbar = False
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
-        Me.Text = "Reorder"
+        Me.Text = "File Operations"
         Me.Controls.SetChildIndex(Me.cmdCancel, 0)
         Me.Controls.SetChildIndex(Me.cmdOperation, 0)
         Me.Controls.SetChildIndex(Me.tlpFileListStatus, 0)
@@ -443,9 +461,10 @@ Partial Class frmFileOperations
     Private WithEvents flpFileListCommandsFiles As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents cmdSortReset As System.Windows.Forms.Button
     Private WithEvents tlpFileListStatus As System.Windows.Forms.TableLayoutPanel
-    Private WithEvents lblSelected As System.Windows.Forms.Label
-    Private WithEvents lblSize As System.Windows.Forms.Label
-    Private WithEvents lblSizeBackup As System.Windows.Forms.Label
+    Private WithEvents lblStatus1 As System.Windows.Forms.Label
+    Private WithEvents lblStatus2 As System.Windows.Forms.Label
+    Private WithEvents lblStatus3 As System.Windows.Forms.Label
     Private WithEvents ckbSStatesManReorderBackup As System.Windows.Forms.CheckBox
     Private WithEvents ckbSStatesManMoveToTrash As System.Windows.Forms.CheckBox
+    Private WithEvents ckbStoreCopy As System.Windows.Forms.CheckBox
 End Class

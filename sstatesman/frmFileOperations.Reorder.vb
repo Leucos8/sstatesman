@@ -27,19 +27,87 @@ Partial Public NotInheritable Class frmFileOperations
     Dim cmdMoveDown As Button
     Dim cmdMoveLast As Button
 
+    Private Sub ReorderList_FormLoad()
+        Me.SourcePath = SSMGameList.Folders(frmMain.CurrentListMode)
+        Me.DestPath = Me.SourcePath
+
+        Me.Text = "Reorder savestates"
+        Me.FormDescription = "use the move buttons to reorder the list and click ""reorder"" to confirm."
+        Me.cmdSortReset.Visible = True
+        Me.ckbSStatesManReorderBackup.Visible = True
+        Me.ckbSStatesManMoveToTrash.Visible = False
+        Me.ckbStoreCopy.Visible = False
+        Me.lblAction.Text = "move checked"
+        Me.lblStatus2.Visible = True
+        Me.lblStatus3.Visible = False
+
+        Me.cmdMoveUp = Me.cmdCommand2
+        Me.cmdMoveUp.Text = "UP"
+        Me.cmdMoveUp.Image = My.Resources.Icon_OrderUp
+        Me.cmdMoveUp.Visible = True
+        AddHandler cmdMoveUp.Click, AddressOf cmdMoveUp_Click
+
+        Me.cmdMoveDown = Me.cmdCommand3
+        Me.cmdMoveDown.Text = "DOWN"
+        Me.cmdMoveDown.Image = My.Resources.Icon_OrderDown
+        Me.cmdMoveDown.Visible = True
+        AddHandler cmdMoveDown.Click, AddressOf cmdMoveDown_Click
+
+        Me.cmdMoveFirst = Me.cmdCommand1
+        Me.cmdMoveFirst.Text = "FIRST"
+        Me.cmdMoveFirst.Image = My.Resources.Icon_OrderFirst
+        Me.cmdMoveFirst.Visible = True
+        AddHandler cmdMoveFirst.Click, AddressOf cmdMoveFirst_Click
+
+        Me.cmdMoveLast = Me.cmdCommand4
+        Me.cmdMoveLast.Text = "LAST"
+        Me.cmdMoveLast.Image = My.Resources.Icon_OrderLast
+        Me.cmdMoveFirst.Visible = True
+        AddHandler cmdMoveLast.Click, AddressOf cmdMoveLast_Click
+
+        Me.cmdOperation.Text = "Reorder".ToUpper
+        AddHandler cmdOperation.Click, AddressOf cmdReorder_Click
+
+        If My.Settings.SStatesMan_SStateReorderBackup Then
+            Me.MoveStep = 2
+        Else
+            Me.MoveStep = 1
+        End If
+
+        Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chSlot", .Text = "Slot"}, _
+                                         New ColumnHeader With {.Name = "chOldName", .Text = "Old name", .Width = 200}, _
+                                         New ColumnHeader With {.Name = "chNewName", .Text = "New name", .Width = 200}, _
+                                         New ColumnHeader With {.Name = "chStatus", .Text = "Status", .Width = 160} _
+                                        })
+
+        Me.ReorderList_AddFiles()
+        Me.ReorderList_Preview()
+        Me.ReorderList_UpdateUI()
+    End Sub
+
+    Private Sub ReorderList_FormUnload()
+        RemoveHandler cmdMoveFirst.Click, AddressOf cmdMoveFirst_Click
+        RemoveHandler cmdMoveUp.Click, AddressOf cmdMoveUp_Click
+        RemoveHandler cmdMoveDown.Click, AddressOf cmdMoveDown_Click
+        RemoveHandler cmdMoveLast.Click, AddressOf cmdMoveLast_Click
+
+        RemoveHandler cmdOperation.Click, AddressOf cmdReorder_Click
+        RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
+    End Sub
+
     Private Sub cmdReorder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
-        Me.SourceFileNames.Clear()
-        Me.DestFileNames.Clear()
+        Me.SourceFileNames = New List(Of String)
+        Me.DestFileNames = New List(Of String)
         For Each tmpListItem As ListViewItem In Me.lvwFileList.Items
             If FileStatus.RenamePending.Equals(tmpListItem.Tag) Then
                 Me.SourceFileNames.Add(tmpListItem.SubItems(FileListColumns.OldName).Text)
                 Me.DestFileNames.Add(tmpListItem.SubItems(FileListColumns.NewName).Text)
             End If
         Next
-        FileOps_MoveFiles(SourceFileNames, DestFileNames, SourcePath, DestPath, OperationResults, OperationResultMessages)
+        FileOps_MoveFiles(SourceFileNames, DestFileNames, SourcePath, DestPath, OperationResults, OperationResultMessages, False, False)
         Me.OperationDone = True
 
         Dim i As Integer = 0
@@ -314,8 +382,8 @@ Partial Public NotInheritable Class frmFileOperations
     Private Sub ReorderList_UpdateUI()
         Dim sw As Stopwatch = Stopwatch.StartNew
 
-        Me.lblSelected.Text = String.Format("{0:N0} items ({1:N0} checked)", Me.lvwFileList.Items.Count, Me.lvwFileList.CheckedItems.Count)
-        Me.lblSize.Text = String.Format("{0:N0} file ({1:N0} active)", Me.Count_Files, Me.Count_RenamePending)
+        Me.lblStatus1.Text = String.Format("{0:N0} items ({1:N0} checked)", Me.lvwFileList.Items.Count, Me.lvwFileList.CheckedItems.Count)
+        Me.lblStatus2.Text = String.Format("{0:N0} file ({1:N0} active)", Me.Count_Files, Me.Count_RenamePending)
 
         Me.flpFileListCommandsFiles.SuspendLayout()
 
@@ -323,8 +391,8 @@ Partial Public NotInheritable Class frmFileOperations
             '==========================================
             'No files in list or file have been renamed
             '==========================================
-            Me.lblSelected.Text = String.Empty
-            Me.lblSize.Text = String.Empty
+            Me.lblStatus1.Text = String.Empty
+            Me.lblStatus2.Text = String.Empty
 
             Me.cmdMoveUp.Enabled = False
             Me.cmdMoveLast.Enabled = False
@@ -339,17 +407,17 @@ Partial Public NotInheritable Class frmFileOperations
             'Files are present
             '=================
             If Me.Count_RenamePending > 0 Then
-                Me.lblSize.Text = String.Format("{0:N0} file ({1:N0} active)", Me.Count_Files, Me.Count_RenamePending)
+                Me.lblStatus2.Text = String.Format("{0:N0} file ({1:N0} active)", Me.Count_Files, Me.Count_RenamePending)
                 Me.cmdOperation.Enabled = True
                 Me.cmdSortReset.Enabled = True
             Else
-                Me.lblSize.Text = String.Format("{0:N0} file", Me.Count_Files)
+                Me.lblStatus2.Text = String.Format("{0:N0} file", Me.Count_Files)
                 Me.cmdOperation.Enabled = False
                 Me.cmdSortReset.Enabled = False
             End If
 
             If Me.lvwFileList.CheckedItems.Count > 0 Then
-                Me.lblSelected.Text = String.Format("{0:N0} items ({1:N0} checked)", Me.lvwFileList.Items.Count, Me.lvwFileList.CheckedItems.Count)
+                Me.lblStatus1.Text = String.Format("{0:N0} items ({1:N0} checked)", Me.lvwFileList.Items.Count, Me.lvwFileList.CheckedItems.Count)
                 'First item checked
                 If Me.lvwFileList.Items(0).Checked Then
                     Me.cmdMoveFirst.Enabled = False
@@ -377,7 +445,7 @@ Partial Public NotInheritable Class frmFileOperations
 
 
             ElseIf Me.lvwFileList.CheckedItems.Count = 0 Then
-                Me.lblSelected.Text = String.Format("{0:N0} items", Me.lvwFileList.Items.Count)
+                Me.lblStatus1.Text = String.Format("{0:N0} items", Me.lvwFileList.Items.Count)
                 Me.cmdMoveUp.Enabled = False
                 Me.cmdMoveLast.Enabled = False
                 Me.cmdMoveDown.Enabled = False
