@@ -177,15 +177,6 @@ Namespace My
             End Set
         End Property
         
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("coverpics")>  _
-        Public ReadOnly Property SStatesMan_PicsFolder() As String
-            Get
-                Return CType(Me("SStatesMan_PicsFolder"),String)
-            End Get
-        End Property
-        
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
@@ -269,7 +260,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("624, 442")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("640, 440")>  _
         Public Property frmMain_WindowSize() As Global.System.Drawing.Size
             Get
                 Return CType(Me("frmMain_WindowSize"),Global.System.Drawing.Size)
@@ -318,24 +309,24 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("640, 360")>  _
-        Public Property frmDel_WindowSize() As Global.System.Drawing.Size
+        Public Property frmFileOps_WindowSize() As Global.System.Drawing.Size
             Get
-                Return CType(Me("frmDel_WindowSize"),Global.System.Drawing.Size)
+                Return CType(Me("frmFileOps_WindowSize"),Global.System.Drawing.Size)
             End Get
             Set
-                Me("frmDel_WindowSize") = value
+                Me("frmFileOps_WindowSize") = value
             End Set
         End Property
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("Normal")>  _
-        Public Property frmDel_WindowState() As Global.System.Windows.Forms.FormWindowState
+        Public Property frmFileOps_WindowState() As Global.System.Windows.Forms.FormWindowState
             Get
-                Return CType(Me("frmDel_WindowState"),Global.System.Windows.Forms.FormWindowState)
+                Return CType(Me("frmFileOps_WindowState"),Global.System.Windows.Forms.FormWindowState)
             End Get
             Set
-                Me("frmDel_WindowState") = value
+                Me("frmFileOps_WindowState") = value
             End Set
         End Property
         
@@ -348,18 +339,6 @@ Namespace My
             End Get
             Set
                 Me("frmMain_CoverExpanded") = value
-            End Set
-        End Property
-        
-        <Global.System.Configuration.UserScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("128, 72")>  _
-        Public Property frmDel_WindowLocation() As Global.System.Drawing.Point
-            Get
-                Return CType(Me("frmDel_WindowLocation"),Global.System.Drawing.Point)
-            End Get
-            Set
-                Me("frmDel_WindowLocation") = value
             End Set
         End Property
         
@@ -434,34 +413,34 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
-        Public Property frmMain_glvw_columnwidth() As Integer()
+        Public Property frmMain_SStatesListColumnWidth() As Integer()
             Get
-                Return CType(Me("frmMain_glvw_columnwidth"),Integer())
+                Return CType(Me("frmMain_SStatesListColumnWidth"),Integer())
             End Get
             Set
-                Me("frmMain_glvw_columnwidth") = value
+                Me("frmMain_SStatesListColumnWidth") = value
             End Set
         End Property
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
-        Public Property frmMain_flvw_columnwidth() As Integer()
+        Public Property frmMain_GameListColumnWidth() As Integer()
             Get
-                Return CType(Me("frmMain_flvw_columnwidth"),Integer())
+                Return CType(Me("frmMain_GameListColumnWidth"),Integer())
             End Get
             Set
-                Me("frmMain_flvw_columnwidth") = value
+                Me("frmMain_GameListColumnWidth") = value
             End Set
         End Property
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute()>  _
-        Public Property frmDel_flvw_columnwidth() As Integer()
+        Public Property frmFileOps_DeleteColumnWidth() As Integer()
             Get
-                Return CType(Me("frmDel_flvw_columnwidth"),Integer())
+                Return CType(Me("frmFileOps_DeleteColumnWidth"),Integer())
             End Get
             Set
-                Me("frmDel_flvw_columnwidth") = value
+                Me("frmFileOps_DeleteColumnWidth") = value
             End Set
         End Property
         
@@ -581,6 +560,18 @@ Namespace My
             Get
                 Return CType(Me("SStatesMan_StoredExt"),String)
             End Get
+        End Property
+
+        <Global.System.Configuration.UserScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")> _
+        Public Property SStatesMan_MoveStoredInsteadOfCopy() As Boolean
+            Get
+                Return CType(Me("SStatesMan_MoveStoredInsteadOfCopy"), Boolean)
+            End Get
+            Set(value As Boolean)
+                Me("SStatesMan_MoveStoredInsteadOfCopy") = value
+            End Set
         End Property
     End Class
 End Namespace

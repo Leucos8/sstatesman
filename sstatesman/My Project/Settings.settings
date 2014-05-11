@@ -51,9 +51,6 @@
     <Setting Name="SStatesMan_PathPics" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="SStatesMan_PicsFolder" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">coverpics</Value>
-    </Setting>
     <Setting Name="SStatesMan_ThemeGradientEnabled" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
@@ -76,7 +73,7 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="frmMain_WindowSize" Type="System.Drawing.Size" Scope="User">
-      <Value Profile="(Default)">624, 442</Value>
+      <Value Profile="(Default)">640, 440</Value>
     </Setting>
     <Setting Name="frmMain_WindowState" Type="System.Windows.Forms.FormWindowState" Scope="User">
       <Value Profile="(Default)">Normal</Value>
@@ -87,17 +84,14 @@
     <Setting Name="frmMain_SplitterDistance" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">200</Value>
     </Setting>
-    <Setting Name="frmDel_WindowSize" Type="System.Drawing.Size" Scope="User">
+    <Setting Name="frmFileOps_WindowSize" Type="System.Drawing.Size" Scope="User">
       <Value Profile="(Default)">640, 360</Value>
     </Setting>
-    <Setting Name="frmDel_WindowState" Type="System.Windows.Forms.FormWindowState" Scope="User">
+    <Setting Name="frmFileOps_WindowState" Type="System.Windows.Forms.FormWindowState" Scope="User">
       <Value Profile="(Default)">Normal</Value>
     </Setting>
     <Setting Name="frmMain_CoverExpanded" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="frmDel_WindowLocation" Type="System.Drawing.Point" Scope="User">
-      <Value Profile="(Default)">128, 72</Value>
     </Setting>
     <Setting Name="PCSX2_SnapsFolder" Type="System.String" Scope="Application">
       <Value Profile="(Default)">snaps</Value>
@@ -117,13 +111,13 @@
     <Setting Name="PCSX2_PathSnaps" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="frmMain_glvw_columnwidth" Type="System.Int32[]" Scope="User">
+    <Setting Name="frmMain_SStatesListColumnWidth" Type="System.Int32[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="frmMain_flvw_columnwidth" Type="System.Int32[]" Scope="User">
+    <Setting Name="frmMain_GameListColumnWidth" Type="System.Int32[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="frmDel_flvw_columnwidth" Type="System.Int32[]" Scope="User">
+    <Setting Name="frmFileOps_DeleteColumnWidth" Type="System.Int32[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="SStatesMan_SStateReorderBackup" Type="System.Boolean" Scope="User">
@@ -173,6 +167,9 @@
     </Setting>
     <Setting Name="SStatesMan_StoredExt" Type="System.String" Scope="Application">
       <Value Profile="(Default)">.stored</Value>
+    </Setting>
+    <Setting Name="SStatesMan_MoveStoredInsteadOfCopy" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

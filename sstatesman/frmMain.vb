@@ -141,10 +141,10 @@ Public NotInheritable Class frmMain
         RemoveHandler Me.lvwGamesList.ItemSelectionChanged, AddressOf Me.lvwGamesList_ItemSelectionChanged
         Me.lvwGamesList.BeginUpdate()
 
-        If My.Settings.frmMain_glvw_columnwidth IsNot Nothing Then
-            If My.Settings.frmMain_glvw_columnwidth.Length = Me.lvwGamesList.Columns.Count Then
+        If My.Settings.frmMain_GameListColumnWidth IsNot Nothing Then
+            If My.Settings.frmMain_GameListColumnWidth.Length = Me.lvwGamesList.Columns.Count Then
                 For i As Integer = 0 To Me.lvwGamesList.Columns.Count - 1
-                    Me.lvwGamesList.Columns(i).Width = My.Settings.frmMain_glvw_columnwidth(i)
+                    Me.lvwGamesList.Columns(i).Width = My.Settings.frmMain_GameListColumnWidth(i)
                 Next
             End If
         End If
@@ -210,8 +210,8 @@ Public NotInheritable Class frmMain
         My.Settings.frmMain_SplitterDistance = Me.SplitContainer1.SplitterDistance
 
         'Column widths
-        My.Settings.frmMain_glvw_columnwidth = New Integer() {Me.GamesLvw_GameTitle.Width, Me.GameLvw_GameSerial.Width, Me.GameLvw_GameRegion.Width, _
-                                                              Me.GameLvw_SStatesInfo.Width, Me.GameLvw_BackupInfo.Width, Me.GameLvw_SnapsInfo.Width}
+        My.Settings.frmMain_GameListColumnWidth = New Integer() {Me.GamesLvw_GameTitle.Width, Me.GameLvw_GameSerial.Width, Me.GameLvw_GameRegion.Width, _
+                                                                 Me.GameLvw_SStatesInfo.Width, Me.GameLvw_BackupInfo.Width, Me.GameLvw_SnapsInfo.Width}
         'My.Settings.frmMain_slvw_columnwidth = New Integer() {Me.SStatesLvw_FileName.Width, Me.SStatesLvw_Slot.Width, Me.SStatesLvw_Version.Width, _
         '                                                      Me.SStatesLvw_DateLastWrite.Width, Me.SStatesLvw_Size.Width}
     End Sub
@@ -497,7 +497,7 @@ Public NotInheritable Class frmMain
 
                 Me.cmdFileCheckNone.Enabled = True
                 Me.cmdFilesDelete.Enabled = True
-                Me.cmdFilesStore.Enabled = True
+                Me.cmdFilesStore.Enabled = mdlMain.SafeExistFolder(My.Settings.SStatesMan_PathStored)
 
                 If Me.lvwFilesList.Items.Count = Me.lvwFilesList.CheckedItems.Count Then
                     'All files are checked
@@ -844,8 +844,8 @@ Public NotInheritable Class frmMain
                                            New ColumnHeader With {.Name = "SStatesCH_Size", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
                                            })
 
-                If My.Settings.frmMain_flvw_columnwidth IsNot Nothing Then
-                    tmpColumnWidths = My.Settings.frmMain_flvw_columnwidth
+                If My.Settings.frmMain_SStatesListColumnWidth IsNot Nothing Then
+                    tmpColumnWidths = My.Settings.frmMain_SStateListColumnWidth
                 End If
             Case ListMode.Snapshots
                 tmpColumnHeaders.AddRange({New ColumnHeader With {.Name = "SnapsCH_FileName", .Text = "Screenshot file name", .Width = 240}, _

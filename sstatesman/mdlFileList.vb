@@ -97,6 +97,7 @@ Module mdlFileList
             Dim sw As Stopwatch = Stopwatch.StartNew
 
             Me.Folders = {pSStatesPath, pSStatesStoredPath, pSnapsPath}
+            Me.Files_Count = {0, 0, 0}
 
             Me.Games.Clear()
 
