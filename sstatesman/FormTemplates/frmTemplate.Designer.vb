@@ -187,10 +187,10 @@ Partial Class frmTemplate
         Me.flpWindowBottom.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.flpWindowBottom.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.flpWindowBottom.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
-        Me.flpWindowBottom.Location = New System.Drawing.Point(1, 293)
+        Me.flpWindowBottom.Location = New System.Drawing.Point(1, 291)
         Me.flpWindowBottom.Name = "flpWindowBottom"
-        Me.flpWindowBottom.Padding = New System.Windows.Forms.Padding(4, 4, 4, 2)
-        Me.flpWindowBottom.Size = New System.Drawing.Size(358, 6)
+        Me.flpWindowBottom.Padding = New System.Windows.Forms.Padding(4)
+        Me.flpWindowBottom.Size = New System.Drawing.Size(358, 8)
         Me.flpWindowBottom.TabIndex = 0
         '
         'pnlWindowTop

@@ -278,7 +278,7 @@ Public Class frmTemplate
         Me.BorderColorInactive = currentTheme.AccentColorDark
 
 
-        Me.Refresh()
+        Me.InvokePaint(Me, New PaintEventArgs(Me.CreateGraphics, Me.ClientRectangle))
 
         RaiseEvent ThemeApplied(Me, New EventArgs)
 

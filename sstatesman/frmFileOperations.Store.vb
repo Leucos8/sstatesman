@@ -25,10 +25,12 @@ Partial Public NotInheritable Class frmFileOperations
             Case FileOperations.Store
                 Me.SourcePath = SSMGameList.Folders(ListMode.Savestates)
                 Me.DestPath = SSMGameList.Folders(ListMode.Stored)
+                Me.Text = "Store savestates"
                 tmpAction = "store"
             Case FileOperations.Restore
                 Me.SourcePath = SSMGameList.Folders(ListMode.Stored)
                 Me.DestPath = SSMGameList.Folders(ListMode.Savestates)
+                Me.Text = "Restore savestates"
                 tmpAction = "restore"
         End Select
 
