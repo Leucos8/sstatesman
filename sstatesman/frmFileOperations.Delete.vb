@@ -122,7 +122,7 @@ Partial Public NotInheritable Class frmFileOperations
             End If
         Next
 
-        mdlFileOperations.DeleteFiles(Me.SourceFileNames, Me.SourcePath, Me.OperationResults, Me.OperationResultMessages, My.Settings.SStatesMan_FileTrash)
+        mdlFileOperations.FileOps_DeleteFiles(Me.SourceFileNames, Me.SourcePath, Me.OperationResults, Me.OperationResultMessages, My.Settings.SStatesMan_FileTrash)
         Me.OperationDone = True
 
         Dim i As Integer = 0

@@ -33,9 +33,9 @@ Module mdlFileOperations
     ''' <param name="pResults">List of results status flag.</param>
     ''' <param name="pResultMessages">List of message detailing the result of the operation.</param>
     ''' <param name="pMoveToRecycleBin">True files are deleted to the recycle bin, False files are deleted directly.</param>
-    Friend Sub DeleteFiles(pSourceFilename As List(Of String), pSourcePath As String, _
-                           ByRef pResults As List(Of FileStatus), ByRef pResultMessages As List(Of String), _
-                           Optional pMoveToRecycleBin As Boolean = False)
+    Friend Sub FileOps_DeleteFiles(pSourceFilename As List(Of String), pSourcePath As String, _
+                                   ByRef pResults As List(Of FileStatus), ByRef pResultMessages As List(Of String), _
+                                   Optional pMoveToRecycleBin As Boolean = False)
         If pSourceFilename.Count > 0 Then
 
             Dim tmpResult As FileStatus = FileStatus.RenamePending
