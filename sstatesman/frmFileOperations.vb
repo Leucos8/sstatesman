@@ -149,13 +149,6 @@ Partial Public NotInheritable Class frmFileOperations
         Me.lblStatus3.Visible = True
         Me.lblStatus3.Visible = False
 
-
-
-        Me.cmdStoreCheckAll = Me.cmdCommand2
-        Me.cmdStoreCheckNone = Me.cmdCommand3
-        Me.cmdStoreCheckInvert = Me.cmdCommand4
-        Me.cmdStoreCheckBackup = Me.cmdCommand1
-
         Select Case pOperationMode
             Case FileOperations.Delete : Me.DeleteList_FormLoad()
             Case FileOperations.Reorder : Me.ReorderList_FormLoad()

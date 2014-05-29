@@ -133,7 +133,7 @@ Partial Public NotInheritable Class frmFileOperations
             tmpListItem.Checked = False
         Next
 
-        AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
+        AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.EndUpdate()
 
         Me.DeleteList_Preview()
@@ -241,8 +241,6 @@ Partial Public NotInheritable Class frmFileOperations
             RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
             Me.lvwFileList.BeginUpdate()
 
-            Me.Count_RenamePending = 0
-
             For Each tmpListItem As ListViewItem In Me.lvwFileList.Items
 
                 If FileStatus.FileDeleted.Equals(tmpListItem.Tag) Then
@@ -266,7 +264,7 @@ Partial Public NotInheritable Class frmFileOperations
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Preview, _
-                         String.Format("Preview for {0:N0} ListViewItems.", Me.Count_RenamePending), _
+                         String.Format("Preview for {0:N0} ListViewItems.", Me.lvwFileList.Items.Count), _
                          sw.ElapsedTicks)
     End Sub
 

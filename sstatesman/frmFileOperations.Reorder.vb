@@ -385,8 +385,6 @@ Partial Public NotInheritable Class frmFileOperations
         Me.lblStatus1.Text = String.Format("{0:N0} items ({1:N0} checked)", Me.lvwFileList.Items.Count, Me.lvwFileList.CheckedItems.Count)
         Me.lblStatus2.Text = String.Format("{0:N0} file ({1:N0} active)", Me.Count_Files, Me.Count_RenamePending)
 
-        Me.flpFileListCommandsFiles.SuspendLayout()
-
         If Me.OperationDone Or Me.lvwFileList.Items.Count = 0 Then
             '==========================================
             'No files in list or file have been renamed
@@ -453,8 +451,6 @@ Partial Public NotInheritable Class frmFileOperations
             End If
 
         End If
-
-        Me.flpFileListCommandsFiles.ResumeLayout()
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
