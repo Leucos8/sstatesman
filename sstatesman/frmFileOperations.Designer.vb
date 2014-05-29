@@ -447,24 +447,24 @@ Partial Class frmFileOperations
         Me.PerformLayout()
 
     End Sub
-    Private WithEvents lblAction As System.Windows.Forms.Label
-    Private WithEvents cmdCancel As System.Windows.Forms.Button
-    Private WithEvents cmdOperation As System.Windows.Forms.Button
-    Private WithEvents lvwFileList As System.Windows.Forms.ListView
-    Private WithEvents cmdCommand1 As System.Windows.Forms.Button
-    Private WithEvents cmdCommand2 As System.Windows.Forms.Button
-    Private WithEvents cmdCommand3 As System.Windows.Forms.Button
-    Private WithEvents cmdCommand4 As System.Windows.Forms.Button
+    Protected WithEvents lblAction As System.Windows.Forms.Label
+    Protected WithEvents cmdCancel As System.Windows.Forms.Button
+    Protected WithEvents cmdOperation As System.Windows.Forms.Button
+    Protected WithEvents lvwFileList As System.Windows.Forms.ListView
+    Protected WithEvents cmdCommand1 As System.Windows.Forms.Button
+    Protected WithEvents cmdCommand2 As System.Windows.Forms.Button
+    Protected WithEvents cmdCommand3 As System.Windows.Forms.Button
+    Protected WithEvents cmdCommand4 As System.Windows.Forms.Button
     Private WithEvents flpMainListCommands As System.Windows.Forms.FlowLayoutPanel
     Private WithEvents pnlFormContent As System.Windows.Forms.Panel
     Private WithEvents tlpFileListCommands As System.Windows.Forms.TableLayoutPanel
     Private WithEvents flpFileListCommandsFiles As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents cmdSortReset As System.Windows.Forms.Button
+    Protected WithEvents cmdSortReset As System.Windows.Forms.Button
     Private WithEvents tlpFileListStatus As System.Windows.Forms.TableLayoutPanel
-    Private WithEvents lblStatus1 As System.Windows.Forms.Label
-    Private WithEvents lblStatus2 As System.Windows.Forms.Label
-    Private WithEvents lblStatus3 As System.Windows.Forms.Label
-    Private WithEvents ckbSStatesManReorderBackup As System.Windows.Forms.CheckBox
-    Private WithEvents ckbSStatesManMoveToTrash As System.Windows.Forms.CheckBox
-    Private WithEvents ckbStoreCopy As System.Windows.Forms.CheckBox
+    Protected WithEvents lblStatus1 As System.Windows.Forms.Label
+    Protected WithEvents lblStatus2 As System.Windows.Forms.Label
+    Protected WithEvents lblStatus3 As System.Windows.Forms.Label
+    Protected WithEvents ckbSStatesManReorderBackup As System.Windows.Forms.CheckBox
+    Protected WithEvents ckbSStatesManMoveToTrash As System.Windows.Forms.CheckBox
+    Protected WithEvents ckbStoreCopy As System.Windows.Forms.CheckBox
 End Class

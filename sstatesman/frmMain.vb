@@ -1132,23 +1132,23 @@ Public NotInheritable Class frmMain
 
     Private Sub cmdSStateDelete_Click(sender As Object, e As EventArgs) Handles cmdFilesDelete.Click
         'frmDeleteForm.ShowDialog(Me)
-        frmFileOperations.currentOperationMode = frmFileOperations.FileOperations.Delete
-        frmFileOperations.ShowDialog(Me)
+        frmFileOperationsReorder.currentOperationMode = frmFileOperations.FileOperations.Delete
+        frmFileOperationsDelete.ShowDialog(Me)
     End Sub
 
     Private Sub cmdSStateReorder_Click(sender As Object, e As EventArgs) Handles cmdFilesReorder.Click
-        frmFileOperations.currentOperationMode = frmFileOperations.FileOperations.Reorder
-        frmFileOperations.ShowDialog(Me)
+        frmFileOperationsReorder.currentOperationMode = frmFileOperations.FileOperations.Reorder
+        frmFileOperationsReorder.ShowDialog(Me)
     End Sub
 
     Private Sub cmdFilesStore_Click(sender As Object, e As EventArgs) Handles cmdFilesStore.Click
         Select Case Me.CurrentListMode
             Case ListMode.Savestates
-                frmFileOperations.currentOperationMode = frmFileOperations.FileOperations.Store
+                frmFileOperationsStore.currentOperationMode = frmFileOperations.FileOperations.Store
             Case ListMode.Stored
-                frmFileOperations.currentOperationMode = frmFileOperations.FileOperations.Restore
+                frmFileOperationsStore.currentOperationMode = frmFileOperations.FileOperations.Restore
         End Select
-        frmFileOperations.ShowDialog(Me)
+        frmFileOperationsStore.ShowDialog(Me)
     End Sub
 
 

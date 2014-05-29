@@ -12,7 +12,8 @@
 '
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
-Partial Public NotInheritable Class frmFileOperations
+Public NotInheritable Class frmFileOperationsReorder
+    Inherits frmFileOperations
     Dim MoveStep As Integer = 1
     Dim Count_Files As Integer = 0
     Dim Count_RenamePending As Integer = 0
@@ -27,7 +28,9 @@ Partial Public NotInheritable Class frmFileOperations
     Dim cmdMoveDown As Button
     Dim cmdMoveLast As Button
 
-    Private Sub ReorderList_FormLoad()
+    Protected Overrides Sub UI_OperationLoad()
+        MyBase.UI_OperationLoad()
+
         Me.SourcePath = SSMGameList.Folders(frmMain.CurrentListMode)
         Me.DestPath = Me.SourcePath
 
@@ -85,7 +88,9 @@ Partial Public NotInheritable Class frmFileOperations
         Me.ReorderList_UpdateUI()
     End Sub
 
-    Private Sub ReorderList_FormUnload()
+    Protected Overrides Sub UI_OperationUnload()
+        MyBase.UI_OperationUnload()
+
         RemoveHandler cmdMoveFirst.Click, AddressOf cmdMoveFirst_Click
         RemoveHandler cmdMoveUp.Click, AddressOf cmdMoveUp_Click
         RemoveHandler cmdMoveDown.Click, AddressOf cmdMoveDown_Click
@@ -385,8 +390,6 @@ Partial Public NotInheritable Class frmFileOperations
         Me.lblStatus1.Text = String.Format("{0:N0} items ({1:N0} checked)", Me.lvwFileList.Items.Count, Me.lvwFileList.CheckedItems.Count)
         Me.lblStatus2.Text = String.Format("{0:N0} file ({1:N0} active)", Me.Count_Files, Me.Count_RenamePending)
 
-        Me.flpFileListCommandsFiles.SuspendLayout()
-
         If Me.OperationDone Or Me.lvwFileList.Items.Count = 0 Then
             '==========================================
             'No files in list or file have been renamed
@@ -453,8 +456,6 @@ Partial Public NotInheritable Class frmFileOperations
             End If
 
         End If
-
-        Me.flpFileListCommandsFiles.ResumeLayout()
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)

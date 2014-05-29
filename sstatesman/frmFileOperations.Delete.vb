@@ -13,7 +13,8 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
-Partial Public NotInheritable Class frmFileOperations
+Partial Public NotInheritable Class frmFileOperationsDelete
+    Inherits frmFileOperations
     Dim cmdDeleteCheckAll As Button
     Dim cmdDeleteCheckNone As Button
     Dim cmdDeleteCheckInvert As Button
@@ -25,7 +26,8 @@ Partial Public NotInheritable Class frmFileOperations
     Dim DeleteList_TotalSize As Long = 0
     Dim DeleteList_TotalSizeBackup As Long = 0
 
-    Private Sub DeleteList_FormLoad()
+    Protected Overrides Sub UI_OperationLoad()
+        MyBase.UI_OperationLoad()
         ' TODO safer call to SSMGameList.Folders
         ' If the stored folder isn't set there may be exceptions.
         Me.SourcePath = SSMGameList.Folders(frmMain.CurrentListMode)
@@ -101,7 +103,9 @@ Partial Public NotInheritable Class frmFileOperations
         Me.DeleteList_UpdateUI()
     End Sub
 
-    Private Sub DeleteList_FormUnload()
+    Protected Overrides Sub UI_OperationUnload()
+        MyBase.UI_OperationUnload()
+
         RemoveHandler cmdDeleteCheckAll.Click, AddressOf cmdDeleteCheckAll_Click
         RemoveHandler cmdDeleteCheckNone.Click, AddressOf cmdDeleteCheckNone_Click
         RemoveHandler cmdDeleteCheckInvert.Click, AddressOf cmdDeleteCheckInvert_Click
@@ -133,7 +137,7 @@ Partial Public NotInheritable Class frmFileOperations
             tmpListItem.Checked = False
         Next
 
-        AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
+        AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.EndUpdate()
 
         Me.DeleteList_Preview()
@@ -241,8 +245,6 @@ Partial Public NotInheritable Class frmFileOperations
             RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
             Me.lvwFileList.BeginUpdate()
 
-            Me.Count_RenamePending = 0
-
             For Each tmpListItem As ListViewItem In Me.lvwFileList.Items
 
                 If FileStatus.FileDeleted.Equals(tmpListItem.Tag) Then
@@ -266,7 +268,7 @@ Partial Public NotInheritable Class frmFileOperations
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Preview, _
-                         String.Format("Preview for {0:N0} ListViewItems.", Me.Count_RenamePending), _
+                         String.Format("Preview for {0:N0} ListViewItems.", Me.lvwFileList.Items.Count), _
                          sw.ElapsedTicks)
     End Sub
 

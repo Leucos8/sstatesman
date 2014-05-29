@@ -13,16 +13,16 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
-Partial Public NotInheritable Class frmFileOperations
+Public Class frmFileOperations
     Friend currentOperationMode As FileOperations = FileOperations.Reorder
 
-    Dim SourcePath As String = String.Empty
-    Dim DestPath As String = String.Empty
-    Dim SourceFileNames As List(Of String)
-    Dim DestFileNames As List(Of String)
-    Dim OperationResults As List(Of FileStatus)
-    Dim OperationResultMessages As List(Of String)
-    Dim OperationDone As Boolean = False
+    Protected Friend SourcePath As String = String.Empty
+    Protected Friend DestPath As String = String.Empty
+    Protected Friend SourceFileNames As List(Of String)
+    Protected Friend DestFileNames As List(Of String)
+    Friend OperationResults As List(Of mdlFileOperations.FileStatus)
+    Protected Friend OperationResultMessages As List(Of String)
+    Protected Friend OperationDone As Boolean = False
 
     Enum FileOperations
         Delete          'The files are deleted
@@ -80,7 +80,7 @@ Partial Public NotInheritable Class frmFileOperations
         '===============================
         'Post file load form preparation
         '===============================
-        Me.UI_SwitchOperationMode(Me.currentOperationMode)
+        Me.UI_OperationLoad()
 
 
 
@@ -94,15 +94,7 @@ Partial Public NotInheritable Class frmFileOperations
     Private Sub frmFileOperations_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         Dim sw As Stopwatch = Stopwatch.StartNew
 
-        Me.OperationDone = False
-
-        Select Case Me.currentOperationMode
-            Case FileOperations.Delete : Me.DeleteList_FormUnload()
-            Case FileOperations.Reorder : Me.ReorderList_FormUnload()
-            Case FileOperations.Store, FileOperations.Restore : Me.StoreList_FormUnload()
-                'Case FileOperations.Assign
-        End Select
-
+        Me.UI_OperationUnload()
 
 
         '======================
@@ -139,31 +131,35 @@ Partial Public NotInheritable Class frmFileOperations
         Me.Close()
     End Sub
 
-    Private Sub UI_SwitchOperationMode(pOperationMode As FileOperations)
+    Protected Overridable Sub UI_OperationLoad()
 
-        Me.Text = pOperationMode.ToString
-        Me.cmdOperation.Text = pOperationMode.ToString.ToUpper
+        Me.Text = "FileOperation"
+        Me.cmdOperation.Text = "FileOperation".ToUpper
         Me.cmdSortReset.Visible = False
         Me.ckbSStatesManReorderBackup.Visible = False
         Me.ckbSStatesManMoveToTrash.Visible = False
         Me.lblStatus3.Visible = True
         Me.lblStatus3.Visible = False
 
+        'Select Case pOperationMode
+        '    Case FileOperations.Delete : Me.DeleteList_FormLoad()
+        '    Case FileOperations.Reorder : Me.ReorderList_FormLoad()
+        '    Case FileOperations.Store, FileOperations.Restore : Me.StoreList_FormLoad()
+        '        'Case FileOperations.Assign : Me.AssignList_FormLoad()
+        'End Select
 
+        'SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.ListMode, String.Format("Switched to {0} operation mode.", pOperationMode.ToString))
+    End Sub
 
-        Me.cmdStoreCheckAll = Me.cmdCommand2
-        Me.cmdStoreCheckNone = Me.cmdCommand3
-        Me.cmdStoreCheckInvert = Me.cmdCommand4
-        Me.cmdStoreCheckBackup = Me.cmdCommand1
+    Protected Overridable Sub UI_OperationUnload()
+        Me.OperationDone = False
 
-        Select Case pOperationMode
-            Case FileOperations.Delete : Me.DeleteList_FormLoad()
-            Case FileOperations.Reorder : Me.ReorderList_FormLoad()
-            Case FileOperations.Store, FileOperations.Restore : Me.StoreList_FormLoad()
-                'Case FileOperations.Assign : Me.AssignList_FormLoad()
-        End Select
-
-        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.ListMode, String.Format("Switched to {0} operation mode.", pOperationMode.ToString))
+        'Select Case Me.currentOperationMode
+        '    Case FileOperations.Delete : Me.DeleteList_FormUnload()
+        '    Case FileOperations.Reorder : Me.ReorderList_FormUnload()
+        '    Case FileOperations.Store, FileOperations.Restore : Me.StoreList_FormUnload()
+        '        'Case FileOperations.Assign
+        'End Select
     End Sub
 
     Private Sub frmMain_ThemeApplied(sender As Object, e As EventArgs) Handles MyBase.ThemeApplied

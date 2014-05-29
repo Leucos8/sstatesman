@@ -13,13 +13,17 @@
 '   You should have received a copy of the GNU General Public License along with 
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
-Partial Public NotInheritable Class frmFileOperations
+Public NotInheritable Class frmFileOperationsStore
+    Inherits frmFileOperations
     Dim cmdStoreCheckAll As Button
     Dim cmdStoreCheckNone As Button
     Dim cmdStoreCheckInvert As Button
     Dim cmdStoreCheckBackup As Button
+    Dim Count_RenamePending As Integer = 0
 
-    Private Sub StoreList_FormLoad()
+    Protected Overrides Sub UI_OperationLoad()
+        MyBase.UI_OperationLoad()
+
         Dim tmpAction As String = ""
         Select Case Me.currentOperationMode
             Case FileOperations.Store
@@ -76,7 +80,9 @@ Partial Public NotInheritable Class frmFileOperations
         Me.StoreList_UpdateUI()
     End Sub
 
-    Private Sub StoreList_FormUnload()
+    Protected Overrides Sub UI_OperationUnload()
+        MyBase.UI_OperationUnload()
+
         RemoveHandler cmdStoreCheckAll.Click, AddressOf cmdStoreCheckAll_Click
         RemoveHandler cmdStoreCheckNone.Click, AddressOf cmdStoreCheckNone_Click
         RemoveHandler cmdStoreCheckInvert.Click, AddressOf cmdStoreCheckInvert_Click
