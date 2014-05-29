@@ -80,7 +80,7 @@ Public Class frmFileOperations
         '===============================
         'Post file load form preparation
         '===============================
-        Me.UI_OperationLoad()
+        Me.OperationLoad()
 
 
 
@@ -94,7 +94,7 @@ Public Class frmFileOperations
     Private Sub frmFileOperations_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
         Dim sw As Stopwatch = Stopwatch.StartNew
 
-        Me.UI_OperationUnload()
+        Me.OperationUnload()
 
 
         '======================
@@ -131,27 +131,13 @@ Public Class frmFileOperations
         Me.Close()
     End Sub
 
-    Protected Overridable Sub UI_OperationLoad()
+    Protected Overridable Sub OperationLoad()
+        Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
 
-        Me.Text = "FileOperation"
-        Me.cmdOperation.Text = "FileOperation".ToUpper
-        Me.cmdSortReset.Visible = False
-        Me.ckbSStatesManReorderBackup.Visible = False
-        Me.ckbSStatesManMoveToTrash.Visible = False
-        Me.lblStatus3.Visible = True
-        Me.lblStatus3.Visible = False
-
-        'Select Case pOperationMode
-        '    Case FileOperations.Delete : Me.DeleteList_FormLoad()
-        '    Case FileOperations.Reorder : Me.ReorderList_FormLoad()
-        '    Case FileOperations.Store, FileOperations.Restore : Me.StoreList_FormLoad()
-        '        'Case FileOperations.Assign : Me.AssignList_FormLoad()
-        'End Select
-
-        'SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.ListMode, String.Format("Switched to {0} operation mode.", pOperationMode.ToString))
     End Sub
 
-    Protected Overridable Sub UI_OperationUnload()
+    Protected Overridable Sub OperationUnload()
+        Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
         Me.OperationDone = False
 
         'Select Case Me.currentOperationMode
@@ -160,6 +146,21 @@ Public Class frmFileOperations
         '    Case FileOperations.Store, FileOperations.Restore : Me.StoreList_FormUnload()
         '        'Case FileOperations.Assign
         'End Select
+    End Sub
+
+    Protected Overridable Sub OperationListFiles()
+        Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
+
+    End Sub
+
+    Protected Overridable Sub OperationListPreview()
+        Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
+
+    End Sub
+
+    Protected Overridable Sub OperationUpdateUI()
+        Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
+
     End Sub
 
     Private Sub frmMain_ThemeApplied(sender As Object, e As EventArgs) Handles MyBase.ThemeApplied

@@ -26,8 +26,8 @@ Partial Public NotInheritable Class frmFileOperationsDelete
     Dim DeleteList_TotalSize As Long = 0
     Dim DeleteList_TotalSizeBackup As Long = 0
 
-    Protected Overrides Sub UI_OperationLoad()
-        MyBase.UI_OperationLoad()
+    Protected Overrides Sub OperationLoad()
+        MyBase.OperationLoad()
         ' TODO safer call to SSMGameList.Folders
         ' If the stored folder isn't set there may be exceptions.
         Me.SourcePath = SSMGameList.Folders(frmMain.CurrentListMode)
@@ -43,25 +43,20 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         Me.cmdDeleteCheckAll = Me.cmdCommand2
         Me.cmdDeleteCheckAll.Text = "ALL"
         Me.cmdDeleteCheckAll.Image = My.Resources.Icon_CheckAll
-        AddHandler cmdDeleteCheckAll.Click, AddressOf cmdDeleteCheckAll_Click
 
         Me.cmdDeleteCheckNone = Me.cmdCommand3
         Me.cmdDeleteCheckNone.Text = "NONE"
         Me.cmdDeleteCheckNone.Image = My.Resources.Icon_CheckNone
-        AddHandler cmdDeleteCheckNone.Click, AddressOf cmdDeleteCheckNone_Click
 
         Me.cmdDeleteCheckInvert = Me.cmdCommand4
         Me.cmdDeleteCheckInvert.Text = "INVERT"
         Me.cmdDeleteCheckInvert.Image = My.Resources.Icon_CheckInvert
-        AddHandler cmdDeleteCheckInvert.Click, AddressOf cmdDeleteCheckInvert_Click
 
         Me.cmdDeleteCheckBackup = Me.cmdCommand1
         Me.cmdDeleteCheckBackup.Text = "BACKUP"
         Me.cmdDeleteCheckBackup.Image = My.Resources.Icon_CheckBackup
-        AddHandler cmdDeleteCheckBackup.Click, AddressOf cmdDeleteCheckBackup_Click
 
         Me.cmdOperation.Text = "Delete checked".ToUpper
-        AddHandler cmdOperation.Click, AddressOf cmdDelete_Click
 
         Select Case frmMain.CurrentListMode
             Case ListMode.Savestates
@@ -97,25 +92,25 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         End Select
         Me.lvwFileList.Columns.Add(New ColumnHeader With {.Name = "chStatus", .Text = "Status", .Width = 140})
 
-        Me.DeleteList_AddFiles()
-        Me.DeleteList_Preview()
+        Me.OperationListFiles()
+        Me.OperationListPreview()
         Me.DeleteList_IndexChecked()
-        Me.DeleteList_UpdateUI()
+        Me.OperationUpdateUI()
     End Sub
 
-    Protected Overrides Sub UI_OperationUnload()
-        MyBase.UI_OperationUnload()
+    Protected Overrides Sub OperationUnload()
+        MyBase.OperationUnload()
 
-        RemoveHandler cmdDeleteCheckAll.Click, AddressOf cmdDeleteCheckAll_Click
-        RemoveHandler cmdDeleteCheckNone.Click, AddressOf cmdDeleteCheckNone_Click
-        RemoveHandler cmdDeleteCheckInvert.Click, AddressOf cmdDeleteCheckInvert_Click
-        RemoveHandler cmdDeleteCheckBackup.Click, AddressOf cmdDeleteCheckBackup_Click
+        'RemoveHandler cmdDeleteCheckAll.Click, AddressOf cmdDeleteCheckAll_Click
+        'RemoveHandler cmdDeleteCheckNone.Click, AddressOf cmdDeleteCheckNone_Click
+        'RemoveHandler cmdDeleteCheckInvert.Click, AddressOf cmdDeleteCheckInvert_Click
+        'RemoveHandler cmdDeleteCheckBackup.Click, AddressOf cmdDeleteCheckBackup_Click
 
-        RemoveHandler cmdOperation.Click, AddressOf cmdDelete_Click
+        'RemoveHandler cmdOperation.Click, AddressOf cmdDelete_Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
     End Sub
 
-    Private Sub cmdDelete_Click(sender As Object, e As EventArgs)
+    Private Sub cmdDelete_Click(sender As Object, e As EventArgs) Handles cmdOperation.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -140,12 +135,19 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.EndUpdate()
 
-        Me.DeleteList_Preview()
+        Me.OperationListPreview()
         frmMain.GameList_Refresh()
-        Me.DeleteList_UpdateUI()
+        Me.OperationUpdateUI()
     End Sub
 
-    Private Sub DeleteList_AddFiles()
+    Protected Overrides Sub OperationListFiles()
+        MyBase.OperationListFiles()
+
+        Debug.Print("Me.lvwFileList.IsHandleCreated: " & Me.lvwFileList.IsHandleCreated.ToString)
+
+        RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
+        Me.lvwFileList.BeginUpdate()
+
         Dim sw As New Stopwatch
         sw.Start()
 
@@ -187,6 +189,9 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         Me.lvwFileList.Groups.AddRange(tmpListGroups.ToArray)
         mdlTheme.ListAlternateColors(tmpListItems)
         Me.lvwFileList.Items.AddRange(tmpListItems.ToArray)
+
+        AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
+        Me.lvwFileList.EndUpdate()
 
         sw.Stop()
         SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.FileListview, String.Format("Listed {0:N0} savestates.", Me.lvwFileList.Items.Count), sw.ElapsedTicks)
@@ -238,7 +243,9 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         Next
     End Sub
 
-    Private Sub DeleteList_Preview()
+    Protected Overrides Sub OperationListPreview()
+        MyBase.OperationListPreview()
+
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         If Me.lvwFileList.Items.Count > 0 Then
@@ -307,7 +314,9 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         End If
     End Sub
 
-    Private Sub DeleteList_UpdateUI()
+    Protected Overrides Sub OperationUpdateUI()
+        MyBase.OperationUpdateUI()
+
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         If Me.lvwFileList.Items.Count = 0 Then
@@ -381,7 +390,7 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
     End Sub
 #Region "List commands"
-    Private Sub cmdDeleteCheckAll_Click(sender As Object, e As EventArgs)
+    Private Sub cmdDeleteCheckAll_Click(sender As Object, e As EventArgs) Handles cmdCommand2.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -391,13 +400,13 @@ Partial Public NotInheritable Class frmFileOperationsDelete
             End If
         Next
         Me.DeleteList_IndexChecked()
-        Me.DeleteList_UpdateUI()
+        Me.OperationUpdateUI()
 
         AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.EndUpdate()
     End Sub
 
-    Private Sub cmdDeleteCheckNone_Click(sender As Object, e As EventArgs)
+    Private Sub cmdDeleteCheckNone_Click(sender As Object, e As EventArgs) Handles cmdCommand3.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -405,13 +414,13 @@ Partial Public NotInheritable Class frmFileOperationsDelete
             Me.lvwFileList.Items.Item(lvwItemIndex).Checked = False
         Next
         Me.DeleteList_IndexChecked()
-        Me.DeleteList_UpdateUI()
+        Me.OperationUpdateUI()
 
         AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.EndUpdate()
     End Sub
 
-    Private Sub cmdDeleteCheckInvert_Click(sender As Object, e As EventArgs)
+    Private Sub cmdDeleteCheckInvert_Click(sender As Object, e As EventArgs) Handles cmdCommand4.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -423,13 +432,13 @@ Partial Public NotInheritable Class frmFileOperationsDelete
             End If
         Next
         Me.DeleteList_IndexChecked()
-        Me.DeleteList_UpdateUI()
+        Me.OperationUpdateUI()
 
         AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.EndUpdate()
     End Sub
 
-    Private Sub cmdDeleteCheckBackup_Click(sender As Object, e As EventArgs)
+    Private Sub cmdDeleteCheckBackup_Click(sender As Object, e As EventArgs) Handles cmdCommand1.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -443,19 +452,25 @@ Partial Public NotInheritable Class frmFileOperationsDelete
             End If
         Next
         Me.DeleteList_IndexChecked()
-        Me.DeleteList_UpdateUI()
+        Me.OperationUpdateUI()
 
         AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.EndUpdate()
     End Sub
 
     Private Sub DeleteList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs)
+        'From http://msdn.microsoft.com/en-us/library/system.windows.forms.listview.itemcheck%28v=vs.110%29.aspx
+        'If the window handle has not been created when the ItemCheck event is raised, the event will be delayed. 
+        'Once the window handle is created (when the form is shown), any delayed ItemCheck events will be raised. 
+        'For more information, see HandleCreated.
+        'During the second time the form is loaded the listview handle is created later.
         If DirectCast(sender, ListView).Items(DirectCast(sender, ListView).Items.Count - 1) IsNot Nothing Then
+            Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
             If Not (FileStatus.Idle.Equals(e.Item.Tag)) Then
                 e.Item.Checked = False
             End If
             Me.DeleteList_IndexChecked()
-            Me.DeleteList_UpdateUI()
+            Me.OperationUpdateUI()
         End If
     End Sub
 #End Region

@@ -21,8 +21,8 @@ Public NotInheritable Class frmFileOperationsStore
     Dim cmdStoreCheckBackup As Button
     Dim Count_RenamePending As Integer = 0
 
-    Protected Overrides Sub UI_OperationLoad()
-        MyBase.UI_OperationLoad()
+    Protected Overrides Sub OperationLoad()
+        MyBase.OperationLoad()
 
         Dim tmpAction As String = ""
         Select Case Me.currentOperationMode
@@ -51,23 +51,19 @@ Public NotInheritable Class frmFileOperationsStore
         Me.cmdStoreCheckAll = Me.cmdCommand2
         Me.cmdStoreCheckAll.Text = "ALL"
         Me.cmdStoreCheckAll.Image = My.Resources.Icon_CheckAll
-        AddHandler cmdStoreCheckAll.Click, AddressOf cmdStoreCheckAll_Click
 
         Me.cmdStoreCheckNone = Me.cmdCommand3
         Me.cmdStoreCheckNone.Text = "NONE"
         Me.cmdStoreCheckNone.Image = My.Resources.Icon_CheckNone
-        AddHandler cmdStoreCheckNone.Click, AddressOf cmdStoreCheckNone_Click
 
         Me.cmdStoreCheckInvert = Me.cmdCommand4
         Me.cmdStoreCheckInvert.Text = "INVERT"
         Me.cmdStoreCheckInvert.Image = My.Resources.Icon_CheckInvert
-        AddHandler cmdStoreCheckInvert.Click, AddressOf cmdStoreCheckInvert_Click
 
         Me.cmdStoreCheckBackup = Me.cmdCommand1
         Me.cmdStoreCheckBackup.Visible = False
 
         Me.cmdOperation.Text = (tmpAction & " checked").ToUpper
-        AddHandler cmdOperation.Click, AddressOf cmdStore_Click
 
         Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chSlot", .Text = "Slot"}, _
                                          New ColumnHeader With {.Name = "chOldName", .Text = "Old name", .Width = 200}, _
@@ -75,23 +71,23 @@ Public NotInheritable Class frmFileOperationsStore
                                          New ColumnHeader With {.Name = "chStatus", .Text = "Status", .Width = 160} _
                                         })
 
-        Me.StoreList_AddFiles()
-        Me.StoreList_Preview()
-        Me.StoreList_UpdateUI()
+        Me.OperationListFiles()
+        Me.OperationListPreview()
+        Me.OperationUpdateUI()
     End Sub
 
-    Protected Overrides Sub UI_OperationUnload()
-        MyBase.UI_OperationUnload()
+    Protected Overrides Sub OperationUnload()
+        MyBase.OperationUnload()
 
-        RemoveHandler cmdStoreCheckAll.Click, AddressOf cmdStoreCheckAll_Click
-        RemoveHandler cmdStoreCheckNone.Click, AddressOf cmdStoreCheckNone_Click
-        RemoveHandler cmdStoreCheckInvert.Click, AddressOf cmdStoreCheckInvert_Click
+        'RemoveHandler cmdStoreCheckAll.Click, AddressOf cmdStoreCheckAll_Click
+        'RemoveHandler cmdStoreCheckNone.Click, AddressOf cmdStoreCheckNone_Click
+        'RemoveHandler cmdStoreCheckInvert.Click, AddressOf cmdStoreCheckInvert_Click
 
-        RemoveHandler cmdOperation.Click, AddressOf cmdStore_Click
+        'RemoveHandler cmdOperation.Click, AddressOf cmdStore_Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
     End Sub
 
-    Private Sub cmdStore_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub cmdStore_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOperation.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -118,12 +114,14 @@ Public NotInheritable Class frmFileOperationsStore
         AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
         Me.lvwFileList.EndUpdate()
 
-        Me.StoreList_Preview()
+        Me.OperationListPreview()
         frmMain.GameList_Refresh()
-        Me.StoreList_UpdateUI()
+        Me.OperationUpdateUI()
     End Sub
 
-    Private Sub StoreList_AddFiles()
+    Protected Overrides Sub OperationListFiles()
+        MyBase.OperationListFiles()
+
         Dim sw As New Stopwatch
         sw.Start()
 
@@ -221,7 +219,9 @@ Public NotInheritable Class frmFileOperationsStore
         Next
     End Sub
 
-    Private Sub StoreList_Preview()
+    Protected Overrides Sub OperationListPreview()
+        MyBase.OperationListPreview()
+
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         If Me.lvwFileList.Items.Count > 0 Then
@@ -268,7 +268,7 @@ Public NotInheritable Class frmFileOperationsStore
     End Sub
 
     Private Sub StoreList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs)
-        Debug.Print(New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
+        Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
         If DirectCast(sender, ListView).Items(DirectCast(sender, ListView).Items.Count - 1) IsNot Nothing Then
             RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
 
@@ -278,12 +278,13 @@ Public NotInheritable Class frmFileOperationsStore
 
             AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
 
-            Me.StoreList_UpdateUI()
+            Me.OperationUpdateUI()
         End If
     End Sub
 
-    ''' <summary>Updates the UI status.</summary>
-    Private Sub StoreList_UpdateUI()
+    Protected Overrides Sub OperationUpdateUI()
+        MyBase.OperationUpdateUI()
+
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         Me.lblStatus1.Text = String.Format("{0:N0} files ({1:N0} checked)", Me.lvwFileList.Items.Count, Me.lvwFileList.CheckedItems.Count)
@@ -339,7 +340,7 @@ Public NotInheritable Class frmFileOperationsStore
         SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
     End Sub
 #Region "Store/Restore commands"
-    Private Sub cmdStoreCheckAll_Click(sender As Object, e As EventArgs)
+    Private Sub cmdStoreCheckAll_Click(sender As Object, e As EventArgs) Handles cmdCommand2.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -348,26 +349,26 @@ Public NotInheritable Class frmFileOperationsStore
                 Me.lvwFileList.Items.Item(ListItemIndex).Checked = True
             End If
         Next
-        Me.StoreList_UpdateUI()
+        Me.OperationUpdateUI()
 
         AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
         Me.lvwFileList.EndUpdate()
     End Sub
 
-    Private Sub cmdStoreCheckNone_Click(sender As Object, e As EventArgs)
+    Private Sub cmdStoreCheckNone_Click(sender As Object, e As EventArgs) Handles cmdCommand3.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
         For lvwItemIndex = 0 To Me.lvwFileList.Items.Count - 1
             Me.lvwFileList.Items.Item(lvwItemIndex).Checked = False
         Next
-        Me.StoreList_UpdateUI()
+        Me.OperationUpdateUI()
 
         AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
         Me.lvwFileList.EndUpdate()
     End Sub
 
-    Private Sub cmdStoreCheckInvert_Click(sender As Object, e As EventArgs)
+    Private Sub cmdStoreCheckInvert_Click(sender As Object, e As EventArgs) Handles cmdCommand4.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -378,7 +379,7 @@ Public NotInheritable Class frmFileOperationsStore
                 Me.lvwFileList.Items.Item(lvwItemIndex).Checked = False
             End If
         Next
-        Me.StoreList_UpdateUI()
+        Me.OperationUpdateUI()
 
         AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
         Me.lvwFileList.EndUpdate()

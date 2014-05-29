@@ -28,8 +28,8 @@ Public NotInheritable Class frmFileOperationsReorder
     Dim cmdMoveDown As Button
     Dim cmdMoveLast As Button
 
-    Protected Overrides Sub UI_OperationLoad()
-        MyBase.UI_OperationLoad()
+    Protected Overrides Sub OperationLoad()
+        MyBase.OperationLoad()
 
         Me.SourcePath = SSMGameList.Folders(frmMain.CurrentListMode)
         Me.DestPath = Me.SourcePath
@@ -48,28 +48,23 @@ Public NotInheritable Class frmFileOperationsReorder
         Me.cmdMoveUp.Text = "UP"
         Me.cmdMoveUp.Image = My.Resources.Icon_OrderUp
         Me.cmdMoveUp.Visible = True
-        AddHandler cmdMoveUp.Click, AddressOf cmdMoveUp_Click
 
         Me.cmdMoveDown = Me.cmdCommand3
         Me.cmdMoveDown.Text = "DOWN"
         Me.cmdMoveDown.Image = My.Resources.Icon_OrderDown
         Me.cmdMoveDown.Visible = True
-        AddHandler cmdMoveDown.Click, AddressOf cmdMoveDown_Click
 
         Me.cmdMoveFirst = Me.cmdCommand1
         Me.cmdMoveFirst.Text = "FIRST"
         Me.cmdMoveFirst.Image = My.Resources.Icon_OrderFirst
         Me.cmdMoveFirst.Visible = True
-        AddHandler cmdMoveFirst.Click, AddressOf cmdMoveFirst_Click
 
         Me.cmdMoveLast = Me.cmdCommand4
         Me.cmdMoveLast.Text = "LAST"
         Me.cmdMoveLast.Image = My.Resources.Icon_OrderLast
         Me.cmdMoveFirst.Visible = True
-        AddHandler cmdMoveLast.Click, AddressOf cmdMoveLast_Click
 
         Me.cmdOperation.Text = "Reorder".ToUpper
-        AddHandler cmdOperation.Click, AddressOf cmdReorder_Click
 
         If My.Settings.SStatesMan_SStateReorderBackup Then
             Me.MoveStep = 2
@@ -83,24 +78,24 @@ Public NotInheritable Class frmFileOperationsReorder
                                          New ColumnHeader With {.Name = "chStatus", .Text = "Status", .Width = 160} _
                                         })
 
-        Me.ReorderList_AddFiles()
-        Me.ReorderList_Preview()
-        Me.ReorderList_UpdateUI()
+        Me.OperationListFiles()
+        Me.OperationListPreview()
+        Me.OperationUpdateUI()
     End Sub
 
-    Protected Overrides Sub UI_OperationUnload()
-        MyBase.UI_OperationUnload()
+    Protected Overrides Sub OperationUnload()
+        MyBase.OperationUnload()
 
-        RemoveHandler cmdMoveFirst.Click, AddressOf cmdMoveFirst_Click
-        RemoveHandler cmdMoveUp.Click, AddressOf cmdMoveUp_Click
-        RemoveHandler cmdMoveDown.Click, AddressOf cmdMoveDown_Click
-        RemoveHandler cmdMoveLast.Click, AddressOf cmdMoveLast_Click
+        'RemoveHandler cmdMoveFirst.Click, AddressOf cmdMoveFirst_Click
+        'RemoveHandler cmdMoveUp.Click, AddressOf cmdMoveUp_Click
+        'RemoveHandler cmdMoveDown.Click, AddressOf cmdMoveDown_Click
+        'RemoveHandler cmdMoveLast.Click, AddressOf cmdMoveLast_Click
 
-        RemoveHandler cmdOperation.Click, AddressOf cmdReorder_Click
+        'RemoveHandler cmdOperation.Click, AddressOf cmdReorder_Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
     End Sub
 
-    Private Sub cmdReorder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs)
+    Private Sub cmdReorder_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cmdOperation.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -128,9 +123,9 @@ Public NotInheritable Class frmFileOperationsReorder
         AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
         Me.lvwFileList.EndUpdate()
 
-        Me.ReorderList_Preview()
+        Me.OperationListPreview()
         frmMain.GameList_Refresh()
-        Me.ReorderList_UpdateUI()
+        Me.OperationUpdateUI()
     End Sub
 
     Private Sub ckbSStatesManReorderBackup_CheckedChanged(sender As Object, e As EventArgs) Handles ckbSStatesManReorderBackup.CheckedChanged
@@ -153,11 +148,13 @@ Public NotInheritable Class frmFileOperationsReorder
 
             AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
             Me.lvwFileList.EndUpdate()
-            Me.ReorderList_UpdateUI()
+            Me.OperationUpdateUI()
         End If
     End Sub
 
-    Private Sub ReorderList_AddFiles()
+    Protected Overrides Sub OperationListFiles()
+        MyBase.OperationListFiles()
+
         Dim sw As New Stopwatch
         sw.Start()
 
@@ -272,7 +269,9 @@ Public NotInheritable Class frmFileOperationsReorder
                          String.Format("Listed {0:N0} {1}.", Me.lvwFileList.Items.Count, frmMain.CurrentListMode.ToString), sw.ElapsedTicks)
     End Sub
 
-    Private Sub ReorderList_Preview()
+    Protected Overrides Sub OperationListPreview()
+        MyBase.OperationListPreview()
+
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         If Me.lvwFileList.Items.Count > 0 Then
@@ -334,7 +333,7 @@ Public NotInheritable Class frmFileOperationsReorder
     End Sub
 
     Private Sub ReorderList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs)
-        Debug.Print(New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
+        Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
         'Fixing ItemChecked firing unexpectedly.
         '=======================================
         'The first time the form is opened everything happens as expected. When AddRange is used to add the ListViewItems the ItemChecked event is 
@@ -379,12 +378,13 @@ Public NotInheritable Class frmFileOperationsReorder
             End If
             AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
 
-            Me.ReorderList_UpdateUI()
+            Me.OperationUpdateUI()
         End If
     End Sub
 
-    ''' <summary>Updates the UI status.</summary>
-    Private Sub ReorderList_UpdateUI()
+    Protected Overrides Sub OperationUpdateUI()
+        MyBase.OperationUpdateUI()
+
         Dim sw As Stopwatch = Stopwatch.StartNew
 
         Me.lblStatus1.Text = String.Format("{0:N0} items ({1:N0} checked)", Me.lvwFileList.Items.Count, Me.lvwFileList.CheckedItems.Count)
@@ -549,7 +549,7 @@ Public NotInheritable Class frmFileOperationsReorder
 
     End Sub
 
-    Private Sub cmdMoveUp_Click(sender As Object, e As EventArgs)
+    Private Sub cmdMoveUp_Click(sender As Object, e As EventArgs) Handles cmdCommand2.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -562,11 +562,11 @@ Public NotInheritable Class frmFileOperationsReorder
         AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
         Me.lvwFileList.EndUpdate()
 
-        Me.ReorderList_Preview()
-        Me.ReorderList_UpdateUI()
+        Me.OperationListPreview()
+        Me.OperationUpdateUI()
     End Sub
 
-    Private Sub cmdMoveDown_Click(sender As Object, e As EventArgs)
+    Private Sub cmdMoveDown_Click(sender As Object, e As EventArgs) Handles cmdCommand3.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -579,11 +579,11 @@ Public NotInheritable Class frmFileOperationsReorder
         AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
         Me.lvwFileList.EndUpdate()
 
-        Me.ReorderList_Preview()
-        Me.ReorderList_UpdateUI()
+        Me.OperationListPreview()
+        Me.OperationUpdateUI()
     End Sub
 
-    Private Sub cmdMoveFirst_Click(sender As Object, e As EventArgs)
+    Private Sub cmdMoveFirst_Click(sender As Object, e As EventArgs) Handles cmdCommand1.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -598,11 +598,11 @@ Public NotInheritable Class frmFileOperationsReorder
         AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
         Me.lvwFileList.EndUpdate()
 
-        Me.ReorderList_Preview()
-        Me.ReorderList_UpdateUI()
+        Me.OperationListPreview()
+        Me.OperationUpdateUI()
     End Sub
 
-    Private Sub cmdMoveLast_Click(sender As Object, e As EventArgs)
+    Private Sub cmdMoveLast_Click(sender As Object, e As EventArgs) Handles cmdCommand4.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -623,14 +623,14 @@ Public NotInheritable Class frmFileOperationsReorder
         AddHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
         Me.lvwFileList.EndUpdate()
 
-        Me.ReorderList_Preview()
-        Me.ReorderList_UpdateUI()
+        Me.OperationListPreview()
+        Me.OperationUpdateUI()
     End Sub
 
     Private Sub cmdSortReset_Click(sender As Object, e As EventArgs) Handles cmdSortReset.Click
-        Me.ReorderList_AddFiles()
-        Me.ReorderList_Preview()
-        Me.ReorderList_UpdateUI()
+        Me.OperationListFiles()
+        Me.OperationListPreview()
+        Me.OperationUpdateUI()
     End Sub
 #End Region
 
