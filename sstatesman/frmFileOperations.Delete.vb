@@ -15,10 +15,6 @@
 Imports System.IO
 Partial Public NotInheritable Class frmFileOperationsDelete
     Inherits frmFileOperations
-    Dim cmdDeleteCheckAll As Button
-    Dim cmdDeleteCheckNone As Button
-    Dim cmdDeleteCheckInvert As Button
-    Dim cmdDeleteCheckBackup As Button
 
     'Current size in bytes of the selected items
     Dim DeleteList_SelectedSize As Long = 0
@@ -31,32 +27,6 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         ' TODO safer call to SSMGameList.Folders
         ' If the stored folder isn't set there may be exceptions.
         Me.SourcePath = SSMGameList.Folders(frmMain.CurrentListMode)
-
-        Me.Text = "Delete confirmation"
-        Me.FormDescription = "check the files you really want to delete and press ""delete checked"" to confirm."
-        Me.cmdSortReset.Visible = False
-        Me.ckbSStatesManReorderBackup.Visible = False
-        Me.ckbSStatesManMoveToTrash.Visible = True
-        Me.ckbStoreCopy.Visible = False
-        Me.lblStatus2.Visible = True
-
-        Me.cmdDeleteCheckAll = Me.cmdCommand2
-        Me.cmdDeleteCheckAll.Text = "ALL"
-        Me.cmdDeleteCheckAll.Image = My.Resources.Icon_CheckAll
-
-        Me.cmdDeleteCheckNone = Me.cmdCommand3
-        Me.cmdDeleteCheckNone.Text = "NONE"
-        Me.cmdDeleteCheckNone.Image = My.Resources.Icon_CheckNone
-
-        Me.cmdDeleteCheckInvert = Me.cmdCommand4
-        Me.cmdDeleteCheckInvert.Text = "INVERT"
-        Me.cmdDeleteCheckInvert.Image = My.Resources.Icon_CheckInvert
-
-        Me.cmdDeleteCheckBackup = Me.cmdCommand1
-        Me.cmdDeleteCheckBackup.Text = "BACKUP"
-        Me.cmdDeleteCheckBackup.Image = My.Resources.Icon_CheckBackup
-
-        Me.cmdOperation.Text = "Delete checked".ToUpper
 
         Select Case frmMain.CurrentListMode
             Case ListMode.Savestates
@@ -72,25 +42,6 @@ Partial Public NotInheritable Class frmFileOperationsDelete
                 Me.cmdDeleteCheckBackup.Visible = False
                 Me.lblStatus3.Visible = False
         End Select
-
-        Select Case frmMain.CurrentListMode
-            Case ListMode.Savestates, ListMode.Stored
-                Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chFileName", .Text = "Savestate file name", .Width = 240}, _
-                                                 New ColumnHeader With {.Name = "chSlot", .Text = "Slot", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
-                                                 New ColumnHeader With {.Name = "chVersion", .Text = "Version", .Width = 80}, _
-                                                 New ColumnHeader With {.Name = "chModified", .Text = "Modified", .Width = 0}, _
-                                                 New ColumnHeader With {.Name = "chSize", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
-                                                })
-
-            Case ListMode.Snapshots
-                Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chFileName", .Text = "Snapshot file name", .Width = 240}, _
-                                                 New ColumnHeader With {.Name = "chNumber", .Text = "Number", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
-                                                 New ColumnHeader With {.Name = "chResolution", .Text = "Resolution", .Width = 80}, _
-                                                 New ColumnHeader With {.Name = "chModified", .Text = "Modified", .Width = 0}, _
-                                                 New ColumnHeader With {.Name = "chSize", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
-                                                })
-        End Select
-        Me.lvwFileList.Columns.Add(New ColumnHeader With {.Name = "chStatus", .Text = "Status", .Width = 140})
 
         Me.OperationListFiles()
         Me.OperationListPreview()
@@ -143,20 +94,11 @@ Partial Public NotInheritable Class frmFileOperationsDelete
     Protected Overrides Sub OperationListFiles()
         MyBase.OperationListFiles()
 
-        Debug.Print("Me.lvwFileList.IsHandleCreated: " & Me.lvwFileList.IsHandleCreated.ToString)
-
-        RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
-        Me.lvwFileList.BeginUpdate()
-
         Dim sw As New Stopwatch
         sw.Start()
 
         Me.DeleteList_TotalSize = 0
         Me.DeleteList_TotalSizeBackup = 0
-
-        'clear items and groups.
-        Me.lvwFileList.Items.Clear()
-        Me.lvwFileList.Groups.Clear()
 
         Dim tmpGameInfo As New GameInfo
         Dim tmpListGroups As New List(Of ListViewGroup)
@@ -185,6 +127,33 @@ Partial Public NotInheritable Class frmFileOperationsDelete
                 SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "Game " & tmpSerial & " not found in list.")
             End If
         Next
+
+        RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
+        Me.lvwFileList.BeginUpdate()
+
+        'clear items and groups.
+        Me.lvwFileList.Items.Clear()
+        Me.lvwFileList.Groups.Clear()
+        Me.lvwFileList.Columns.Clear()
+
+        Select Case frmMain.CurrentListMode
+            Case ListMode.Savestates, ListMode.Stored
+                Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chFileName", .Text = "Savestate file name", .Width = 240}, _
+                                                 New ColumnHeader With {.Name = "chSlot", .Text = "Slot", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
+                                                 New ColumnHeader With {.Name = "chVersion", .Text = "Version", .Width = 80}, _
+                                                 New ColumnHeader With {.Name = "chModified", .Text = "Modified", .Width = 0}, _
+                                                 New ColumnHeader With {.Name = "chSize", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
+                                                })
+
+            Case ListMode.Snapshots
+                Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chFileName", .Text = "Snapshot file name", .Width = 240}, _
+                                                 New ColumnHeader With {.Name = "chNumber", .Text = "Number", .TextAlign = HorizontalAlignment.Right, .Width = 40}, _
+                                                 New ColumnHeader With {.Name = "chResolution", .Text = "Resolution", .Width = 80}, _
+                                                 New ColumnHeader With {.Name = "chModified", .Text = "Modified", .Width = 0}, _
+                                                 New ColumnHeader With {.Name = "chSize", .Text = "Size", .TextAlign = HorizontalAlignment.Right, .Width = 80} _
+                                                })
+        End Select
+        Me.lvwFileList.Columns.Add(New ColumnHeader With {.Name = "chStatus", .Text = "Status", .Width = 140})
 
         Me.lvwFileList.Groups.AddRange(tmpListGroups.ToArray)
         mdlTheme.ListAlternateColors(tmpListItems)
@@ -390,7 +359,7 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
     End Sub
 #Region "List commands"
-    Private Sub cmdDeleteCheckAll_Click(sender As Object, e As EventArgs) Handles cmdCommand2.Click
+    Private Sub cmdDeleteCheckAll_Click(sender As Object, e As EventArgs) Handles cmdDeleteCheckAll.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -406,7 +375,7 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         Me.lvwFileList.EndUpdate()
     End Sub
 
-    Private Sub cmdDeleteCheckNone_Click(sender As Object, e As EventArgs) Handles cmdCommand3.Click
+    Private Sub cmdDeleteCheckNone_Click(sender As Object, e As EventArgs) Handles cmdDeleteCheckNone.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -420,7 +389,7 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         Me.lvwFileList.EndUpdate()
     End Sub
 
-    Private Sub cmdDeleteCheckInvert_Click(sender As Object, e As EventArgs) Handles cmdCommand4.Click
+    Private Sub cmdDeleteCheckInvert_Click(sender As Object, e As EventArgs) Handles cmdDeleteCheckInvert.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -438,7 +407,7 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         Me.lvwFileList.EndUpdate()
     End Sub
 
-    Private Sub cmdDeleteCheckBackup_Click(sender As Object, e As EventArgs) Handles cmdCommand1.Click
+    Private Sub cmdDeleteCheckBackup_Click(sender As Object, e As EventArgs) Handles cmdDeleteCheckBackup.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 

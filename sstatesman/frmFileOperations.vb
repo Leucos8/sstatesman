@@ -132,12 +132,12 @@ Public Class frmFileOperations
     End Sub
 
     Protected Overridable Sub OperationLoad()
-        Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
+        'Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
 
     End Sub
 
     Protected Overridable Sub OperationUnload()
-        Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
+        'Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
         Me.OperationDone = False
 
         'Select Case Me.currentOperationMode
@@ -149,7 +149,7 @@ Public Class frmFileOperations
     End Sub
 
     Protected Overridable Sub OperationListFiles()
-        Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
+        'Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
 
     End Sub
 
@@ -159,7 +159,7 @@ Public Class frmFileOperations
     End Sub
 
     Protected Overridable Sub OperationUpdateUI()
-        Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
+        'Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
 
     End Sub
 

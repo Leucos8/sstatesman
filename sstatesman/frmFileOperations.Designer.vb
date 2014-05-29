@@ -46,12 +46,8 @@ Partial Class frmFileOperations
         Me.lblAction = New System.Windows.Forms.Label()
         Me.flpMainListCommands = New System.Windows.Forms.FlowLayoutPanel()
         Me.pnlFormContent = New System.Windows.Forms.Panel()
-        Me.ckbSStatesManReorderBackup = New System.Windows.Forms.CheckBox()
-        Me.ckbSStatesManMoveToTrash = New System.Windows.Forms.CheckBox()
         Me.tlpFileListCommands = New System.Windows.Forms.TableLayoutPanel()
         Me.flpFileListCommandsFiles = New System.Windows.Forms.FlowLayoutPanel()
-        Me.cmdSortReset = New System.Windows.Forms.Button()
-        Me.ckbStoreCopy = New System.Windows.Forms.CheckBox()
         Me.tlpFileListStatus = New System.Windows.Forms.TableLayoutPanel()
         Me.lblStatus1 = New System.Windows.Forms.Label()
         Me.lblStatus2 = New System.Windows.Forms.Label()
@@ -235,48 +231,12 @@ Partial Class frmFileOperations
         'pnlFormContent
         '
         Me.pnlFormContent.Controls.Add(Me.lvwFileList)
-        Me.pnlFormContent.Controls.Add(Me.ckbSStatesManReorderBackup)
-        Me.pnlFormContent.Controls.Add(Me.ckbSStatesManMoveToTrash)
         Me.pnlFormContent.Controls.Add(Me.tlpFileListCommands)
-        Me.pnlFormContent.Controls.Add(Me.ckbStoreCopy)
         Me.pnlFormContent.Location = New System.Drawing.Point(12, 54)
         Me.pnlFormContent.Name = "pnlFormContent"
         Me.pnlFormContent.Padding = New System.Windows.Forms.Padding(8, 0, 8, 4)
         Me.pnlFormContent.Size = New System.Drawing.Size(604, 211)
         Me.pnlFormContent.TabIndex = 13
-        '
-        'ckbSStatesManReorderBackup
-        '
-        Me.ckbSStatesManReorderBackup.AutoSize = True
-        Me.ckbSStatesManReorderBackup.Checked = Global.sstatesman.My.MySettings.Default.SStatesMan_SStateReorderBackup
-        Me.ckbSStatesManReorderBackup.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.sstatesman.My.MySettings.Default, "SStatesMan_SStateReorderBackup", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.ckbSStatesManReorderBackup.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.ckbSStatesManReorderBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.ckbSStatesManReorderBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbSStatesManReorderBackup.Location = New System.Drawing.Point(8, 144)
-        Me.ckbSStatesManReorderBackup.Name = "ckbSStatesManReorderBackup"
-        Me.ckbSStatesManReorderBackup.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
-        Me.ckbSStatesManReorderBackup.Size = New System.Drawing.Size(588, 21)
-        Me.ckbSStatesManReorderBackup.TabIndex = 41
-        Me.ckbSStatesManReorderBackup.Text = "Reorder savestates together with their backup."
-        Me.ckbSStatesManReorderBackup.UseVisualStyleBackColor = False
-        '
-        'ckbSStatesManMoveToTrash
-        '
-        Me.ckbSStatesManMoveToTrash.AutoSize = True
-        Me.ckbSStatesManMoveToTrash.Checked = Global.sstatesman.My.MySettings.Default.SStatesMan_FileTrash
-        Me.ckbSStatesManMoveToTrash.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ckbSStatesManMoveToTrash.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.sstatesman.My.MySettings.Default, "SStatesMan_FileTrash", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.ckbSStatesManMoveToTrash.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.ckbSStatesManMoveToTrash.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.ckbSStatesManMoveToTrash.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbSStatesManMoveToTrash.Location = New System.Drawing.Point(8, 165)
-        Me.ckbSStatesManMoveToTrash.Name = "ckbSStatesManMoveToTrash"
-        Me.ckbSStatesManMoveToTrash.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
-        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(588, 21)
-        Me.ckbSStatesManMoveToTrash.TabIndex = 18
-        Me.ckbSStatesManMoveToTrash.Text = "Send files to the Windows Recycle Bin instead of permanently deleting them."
-        Me.ckbSStatesManMoveToTrash.UseVisualStyleBackColor = False
         '
         'tlpFileListCommands
         '
@@ -302,7 +262,6 @@ Partial Class frmFileOperations
         '
         Me.flpFileListCommandsFiles.AutoSize = True
         Me.flpFileListCommandsFiles.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.flpFileListCommandsFiles.Controls.Add(Me.cmdSortReset)
         Me.flpFileListCommandsFiles.Dock = System.Windows.Forms.DockStyle.Fill
         Me.flpFileListCommandsFiles.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft
         Me.flpFileListCommandsFiles.Location = New System.Drawing.Point(16, 0)
@@ -311,41 +270,6 @@ Partial Class frmFileOperations
         Me.flpFileListCommandsFiles.Size = New System.Drawing.Size(41, 22)
         Me.flpFileListCommandsFiles.TabIndex = 50
         Me.flpFileListCommandsFiles.WrapContents = False
-        '
-        'cmdSortReset
-        '
-        Me.cmdSortReset.AutoSize = True
-        Me.cmdSortReset.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.cmdSortReset.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.cmdSortReset.FlatAppearance.BorderColor = System.Drawing.Color.Gainsboro
-        Me.cmdSortReset.FlatAppearance.BorderSize = 0
-        Me.cmdSortReset.FlatAppearance.MouseDownBackColor = System.Drawing.Color.White
-        Me.cmdSortReset.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(CType(CType(215, Byte), Integer), CType(CType(220, Byte), Integer), CType(CType(255, Byte), Integer))
-        Me.cmdSortReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.cmdSortReset.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold)
-        Me.cmdSortReset.Location = New System.Drawing.Point(0, 0)
-        Me.cmdSortReset.Margin = New System.Windows.Forms.Padding(0)
-        Me.cmdSortReset.Name = "cmdSortReset"
-        Me.cmdSortReset.Size = New System.Drawing.Size(41, 22)
-        Me.cmdSortReset.TabIndex = 40
-        Me.cmdSortReset.Text = "&RESET"
-        Me.cmdSortReset.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        '
-        'ckbStoreCopy
-        '
-        Me.ckbStoreCopy.AutoSize = True
-        Me.ckbStoreCopy.Checked = Global.sstatesman.My.MySettings.Default.SStatesMan_MoveStoredInsteadOfCopy
-        Me.ckbStoreCopy.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.sstatesman.My.MySettings.Default, "SStatesMan_MoveStoredInsteadOfCopy", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.ckbStoreCopy.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.ckbStoreCopy.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.ckbStoreCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbStoreCopy.Location = New System.Drawing.Point(8, 186)
-        Me.ckbStoreCopy.Name = "ckbStoreCopy"
-        Me.ckbStoreCopy.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
-        Me.ckbStoreCopy.Size = New System.Drawing.Size(588, 21)
-        Me.ckbStoreCopy.TabIndex = 42
-        Me.ckbStoreCopy.Text = "Move the savestates instead of copying them when storing/restoring."
-        Me.ckbStoreCopy.UseVisualStyleBackColor = False
         '
         'tlpFileListStatus
         '
@@ -455,16 +379,12 @@ Partial Class frmFileOperations
     Protected WithEvents cmdCommand2 As System.Windows.Forms.Button
     Protected WithEvents cmdCommand3 As System.Windows.Forms.Button
     Protected WithEvents cmdCommand4 As System.Windows.Forms.Button
-    Private WithEvents flpMainListCommands As System.Windows.Forms.FlowLayoutPanel
-    Private WithEvents pnlFormContent As System.Windows.Forms.Panel
-    Private WithEvents tlpFileListCommands As System.Windows.Forms.TableLayoutPanel
-    Private WithEvents flpFileListCommandsFiles As System.Windows.Forms.FlowLayoutPanel
-    Protected WithEvents cmdSortReset As System.Windows.Forms.Button
-    Private WithEvents tlpFileListStatus As System.Windows.Forms.TableLayoutPanel
+    Protected WithEvents flpMainListCommands As System.Windows.Forms.FlowLayoutPanel
+    Protected WithEvents pnlFormContent As System.Windows.Forms.Panel
+    Protected WithEvents tlpFileListCommands As System.Windows.Forms.TableLayoutPanel
+    Protected WithEvents flpFileListCommandsFiles As System.Windows.Forms.FlowLayoutPanel
+    Protected WithEvents tlpFileListStatus As System.Windows.Forms.TableLayoutPanel
     Protected WithEvents lblStatus1 As System.Windows.Forms.Label
     Protected WithEvents lblStatus2 As System.Windows.Forms.Label
     Protected WithEvents lblStatus3 As System.Windows.Forms.Label
-    Protected WithEvents ckbSStatesManReorderBackup As System.Windows.Forms.CheckBox
-    Protected WithEvents ckbSStatesManMoveToTrash As System.Windows.Forms.CheckBox
-    Protected WithEvents ckbStoreCopy As System.Windows.Forms.CheckBox
 End Class

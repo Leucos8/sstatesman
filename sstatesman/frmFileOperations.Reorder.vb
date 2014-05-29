@@ -23,60 +23,18 @@ Public NotInheritable Class frmFileOperationsReorder
     Dim currentSerial As String = String.Empty
     Dim minSlot, maxSlot As Integer
 
-    Dim cmdMoveFirst As Button
-    Dim cmdMoveUp As Button
-    Dim cmdMoveDown As Button
-    Dim cmdMoveLast As Button
-
     Protected Overrides Sub OperationLoad()
         MyBase.OperationLoad()
 
         Me.SourcePath = SSMGameList.Folders(frmMain.CurrentListMode)
         Me.DestPath = Me.SourcePath
 
-        Me.Text = "Reorder savestates"
-        Me.FormDescription = "use the move buttons to reorder the list and click ""reorder"" to confirm."
-        Me.cmdSortReset.Visible = True
-        Me.ckbSStatesManReorderBackup.Visible = True
-        Me.ckbSStatesManMoveToTrash.Visible = False
-        Me.ckbStoreCopy.Visible = False
-        Me.lblAction.Text = "move checked"
-        Me.lblStatus2.Visible = True
-        Me.lblStatus3.Visible = False
-
-        Me.cmdMoveUp = Me.cmdCommand2
-        Me.cmdMoveUp.Text = "UP"
-        Me.cmdMoveUp.Image = My.Resources.Icon_OrderUp
-        Me.cmdMoveUp.Visible = True
-
-        Me.cmdMoveDown = Me.cmdCommand3
-        Me.cmdMoveDown.Text = "DOWN"
-        Me.cmdMoveDown.Image = My.Resources.Icon_OrderDown
-        Me.cmdMoveDown.Visible = True
-
-        Me.cmdMoveFirst = Me.cmdCommand1
-        Me.cmdMoveFirst.Text = "FIRST"
-        Me.cmdMoveFirst.Image = My.Resources.Icon_OrderFirst
-        Me.cmdMoveFirst.Visible = True
-
-        Me.cmdMoveLast = Me.cmdCommand4
-        Me.cmdMoveLast.Text = "LAST"
-        Me.cmdMoveLast.Image = My.Resources.Icon_OrderLast
-        Me.cmdMoveFirst.Visible = True
-
-        Me.cmdOperation.Text = "Reorder".ToUpper
 
         If My.Settings.SStatesMan_SStateReorderBackup Then
             Me.MoveStep = 2
         Else
             Me.MoveStep = 1
         End If
-
-        Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chSlot", .Text = "Slot"}, _
-                                         New ColumnHeader With {.Name = "chOldName", .Text = "Old name", .Width = 200}, _
-                                         New ColumnHeader With {.Name = "chNewName", .Text = "New name", .Width = 200}, _
-                                         New ColumnHeader With {.Name = "chStatus", .Text = "Status", .Width = 160} _
-                                        })
 
         Me.OperationListFiles()
         Me.OperationListPreview()
@@ -86,12 +44,6 @@ Public NotInheritable Class frmFileOperationsReorder
     Protected Overrides Sub OperationUnload()
         MyBase.OperationUnload()
 
-        'RemoveHandler cmdMoveFirst.Click, AddressOf cmdMoveFirst_Click
-        'RemoveHandler cmdMoveUp.Click, AddressOf cmdMoveUp_Click
-        'RemoveHandler cmdMoveDown.Click, AddressOf cmdMoveDown_Click
-        'RemoveHandler cmdMoveLast.Click, AddressOf cmdMoveLast_Click
-
-        'RemoveHandler cmdOperation.Click, AddressOf cmdReorder_Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
     End Sub
 
@@ -157,10 +109,6 @@ Public NotInheritable Class frmFileOperationsReorder
 
         Dim sw As New Stopwatch
         sw.Start()
-
-        'clear items and groups.
-        Me.lvwFileList.Items.Clear()
-        Me.lvwFileList.Groups.Clear()
 
         'only one game need to be checked
         If frmMain.checkedGames.Count = 1 Then
@@ -248,6 +196,18 @@ Public NotInheritable Class frmFileOperationsReorder
 
                 RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
                 Me.lvwFileList.BeginUpdate()
+
+
+                'clear items and groups.
+                Me.lvwFileList.Items.Clear()
+                Me.lvwFileList.Groups.Clear()
+                Me.lvwFileList.Columns.Clear()
+
+                Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chSlot", .Text = "Slot"}, _
+                                         New ColumnHeader With {.Name = "chOldName", .Text = "Old name", .Width = 200}, _
+                                         New ColumnHeader With {.Name = "chNewName", .Text = "New name", .Width = 200}, _
+                                         New ColumnHeader With {.Name = "chStatus", .Text = "Status", .Width = 160} _
+                                        })
 
                 Me.lvwFileList.Groups.Add(tmpListGroup)
                 Me.lvwFileList.Items.AddRange(tmpLvItems.ToArray)
@@ -549,7 +509,7 @@ Public NotInheritable Class frmFileOperationsReorder
 
     End Sub
 
-    Private Sub cmdMoveUp_Click(sender As Object, e As EventArgs) Handles cmdCommand2.Click
+    Private Sub cmdMoveUp_Click(sender As Object, e As EventArgs) Handles cmdMoveUp.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -566,7 +526,7 @@ Public NotInheritable Class frmFileOperationsReorder
         Me.OperationUpdateUI()
     End Sub
 
-    Private Sub cmdMoveDown_Click(sender As Object, e As EventArgs) Handles cmdCommand3.Click
+    Private Sub cmdMoveDown_Click(sender As Object, e As EventArgs) Handles cmdMoveDown.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -583,7 +543,7 @@ Public NotInheritable Class frmFileOperationsReorder
         Me.OperationUpdateUI()
     End Sub
 
-    Private Sub cmdMoveFirst_Click(sender As Object, e As EventArgs) Handles cmdCommand1.Click
+    Private Sub cmdMoveFirst_Click(sender As Object, e As EventArgs) Handles cmdMoveFirst.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 
@@ -602,7 +562,7 @@ Public NotInheritable Class frmFileOperationsReorder
         Me.OperationUpdateUI()
     End Sub
 
-    Private Sub cmdMoveLast_Click(sender As Object, e As EventArgs) Handles cmdCommand4.Click
+    Private Sub cmdMoveLast_Click(sender As Object, e As EventArgs) Handles cmdMoveLast.Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
         Me.lvwFileList.BeginUpdate()
 

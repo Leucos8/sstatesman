@@ -15,10 +15,6 @@
 Imports System.IO
 Public NotInheritable Class frmFileOperationsStore
     Inherits frmFileOperations
-    Dim cmdStoreCheckAll As Button
-    Dim cmdStoreCheckNone As Button
-    Dim cmdStoreCheckInvert As Button
-    Dim cmdStoreCheckBackup As Button
     Dim Count_RenamePending As Integer = 0
 
     Protected Overrides Sub OperationLoad()
@@ -40,36 +36,11 @@ Public NotInheritable Class frmFileOperationsStore
 
         Me.Text = tmpAction & " savestates"
         Me.FormDescription = String.Format("check the savestates you want to {0} and press ""{0} checked"" to confirm.", tmpAction)
-        Me.cmdSortReset.Visible = False
-        Me.ckbSStatesManMoveToTrash.Visible = False
-        Me.ckbSStatesManReorderBackup.Visible = False
-        Me.ckbStoreCopy.Visible = True
         Me.lblAction.Text = "check savestates"
         Me.lblStatus2.Visible = False
         Me.lblStatus3.Visible = False
 
-        Me.cmdStoreCheckAll = Me.cmdCommand2
-        Me.cmdStoreCheckAll.Text = "ALL"
-        Me.cmdStoreCheckAll.Image = My.Resources.Icon_CheckAll
-
-        Me.cmdStoreCheckNone = Me.cmdCommand3
-        Me.cmdStoreCheckNone.Text = "NONE"
-        Me.cmdStoreCheckNone.Image = My.Resources.Icon_CheckNone
-
-        Me.cmdStoreCheckInvert = Me.cmdCommand4
-        Me.cmdStoreCheckInvert.Text = "INVERT"
-        Me.cmdStoreCheckInvert.Image = My.Resources.Icon_CheckInvert
-
-        Me.cmdStoreCheckBackup = Me.cmdCommand1
-        Me.cmdStoreCheckBackup.Visible = False
-
         Me.cmdOperation.Text = (tmpAction & " checked").ToUpper
-
-        Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chSlot", .Text = "Slot"}, _
-                                         New ColumnHeader With {.Name = "chOldName", .Text = "Old name", .Width = 200}, _
-                                         New ColumnHeader With {.Name = "chNewName", .Text = "New name", .Width = 200}, _
-                                         New ColumnHeader With {.Name = "chStatus", .Text = "Status", .Width = 160} _
-                                        })
 
         Me.OperationListFiles()
         Me.OperationListPreview()
@@ -128,9 +99,6 @@ Public NotInheritable Class frmFileOperationsStore
         'Me.FileList_TotalSize = 0
         'Me.FileList_TotalSizeBackup = 0
 
-        'clear items and groups.
-        Me.lvwFileList.Items.Clear()
-        Me.lvwFileList.Groups.Clear()
 
         Dim tmpGameInfo As New GameInfo
         Dim tmpListGroups As New List(Of ListViewGroup)
@@ -162,6 +130,17 @@ Public NotInheritable Class frmFileOperationsStore
 
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
         Me.lvwFileList.BeginUpdate()
+
+        'clear items and groups.
+        Me.lvwFileList.Items.Clear()
+        Me.lvwFileList.Groups.Clear()
+        Me.lvwFileList.Columns.Clear()
+
+        Me.lvwFileList.Columns.AddRange({New ColumnHeader With {.Name = "chSlot", .Text = "Slot"}, _
+                                         New ColumnHeader With {.Name = "chOldName", .Text = "Old name", .Width = 200}, _
+                                         New ColumnHeader With {.Name = "chNewName", .Text = "New name", .Width = 200}, _
+                                         New ColumnHeader With {.Name = "chStatus", .Text = "Status", .Width = 160} _
+                                        })
 
         Me.lvwFileList.Groups.AddRange(tmpListGroups.ToArray)
         mdlTheme.ListAlternateColors(tmpListItems)

@@ -106,14 +106,23 @@
     <Compile Include="frmFileOperations.Delete.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmFileOperations.Delete.Designer.vb">
+      <DependentUpon>frmFileOperations.Delete.vb</DependentUpon>
+    </Compile>
     <Compile Include="frmFileOperations.Designer.vb">
       <DependentUpon>frmFileOperations.vb</DependentUpon>
     </Compile>
     <Compile Include="frmFileOperations.Reorder.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmFileOperations.Reorder.Designer.vb">
+      <DependentUpon>frmFileOperations.Reorder.vb</DependentUpon>
+    </Compile>
     <Compile Include="frmFileOperations.Store.vb">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFileOperations.Store.Designer.vb">
+      <DependentUpon>frmFileOperations.Store.vb</DependentUpon>
     </Compile>
     <Compile Include="frmFileOperations.vb">
       <SubType>Form</SubType>
