@@ -106,7 +106,8 @@ Module mdlFileOperations
             For i As Integer = 0 To pDestFilename.Count - 1
                 If pResults(i) = FileStatus.FileRenamed Then
                     FileOps_MoveFile(AddTmpExtension(pDestFilename(i)), pDestFilename(i), _
-                                     pDestPath, pDestPath, pResults(i), pResultMessages(i), pOverwrite)
+                                     pDestPath, pDestPath, pResults(i), pResultMessages(i), _
+                                     pOverwrite, pCreateCopy)
                 End If
             Next
         End If
