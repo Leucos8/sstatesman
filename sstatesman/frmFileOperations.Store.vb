@@ -297,7 +297,7 @@ Partial Public NotInheritable Class frmFileOperations
 
             Me.cmdOperation.Enabled = False
 
-            SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "No files in list. This shouldn't be happening.")
+            'SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "No files in list. This shouldn't be happening.")
         Else
             '=================
             'Files are present
