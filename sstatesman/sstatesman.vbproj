@@ -254,7 +254,8 @@
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
-    </None>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+  </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\template\Palette.htm" />
