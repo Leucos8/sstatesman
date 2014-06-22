@@ -47,6 +47,10 @@ Public NotInheritable Class frmAbout
     Private Sub llbPCSX2net_LinkClicked(sender As Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbPCSX2net.LinkClicked
         System.Diagnostics.Process.Start("http://pcsx2.net/download/viewcategory/43-frontends.html")
     End Sub
+
+    Private Sub llbGitHub_LinkClicked(sender As Object, e As System.Windows.Forms.LinkLabelLinkClickedEventArgs) Handles llbGitHub.LinkClicked
+        System.Diagnostics.Process.Start("https://github.com/Leucos8/sstatesman")
+    End Sub
 #End Region
 
 #Region "Form - Tabs"

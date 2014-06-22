@@ -12,7 +12,7 @@
       <Value Profile="(Default)">GameIndex.dbf</Value>
     </Setting>
     <Setting Name="SStatesMan_Channel" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">alpha</Value>
+      <Value Profile="(Default)">beta</Value>
     </Setting>
     <Setting Name="PCSX2_PathRegKey" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Software\PCSX2</Value>

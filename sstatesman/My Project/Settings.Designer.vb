@@ -81,12 +81,12 @@ Namespace My
             End Get
         End Property
         
-        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
-         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("alpha")>  _
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(), _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.Configuration.DefaultSettingValueAttribute("beta")> _
         Public ReadOnly Property SStatesMan_Channel() As String
             Get
-                Return CType(Me("SStatesMan_Channel"),String)
+                Return CType(Me("SStatesMan_Channel"), String)
             End Get
         End Property
         

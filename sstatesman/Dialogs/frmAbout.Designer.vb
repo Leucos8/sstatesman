@@ -44,6 +44,7 @@ Partial Class frmAbout
         Me.optTabHeader1 = New System.Windows.Forms.RadioButton()
         Me.optTabHeader2 = New System.Windows.Forms.RadioButton()
         Me.pnlTab0 = New System.Windows.Forms.Panel()
+        Me.llbGitHub = New System.Windows.Forms.LinkLabel()
         Me.llbPCSX2net = New System.Windows.Forms.LinkLabel()
         Me.llbPCSX2Forum = New System.Windows.Forms.LinkLabel()
         Me.lblLinksTitle = New System.Windows.Forms.Label()
@@ -64,6 +65,7 @@ Partial Class frmAbout
         '
         'pnlWindowTop
         '
+        Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
         Me.pnlWindowTop.Size = New System.Drawing.Size(398, 46)
         '
         'OKButton
@@ -79,7 +81,7 @@ Partial Class frmAbout
         Me.OKButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.OKButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.OKButton.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.OKButton.Location = New System.Drawing.Point(303, 235)
+        Me.OKButton.Location = New System.Drawing.Point(305, 235)
         Me.OKButton.Margin = New System.Windows.Forms.Padding(2)
         Me.OKButton.MinimumSize = New System.Drawing.Size(100, 0)
         Me.OKButton.Name = "OKButton"
@@ -160,7 +162,7 @@ Partial Class frmAbout
         Me.optTabHeader2.Name = "optTabHeader2"
         Me.optTabHeader2.Size = New System.Drawing.Size(80, 23)
         Me.optTabHeader2.TabIndex = 2
-        Me.optTabHeader2.Text = "licence"
+        Me.optTabHeader2.Text = "license"
         Me.optTabHeader2.UseVisualStyleBackColor = False
         '
         'pnlTab0
@@ -172,6 +174,7 @@ Partial Class frmAbout
         Me.pnlTab0.Controls.Add(Me.lblCopyright)
         Me.pnlTab0.Controls.Add(Me.llbAuthor)
         Me.pnlTab0.Controls.Add(Me.lblAuthorTitle)
+        Me.pnlTab0.Controls.Add(Me.llbGitHub)
         Me.pnlTab0.Controls.Add(Me.lblVersionMain)
         Me.pnlTab0.Controls.Add(Me.lblVersionTitle)
         Me.pnlTab0.Location = New System.Drawing.Point(4, 59)
@@ -179,6 +182,20 @@ Partial Class frmAbout
         Me.pnlTab0.Padding = New System.Windows.Forms.Padding(6, 3, 6, 3)
         Me.pnlTab0.Size = New System.Drawing.Size(134, 172)
         Me.pnlTab0.TabIndex = 2
+        '
+        'llbGitHub
+        '
+        Me.llbGitHub.AutoSize = True
+        Me.llbGitHub.Dock = System.Windows.Forms.DockStyle.Top
+        Me.llbGitHub.LinkColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
+        Me.llbGitHub.Location = New System.Drawing.Point(6, 151)
+        Me.llbGitHub.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
+        Me.llbGitHub.Name = "llbGitHub"
+        Me.llbGitHub.Padding = New System.Windows.Forms.Padding(6, 2, 6, 2)
+        Me.llbGitHub.Size = New System.Drawing.Size(114, 17)
+        Me.llbGitHub.TabIndex = 8
+        Me.llbGitHub.TabStop = True
+        Me.llbGitHub.Text = "GitHub Repository"
         '
         'llbPCSX2net
         '
@@ -342,9 +359,14 @@ Partial Class frmAbout
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.WhiteSmoke
+        Me.BorderColorActive = System.Drawing.Color.Empty
+        Me.BorderColorInactive = System.Drawing.Color.Empty
+        Me.CaptionColorActive = System.Drawing.Color.Empty
+        Me.CaptionColorInactive = System.Drawing.Color.Empty
+        Me.CaptionHeight = 46
         Me.ClientSize = New System.Drawing.Size(400, 300)
-		Me.ControlBox = False
-		Me.Controls.Add(Me.pnlTab2)
+        Me.ControlBox = False
+        Me.Controls.Add(Me.pnlTab2)
         Me.Controls.Add(Me.pnlTab1)
         Me.Controls.Add(Me.pnlTab0)
         Me.Controls.Add(Me.flpTab)
@@ -388,5 +410,6 @@ Partial Class frmAbout
     Private WithEvents TextBox1 As System.Windows.Forms.TextBox
     Private WithEvents llbPCSX2net As System.Windows.Forms.LinkLabel
     Private WithEvents llbAuthor As System.Windows.Forms.LinkLabel
+    Private WithEvents llbGitHub As System.Windows.Forms.LinkLabel
 
 End Class
