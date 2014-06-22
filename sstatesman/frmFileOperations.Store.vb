@@ -71,7 +71,7 @@ Public NotInheritable Class frmFileOperationsStore
             End If
         Next
 
-        FileOps_MoveFiles(SourceFileNames, DestFileNames, SourcePath, DestPath, OperationResults, OperationResultMessages, True, My.Settings.SStatesMan_MoveStoredInsteadOfCopy)
+        FileOps_MoveFiles(SourceFileNames, DestFileNames, SourcePath, DestPath, OperationResults, OperationResultMessages, True, Not (My.Settings.SStatesMan_MoveStoredInsteadOfCopy))
         Me.OperationDone = True
 
         Dim i As Integer = 0
