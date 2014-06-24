@@ -103,28 +103,28 @@
     <Compile Include="FormTemplates\frmTemplate.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmFileOperations.Delete.vb">
+    <Compile Include="FileOperations\frmFileOperations.Delete.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmFileOperations.Delete.Designer.vb">
+    <Compile Include="FileOperations\frmFileOperations.Delete.Designer.vb">
       <DependentUpon>frmFileOperations.Delete.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmFileOperations.Designer.vb">
+    <Compile Include="FileOperations\frmFileOperations.Designer.vb">
       <DependentUpon>frmFileOperations.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmFileOperations.Reorder.vb">
+    <Compile Include="FileOperations\frmFileOperations.Reorder.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmFileOperations.Reorder.Designer.vb">
+    <Compile Include="FileOperations\frmFileOperations.Reorder.Designer.vb">
       <DependentUpon>frmFileOperations.Reorder.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmFileOperations.Store.vb">
+    <Compile Include="FileOperations\frmFileOperations.Store.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmFileOperations.Store.Designer.vb">
+    <Compile Include="FileOperations\frmFileOperations.Store.Designer.vb">
       <DependentUpon>frmFileOperations.Store.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmFileOperations.vb">
+    <Compile Include="FileOperations\frmFileOperations.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="mdlCoverCache.vb" />
@@ -172,7 +172,7 @@
     </Compile>
     <Compile Include="mdlApplicationLog.vb" />
     <Compile Include="mdlFileList.vb" />
-    <Compile Include="mdlFileOperations.vb" />
+    <Compile Include="FileOperations\mdlFileOperations.vb" />
     <Compile Include="mdlGameDb.vb" />
     <Compile Include="mdlMain.vb" />
     <Compile Include="mdlPCSX2Settings.vb" />
@@ -209,7 +209,7 @@
     <EmbeddedResource Include="FormTemplates\ucFolderPickerPanel.resx">
       <DependentUpon>ucFolderPickerPanel.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmFileOperations.resx">
+    <EmbeddedResource Include="FileOperations\frmFileOperations.resx">
       <DependentUpon>frmFileOperations.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\frmAbout.resx">
@@ -255,7 +255,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
-  </None>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\template\Palette.htm" />

@@ -36,24 +36,24 @@ Partial Class frmFileOperationsStore
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.ckbStoreCopy = New System.Windows.Forms.CheckBox()
+        Me.ckbSStatesStoreCopy = New System.Windows.Forms.CheckBox()
         '
         'pnlFormContent
         '
-        Me.pnlFormContent.Controls.Add(Me.ckbStoreCopy)
+        Me.pnlFormContent.Controls.Add(Me.ckbSStatesStoreCopy)
         '
-        'ckbStoreCopy
+        'ckbSStatesStoreCopy
         '
-        Me.ckbStoreCopy.AutoSize = True
-        Me.ckbStoreCopy.Checked = Global.sstatesman.My.MySettings.Default.SStatesMan_MoveStoredInsteadOfCopy
-        Me.ckbStoreCopy.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.sstatesman.My.MySettings.Default, "SStatesMan_MoveStoredInsteadOfCopy", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.ckbStoreCopy.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.ckbStoreCopy.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.ckbStoreCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbStoreCopy.Name = "ckbStoreCopy"
-        Me.ckbStoreCopy.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
-        Me.ckbStoreCopy.Text = "Move the savestates instead of copying them when storing/restoring."
-        Me.ckbStoreCopy.UseVisualStyleBackColor = False
+        Me.ckbSStatesStoreCopy.AutoSize = True
+        Me.ckbSStatesStoreCopy.Checked = Global.sstatesman.My.MySettings.Default.SStatesMan_MoveStoredInsteadOfCopy
+        Me.ckbSStatesStoreCopy.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.sstatesman.My.MySettings.Default, "SStatesMan_MoveStoredInsteadOfCopy", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.ckbSStatesStoreCopy.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.ckbSStatesStoreCopy.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.ckbSStatesStoreCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ckbSStatesStoreCopy.Name = "ckbSStatesStoreCopy"
+        Me.ckbSStatesStoreCopy.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
+        Me.ckbSStatesStoreCopy.Text = "Move the savestates instead of copying them when storing/restoring."
+        Me.ckbSStatesStoreCopy.UseVisualStyleBackColor = False
         '
         'cmdOperation
         '
@@ -99,7 +99,7 @@ Partial Class frmFileOperationsStore
 
     End Sub
 
-    Private WithEvents ckbStoreCopy As System.Windows.Forms.CheckBox
+    Private WithEvents ckbSStatesStoreCopy As System.Windows.Forms.CheckBox
     Private WithEvents cmdStoreCheckAll As Button
     Private WithEvents cmdStoreCheckNone As Button
     Private WithEvents cmdStoreCheckInvert As Button

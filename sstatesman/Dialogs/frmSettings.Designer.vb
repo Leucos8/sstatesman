@@ -55,7 +55,7 @@ Partial Class frmSettings
         Me.lblSStatesManStoredPath = New System.Windows.Forms.Label()
         Me.fppSStatesManIsoPath = New sstatesman.ucFolderPickerPanel()
         Me.lblSStatesManIsoPath = New System.Windows.Forms.Label()
-        Me.ckbSStatesManMoveToTrash = New System.Windows.Forms.CheckBox()
+        Me.ckbSStatesMoveToTrash = New System.Windows.Forms.CheckBox()
         Me.ckbSStatesManVersionExtract = New System.Windows.Forms.CheckBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ckb_SStatesListAutoRefresh = New System.Windows.Forms.CheckBox()
@@ -95,6 +95,8 @@ Partial Class frmSettings
         Me.cmdLogExport = New System.Windows.Forms.Button()
         Me.cmLogFilter = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.cmiAll = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ckbSStatesReorderBackup = New System.Windows.Forms.CheckBox()
+        Me.ckbSStatesStoreCopy = New System.Windows.Forms.CheckBox()
         Me.flpTab.SuspendLayout()
         Me.pnlTab0.SuspendLayout()
         Me.pnlTab1.SuspendLayout()
@@ -110,7 +112,7 @@ Partial Class frmSettings
         'pnlWindowTop
         '
         Me.pnlWindowTop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None
-        Me.pnlWindowTop.Size = New System.Drawing.Size(574, 46)
+        Me.pnlWindowTop.Size = New System.Drawing.Size(572, 46)
         '
         'cmdOk
         '
@@ -125,7 +127,7 @@ Partial Class frmSettings
         Me.cmdOk.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdOk.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdOk.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdOk.Location = New System.Drawing.Point(255, 397)
+        Me.cmdOk.Location = New System.Drawing.Point(241, 391)
         Me.cmdOk.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdOk.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdOk.Name = "cmdOk"
@@ -147,7 +149,7 @@ Partial Class frmSettings
         Me.cmdCancel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdCancel.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdCancel.Location = New System.Drawing.Point(359, 397)
+        Me.cmdCancel.Location = New System.Drawing.Point(345, 391)
         Me.cmdCancel.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdCancel.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdCancel.Name = "cmdCancel"
@@ -245,7 +247,7 @@ Partial Class frmSettings
         Me.cmdApply.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
         Me.cmdApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.cmdApply.Font = New System.Drawing.Font("Segoe UI", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdApply.Location = New System.Drawing.Point(463, 397)
+        Me.cmdApply.Location = New System.Drawing.Point(449, 391)
         Me.cmdApply.Margin = New System.Windows.Forms.Padding(2)
         Me.cmdApply.MinimumSize = New System.Drawing.Size(100, 0)
         Me.cmdApply.Name = "cmdApply"
@@ -320,7 +322,9 @@ Partial Class frmSettings
         Me.pnlTab0.Controls.Add(Me.lblSStatesManStoredPath)
         Me.pnlTab0.Controls.Add(Me.fppSStatesManIsoPath)
         Me.pnlTab0.Controls.Add(Me.lblSStatesManIsoPath)
-        Me.pnlTab0.Controls.Add(Me.ckbSStatesManMoveToTrash)
+        Me.pnlTab0.Controls.Add(Me.ckbSStatesStoreCopy)
+        Me.pnlTab0.Controls.Add(Me.ckbSStatesReorderBackup)
+        Me.pnlTab0.Controls.Add(Me.ckbSStatesMoveToTrash)
         Me.pnlTab0.Controls.Add(Me.ckbSStatesManVersionExtract)
         Me.pnlTab0.Controls.Add(Me.Label1)
         Me.pnlTab0.Controls.Add(Me.ckb_SStatesListAutoRefresh)
@@ -419,21 +423,21 @@ Partial Class frmSettings
         Me.lblSStatesManIsoPath.TabIndex = 62
         Me.lblSStatesManIsoPath.Text = "Game disc images folder"
         '
-        'ckbSStatesManMoveToTrash
+        'ckbSStatesMoveToTrash
         '
-        Me.ckbSStatesManMoveToTrash.AutoSize = True
-        Me.ckbSStatesManMoveToTrash.Checked = True
-        Me.ckbSStatesManMoveToTrash.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ckbSStatesManMoveToTrash.Dock = System.Windows.Forms.DockStyle.Top
-        Me.ckbSStatesManMoveToTrash.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.ckbSStatesManMoveToTrash.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbSStatesManMoveToTrash.Location = New System.Drawing.Point(8, 134)
-        Me.ckbSStatesManMoveToTrash.Name = "ckbSStatesManMoveToTrash"
-        Me.ckbSStatesManMoveToTrash.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
-        Me.ckbSStatesManMoveToTrash.Size = New System.Drawing.Size(137, 21)
-        Me.ckbSStatesManMoveToTrash.TabIndex = 16
-        Me.ckbSStatesManMoveToTrash.Text = "Send files to the Windows Recycle Bin instead of permanently deleting them."
-        Me.ckbSStatesManMoveToTrash.UseVisualStyleBackColor = False
+        Me.ckbSStatesMoveToTrash.AutoSize = True
+        Me.ckbSStatesMoveToTrash.Checked = True
+        Me.ckbSStatesMoveToTrash.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ckbSStatesMoveToTrash.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ckbSStatesMoveToTrash.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.ckbSStatesMoveToTrash.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ckbSStatesMoveToTrash.Location = New System.Drawing.Point(8, 134)
+        Me.ckbSStatesMoveToTrash.Name = "ckbSStatesMoveToTrash"
+        Me.ckbSStatesMoveToTrash.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
+        Me.ckbSStatesMoveToTrash.Size = New System.Drawing.Size(137, 21)
+        Me.ckbSStatesMoveToTrash.TabIndex = 16
+        Me.ckbSStatesMoveToTrash.Text = "Send files to the Windows Recycle Bin instead of permanently deleting them."
+        Me.ckbSStatesMoveToTrash.UseVisualStyleBackColor = False
         '
         'ckbSStatesManVersionExtract
         '
@@ -969,12 +973,49 @@ Partial Class frmSettings
         Me.cmiAll.Size = New System.Drawing.Size(96, 22)
         Me.cmiAll.Text = "(All)"
         '
+        'ckbSStatesReorderBackup
+        '
+        Me.ckbSStatesReorderBackup.AutoSize = True
+        Me.ckbSStatesReorderBackup.Checked = True
+        Me.ckbSStatesReorderBackup.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ckbSStatesReorderBackup.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ckbSStatesReorderBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.ckbSStatesReorderBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ckbSStatesReorderBackup.Location = New System.Drawing.Point(8, 398)
+        Me.ckbSStatesReorderBackup.Name = "ckbSStatesReorderBackup"
+        Me.ckbSStatesReorderBackup.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
+        Me.ckbSStatesReorderBackup.Size = New System.Drawing.Size(137, 21)
+        Me.ckbSStatesReorderBackup.TabIndex = 64
+        Me.ckbSStatesReorderBackup.Text = "Reorder savestates together with their backup."
+        Me.ckbSStatesReorderBackup.UseVisualStyleBackColor = False
+        '
+        'ckbSStatesStoreCopy
+        '
+        Me.ckbSStatesStoreCopy.AutoSize = True
+        Me.ckbSStatesStoreCopy.Checked = True
+        Me.ckbSStatesStoreCopy.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ckbSStatesStoreCopy.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ckbSStatesStoreCopy.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.ckbSStatesStoreCopy.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ckbSStatesStoreCopy.Location = New System.Drawing.Point(8, 419)
+        Me.ckbSStatesStoreCopy.Name = "ckbSStatesStoreCopy"
+        Me.ckbSStatesStoreCopy.Padding = New System.Windows.Forms.Padding(12, 2, 12, 2)
+        Me.ckbSStatesStoreCopy.Size = New System.Drawing.Size(137, 21)
+        Me.ckbSStatesStoreCopy.TabIndex = 65
+        Me.ckbSStatesStoreCopy.Text = "Move the savestates instead of copying them when storing/restoring."
+        Me.ckbSStatesStoreCopy.UseVisualStyleBackColor = False
+        '
         'frmSettings
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
         Me.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.ClientSize = New System.Drawing.Size(574, 432)
+        Me.BorderColorActive = System.Drawing.Color.Empty
+        Me.BorderColorInactive = System.Drawing.Color.Empty
+        Me.CaptionColorActive = System.Drawing.Color.Empty
+        Me.CaptionColorInactive = System.Drawing.Color.Empty
+        Me.CaptionHeight = 46
+        Me.ClientSize = New System.Drawing.Size(580, 440)
         Me.ControlBox = False
         Me.Controls.Add(Me.cmdApply)
         Me.Controls.Add(Me.cmdCancel)
@@ -984,7 +1025,6 @@ Partial Class frmSettings
         Me.Controls.Add(Me.pnlTab3)
         Me.Controls.Add(Me.pnlTab2)
         Me.Controls.Add(Me.pnlTab1)
-        Me.DoubleBuffered = True
         Me.Icon = Global.sstatesman.My.Resources.Resources.SSM_Icon_v2
         Me.Name = "frmSettings"
         Me.Text = "Settings"
@@ -1031,7 +1071,7 @@ Partial Class frmSettings
     Private WithEvents optTabHeader2 As System.Windows.Forms.RadioButton
     Private WithEvents pnlTab0 As System.Windows.Forms.Panel
     Private WithEvents lblSStatesManPicsPath As System.Windows.Forms.Label
-    Private WithEvents ckbSStatesManMoveToTrash As System.Windows.Forms.CheckBox
+    Private WithEvents ckbSStatesMoveToTrash As System.Windows.Forms.CheckBox
     Private WithEvents Label1 As System.Windows.Forms.Label
     Private WithEvents ckb_SStatesListAutoRefresh As System.Windows.Forms.CheckBox
     Private WithEvents ckb_SStatesListShowOnly As System.Windows.Forms.CheckBox
@@ -1078,4 +1118,6 @@ Partial Class frmSettings
     Private WithEvents fppSStatesManPicsPath As sstatesman.ucFolderPickerPanel
     Private WithEvents fppSStatesManIsoPath As sstatesman.ucFolderPickerPanel
     Private WithEvents lblSStatesManIsoPath As System.Windows.Forms.Label
+    Private WithEvents ckbSStatesStoreCopy As System.Windows.Forms.CheckBox
+    Private WithEvents ckbSStatesReorderBackup As System.Windows.Forms.CheckBox
 End Class

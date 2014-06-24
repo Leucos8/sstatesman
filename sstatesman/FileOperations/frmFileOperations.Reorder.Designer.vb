@@ -36,7 +36,7 @@ Partial Class frmFileOperationsReorder
     'Non modificarla nell'editor del codice.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.ckbSStatesManReorderBackup = New System.Windows.Forms.CheckBox()
+        Me.ckbSStatesReorderBackup = New System.Windows.Forms.CheckBox()
         Me.cmdSortReset = New System.Windows.Forms.Button()
         '
         'flpFileListCommandsFiles
@@ -64,21 +64,21 @@ Partial Class frmFileOperationsReorder
         '
         'pnlFormContent
         '
-        Me.pnlFormContent.Controls.Add(Me.ckbSStatesManReorderBackup)
+        Me.pnlFormContent.Controls.Add(Me.ckbSStatesReorderBackup)
         '
-        'ckbSStatesManReorderBackup
+        'ckbSStatesReorderBackup
         '
-        Me.ckbSStatesManReorderBackup.AutoSize = True
-        Me.ckbSStatesManReorderBackup.Checked = Global.sstatesman.My.MySettings.Default.SStatesMan_SStateReorderBackup
-        Me.ckbSStatesManReorderBackup.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.sstatesman.My.MySettings.Default, "SStatesMan_SStateReorderBackup", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.ckbSStatesManReorderBackup.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.ckbSStatesManReorderBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
-        Me.ckbSStatesManReorderBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.ckbSStatesManReorderBackup.Name = "ckbSStatesManReorderBackup"
-        Me.ckbSStatesManReorderBackup.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
-        Me.ckbSStatesManReorderBackup.TabIndex = 41
-        Me.ckbSStatesManReorderBackup.Text = "Reorder savestates together with their backup."
-        Me.ckbSStatesManReorderBackup.UseVisualStyleBackColor = False
+        Me.ckbSStatesReorderBackup.AutoSize = True
+        Me.ckbSStatesReorderBackup.Checked = Global.sstatesman.My.MySettings.Default.SStatesMan_SStateReorderBackup
+        Me.ckbSStatesReorderBackup.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.sstatesman.My.MySettings.Default, "SStatesMan_SStateReorderBackup", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.ckbSStatesReorderBackup.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.ckbSStatesReorderBackup.FlatAppearance.MouseOverBackColor = System.Drawing.Color.WhiteSmoke
+        Me.ckbSStatesReorderBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ckbSStatesReorderBackup.Name = "ckbSStatesReorderBackup"
+        Me.ckbSStatesReorderBackup.Padding = New System.Windows.Forms.Padding(0, 2, 0, 2)
+        Me.ckbSStatesReorderBackup.TabIndex = 41
+        Me.ckbSStatesReorderBackup.Text = "Reorder savestates together with their backup."
+        Me.ckbSStatesReorderBackup.UseVisualStyleBackColor = False
         '
         'cmdOperation
         '
@@ -133,7 +133,7 @@ Partial Class frmFileOperationsReorder
 
     End Sub
 
-    Private WithEvents ckbSStatesManReorderBackup As System.Windows.Forms.CheckBox
+    Private WithEvents ckbSStatesReorderBackup As System.Windows.Forms.CheckBox
     Private WithEvents cmdSortReset As System.Windows.Forms.Button
     Private WithEvents cmdMoveFirst As Button
     Private WithEvents cmdMoveUp As Button

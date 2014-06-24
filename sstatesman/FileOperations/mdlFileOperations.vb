@@ -82,10 +82,9 @@ Module mdlFileOperations
                                  pSourcePath As String, pDestPath As String, _
                                  ByRef pResults As List(Of FileStatus), ByRef pResultMessages As List(Of String), _
                                  Optional pOverwrite As Boolean = False, Optional pCreateCopy As Boolean = True)
-        'Two For Each loops that renames the files.
+        'Two For loops that renames the files.
         'The first loop simply adds the ".tmp" extension to the file that needs to be renamed.
         'The second loop rename the files with their proper target filename.
-        'Me.OperationDone = True means that all files have been renamed (reorder button is disabled).
         If pSourceFilename.Count > 0 AndAlso _
             pDestFilename.Count > 0 AndAlso _
             pSourceFilename.Count = pDestFilename.Count Then

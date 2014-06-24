@@ -25,22 +25,20 @@ Public NotInheritable Class frmFileOperationsStore
             Case FileOperations.Store
                 Me.SourcePath = SSMGameList.Folders(ListMode.Savestates)
                 Me.DestPath = SSMGameList.Folders(ListMode.Stored)
-                Me.Text = "Store savestates"
-                tmpAction = "store"
+                tmpAction = "Store"
             Case FileOperations.Restore
                 Me.SourcePath = SSMGameList.Folders(ListMode.Stored)
                 Me.DestPath = SSMGameList.Folders(ListMode.Savestates)
-                Me.Text = "Restore savestates"
-                tmpAction = "restore"
+                tmpAction = "Restore"
         End Select
 
         Me.Text = tmpAction & " savestates"
-        Me.FormDescription = String.Format("check the savestates you want to {0} and press ""{0} checked"" to confirm.", tmpAction)
         Me.lblAction.Text = "check savestates"
         Me.lblStatus2.Visible = False
         Me.lblStatus3.Visible = False
 
         Me.cmdOperation.Text = (tmpAction & " checked").ToUpper
+        Me.FormDescription = String.Format("check the savestates you want to {0} and press ""{1}"" to confirm.", tmpAction.ToLower, Me.cmdOperation.Text.ToLower)
 
         Me.OperationListFiles()
         Me.OperationListPreview()

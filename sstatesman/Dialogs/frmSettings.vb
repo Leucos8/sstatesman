@@ -26,8 +26,10 @@ Public NotInheritable Class frmSettings
         Me.ckbFirstRun.Checked = My.Settings.SStatesMan_FirstRun
         Me.ckb_SStatesListShowOnly.Checked = My.Settings.SStatesMan_SStatesListShowOnly
         Me.ckb_SStatesListAutoRefresh.Checked = My.Settings.SStatesMan_SStatesListAutoRefresh
-        'Savestates management
-        Me.ckbSStatesManMoveToTrash.Checked = My.Settings.SStatesMan_FileTrash
+        'Files management
+        Me.ckbSStatesMoveToTrash.Checked = My.Settings.SStatesMan_FileTrash
+        Me.ckbSStatesReorderBackup.Checked = My.Settings.SStatesMan_SStateReorderBackup
+        Me.ckbSStatesStoreCopy.Checked = Not (My.Settings.SStatesMan_MoveStoredInsteadOfCopy)
         Me.ckbSStatesManVersionExtract.Checked = My.Settings.SStatesMan_SStatesVersionExtract
         'SStatesMan folders
         Me.fppSStatesManPicsPath.Text = My.Settings.SStatesMan_PathPics
@@ -62,7 +64,9 @@ Public NotInheritable Class frmSettings
         My.Settings.SStatesMan_SStatesListShowOnly = Me.ckb_SStatesListShowOnly.Checked
         My.Settings.SStatesMan_SStatesListAutoRefresh = Me.ckb_SStatesListAutoRefresh.Checked
         'Savestates management
-        My.Settings.SStatesMan_FileTrash = Me.ckbSStatesManMoveToTrash.Checked
+        My.Settings.SStatesMan_FileTrash = Me.ckbSStatesMoveToTrash.Checked
+        My.Settings.SStatesMan_SStateReorderBackup = Me.ckbSStatesReorderBackup.Checked
+        My.Settings.SStatesMan_MoveStoredInsteadOfCopy = Not (Me.ckbSStatesStoreCopy.Checked)
         My.Settings.SStatesMan_SStatesVersionExtract = Me.ckbSStatesManVersionExtract.Checked
         'SStatesMan folders
         My.Settings.SStatesMan_PathPics = Me.fppSStatesManPicsPath.Text

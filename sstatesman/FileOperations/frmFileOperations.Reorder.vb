@@ -80,7 +80,7 @@ Public NotInheritable Class frmFileOperationsReorder
         Me.OperationUpdateUI()
     End Sub
 
-    Private Sub ckbSStatesManReorderBackup_CheckedChanged(sender As Object, e As EventArgs) Handles ckbSStatesManReorderBackup.CheckedChanged
+    Private Sub ckbSStatesManReorderBackup_CheckedChanged(sender As Object, e As EventArgs) Handles ckbSStatesReorderBackup.CheckedChanged
         'Prevent firing during load
         If DirectCast(sender, CheckBox).IsHandleCreated Then
 
