@@ -274,6 +274,8 @@ Public NotInheritable Class frmMain
         Me.tlpGameList.SuspendLayout()
         Me.tlpGameListCommands.SuspendLayout()
 
+        Me.lblGames.Text = String.Format("{0:N0} games", Me.lvwGamesList.Items.Count)
+
         If SSMGameList.Games.Count > 0 AndAlso _
             (Me.lvwGamesList.SelectedItems.Count > 0 OrElse _
              Me.lvwGamesList.CheckedItems.Count > 0) Then
@@ -303,9 +305,10 @@ Public NotInheritable Class frmMain
                 '--------------------------
                 'More than one game checked
                 '--------------------------
+                Me.lblGames.Text &= String.Format(" ({0:N0} checked)", Me.lvwGamesList.CheckedItems.Count)
 
                 'Game info
-                Me.txtGameList_Title.Text = String.Format("({0:N0} games, {1:N0} checked)", Me.lvwGamesList.Items.Count, Me.lvwGamesList.CheckedItems.Count)
+                Me.txtGameList_Title.Text = String.Format("{0:N0} games ({1:N0} checked)", Me.lvwGamesList.Items.Count, Me.lvwGamesList.CheckedItems.Count)
                 Me.txtGameList_Serial.Text = String.Empty
                 Me.txtGameList_Region.Text = String.Empty
                 Me.txtGameList_Compat.Text = String.Empty
@@ -413,7 +416,7 @@ Public NotInheritable Class frmMain
 
             Me.cmdGamePlay.Enabled = False
             Me.cmiPCSX2Play.Enabled = False
-            Me.cmiPCSX2Play.Text = "(no games selected)"
+            Me.cmiPCSX2Play.Text = "(no game selected)"
             Me.cmiPCSX2Play.ToolTipText = String.Empty
 
             If SSMGameList.Games.Count = 0 Then
@@ -567,7 +570,7 @@ Public NotInheritable Class frmMain
                                                       tmpGameListItem.Value.GameFiles(ListMode.Savestates).Where(Function(tmp) tmp.Value.Extension.Equals(My.Settings.PCSX2_SStateExt)).Count, _
                                                       tmpGameListItem.Value.GetFilesLenght(ListMode.Savestates, {My.Settings.PCSX2_SStateExt}) / 1024 ^ 2))
             Else
-                newLvwItem.SubItems.Add("None")
+                newLvwItem.SubItems.Add("-")
             End If
 
             'Calculating backups count and displaying size
@@ -577,7 +580,7 @@ Public NotInheritable Class frmMain
                                                       tmpGameListItem.Value.GameFiles(ListMode.Savestates).Where(Function(tmp) tmp.Value.Extension.Equals(My.Settings.PCSX2_SStateExtBackup)).Count, _
                                                       tmpGameListItem.Value.GetFilesLenght(ListMode.Savestates, {My.Settings.PCSX2_SStateExtBackup}) / 1024 ^ 2))
             Else
-                newLvwItem.SubItems.Add("None")
+                newLvwItem.SubItems.Add("-")
             End If
 
             'Calculating stored savestates count and displaying size
@@ -587,7 +590,7 @@ Public NotInheritable Class frmMain
                                                       tmpGameListItem.Value.GameFiles(ListMode.Stored).Count, _
                                                       tmpGameListItem.Value.GetFilesLenght(ListMode.Stored) / 1024 ^ 2))
             Else
-                newLvwItem.SubItems.Add("None")
+                newLvwItem.SubItems.Add("-")
             End If
 
             'Calculating snapshots count and displaying size
@@ -597,7 +600,7 @@ Public NotInheritable Class frmMain
                                                       tmpGameListItem.Value.GameFiles(ListMode.Snapshots).Count, _
                                                       tmpGameListItem.Value.GetFilesLenght(ListMode.Snapshots) / 1024 ^ 2))
             Else
-                newLvwItem.SubItems.Add("None")
+                newLvwItem.SubItems.Add("-")
             End If
 
             'Icon

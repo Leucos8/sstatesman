@@ -96,6 +96,7 @@ Partial Class frmMain
         Me.cmdFileCheckBackup = New System.Windows.Forms.Button()
         Me.lblSStateListCheck = New System.Windows.Forms.Label()
         Me.tlpFileListStatus = New System.Windows.Forms.TableLayoutPanel()
+        Me.lblGames = New System.Windows.Forms.Label()
         Me.lblSelected = New System.Windows.Forms.Label()
         Me.lblSize = New System.Windows.Forms.Label()
         Me.lblSizeBackup = New System.Windows.Forms.Label()
@@ -1067,14 +1068,16 @@ Partial Class frmMain
         Me.tlpFileListStatus.AutoSize = True
         Me.tlpFileListStatus.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.tlpFileListStatus.BackColor = System.Drawing.Color.FromArgb(CType(CType(130, Byte), Integer), CType(CType(150, Byte), Integer), CType(CType(200, Byte), Integer))
-        Me.tlpFileListStatus.ColumnCount = 4
+        Me.tlpFileListStatus.ColumnCount = 5
+        Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle())
         Me.tlpFileListStatus.ColumnStyles.Add(New System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100.0!))
-        Me.tlpFileListStatus.Controls.Add(Me.lblSelected, 0, 0)
-        Me.tlpFileListStatus.Controls.Add(Me.lblSize, 1, 0)
-        Me.tlpFileListStatus.Controls.Add(Me.lblSizeBackup, 2, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.lblGames, 0, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.lblSelected, 1, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.lblSize, 2, 0)
+        Me.tlpFileListStatus.Controls.Add(Me.lblSizeBackup, 3, 0)
         Me.tlpFileListStatus.Dock = System.Windows.Forms.DockStyle.Bottom
         Me.tlpFileListStatus.ForeColor = System.Drawing.Color.White
         Me.tlpFileListStatus.Location = New System.Drawing.Point(1, 449)
@@ -1086,6 +1089,18 @@ Partial Class frmMain
         Me.tlpFileListStatus.RowStyles.Add(New System.Windows.Forms.RowStyle())
         Me.tlpFileListStatus.Size = New System.Drawing.Size(638, 24)
         Me.tlpFileListStatus.TabIndex = 48
+        '
+        'lblGames
+        '
+        Me.lblGames.AutoSize = True
+        Me.lblGames.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.lblGames.Location = New System.Drawing.Point(4, 0)
+        Me.lblGames.Margin = New System.Windows.Forms.Padding(0, 0, 4, 0)
+        Me.lblGames.Name = "lblGames"
+        Me.lblGames.Size = New System.Drawing.Size(49, 24)
+        Me.lblGames.TabIndex = 49
+        Me.lblGames.Text = "games"
+        Me.lblGames.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblSelected
         '
@@ -1108,7 +1123,7 @@ Partial Class frmMain
         Me.lblSize.Name = "lblSize"
         Me.lblSize.Size = New System.Drawing.Size(81, 24)
         Me.lblSize.TabIndex = 51
-        Me.lblSize.Text = "savestates size"
+        Me.lblSize.Text = "file size"
         Me.lblSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'lblSizeBackup
@@ -1120,7 +1135,7 @@ Partial Class frmMain
         Me.lblSizeBackup.Name = "lblSizeBackup"
         Me.lblSizeBackup.Size = New System.Drawing.Size(72, 24)
         Me.lblSizeBackup.TabIndex = 53
-        Me.lblSizeBackup.Text = "backups size"
+        Me.lblSizeBackup.Text = "backup size"
         Me.lblSizeBackup.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
         '
         'cmPCSX2
@@ -1377,6 +1392,7 @@ Partial Class frmMain
     Private WithEvents lblWindowVersion As System.Windows.Forms.Label
     Private WithEvents tlpFileListCommands As System.Windows.Forms.TableLayoutPanel
     Private WithEvents tlpFileListStatus As System.Windows.Forms.TableLayoutPanel
+    Private WithEvents lblGames As System.Windows.Forms.Label
     Private WithEvents lblSelected As System.Windows.Forms.Label
     Private WithEvents lblSize As System.Windows.Forms.Label
     Private WithEvents lblSizeBackup As System.Windows.Forms.Label
