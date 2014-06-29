@@ -59,6 +59,7 @@ Public NotInheritable Class frmFileOperationsReorder
                 Me.DestFileNames.Add(tmpListItem.SubItems(FileListColumns.NewName).Text)
             End If
         Next
+
         FileOps_MoveFiles(SourceFileNames, DestFileNames, SourcePath, DestPath, OperationResults, OperationResultMessages, False, False)
         Me.OperationDone = True
 
@@ -86,14 +87,24 @@ Public NotInheritable Class frmFileOperationsReorder
 
             RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.ReorderList_ItemChecked
             Me.lvwFileList.BeginUpdate()
-            'Unchecking items.
-            For lvwItemIndex = 0 To Me.lvwFileList.Items.Count - 1
-                Me.lvwFileList.Items.Item(lvwItemIndex).Checked = False
-            Next
 
             'MoveStep (1 = move one item each time, 2 = move two items together - savestate and backup)
             If DirectCast(sender, CheckBox).Checked Then
                 Me.MoveStep = 2
+                For i As Integer = 0 To Me.lvwFileList.Items.Count - 1
+                    Debug.Print((i Mod 2).ToString)
+                    If (i Mod 2) > 0 Then
+                        If Me.lvwFileList.Items.Item(i - 1) IsNot Nothing AndAlso _
+                            Me.lvwFileList.Items.Item(i - 1).Checked Then
+                            Me.lvwFileList.Items.Item(i).Checked = True
+                        End If
+                    Else
+                        If Me.lvwFileList.Items.Item(i + 1) IsNot Nothing AndAlso _
+                            Me.lvwFileList.Items.Item(i + 1).Checked Then
+                            Me.lvwFileList.Items.Item(i).Checked = True
+                        End If
+                    End If
+                Next
             Else
                 Me.MoveStep = 1
             End If
@@ -185,7 +196,7 @@ Public NotInheritable Class frmFileOperationsReorder
                         '                                                                   .Font = New Font(Me.lvwFileList.Font, FontStyle.Bold)}
                         'tmpLvwSListItem.SubItems.AddRange({tmpFile.Value.Name, tmpFile.Value.Name, ""})
                         'tmpListItemS.Add(tmpLvwSListItem)
-                        SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+                        SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.List, _
                                          String.Format("Slot value not valid for {0}.", tmpFile.Value.Name))
                     End If
                 Next
@@ -216,16 +227,16 @@ Public NotInheritable Class frmFileOperationsReorder
                 Me.lvwFileList.EndUpdate()
 
             Else
-                SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+                SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.List, _
                                  String.Format("Game {0} not found in list.", frmMain.checkedGames(0)))
             End If
         Else
-            SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+            SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.List, _
                              String.Format("Only one game need to be checked when renaming. {0} games were checked.", frmMain.checkedGames.Count))
         End If
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.FileListview, _
+        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.FileListview, _
                          String.Format("Listed {0:N0} {1}.", Me.lvwFileList.Items.Count, frmMain.CurrentListMode.ToString), sw.ElapsedTicks)
     End Sub
 
@@ -287,25 +298,17 @@ Public NotInheritable Class frmFileOperationsReorder
         End If
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Preview, _
+        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.Preview, _
                          String.Format("Preview for {0:N0} ListViewItems.", Me.Count_RenamePending), _
                          sw.ElapsedTicks)
     End Sub
 
     Private Sub ReorderList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs)
-        Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
-        'Fixing ItemChecked firing unexpectedly.
-        '=======================================
-        'The first time the form is opened everything happens as expected. When AddRange is used to add the ListViewItems the ItemChecked event is 
-        'fired immediatly for each item that has been added, before Form_Load is complete. 
-        'Since I don't want the ItemChecked event firing during Form_Load, before using AddRange, I remove the event handler for ItemChecked, 
-        'effectively preventing it from firing. After AddRange the event handler for ItemChecked is reattached.
-        'The second time the form is opened something does not work in the same way. ItemChecked events are delayed after Form_Load is complete 
-        '(after End Sub), meaning that the event handlers have already been reattached. But the state of the ListView control is inconsistent:
-        '- if I try to access the items from another Sub or Function everything is fine.
-        '- if I try to access the items (in fact only the items added after the one in e.Item are inaccessible) in the ItemChecked Sub I get a 
-        '  System.NullReference exception, while accessing the Items.Count property says that all the items have been added.
-        'Solution: check if the last item is nothing!
+        'From http://msdn.microsoft.com/en-us/library/system.windows.forms.listview.itemcheck%28v=vs.110%29.aspx
+        'If the window handle has not been created when the ItemCheck event is raised, the event will be delayed. 
+        'Once the window handle is created (when the form is shown), any delayed ItemCheck events will be raised. 
+        'For more information, see HandleCreated.
+        'During the second time the form is loaded the listview handle is created later.
         If DirectCast(sender, ListView).Items(DirectCast(sender, ListView).Items.Count - 1) Is Nothing Then
             Exit Sub
         Else
@@ -418,7 +421,7 @@ Public NotInheritable Class frmFileOperationsReorder
         End If
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
     End Sub
 
 #Region "Reorder Commands"
@@ -442,7 +445,7 @@ Public NotInheritable Class frmFileOperationsReorder
                 'because it would move the items outside the ListView (obviously throwing a OutOfRange exception).
                 If ((pListView.Items.Count - 1) - pListView.CheckedItems.Item(pListView.CheckedItems.Count - 1).Index) < pStep Then
                     pStep = (pListView.Items.Count - 1) - pListView.CheckedItems.Item(pListView.CheckedItems.Count - 1).Index
-                    SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+                    SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.List, _
                                      String.Format("Move step has been recalculated: {0}.", pStep))
                 End If
 
@@ -458,7 +461,7 @@ Public NotInheritable Class frmFileOperationsReorder
                 '"-pStep" is used because when moving up pStep is negative, while all the indexes are positive.
                 If pListView.CheckedItems.Item(0).Index < -pStep Then
                     pStep = -pListView.CheckedItems.Item(0).Index
-                    SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+                    SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.List, _
                                      String.Format("Move step has been recalculated: {0}.", pStep))
                 End If
 
@@ -466,7 +469,7 @@ Public NotInheritable Class frmFileOperationsReorder
 
             'If pStep is 0 then there is no need to move items.
             If pStep = 0 Then
-                SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+                SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.List, _
                                  "Move ListViewItems step is 0. There is no need to move ListViewItems.")
                 Exit Sub
             End If
@@ -503,7 +506,7 @@ Public NotInheritable Class frmFileOperationsReorder
             'SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.List, _
             '                 String.Format("Moved {0:N0} savestates by {1}.", pListView.CheckedItems.Count, pStep))
         Else
-            SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.List, _
+            SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.List, _
                              "There are no ListViewItems checked to be moved.")
         End If
 

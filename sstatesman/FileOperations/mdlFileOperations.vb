@@ -49,10 +49,10 @@ Module mdlFileOperations
                         My.Computer.FileSystem.DeleteFile(Path.Combine(pSourcePath, pSourceFilename(i)),
                                                           FileIO.UIOption.OnlyErrorDialogs,
                                                           FileIO.RecycleOption.SendToRecycleBin)
-                        SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Delete, pSourceFilename(i) & " moved to recycle bin.")
+                        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.Delete, pSourceFilename(i) & " moved to recycle bin.")
                     Else
                         File.Delete(Path.Combine(pSourcePath, pSourceFilename(i)))
-                        SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Delete, pSourceFilename(i) & " deleted succesfully.")
+                        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.Delete, pSourceFilename(i) & " deleted succesfully.")
                     End If
 
                     pResults.Add(FileStatus.FileDeleted)
@@ -60,7 +60,7 @@ Module mdlFileOperations
                 Catch ex As Exception
                     pResults.Add(FileStatus.OtherError)
                     pResultMessages.Add(String.Format("Error deleting {0}. {1}", pSourceFilename, ex.Message))
-                    SSMAppLog.Append(eType.LogError, eSrc.DeleteWindow, eSrcMethod.Delete, String.Format("{0} not deleted (recycle bin = {1}). {2}", pSourceFilename, pMoveToRecycleBin.ToString, ex.Message))
+                    SSMAppLog.Append(eType.LogError, eSrc.FileOperationDialog, eSrcMethod.Delete, String.Format("{0} not deleted (recycle bin = {1}). {2}", pSourceFilename, pMoveToRecycleBin.ToString, ex.Message))
                 End Try
             Next
         End If
@@ -144,24 +144,24 @@ Module mdlFileOperations
                     End If
                     pResult = FileStatus.FileRenamed
                     pResultMessage = String.Format("File renamed successfully to {0}.", pDestFileName)
-                    SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Rename, _
+                    SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.Rename, _
                                      String.Format("File {0} renamed to {1}.", tmpSourceFileFullPath, tmpDestFileFullPath))
                 Else
                     pResult = FileStatus.FileAlreadyExist
                     pResultMessage = String.Format("Target file {0} already exist. Renaming skipped.", pDestFileName)
-                    SSMAppLog.Append(eType.LogWarning, eSrc.ReorderWindow, eSrcMethod.Rename, _
+                    SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.Rename, _
                                      String.Format("Renaming of {0} skipped. Target file {1} already exist.", tmpSourceFileFullPath, tmpDestFileFullPath))
                 End If
             Else
                 pResult = FileStatus.FileNotFound
                 pResultMessage = String.Format("File {0} not found.", pSourceFileName)
-                SSMAppLog.Append(eType.LogError, eSrc.ReorderWindow, eSrcMethod.Rename, _
+                SSMAppLog.Append(eType.LogError, eSrc.FileOperationDialog, eSrcMethod.Rename, _
                                  String.Format("File {1} not found.", tmpSourceFileFullPath))
             End If
         Catch ex As Exception
             pResult = FileStatus.OtherError
             pResultMessage = String.Format("Error renaming {0} to {1}. {2}", pSourceFileName, pDestFileName, ex.Message)
-            SSMAppLog.Append(eType.LogError, eSrc.ReorderWindow, eSrcMethod.Rename, _
+            SSMAppLog.Append(eType.LogError, eSrc.FileOperationDialog, eSrcMethod.Rename, _
                              String.Format("Error renaming {0} to {1}. {2}", pSourceFileName, pDestFileName, ex.Message))
         End Try
     End Sub

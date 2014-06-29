@@ -21,12 +21,12 @@ Public NotInheritable Class frmFileOperationsStore
         MyBase.OperationLoad()
 
         Dim tmpAction As String = ""
-        Select Case Me.currentOperationMode
-            Case FileOperations.Store
+        Select Case frmMain.CurrentListMode
+            Case ListMode.Savestates
                 Me.SourcePath = SSMGameList.Folders(ListMode.Savestates)
                 Me.DestPath = SSMGameList.Folders(ListMode.Stored)
                 tmpAction = "Store"
-            Case FileOperations.Restore
+            Case ListMode.Stored
                 Me.SourcePath = SSMGameList.Folders(ListMode.Stored)
                 Me.DestPath = SSMGameList.Folders(ListMode.Savestates)
                 tmpAction = "Restore"
@@ -118,11 +118,11 @@ Public NotInheritable Class frmFileOperationsStore
 
                     Me.StoreList_CreateListItems(SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode), tmpListGroup, tmpListItems)
                 Else
-                    SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "Checked game " & tmpSerial & " has no savestates.")
+                    SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.List, "Checked game " & tmpSerial & " has no savestates.")
                 End If
 
             Else
-                SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "Game not found in list: " & tmpSerial & ".")
+                SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.List, "Game not found in list: " & tmpSerial & ".")
             End If
         Next
 
@@ -148,7 +148,7 @@ Public NotInheritable Class frmFileOperationsStore
         Me.lvwFileList.EndUpdate()
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.FileListview, String.Format("Listed {0:N0} savestates.", Me.lvwFileList.Items.Count), sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.FileListview, String.Format("Listed {0:N0} savestates.", Me.lvwFileList.Items.Count), sw.ElapsedTicks)
     End Sub
 
     Private Sub StoreList_CreateListItems(pFile As Dictionary(Of String, PCSX2File), pListGroup As ListViewGroup, ByRef pListItems As List(Of ListViewItem))
@@ -181,14 +181,13 @@ Public NotInheritable Class frmFileOperationsStore
                             '    Me.FileList_TotalSize += tmpFile.Value.Length
                     End Select
 
-                    tmpListItem.BackColor = Color.Transparent
                     tmpListItem.Tag = FileStatus.RenamePending
                 Else
                     tmpListItem.SubItems.Add("File not found or inaccessible.")
                     tmpListItem.Checked = False
                     tmpListItem.BackColor = Color.FromArgb(255, 255, 192, 192)
                     tmpListItem.Tag = FileStatus.FileNotFound
-                    SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "File not found: " & tmpFile.Value.Name & ".")
+                    SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.List, "File not found: " & tmpFile.Value.Name & ".")
                 End If
 
                 pListItems.Add(tmpListItem)
@@ -211,10 +210,10 @@ Public NotInheritable Class frmFileOperationsStore
 
                 If FileStatus.RenamePending.Equals(tmpListItem.Tag) Then
                     'A new filename needs to be assigned
-                    Select Case Me.currentOperationMode
-                        Case FileOperations.Store
+                    Select Case frmMain.CurrentListMode
+                        Case ListMode.Savestates
                             tmpListItem.SubItems(FileListColumns.NewName).Text = tmpListItem.SubItems(FileListColumns.OldName).Text & My.Settings.SStatesMan_StoredExt
-                        Case FileOperations.Restore
+                        Case ListMode.Stored
                             tmpListItem.SubItems(FileListColumns.NewName).Text = tmpListItem.SubItems(FileListColumns.OldName).Text.Remove(tmpListItem.SubItems(FileListColumns.OldName).Text.Length - My.Settings.SStatesMan_StoredExt.Length, My.Settings.SStatesMan_StoredExt.Length)
                     End Select
                     tmpListItem.ForeColor = mdlTheme.currentTheme.AccentColorDark
@@ -239,14 +238,20 @@ Public NotInheritable Class frmFileOperationsStore
         End If
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Preview, _
+        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.Preview, _
                          String.Format("Preview for {0:N0} ListViewItems.", Me.Count_RenamePending), _
                          sw.ElapsedTicks)
     End Sub
 
     Private Sub StoreList_ItemChecked(sender As Object, e As System.Windows.Forms.ItemCheckedEventArgs)
-        Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
-        If DirectCast(sender, ListView).Items(DirectCast(sender, ListView).Items.Count - 1) IsNot Nothing Then
+        'From http://msdn.microsoft.com/en-us/library/system.windows.forms.listview.itemcheck%28v=vs.110%29.aspx
+        'If the window handle has not been created when the ItemCheck event is raised, the event will be delayed. 
+        'Once the window handle is created (when the form is shown), any delayed ItemCheck events will be raised. 
+        'For more information, see HandleCreated.
+        'During the second time the form is loaded the listview handle is created later.
+        If DirectCast(sender, ListView).Items(DirectCast(sender, ListView).Items.Count - 1) Is Nothing Then
+            Exit Sub
+        Else
             RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.StoreList_ItemChecked
 
             If Me.OperationDone OrElse Not (FileStatus.RenamePending.Equals(e.Item.Tag)) Then
@@ -314,7 +319,7 @@ Public NotInheritable Class frmFileOperationsStore
         End If
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
     End Sub
 #Region "Store/Restore commands"
     Private Sub cmdStoreCheckAll_Click(sender As Object, e As EventArgs) Handles cmdCommand2.Click

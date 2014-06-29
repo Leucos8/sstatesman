@@ -1134,23 +1134,14 @@ Public NotInheritable Class frmMain
     End Sub
 
     Private Sub cmdSStateDelete_Click(sender As Object, e As EventArgs) Handles cmdFilesDelete.Click
-        'frmDeleteForm.ShowDialog(Me)
-        frmFileOperationsReorder.currentOperationMode = frmFileOperations.FileOperations.Delete
         frmFileOperationsDelete.ShowDialog(Me)
     End Sub
 
     Private Sub cmdSStateReorder_Click(sender As Object, e As EventArgs) Handles cmdFilesReorder.Click
-        frmFileOperationsReorder.currentOperationMode = frmFileOperations.FileOperations.Reorder
         frmFileOperationsReorder.ShowDialog(Me)
     End Sub
 
     Private Sub cmdFilesStore_Click(sender As Object, e As EventArgs) Handles cmdFilesStore.Click
-        Select Case Me.CurrentListMode
-            Case ListMode.Savestates
-                frmFileOperationsStore.currentOperationMode = frmFileOperations.FileOperations.Store
-            Case ListMode.Stored
-                frmFileOperationsStore.currentOperationMode = frmFileOperations.FileOperations.Restore
-        End Select
         frmFileOperationsStore.ShowDialog(Me)
     End Sub
 
@@ -1158,12 +1149,12 @@ Public NotInheritable Class frmMain
     Private Sub cmdSStatesLvwExpand_Click(sender As Object, e As EventArgs) Handles cmdExpandFilesList.Click
         If Me.SplitContainer1.Panel1Collapsed Then
             Me.SplitContainer1.Panel1Collapsed = False
-            cmdExpandFilesList.Image = My.Resources.Icon_ExpandTop_12x12
+            Me.cmdExpandFilesList.Image = My.Resources.Icon_ExpandTop_12x12
         Else
             Me.SplitContainer1.Panel1Collapsed = True
-            cmdExpandFilesList.Image = My.Resources.Icon_ExpandBottom_12x12
+            Me.cmdExpandFilesList.Image = My.Resources.Icon_ExpandBottom_12x12
 
-            Me.cmdGameSelectAll_Click(Nothing, Nothing)
+            Me.cmdGameSelectAll_Click(sender, e)
         End If
     End Sub
 

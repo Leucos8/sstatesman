@@ -51,13 +51,6 @@ Partial Public NotInheritable Class frmFileOperationsDelete
 
     Protected Overrides Sub OperationUnload()
         MyBase.OperationUnload()
-
-        'RemoveHandler cmdDeleteCheckAll.Click, AddressOf cmdDeleteCheckAll_Click
-        'RemoveHandler cmdDeleteCheckNone.Click, AddressOf cmdDeleteCheckNone_Click
-        'RemoveHandler cmdDeleteCheckInvert.Click, AddressOf cmdDeleteCheckInvert_Click
-        'RemoveHandler cmdDeleteCheckBackup.Click, AddressOf cmdDeleteCheckBackup_Click
-
-        'RemoveHandler cmdOperation.Click, AddressOf cmdDelete_Click
         RemoveHandler Me.lvwFileList.ItemChecked, AddressOf Me.DeleteList_ItemChecked
     End Sub
 
@@ -120,11 +113,11 @@ Partial Public NotInheritable Class frmFileOperationsDelete
 
                     Me.DeleteList_CreateListItems(SSMGameList.Games(tmpSerial).GameFiles(frmMain.CurrentListMode), tmpLvwSListGroup, tmpListItems)
                 Else
-                    SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "Checked game " & tmpSerial & " has no files.")
+                    SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.List, "Checked game " & tmpSerial & " has no files.")
                 End If
 
             Else
-                SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "Game " & tmpSerial & " not found in list.")
+                SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.List, "Game " & tmpSerial & " not found in list.")
             End If
         Next
 
@@ -163,7 +156,7 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         Me.lvwFileList.EndUpdate()
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.FileListview, String.Format("Listed {0:N0} savestates.", Me.lvwFileList.Items.Count), sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.FileListview, String.Format("Listed {0:N0} savestates.", Me.lvwFileList.Items.Count), sw.ElapsedTicks)
     End Sub
 
     Private Sub DeleteList_CreateListItems(pFile As Dictionary(Of String, PCSX2File), pListGroup As ListViewGroup, ByRef pListItems As List(Of ListViewItem))
@@ -200,11 +193,10 @@ Partial Public NotInheritable Class frmFileOperationsDelete
                             DeleteList_TotalSize += tmpFile.Value.Length
                     End Select
 
-                    tmpListItem.BackColor = Color.Transparent
                     tmpListItem.Tag = FileStatus.Idle
                 Else
                     tmpListItem.Tag = FileStatus.FileNotFound
-                    SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "File not found: " & tmpFile.Value.Name & ".")
+                    SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.List, "File not found: " & tmpFile.Value.Name & ".")
                 End If
 
                 pListItems.Add(tmpListItem)
@@ -229,9 +221,9 @@ Partial Public NotInheritable Class frmFileOperationsDelete
                     tmpListItem.Checked = False
                 ElseIf FileStatus.FileNotFound.Equals(tmpListItem.Tag) Then
                     tmpListItem.SubItems.Add("File not found or inaccessible.")
-                    tmpListItem.BackColor = Color.FromArgb(255, 255, 192, 192)
+                    tmpListItem.BackColor = Color.FromArgb(255, 192, 192)
                     tmpListItem.Checked = False
-                    SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "File not found: " & tmpListItem.Text & ".")
+                    SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.List, "File not found: " & tmpListItem.Text & ".")
                 ElseIf FileStatus.OtherError.Equals(tmpListItem.Tag) Then
                     tmpListItem.BackColor = Color.FromArgb(255, 192, 192)
                     tmpListItem.Checked = False
@@ -243,7 +235,7 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         End If
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Preview, _
+        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.Preview, _
                          String.Format("Preview for {0:N0} ListViewItems.", Me.lvwFileList.Items.Count), _
                          sw.ElapsedTicks)
     End Sub
@@ -307,7 +299,7 @@ Partial Public NotInheritable Class frmFileOperationsDelete
 
             Me.cmdOperation.Enabled = False
 
-            SSMAppLog.Append(eType.LogWarning, eSrc.DeleteWindow, eSrcMethod.List, "No files in list. This shouldn't be happening.")
+            SSMAppLog.Append(eType.LogWarning, eSrc.FileOperationDialog, eSrcMethod.List, "No files in list. This shouldn't be happening.")
         Else
             '=================
             'Files are present
@@ -356,7 +348,7 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         End If
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.UI_Update, "Updated file info.", sw.ElapsedTicks)
     End Sub
 #Region "List commands"
     Private Sub cmdDeleteCheckAll_Click(sender As Object, e As EventArgs) Handles cmdDeleteCheckAll.Click
@@ -433,8 +425,9 @@ Partial Public NotInheritable Class frmFileOperationsDelete
         'Once the window handle is created (when the form is shown), any delayed ItemCheck events will be raised. 
         'For more information, see HandleCreated.
         'During the second time the form is loaded the listview handle is created later.
-        If DirectCast(sender, ListView).Items(DirectCast(sender, ListView).Items.Count - 1) IsNot Nothing Then
-            Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
+        If DirectCast(sender, ListView).Items(DirectCast(sender, ListView).Items.Count - 1) Is Nothing Then
+            Exit Sub
+        Else
             If Not (FileStatus.Idle.Equals(e.Item.Tag)) Then
                 e.Item.Checked = False
             End If

@@ -14,7 +14,6 @@
 '   SStatesMan. If not, see <http://www.gnu.org/licenses/>.
 Imports System.IO
 Public Class frmFileOperations
-    Friend currentOperationMode As FileOperations = FileOperations.Reorder
 
     Protected Friend SourcePath As String = String.Empty
     Protected Friend DestPath As String = String.Empty
@@ -23,14 +22,6 @@ Public Class frmFileOperations
     Friend OperationResults As List(Of mdlFileOperations.FileStatus)
     Protected Friend OperationResultMessages As List(Of String)
     Protected Friend OperationDone As Boolean = False
-
-    Enum FileOperations
-        Delete          'The files are deleted
-        Reorder         'The savestates are renamed depending on their order
-        Store           'The savestates are stored to a different directory
-        Restore         'The savestates are restored in their original directory
-        Assign          'The screenshots are assigned (renamed) to a game
-    End Enum
 
     Enum FileListColumns
         Number = 0
@@ -43,7 +34,7 @@ Public Class frmFileOperations
         Dim sw As Stopwatch = Stopwatch.StartNew
         Dim tmpTicks As Long = 0
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Load, "Form load start.")
+        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.Load, "Form load start.")
 
         '==================
         'Window preparation
@@ -59,7 +50,7 @@ Public Class frmFileOperations
         Me.lvwFileList.StateImageList = New ImageList With {.ImageSize = mdlTheme.imlLvwCheckboxes.ImageSize}        'Cannot use imlLvwCheckboxes directly because of a bug that makes checkboxes disappear.
         Me.lvwFileList.StateImageList.Images.AddRange({mdlTheme.imlLvwCheckboxes.Images(0), mdlTheme.imlLvwCheckboxes.Images(1)})
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Load, "1/3 Layout & resources.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.Load, "1/3 Layout & resources.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
 
         '---------------
@@ -67,14 +58,13 @@ Public Class frmFileOperations
         '---------------
 
         'Main window location, size and state
-        'Me.Location = My.Settings.frmDel_WindowLocation
         Me.Size = My.Settings.frmFileOps_WindowSize
         If My.Settings.frmFileOps_WindowState = FormWindowState.Minimized Then
             My.Settings.frmFileOps_WindowState = FormWindowState.Normal
         End If
         Me.WindowState = My.Settings.frmFileOps_WindowState
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Load, "2/3 Saved window sizes applied.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.Load, "2/3 Saved window sizes applied.", sw.ElapsedTicks - tmpTicks)
         tmpTicks = sw.ElapsedTicks
 
         '===============================
@@ -84,11 +74,11 @@ Public Class frmFileOperations
 
 
 
-        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Load, "3/3 Post load done.", sw.ElapsedTicks - tmpTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.Load, "3/3 Post load done.", sw.ElapsedTicks - tmpTicks)
         'tmpTicks = sw.ElapsedTicks
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.ReorderWindow, eSrcMethod.Load, "Load complete.", sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.Load, "Load complete.", sw.ElapsedTicks)
     End Sub
 
     Private Sub frmFileOperations_FormClosing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.FormClosing
@@ -119,7 +109,7 @@ Public Class frmFileOperations
         Me.lvwFileList.Columns.Clear()
 
         sw.Stop()
-        SSMAppLog.Append(eType.LogInformation, eSrc.DeleteWindow, eSrcMethod.Close, "Form closed.", sw.ElapsedTicks)
+        SSMAppLog.Append(eType.LogInformation, eSrc.FileOperationDialog, eSrcMethod.Close, "Form closed.", sw.ElapsedTicks)
 
         '====================
         'Refreshing all lists
@@ -132,35 +122,19 @@ Public Class frmFileOperations
     End Sub
 
     Protected Overridable Sub OperationLoad()
-        'Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
-
     End Sub
 
     Protected Overridable Sub OperationUnload()
-        'Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
         Me.OperationDone = False
-
-        'Select Case Me.currentOperationMode
-        '    Case FileOperations.Delete : Me.DeleteList_FormUnload()
-        '    Case FileOperations.Reorder : Me.ReorderList_FormUnload()
-        '    Case FileOperations.Store, FileOperations.Restore : Me.StoreList_FormUnload()
-        '        'Case FileOperations.Assign
-        'End Select
     End Sub
 
     Protected Overridable Sub OperationListFiles()
-        'Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
-
     End Sub
 
     Protected Overridable Sub OperationListPreview()
-        Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
-
     End Sub
 
     Protected Overridable Sub OperationUpdateUI()
-        'Debug.Print(DateTime.Now & " " & New StackFrame(1).GetMethod.Name & " > " & System.Reflection.MethodBase.GetCurrentMethod().Name)
-
     End Sub
 
     Private Sub frmMain_ThemeApplied(sender As Object, e As EventArgs) Handles MyBase.ThemeApplied

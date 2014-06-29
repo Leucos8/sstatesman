@@ -24,8 +24,7 @@ Module mdlApplicationLog
         MainWindow
         SettingDialog
         AboutDialog
-        DeleteWindow
-        ReorderWindow
+        FileOperationDialog
         GameDB_Explorer
         GameDB
         FileList
